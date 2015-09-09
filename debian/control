@@ -1,0 +1,23 @@
+Source: dstore-client
+Maintainer: Xinkai Chen <chenxinkai@linuxdeepin.com>
+Section: admin
+Priority: optional
+Build-Depends:
+ devscripts, debhelper,
+ cmake, pkg-config,
+ libglib2.0-dev,
+ libqt5webkit5-dev, libqt5x11extras5-dev,
+ lastore-daemon,
+Standards-Version: 3.9.5
+Homepage: https://gitcafe.com/Deepin/dstore-client/
+Vcs-Git: git://gitcafe.com/Deepin/dstore-client.git
+Vcs-Browser: https://gitcafe.com/Deepin/dstore-client/
+
+Package: dstore-client
+Architecture: amd64 i386
+Description: Deepin App Store
+Depends:
+ ${shlibs:Depends}, ${misc:Depends},
+ libglib2.0-0,
+ libqt5webkit5, libqt5x11extras5, libqt5dbus5,
+ lastore-daemon,

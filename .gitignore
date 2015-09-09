@@ -1,0 +1,8 @@
+.idea/
+.directory
+
+/obj-*
+debian/files
+debian/*.log
+debian/*.substvars
+debian/dstore-client
