@@ -15,26 +15,30 @@
 #include "WebWidget.h"
 #include <QVariantList>
 
+#include <QProcess>
+#include <QDesktopServices>
 
 #define COLLPASED_NAVITEM_WIDTH 48
 
 
 Bridge::Bridge(QObject *parent) : QObject(parent) {
-    auto sessionBus = QDBusConnection::sessionBus();
     this->lastore = new LAStoreBridge(this);
-    sessionBus.registerService("org.deepin.appstore.shell");
-    sessionBus.registerObject("/", this,
-                              QDBusConnection::ExportAllSlots | QDBusConnection::ExportAllProperties | QDBusConnection::ExportAllSignals);
-
+    this->menuManager = new DBusMenuManager(this);
     this->registerMenu();
 }
 
 Bridge::~Bridge() {
     if (this->m_menu) {
         delete this->m_menu;
+        this->m_menu = nullptr;
     }
     if (this->lastore) {
         delete this->lastore;
+        this->lastore = nullptr;
+    }
+    if (this->menuManager) {
+        delete this->menuManager;
+        this->menuManager = nullptr;
     }
 }
 
@@ -106,9 +110,9 @@ QString Bridge::getAppRegion() {
         tz == "Asia/Urumqi" ||
         tz == "Asia/Harbin" ||
         tz == "Asia/PRC") {
-        return QString("ChinaMainland");
+        return QString("mainland");
     }
-    return QString("International");
+    return QString("international");
 }
 
 QString Bridge::getTimezoneName() {
@@ -139,18 +143,23 @@ MainWindow* Bridge::getMainWindow() {
 
 // Window Menu
 void Bridge::registerMenu() {
-    auto dbusMenuManager = new DBusMenuManager(this);
-    auto pendingReply = dbusMenuManager->RegisterMenu();
+    auto pendingReply = this->menuManager->RegisterMenu();
     pendingReply.waitForFinished();
     if (pendingReply.isValid()) {
         QDBusObjectPath path = pendingReply.reply().arguments()[0].value<QDBusObjectPath>();
         QString pathStr = path.path();
         if (this->m_menu) {
             delete this->m_menu;
+            this->m_menu = nullptr;
         }
         this->m_menu = new DBusMenu(pathStr, this);
         connect(this->m_menu, &DBusMenu::MenuUnregistered,
                 this, &Bridge::onMenuUnregistered);
+
+        connect(this->m_menu, &DBusMenu::ItemInvoked,
+                this, &Bridge::onItemInvoked);
+    } else {
+        qDebug() << pendingReply.error().message();
     }
 }
 
@@ -161,4 +170,26 @@ void Bridge::onMenuUnregistered() {
 
 void Bridge::showMenu(QString content) {
     this->m_menu->ShowMenu(content);
+}
+
+void Bridge::onItemInvoked(const QString & id, bool checked) {
+    if (id == "exit") {
+        qApp->exit(0);
+    } else if (id == "help") {
+        QString program = "/usr/bin/dman";
+        QStringList args;
+        args << "deepin-store";
+        auto dManual = new QProcess(this);
+        dManual->startDetached(program, args);
+    } else if (id == "about") {
+
+    } else if (id == "logout") {
+        emit this->logoutRequested();
+    } else if (id == "login") {
+        emit this->loginRequested();
+    }
+}
+
+void Bridge::openExternalBrowser(QString url) {
+    QDesktopServices::openUrl(QUrl(url));
 }

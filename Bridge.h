@@ -39,8 +39,12 @@ public slots:
     Q_INVOKABLE void toggleMaximized();
     Q_INVOKABLE void showMenu(QString content);
 
+    Q_INVOKABLE void openExternalBrowser(QString url);
 
-//signals:
+
+Q_SIGNALS:
+    void loginRequested();
+    void logoutRequested();
 //    void windowStateChanged(Qt::WindowState);
 
 private:
@@ -50,7 +54,9 @@ private:
 
 
     // Menu
+    DBusMenuManager* menuManager = nullptr;
     DBusMenu* m_menu = nullptr;
+    void onItemInvoked(const QString & id, bool checked);
     void registerMenu();
     void onMenuUnregistered();
 

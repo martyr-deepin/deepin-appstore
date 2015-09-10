@@ -60,7 +60,9 @@ else()
                    "/usr/include/lastore-daemon.h")
 
     target_link_libraries(dstore-client ${LINK_LIBS} Qt5::WebKitWidgets)
-
-    install(TARGETS dstore-client
-            DESTINATION "/usr/bin")
 endif()
+
+install(TARGETS dstore-client
+        DESTINATION "/usr/bin")
+install(FILES support/dstore-client.desktop
+        DESTINATION "/usr/share/applications")
