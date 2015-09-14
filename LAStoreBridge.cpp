@@ -35,7 +35,7 @@ LAStoreBridge::~LAStoreBridge() {
 }
 
 void LAStoreBridge::installApp(QString appId) {
-    R<QDBusObjectPath> rpath = this->manager->InstallPackages(appId);
+    R<QDBusObjectPath> rpath = this->manager->InstallPackage(appId);
     qDebug() << "installPackages returns path" << rpath.Value<0>().path();
 
     auto job = new Job("system", "org.deepin.lastore", rpath.Value<0>().path(), this);
