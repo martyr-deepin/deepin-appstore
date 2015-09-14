@@ -21,6 +21,8 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
             Qt::QueuedConnection);
 
     this->onJobListChanged();
+
+    this->architectures = this->manager->systemArchitectures().Value<0>();
 }
 
 LAStoreBridge::~LAStoreBridge() {

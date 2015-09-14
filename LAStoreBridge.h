@@ -14,6 +14,8 @@ class LAStoreBridge : public QObject {
     Q_OBJECT
     Q_PROPERTY(QVariantList jobsInfo
                MEMBER jobsInfo)
+    Q_PROPERTY(QStringList architectures
+               MEMBER architectures)
 
 public:
     explicit LAStoreBridge(QObject* parent = nullptr);
@@ -48,6 +50,7 @@ private:
 
     QVariantMap processJob(Job* job);
     QVariantList processJobs(QList<Job *> list);
+    QStringList architectures;
 };
 
 
