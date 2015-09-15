@@ -93,11 +93,11 @@ void Bridge::showTooltip(QString text, int x, int y) {
     activeTooltip->setArrowWidth(fm.height() + activeTooltip->margin());
     if (globalPos.x() <= width) {
         // show at right
-        activeTooltip->setArrorDirection(DUI::DArrowRectangle::ArrowLeft);
+        activeTooltip->setArrowDirection(DUI::DArrowRectangle::ArrowLeft);
         activeTooltip->show(globalPos.x() + COLLPASED_NAVITEM_WIDTH, globalPos.y());
     } else {
         // show at left
-        activeTooltip->setArrorDirection(DUI::DArrowRectangle::ArrowRight);
+        activeTooltip->setArrowDirection(DUI::DArrowRectangle::ArrowRight);
         activeTooltip->show(globalPos.x(), globalPos.y());
     }
 }
