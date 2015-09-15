@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include "MainWindow.h"
+#include "FilterMouseMove.h"
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
@@ -55,6 +56,11 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
     webView = new WebView(centralWidget);
     webView->setObjectName("webView");
     webView->setUrl(QUrl("http://preview.appstore.deepin.test/"));
+
+    // Leave event will cause problems with <horizontal-resizer>, eat leave events!
+    auto filter = new FilterMouseMove(this);
+    webView->installEventFilter(filter);
+
     horizontalLayout->addWidget(webView);
 
 }

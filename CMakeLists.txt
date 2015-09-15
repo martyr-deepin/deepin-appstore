@@ -27,7 +27,8 @@ set(SOURCE_FILES main.cpp
                  MainWindow.cpp MainWindow.h
                  Shell.cpp Shell.h
                  Bridge.cpp Bridge.h
-                 ProgressButton.cpp ProgressButton.h)
+                 ProgressButton.cpp ProgressButton.h
+                 FilterMouseMove.cpp FilterMouseMove.h)
 
 set(DBUSMENU_FILES dbusmenu.cpp dbusmenu.h dbusmenumanager.cpp dbusmenumanager.h)
 set(DBUS_BACKEND_FILES LAStoreBridge.cpp LAStoreBridge.h)
