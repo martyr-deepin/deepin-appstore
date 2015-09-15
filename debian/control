@@ -7,7 +7,7 @@ Build-Depends:
  cmake, pkg-config,
  libglib2.0-dev,
  libqt5webkit5-dev, libqt5x11extras5-dev,
- lastore-daemon,
+ lastore-daemon-dev,
 Standards-Version: 3.9.5
 Homepage: https://gitcafe.com/Deepin/dstore-client/
 Vcs-Git: git://gitcafe.com/Deepin/dstore-client.git
