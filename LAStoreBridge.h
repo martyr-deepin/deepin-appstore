@@ -27,6 +27,7 @@ public slots:
     bool isAppInstalled(QString pkgId);
     QImage renderProgressButton(const int i);
     QImage renderOverallProgressButton();
+    void launchApp(QString pkgId);
 
 signals:
     void jobsInfoUpdated(); // let the webpage know there's update available.

@@ -1,5 +1,6 @@
 
 #include "LAStoreBridge.h"
+#include "Bridge.h"
 using namespace dbus::common;
 using namespace dbus::objects;
 using namespace dbus::objects::org::deepin::lastore;
@@ -193,4 +194,11 @@ QVariantList LAStoreBridge::processJobs(QList<Job *> list) {
                        return this->processJob(job);
                    });
     return result;
+}
+
+void LAStoreBridge::launchApp(QString pkgId) {
+    auto reply = this->manager->GetPackageDesktopPath1(pkgId);
+    auto path = reply.Value<0>();
+    auto bridge = static_cast<Bridge*>(this->parent());
+    bridge->openDesktopFile(path);
 }
