@@ -1,15 +1,20 @@
 
+#define QT_NO_KEYWORDS
+    // for opening .desktop files
+    #include <gio/gio.h>
+    #include <gio/gdesktopappinfo.h>
+
+    // for locales
+    #include <glib.h>
+    #include <glib/gi18n.h>
+#undef QT_NO_KEYWORDS
+
 #include <QApplication>
 
 // for tooltips
 #include <QFont>
 #include <QFontMetrics>
 #include <QLabel>
-
-// for locales
-#include <glib.h>
-#include <glib/gi18n.h>
-
 
 #include "Bridge.h"
 #include "WebWidget.h"
@@ -192,4 +197,12 @@ void Bridge::onItemInvoked(const QString & id, bool checked) {
 
 void Bridge::openExternalBrowser(QString url) {
     QDesktopServices::openUrl(QUrl(url));
+}
+
+void Bridge::openDesktopFile(QString path) {
+    auto stdPath = path.toStdString();
+    const char* cPath = stdPath.c_str();
+    GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
+    g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
+    g_object_unref(appInfo);
 }
