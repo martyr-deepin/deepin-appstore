@@ -33,6 +33,9 @@ public:
     void startMoving(int x, int y);
     void toggleMaximized();
 
+    void resizeContent(int w, int h);
+    void setMinimumContentSize(int w, int h);
+
 private:
     unsigned int resizeHandleWidth = 5;
 

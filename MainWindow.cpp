@@ -30,8 +30,8 @@ int bound(int min, int between, int max) {
 
 MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
     qDebug() << "Build with" << WebWidgetName;
-    this->resize(960, 760);
-    this->setMinimumSize(960, 760);
+    this->resizeContent(960, 760);
+    this->setMinimumContentSize(960, 760);
     this->setMouseTracking(true);
     this->setAttribute(Qt::WA_QuitOnClose, true);
     this->setAttribute(Qt::WA_DeleteOnClose, true);
@@ -222,4 +222,14 @@ void MainWindow::toggleMaximized() {
     } else {
         this->showMaximized();
     }
+}
+
+void MainWindow::resizeContent(int w, int h) {
+    this->resize(w + resizeHandleWidth * 2,
+                 h + resizeHandleWidth * 2);
+}
+
+void MainWindow::setMinimumContentSize(int w, int h) {
+    this->setMinimumSize(w + resizeHandleWidth * 2,
+                         h + resizeHandleWidth * 2);
 }
