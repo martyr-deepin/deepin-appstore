@@ -5,7 +5,6 @@
 #include <QObject>
 #include <QStringList>
 #include <QDBusConnection>
-#include <libdui/darrowrectangle.h>
 #include "MainWindow.h"
 
 #include "dbusmenu.h"
@@ -49,7 +48,6 @@ Q_SIGNALS:
 //    void windowStateChanged(Qt::WindowState);
 
 private:
-    DUI::DArrowRectangle* activeTooltip = nullptr;
     QString timezoneName;
     MainWindow* getMainWindow();
 

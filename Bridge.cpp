@@ -16,6 +16,7 @@
 #include <QFontMetrics>
 #include <QLabel>
 
+#include "Shell.h"
 #include "Bridge.h"
 #include "WebWidget.h"
 #include <QVariantList>
@@ -23,7 +24,6 @@
 #include <QProcess>
 #include <QDesktopServices>
 
-#define COLLPASED_NAVITEM_WIDTH 48
 
 
 Bridge::Bridge(QObject *parent) : QObject(parent) {
@@ -75,36 +75,9 @@ QStringList Bridge::getLocales() {
 }
 
 void Bridge::showTooltip(QString text, int x, int y) {
-    if (activeTooltip) {
-        delete activeTooltip;
-        activeTooltip = nullptr;
-    }
-    if (text.isEmpty()) {
-        return;
-    }
-    activeTooltip = new DUI::DArrowRectangle(DUI::DArrowRectangle::ArrowRight);
-    QLabel* content = new QLabel(text);
-    content->setStyleSheet("QLabel {color: white}");
-    QFont font("Arial", 12);
-    content->setFont(font);
-
     MainWindow* mainWindow = this->getMainWindow();
     QPoint globalPos = mainWindow->mapToGlobal(QPoint(x, y));
-
-    QFontMetrics fm(font);
-    auto width = fm.width(text);
-    content->setFixedSize(width, fm.height());
-    activeTooltip->setContent(content);
-    activeTooltip->setArrowWidth(fm.height() + activeTooltip->margin());
-    if (globalPos.x() <= width) {
-        // show at right
-        activeTooltip->setArrowDirection(DUI::DArrowRectangle::ArrowLeft);
-        activeTooltip->show(globalPos.x() + COLLPASED_NAVITEM_WIDTH, globalPos.y());
-    } else {
-        // show at left
-        activeTooltip->setArrowDirection(DUI::DArrowRectangle::ArrowRight);
-        activeTooltip->show(globalPos.x(), globalPos.y());
-    }
+    static_cast<Shell*>(qApp)->showTooltip(text, globalPos);
 }
 
 QString Bridge::getAppRegion() {
