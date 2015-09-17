@@ -1,6 +1,5 @@
 
 #include <QEvent>
-#include <QMouseEvent>
 #include "Shell.h"
 #include "FilterMouseMove.h"
 
