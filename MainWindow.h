@@ -14,18 +14,18 @@ enum CornerEdge {
     BottomRight = Bottom | Right,
 };
 
-#include <QMainWindow>
+#include <QWidget>
 #include <QHBoxLayout>
 #include <QGraphicsDropShadowEffect>
 #include <QMouseEvent>
 
 #include "WebWidget.h"
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QWidget {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QMainWindow* parent = nullptr);
+    explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
     void showLessImportant();
@@ -39,7 +39,6 @@ public:
 private:
     unsigned int resizeHandleWidth = 5;
 
-    QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     WebView* webView = nullptr;
     QGraphicsDropShadowEffect* shadowEffect;

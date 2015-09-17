@@ -2,7 +2,6 @@
 
 #include "MainWindow.h"
 #include "FilterMouseMove.h"
-
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 #include <QX11Info>
@@ -28,7 +27,7 @@ int bound(int min, int between, int max) {
     return between;
 }
 
-MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
+MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     qDebug() << "Build with" << WebWidgetName;
     this->resizeContent(960, 760);
     this->setMinimumContentSize(960, 760);
@@ -37,23 +36,8 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
     this->setAttribute(Qt::WA_DeleteOnClose, true);
     this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setMouseTracking(true);
 
-    centralWidget = new QWidget(this);
-    centralWidget->setObjectName("centralWidget");
-    centralWidget->setMouseTracking(true);
-    this->setCentralWidget(centralWidget);
-
-//    centralWidget->setAutoFillBackground(true);
-    horizontalLayout = new QHBoxLayout(centralWidget);
-    horizontalLayout->setSpacing(1);
-    horizontalLayout->setObjectName("horizontalLayout");
-    horizontalLayout->setContentsMargins(resizeHandleWidth,
-                                         resizeHandleWidth,
-                                         resizeHandleWidth,
-                                         resizeHandleWidth);
-
-    webView = new WebView(centralWidget);
+    webView = new WebView(this);
     webView->setObjectName("webView");
     webView->setUrl(QUrl("http://preview.appstore.deepin.test/"));
 
@@ -61,8 +45,14 @@ MainWindow::MainWindow(QMainWindow *parent) : QMainWindow(parent) {
     auto filter = new FilterMouseMove(this);
     webView->installEventFilter(filter);
 
+    horizontalLayout = new QHBoxLayout(this);
+    horizontalLayout->setSpacing(0);
+    horizontalLayout->setObjectName("horizontalLayout");
+    horizontalLayout->setContentsMargins(resizeHandleWidth,
+                                         resizeHandleWidth,
+                                         resizeHandleWidth,
+                                         resizeHandleWidth);
     horizontalLayout->addWidget(webView);
-
 }
 
 void MainWindow::showLessImportant() {
