@@ -3,6 +3,7 @@
 #define SHELL_SHELL_H
 
 #include <QApplication>
+#include <QCommandLineParser>
 #include <QPoint>
 #include <libdui/darrowrectangle.h>
 
@@ -15,8 +16,11 @@ public:
     void showTooltip(QString text, QPoint globalPos);
     void setTooltipVisible(bool visible);
 
+    QCommandLineParser* argsParser = nullptr;
+
 private:
     DUI::DArrowRectangle* tooltip = nullptr;
+    void parseOptions();
 };
 
 

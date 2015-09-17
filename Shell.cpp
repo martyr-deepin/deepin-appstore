@@ -1,15 +1,19 @@
-
 #include "Shell.h"
 #include "MainWindow.h"
 
+
 Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
+    this->parseOptions();
     MainWindow* win = new MainWindow();
     win->show();
     win->showLessImportant();
 }
 
 Shell::~Shell() {
-
+    if (this->argsParser) {
+        delete this->argsParser;
+        this->argsParser = nullptr;
+    }
 }
 
 #define COLLPASED_NAVITEM_WIDTH 48
@@ -49,4 +53,23 @@ void Shell::setTooltipVisible(bool visible) {
         return;
     }
     this->tooltip->setVisible(visible);
+}
+
+void Shell::parseOptions() {
+    this->argsParser = new QCommandLineParser();
+    this->argsParser->setApplicationDescription("Deepin Store");
+    this->argsParser->addHelpOption();
+    this->argsParser->addVersionOption();
+
+    this->argsParser->addOptions({
+        {{"d", "debug"},
+         QCoreApplication::translate("main", "Enable debug mode.")},
+        {"host",
+         QCoreApplication::translate("main", "Override the default host with the specified one."),
+         QCoreApplication::translate("main", "host")},
+        {{"c", "clean"},
+         QCoreApplication::translate("main", "Remove deepin-store related files under $HOME.")},
+    });
+
+    this->argsParser->process(qApp->arguments());
 }

@@ -1,5 +1,6 @@
 #include <QDebug>
 
+#include "Shell.h"
 #include "MainWindow.h"
 #include "FilterMouseMove.h"
 #include <X11/Xlib.h>
@@ -39,7 +40,12 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     webView = new WebView(this);
     webView->setObjectName("webView");
-    webView->setUrl(QUrl("http://preview.appstore.deepin.test/"));
+    auto host = static_cast<Shell* >(qApp)->argsParser->value("host");
+    if (host.size()) {
+        webView->setUrl(QUrl(host));
+    } else {
+        webView->setUrl(QUrl("http://appstore.deepin.test/"));
+    }
 
     // Leave event will cause problems with <horizontal-resizer>, eat leave events!
     auto filter = new FilterMouseMove(this);
