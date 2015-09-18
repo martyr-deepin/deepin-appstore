@@ -26,16 +26,14 @@ public:
 
 public slots:
     Q_INVOKABLE void exit();
-    Q_INVOKABLE void maximize();
-    Q_INVOKABLE void minimize();
+    Q_INVOKABLE void showMinimized();
+    Q_INVOKABLE void toggleMaximized();
 
     Q_INVOKABLE QStringList getLocales();
     Q_INVOKABLE QString getAppRegion();
     Q_INVOKABLE QString getTimezoneName();
     Q_INVOKABLE void showTooltip(QString text, int x, int y);
-
     Q_INVOKABLE void startMoving(int x, int y);
-    Q_INVOKABLE void toggleMaximized();
     Q_INVOKABLE void showMenu(QString content);
 
     Q_INVOKABLE void openExternalBrowser(QString url);
@@ -45,7 +43,7 @@ public slots:
 Q_SIGNALS:
     void loginRequested();
     void logoutRequested();
-//    void windowStateChanged(Qt::WindowState);
+    void windowStateChanged(Qt::WindowState);
 
 private:
     QString timezoneName;

@@ -23,13 +23,20 @@
 
 #include <QProcess>
 #include <QDesktopServices>
-
+#include "MainWindow.h"
 
 
 Bridge::Bridge(QObject *parent) : QObject(parent) {
     this->lastore = new LAStoreBridge(this);
     this->menuManager = new DBusMenuManager(this);
     this->registerMenu();
+
+    // bind window state change
+    auto mainWin = this->getMainWindow();
+    connect(mainWin, &MainWindow::windowStateChanged,
+            this, [this](Qt::WindowState state) {
+                emit this->windowStateChanged(state);
+            });
 }
 
 Bridge::~Bridge() {
@@ -51,17 +58,13 @@ void Bridge::exit() {
     qApp->exit();
 }
 
-void Bridge::maximize() {
-
+void Bridge::showMinimized() {
+    this->getMainWindow()->showMinimized();
 }
 
-void Bridge::minimize() {
-
+void Bridge::toggleMaximized() {
+    this->getMainWindow()->toggleMaximized();
 }
-
-//void Bridge::windowStateChanged(Qt::WindowState state) {
-//
-//}
 
 QStringList Bridge::getLocales() {
     QStringList result;
@@ -108,9 +111,6 @@ void Bridge::startMoving(int x, int y) {
     this->getMainWindow()->startMoving(x, y);
 }
 
-void Bridge::toggleMaximized() {
-    this->getMainWindow()->toggleMaximized();
-}
 
 MainWindow* Bridge::getMainWindow() {
     WebPage* webPage = static_cast<WebPage*>(this->parent());

@@ -36,6 +36,9 @@ public:
     void resizeContent(int w, int h);
     void setMinimumContentSize(int w, int h);
 
+signals:
+    void windowStateChanged(Qt::WindowState state);
+
 private:
     unsigned int resizeHandleWidth = 5;
 
@@ -55,6 +58,7 @@ protected:
     void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
+    void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
 };
 
 #endif //SHELL_MAINWINDOW_H

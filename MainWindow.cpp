@@ -229,3 +229,9 @@ void MainWindow::setMinimumContentSize(int w, int h) {
     this->setMinimumSize(w + resizeHandleWidth * 2,
                          h + resizeHandleWidth * 2);
 }
+
+void MainWindow::changeEvent(QEvent *event) {
+    if (event->type() == QEvent::WindowStateChange) {
+        emit this->windowStateChanged((Qt::WindowState)(int)this->windowState());
+    }
+}
