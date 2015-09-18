@@ -35,7 +35,7 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
     auto mainWin = this->getMainWindow();
     connect(mainWin, &MainWindow::windowStateChanged,
             this, [this](Qt::WindowState state) {
-                emit this->windowStateChanged(state);
+                emit this->windowStateChanged((int)state);
             });
 }
 

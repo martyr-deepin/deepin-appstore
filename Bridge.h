@@ -43,7 +43,7 @@ public slots:
 Q_SIGNALS:
     void loginRequested();
     void logoutRequested();
-    void windowStateChanged(Qt::WindowState);
+    void windowStateChanged(int);
 
 private:
     QString timezoneName;

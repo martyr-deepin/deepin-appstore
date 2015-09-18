@@ -232,6 +232,14 @@ void MainWindow::setMinimumContentSize(int w, int h) {
 
 void MainWindow::changeEvent(QEvent *event) {
     if (event->type() == QEvent::WindowStateChange) {
+        if (this->windowState() & Qt::WindowMaximized) {
+            this->horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        } else {
+            this->horizontalLayout->setContentsMargins(resizeHandleWidth,
+                                                       resizeHandleWidth,
+                                                       resizeHandleWidth,
+                                                       resizeHandleWidth);
+        }
         emit this->windowStateChanged((Qt::WindowState)(int)this->windowState());
     }
 }
