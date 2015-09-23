@@ -37,8 +37,8 @@ LAStoreBridge::~LAStoreBridge() {
     }
 }
 
-void LAStoreBridge::installApp(QString appId) {
-    R<QDBusObjectPath> rpath = this->manager->InstallPackage(appId);
+void LAStoreBridge::installApp(QString appId, QString region) {
+    R<QDBusObjectPath> rpath = this->manager->InstallPackage(appId, region);
     qDebug() << "installPackages returns path" << rpath.Value<0>().path();
 
     auto job = new Job("system", "org.deepin.lastore", rpath.Value<0>().path(), this);
@@ -153,7 +153,7 @@ void LAStoreBridge::onProgressButtonMouseLeave(int i) {
 }
 
 bool LAStoreBridge::isAppInstalled(QString pkgId) {
-    auto reply = this->manager->CheckPackageExists(pkgId);
+    auto reply = this->manager->PackageExists(pkgId);
     return reply.Value<0>();
 }
 
@@ -197,7 +197,7 @@ QVariantList LAStoreBridge::processJobs(QList<Job *> list) {
 }
 
 void LAStoreBridge::launchApp(QString pkgId) {
-    auto reply = this->manager->GetPackageDesktopPath1(pkgId);
+    auto reply = this->manager->PackageDesktopPath1(pkgId);
     auto path = reply.Value<0>();
     auto bridge = static_cast<Bridge*>(this->parent());
     bridge->openDesktopFile(path);

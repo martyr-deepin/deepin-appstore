@@ -22,7 +22,7 @@ public:
     ~LAStoreBridge();
 
 public slots:
-    void installApp(QString appId);
+    void installApp(QString appId, QString region);
     void onJobListChanged();
     bool isAppInstalled(QString pkgId);
     QImage renderProgressButton(const int i);
