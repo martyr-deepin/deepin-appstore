@@ -30,8 +30,8 @@ int bound(int min, int between, int max) {
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     qDebug() << "Build with" << WebWidgetName;
-    this->resizeContent(960, 760);
-    this->setMinimumContentSize(960, 760);
+    this->resizeContent(1008, 680);
+    this->setMinimumContentSize(880, 780);
     this->setMouseTracking(true);
     this->setAttribute(Qt::WA_QuitOnClose, true);
     this->setAttribute(Qt::WA_DeleteOnClose, true);
