@@ -31,6 +31,7 @@ public slots:
 
 signals:
     void jobsInfoUpdated(); // let the webpage know there's update available.
+    void appInstallationStatusChanged(QString appId);
     void progressButtonMouseEnter(int i);
     void progressButtonMouseLeave(int i);
     void progressButtonsUpdated(int i);

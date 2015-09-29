@@ -68,9 +68,13 @@ void LAStoreBridge::onJobListChanged() {
                        auto notify = [job, this]() {
                            this->onJobInfoUpdated(job);
                        };
+                       auto notifyInstallationStatusChanged = [job, this]() {
+                           emit this->appInstallationStatusChanged(job->packageId().Value<0>());
+                       };
                        connect(job, &Job::progressChanged, this, notify);
                        connect(job, &Job::elapsedTimeChanged, this, notify);
                        connect(job, &Job::statusChanged, this, notify);
+                       connect(job, &Job::statusChanged, this, notifyInstallationStatusChanged);
                        return job;
                    });
     this->jobsInfo = this->processJobs(this->jobs);
