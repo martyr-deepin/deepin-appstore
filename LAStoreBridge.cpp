@@ -201,7 +201,7 @@ QVariantList LAStoreBridge::processJobs(QList<Job *> list) {
 }
 
 void LAStoreBridge::launchApp(QString pkgId) {
-    auto reply = this->manager->PackageDesktopPath1(pkgId);
+    auto reply = this->manager->PackageDesktopPath(pkgId);
     auto path = reply.Value<0>();
     auto bridge = static_cast<Bridge*>(this->parent());
     bridge->openDesktopFile(path);
