@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QIcon>
 
 #include "Shell.h"
 #include "MainWindow.h"
@@ -30,6 +31,7 @@ int bound(int min, int between, int max) {
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     qDebug() << "Build with" << WebWidgetName;
+    this->setWindowIcon(QIcon::fromTheme("deepin-software-center"));
     this->resizeContent(1008, 680);
     this->setMinimumContentSize(880, 680);
     this->setMouseTracking(true);

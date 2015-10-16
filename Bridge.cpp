@@ -160,7 +160,7 @@ void Bridge::onItemInvoked(const QString & id, bool checked) {
         auto dManual = new QProcess(this);
         dManual->startDetached(program, args);
     } else if (id == "about") {
-
+        this->showAboutWindow();
     } else if (id == "logout") {
         emit this->logoutRequested();
     } else if (id == "login") {
@@ -178,4 +178,16 @@ void Bridge::openDesktopFile(QString path) {
     GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
     g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
     g_object_unref(appInfo);
+}
+
+void Bridge::showAboutWindow() {
+    if (!this->aboutWindow) {
+        this->aboutWindow = new AboutWindow(this->getMainWindow());
+        this->aboutWindow->setContent(this->aboutContent);
+    }
+    this->aboutWindow->show();
+}
+
+void Bridge::setAboutContent(QString html) {
+    this->aboutContent = html;
 }

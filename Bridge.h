@@ -6,6 +6,7 @@
 #include <QStringList>
 #include <QDBusConnection>
 #include "MainWindow.h"
+#include "AboutWindow.h"
 
 #include "dbusmenu.h"
 #include "dbusmenumanager.h"
@@ -39,6 +40,8 @@ public slots:
     Q_INVOKABLE void openExternalBrowser(QString url);
     Q_INVOKABLE void openDesktopFile(QString path);
 
+    Q_INVOKABLE void setAboutContent(QString html);
+
 
 Q_SIGNALS:
     void loginRequested();
@@ -48,7 +51,9 @@ Q_SIGNALS:
 private:
     QString timezoneName;
     MainWindow* getMainWindow();
-
+    AboutWindow* aboutWindow = nullptr;
+    QString aboutContent;
+    void showAboutWindow();
 
     // Menu
     DBusMenuManager* menuManager = nullptr;
