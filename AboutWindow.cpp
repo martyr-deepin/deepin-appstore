@@ -4,9 +4,9 @@
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
 //    this->setWindowFlags(Qt::FramelessWindowHint);
     this->setAutoFillBackground(true);
-    this->setFixedSize(500, 500);
+    this->setFixedSize(400, 340);
     this->content = new QTextBrowser(this);
-    this->content->setFixedSize(500, 500);
+    this->content->setFixedSize(400, 340);
 
     // handle anchors
     this->content->setOpenLinks(false);
