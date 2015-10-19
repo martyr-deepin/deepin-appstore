@@ -206,3 +206,8 @@ void LAStoreBridge::launchApp(QString pkgId) {
     auto bridge = static_cast<Bridge*>(this->parent());
     bridge->openDesktopFile(path);
 }
+
+long long LAStoreBridge::getDownloadSize(QString pkgId) {
+    auto reply = this->manager->PackageDownloadSize(pkgId);
+    return reply.Value<0>();
+}

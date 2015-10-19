@@ -28,6 +28,7 @@ public slots:
     QImage renderProgressButton(const int i);
     QImage renderOverallProgressButton();
     void launchApp(QString pkgId);
+    long long getDownloadSize(QString pkgId);
 
 signals:
     void jobsInfoUpdated(); // let the webpage know there's update available.
