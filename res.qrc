@@ -3,5 +3,7 @@
         <file>res/pause.svg</file>
         <file>res/start.svg</file>
         <file>res/waiting.svg</file>
+        <file>res/logo.png</file>
+        <file>res/deepin-software-center.png</file>
     </qresource>
 </RCC>
