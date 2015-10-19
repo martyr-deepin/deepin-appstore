@@ -190,4 +190,7 @@ void Bridge::showAboutWindow() {
 
 void Bridge::setAboutContent(QString html) {
     this->aboutContent = html;
+    if (this->aboutWindow) {
+        this->aboutWindow->setContent(this->aboutContent);
+    }
 }
