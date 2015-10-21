@@ -87,7 +87,6 @@ void ProgressButton::paintEvent(QPaintEvent* event) {
                 t.setRealNumberPrecision(0);
                 t.setRealNumberNotation(QTextStream::FixedNotation);
                 t << this->progress * 100.;
-                t << "%";
                 QFont f("Arial", 10);
                 painter->setFont(f);
                 painter->drawText(0, 0,
