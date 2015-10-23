@@ -24,6 +24,9 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
     this->onJobListChanged();
 
     this->architectures = this->manager->systemArchitectures().Value<0>();
+    connect(this->manager, &Manager::upgradableAppsChanged, [this]() {
+        emit this->upgradableAppsChanged();
+    });
 }
 
 LAStoreBridge::~LAStoreBridge() {
@@ -209,5 +212,10 @@ void LAStoreBridge::launchApp(QString pkgId) {
 
 long long LAStoreBridge::getDownloadSize(QString pkgId) {
     auto reply = this->manager->PackageDownloadSize(pkgId);
+    return reply.Value<0>();
+}
+
+QStringList LAStoreBridge::getUpgradableApps() {
+    auto reply = this->manager->upgradableApps();
     return reply.Value<0>();
 }

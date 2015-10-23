@@ -29,6 +29,7 @@ public slots:
     QImage renderOverallProgressButton();
     void launchApp(QString pkgId);
     long long getDownloadSize(QString pkgId);
+    QStringList getUpgradableApps();
 
 signals:
     void jobsInfoUpdated(); // let the webpage know there's update available.
@@ -36,6 +37,7 @@ signals:
     void progressButtonMouseEnter(int i);
     void progressButtonMouseLeave(int i);
     void progressButtonsUpdated(int i);
+    void upgradableAppsChanged();
 
 private:
     Manager* manager = nullptr;
