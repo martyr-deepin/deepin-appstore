@@ -70,3 +70,5 @@ install(TARGETS dstore-client
         DESTINATION "/usr/bin")
 install(FILES support/dstore-client.desktop
         DESTINATION "/usr/share/applications")
+install(DIRECTORY manual/
+        DESTINATION "/usr/share/dman/dstore-client")
