@@ -1,20 +1,24 @@
-
+#include "Shell.h"
 #include "WebView.h"
-#include "WebPage.h"
 
 WebView::WebView(QWidget *parent) : QWebView(parent) {
     customPage = new WebPage(this);
-    this->setAcceptDrops(false);
     this->setPage(customPage);
+    this->setAcceptDrops(false);
 
-    this->settings()->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
-    this->settings()->setAttribute(QWebSettings::OfflineWebApplicationCacheEnabled, true);
-    this->settings()->setAttribute(QWebSettings::OfflineStorageDatabaseEnabled, true);
-    this->settings()->setAttribute(QWebSettings::LocalStorageEnabled, true);
+    auto shell = static_cast<Shell*>(qApp);
+    auto settings = this->settings();
+    settings->enablePersistentStorage(shell->basePath + "/storage");
 
-    this->settings()->enablePersistentStorage(QString("/tmp"));
-    // TODO: enable this, when not debugging
-    // this->setContextMenuPolicy(Qt::NoContextMenu);
+    settings->setAttribute(QWebSettings::OfflineWebApplicationCacheEnabled, true);
+    settings->setAttribute(QWebSettings::OfflineStorageDatabaseEnabled, true);
+    settings->setAttribute(QWebSettings::LocalStorageEnabled, true);
+
+    if (shell->argsParser->isSet("debug")) {
+        settings->setAttribute(QWebSettings::DeveloperExtrasEnabled, true);
+    } else {
+        this->setContextMenuPolicy(Qt::NoContextMenu);
+    }
 }
 
 WebView::~WebView() {

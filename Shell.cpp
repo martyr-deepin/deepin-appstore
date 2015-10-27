@@ -1,12 +1,21 @@
+#include <QStandardPaths>
+#include <QDir>
+
 #include "Shell.h"
 #include "MainWindow.h"
 
 
 Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
     this->parseOptions();
-    MainWindow* win = new MainWindow();
-    win->show();
-    win->showLessImportant();
+    if (this->argsParser->isSet("clean")) {
+        this->basePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+        QDir baseDir(this->basePath);
+        ::exit(!baseDir.removeRecursively());
+    } else {
+        MainWindow* win = new MainWindow();
+        win->show();
+        win->showLessImportant();
+    }
 }
 
 Shell::~Shell() {

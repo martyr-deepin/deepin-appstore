@@ -17,6 +17,7 @@ public:
     void setTooltipVisible(bool visible);
 
     QCommandLineParser* argsParser = nullptr;
+    QString basePath;
 
 private:
     DUI::DArrowRectangle* tooltip = nullptr;
