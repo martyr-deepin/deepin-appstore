@@ -4,10 +4,10 @@
 #include "Bridge.h"
 using namespace dbus::common;
 using namespace dbus::objects;
-using namespace dbus::objects::org::deepin::lastore;
+using namespace dbus::objects::com::deepin::lastore;
 
 LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
-    this->manager = new Manager("system", "org.deepin.lastore", "/org/deepin/lastore", this);
+    this->manager = new Manager("system", "com.deepin.lastore", "/com/deepin/lastore", this);
     connect(this->manager, &Manager::jobListChanged,
             this, &LAStoreBridge::onJobListChanged);
 
@@ -64,7 +64,7 @@ void LAStoreBridge::onJobListChanged() {
 
     std::transform(paths.constBegin(), paths.constEnd(), std::back_inserter(this->jobs),
                    [this](QString path) {
-                       auto job = new Job("system", "org.deepin.lastore", path, this);
+                       auto job = new Job("system", "com.deepin.lastore", path, this);
                        auto notify = [job, this]() {
                            this->onJobInfoUpdated(job);
                        };

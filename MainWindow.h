@@ -28,13 +28,14 @@ public:
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-    void showLessImportant();
+    void polish();
 
     void startMoving(int x, int y);
     void toggleMaximized();
 
     void resizeContent(int w, int h);
     void setMinimumContentSize(int w, int h);
+    void setUrl(const QUrl& url);
 
 signals:
     void windowStateChanged(Qt::WindowState state);

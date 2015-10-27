@@ -8,6 +8,7 @@
 #include <QPoint>
 #include <libdui/darrowrectangle.h>
 #include "DBusInterface.h"
+#include "MainWindow.h"
 
 class Shell : public QApplication {
     Q_OBJECT
@@ -21,11 +22,20 @@ public:
     QCommandLineParser* argsParser = nullptr;
     QString basePath;
     QSettings* settings = nullptr;
+    QUrl initUrl;
+    QString origin;
+    bool isInitialRun = true;
+
+signals:
+    void applicationCacheFinished();
 
 private:
     DUI::DArrowRectangle* tooltip = nullptr;
     DBusInterface* dbusInterface = nullptr;
     void parseOptions();
+    void onApplicationCacheFinished();
+    void startWebView();
+    MainWindow* win = nullptr;
 };
 
 

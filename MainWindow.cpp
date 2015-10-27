@@ -42,12 +42,6 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     webView = new WebView(this);
     webView->setObjectName("webView");
-    auto host = static_cast<Shell* >(qApp)->argsParser->value("host");
-    if (host.size()) {
-        webView->setUrl(QUrl(host));
-    } else {
-        webView->setUrl(QUrl("http://appstore.deepin.test/"));
-    }
 
     // Leave event will cause problems with <horizontal-resizer>, eat leave events!
     auto filter = new FilterMouseMove(this);
@@ -63,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     horizontalLayout->addWidget(webView);
 }
 
-void MainWindow::showLessImportant() {
+void MainWindow::polish() {
     // window shadow
     shadowEffect = new QGraphicsDropShadowEffect();
     shadowEffect->setBlurRadius(resizeHandleWidth);
@@ -244,4 +238,8 @@ void MainWindow::changeEvent(QEvent *event) {
         }
         emit this->windowStateChanged((Qt::WindowState)(int)this->windowState());
     }
+}
+
+void MainWindow::setUrl(const QUrl &url) {
+    this->webView->setUrl(url);
 }

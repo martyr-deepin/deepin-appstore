@@ -156,7 +156,7 @@ void Bridge::onItemInvoked(const QString & id, bool checked) {
     } else if (id == "help") {
         QString program = "/usr/bin/dman";
         QStringList args;
-        args << "deepin-store";
+        args << "deepin-appstore";
         auto dManual = new QProcess(this);
         dManual->startDetached(program, args);
     } else if (id == "about") {
@@ -193,4 +193,9 @@ void Bridge::setAboutContent(QString html) {
     if (this->aboutWindow) {
         this->aboutWindow->setContent(this->aboutContent);
     }
+}
+
+void Bridge::notifyCacheReady() {
+    const auto shell = static_cast<Shell*>(qApp);
+    emit shell->applicationCacheFinished();
 }

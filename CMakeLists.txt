@@ -24,7 +24,7 @@ include_directories(AFTER ${GLIB_INCLUDE_DIRS})
 include_directories(AFTER ${X11_INCLUDE_DIRS})
 include_directories(AFTER ${GIO_INCLUDE_DIRS})
 
-set(SOURCE_FILES main.cpp
+set(SOURCE_FILES main.cpp main.h
                  MainWindow.cpp MainWindow.h
                  Shell.cpp Shell.h
                  Bridge.cpp Bridge.h
@@ -59,7 +59,8 @@ else()
     set(WEB_WIDGET_FILES WebKit/WebView.cpp WebKit/WebView.h
                          WebKit/WebPage.cpp WebKit/WebPage.h
                          WebKit/NetworkAccessManager.cpp WebKit/NetworkAccessManager.h
-                         WebKit/CookieJar.cpp WebKit/CookieJar.h)
+                         WebKit/CookieJar.cpp WebKit/CookieJar.h
+                         WebKit/LocalFileSystemReply.cpp WebKit/LocalFileSystemReply.h)
 
     find_package(Qt5WebKit REQUIRED)
     find_package(Qt5WebKitWidgets REQUIRED)
@@ -76,4 +77,4 @@ install(TARGETS dstore-client
 install(FILES support/dstore-client.desktop
         DESTINATION "/usr/share/applications")
 install(DIRECTORY manual/
-        DESTINATION "/usr/share/dman/dstore-client")
+        DESTINATION "/usr/share/dman/deepin-appstore")

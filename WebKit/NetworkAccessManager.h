@@ -3,6 +3,7 @@
 
 #include <QNetworkAccessManager>
 #include <QNetworkDiskCache>
+#include <QNetworkRequest>
 
 class NetworkAccessManager : public QNetworkAccessManager {
 public:
@@ -11,6 +12,11 @@ public:
 
 private:
     QNetworkDiskCache* diskCache = nullptr;
+    QNetworkReply* createRequest(Operation op,
+                                 const QNetworkRequest& req,
+                                 QIODevice* outgoingData = nullptr);
+
+    static bool isLocallyServable(const QUrl& url);
 };
 
 

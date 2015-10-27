@@ -7,7 +7,7 @@
 
 using namespace dbus::common;
 using namespace dbus::objects;
-using namespace dbus::objects::org::deepin::lastore;
+using namespace dbus::objects::com::deepin::lastore;
 
 
 class LAStoreBridge : public QObject {

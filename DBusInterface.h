@@ -7,7 +7,7 @@
 
 class DBusInterface : public QDBusAbstractAdaptor {
     Q_OBJECT
-    Q_CLASSINFO("D-Bus Interface", "org.deepin.dstoreclient")
+    Q_CLASSINFO("D-Bus Interface", "com.deepin.appstore")
 public:
     explicit DBusInterface(QObject* parent = nullptr);
     ~DBusInterface();
@@ -16,7 +16,7 @@ public slots:
     void raise();
 
 private:
-
+    QDBusConnection connection = QDBusConnection::sessionBus();
 };
 
 

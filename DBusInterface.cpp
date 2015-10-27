@@ -3,23 +3,21 @@
 #include "DBusInterface.h"
 
 DBusInterface::DBusInterface(QObject* parent) : QDBusAbstractAdaptor(parent) {
-    auto connection = QDBusConnection::sessionBus();
-
-    auto result = connection.registerService(QString("org.deepin.dstoreclient"));
+    auto result = this->connection.registerService("com.deepin.appstore");
     if (!result) {
         throw "ServiceExist";
     }
 
-    connection.registerObject(QString("/"),
-                              QString("org.deepin.dstoreclient"),
-                              this,
-                              QDBusConnection::ExportAllSlots |
-                              QDBusConnection::ExportAllProperties |
-                              QDBusConnection::ExportAllSignals);
+    this->connection.registerObject("/",
+                                    "com.deepin.appstore",
+                                    this,
+                                    QDBusConnection::ExportAllSlots |
+                                    QDBusConnection::ExportAllProperties |
+                                    QDBusConnection::ExportAllSignals);
 }
 
 DBusInterface::~DBusInterface() {
-
+    this->connection.unregisterService("com.deepin.appstore");
 }
 
 void DBusInterface::raise() {
