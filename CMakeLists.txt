@@ -56,7 +56,11 @@ if(Qt5WebEngineWidgets_FOUND)
                    res.qrc)
     target_link_libraries(dstore-client ${LINK_LIBS} Qt5::WebEngineWidgets)
 else()
-    set(WEB_WIDGET_FILES WebKit/WebView.cpp WebKit/WebView.h WebKit/WebPage.cpp WebKit/WebPage.h)
+    set(WEB_WIDGET_FILES WebKit/WebView.cpp WebKit/WebView.h
+                         WebKit/WebPage.cpp WebKit/WebPage.h
+                         WebKit/NetworkAccessManager.cpp WebKit/NetworkAccessManager.h
+                         WebKit/CookieJar.cpp WebKit/CookieJar.h)
+
     find_package(Qt5WebKit REQUIRED)
     find_package(Qt5WebKitWidgets REQUIRED)
     add_definitions(-DBUILD_WITH_WEBKIT=1)

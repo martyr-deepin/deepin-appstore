@@ -1,5 +1,6 @@
 #include <QStandardPaths>
 #include <QDir>
+#include <QDBusMessage>
 
 #include "Shell.h"
 #include "MainWindow.h"
@@ -7,8 +8,11 @@
 
 Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
     this->parseOptions();
+    this->basePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+
     if (this->argsParser->isSet("clean")) {
-        this->basePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+        this->settings->clear();
+        this->settings->sync();
         QDir baseDir(this->basePath);
         ::exit(!baseDir.removeRecursively());
     }
@@ -17,7 +21,12 @@ Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
         this->dbusInterface = new DBusInterface(this);
     } catch (const char* name) {
         if (strcmp("ServiceExist", name) == 0) {
-            qDebug() << "TODO: raise the previous instance";
+            const auto connection = QDBusConnection::sessionBus();
+            const auto msg = QDBusMessage::createMethodCall("org.deepin.dstoreclient",
+                                                      "/",
+                                                      "org.deepin.dstoreclient",
+                                                      "raise");
+            connection.call(msg);
             ::exit(0);
         }
     }

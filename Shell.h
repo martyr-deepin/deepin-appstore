@@ -4,6 +4,7 @@
 
 #include <QApplication>
 #include <QCommandLineParser>
+#include <QSettings>
 #include <QPoint>
 #include <libdui/darrowrectangle.h>
 #include "DBusInterface.h"
@@ -19,6 +20,7 @@ public:
 
     QCommandLineParser* argsParser = nullptr;
     QString basePath;
+    QSettings* settings = nullptr;
 
 private:
     DUI::DArrowRectangle* tooltip = nullptr;
