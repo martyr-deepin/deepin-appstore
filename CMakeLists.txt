@@ -30,7 +30,8 @@ set(SOURCE_FILES main.cpp
                  Bridge.cpp Bridge.h
                  ProgressButton.cpp ProgressButton.h
                  FilterMouseMove.cpp FilterMouseMove.h
-                 AboutWindow.cpp AboutWindow.h)
+                 AboutWindow.cpp AboutWindow.h
+                 DBusInterface.cpp DBusInterface.h)
 
 set(DBUSMENU_FILES dbusmenu.cpp dbusmenu.h dbusmenumanager.cpp dbusmenumanager.h)
 set(DBUS_BACKEND_FILES LAStoreBridge.cpp LAStoreBridge.h)

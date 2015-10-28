@@ -6,6 +6,7 @@
 #include <QCommandLineParser>
 #include <QPoint>
 #include <libdui/darrowrectangle.h>
+#include "DBusInterface.h"
 
 class Shell : public QApplication {
     Q_OBJECT
@@ -21,6 +22,7 @@ public:
 
 private:
     DUI::DArrowRectangle* tooltip = nullptr;
+    DBusInterface* dbusInterface = nullptr;
     void parseOptions();
 };
 

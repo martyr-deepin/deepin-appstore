@@ -11,11 +11,20 @@ Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
         this->basePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
         QDir baseDir(this->basePath);
         ::exit(!baseDir.removeRecursively());
-    } else {
-        MainWindow* win = new MainWindow();
-        win->show();
-        win->showLessImportant();
     }
+
+    try {
+        this->dbusInterface = new DBusInterface(this);
+    } catch (const char* name) {
+        if (strcmp("ServiceExist", name) == 0) {
+            qDebug() << "TODO: raise the previous instance";
+            ::exit(0);
+        }
+    }
+
+    MainWindow* win = new MainWindow();
+    win->show();
+    win->showLessImportant();
 }
 
 Shell::~Shell() {
