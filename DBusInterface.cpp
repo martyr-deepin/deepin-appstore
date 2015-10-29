@@ -1,6 +1,5 @@
 #include <QGuiApplication>
 #include <QWindow>
-#include <QTimer>
 #include "DBusInterface.h"
 
 DBusInterface::DBusInterface(QObject* parent) : QDBusAbstractAdaptor(parent) {

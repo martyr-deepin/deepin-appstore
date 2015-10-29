@@ -1,3 +1,4 @@
+#include <QDBusPendingCallWatcher>
 
 #include "LAStoreBridge.h"
 #include "Bridge.h"
@@ -24,9 +25,9 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
     this->onJobListChanged();
 
     this->architectures = this->manager->systemArchitectures().Value<0>();
-    connect(this->manager, &Manager::upgradableAppsChanged, [this]() {
-        emit this->upgradableAppsChanged();
-    });
+    connect(this->manager, &Manager::upgradableAppsChanged,
+            this, &LAStoreBridge::fetchUpgradableApps);
+    this->fetchUpgradableApps();
 }
 
 LAStoreBridge::~LAStoreBridge() {
@@ -41,11 +42,7 @@ LAStoreBridge::~LAStoreBridge() {
 }
 
 void LAStoreBridge::installApp(QString appId, QString region) {
-    R<QDBusObjectPath> rpath = this->manager->InstallPackage(appId, region);
-    qDebug() << "installPackages returns path" << rpath.Value<0>().path();
-
-    auto job = new Job("system", "org.deepin.lastore", rpath.Value<0>().path(), this);
-    job->deleteLater();
+    auto reply = this->manager->InstallPackage(appId, region);
 }
 
 void LAStoreBridge::onJobListChanged() {
@@ -72,7 +69,7 @@ void LAStoreBridge::onJobListChanged() {
                            this->onJobInfoUpdated(job);
                        };
                        auto notifyInstallationStatusChanged = [job, this]() {
-                           emit this->appInstallationStatusChanged(job->packageId().Value<0>());
+                           this->askAppInstalled(job->packageId().Value<0>());
                        };
                        connect(job, &Job::progressChanged, this, notify);
                        connect(job, &Job::elapsedTimeChanged, this, notify);
@@ -159,11 +156,6 @@ void LAStoreBridge::onProgressButtonMouseLeave(int i) {
     }
 }
 
-bool LAStoreBridge::isAppInstalled(QString pkgId) {
-    auto reply = this->manager->PackageExists(pkgId);
-    return reply.Value<0>();
-}
-
 QImage LAStoreBridge::renderOverallProgressButton() {
     auto btn = this->overallProgressButton;
     QImage image(btn->size(), QImage::Format_ARGB32_Premultiplied);
@@ -205,17 +197,64 @@ QVariantList LAStoreBridge::processJobs(QList<Job *> list) {
 
 void LAStoreBridge::launchApp(QString pkgId) {
     auto reply = this->manager->PackageDesktopPath(pkgId);
-    auto path = reply.Value<0>();
-    auto bridge = static_cast<Bridge*>(this->parent());
-    bridge->openDesktopFile(path);
+    auto watcher = new QDBusPendingCallWatcher(reply, this);
+    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher](QDBusPendingCallWatcher* call) {
+        QDBusPendingReply<QString> reply = *call;
+        if (reply.isError()) {
+            auto error = reply.error();
+            qWarning() << error.name() << error.message();
+        } else {
+            const auto path = reply.argumentAt<0>();
+            const auto bridge = static_cast<Bridge *>(this->parent());
+            bridge->openDesktopFile(path);
+        }
+        delete watcher;
+    });
 }
 
-long long LAStoreBridge::getDownloadSize(QString pkgId) {
+void LAStoreBridge::askDownloadSize(QString pkgId) {
     auto reply = this->manager->PackageDownloadSize(pkgId);
-    return reply.Value<0>();
+    auto watcher = new QDBusPendingCallWatcher(reply, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, [this, pkgId, watcher](QDBusPendingCallWatcher* call) {
+        QDBusPendingReply<long long> reply = *call;
+        if (reply.isError()) {
+            auto error = reply.error();
+            qWarning() << error.name() << error.message();
+        } else {
+            auto size = reply.argumentAt<0>();
+            emit this->downloadSizeAnswered(pkgId, size);
+        }
+        delete watcher;
+    });
 }
 
-QStringList LAStoreBridge::getUpgradableApps() {
+void LAStoreBridge::fetchUpgradableApps() {
     auto reply = this->manager->upgradableApps();
-    return reply.Value<0>();
+    auto watcher = new QDBusPendingCallWatcher(reply, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher](QDBusPendingCallWatcher* call)  {
+        QDBusPendingReply<QStringList > reply = *call;
+        if (reply.isError()) {
+            auto error = reply.error();
+            qWarning() << error.name() << error.message();
+        } else {
+            this->upgradableApps = reply.argumentAt<0>();
+            emit this->upgradableAppsChanged();
+        }
+        delete watcher;
+    });
+}
+
+void LAStoreBridge::askAppInstalled(QString pkgId) {
+    const auto reply = this->manager->PackageExists(pkgId);
+    const auto watcher = new QDBusPendingCallWatcher(reply, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, [this, pkgId, watcher](QDBusPendingCallWatcher* call) {
+        QDBusPendingReply<bool> reply = *call;
+        if (reply.isError()) {
+            auto error = reply.error();
+            qWarning() << error.name() << error.message();
+        } else {
+            emit this->appInstalledAnswered(pkgId, reply.argumentAt<0>());
+        }
+        delete watcher;
+    });
 }
