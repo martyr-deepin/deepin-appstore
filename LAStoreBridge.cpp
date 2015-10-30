@@ -68,13 +68,13 @@ void LAStoreBridge::onJobListChanged() {
                        auto notify = [job, this]() {
                            this->onJobInfoUpdated(job);
                        };
-                       auto notifyInstallationStatusChanged = [job, this]() {
+                       auto reaskAppInstalled = [job, this]() {
                            this->askAppInstalled(job->packageId().Value<0>());
                        };
                        connect(job, &Job::progressChanged, this, notify);
                        connect(job, &Job::elapsedTimeChanged, this, notify);
                        connect(job, &Job::statusChanged, this, notify);
-                       connect(job, &Job::statusChanged, this, notifyInstallationStatusChanged);
+                       connect(job, &Job::statusChanged, this, reaskAppInstalled);
                        return job;
                    });
     this->jobsInfo = this->processJobs(this->jobs);
@@ -232,12 +232,12 @@ void LAStoreBridge::fetchUpgradableApps() {
     auto reply = this->manager->upgradableApps();
     auto watcher = new QDBusPendingCallWatcher(reply, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher](QDBusPendingCallWatcher* call)  {
-        QDBusPendingReply<QStringList > reply = *call;
+        QDBusPendingReply<QDBusVariant > reply = *call;
         if (reply.isError()) {
             auto error = reply.error();
             qWarning() << error.name() << error.message();
         } else {
-            this->upgradableApps = reply.argumentAt<0>();
+            this->upgradableApps = reply.argumentAt<0>().variant().toStringList();
             emit this->upgradableAppsChanged();
         }
         delete watcher;

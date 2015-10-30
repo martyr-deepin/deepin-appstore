@@ -13,7 +13,10 @@ public:
     ~WebView();
 
 private:
+    void resizeEvent(QResizeEvent* event);
     WebPage* customPage;
+    void polish();
+    const unsigned borderRadius = 3;
 
 };
 
