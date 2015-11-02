@@ -32,6 +32,9 @@ public slots:
     void launchApp(QString pkgId);
     Q_SLOT void askDownloadSize(QString pkgId);
     Q_SLOT void fetchUpgradableApps();
+    Q_SLOT void startJob(QString jobId);
+    Q_SLOT void pauseJob(QString jobId);
+    Q_SLOT void cancelJob(QString jobId);
 
 signals:
     void jobsInfoUpdated(); // let the webpage know there's update available.

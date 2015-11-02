@@ -177,8 +177,7 @@ QVariantMap LAStoreBridge::processJob(Job* job) {
     QString id = job->id().Value<0>();
 
     if (status == "ready") {
-        qDebug() << "auto starts job";
-        this->manager->StartJob(id);
+        this->startJob(id);
     }
 
     return each;
@@ -257,4 +256,16 @@ void LAStoreBridge::askAppInstalled(QString pkgId) {
         }
         delete watcher;
     });
+}
+
+void LAStoreBridge::startJob(QString jobId) {
+    this->manager->StartJob(jobId);
+}
+
+void LAStoreBridge::pauseJob(QString jobId) {
+    this->manager->PauseJob2(jobId);
+}
+
+void LAStoreBridge::cancelJob(QString jobId) {
+    this->manager->CleanJob(jobId);
 }
