@@ -41,8 +41,8 @@ LAStoreBridge::~LAStoreBridge() {
     }
 }
 
-void LAStoreBridge::installApp(QString appId, QString region) {
-    auto reply = this->manager->InstallPackage(appId, region);
+void LAStoreBridge::installApp(QString appId) {
+    auto reply = this->manager->InstallPackage(appId);
 }
 
 void LAStoreBridge::onJobListChanged() {
@@ -72,7 +72,6 @@ void LAStoreBridge::onJobListChanged() {
                            this->askAppInstalled(job->packageId().Value<0>());
                        };
                        connect(job, &Job::progressChanged, this, notify);
-                       connect(job, &Job::elapsedTimeChanged, this, notify);
                        connect(job, &Job::statusChanged, this, notify);
                        connect(job, &Job::statusChanged, this, reaskAppInstalled);
                        return job;
@@ -171,7 +170,6 @@ QVariantMap LAStoreBridge::processJob(Job* job) {
     each.insert("packageId", job->packageId().Value<0>());
     each.insert("type", job->type().Value<0>());
     each.insert("progress", progress);
-    each.insert("elapsedTime", job->elapsedTime().Value<0>());
     QString status = job->status().Value<0>();
     each.insert("status", status);
     QString id = job->id().Value<0>();
@@ -263,7 +261,7 @@ void LAStoreBridge::startJob(QString jobId) {
 }
 
 void LAStoreBridge::pauseJob(QString jobId) {
-    this->manager->PauseJob2(jobId);
+    this->manager->PauseJob(jobId);
 }
 
 void LAStoreBridge::cancelJob(QString jobId) {
