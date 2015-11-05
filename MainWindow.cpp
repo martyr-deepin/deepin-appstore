@@ -59,11 +59,13 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
 void MainWindow::polish() {
     // window shadow
-    shadowEffect = new QGraphicsDropShadowEffect();
-    shadowEffect->setBlurRadius(resizeHandleWidth);
-    shadowEffect->setColor(Qt::red);
-    shadowEffect->setOffset(0, 0);
-    webView->setGraphicsEffect(shadowEffect);
+    if (!this->shadowEffect) {
+        this->shadowEffect = new QGraphicsDropShadowEffect();
+        this->shadowEffect->setBlurRadius(resizeHandleWidth);
+        this->shadowEffect->setColor(Qt::darkGray);
+        this->shadowEffect->setOffset(0, 0);
+        this->webView->setGraphicsEffect(this->shadowEffect);
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent* event) {

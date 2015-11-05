@@ -43,9 +43,9 @@ signals:
 private:
     unsigned int resizeHandleWidth = 5;
 
-    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *horizontalLayout = nullptr;
     WebView* webView = nullptr;
-    QGraphicsDropShadowEffect* shadowEffect;
+    QGraphicsDropShadowEffect* shadowEffect = nullptr;
 
     CornerEdge resizingCornerEdge = CornerEdge::Nil;
     QRect beforeResizing;
