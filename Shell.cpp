@@ -122,6 +122,8 @@ void Shell::parseOptions() {
          QCoreApplication::translate("main", "host")},
         {{"c", "clean"},
          QCoreApplication::translate("main", "Remove deepin-store related files under $HOME.")},
+        {{"o", "offline"},
+         QCoreApplication::translate("main", "Start Deepin AppStore in offline mode (for testing purposes).")},
     });
 
     this->argsParser->process(qApp->arguments());
@@ -133,6 +135,7 @@ void Shell::onApplicationCacheFinished() {
         this->settings->beginGroup("cached");
         this->settings->setValue(this->origin, true);
         this->settings->endGroup();
+        this->settings->sync();
         this->isInitialRun = false;
         qDebug() << "Finish importing the initial webapp, restarting...";
         this->quit();

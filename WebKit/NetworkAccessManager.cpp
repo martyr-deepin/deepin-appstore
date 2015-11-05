@@ -1,5 +1,6 @@
 #include <QDebug>
 #include <QNetworkDiskCache>
+#include <QCommandLineParser>
 #include "../Shell.h"
 #include "NetworkAccessManager.h"
 #include "CookieJar.h"
@@ -13,6 +14,10 @@ NetworkAccessManager::NetworkAccessManager(QObject *parent) : QNetworkAccessMana
     this->diskCache = new QNetworkDiskCache(this);
     this->diskCache->setCacheDirectory(shell->basePath + "/cache");
     this->setCache(this->diskCache);
+    if ((!shell->isInitialRun) &&
+        (shell->argsParser->isSet("offline"))) {
+        this->setNetworkAccessible(QNetworkAccessManager::NetworkAccessibility::NotAccessible);
+    }
 }
 
 NetworkAccessManager::~NetworkAccessManager() {
