@@ -3,12 +3,16 @@
 #define SHELL_SHELL_H
 
 #include <QApplication>
-#include <QCommandLineParser>
-#include <QSettings>
-#include <QPoint>
-#include <libdui/darrowrectangle.h>
-#include "DBusInterface.h"
-#include "MainWindow.h"
+#include <QUrl>
+class QCommandLineParser;
+class QSettings;
+
+class DBusInterface;
+class MainWindow;
+
+namespace DUI {
+    class DArrowRectangle;
+}
 
 class Shell : public QApplication {
     Q_OBJECT

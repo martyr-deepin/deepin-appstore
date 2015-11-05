@@ -2,8 +2,8 @@
 #define SHELL_NETWORKACCESSMANAGER_H
 
 #include <QNetworkAccessManager>
-#include <QNetworkDiskCache>
-#include <QNetworkRequest>
+class QNetworkDiskCache;
+class QNetworkRequest;
 
 class NetworkAccessManager : public QNetworkAccessManager {
 public:

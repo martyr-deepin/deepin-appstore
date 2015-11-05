@@ -1,5 +1,8 @@
 #include <QDebug>
 #include <QIcon>
+#include <QHBoxLayout>
+#include <QGraphicsBlurEffect>
+#include <QMouseEvent>
 
 #include "Shell.h"
 #include "MainWindow.h"

@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QProcess>
 
 #include "main.h"

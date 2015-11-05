@@ -3,7 +3,7 @@
 #define SHELL_WEBKIT_WEBVIEW_H
 
 #include <QWebView>
-#include "WebPage.h"
+class WebPage;
 
 class WebView : public QWebView {
     Q_OBJECT

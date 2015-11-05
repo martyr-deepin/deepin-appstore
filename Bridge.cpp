@@ -24,7 +24,9 @@
 #include <QProcess>
 #include <QDesktopServices>
 #include "MainWindow.h"
-
+#include "AboutWindow.h"
+#include "dbusmenu.h"
+#include "dbusmenumanager.h"
 
 Bridge::Bridge(QObject *parent) : QObject(parent) {
     this->lastore = new LAStoreBridge(this);

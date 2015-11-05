@@ -1,7 +1,9 @@
 #include <QRegion>
+#include <QCommandLineParser>
 
 #include "Shell.h"
 #include "WebView.h"
+#include "WebPage.h"
 
 WebView::WebView(QWidget *parent) : QWebView(parent) {
     customPage = new WebPage(this);

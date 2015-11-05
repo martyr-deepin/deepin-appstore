@@ -1,4 +1,5 @@
 #include <QDesktopServices>
+#include <QTextBrowser>
 #include "AboutWindow.h"
 
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {

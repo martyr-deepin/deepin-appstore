@@ -5,13 +5,11 @@
 #include <QObject>
 #include <QStringList>
 #include <QDBusConnection>
-#include "MainWindow.h"
-#include "AboutWindow.h"
-
-#include "dbusmenu.h"
-#include "dbusmenumanager.h"
 #include "LAStoreBridge.h"
-
+class MainWindow;
+class AboutWindow;
+class DBusMenuManager;
+class DBusMenu;
 
 // An object that bridges between the webpage and the QT world.
 // Manages window behaviors, hot keys and other general behaviors.

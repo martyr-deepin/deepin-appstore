@@ -1,9 +1,13 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QDBusMessage>
+#include <QCommandLineParser>
+#include <QSettings>
+#include <libdui/darrowrectangle.h>
 #include "main.h"
 #include "Shell.h"
 #include "MainWindow.h"
+#include "DBusInterface.h"
 
 
 Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {

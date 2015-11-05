@@ -1,4 +1,5 @@
 #include <QDebug>
+#include <QNetworkDiskCache>
 #include "../Shell.h"
 #include "NetworkAccessManager.h"
 #include "CookieJar.h"

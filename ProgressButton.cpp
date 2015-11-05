@@ -1,7 +1,9 @@
+#include <QDebug>
+#include <QPainter>
+#include <QTextStream>
 
 #include "ProgressButton.h"
-#include <QDebug>
-#include <QTextStream>
+
 
 ProgressButton::ProgressButton(QWidget* parent) : QWidget(parent) {
 

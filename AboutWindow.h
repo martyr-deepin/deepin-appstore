@@ -3,7 +3,7 @@
 #define SHELL_ABOUTWINDOW_H
 
 #include <QDialog>
-#include <QTextBrowser>
+class QTextBrowser;
 
 class AboutWindow : public QDialog {
     Q_OBJECT

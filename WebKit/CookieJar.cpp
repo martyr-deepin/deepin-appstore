@@ -1,4 +1,5 @@
 #include <QNetworkCookie>
+#include <QSettings>
 
 #include "../Shell.h"
 #include "CookieJar.h"

@@ -1,10 +1,8 @@
-
 #ifndef SHELL_PROGRESSBUTTON_H
 #define SHELL_PROGRESSBUTTON_H
 
 #include <QWidget>
-#include <QPainter>
-#include <QImage>
+class QPainter;
 
 enum ProgressBody {
     None,

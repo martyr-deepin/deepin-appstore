@@ -15,11 +15,10 @@ enum CornerEdge {
 };
 
 #include <QWidget>
-#include <QHBoxLayout>
-#include <QGraphicsDropShadowEffect>
-#include <QMouseEvent>
-
 #include "WebWidget.h"
+class QHBoxLayout;
+class QGraphicsDropShadowEffect;
+
 
 class MainWindow : public QWidget {
     Q_OBJECT
