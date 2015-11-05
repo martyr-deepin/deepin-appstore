@@ -14,7 +14,7 @@ public:
 
 private:
     void resizeEvent(QResizeEvent* event);
-    WebPage* customPage;
+    WebPage* customPage = nullptr;
     void polish();
     const unsigned borderRadius = 3;
 

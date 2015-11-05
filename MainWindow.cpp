@@ -63,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 void MainWindow::polish() {
     // window shadow
     if (!this->shadowEffect) {
-        this->shadowEffect = new QGraphicsDropShadowEffect();
+        this->shadowEffect = new QGraphicsDropShadowEffect(this);
         this->shadowEffect->setBlurRadius(resizeHandleWidth);
         this->shadowEffect->setColor(Qt::darkGray);
         this->shadowEffect->setOffset(0, 0);
