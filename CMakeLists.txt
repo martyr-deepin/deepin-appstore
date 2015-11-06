@@ -76,5 +76,7 @@ install(TARGETS dstore-client
         DESTINATION "/usr/bin")
 install(FILES support/dstore-client.desktop
         DESTINATION "/usr/share/applications")
+install(DIRECTORY support/icons/
+        DESTINATION "/usr/share/icons/")
 install(DIRECTORY manual/
         DESTINATION "/usr/share/dman/deepin-appstore")
