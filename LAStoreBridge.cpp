@@ -1,4 +1,5 @@
 #include <QDBusPendingCallWatcher>
+#include <QProcess>
 
 #include "LAStoreBridge.h"
 #include "Bridge.h"
@@ -262,4 +263,12 @@ void LAStoreBridge::pauseJob(QString jobId) {
 
 void LAStoreBridge::cancelJob(QString jobId) {
     this->manager->CleanJob(jobId);
+}
+
+void LAStoreBridge::updateApp(QString appId) {
+    this->manager->UpdatePackage(appId);
+    QString exe = "/usr/bin/dde-control-center";
+    QStringList args;
+    args << "system_info";
+    QProcess::startDetached(exe, args);
 }

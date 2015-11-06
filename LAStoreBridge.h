@@ -24,13 +24,14 @@ public:
     ~LAStoreBridge();
 
 public slots:
-    void installApp(QString appId);
+    Q_SLOT void installApp(QString appId);
     void onJobListChanged();
     Q_SLOT void askAppInstalled(QString pkgId);
     QImage renderProgressButton(const int i);
     QImage renderOverallProgressButton();
-    void launchApp(QString pkgId);
+    Q_SLOT void launchApp(QString pkgId);
     Q_SLOT void askDownloadSize(QString pkgId);
+    Q_SLOT void updateApp(QString appId);
     Q_SLOT void fetchUpgradableApps();
     Q_SLOT void startJob(QString jobId);
     Q_SLOT void pauseJob(QString jobId);
