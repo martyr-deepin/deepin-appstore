@@ -174,10 +174,6 @@ QVariantMap LAStoreBridge::processJob(Job* job) {
     each.insert("status", status);
     QString id = job->id().Value<0>();
 
-    if (status == "ready") {
-        this->startJob(id);
-    }
-
     return each;
 }
 

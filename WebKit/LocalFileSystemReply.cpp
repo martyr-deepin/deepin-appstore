@@ -45,6 +45,7 @@ LocalFileSystemReply::LocalFileSystemReply(QNetworkAccessManager::Operation op,
 
     this->setHeader(QNetworkRequest::ContentLengthHeader, QVariant(content.size()));
     this->setOperation(QNetworkAccessManager::Operation::GetOperation);
+    this->setAttribute(QNetworkRequest::CacheSaveControlAttribute, 0);
     this->setAttribute(QNetworkRequest::HttpStatusCodeAttribute, 200);
 
     this->timer = new QTimer(this);
