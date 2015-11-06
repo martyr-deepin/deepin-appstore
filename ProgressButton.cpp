@@ -1,6 +1,5 @@
 #include <QDebug>
 #include <QPainter>
-#include <QTextStream>
 
 #include "ProgressButton.h"
 
@@ -72,6 +71,8 @@ void ProgressButton::paintEvent(QPaintEvent* event) {
                     imgSrc = ":/res/pause.svg";
                 } else if (this->state == "success") {
                     // nothing
+                } else if (this->state == "ready") {
+                    imgSrc = ":/res/waiting.svg";
                 } else {
                     qDebug() << "Unknown Progress State:" << this->state;
                 }
@@ -121,7 +122,6 @@ void ProgressButton::leaveEvent(QEvent *qEvent) {
         this->isHover = false;
         emit this->needRepaint();
     }
-
 }
 
 void ProgressButton::setState(QString state) {

@@ -248,3 +248,11 @@ void MainWindow::changeEvent(QEvent *event) {
 void MainWindow::setUrl(const QUrl &url) {
     this->webView->setUrl(url);
 }
+
+void MainWindow::keyPressEvent(QKeyEvent* event) {
+    if (event->key() == Qt::Key_F1 &&
+        event->modifiers() == Qt::NoModifier) {
+        const auto shell = static_cast<Shell*>(qApp);
+        shell->openManual();
+    };
+}

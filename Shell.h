@@ -30,6 +30,8 @@ public:
     QString origin;
     bool isInitialRun = true;
 
+    void openManual();
+
 signals:
     void applicationCacheFinished();
 

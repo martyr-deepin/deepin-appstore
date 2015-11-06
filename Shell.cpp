@@ -3,6 +3,7 @@
 #include <QDBusMessage>
 #include <QCommandLineParser>
 #include <QSettings>
+#include <QProcess>
 #include <libdui/darrowrectangle.h>
 #include "main.h"
 #include "Shell.h"
@@ -150,4 +151,11 @@ void Shell::startWebView() {
         this->win->show();
         this->win->polish();
     }
+}
+
+void Shell::openManual() {
+    QString program = "/usr/bin/dman";
+    QStringList args;
+    args << "deepin-appstore";
+    QProcess::startDetached(program, args);
 }

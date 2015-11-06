@@ -19,9 +19,7 @@
 #include "Shell.h"
 #include "Bridge.h"
 #include "WebWidget.h"
-#include <QVariantList>
 
-#include <QProcess>
 #include <QDesktopServices>
 #include "MainWindow.h"
 #include "AboutWindow.h"
@@ -156,11 +154,8 @@ void Bridge::onItemInvoked(const QString & id, bool checked) {
     if (id == "exit") {
         qApp->exit(0);
     } else if (id == "help") {
-        QString program = "/usr/bin/dman";
-        QStringList args;
-        args << "deepin-appstore";
-        auto dManual = new QProcess(this);
-        dManual->startDetached(program, args);
+        const auto shell = static_cast<Shell*>(qApp);
+        shell->openManual();
     } else if (id == "about") {
         this->showAboutWindow();
     } else if (id == "logout") {
