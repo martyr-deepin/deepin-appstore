@@ -5,7 +5,7 @@
 #include "WebView.h"
 #include "WebPage.h"
 
-WebView::WebView(QWidget *parent) : QWebView(parent) {
+WebView::WebView(QWidget *parent) : QWebView(parent), borderRadius(6) {
     customPage = new WebPage(this);
     this->setPage(customPage);
     this->setAcceptDrops(false);
@@ -23,7 +23,6 @@ WebView::WebView(QWidget *parent) : QWebView(parent) {
     } else {
         this->setContextMenuPolicy(Qt::NoContextMenu);
     }
-    this->polish();
 }
 
 WebView::~WebView() {
@@ -33,31 +32,17 @@ WebView::~WebView() {
     }
 }
 
-void WebView::polish() {
-    auto region = QRegion(this->rect(), QRegion::RegionType::Rectangle);
-    auto tl = QRegion(0, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-              QRegion(0, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-    );
-    auto tr = QRegion(this->width() - borderRadius, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-              QRegion(this->width() - 2 * borderRadius, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-    );
-    auto bl = QRegion(0, this->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-              QRegion(0, this->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-    );
-    auto br = QRegion(this->width() - borderRadius, this->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-              QRegion(this->width() - 2 * borderRadius, this->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-    );
+void WebView::paintEvent(QPaintEvent* e) {
+    QWebView::paintEvent(e);
 
-    auto result = region
-             .subtracted(tl)
-             .subtracted(tr)
-             .subtracted(bl)
-             .subtracted(br);
-    this->setMask(result);
-}
+    QPainter painter(this);
+    painter.setCompositionMode(QPainter::CompositionMode_Clear);
+    painter.setRenderHint(QPainter::Antialiasing, true);
 
+    QPainterPath full;
+    full.addRect(rect());
 
-void WebView::resizeEvent(QResizeEvent *event) {
-    QWebView::resizeEvent(event);
-    this->polish();
+    QPainterPath path;
+    path.addRoundedRect(rect(), borderRadius, borderRadius);
+    painter.fillPath(full - path, QColor(Qt::black));
 }

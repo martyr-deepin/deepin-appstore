@@ -1,4 +1,3 @@
-
 #ifndef SHELL_WEBKIT_WEBVIEW_H
 #define SHELL_WEBKIT_WEBVIEW_H
 
@@ -12,12 +11,12 @@ public:
     explicit WebView(QWidget* parent = nullptr);
     ~WebView();
 
-private:
-    void resizeEvent(QResizeEvent* event);
-    WebPage* customPage = nullptr;
-    void polish();
-    const unsigned borderRadius = 3;
+protected:
+    virtual void paintEvent(QPaintEvent*);
 
+private:
+    WebPage* customPage = nullptr;
+    unsigned borderRadius;
 };
 
 
