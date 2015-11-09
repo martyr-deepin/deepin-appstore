@@ -1,11 +1,10 @@
-#include <QRegion>
 #include <QCommandLineParser>
 
 #include "Shell.h"
 #include "WebView.h"
 #include "WebPage.h"
 
-WebView::WebView(QWidget *parent) : QWebView(parent), borderRadius(6) {
+WebView::WebView(QWidget *parent) : QWebView(parent), borderRadius(4) {
     customPage = new WebPage(this);
     this->setPage(customPage);
     this->setAcceptDrops(false);

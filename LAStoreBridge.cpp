@@ -27,8 +27,8 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
 
     this->architectures = this->manager->systemArchitectures().Value<0>();
     connect(this->manager, &Manager::upgradableAppsChanged,
-            this, &LAStoreBridge::fetchUpgradableApps);
-    this->fetchUpgradableApps();
+            this, &LAStoreBridge::fetchUpdatableApps);
+    this->fetchUpdatableApps();
 }
 
 LAStoreBridge::~LAStoreBridge() {
@@ -222,7 +222,7 @@ void LAStoreBridge::askDownloadSize(QString pkgId) {
     });
 }
 
-void LAStoreBridge::fetchUpgradableApps() {
+void LAStoreBridge::fetchUpdatableApps() {
     auto reply = this->manager->upgradableApps();
     auto watcher = new QDBusPendingCallWatcher(reply, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher](QDBusPendingCallWatcher* call)  {
@@ -231,8 +231,8 @@ void LAStoreBridge::fetchUpgradableApps() {
             auto error = reply.error();
             qWarning() << error.name() << error.message();
         } else {
-            this->upgradableApps = reply.argumentAt<0>().variant().toStringList();
-            emit this->upgradableAppsChanged();
+            this->updatableApps = reply.argumentAt<0>().variant().toStringList();
+            emit this->updatableAppsChanged();
         }
         delete watcher;
     });

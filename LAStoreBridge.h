@@ -16,8 +16,8 @@ class LAStoreBridge : public QObject {
                MEMBER jobsInfo)
     Q_PROPERTY(QStringList architectures
                MEMBER architectures)
-    Q_PROPERTY(QStringList upgradableApps
-               MEMBER upgradableApps)
+    Q_PROPERTY(QStringList updatableApps
+               MEMBER updatableApps)
 
 public:
     explicit LAStoreBridge(QObject* parent = nullptr);
@@ -32,7 +32,7 @@ public slots:
     Q_SLOT void launchApp(QString pkgId);
     Q_SLOT void askDownloadSize(QString pkgId);
     Q_SLOT void updateApp(QString appId);
-    Q_SLOT void fetchUpgradableApps();
+    Q_SLOT void fetchUpdatableApps();
     Q_SLOT void startJob(QString jobId);
     Q_SLOT void pauseJob(QString jobId);
     Q_SLOT void cancelJob(QString jobId);
@@ -41,7 +41,7 @@ signals:
     void jobsInfoUpdated(); // let the webpage know there's update available.
     void progressButtonMouseEnter(int i);
     void progressButtonMouseLeave(int i);
-    void upgradableAppsChanged();
+    void updatableAppsChanged();
     void appInstalledAnswered(QString pkgId, bool installed);
     void downloadSizeAnswered(QString pkgId, long long size);
 
@@ -62,7 +62,7 @@ private:
     QVariantMap processJob(Job* job);
     QVariantList processJobs(QList<Job *> list);
     QStringList architectures;
-    QStringList upgradableApps;
+    QStringList updatableApps;
 };
 
 
