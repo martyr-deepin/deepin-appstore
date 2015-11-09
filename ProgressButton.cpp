@@ -67,7 +67,7 @@ void ProgressButton::paintEvent(QPaintEvent* event) {
             if (this->isHover) {
                 if (this->state == "failed" || this->state == "pause") {
                     imgSrc = ":/res/start.svg";
-                } else if (this->state == "running"){
+                } else if (this->state == "running" && this->pausable){
                     imgSrc = ":/res/pause.svg";
                 } else if (this->state == "success") {
                     // nothing
@@ -126,4 +126,8 @@ void ProgressButton::leaveEvent(QEvent *qEvent) {
 
 void ProgressButton::setState(QString state) {
     this->state = state;
+}
+
+void ProgressButton::setPausable(bool pausable) {
+    this->pausable = pausable;
 }

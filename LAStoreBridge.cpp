@@ -103,21 +103,26 @@ void LAStoreBridge::onJobListChanged() {
 
 void LAStoreBridge::onJobInfoUpdated(Job *job) {
     auto i = this->jobs.indexOf(job);
-    this->jobsInfo[i] = this->processJob(job);
-    this->syncProgressButton(this->jobsInfo[i], this->progressButtons[i]);
-    emit this->jobsInfoUpdated();
+    if (i != -1) {
+        this->jobsInfo[i] = this->processJob(job);
+        this->syncProgressButton(this->jobsInfo[i], this->progressButtons[i]);
+        emit this->jobsInfoUpdated();
+    }
 }
 
 QImage LAStoreBridge::renderProgressButton(const int i) {
     if (this->rebuildingJobs) {
         return QImage();
     }
-    auto btn = this->progressButtons[i];
-    QImage image(btn->size(), QImage::Format_ARGB32_Premultiplied);
-    if (btn) {
-        btn->render(&image);
+    if (0 <= i && i < this->progressButtons.size()) {
+        auto btn = this->progressButtons[i];
+        QImage image(btn->size(), QImage::Format_ARGB32_Premultiplied);
+        if (btn) {
+            btn->render(&image);
+        }
+        return image;
     }
-    return image;
+    return QImage();
 }
 
 void LAStoreBridge::syncProgressButton(QVariant jobInfo, ProgressButton* button) {
@@ -126,6 +131,7 @@ void LAStoreBridge::syncProgressButton(QVariant jobInfo, ProgressButton* button)
     button->setBody(ProgressBody::Percentage);
     button->setProgress(progress);
     button->setState(map["status"].value<QString>());
+    button->setPausable(map["type"].value<QString>() == "download");
 
     double sum = std::accumulate(this->jobsInfo.constBegin(),
                                  this->jobsInfo.constEnd(),
@@ -138,21 +144,23 @@ void LAStoreBridge::syncProgressButton(QVariant jobInfo, ProgressButton* button)
     this->overallProgressButton->setProgress(sum / this->jobsInfo.size());
 }
 
-void LAStoreBridge::onProgressButtonMouseEnter(int i) {
-    qDebug() << "onProgressButtonMouseEnter" << i;
-    auto btn = this->progressButtons[i];
-    if (btn) {
-        QEvent enterEvent(QEvent::Enter);
-        qApp->sendEvent(btn, &enterEvent);
+void LAStoreBridge::onProgressButtonMouseEnter(const int i) {
+    if (0 <= i && i < this->progressButtons.size()) {
+        auto btn = this->progressButtons[i];
+        if (btn) {
+            QEvent enterEvent(QEvent::Enter);
+            qApp->sendEvent(btn, &enterEvent);
+        }
     }
 }
 
-void LAStoreBridge::onProgressButtonMouseLeave(int i) {
-    qDebug() << "onProgressButtonMouseLeave" << i;
-    auto btn = this->progressButtons[i];
-    if (btn) {
-        QEvent leaveEvent(QEvent::Leave);
-        qApp->sendEvent(btn, &leaveEvent);
+void LAStoreBridge::onProgressButtonMouseLeave(const int i) {
+    if (0 <= i && i < this->progressButtons.size()) {
+        auto btn = this->progressButtons[i];
+        if (btn) {
+            QEvent leaveEvent(QEvent::Leave);
+            qApp->sendEvent(btn, &leaveEvent);
+        }
     }
 }
 
@@ -168,8 +176,16 @@ QImage LAStoreBridge::renderOverallProgressButton() {
 QVariantMap LAStoreBridge::processJob(Job* job) {
     QVariantMap each;
     auto progress = job->progress().Value<0>();
+    qDebug() << "original progress" << progress;
     each.insert("packageId", job->packageId().Value<0>());
-    each.insert("type", job->type().Value<0>());
+    auto type = job->type().Value<0>();
+    each.insert("type", type);
+    progress /= 2.0;
+
+    if (type == "install") {
+        progress += 0.50;
+    }
+
     each.insert("progress", progress);
     QString status = job->status().Value<0>();
     each.insert("status", status);

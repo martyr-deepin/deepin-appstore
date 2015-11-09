@@ -19,6 +19,7 @@ public:
     void setProgress(double progress);
     void setState(QString state);
     void setBody(ProgressBody type);
+    void setPausable(bool pausable);
 
 signals:
     void needRepaint();
@@ -43,6 +44,7 @@ private:
     bool isHover = false;
     QString state;
     bool errored = false;
+    bool pausable = false;
 };
 
 
