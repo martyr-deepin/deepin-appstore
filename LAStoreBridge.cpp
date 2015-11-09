@@ -176,7 +176,6 @@ QImage LAStoreBridge::renderOverallProgressButton() {
 QVariantMap LAStoreBridge::processJob(Job* job) {
     QVariantMap each;
     auto progress = job->progress().Value<0>();
-    qDebug() << "original progress" << progress;
     each.insert("packageId", job->packageId().Value<0>());
     auto type = job->type().Value<0>();
     each.insert("type", type);
