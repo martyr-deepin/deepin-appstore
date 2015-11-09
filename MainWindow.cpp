@@ -35,7 +35,7 @@ int bound(int min, int between, int max) {
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     qDebug() << "Build with" << WebWidgetName;
     this->setWindowIcon(QIcon::fromTheme("deepin-appstore"));
-    this->resizeContent(1028, 680);
+    this->resizeContent(1028, 700);
     this->setMinimumContentSize(906, 680);
     this->setMouseTracking(true);
     this->setAttribute(Qt::WA_QuitOnClose, true);
