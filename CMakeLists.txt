@@ -52,9 +52,9 @@ set(LINK_LIBS
 if(Qt5WebEngineWidgets_FOUND)
     set(WEB_WIDGET_FILES WebEngine/WebView.cpp WebEngine/WebView.h WebEngine/WebPage.cpp WebEngine/WebPage.h)
     add_definitions(-DBUILD_WITH_WEBENGINE=1)
-    add_executable(dstore-client ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
+    add_executable(deepin-appstore ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
                    res.qrc)
-    target_link_libraries(dstore-client ${LINK_LIBS} Qt5::WebEngineWidgets)
+    target_link_libraries(deepin-appstore ${LINK_LIBS} Qt5::WebEngineWidgets)
 else()
     set(WEB_WIDGET_FILES WebKit/WebView.cpp WebKit/WebView.h
                          WebKit/WebPage.cpp WebKit/WebPage.h
@@ -65,16 +65,16 @@ else()
     find_package(Qt5WebKit REQUIRED)
     find_package(Qt5WebKitWidgets REQUIRED)
     add_definitions(-DBUILD_WITH_WEBKIT=1)
-    add_executable(dstore-client ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
+    add_executable(deepin-appstore ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
                    res.qrc
                    "/usr/include/lastore-daemon.h")
 
-    target_link_libraries(dstore-client ${LINK_LIBS} Qt5::WebKitWidgets)
+    target_link_libraries(deepin-appstore ${LINK_LIBS} Qt5::WebKitWidgets)
 endif()
 
-install(TARGETS dstore-client
+install(TARGETS deepin-appstore
         DESTINATION "/usr/bin")
-install(FILES support/dstore-client.desktop
+install(FILES support/deepin-appstore.desktop
         DESTINATION "/usr/share/applications")
 install(DIRECTORY support/icons/
         DESTINATION "/usr/share/icons/")
