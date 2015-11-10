@@ -63,6 +63,9 @@ void LAStoreBridge::onJobListChanged() {
     }
     this->jobs = QList<Job*>();
 
+    this->installingApps.clear();
+    this->hasInstallingAppsChanged = true;
+
     std::transform(paths.constBegin(), paths.constEnd(), std::back_inserter(this->jobs),
                    [this](QString path) {
                        auto job = new Job("system", "com.deepin.lastore", path, this);
@@ -107,6 +110,10 @@ void LAStoreBridge::onJobInfoUpdated(Job *job) {
         this->jobsInfo[i] = this->processJob(job);
         this->syncProgressButton(this->jobsInfo[i], this->progressButtons[i]);
         emit this->jobsInfoUpdated();
+        if (this->hasInstallingAppsChanged) {
+            emit this->installingAppsChanged();
+            this->hasInstallingAppsChanged = false;
+        }
     }
 }
 
@@ -176,7 +183,8 @@ QImage LAStoreBridge::renderOverallProgressButton() {
 QVariantMap LAStoreBridge::processJob(Job* job) {
     QVariantMap each;
     auto progress = job->progress().Value<0>();
-    each.insert("packageId", job->packageId().Value<0>());
+    const auto packageId = job->packageId().Value<0>();
+    each.insert("packageId", packageId);
     auto type = job->type().Value<0>();
     each.insert("type", type);
     progress /= 2.0;
@@ -190,6 +198,19 @@ QVariantMap LAStoreBridge::processJob(Job* job) {
     each.insert("status", status);
     QString id = job->id().Value<0>();
     each.insert("id", id);
+
+    if ((type == "install" || type == "download") &&
+        status != "failed") {
+        if (!this->installingApps.contains(packageId)) {
+            this->installingApps.append(packageId);
+            this->hasInstallingAppsChanged = true;
+        }
+    } else {
+        if (this->installingApps.contains(packageId)) {
+            this->installingApps.removeOne(packageId);
+            this->hasInstallingAppsChanged = true;
+        }
+    }
     return each;
 }
 
@@ -201,6 +222,10 @@ QVariantList LAStoreBridge::processJobs(QList<Job *> list) {
                    [this](Job* job) {
                        return this->processJob(job);
                    });
+    if (this->hasInstallingAppsChanged) {
+        emit this->installingAppsChanged();
+        this->hasInstallingAppsChanged = false;
+    }
     return result;
 }
 

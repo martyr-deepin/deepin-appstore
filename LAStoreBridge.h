@@ -18,6 +18,8 @@ class LAStoreBridge : public QObject {
                MEMBER architectures)
     Q_PROPERTY(QStringList updatableApps
                MEMBER updatableApps)
+    Q_PROPERTY(QStringList installingApps
+               MEMBER installingApps)
 
 public:
     explicit LAStoreBridge(QObject* parent = nullptr);
@@ -44,6 +46,7 @@ signals:
     void updatableAppsChanged();
     void appInstalledAnswered(QString pkgId, bool installed);
     void downloadSizeAnswered(QString pkgId, long long size);
+    void installingAppsChanged();
 
 private:
     Manager* manager = nullptr;
@@ -63,6 +66,8 @@ private:
     QVariantList processJobs(QList<Job *> list);
     QStringList architectures;
     QStringList updatableApps;
+    QStringList installingApps;
+    bool hasInstallingAppsChanged = true;
 };
 
 
