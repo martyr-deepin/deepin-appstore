@@ -1,5 +1,9 @@
 
 #define QT_NO_KEYWORDS
+    // for opening .desktop files
+    #include <gio/gio.h>
+    #include <gio/gdesktopappinfo.h>
+
     // for locales
     #include <glib.h>
     #include <glib/gi18n.h>
@@ -176,8 +180,18 @@ void Bridge::openDesktopFile(QString path) {
                                               "Launch");
     msg << path;
 
-    connection.asyncCall(msg);
-    return;
+    const auto call = connection.asyncCall(msg);
+    QDBusPendingReply<> reply(call);
+    reply.waitForFinished();
+    if (reply.isError()) {
+        qDebug() << reply.error();
+        // use fallback method to call
+        auto stdPath = path.toStdString();
+        const char* cPath = stdPath.c_str();
+        GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
+        g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
+        g_object_unref(appInfo);
+    }
 }
 
 void Bridge::showAboutWindow() {
