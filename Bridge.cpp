@@ -1,4 +1,4 @@
-
+#include "common.h"
 #define QT_NO_KEYWORDS
     // for opening .desktop files
     #include <gio/gio.h>
@@ -29,7 +29,6 @@
 Bridge::Bridge(QObject *parent) : QObject(parent) {
     this->lastore = new LAStoreBridge(this);
     this->menuManager = new DBusMenuManager(this);
-    this->registerMenu();
 
     // bind window state change
     auto mainWin = this->getMainWindow();
@@ -40,10 +39,7 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
 }
 
 Bridge::~Bridge() {
-    if (this->m_menu) {
-        delete this->m_menu;
-        this->m_menu = nullptr;
-    }
+    this->unregisterMenu();
     if (this->lastore) {
         delete this->lastore;
         this->lastore = nullptr;
@@ -120,37 +116,52 @@ MainWindow* Bridge::getMainWindow() {
 }
 
 // Window Menu
-void Bridge::registerMenu() {
-    auto pendingReply = this->menuManager->RegisterMenu();
-    pendingReply.waitForFinished();
-    if (pendingReply.isValid()) {
-        QDBusObjectPath path = pendingReply.reply().arguments()[0].value<QDBusObjectPath>();
-        QString pathStr = path.path();
-        if (this->m_menu) {
-            delete this->m_menu;
-            this->m_menu = nullptr;
-        }
-        this->m_menu = new DBusMenu(pathStr, this);
-        connect(this->m_menu, &DBusMenu::MenuUnregistered,
-                this, &Bridge::onMenuUnregistered);
-
-        connect(this->m_menu, &DBusMenu::ItemInvoked,
-                this, &Bridge::onItemInvoked);
-    } else {
-        qDebug() << pendingReply.error().message();
+void Bridge::unregisterMenu() {
+    if (this->menuPath.size()) {
+        this->menuManager->UnregisterMenu(this->menuPath);
     }
 }
 
 void Bridge::onMenuUnregistered() {
-    qDebug() << "menu unregistered";
-    this->registerMenu();
+    if (this->menu) {
+        delete this->menu;
+        this->menu = nullptr;
+    }
+    if (this->menuPath.size()) {
+        this->menuPath = "";
+    }
 }
 
 void Bridge::showMenu(QString content) {
-    this->m_menu->ShowMenu(content);
+    if (this->menuPath.size()) {
+        qWarning() << "Another menu is active";
+        return;
+    }
+    const auto pendingReply = this->menuManager->RegisterMenu();
+    const auto watcher = new QDBusPendingCallWatcher(pendingReply, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished,
+            [this, watcher, content](QDBusPendingCallWatcher* call) {
+                QDBusPendingReply<QDBusObjectPath> reply = *call;
+                if (reply.isError()) {
+                    auto error = reply.error();
+                    qWarning() << error.name() << error.message();
+                } else {
+                    this->menuPath = reply.argumentAt<0>().path();
+                    this->menu = new DBusMenu(this->menuPath, this);
+                    connect(this->menu, &DBusMenu::MenuUnregistered,
+                            this, &Bridge::onMenuUnregistered);
+
+                    connect(this->menu, &DBusMenu::ItemInvoked,
+                            this, &Bridge::onItemInvoked);
+                    this->menu->ShowMenu(content);
+                }
+
+                delete watcher;
+            }
+    );
 }
 
-void Bridge::onItemInvoked(const QString & id, bool checked) {
+void Bridge::onItemInvoked(const QString& id, bool UNUSED(checked)) {
     if (id == "exit") {
         qApp->exit(0);
     } else if (id == "help") {

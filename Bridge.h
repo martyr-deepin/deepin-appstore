@@ -56,10 +56,11 @@ private:
 
     // Menu
     DBusMenuManager* menuManager = nullptr;
-    DBusMenu* m_menu = nullptr;
-    void onItemInvoked(const QString & id, bool checked);
-    void registerMenu();
+    DBusMenu* menu = nullptr;
+    void unregisterMenu();
     void onMenuUnregistered();
+    QString menuPath;
+    void onItemInvoked(const QString& id, bool checked);
 
     LAStoreBridge* lastore = nullptr;
 };

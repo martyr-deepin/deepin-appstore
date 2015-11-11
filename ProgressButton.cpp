@@ -1,3 +1,4 @@
+#include "common.h"
 #include <QDebug>
 #include <QPainter>
 
@@ -30,7 +31,7 @@ void ProgressButton::setBody(ProgressBody type) {
 }
 
 
-void ProgressButton::paintEvent(QPaintEvent* event) {
+void ProgressButton::paintEvent(QPaintEvent* UNUSED(event)) {
     if (!this->painter) {
         painter = new QPainter();
     }
@@ -108,7 +109,7 @@ void ProgressButton::paintEvent(QPaintEvent* event) {
     painter->end();
 }
 
-void ProgressButton::enterEvent(QEvent *qEvent) {
+void ProgressButton::enterEvent(QEvent* UNUSED(qEvent)) {
     qDebug() << "ProgressButton::enterEvent received";
     if (!this->isHover) {
         this->isHover = true;
@@ -116,7 +117,7 @@ void ProgressButton::enterEvent(QEvent *qEvent) {
     }
 }
 
-void ProgressButton::leaveEvent(QEvent *qEvent) {
+void ProgressButton::leaveEvent(QEvent* UNUSED(qEvent)) {
     qDebug() << "ProgressButton::leaveEvent received";
     if (this->isHover) {
         this->isHover = false;

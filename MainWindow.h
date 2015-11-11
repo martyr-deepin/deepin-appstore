@@ -40,9 +40,9 @@ signals:
     void windowStateChanged(Qt::WindowState state);
 
 private:
-    unsigned int resizeHandleWidth = 5;
+    const int resizeHandleWidth = 5;
 
-    QHBoxLayout *horizontalLayout = nullptr;
+    QHBoxLayout* horizontalLayout = nullptr;
     WebView* webView = nullptr;
     QGraphicsDropShadowEffect* shadowEffect = nullptr;
 

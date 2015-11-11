@@ -1,13 +1,14 @@
+#include "common.h"
 #include <QtGlobal>
 #include <QFile>
 #include <QTimer>
 #include "LocalFileSystemReply.h"
 
 
-LocalFileSystemReply::LocalFileSystemReply(QNetworkAccessManager::Operation op,
+LocalFileSystemReply::LocalFileSystemReply(QNetworkAccessManager::Operation UNUSED(op),
                                            const QNetworkRequest& req,
                                            QObject* parent,
-                                           QIODevice* outgoingData) : QNetworkReply(parent) {
+                                           QIODevice* UNUSED(outgoingData)) : QNetworkReply(parent) {
     auto urlStr = req.url().path();
     if (urlStr == "/") {
         urlStr = "/index.html";
@@ -80,7 +81,7 @@ qint64 LocalFileSystemReply::bytesAvailable() const {
 }
 
 
-qint64 LocalFileSystemReply::writeData(const char *data, qint64 len) {
+qint64 LocalFileSystemReply::writeData(const char* UNUSED(data), qint64 UNUSED(len)) {
     throw "Not Implemented(writeData)";
 }
 
@@ -96,17 +97,17 @@ bool LocalFileSystemReply::isSequential() const {
     return true;
 }
 
-void LocalFileSystemReply::sslConfigurationImplementation(QSslConfiguration &configuration) const {
+void LocalFileSystemReply::sslConfigurationImplementation(QSslConfiguration& UNUSED(configuration)) const {
     qWarning() << "sslConfigurationImplementation";
     throw "Not Implemented";
 }
 
-void LocalFileSystemReply::setSslConfigurationImplementation(const QSslConfiguration &configuration) {
+void LocalFileSystemReply::setSslConfigurationImplementation(const QSslConfiguration& UNUSED(configuration)) {
     qWarning() << "setSslConfigurationImplementation";
     throw "Not Implemented";
 }
 
-void LocalFileSystemReply::ignoreSslErrorsImplementation(const QList<QSslError> &list) {
+void LocalFileSystemReply::ignoreSslErrorsImplementation(const QList<QSslError>& UNUSED(list)) {
     qWarning() << "ignoreSslErrorsImplementation";
     throw "Not Implemented";
 }

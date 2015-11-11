@@ -1,3 +1,4 @@
+#include "common.h"
 #include <QDebug>
 #include <QIcon>
 #include <QHBoxLayout>
@@ -122,7 +123,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event) {
 
 }
 
-void MainWindow::mouseReleaseEvent(QMouseEvent* event) {
+void MainWindow::mouseReleaseEvent(QMouseEvent* UNUSED(event)) {
     if (resizingCornerEdge) {
         resizingCornerEdge = CornerEdge::Nil;
         recalcResizingInProgress = false;
