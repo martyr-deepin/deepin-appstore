@@ -15,18 +15,18 @@ public:
 
     void close() Q_DECL_OVERRIDE;
     bool isSequential() const Q_DECL_OVERRIDE;
-    qint64 bytesAvailable() const;
+    qint64 bytesAvailable() const Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
-    void abort();
-    void ignoreSslErrors();
+    void abort() Q_DECL_OVERRIDE;
+    void ignoreSslErrors() Q_DECL_OVERRIDE;
 
 protected:
-    qint64 readData(char *data, qint64 maxlen);
+    qint64 readData(char *data, qint64 maxlen) Q_DECL_OVERRIDE;
     qint64 writeData(const char *data, qint64 len) Q_DECL_OVERRIDE;
-    void sslConfigurationImplementation(QSslConfiguration &) const;
-    void setSslConfigurationImplementation(const QSslConfiguration &);
-    void ignoreSslErrorsImplementation(const QList<QSslError> &);
+    void sslConfigurationImplementation(QSslConfiguration &) const Q_DECL_OVERRIDE;
+    void setSslConfigurationImplementation(const QSslConfiguration &) Q_DECL_OVERRIDE;
+    void ignoreSslErrorsImplementation(const QList<QSslError> &) Q_DECL_OVERRIDE;
 
 private:
     QByteArray content;

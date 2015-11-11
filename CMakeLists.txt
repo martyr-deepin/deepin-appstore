@@ -47,6 +47,13 @@ set(LINK_LIBS
         ${GIO_LIBRARIES}
         dui)
 
+exec_program(
+        "git"
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ARGS "describe"
+        OUTPUT_VARIABLE VERSION)
+add_definitions(-DGIT_DESCRIBE_VERSION="${VERSION}")
+
 # Link against either QtWebKit or QtWebEngine
 #find_package(Qt5WebEngineWidgets)
 if(Qt5WebEngineWidgets_FOUND)
