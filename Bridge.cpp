@@ -208,6 +208,9 @@ void Bridge::openDesktopFile(QString path) {
 void Bridge::showAboutWindow() {
     if (!this->aboutWindow) {
         this->aboutWindow = new AboutWindow(this->getMainWindow());
+        connect(this->aboutWindow, &QWidget::destroyed, [this](QObject* UNUSED(obj)) {
+            this->aboutWindow = nullptr;
+        });
         this->aboutWindow->setContent(this->aboutContent);
     }
     this->aboutWindow->show();

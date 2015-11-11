@@ -5,8 +5,11 @@
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
 //    this->setWindowFlags(Qt::FramelessWindowHint);
     this->setAutoFillBackground(true);
+    this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(400, 340);
     this->content = new QTextBrowser(this);
+    this->content->setTextInteractionFlags(Qt::LinksAccessibleByMouse |
+                                           Qt::LinksAccessibleByKeyboard);
     this->content->setFixedSize(400, 340);
 
     // handle anchors
