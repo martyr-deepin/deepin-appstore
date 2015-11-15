@@ -247,7 +247,9 @@ void LAStoreBridge::launchApp(QString pkgId) {
 }
 
 void LAStoreBridge::askDownloadSize(QString pkgId) {
-    auto reply = this->manager->PackageDownloadSize(pkgId);
+    QList<QString> pkgs;
+    pkgs << pkgId;
+    auto reply = this->manager->PackagesDownloadSize(pkgs);
     auto watcher = new QDBusPendingCallWatcher(reply, this);
     connect(watcher, &QDBusPendingCallWatcher::finished, [this, pkgId, watcher](QDBusPendingCallWatcher* call) {
         QDBusPendingReply<long long> reply = *call;
