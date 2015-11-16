@@ -47,11 +47,17 @@ set(LINK_LIBS
         ${GIO_LIBRARIES}
         dui)
 
-exec_program(
-        "git"
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ARGS "describe"
-        OUTPUT_VARIABLE VERSION)
+execute_process(
+        COMMAND git describe
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        RESULT_VARIABLE RESULT
+        OUTPUT_VARIABLE VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+if (VERSION STREQUAL "")
+    message(FATAL_ERROR "Cannot find version by git, abort." )
+endif()
+
 add_definitions(-DGIT_DESCRIBE_VERSION="${VERSION}")
 
 # Link against either QtWebKit or QtWebEngine
