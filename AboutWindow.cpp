@@ -4,6 +4,7 @@
 
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
 //    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setModal(true);
     this->setAutoFillBackground(true);
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(400, 340);
