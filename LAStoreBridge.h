@@ -1,19 +1,21 @@
-
 #ifndef SHELL_LASTOREBRIDGE_H
 #define SHELL_LASTOREBRIDGE_H
 
 #include <lastore-daemon.h>
-#include "ProgressButton.h"
 
 using namespace dbus::common;
 using namespace dbus::objects;
 using namespace dbus::objects::com::deepin::lastore;
 
+struct JobCombo {
+    Job* object;
+    QVariantMap info;
+};
 
 class LAStoreBridge : public QObject {
     Q_OBJECT
-    Q_PROPERTY(QVariantList jobsInfo
-               MEMBER jobsInfo)
+    Q_PROPERTY(QStringList jobPaths
+               MEMBER jobPaths)
     Q_PROPERTY(QStringList architectures
                MEMBER architectures)
     Q_PROPERTY(QStringList updatableApps
@@ -26,48 +28,43 @@ public:
     ~LAStoreBridge();
 
 public slots:
-    Q_SLOT void installApp(QString appId);
+    Q_SLOT void installApp(const QString& appId);
     void onJobListChanged();
-    Q_SLOT void askAppInstalled(QString pkgId);
-    QImage renderProgressButton(const int i);
-    QImage renderOverallProgressButton();
-    Q_SLOT void launchApp(QString pkgId);
-    Q_SLOT void askDownloadSize(QString pkgId);
-    Q_SLOT void updateApp(QString appId);
+    Q_SLOT void askAppInstalled(const QString& pkgId);
+    Q_SLOT void launchApp(const QString& pkgId);
+    Q_SLOT void askDownloadSize(const QString& pkgId);
+    Q_SLOT void updateApp(const QString& appId);
     Q_SLOT void fetchUpdatableApps();
-    Q_SLOT void startJob(QString jobId);
-    Q_SLOT void pauseJob(QString jobId);
-    Q_SLOT void cancelJob(QString jobId);
+    Q_SLOT void startJob(const QString& jobId);
+    Q_SLOT void pauseJob(const QString& jobId);
+    Q_SLOT void cancelJob(const QString& jobId);
+    Q_SLOT void askJobInfo(const QString& jobPath);
+    Q_SLOT void askOverallProgress();
 
 signals:
-    void jobsInfoUpdated(); // let the webpage know there's update available.
-    void progressButtonMouseEnter(int i);
-    void progressButtonMouseLeave(int i);
+    void jobPathsChanged();
+
     void updatableAppsChanged();
     void appInstalledAnswered(QString pkgId, bool installed);
     void downloadSizeAnswered(QString pkgId, long long size);
     void installingAppsChanged();
+    void jobInfoAnswered(QVariantMap info);
+    void overallProgressChanged(double progress);
 
 private:
+    QStringList jobPaths;
     Manager* manager = nullptr;
-    QList<Job*> jobs;
-    bool rebuildingJobs = false;
-    QVariantList jobsInfo;
-    ProgressButton* overallProgressButton = nullptr;
-    QList<ProgressButton*> progressButtons;
 
-    void onJobInfoUpdated(Job*); //
-    void syncProgressButton(QVariant jobInfo, ProgressButton* button);
+    QHash<QString, JobCombo*> jobDict;  // job path to struct[Job, JobInfo]
+    void updateJobDict();
 
-    void onProgressButtonMouseEnter(int i);
-    void onProgressButtonMouseLeave(int i);
-
-    QVariantMap processJob(Job* job);
-    QVariantList processJobs(QList<Job *> list);
     QStringList architectures;
     QStringList updatableApps;
+    QSet<QString> installingAppsSet;
     QStringList installingApps;
-    bool hasInstallingAppsChanged = true;
+    double overallProgress = 0.0;
+
+    void aggregateJobInfo();
 };
 
 

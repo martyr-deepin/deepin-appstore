@@ -29,7 +29,6 @@ set(SOURCE_FILES main.cpp main.h
                  MainWindow.cpp MainWindow.h
                  Shell.cpp Shell.h
                  Bridge.cpp Bridge.h
-                 ProgressButton.cpp ProgressButton.h
                  FilterMouseMove.cpp FilterMouseMove.h
                  AboutWindow.cpp AboutWindow.h
                  DBusInterface.cpp DBusInterface.h)

@@ -1,8 +1,5 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource>
-        <file>res/pause.svg</file>
-        <file>res/start.svg</file>
-        <file>res/waiting.svg</file>
         <file>res/logo.png</file>
         <file>res/deepin-appstore.png</file>
     </qresource>
