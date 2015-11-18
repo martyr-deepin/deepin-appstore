@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 project(Shell)
+set(SHELL_VERSION 3.9.2pre)
 #set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
@@ -47,18 +48,7 @@ set(LINK_LIBS
         ${GIO_LIBRARIES}
         dui)
 
-execute_process(
-        COMMAND git describe
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        RESULT_VARIABLE RESULT
-        OUTPUT_VARIABLE VERSION
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-if (VERSION STREQUAL "")
-    message(FATAL_ERROR "Cannot find version by git, abort." )
-endif()
-
-add_definitions(-DGIT_DESCRIBE_VERSION="${VERSION}")
+add_definitions(-DSHELL_VERSION="${SHELL_VERSION}")
 
 # Link against either QtWebKit or QtWebEngine
 #find_package(Qt5WebEngineWidgets)

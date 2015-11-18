@@ -4,15 +4,11 @@
 #include "main.h"
 #include "Shell.h"
 
-#ifndef GIT_DESCRIBE_VERSION
-    #define GIT_DESCRIBE_VERSION NA
-#endif
-
 bool restartQtLoop = true;
 
 int main(int argc, char *argv[]) {
     Shell::setApplicationName("Deepin Store");
-    Shell::setApplicationVersion(GIT_DESCRIBE_VERSION);
+    Shell::setApplicationVersion(SHELL_VERSION);
     Shell::setOrganizationDomain("deepin.org");
     Shell::setOrganizationName("Deepin");
 
