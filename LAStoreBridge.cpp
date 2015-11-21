@@ -22,6 +22,9 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
 
     connect(this, &LAStoreBridge::jobPathsChanged,
             this, &LAStoreBridge::updateJobDict);
+
+    const auto bridge = static_cast<Bridge *>(this->parent());
+    this->manager->SetRegion(bridge->getAppRegion());
 }
 
 LAStoreBridge::~LAStoreBridge() {
