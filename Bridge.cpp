@@ -73,10 +73,13 @@ QStringList Bridge::getLocales() {
     return result;
 }
 
-void Bridge::showTooltip(QString text, int x, int y) {
-    MainWindow* mainWindow = this->getMainWindow();
-    QPoint globalPos = mainWindow->mapToGlobal(QPoint(x, y));
-    static_cast<Shell*>(qApp)->showTooltip(text, globalPos);
+void Bridge::showTooltip(const QString& text,
+                         const int& x, const int& y,
+                         const int& w, const int& h) {
+    const auto mainWindow = this->getMainWindow();
+    const auto globalPos = mainWindow->mapToGlobal(QPoint(x, y));
+    static_cast<Shell*>(qApp)->showTooltip(text,
+                                           QRect(globalPos.x(), globalPos.y(), w, h));
 }
 
 QString Bridge::getAppRegion() {

@@ -4,11 +4,11 @@
 #include <QCommandLineParser>
 #include <QSettings>
 #include <QProcess>
-#include <libdui/darrowrectangle.h>
 #include "main.h"
 #include "Shell.h"
 #include "MainWindow.h"
 #include "DBusInterface.h"
+#include "ToolTip.h"
 
 
 Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
@@ -29,9 +29,9 @@ Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
         if (strcmp("ServiceExist", name) == 0) {
             const auto connection = QDBusConnection::sessionBus();
             const auto msg = QDBusMessage::createMethodCall("com.deepin.dstoreclient",
-                                                      "/",
-                                                      "com.deepin.dstoreclient",
-                                                      "raise");
+                                                            "/",
+                                                            "com.deepin.dstoreclient",
+                                                            "raise");
             connection.call(msg);
             qDebug() << "There is already a process running";
             ::exit(0);
@@ -70,39 +70,22 @@ Shell::~Shell() {
     }
 }
 
-#define COLLPASED_NAVITEM_WIDTH 48
-
-void Shell::showTooltip(QString text, QPoint globalPos) {
+void Shell::showTooltip(const QString& text, const QRect& globalGeometry) {
     if (this->tooltip) {
-        delete tooltip;
-        tooltip = nullptr;
+        delete this->tooltip;
+        this->tooltip = nullptr;
     }
     if (text.isEmpty()) {
         return;
     }
-    this->tooltip = new DUI::DArrowRectangle(DUI::DArrowRectangle::ArrowRight);
-    QLabel* content = new QLabel(text);
-    content->setStyleSheet("QLabel {color: white}");
-    QFont font("Arial", 12);
-    content->setFont(font);
-
-    QFontMetrics fm(font);
-    auto width = fm.width(text);
-    content->setFixedSize(width, fm.height());
-    this->tooltip->setContent(content);
-    this->tooltip->setArrowWidth(fm.height() + this->tooltip->margin());
-    if (globalPos.x() <= width) {
-        // show at right
-        this->tooltip->setArrowDirection(DUI::DArrowRectangle::ArrowLeft);
-        this->tooltip->show(globalPos.x() + COLLPASED_NAVITEM_WIDTH, globalPos.y());
-    } else {
-        // show at left
-        this->tooltip->setArrowDirection(DUI::DArrowRectangle::ArrowRight);
-        this->tooltip->show(globalPos.x(), globalPos.y());
-    }
+    this->tooltip = new ToolTip();
+    connect(this->tooltip, &ToolTip::destroyed, [this]() {
+        this->tooltip = nullptr;
+    });
+    this->tooltip->show(text, globalGeometry);
 }
 
-void Shell::setTooltipVisible(bool visible) {
+void Shell::setTooltipVisible(const bool& visible) {
     if (!this->tooltip) {
         return;
     }

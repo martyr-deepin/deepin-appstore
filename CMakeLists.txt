@@ -18,7 +18,6 @@ find_package(PkgConfig REQUIRED)
 
 pkg_search_module(GLIB REQUIRED glib-2.0)
 pkg_search_module(X11 REQUIRED x11)
-pkg_search_module(DUI REQUIRED dui)
 pkg_search_module(GIO REQUIRED gio-unix-2.0)
 
 include_directories(AFTER ${GLIB_INCLUDE_DIRS})
@@ -33,6 +32,7 @@ set(SOURCE_FILES main.cpp main.h
                  AboutWindow.cpp AboutWindow.h
                  DBusInterface.cpp DBusInterface.h)
 
+set(TOOLTIP_FILES ToolTip.cpp)
 set(DBUSMENU_FILES dbusmenu.cpp dbusmenu.h dbusmenumanager.cpp dbusmenumanager.h)
 set(DBUS_BACKEND_FILES LAStoreBridge.cpp LAStoreBridge.h)
 
@@ -45,7 +45,7 @@ set(LINK_LIBS
         ${GLIB_LIBRARIES}
         ${X11_LIBRARIES}
         ${GIO_LIBRARIES}
-        dui)
+)
 
 add_definitions(-DSHELL_VERSION="${SHELL_VERSION}")
 

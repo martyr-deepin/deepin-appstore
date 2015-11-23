@@ -10,9 +10,7 @@ class QSettings;
 class DBusInterface;
 class MainWindow;
 
-namespace DUI {
-    class DArrowRectangle;
-}
+class ToolTip;
 
 class Shell : public QApplication {
     Q_OBJECT
@@ -20,8 +18,9 @@ public:
     Shell(int& argc, char** argv);
     ~Shell();
 
-    void showTooltip(QString text, QPoint globalPos);
-    void setTooltipVisible(bool visible);
+    void showTooltip(const QString& text,
+                     const QRect& globalGeometry);
+    void setTooltipVisible(const bool& visible);
 
     QCommandLineParser* argsParser = nullptr;
     QString basePath;
@@ -36,7 +35,7 @@ signals:
     void applicationCacheFinished();
 
 private:
-    DUI::DArrowRectangle* tooltip = nullptr;
+    ToolTip* tooltip = nullptr;
     DBusInterface* dbusInterface = nullptr;
     void parseOptions();
     void onApplicationCacheFinished();

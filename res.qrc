@@ -2,5 +2,7 @@
     <qresource>
         <file>res/logo.png</file>
         <file>res/deepin-appstore.png</file>
+        <file>res/tooltip_left.png</file>
+        <file>res/tooltip_right.png</file>
     </qresource>
 </RCC>
