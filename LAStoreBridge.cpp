@@ -79,6 +79,10 @@ void processJob(Job* job, QVariantMap* info) {
     const auto type = job->type().Value<0>();
     info->insert("type", type);
 
+    if (type == "download") {
+        info->insert("speed", job->speed().Value<0>());
+    }
+
     // progress
     auto progress = job->progress().Value<0>();
     if (type == "download" || type == "install") {
@@ -137,6 +141,7 @@ void LAStoreBridge::updateJobDict() {
             connect(job, &Job::progressChanged, onPropertiesChanged);
             connect(job, &Job::statusChanged, onPropertiesChanged);
             connect(job, &Job::typeChanged, onPropertiesChanged);
+            connect(job, &Job::speedChanged, onPropertiesChanged);
             this->jobDict.insert(path, toInsert);
         }
     }
