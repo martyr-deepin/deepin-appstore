@@ -35,6 +35,7 @@ public:
     void resizeContent(int w, int h);
     void setMinimumContentSize(int w, int h);
     void setUrl(const QUrl& url);
+    void updateCursor(CornerEdge);
 
 signals:
     void windowStateChanged(Qt::WindowState state);
@@ -52,7 +53,6 @@ private:
     QPoint beforeResizingGlobalPos;
 
     CornerEdge getCornerEdge(int, int);
-    void updateCursor(CornerEdge);
 
 protected:
     void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;

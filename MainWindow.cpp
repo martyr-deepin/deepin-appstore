@@ -44,21 +44,21 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
     this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::FramelessWindowHint);
 
-    webView = new WebView(this);
-    webView->setObjectName("webView");
+    this->webView = new WebView(this);
+    this->webView->setObjectName("webView");
 
     // Leave event will cause problems with <horizontal-resizer>, eat leave events!
-    auto filter = new FilterMouseMove(this);
-    webView->installEventFilter(filter);
+    const auto filter = new FilterMouseMove(this);
+    this->webView->installEventFilter(filter);
 
-    horizontalLayout = new QHBoxLayout(this);
-    horizontalLayout->setSpacing(0);
-    horizontalLayout->setObjectName("horizontalLayout");
-    horizontalLayout->setContentsMargins(resizeHandleWidth,
-                                         resizeHandleWidth,
-                                         resizeHandleWidth,
-                                         resizeHandleWidth);
-    horizontalLayout->addWidget(webView);
+    this->horizontalLayout = new QHBoxLayout(this);
+    this->horizontalLayout->setSpacing(0);
+    this->horizontalLayout->setObjectName("horizontalLayout");
+    this->horizontalLayout->setContentsMargins(this->resizeHandleWidth,
+                                               this->resizeHandleWidth,
+                                               this->resizeHandleWidth,
+                                               this->resizeHandleWidth);
+    this->horizontalLayout->addWidget(this->webView);
 }
 
 void MainWindow::polish() {
@@ -90,7 +90,7 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event) {
 
     CornerEdge ce = getCornerEdge(x, y);
     if (!resizingCornerEdge) {
-        updateCursor(ce);
+        this->updateCursor(ce);
     }
     if (resizingCornerEdge && !recalcResizingInProgress) {
         recalcResizingInProgress = true;
@@ -127,6 +127,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent* UNUSED(event)) {
     if (resizingCornerEdge) {
         resizingCornerEdge = CornerEdge::Nil;
         recalcResizingInProgress = false;
+        this->updateCursor(resizingCornerEdge);
         qDebug() << "mouse resize ends";
     }
 }
@@ -155,28 +156,28 @@ CornerEdge MainWindow::getCornerEdge(int x, int y) {
 
 void MainWindow::updateCursor(CornerEdge ce) {
     switch (ce) {
-        case (CornerEdge::Nil): {
-            unsetCursor();
+        case CornerEdge::Nil: {
+            this->unsetCursor();
             break;
         }
         case CornerEdge::Top:
         case CornerEdge::Bottom: {
-            setCursor(Qt::SizeVerCursor);
+            this->setCursor(Qt::SizeVerCursor);
             break;
         }
         case CornerEdge::Left:
         case CornerEdge::Right: {
-            setCursor(Qt::SizeHorCursor);
+            this->setCursor(Qt::SizeHorCursor);
             break;
         }
         case CornerEdge::TopLeft:
         case CornerEdge::BottomRight: {
-            setCursor(Qt::SizeFDiagCursor);
+            this->setCursor(Qt::SizeFDiagCursor);
             break;
         }
         case CornerEdge::TopRight:
         case CornerEdge::BottomLeft: {
-            setCursor(Qt::SizeBDiagCursor);
+            this->setCursor(Qt::SizeBDiagCursor);
             break;
         };
     }

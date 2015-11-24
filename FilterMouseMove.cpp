@@ -1,7 +1,7 @@
-
 #include <QEvent>
 #include "Shell.h"
 #include "FilterMouseMove.h"
+#include "MainWindow.h"
 
 FilterMouseMove::FilterMouseMove(QObject *object) : QObject(object) {
 
@@ -18,7 +18,9 @@ bool FilterMouseMove::eventFilter(QObject *obj, QEvent *event) {
             return true;
         }
         case QEvent::Enter: {
-            static_cast<Shell* >(qApp)->setTooltipVisible(true);
+            static_cast<Shell*>(qApp)->setTooltipVisible(true);
+            const auto mainWindow = static_cast<MainWindow*>(this->parent());
+            mainWindow->updateCursor(CornerEdge::Nil);
             return true;
         }
         default: {
