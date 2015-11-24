@@ -113,7 +113,6 @@ void processJob(Job* job, QVariantMap* info) {
         (type == "download" && status == "paused")) {
         startable = true;
     }
-    assert(!(type == "install" && status == "paused"));
     info->insert("startable", startable);
     assert(!(startable && pausable));
 }
