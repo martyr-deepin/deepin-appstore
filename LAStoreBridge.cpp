@@ -100,7 +100,8 @@ void processJob(Job* job, QVariantMap* info) {
     // ========= is pausable? =========
     auto pausable = false;
     if (type == "download") {
-        pausable = (status != "failed");
+        pausable = (status == "ready" ||
+                    status == "running");
     } else if (type == "install") {
         pausable = (status == "ready");
     }
@@ -110,7 +111,8 @@ void processJob(Job* job, QVariantMap* info) {
     auto startable = false;
     if ((type == "download" && status == "failed") ||
         (type == "install" && status == "failed") ||
-        (type == "download" && status == "paused")) {
+        (type == "download" && status == "paused") ||
+        (type == "install" && status == "paused")) {
         startable = true;
     }
     info->insert("startable", startable);
