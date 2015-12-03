@@ -68,7 +68,7 @@ void MainWindow::polish() {
         this->shadowEffect->setBlurRadius(resizeHandleWidth);
         this->shadowEffect->setColor(Qt::darkGray);
         this->shadowEffect->setOffset(0, 0);
-        this->webView->setGraphicsEffect(this->shadowEffect);
+        this->setGraphicsEffect(this->shadowEffect);
     }
 }
 
