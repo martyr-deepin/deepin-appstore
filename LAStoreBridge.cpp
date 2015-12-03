@@ -266,6 +266,10 @@ void LAStoreBridge::aggregateJobInfo() {
     QSet<QString> installingAppsSet;
     double overallProgress = 0;
     foreach(const auto jobCombo, this->jobDict) {
+        if (!jobCombo) {
+            // invalid ones, entries in debug page, for instance
+            continue;
+        }
         // find out which jobs are considered installing jobs
         const auto type = jobCombo->info["type"].toString();
         if (type == "install" || type == "download") {
