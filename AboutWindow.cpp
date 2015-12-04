@@ -1,26 +1,38 @@
+#include <QDebug>
+#include <cassert>
 #include <QDesktopServices>
-#include <QTextBrowser>
-#include <QHBoxLayout>
-#include "AboutWindow.h"
 
-AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
-//    this->setWindowFlags(Qt::FramelessWindowHint);
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QGraphicsDropShadowEffect>
+#include <QPainter>
+#include "AboutWindow.h"
+#include "TextBrowser.h"
+
+AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent),
+                                            layoutMargin(25),
+                                            shadowRadius(25),
+                                            borderRadius(3),
+                                            contentWidth(350), contentHeight(340) {
     this->setModal(true);
     this->setAutoFillBackground(true);
+    this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setFixedSize(400, 340);
-    this->setStyleSheet("AboutWindow { background: white }");
+    this->setAttribute(Qt::WA_TranslucentBackground, true);
+    this->setFixedSize(this->contentWidth + 2 * this->layoutMargin,
+                       this->contentHeight + 2 * this->layoutMargin);
+    this->setStyleSheet("AboutWindow { background: transparent }");
 
-    auto horizontalLayout = new QHBoxLayout(this);
-    this->content = new QTextBrowser(this);
+    const auto horizontalLayout = new QHBoxLayout(this);
+    this->content = new TextBrowser(this);
     this->content->setTextInteractionFlags(Qt::LinksAccessibleByMouse |
                                            Qt::LinksAccessibleByKeyboard);
-    this->content->setFixedSize(350, 340);
+    this->content->setFixedSize(this->contentWidth, this->contentHeight);
     this->content->setStyleSheet("QTextBrowser { border: 0 }");
 
     // handle anchors
     this->content->setOpenLinks(false);
-    connect(this->content, &QTextBrowser::anchorClicked, [](const QUrl& url) {
+    connect(this->content, &TextBrowser::anchorClicked, [](const QUrl& url) {
         if (url.url().startsWith("http://") ||
             url.url().startsWith("https://")) {
             QDesktopServices::openUrl(url);
@@ -29,14 +41,41 @@ AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
 
     horizontalLayout->setSpacing(0);
     horizontalLayout->setObjectName("horizontalLayout");
-    horizontalLayout->setContentsMargins(25, 0, 25, 0);
+    horizontalLayout->setContentsMargins(this->layoutMargin,
+                                         this->layoutMargin,
+                                         this->layoutMargin,
+                                         this->layoutMargin);
     horizontalLayout->addWidget(this->content);
+
+    this->closeButton = new QLabel(this);
+    this->closeButton->setFixedSize(15, 15);
+    this->closeButton->move(this->layoutMargin + this->contentWidth - this->closeButton->width(),
+                            this->layoutMargin);
+    this->closeButton->setText("<a href='action:close'>X</a>");
+
+    connect(this->closeButton, &QLabel::linkActivated, [this](const QString& url) {
+        assert(url == "action:close");
+        this->close();
+    });
+    this->polish();
+
 }
 
-void AboutWindow::setContent(QString& html) {
+void AboutWindow::setContent(const QString& html) {
     this->content->setHtml(html);
 }
 
 AboutWindow::~AboutWindow() {
 
+}
+
+void AboutWindow::polish() {
+    // window shadow
+    if (!this->shadowEffect) {
+        this->shadowEffect = new QGraphicsDropShadowEffect(this);
+        this->shadowEffect->setBlurRadius(this->shadowRadius);
+        this->shadowEffect->setColor(Qt::darkGray);
+        this->shadowEffect->setOffset(0, 0);
+        this->content->setGraphicsEffect(this->shadowEffect);
+    }
 }
