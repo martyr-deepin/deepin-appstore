@@ -3,9 +3,9 @@
 #include <QDesktopServices>
 
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QGraphicsDropShadowEffect>
 #include <QPainter>
+#include <QPushButton>
 #include "AboutWindow.h"
 #include "TextBrowser.h"
 
@@ -47,14 +47,19 @@ AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent),
                                          this->layoutMargin);
     horizontalLayout->addWidget(this->content);
 
-    this->closeButton = new QLabel(this);
-    this->closeButton->setFixedSize(15, 15);
-    this->closeButton->move(this->layoutMargin + this->contentWidth - this->closeButton->width(),
-                            this->layoutMargin);
-    this->closeButton->setText("<a href='action:close'>X</a>");
+    const auto closeBtn = new QPushButton(this);
+    closeBtn->setCheckable(true);
+    closeBtn->setFixedSize(30, 30);
+    closeBtn->move(this->layoutMargin + this->contentWidth - closeBtn->width(),
+                   this->layoutMargin);
+    closeBtn->setStyleSheet(
+        "QPushButton { border: 0; background: url(':/res/close_small_normal.png'); }"
+        "QPushButton:hover { background: url(':/res/close_small_hover.png'); }"
+        "QPushButton:pressed { background: url(':/res/close_small_press.png'); }"
+    );
+    closeBtn->setFlat(true);
 
-    connect(this->closeButton, &QLabel::linkActivated, [this](const QString& url) {
-        assert(url == "action:close");
+    connect(closeBtn, &QPushButton::clicked, [this]() {
         this->close();
     });
     this->polish();

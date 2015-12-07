@@ -4,7 +4,6 @@
 
 #include <QDialog>
 class TextBrowser;
-class QLabel;
 class QGraphicsDropShadowEffect;
 
 class AboutWindow : public QDialog {
@@ -17,7 +16,6 @@ public:
     void setContent(const QString& html);
 private:
     TextBrowser* content = nullptr;
-    QLabel* closeButton = nullptr;
     QGraphicsDropShadowEffect* shadowEffect = nullptr;
     unsigned int layoutMargin = 0;
     unsigned int shadowRadius = 0;
