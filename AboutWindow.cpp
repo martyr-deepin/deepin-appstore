@@ -49,7 +49,7 @@ AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent),
 
     const auto closeBtn = new QPushButton(this);
     closeBtn->setCheckable(true);
-    closeBtn->setFixedSize(30, 30);
+    closeBtn->setFixedSize(25, 24);
     closeBtn->move(this->layoutMargin + this->contentWidth - closeBtn->width(),
                    this->layoutMargin);
     closeBtn->setStyleSheet(
