@@ -106,8 +106,8 @@ QString Bridge::getTimezoneName() {
     return timezoneName;
 }
 
-void Bridge::startMoving(int x, int y) {
-    this->getMainWindow()->startMoving(x, y);
+void Bridge::startMoving() {
+    this->getMainWindow()->startMoving();
 }
 
 

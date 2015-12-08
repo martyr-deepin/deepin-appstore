@@ -34,7 +34,7 @@ public slots:
     Q_INVOKABLE void showTooltip(const QString& text,
                                  const int& x, const int& y,
                                  const int& w, const int& h);
-    Q_INVOKABLE void startMoving(int x, int y);
+    Q_INVOKABLE void startMoving();
     Q_INVOKABLE void showMenu(QString content);
 
     Q_INVOKABLE void openExternalBrowser(QString url);

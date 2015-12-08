@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 project(Shell)
-set(SHELL_VERSION 3.9.6pre)
+set(SHELL_VERSION 3.9.6)
 #set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
@@ -25,6 +25,7 @@ include_directories(AFTER ${X11_INCLUDE_DIRS})
 include_directories(AFTER ${GIO_INCLUDE_DIRS})
 
 set(SOURCE_FILES main.cpp main.h
+                 StupidWindow.cpp StupidWindow.h
                  MainWindow.cpp MainWindow.h
                  Shell.cpp Shell.h
                  Bridge.cpp Bridge.h

@@ -71,11 +71,11 @@ void ToolTip::show(const QString& text, const QRect& activationGeometry) {
         this->arrowDirection = ArrowDirection::ArrowLeft;
         this->updateStyle();
         this->moveShow(activationGeometry.x() + activationGeometry.width() + 5,
-                       activationGeometry.center().y() - 8);
+                       activationGeometry.center().y() - 14);
     } else {
         this->arrowDirection = ArrowDirection::ArrowRight;
         this->updateStyle();
         this->moveShow(activationGeometry.x() - width,
-                       activationGeometry.center().y() - 8);
+                       activationGeometry.center().y() - 14);
     }
 }

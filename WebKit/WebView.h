@@ -13,10 +13,12 @@ public:
 
 protected:
     virtual void paintEvent(QPaintEvent*);
+    void resizeEvent(QResizeEvent*);
 
 private:
     WebPage* customPage = nullptr;
     unsigned borderRadius;
+    void polish();
 };
 
 
