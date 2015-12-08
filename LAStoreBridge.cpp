@@ -35,7 +35,7 @@ LAStoreBridge::~LAStoreBridge() {
 }
 
 void LAStoreBridge::installApp(const QString& appId) {
-    auto reply = this->manager->InstallPackage(appId);
+    auto reply = this->manager->InstallPackage("", appId);
 }
 
 void LAStoreBridge::onJobListChanged() {
@@ -68,8 +68,9 @@ void processJob(Job* job, QVariantMap* info) {
 
     // package Id
     if (!info->contains("packageId")) {
-        const auto packageId = job->packageId().Value<0>();
-        info->insert("packageId", packageId);
+        const auto packages = job->packages().Value<0>();
+        if (packages.length() > 0)
+            info->insert("packageId", packages[0]);
     }
     if (!info->contains("id")) {
         info->insert("id", job->id().Value<0>());
@@ -246,7 +247,7 @@ void LAStoreBridge::cancelJob(const QString& jobId) {
 }
 
 void LAStoreBridge::updateApp(const QString& appId) {
-    this->manager->UpdatePackage(appId);
+    this->manager->UpdatePackage("", appId);
     QString exe = "/usr/bin/dde-control-center";
     QStringList args;
     args << "system_info";
