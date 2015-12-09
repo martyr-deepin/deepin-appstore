@@ -23,6 +23,11 @@ WebView::WebView(QWidget *parent) : QWebView(parent),
     } else {
         this->setContextMenuPolicy(Qt::NoContextMenu);
     }
+
+    connect(this, &QWebView::titleChanged, [this, shell](const QString& title) {
+        const auto mainWin = this->parent();
+        static_cast<QWidget* >(mainWin)->setWindowTitle(title);
+    });
 }
 
 WebView::~WebView() {
