@@ -16,6 +16,8 @@
 #include <QFontMetrics>
 #include <QLabel>
 
+#include <QLayout>
+
 #include "Shell.h"
 #include "Bridge.h"
 #include "WebWidget.h"
@@ -31,7 +33,7 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
     this->menuManager = new DBusMenuManager(this);
 
     // bind window state change
-    auto mainWin = this->getMainWindow();
+    const auto mainWin = this->getMainWindow();
     connect(mainWin, &MainWindow::windowStateChanged,
             this, [this](Qt::WindowState state) {
                 emit this->windowStateChanged((int)state);
@@ -229,4 +231,8 @@ void Bridge::setAboutContent(QString html) {
 void Bridge::notifyCacheReady() {
     const auto shell = static_cast<Shell*>(qApp);
     emit shell->applicationCacheFinished();
+}
+
+unsigned int Bridge::layoutMargin() {
+    return this->getMainWindow()->layout()->contentsMargins().left();
 }

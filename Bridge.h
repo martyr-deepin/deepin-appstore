@@ -18,6 +18,9 @@ class Bridge : public QObject {
     Q_PROPERTY(LAStoreBridge* lastore
                MEMBER lastore
     )
+    Q_PROPERTY(unsigned int layoutMargin
+               READ layoutMargin
+    )
 
 public:
     Bridge(QObject* parent = nullptr);
@@ -65,6 +68,7 @@ private:
     void onItemInvoked(const QString& id, bool checked);
 
     LAStoreBridge* lastore = nullptr;
+    unsigned int layoutMargin();
 };
 
 
