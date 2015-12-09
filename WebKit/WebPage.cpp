@@ -1,3 +1,4 @@
+#include "common.h"
 
 #include <QDebug>
 #include <QWebFrame>
@@ -25,4 +26,10 @@ void WebPage::addBridge() {
     }
     bridge = new Bridge(this);
     this->mainFrame()->addToJavaScriptWindowObject("bridge", bridge);
+}
+
+void WebPage::javaScriptConsoleMessage(const QString& message,
+                                       int UNUSED(lineNumber),
+                                       const QString& sourceID) {
+    qDebug() << sourceID << "==> " << message;
 }
