@@ -1,4 +1,3 @@
-#include "common.h"
 #define QT_NO_KEYWORDS
     // for opening .desktop files
     #include <gio/gio.h>
@@ -9,6 +8,7 @@
     #include <glib/gi18n.h>
 #undef QT_NO_KEYWORDS
 
+#include "common.h"
 #include <QApplication>
 
 // for tooltips
@@ -142,27 +142,19 @@ void Bridge::showMenu(QString content) {
         qWarning() << "Another menu is active";
         return;
     }
-    const auto pendingReply = this->menuManager->RegisterMenu();
-    const auto watcher = new QDBusPendingCallWatcher(pendingReply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished,
-            [this, watcher, content](QDBusPendingCallWatcher* call) {
-                QDBusPendingReply<QDBusObjectPath> reply = *call;
-                if (reply.isError()) {
-                    auto error = reply.error();
-                    qWarning() << error.name() << error.message();
-                } else {
-                    this->menuPath = reply.argumentAt<0>().path();
-                    this->menu = new DBusMenu(this->menuPath, this);
-                    connect(this->menu, &DBusMenu::MenuUnregistered,
-                            this, &Bridge::onMenuUnregistered);
 
-                    connect(this->menu, &DBusMenu::ItemInvoked,
-                            this, &Bridge::onItemInvoked);
-                    this->menu->ShowMenu(content);
-                }
+    asyncWatcherFactory<QDBusObjectPath>(
+        this->menuManager->RegisterMenu(),
+        [this, content](QDBusPendingReply<QDBusObjectPath> reply) {
+            this->menuPath = reply.argumentAt<0>().path();
+            this->menu = new DBusMenu(this->menuPath, this);
+            connect(this->menu, &DBusMenu::MenuUnregistered,
+                    this, &Bridge::onMenuUnregistered);
 
-                delete watcher;
-            }
+            connect(this->menu, &DBusMenu::ItemInvoked,
+                    this, &Bridge::onItemInvoked);
+            this->menu->ShowMenu(content);
+        }
     );
 }
 
@@ -196,25 +188,18 @@ void Bridge::openDesktopFile(const QString& path) {
                                               "Launch");
     msg << path;
 
-    const auto pendingCall = connection.asyncCall(msg);
-    const auto watcher = new QDBusPendingCallWatcher(pendingCall, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished,
-            [this, watcher, path](QDBusPendingCallWatcher* call) {
-                QDBusPendingReply<> reply = *call;
-                if (reply.isError()) {
-                    const auto error = reply.error();
-                    qWarning() << error.name() << error.message();
-
-                    // fallback to gio
-                    auto stdPath = path.toStdString();
-                    const char* cPath = stdPath.c_str();
-                    GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
-                    g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
-                    g_object_unref(appInfo);
-                }
-
-                delete watcher;
-            }
+    const auto reply = QDBusPendingReply<QDBusVariant>(connection.asyncCall(msg));
+    asyncWatcherFactory<QDBusVariant>(
+        reply,
+        nullptr,
+        [path](QDBusError UNUSED(error)) {
+            // fallback to gio
+            const auto stdPath = path.toStdString();
+            const char* cPath = stdPath.c_str();
+            GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
+            g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
+            g_object_unref(appInfo);
+        }
     );
 }
 

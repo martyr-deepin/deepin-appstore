@@ -1,9 +1,9 @@
 #include <cassert>
-#include <QDBusPendingCallWatcher>
 #include <QProcess>
 
 #include "LAStoreBridge.h"
 #include "Bridge.h"
+#include "common.h"
 using namespace dbus::common;
 using namespace dbus::objects;
 using namespace dbus::objects::com::deepin::lastore;
@@ -35,18 +35,13 @@ LAStoreBridge::~LAStoreBridge() {
 }
 
 void LAStoreBridge::installApp(const QString& appId) {
-    auto reply = this->manager->InstallPackage("", appId);
+    this->manager->InstallPackage("", appId);
 }
 
 void LAStoreBridge::onJobListChanged() {
-    const auto reply = this->manager->jobList();
-    const auto watcher = new QDBusPendingCallWatcher(reply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher](QDBusPendingCallWatcher* call)  {
-        QDBusPendingReply<QDBusVariant> reply = *call;
-        if (reply.isError()) {
-            const auto error = reply.error();
-            qWarning() << error.name() << error.message();
-        } else {
+    asyncWatcherFactory<QDBusVariant>(
+        this->manager->jobList(),
+        [this](QDBusPendingReply<QDBusVariant> reply)  {
             const auto res = reply.argumentAt<0>().variant();
             const auto pathsDBus = qdbus_cast<QList<QDBusObjectPath> >(res);
             QList<QString> paths;
@@ -54,13 +49,12 @@ void LAStoreBridge::onJobListChanged() {
                            [](const QDBusObjectPath path) {return path.path();});
             QList<QString> installPaths;
             std::copy_if(paths.constBegin(), paths.constEnd(), std::back_inserter(installPaths),
-                           [](const QString path) { return path.contains("install"); });
+                         [](const QString path) { return path.contains("install"); });
             this->jobPaths = installPaths;
             emit this->jobPathsChanged();
             this->aggregateJobInfo();
         }
-        delete watcher;
-    });
+    );
 }
 
 void processJob(Job* job, QVariantMap* info) {
@@ -169,69 +163,46 @@ void LAStoreBridge::updateJobDict() {
 
 
 void LAStoreBridge::launchApp(const QString& pkgId) {
-    const auto reply = this->manager->PackageDesktopPath(pkgId);
-    const auto watcher = new QDBusPendingCallWatcher(reply, this);
-    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher](QDBusPendingCallWatcher* call) {
-        QDBusPendingReply<QString> reply = *call;
-        if (reply.isError()) {
-            const auto error = reply.error();
-            qWarning() << error.name() << error.message();
-        } else {
+    asyncWatcherFactory<QString>(
+        this->manager->PackageDesktopPath(pkgId),
+        [this](QDBusPendingReply<QString> reply) {
             const auto path = reply.argumentAt<0>();
             const auto bridge = static_cast<Bridge *>(this->parent());
             bridge->openDesktopFile(path);
         }
-        delete watcher;
-    });
+    );
 }
 
 void LAStoreBridge::askDownloadSize(const QString& pkgId) {
     QList<QString> pkgs;
     pkgs << pkgId;
-    const auto reply = this->manager->PackagesDownloadSize(pkgs);
-    const auto watcher = new QDBusPendingCallWatcher(reply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [this, pkgId, watcher](QDBusPendingCallWatcher* call) {
-        QDBusPendingReply<long long> reply = *call;
-        if (reply.isError()) {
-            const auto error = reply.error();
-            qWarning() << error.name() << error.message();
-        } else {
+
+    asyncWatcherFactory<long long>(
+        this->manager->PackagesDownloadSize(pkgs),
+        [this, pkgId](QDBusPendingReply<long long> reply) {
             const auto size = reply.argumentAt<0>();
             emit this->downloadSizeAnswered(pkgId, size);
         }
-        delete watcher;
-    });
+    );
 }
 
 void LAStoreBridge::fetchUpdatableApps() {
-    const auto reply = this->manager->upgradableApps();
-    const auto watcher = new QDBusPendingCallWatcher(reply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [this, watcher](QDBusPendingCallWatcher* call)  {
-        QDBusPendingReply<QDBusVariant > reply = *call;
-        if (reply.isError()) {
-            const auto error = reply.error();
-            qWarning() << error.name() << error.message();
-        } else {
+    asyncWatcherFactory<QDBusVariant>(
+        this->manager->upgradableApps(),
+        [this](QDBusPendingReply<QDBusVariant> reply)  {
             this->updatableApps = reply.argumentAt<0>().variant().toStringList();
             emit this->updatableAppsChanged();
         }
-        delete watcher;
-    });
+    );
 }
 
 void LAStoreBridge::askAppInstalled(const QString& pkgId) {
-    const auto reply = this->manager->PackageExists(pkgId);
-    const auto watcher = new QDBusPendingCallWatcher(reply, this);
-    connect(watcher, &QDBusPendingCallWatcher::finished, [this, pkgId, watcher](QDBusPendingCallWatcher* call) {
-        QDBusPendingReply<bool> reply = *call;
-        if (reply.isError()) {
-            const auto error = reply.error();
-            qWarning() << error.name() << error.message();
-        } else {
+    asyncWatcherFactory<bool>(
+        this->manager->PackageExists(pkgId),
+        [this, pkgId](QDBusPendingReply<bool> reply) {
             emit this->appInstalledAnswered(pkgId, reply.argumentAt<0>());
         }
-        delete watcher;
-    });
+    );
 }
 
 void LAStoreBridge::startJob(const QString& jobId) {
