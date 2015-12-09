@@ -41,7 +41,7 @@ public slots:
     Q_INVOKABLE void showMenu(QString content);
 
     Q_INVOKABLE void openExternalBrowser(QString url);
-    Q_INVOKABLE void openDesktopFile(QString path);
+    Q_INVOKABLE void openDesktopFile(const QString& path);
 
     Q_INVOKABLE void setAboutContent(QString html);
 

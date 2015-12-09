@@ -185,7 +185,7 @@ void Bridge::openExternalBrowser(QString url) {
     QDesktopServices::openUrl(QUrl(url));
 }
 
-void Bridge::openDesktopFile(QString path) {
+void Bridge::openDesktopFile(const QString& path) {
     if (path == "") {
          return;
     }
@@ -196,18 +196,26 @@ void Bridge::openDesktopFile(QString path) {
                                               "Launch");
     msg << path;
 
-    const auto call = connection.asyncCall(msg);
-    QDBusPendingReply<> reply(call);
-    reply.waitForFinished();
-    if (reply.isError()) {
-        qDebug() << reply.error();
-        // use fallback method to call
-        auto stdPath = path.toStdString();
-        const char* cPath = stdPath.c_str();
-        GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
-        g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
-        g_object_unref(appInfo);
-    }
+    const auto pendingCall = connection.asyncCall(msg);
+    const auto watcher = new QDBusPendingCallWatcher(pendingCall, this);
+    connect(watcher, &QDBusPendingCallWatcher::finished,
+            [this, watcher, path](QDBusPendingCallWatcher* call) {
+                QDBusPendingReply<> reply = *call;
+                if (reply.isError()) {
+                    const auto error = reply.error();
+                    qWarning() << error.name() << error.message();
+
+                    // fallback to gio
+                    auto stdPath = path.toStdString();
+                    const char* cPath = stdPath.c_str();
+                    GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
+                    g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
+                    g_object_unref(appInfo);
+                }
+
+                delete watcher;
+            }
+    );
 }
 
 void Bridge::showAboutWindow() {
