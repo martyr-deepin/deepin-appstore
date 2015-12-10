@@ -19,10 +19,11 @@
 template
 <typename T> void asyncWatcherFactory(const QDBusPendingReply<T> pendingReply,
                                       std::function<void (QDBusPendingReply<T>)> onSuccess,
-                                      std::function<void (QDBusError error)> onError = nullptr) {
+                                      std::function<void (QDBusError error)> onError = nullptr,
+                                      std::function<void (bool success)> onDone = nullptr) {
     const auto watcher = new QDBusPendingCallWatcher(pendingReply, nullptr);
     QObject::connect(watcher, &QDBusPendingCallWatcher::finished,
-                     [watcher, onSuccess, onError](QDBusPendingCallWatcher* call)  {
+                     [watcher, onSuccess, onError, onDone](QDBusPendingCallWatcher* call)  {
                          QDBusPendingReply<T> reply = *call;
                          if (reply.isError()) {
                              const auto error = reply.error();
@@ -35,6 +36,9 @@ template
                              if (onSuccess) {
                                 onSuccess(reply);
                              }
+                         }
+                         if (onDone) {
+                             onDone(reply.isError());
                          }
                          delete watcher;
                      });

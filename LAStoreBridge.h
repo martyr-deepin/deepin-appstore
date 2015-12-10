@@ -10,6 +10,7 @@ using namespace dbus::objects::com::deepin::lastore;
 struct JobCombo {
     Job* object;
     QVariantMap info;
+    unsigned int nCallback;
 };
 
 class LAStoreBridge : public QObject {

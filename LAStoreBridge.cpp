@@ -4,6 +4,7 @@
 #include "LAStoreBridge.h"
 #include "Bridge.h"
 #include "common.h"
+
 using namespace dbus::common;
 using namespace dbus::objects;
 using namespace dbus::objects::com::deepin::lastore;
@@ -64,62 +65,13 @@ void LAStoreBridge::onJobListChanged() {
     );
 }
 
-void processJob(Job* job, QVariantMap* info) {
-    // ========= Copy Properties =========
-
-    // package Id
-    if (!info->contains("packageId")) {
-        const auto packages = job->packages().Value<0>();
-        if (packages.length() > 0)
-            info->insert("packageId", packages[0]);
-    }
-    if (!info->contains("id")) {
-        info->insert("id", job->id().Value<0>());
-    }
-
-    // type
-    const auto type = job->type().Value<0>();
-    info->insert("type", type);
-
-    if (type == "download") {
-        info->insert("speed", job->speed().Value<0>());
-    }
-
-    // progress
-    auto progress = job->progress().Value<0>();
-    if (type == "download" || type == "install") {
-        progress /= 2.0;
-    }
-    if (type == "install") {
-        progress += 0.50;
-    }
-    info->insert("progress", progress);
-    const auto status = job->status().Value<0>();
-    info->insert("status", status);
-
-    info->insert("cancellable", job->cancelable().Value<0>());
-
-    // ========= is pausable? =========
-    auto pausable = false;
-    if (type == "download") {
-        pausable = (status == "ready" ||
-                    status == "running");
-    } else if (type == "install") {
-        pausable = (status == "ready");
-    }
-    info->insert("pausable", pausable);
-
-    // ========= is startable? =========
-    auto startable = false;
-    if ((type == "download" && status == "failed") ||
-        (type == "install" && status == "failed") ||
-        (type == "download" && status == "paused") ||
-        (type == "install" && status == "paused")) {
-        startable = true;
-    }
-    info->insert("startable", startable);
-    assert(!(startable && pausable));
-}
+template
+<typename T> std::function<void (QDBusPendingReply<QDBusVariant> reply)>
+    onFetchOneFactory(JobCombo* toInsert, const QString& name) {
+    return [toInsert, name](QDBusPendingReply<QDBusVariant> reply) {
+        toInsert->info.insert(name, qdbus_cast<T>(reply.argumentAt<0>().variant()));
+    };
+};
 
 void LAStoreBridge::updateJobDict() {
     // Maintaining one Job object to each job in the job list
@@ -132,19 +84,156 @@ void LAStoreBridge::updateJobDict() {
             const auto toInsert = new JobCombo();
             toInsert->object = job;
             toInsert->info = QVariantMap();
-
-            const auto onPropertiesChanged = [this, toInsert]() {
-                processJob(toInsert->object, &toInsert->info);
-                emit this->jobInfoAnswered(toInsert->info);
-                this->aggregateJobInfo();
-            };
+            toInsert->nCallback = 0;
 
             toInsert->info.insert("path", path);
-            onPropertiesChanged();
-            connect(job, &Job::progressChanged, onPropertiesChanged);
-            connect(job, &Job::statusChanged, onPropertiesChanged);
-            connect(job, &Job::typeChanged, onPropertiesChanged);
-            connect(job, &Job::speedChanged, onPropertiesChanged);
+
+            const auto onFetchOneDoneFactory = [=](const QString& propertyName) {
+                return [toInsert, this, propertyName] (bool UNUSED(success)) {
+                    // dec nCallback
+                    toInsert->nCallback--;
+
+                    if (propertyName == "packages") {
+                        // support old interface
+                        const auto packages = toInsert->info["packages"].toStringList();
+                        if (packages.length()) {
+                            toInsert->info.insert("packageId", packages[0]);
+                        }
+                    }
+
+                    if (propertyName == "progress" ||
+                        propertyName == "type") {
+                        // adjust progress
+                        auto progress = toInsert->info["_progress"].toDouble();
+                        const auto& type = toInsert->info["type"].toString();
+                        if (type == "download" || type == "install") {
+                            progress /= 2.0;
+                        }
+                        if (type == "install") {
+                            progress += 0.50;
+                        }
+                        toInsert->info.insert("progress", progress);
+                    }
+
+                    if (propertyName == "status" ||
+                        propertyName == "type") {
+                        const auto& type = toInsert->info["type"];
+                        const auto& status = toInsert->info["status"];
+                        // ========= is pausable? =========
+                        auto pausable = false;
+                        if (type == "download") {
+                            pausable = (status == "ready" ||
+                                        status == "running");
+                        } else if (type == "install") {
+                            pausable = (status == "ready");
+                        }
+                        toInsert->info.insert("pausable", pausable);
+
+                        // ========= is startable? =========
+                        auto startable = false;
+                        if ((type == "download" && status == "failed") ||
+                            (type == "install" && status == "failed") ||
+                            (type == "download" && status == "paused") ||
+                            (type == "install" && status == "paused")) {
+                            startable = true;
+                        }
+                        toInsert->info.insert("startable", startable);
+                        assert(!(startable && pausable));
+                    }
+
+
+                    if (!toInsert->nCallback) {
+                        emit this->jobInfoAnswered(toInsert->info);
+                        this->aggregateJobInfo();
+                    }
+                };
+            };
+
+            const auto fetchId = [=]() {
+                toInsert->nCallback++;
+                asyncWatcherFactory<QDBusVariant>(
+                        job->id(),
+                        onFetchOneFactory<QString>(toInsert, "id"),
+                        nullptr,
+                        onFetchOneDoneFactory("id")
+                );
+            };
+            // no need to listen to changes
+            fetchId();
+
+            const auto fetchPackages = [=]() {
+                toInsert->nCallback++;
+                asyncWatcherFactory<QDBusVariant>(
+                        job->packages(),
+                        onFetchOneFactory<QStringList>(toInsert, "packages"),
+                        nullptr,
+                        onFetchOneDoneFactory("packages")
+                );
+            };
+            // no need to listen to changes
+            fetchPackages();
+
+            const auto fetchProgress = [=]() {
+                toInsert->nCallback++;
+                asyncWatcherFactory<QDBusVariant>(
+                        toInsert->object->progress(),
+                        onFetchOneFactory<double>(toInsert, "_progress"),
+                        nullptr,
+                        onFetchOneDoneFactory("progress")
+                );
+            };
+            connect(job, &Job::progressChanged, fetchProgress);
+            fetchProgress();
+
+            const auto fetchStatus = [=]() {
+                toInsert->nCallback++;
+                asyncWatcherFactory<QDBusVariant>(
+                        toInsert->object->status(),
+                        onFetchOneFactory<QString>(toInsert, "status"),
+                        nullptr,
+                        onFetchOneDoneFactory("status")
+                );
+            };
+            connect(job, &Job::statusChanged, fetchStatus);
+            fetchStatus();
+
+            const auto fetchType = [=]() {
+                toInsert->nCallback++;
+                asyncWatcherFactory<QDBusVariant>(
+                        toInsert->object->type(),
+                        onFetchOneFactory<QString>(toInsert, "type"),
+                        nullptr,
+                        onFetchOneDoneFactory("type")
+                );
+            };
+            connect(job, &Job::typeChanged, fetchType);
+            fetchType();
+
+            const auto fetchSpeed = [=]() {
+                toInsert->nCallback++;
+                asyncWatcherFactory<QDBusVariant>(
+                        toInsert->object->speed(),
+                        onFetchOneFactory<double>(toInsert, "speed"),
+                        nullptr,
+                        onFetchOneDoneFactory("speed")
+                );
+            };
+            connect(job, &Job::speedChanged, fetchSpeed);
+            fetchSpeed();
+
+            const auto fetchCancellable = [=]() {
+                toInsert->nCallback++;
+                asyncWatcherFactory<QDBusVariant>(
+                        toInsert->object->cancelable(),
+                        onFetchOneFactory<bool>(toInsert, "cancellable"),
+                        nullptr,
+                        onFetchOneDoneFactory("cancellable")
+                );
+            };
+            connect(job, &Job::cancelableChanged, fetchCancellable);
+            fetchCancellable();
+
+
             this->jobDict.insert(path, toInsert);
         }
     }
