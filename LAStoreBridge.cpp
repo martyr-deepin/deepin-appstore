@@ -15,7 +15,14 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
 
     this->onJobListChanged();
 
-    this->architectures = this->manager->systemArchitectures().Value<0>();
+    asyncWatcherFactory<QDBusVariant>(
+        this->manager->systemArchitectures(),
+        [this](QDBusPendingReply<QDBusVariant> reply) {
+            this->architectures = qdbus_cast<QStringList>(reply.argumentAt<0>().variant());
+            emit this->systemArchitecturesAnswered(this->architectures);
+        }
+    );
+
     connect(this->manager, &Manager::upgradableAppsChanged,
             this, &LAStoreBridge::fetchUpdatableApps);
     this->fetchUpdatableApps();
@@ -272,4 +279,13 @@ void LAStoreBridge::aggregateJobInfo() {
 
 void LAStoreBridge::askOverallProgress() {
     emit this->overallProgressChanged(this->overallProgress);
+}
+
+void LAStoreBridge::askSystemArchitectures() {
+    if (this->architectures.length()) {
+        // in WebView, the PromiseFactory won't capture the answer if response comes too fast
+        QTimer::singleShot(0, [this]() {
+            emit this->systemArchitecturesAnswered(this->architectures);
+        });
+    }
 }

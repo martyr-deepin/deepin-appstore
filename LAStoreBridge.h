@@ -16,8 +16,6 @@ class LAStoreBridge : public QObject {
     Q_OBJECT
     Q_PROPERTY(QStringList jobPaths
                MEMBER jobPaths)
-    Q_PROPERTY(QStringList architectures
-               MEMBER architectures)
     Q_PROPERTY(QStringList updatableApps
                MEMBER updatableApps)
     Q_PROPERTY(QStringList installingApps
@@ -27,9 +25,10 @@ public:
     explicit LAStoreBridge(QObject* parent = nullptr);
     ~LAStoreBridge();
 
+    void onJobListChanged();
 public slots:
     Q_SLOT void installApp(const QString& appId);
-    void onJobListChanged();
+    Q_SLOT void askSystemArchitectures();
     Q_SLOT void askAppInstalled(const QString& pkgId);
     Q_SLOT void launchApp(const QString& pkgId);
     Q_SLOT void askDownloadSize(const QString& pkgId);
@@ -45,6 +44,7 @@ signals:
     void jobPathsChanged();
 
     void updatableAppsChanged();
+    void systemArchitecturesAnswered(QStringList archs);
     void appInstalledAnswered(QString pkgId, bool installed);
     void downloadSizeAnswered(QString pkgId, long long size);
     void installingAppsChanged();
