@@ -213,7 +213,7 @@ void LAStoreBridge::updateJobDict() {
                 toInsert->nCallback++;
                 asyncWatcherFactory<QDBusVariant>(
                         toInsert->object->speed(),
-                        onFetchOneFactory<double>(toInsert, "speed"),
+                        onFetchOneFactory<long long>(toInsert, "speed"),
                         nullptr,
                         onFetchOneDoneFactory("speed")
                 );
