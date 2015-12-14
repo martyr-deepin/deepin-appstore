@@ -30,6 +30,7 @@ public:
 public slots:
     Q_SLOT void installApp(const QString& appId);
     Q_SLOT void askSystemArchitectures();
+    Q_SLOT void askRunningJobs();
     Q_SLOT void askAppInstalled(const QString& pkgId);
     Q_SLOT void launchApp(const QString& pkgId);
     Q_SLOT void askDownloadSize(const QString& pkgId);
@@ -43,7 +44,7 @@ public slots:
 
 signals:
     void jobPathsChanged();
-
+    void runningJobsAnswered(QStringList runningJobs);
     void updatableAppsChanged();
     void systemArchitecturesAnswered(QStringList archs);
     void appInstalledAnswered(QString pkgId, bool installed);
@@ -63,6 +64,10 @@ private:
     QStringList updatableApps;
     QSet<QString> installingAppsSet;
     QStringList installingApps;
+
+    QSet<QString> runningJobsSet;
+    QStringList runningJobs;
+
     double overallProgress = 0.0;
 
     void aggregateJobInfo();

@@ -332,6 +332,7 @@ void LAStoreBridge::askJobInfo(const QString& jobPath) {
 
 void LAStoreBridge::aggregateJobInfo() {
     QSet<QString> installingAppsSet;
+    QSet<QString> runningJobsSet;
     double overallProgress = 0;
     foreach(const auto jobCombo, this->jobDict) {
         if (!jobCombo) {
@@ -345,6 +346,9 @@ void LAStoreBridge::aggregateJobInfo() {
             if (status != "failed") {
                 installingAppsSet << jobCombo->info["packageId"].toString();
             }
+            if (status == "running") {
+                runningJobsSet << jobCombo->info["packageId"].toString();
+            }
         }
 
         // find out the overProgress
@@ -357,6 +361,13 @@ void LAStoreBridge::aggregateJobInfo() {
 
         this->installingApps = QList<QString>::fromSet(installingAppsSet);
         emit this->installingAppsChanged();
+    }
+
+    if (this->runningJobsSet != runningJobsSet) {
+        this->runningJobsSet = runningJobsSet;
+
+        this->runningJobs = QList<QString>::fromSet(runningJobsSet);
+        emit this->runningJobsAnswered(this->runningJobs);
     }
 
     const auto length = this->jobPaths.length();
@@ -377,4 +388,10 @@ void LAStoreBridge::askSystemArchitectures() {
             emit this->systemArchitecturesAnswered(this->architectures);
         });
     }
+}
+
+void LAStoreBridge::askRunningJobs() {
+    QTimer::singleShot(0, [this]() {
+        emit this->runningJobsAnswered(this->runningJobs);
+    });
 }
