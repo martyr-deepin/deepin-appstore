@@ -15,43 +15,44 @@ struct JobCombo {
 
 class LAStoreBridge : public QObject {
     Q_OBJECT
-    Q_PROPERTY(QStringList jobPaths
-               MEMBER jobPaths)
-    Q_PROPERTY(QStringList updatableApps
-               MEMBER updatableApps)
-    Q_PROPERTY(QStringList installingApps
-               MEMBER installingApps)
 
 public:
     explicit LAStoreBridge(QObject* parent = nullptr);
     ~LAStoreBridge();
 
     void onJobListChanged();
-public slots:
+    void fetchUpdatableApps();
+
+public:
     Q_SLOT void installApp(const QString& appId);
-    Q_SLOT void askSystemArchitectures();
-    Q_SLOT void askRunningJobs();
-    Q_SLOT void askAppInstalled(const QString& pkgId);
     Q_SLOT void launchApp(const QString& pkgId);
-    Q_SLOT void askDownloadSize(const QString& pkgId);
     Q_SLOT void updateApp(const QString& appId);
-    Q_SLOT void fetchUpdatableApps();
     Q_SLOT void startJob(const QString& jobId);
     Q_SLOT void pauseJob(const QString& jobId);
     Q_SLOT void cancelJob(const QString& jobId);
-    Q_SLOT void askJobInfo(const QString& jobPath);
+
+    Q_SLOT void askSystemArchitectures();
+    Q_SLOT void askRunningJobs();
+    Q_SLOT void askInstallingApps();
+    Q_SLOT void askUpdatableApps();
+    Q_SLOT void askJobPaths();
     Q_SLOT void askOverallProgress();
 
+    Q_SLOT void askJobInfo(const QString& jobPath);
+
+    Q_SLOT void askAppInstalled(const QString& pkgId);
+    Q_SLOT void askDownloadSize(const QString& pkgId);
+
 signals:
-    void jobPathsChanged();
+    void jobPathsAnswered(QStringList jobPaths);
     void runningJobsAnswered(QStringList runningJobs);
-    void updatableAppsChanged();
+    void updatableAppsAnswered(QStringList updatableApps);
+    void installingAppsAnswered(QStringList installingApps);
     void systemArchitecturesAnswered(QStringList archs);
     void appInstalledAnswered(QString pkgId, bool installed);
     void downloadSizeAnswered(QString pkgId, long long size);
-    void installingAppsChanged();
-    void jobInfoAnswered(QVariantMap info);
-    void overallProgressChanged(double progress);
+    void jobInfoAnswered(QString jobPath, QVariantMap info);
+    void overallProgressAnswered(double progress);
 
 private:
     QStringList jobPaths;

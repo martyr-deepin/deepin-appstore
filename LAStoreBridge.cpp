@@ -28,9 +28,6 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
             this, &LAStoreBridge::fetchUpdatableApps);
     this->fetchUpdatableApps();
 
-    connect(this, &LAStoreBridge::jobPathsChanged,
-            this, &LAStoreBridge::updateJobDict);
-
     const auto bridge = static_cast<Bridge *>(this->parent());
     this->manager->SetRegion(bridge->getAppRegion());
 }
@@ -59,7 +56,8 @@ void LAStoreBridge::onJobListChanged() {
             std::copy_if(paths.constBegin(), paths.constEnd(), std::back_inserter(installPaths),
                          [](const QString path) { return path.contains("install"); });
             this->jobPaths = installPaths;
-            emit this->jobPathsChanged();
+            emit this->jobPathsAnswered(this->jobPaths);
+            this->updateJobDict();
             this->aggregateJobInfo();
         }
     );
@@ -143,7 +141,7 @@ void LAStoreBridge::updateJobDict() {
 
 
                     if (!toInsert->nCallback) {
-                        emit this->jobInfoAnswered(toInsert->info);
+                        emit this->jobInfoAnswered(toInsert->info["path"].toString(), toInsert->info);
                         this->aggregateJobInfo();
                     }
                 };
@@ -287,7 +285,7 @@ void LAStoreBridge::fetchUpdatableApps() {
         this->manager->upgradableApps(),
         [this](QDBusPendingReply<QDBusVariant> reply)  {
             this->updatableApps = reply.argumentAt<0>().variant().toStringList();
-            emit this->updatableAppsChanged();
+            emit this->updatableAppsAnswered(this->updatableApps);
         }
     );
 }
@@ -324,7 +322,10 @@ void LAStoreBridge::updateApp(const QString& appId) {
 void LAStoreBridge::askJobInfo(const QString& jobPath) {
     const auto jobCombo = this->jobDict[jobPath];
     if (jobCombo) {
-        emit this->jobInfoAnswered(jobCombo->info);
+        const auto jobInfo = jobCombo->info;
+        QTimer::singleShot(0, [this, jobPath, jobInfo]() {
+            emit this->jobInfoAnswered(jobPath, jobInfo);
+        });
     } else {
         qDebug() << "askJobInfo" << "Cannot find" << jobPath;
     }
@@ -360,7 +361,7 @@ void LAStoreBridge::aggregateJobInfo() {
         this->installingAppsSet = installingAppsSet;
 
         this->installingApps = QList<QString>::fromSet(installingAppsSet);
-        emit this->installingAppsChanged();
+        emit this->installingAppsAnswered(this->installingApps);
     }
 
     if (this->runningJobsSet != runningJobsSet) {
@@ -373,12 +374,14 @@ void LAStoreBridge::aggregateJobInfo() {
     const auto length = this->jobPaths.length();
     if (length) {
         this->overallProgress = overallProgress / length;
-        emit this->overallProgressChanged(this->overallProgress);
+        emit this->overallProgressAnswered(this->overallProgress);
     }
 }
 
 void LAStoreBridge::askOverallProgress() {
-    emit this->overallProgressChanged(this->overallProgress);
+    QTimer::singleShot(0, [this] {
+        emit this->overallProgressAnswered(this->overallProgress);
+    });
 }
 
 void LAStoreBridge::askSystemArchitectures() {
@@ -393,5 +396,23 @@ void LAStoreBridge::askSystemArchitectures() {
 void LAStoreBridge::askRunningJobs() {
     QTimer::singleShot(0, [this]() {
         emit this->runningJobsAnswered(this->runningJobs);
+    });
+}
+
+void LAStoreBridge::askInstallingApps() {
+    QTimer::singleShot(0, [this]() {
+        emit this->installingAppsAnswered(this->installingApps);
+    });
+}
+
+void LAStoreBridge::askUpdatableApps() {
+    QTimer::singleShot(0, [this]() {
+        emit this->updatableAppsAnswered(this->updatableApps);
+    });
+}
+
+void LAStoreBridge::askJobPaths() {
+    QTimer::singleShot(0, [this]() {
+        emit this->jobPathsAnswered(this->jobPaths);
     });
 }
