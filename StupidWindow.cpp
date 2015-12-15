@@ -55,7 +55,7 @@ auto cornerEdge2WmGravity(const CornerEdge& ce) -> int {
 
 StupidWindow::StupidWindow(QWidget* parent) : QWidget(parent),
                                               resizeHandleWidth(5),
-                                              shadowRadius(25),
+                                              shadowRadius(24),
                                               layoutMargin(25) {
     this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::FramelessWindowHint);
@@ -78,8 +78,8 @@ void StupidWindow::polish() {
     if (!this->shadowEffect) {
         this->shadowEffect = new QGraphicsDropShadowEffect(this);
         this->shadowEffect->setBlurRadius(this->shadowRadius);
-        this->shadowEffect->setColor(Qt::darkGray);
-        this->shadowEffect->setOffset(0, 0);
+        this->shadowEffect->setColor(QColor(0, 0, 0, 255 / 5));
+        this->shadowEffect->setOffset(0, 6);
         this->setGraphicsEffect(this->shadowEffect);
     }
 }
