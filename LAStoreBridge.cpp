@@ -401,7 +401,9 @@ void LAStoreBridge::updateApp(const QString& appId) {
 }
 
 void LAStoreBridge::askJobInfo(const QString& jobPath) {
+#ifdef DEBUG_LASTORE
     debugLastore() << "askJobInfo" << jobPath;
+#endif
     const auto jobCombo = this->jobDict[jobPath];
     if (jobCombo) {
         const auto jobInfo = jobCombo->info;
