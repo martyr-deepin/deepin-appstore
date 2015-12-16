@@ -20,9 +20,6 @@ public:
     explicit LAStoreBridge(QObject* parent = nullptr);
     ~LAStoreBridge();
 
-    void onJobListChanged();
-    void fetchUpdatableApps();
-
 public:
     Q_SLOT void installApp(const QString& appId);
     Q_SLOT void launchApp(const QString& pkgId);
@@ -72,6 +69,8 @@ private:
     double overallProgress = 0.0;
 
     void aggregateJobInfo();
+    void onJobListChanged();
+    void onUpdatableAppsChanged();
 };
 
 

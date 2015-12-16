@@ -27,13 +27,16 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
         this->manager->systemArchitectures(),
         [this](QDBusPendingReply<QDBusVariant> reply) {
             this->architectures = qdbus_cast<QStringList>(reply.argumentAt<0>().variant());
+#ifdef DEBUG_LASTORE
+            debugLastore() << "SystemArchitectures Answered (change)" << this->architectures;
+#endif
             emit this->systemArchitecturesAnswered(this->architectures);
         }
     );
 
     connect(this->manager, &Manager::upgradableAppsChanged,
-            this, &LAStoreBridge::fetchUpdatableApps);
-    this->fetchUpdatableApps();
+            this, &LAStoreBridge::onUpdatableAppsChanged);
+    this->onUpdatableAppsChanged();
 
     const auto bridge = static_cast<Bridge *>(this->parent());
     this->manager->SetRegion(bridge->getAppRegion());
@@ -55,7 +58,7 @@ void LAStoreBridge::installApp(const QString& appId) {
 
 void LAStoreBridge::onJobListChanged() {
 #ifdef DEBUG_LASTORE
-    debugLastore() << "onJobListChanged";
+    debugLastore() << "fetch JobList";
 #endif
     asyncWatcherFactory<QDBusVariant>(
         this->manager->jobList(),
@@ -70,7 +73,7 @@ void LAStoreBridge::onJobListChanged() {
                          [](const QString path) { return path.contains("install"); });
             this->jobPaths = installPaths;
 #ifdef DEBUG_LASTORE
-            debugLastore() << "jobPathsAnswered" << this->jobPaths;
+            debugLastore() << "JobPaths Answered (change)" << this->jobPaths;
 #endif
             emit this->jobPathsAnswered(this->jobPaths);
             this->updateJobDict();
@@ -163,7 +166,7 @@ void LAStoreBridge::updateJobDict() {
 
                     if (!toInsert->nCallback) {
                         #ifdef DEBUG_LASTORE
-                            debugLastore() << "jobInfoAnswered" << toInsert->info["path"].toString() << toInsert->info;
+                            debugLastore() << "JobInfo Answered (change)" << toInsert->info["path"].toString() << toInsert->info;
                         #endif
                         emit this->jobInfoAnswered(toInsert->info["path"].toString(), toInsert->info);
                         this->aggregateJobInfo();
@@ -320,25 +323,31 @@ void LAStoreBridge::askDownloadSize(const QString& pkgId) {
     pkgs << pkgId;
 
 #ifdef DEBUG_LASTORE
-    debugLastore() << "askDownloadSize" << pkgs;
+    debugLastore() << "DownloadSize Ask" << pkgs;
 #endif
     asyncWatcherFactory<long long>(
         this->manager->PackagesDownloadSize(pkgs),
         [this, pkgId](QDBusPendingReply<long long> reply) {
             const auto size = reply.argumentAt<0>();
+#ifdef DEBUG_LASTORE
+            debugLastore() << "DownloadSize Answered" << pkgId << size;
+#endif
             emit this->downloadSizeAnswered(pkgId, size);
         }
     );
 }
 
-void LAStoreBridge::fetchUpdatableApps() {
+void LAStoreBridge::onUpdatableAppsChanged() {
 #ifdef DEBUG_LASTORE
-    debugLastore() << "fetchUpdatableApps";
+    debugLastore() << "fetch UpdatableApps";
 #endif
     asyncWatcherFactory<QDBusVariant>(
         this->manager->upgradableApps(),
         [this](QDBusPendingReply<QDBusVariant> reply)  {
             this->updatableApps = reply.argumentAt<0>().variant().toStringList();
+#ifdef DEBUG_LASTORE
+            debugLastore() << "UpdatableApps Answered (change)" << this->updatableApps;
+#endif
             emit this->updatableAppsAnswered(this->updatableApps);
         }
     );
@@ -346,11 +355,14 @@ void LAStoreBridge::fetchUpdatableApps() {
 
 void LAStoreBridge::askAppInstalled(const QString& pkgId) {
 #ifdef DEBUG_LASTORE
-    debugLastore() << "askAppInstalled" << pkgId;
+    debugLastore() << "AppInstalled Ask" << pkgId;
 #endif
     asyncWatcherFactory<bool>(
         this->manager->PackageExists(pkgId),
         [this, pkgId](QDBusPendingReply<bool> reply) {
+#ifdef DEBUG_LASTORE
+            debugLastore() << "AppInstalled Answered" << pkgId << reply.argumentAt<0>();
+#endif
             emit this->appInstalledAnswered(pkgId, reply.argumentAt<0>());
         }
     );
@@ -389,10 +401,14 @@ void LAStoreBridge::updateApp(const QString& appId) {
 }
 
 void LAStoreBridge::askJobInfo(const QString& jobPath) {
+    debugLastore() << "askJobInfo" << jobPath;
     const auto jobCombo = this->jobDict[jobPath];
     if (jobCombo) {
         const auto jobInfo = jobCombo->info;
         QTimer::singleShot(0, [this, jobPath, jobInfo]() {
+#ifdef DEBUG_LASTORE
+            debugLastore() << "JobInfo Answered" << jobPath << jobInfo;
+#endif
             emit this->jobInfoAnswered(jobPath, jobInfo);
         });
     } else {
@@ -431,7 +447,7 @@ void LAStoreBridge::aggregateJobInfo() {
 
         this->installingApps = QList<QString>::fromSet(installingAppsSet);
 #ifdef DEBUG_LASTORE
-        debugLastore() << "installingAppsAnswered" << this->installingApps;
+        debugLastore() << "InstallingApps Answered (change)" << this->installingApps;
 #endif
         emit this->installingAppsAnswered(this->installingApps);
     }
@@ -441,7 +457,7 @@ void LAStoreBridge::aggregateJobInfo() {
 
         this->runningJobs = QList<QString>::fromSet(runningJobsSet);
 #ifdef DEBUG_LASTORE
-        debugLastore() << "runningJobsAnswered" << this->runningJobs;
+        debugLastore() << "RunningJobs Answered (change)" << this->runningJobs;
 #endif
         emit this->runningJobsAnswered(this->runningJobs);
     }
@@ -450,47 +466,83 @@ void LAStoreBridge::aggregateJobInfo() {
     if (length) {
         this->overallProgress = overallProgress / length;
 #ifdef DEBUG_LASTORE
-        debugLastore() << "overallProgressAnswered" << this->overallProgress;
+        debugLastore() << "OverallProgress Answered (change)" << this->overallProgress;
 #endif
         emit this->overallProgressAnswered(this->overallProgress);
     }
 }
 
 void LAStoreBridge::askOverallProgress() {
+#ifdef DEBUG_LASTORE
+    debugLastore() << "OverallProgress Ask";
+#endif
     QTimer::singleShot(0, [this] {
+#ifdef DEBUG_LASTORE
+        debugLastore() << "OverallProgress Answered" << this->overallProgress;
+#endif
         emit this->overallProgressAnswered(this->overallProgress);
     });
 }
 
 void LAStoreBridge::askSystemArchitectures() {
+#ifdef DEBUG_LASTORE
+    debugLastore() << "SystemArchitectures Ask";
+#endif
     if (this->architectures.length()) {
         // in WebView, the PromiseFactory won't capture the answer if response comes too fast
         QTimer::singleShot(0, [this]() {
+#ifdef DEBUG_LASTORE
+            debugLastore() << "SystemArchitectures Answered" << this->architectures;
+#endif
             emit this->systemArchitecturesAnswered(this->architectures);
         });
     }
 }
 
 void LAStoreBridge::askRunningJobs() {
+#ifdef DEBUG_LASTORE
+    debugLastore() << "RunningJobs Ask";
+#endif
     QTimer::singleShot(0, [this]() {
+#ifdef DEBUG_LASTORE
+        debugLastore() << "RunningJobs Answered" << this->runningJobs;
+#endif
         emit this->runningJobsAnswered(this->runningJobs);
     });
 }
 
 void LAStoreBridge::askInstallingApps() {
+#ifdef DEBUG_LASTORE
+    debugLastore() << "InstallingApps Ask";
+#endif
     QTimer::singleShot(0, [this]() {
+#ifdef DEBUG_LASTORE
+        debugLastore() << "InstallingApps Answered" << this->installingApps;
+#endif
         emit this->installingAppsAnswered(this->installingApps);
     });
 }
 
 void LAStoreBridge::askUpdatableApps() {
+#ifdef DEBUG_LASTORE
+    debugLastore() << "UpdatableApps Ask";
+#endif
     QTimer::singleShot(0, [this]() {
+#ifdef DEBUG_LASTORE
+        debugLastore() << "UpdatableApps Answered" << this->updatableApps;
+#endif
         emit this->updatableAppsAnswered(this->updatableApps);
     });
 }
 
 void LAStoreBridge::askJobPaths() {
+#ifdef DEBUG_LASTORE
+    debugLastore() << "JobPaths Ask";
+#endif
     QTimer::singleShot(0, [this]() {
+#ifdef DEBUG_LASTORE
+        debugLastore() << "JobPaths Answered" << this->jobPaths;
+#endif
         emit this->jobPathsAnswered(this->jobPaths);
     });
 }
