@@ -8,7 +8,6 @@
 ## 基本操作|common/icon_basicoperation.svg|
 
 ### 运行深度商店
-
 您可以通过执行以下操作来运行深度商店：
 
 - 点击任务栏上的 ![launcher-24](icon/launcher-24.svg) 进入启动器界面，通过浏览找到 ![store-24](icon/store-24.svg) 点击。
@@ -29,10 +28,9 @@
 ![1|closestore](png/closestore.png)
 
 ## 主界面|common/icon_maininterface.svg|
-
 深度商店主界面由导航栏、搜索框、首页轮播、首页栏目、专题应用、任务管理、菜单栏组成。
 
-> ![tips](icon/tips.svg)：拖动导航栏边线，将切换成图标显示，悬停在图标上就可以显示应用分类名称。
+> ![tips](icon/tips.svg)：向右或向左拖动导航栏边线，可以切换成图标或图标和名称显示。仅图标显示时，悬停在图标上就可以显示应用分类名称。
 
 ![1|maininterfacedetail](png/maininterfacedetail.png)
 
@@ -78,12 +76,10 @@
  </table>
 
 ## 管理应用|common/icon_manageinterface.svg|
-
 您可以通过深度商店搜索、下载、安装不同分类的应用，同时还可以根据热门推荐、下载排行、装机必备、热门专题、星级排行、用户评论等不同方式挖掘更多精彩应用。
 
 ### 搜索应用
-
-深度商店中自带搜索功能，您只需在搜索框中输出关键字，将自动匹配补全内容，按下键盘上的 ![Enter](icon/Enter.svg) 键即可显示包含该关键字的所有应用。
+深度商店中自带搜索功能，您只需在搜索框中输出关键字，将自动匹配补全内容。按下键盘上的 ![Enter](icon/Enter.svg) 键，即可显示包含该关键字的所有应用。
 
 #### 自动匹配
 
@@ -104,36 +100,34 @@
 #### 清空记录
 
 1. 在深度商店界面，点击顶部搜索框。
-2. 点击 ![icon_clear](icon/icon_clear.png) 。
+2. 点击 ![icon_clear](icon/icon_clear.svg) 。
 3. 清空搜索框内所有记录。
 
 ### 下载/安装应用
-
-深度商店提供一键式的应用下载和安装，无需手动处理，同时在下载安装应用的过程中，您可以查看当前应用的进度、速度等。
+深度商店提供一键式的应用下载和安装，无需手动处理，同时在下载安装应用的过程中，您可以暂停、删除等操作，还可以查看当前应用的下载或安装进度、速度。
 
 1. 在深度商店界面，点击需要下载应用的图片。
 2. 进入该应用的详情界面。
-3. 点击 ![installfordetail](png/installfordetail.png)，将自动进入任务管理中下载。
+3. 点击 ![installfordetail](icon/installfordetail.svg)，将自动进入任务管理中下载并安装。
 4. 您可以查看该应用的下载速度、下载进度或安装进度。
 
-> ![tips](icon/tips.svg)：您还可以直接将鼠标悬停在应用的图片上，点击 ![installforpic](png/installforpic.png)。
+> ![tips](icon/tips.svg)：您还可以直接将鼠标悬停在应用的图片上，点击 ![installforpic](icon/installforpic.svg)。
 
 ![1|installprocess](png/installprocess.png)
 
 ### 更新/升级应用
 
-如果您需要更新和升级应用，可以通过控制中心来设置更新和升级应用，具体操作请参阅 [系统信息](dman:///deepin-controlcenter#系统信息)。
+如果您需要更新和升级应用，可以通过控制中心来设置更新和升级应用，具体操作请参阅 [更新和升级](dman:///dde-control-center#更新和升级)。
 
 > ![notes](icon/notes.svg)：除了更新和升级应用，如果系统版本存在更新，您还可以通过控制中心更新和升级系统。
 
 ### 卸载应用
 
-如果您需要卸载应用，可以通过进入启动器界面来卸载应用，具体操作请参阅 [卸载应用程序](dman:///deepin-system#卸载应用程序)。
+如果您需要卸载应用，可以通过进入启动器界面来卸载应用，具体操作请参阅 [卸载应用程序](dman:///dde#卸载应用程序)。
 
 ## 应用界面|common/icon_appinterface.svg|
 
 ### 应用详情
-
 您可以通过进入应用详情界面，了解应用的介绍、大小、版本、下载量、评分等信息。
 
 ![1|softwareinterface](png/softwareinterface.png)
@@ -158,8 +152,8 @@
         </tr>
         <tr>
             <td>4</td>
-            <td>应用大小</td>
-            <td>您可以查看应用的大小。</td>
+            <td>下载大小</td>
+            <td>您可以查看应用的下载大小。</td>
         </tr>
         <tr>
             <td>5</td>
@@ -175,8 +169,7 @@
  </table>
 
 ### 评论和评分
-
-您可以登录到深度商店中对应用进行评论或评分，评论和评分必须同时提交才能成功，而且当前版本应用的评论和评分只能评论一次，如果您未登录则只能查看评论和评分。
+您可以登录到深度商店中对应用进行评论或评分，但评论和评分必须同时提交才能成功，而且当前版本应用的评论和评分只能评论一次，如果您未登录则只能查看评论和评分。
 
 > ![attention](icon/attention.svg)：如果您需要了解注册和登录的信息，具体操作请参阅 [登录](#登录)。
 
@@ -188,7 +181,7 @@
         <tr>
             <td>1</td>
             <td>登录</td>
-            <td>您可以使用已注册账号登录深度商店。</td>
+            <td>您可以使用已注册帐号登录深度商店。</td>
         </tr>
         <tr>
             <td>2</td>
@@ -217,21 +210,19 @@
 ## 选项设置|common/icon_optionsetting.svg|
 
 ### 登录
-
 您可以使用深度科技论坛已注册的帐号直接登录深度商店。
 
 1. 在深度商店界面，点击 ![icon_menu](icon/icon_menu.svg)。
 2. 点击 **登录**。
 3. 输入用户名和密码。
-4. 如果要开启自动登录功能，请将 **记住密码** 按钮向右滑动。
+4. 如果需要开启自动登录功能，请点击 **记住密码** 开关按钮。
 5. 点击 **登录**。
 
-> ![attention](icon/attention.svg)：如果您未注册账号，可通过点击弹出框中的 **注册** 按钮跳转到页面中进行注册。
+> ![attention](icon/attention.svg)：如果您未注册帐号，通过点击弹出框中的 **注册** 按钮跳转到页面中进行注册。
 
 ![0|loginpage](png/loginpage.png)
 
 ### 帮助
-
 您可以点击帮助获取深度商店的帮助手册，通过帮助进一步让您了解和使用深度商店。
 
 1. 在深度商店界面，点击 ![icon_menu](icon/icon_menu.svg)。
@@ -241,7 +232,6 @@
 ![1|help](png/help.png)
 
 ### 关于
-
 您可以点击关于查看深度商店的版本介绍。
 
 1. 在深度商店界面，点击 ![icon_menu](icon/icon_menu.svg)。
@@ -251,11 +241,7 @@
 ![0|about](png/about.png)
 
 ### 退出
-
 您可以进入菜单栏点击退出深度商店。
 
 1. 在深度商店界面，点击 ![icon_menu](icon/icon_menu.svg)。
 2. 点击 **退出**。
-
-
-
