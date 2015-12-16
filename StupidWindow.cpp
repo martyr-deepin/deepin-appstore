@@ -57,9 +57,10 @@ StupidWindow::StupidWindow(QWidget* parent) : QWidget(parent),
                                               resizeHandleWidth(5),
                                               shadowRadius(24),
                                               layoutMargin(25) {
+#ifndef PLAIN_VISUAL_EFFECT
     this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::FramelessWindowHint);
-
+#endif
     this->horizontalLayout = new QHBoxLayout(this);
     this->horizontalLayout->setSpacing(0);
     this->horizontalLayout->setObjectName("horizontalLayout");
@@ -75,6 +76,7 @@ StupidWindow::~StupidWindow() {
 }
 
 void StupidWindow::polish() {
+#ifndef PLAIN_VISUAL_EFFECT
     if (!this->shadowEffect) {
         this->shadowEffect = new QGraphicsDropShadowEffect(this);
         this->shadowEffect->setBlurRadius(this->shadowRadius);
@@ -82,6 +84,7 @@ void StupidWindow::polish() {
         this->shadowEffect->setOffset(0, 6);
         this->setGraphicsEffect(this->shadowEffect);
     }
+#endif
 }
 
 

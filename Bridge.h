@@ -17,9 +17,11 @@ class Bridge : public QObject {
     Q_OBJECT
     Q_PROPERTY(LAStoreBridge* lastore
                MEMBER lastore
+               CONSTANT
     )
     Q_PROPERTY(unsigned int layoutMargin
                READ layoutMargin
+               CONSTANT
     )
 
 public:
