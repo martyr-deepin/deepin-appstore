@@ -11,7 +11,7 @@
 
 AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent),
                                             layoutMargin(25),
-                                            shadowRadius(24),
+                                            shadowRadius(12),
                                             borderRadius(3),
                                             contentWidth(355), contentHeight(340) {
     this->setModal(true);
@@ -80,7 +80,7 @@ void AboutWindow::polish() {
         this->shadowEffect = new QGraphicsDropShadowEffect(this);
         this->shadowEffect->setBlurRadius(this->shadowRadius);
         this->shadowEffect->setColor(QColor(0, 0, 0, 255 / 5));
-        this->shadowEffect->setOffset(0, 6);
+        this->shadowEffect->setOffset(0, 4);
         this->content->setGraphicsEffect(this->shadowEffect);
     }
 }
