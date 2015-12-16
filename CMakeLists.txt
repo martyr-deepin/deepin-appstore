@@ -55,11 +55,13 @@ add_definitions(-DSHELL_VERSION="${SHELL_VERSION}")
 
 # Link against either QtWebKit or QtWebEngine
 #find_package(Qt5WebEngineWidgets)
+# track qt web engine missing features: https://trello.com/b/5G9c1rkb/qtwebengine
 if(Qt5WebEngineWidgets_FOUND)
     set(WEB_WIDGET_FILES WebEngine/WebView.cpp WebEngine/WebView.h WebEngine/WebPage.cpp WebEngine/WebPage.h)
     add_definitions(-DBUILD_WITH_WEBENGINE=1)
     add_executable(deepin-appstore ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
-                   res.qrc)
+                   res.qrc
+                   "/usr/include/lastore-daemon.h")
     target_link_libraries(deepin-appstore ${LINK_LIBS} Qt5::WebEngineWidgets)
 else()
     set(WEB_WIDGET_FILES WebKit/WebView.cpp WebKit/WebView.h
