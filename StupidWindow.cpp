@@ -223,7 +223,7 @@ void StupidWindow::startMoving() {
 
 QPoint StupidWindow::mapToGlobal(const QPoint& point) const {
     auto result = QWidget::mapToGlobal(point);
-    const auto currentLayoutMargin = this->contentsMargins().left();
+    const auto currentLayoutMargin = this->horizontalLayout->contentsMargins().left();
     result.setX(result.x() + currentLayoutMargin);
     result.setY(result.y() + currentLayoutMargin);
     return result;
