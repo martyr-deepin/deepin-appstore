@@ -221,11 +221,6 @@ void Bridge::setAboutContent(QString html) {
     }
 }
 
-void Bridge::notifyCacheReady() {
-    const auto shell = static_cast<Shell*>(qApp);
-    emit shell->applicationCacheFinished();
-}
-
 unsigned int Bridge::layoutMargin() {
     return this->getMainWindow()->layout()->contentsMargins().left();
 }

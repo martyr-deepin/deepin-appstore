@@ -38,9 +38,6 @@ Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
         }
     }
 
-    QObject::connect(this, &Shell::applicationCacheFinished,
-                     this, &Shell::onApplicationCacheFinished);
-
     auto initUrl = this->argsParser->value("host");
     if (initUrl.size()) {
         this->initUrl = QUrl(initUrl);
@@ -49,13 +46,6 @@ Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
     }
 
     this->origin = this->initUrl.scheme() + "://" + this->initUrl.host();
-
-    this->settings->beginGroup(QString("cached"));
-    const auto cached = this->settings->value(this->origin);
-    this->settings->endGroup();
-    this->isInitialRun = !cached.toString().size();
-    ::restartQtLoop = this->isInitialRun;
-
     this->startWebView();
 }
 
@@ -113,27 +103,11 @@ void Shell::parseOptions() {
     this->argsParser->process(qApp->arguments());
 }
 
-void Shell::onApplicationCacheFinished() {
-    qDebug() << "onApplicationCacheFinished";
-    if (this->isInitialRun) {
-        this->settings->beginGroup("cached");
-        this->settings->setValue(this->origin, true);
-        this->settings->endGroup();
-        this->settings->sync();
-        this->isInitialRun = false;
-        qDebug() << "Finish importing the initial webapp, restarting...";
-        this->quit();
-    }
-}
-
-
 void Shell::startWebView() {
     this->win = new MainWindow();
     this->win->setUrl(this->initUrl);
-    if (!this->isInitialRun) {
-        this->win->show();
-        this->win->polish();
-    }
+    this->win->show();
+    this->win->polish();
 }
 
 void Shell::openManual() {

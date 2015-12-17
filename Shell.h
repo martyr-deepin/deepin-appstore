@@ -27,18 +27,13 @@ public:
     QSettings* settings = nullptr;
     QUrl initUrl;
     QString origin;
-    bool isInitialRun = true;
 
     void openManual();
-
-signals:
-    void applicationCacheFinished();
 
 private:
     ToolTip* tooltip = nullptr;
     DBusInterface* dbusInterface = nullptr;
     void parseOptions();
-    void onApplicationCacheFinished();
     void startWebView();
     MainWindow* win = nullptr;
 };

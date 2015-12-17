@@ -14,7 +14,7 @@ WebView::WebView(QWidget *parent) : QWebView(parent),
     const auto settings = this->settings();
     settings->enablePersistentStorage(shell->basePath + "/storage");
 
-    settings->setAttribute(QWebSettings::OfflineWebApplicationCacheEnabled, true);
+    settings->setAttribute(QWebSettings::OfflineWebApplicationCacheEnabled, false);
     settings->setAttribute(QWebSettings::OfflineStorageDatabaseEnabled, true);
     settings->setAttribute(QWebSettings::LocalStorageEnabled, true);
 

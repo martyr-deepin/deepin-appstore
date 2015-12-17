@@ -47,8 +47,6 @@ public slots:
 
     Q_INVOKABLE void setAboutContent(QString html);
 
-    Q_INVOKABLE void notifyCacheReady();
-
 Q_SIGNALS:
     void loginRequested();
     void logoutRequested();

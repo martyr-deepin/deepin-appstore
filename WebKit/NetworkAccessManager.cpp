@@ -1,21 +1,30 @@
 #include <QDebug>
 #include <QNetworkDiskCache>
 #include <QCommandLineParser>
+
 #include "../Shell.h"
+
 #include "NetworkAccessManager.h"
 #include "CookieJar.h"
 #include "LocalFileSystemReply.h"
 
+#ifdef DEBUG_LOCAL_REQUEST
+auto debugLocalRequest() -> QDebug {
+    time_t t;
+    time(&t);
+    return qDebug() << "[LOCALREQ]" << t;
+}
+#endif
+
 NetworkAccessManager::NetworkAccessManager(QObject *parent) : QNetworkAccessManager(parent) {
-    auto shell = static_cast<Shell*>(qApp);
-    auto cookieJar = new CookieJar(this);
+    const auto shell = static_cast<Shell*>(qApp);
+    const auto cookieJar = new CookieJar(this);
     this->setCookieJar(cookieJar);
 
     this->diskCache = new QNetworkDiskCache(this);
     this->diskCache->setCacheDirectory(shell->basePath + "/cache");
     this->setCache(this->diskCache);
-    if ((!shell->isInitialRun) &&
-        (shell->argsParser->isSet("offline"))) {
+    if (shell->argsParser->isSet("offline")) {
         this->setNetworkAccessible(QNetworkAccessManager::NetworkAccessibility::NotAccessible);
     }
 }
@@ -27,9 +36,10 @@ NetworkAccessManager::~NetworkAccessManager() {
 QNetworkReply *NetworkAccessManager::createRequest(QNetworkAccessManager::Operation op,
                                                    const QNetworkRequest &req,
                                                    QIODevice *outgoingData) {
-    const auto shell = static_cast<Shell*>(qApp);
-    if (shell->isInitialRun && NetworkAccessManager::isLocallyServable(req.url())) {
-        qDebug() << "Loading local copy of" << req.url();
+    if (NetworkAccessManager::isLocallyServable(req.url())) {
+#ifdef DEBUG_LOCAL_REQUEST
+        debugLocalRequest() << "Loading local" << req.url();
+#endif
         return new LocalFileSystemReply(op, req, this, outgoingData);
     } else {
         return QNetworkAccessManager::createRequest(op, req, outgoingData);
@@ -39,9 +49,8 @@ QNetworkReply *NetworkAccessManager::createRequest(QNetworkAccessManager::Operat
 
 bool NetworkAccessManager::isLocallyServable(const QUrl& url) {
     const auto host = url.host();
-    if (host == "appstore.deepin.test" ||
-        host == "preview.appstore.deepin.test" ||
-        host == "appstore.deepin.org") {
+    if (host.endsWith("appstore.deepin.test") ||
+        host.endsWith("appstore.deepin.org")) {
         const auto path = url.path();
         if (!(path.contains("/endpoints/v1/") ||
               path.contains("/data/v1/"))) {
