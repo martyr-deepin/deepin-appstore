@@ -188,17 +188,26 @@ void Bridge::openDesktopFile(const QString& path) {
                                               "Launch");
     msg << path;
 
-    const auto reply = QDBusPendingReply<QDBusVariant>(connection.asyncCall(msg));
-    asyncWatcherFactory<QDBusVariant>(
+    const auto fallbackOpenDesktopFile = [path]() {
+        // fallback to gio
+        const auto stdPath = path.toStdString();
+        const char* cPath = stdPath.c_str();
+        GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
+        g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
+        g_object_unref(appInfo);
+    };
+
+    const auto reply = QDBusPendingReply<bool>(connection.asyncCall(msg));
+    asyncWatcherFactory<bool>(
         reply,
-        nullptr,
-        [path](QDBusError UNUSED(error)) {
-            // fallback to gio
-            const auto stdPath = path.toStdString();
-            const char* cPath = stdPath.c_str();
-            GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
-            g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
-            g_object_unref(appInfo);
+        [fallbackOpenDesktopFile](QDBusPendingReply<bool> reply) {
+            const auto ok = reply.argumentAt<0>();
+            if (!ok) {
+                fallbackOpenDesktopFile();
+            }
+        },
+        [fallbackOpenDesktopFile](QDBusError UNUSED(error)) {
+            fallbackOpenDesktopFile();
         }
     );
 }
