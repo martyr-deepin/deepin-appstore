@@ -134,6 +134,7 @@ void StupidWindow::startResizing(const QPoint& globalPoint, const CornerEdge& ce
                false,
                SubstructureRedirectMask | SubstructureNotifyMask,
                &xev);
+    XFlush(QX11Info::display());
 }
 
 void StupidWindow::mouseReleaseEvent(QMouseEvent* event) {
@@ -217,6 +218,7 @@ void StupidWindow::startMoving() {
                false,
                SubstructureRedirectMask | SubstructureNotifyMask,
                &xev);
+    XFlush(QX11Info::display());
 }
 
 
