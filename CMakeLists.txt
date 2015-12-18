@@ -59,7 +59,6 @@ if(Qt5WebEngineWidgets_FOUND)
     find_package(Qt5WebChannel REQUIRED)
     set(WEB_WIDGET_FILES WebEngine/WebView.cpp WebEngine/WebView.h WebEngine/WebPage.cpp WebEngine/WebPage.h)
     add_definitions(-D BUILD_WITH_WEBENGINE=1)
-    add_definitions(-D PLAIN_VISUAL_EFFECT=1)
     add_executable(deepin-appstore ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
                    res.qrc
                    "/usr/include/lastore-daemon.h")
