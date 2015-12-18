@@ -23,6 +23,14 @@ MainWindow::MainWindow(StupidWindow *parent) : StupidWindow(parent) {
     // Leave event will cause problems with <horizontal-resizer>, eat leave events!
     const auto filter = new FilterMouseMove(this);
     this->webView->installEventFilter(filter);
+
+    connect(this->webView, &WebView::titleChanged, [this](const QString& title) {
+        if (!title.isEmpty()) {
+            this->setWindowTitle(title);
+//            disconnect(this->webView, &WebView::titleChanged, nullptr, nullptr);
+        }
+    });
+
     this->layout()->addWidget(this->webView);
 }
 

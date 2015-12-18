@@ -23,14 +23,6 @@ WebView::WebView(QWidget *parent) : QWebView(parent),
     } else {
         this->setContextMenuPolicy(Qt::NoContextMenu);
     }
-
-    connect(this, &QWebView::titleChanged, [this](const QString& title) {
-        if (!title.isEmpty()) {
-            const auto mainWin = this->parent();
-            static_cast<QWidget * >(mainWin)->setWindowTitle(title);
-            disconnect(this, &QWebView::titleChanged, nullptr, nullptr);
-        }
-    });
 }
 
 WebView::~WebView() {

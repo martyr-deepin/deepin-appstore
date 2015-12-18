@@ -15,7 +15,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5X11Extras REQUIRED)
 find_package(Qt5Gui REQUIRED)
-#find_package(Qt5WebChannel REQUIRED)
 find_package(Qt5DBus REQUIRED)
 find_package(PkgConfig REQUIRED)
 
@@ -46,7 +45,6 @@ set(LINK_LIBS
         Qt5::X11Extras
         Qt5::DBus
         Qt5::Gui
-#        Qt5::WebChannel
         ${GLIB_LIBRARIES}
         ${X11_LIBRARIES}
         ${GIO_LIBRARIES}
@@ -58,13 +56,14 @@ add_definitions(-DSHELL_VERSION="${SHELL_VERSION}")
 #find_package(Qt5WebEngineWidgets)
 # track qt web engine missing features: https://trello.com/b/5G9c1rkb/qtwebengine
 if(Qt5WebEngineWidgets_FOUND)
+    find_package(Qt5WebChannel REQUIRED)
     set(WEB_WIDGET_FILES WebEngine/WebView.cpp WebEngine/WebView.h WebEngine/WebPage.cpp WebEngine/WebPage.h)
     add_definitions(-D BUILD_WITH_WEBENGINE=1)
     add_definitions(-D PLAIN_VISUAL_EFFECT=1)
     add_executable(deepin-appstore ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
                    res.qrc
                    "/usr/include/lastore-daemon.h")
-    target_link_libraries(deepin-appstore ${LINK_LIBS} Qt5::WebEngineWidgets)
+    target_link_libraries(deepin-appstore ${LINK_LIBS} Qt5::WebEngineWidgets Qt5::WebChannel)
 else()
     set(WEB_WIDGET_FILES WebKit/WebView.cpp WebKit/WebView.h
                          WebKit/WebPage.cpp WebKit/WebPage.h
