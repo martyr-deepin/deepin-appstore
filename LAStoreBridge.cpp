@@ -39,7 +39,11 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
     this->onUpdatableAppsChanged();
 
     const auto bridge = static_cast<Bridge *>(this->parent());
-    this->manager->SetRegion(bridge->getAppRegion());
+    connect(bridge, &Bridge::appRegionAnswered,
+            [this](const QString region) {
+                this->manager->SetRegion(region);
+            });
+    bridge->askAppRegion();
 }
 
 LAStoreBridge::~LAStoreBridge() {

@@ -19,10 +19,6 @@ class Bridge : public QObject {
                MEMBER lastore
                CONSTANT
     )
-    Q_PROPERTY(unsigned int layoutMargin
-               READ layoutMargin
-               CONSTANT
-    )
 
 public:
     Bridge(QObject* parent = nullptr);
@@ -30,30 +26,45 @@ public:
 
 public slots:
     Q_INVOKABLE void exit();
-    Q_INVOKABLE void showMinimized();
+    Q_INVOKABLE void showMinimize();
     Q_INVOKABLE void toggleMaximized();
 
-    Q_INVOKABLE QStringList getLocales();
-    Q_INVOKABLE QString getAppRegion();
-    Q_INVOKABLE QString getTimezoneName();
     Q_INVOKABLE void showTooltip(const QString& text,
                                  const int& x, const int& y,
                                  const int& w, const int& h);
     Q_INVOKABLE void startMoving();
-    Q_INVOKABLE void showMenu(QString content);
+    Q_INVOKABLE void showMenu(QVariantMap content);
 
-    Q_INVOKABLE void openExternalBrowser(QString url);
+    Q_INVOKABLE void openExternalBrowser(const QString& url);
     Q_INVOKABLE void openDesktopFile(const QString& path);
 
-    Q_INVOKABLE void setAboutContent(QString html);
+    Q_INVOKABLE void setAboutContent(const QString& html);
+
+    Q_INVOKABLE void askWindowState();
+    Q_INVOKABLE void askLanguages();
+    Q_INVOKABLE void askTimezone();
+    Q_INVOKABLE void askAppRegion();
+
 
 Q_SIGNALS:
     void loginRequested();
     void logoutRequested();
-    void windowStateChanged(int);
+
+    void windowStateAnswered(QString);
+    void languagesAnswered(QStringList);
+    void timezoneAnswered(QString);
+    void appRegionAnswered(QString);
 
 private:
-    QString timezoneName;
+    void calcTimezone();
+    QString timezone;
+
+    void calcAppRegion();
+    QString appRegion;
+
+    void calcLanguages();
+    QStringList languages;
+
     MainWindow* getMainWindow();
     AboutWindow* aboutWindow = nullptr;
     QString aboutContent;

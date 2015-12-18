@@ -9,6 +9,7 @@
 #undef QT_NO_KEYWORDS
 
 #include "common.h"
+#include <cassert>
 #include <QApplication>
 
 // for tooltips
@@ -28,6 +29,16 @@
 #include "dbusmenu.h"
 #include "dbusmenumanager.h"
 
+auto nameWindowState(Qt::WindowStates state) -> QString {
+    if (state & Qt::WindowMaximized) {
+        return "maximized";
+    } else if (state & Qt::WindowMinimized) {
+        return "minimized";
+    } else {
+        return "normal";
+    }
+}
+
 Bridge::Bridge(QObject *parent) : QObject(parent) {
     this->lastore = new LAStoreBridge(this);
     this->menuManager = new DBusMenuManager(this);
@@ -36,8 +47,12 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
     const auto mainWin = this->getMainWindow();
     connect(mainWin, &MainWindow::windowStateChanged,
             this, [this](Qt::WindowState state) {
-                emit this->windowStateChanged((int)state);
+                emit this->windowStateAnswered(nameWindowState(state));
             });
+
+    this->calcLanguages(); // may or may not contain blocking code
+    this->calcTimezone(); // contains blocking code
+    this->calcAppRegion(); // no blocking code
 }
 
 Bridge::~Bridge() {
@@ -56,23 +71,12 @@ void Bridge::exit() {
     qApp->exit();
 }
 
-void Bridge::showMinimized() {
+void Bridge::showMinimize() {
     this->getMainWindow()->showMinimized();
 }
 
 void Bridge::toggleMaximized() {
     this->getMainWindow()->toggleMaximized();
-}
-
-QStringList Bridge::getLocales() {
-    QStringList result;
-    auto languageNames = g_get_language_names();
-    int length = sizeof(languageNames) / sizeof(void*);
-    for (int i = 0; i < length + 1; i++) {
-        result << languageNames[i];
-    }
-
-    return result;
 }
 
 void Bridge::showTooltip(const QString& text,
@@ -84,29 +88,6 @@ void Bridge::showTooltip(const QString& text,
                                            QRect(globalPos.x(), globalPos.y(), w, h));
 }
 
-QString Bridge::getAppRegion() {
-    QString tz = this->getTimezoneName();
-    if (tz == "Asia/Shanghai" ||
-        tz == "Asia/Chongqing" ||
-        tz == "Asia/Chungking" ||
-        tz == "Asia/Urumqi" ||
-        tz == "Asia/Harbin" ||
-        tz == "Asia/PRC") {
-        return QString("mainland");
-    }
-    return QString("international");
-}
-
-QString Bridge::getTimezoneName() {
-    if (timezoneName.isEmpty()) {
-        QFile file("/etc/timezone");
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            timezoneName = "";
-        }
-        timezoneName = file.readAll().trimmed();
-    }
-    return timezoneName;
-}
 
 void Bridge::startMoving() {
     this->getMainWindow()->startMoving();
@@ -137,15 +118,25 @@ void Bridge::onMenuUnregistered() {
     }
 }
 
-void Bridge::showMenu(QString content) {
+void Bridge::showMenu(QVariantMap content) {
     if (this->menuPath.size()) {
         qWarning() << "Another menu is active";
         return;
     }
 
+    // map coordinates
+    const auto coord = QPoint((int)content["x"].toDouble(), (int)content["y"].toDouble());
+    const auto translatedCoord = this->getMainWindow()->mapToGlobal(coord);
+    content["x"] = translatedCoord.x();
+    content["y"] = translatedCoord.y();
+
+    // stringify JSON
+    QJsonDocument jsonDoc = QJsonDocument::fromVariant(content);
+    const auto menuStr = jsonDoc.toJson();
+
     asyncWatcherFactory<QDBusObjectPath>(
         this->menuManager->RegisterMenu(),
-        [this, content](QDBusPendingReply<QDBusObjectPath> reply) {
+        [this, menuStr](QDBusPendingReply<QDBusObjectPath> reply) {
             this->menuPath = reply.argumentAt<0>().path();
             this->menu = new DBusMenu(this->menuPath, this);
             connect(this->menu, &DBusMenu::MenuUnregistered,
@@ -153,7 +144,7 @@ void Bridge::showMenu(QString content) {
 
             connect(this->menu, &DBusMenu::ItemInvoked,
                     this, &Bridge::onItemInvoked);
-            this->menu->ShowMenu(content);
+            this->menu->ShowMenu(menuStr);
         }
     );
 }
@@ -173,7 +164,7 @@ void Bridge::onItemInvoked(const QString& id, bool UNUSED(checked)) {
     }
 }
 
-void Bridge::openExternalBrowser(QString url) {
+void Bridge::openExternalBrowser(const QString& url) {
     QDesktopServices::openUrl(QUrl(url));
 }
 
@@ -223,7 +214,7 @@ void Bridge::showAboutWindow() {
     this->aboutWindow->show();
 }
 
-void Bridge::setAboutContent(QString html) {
+void Bridge::setAboutContent(const QString& html) {
     this->aboutContent = html;
     if (this->aboutWindow) {
         this->aboutWindow->setContent(this->aboutContent);
@@ -232,4 +223,71 @@ void Bridge::setAboutContent(QString html) {
 
 unsigned int Bridge::layoutMargin() {
     return this->getMainWindow()->layout()->contentsMargins().left();
+}
+
+void Bridge::askWindowState() {
+    const auto windowState = this->getMainWindow()->windowState();
+    QTimer::singleShot(0, [this, windowState]() {
+        emit this->windowStateAnswered(nameWindowState(windowState));
+    });
+
+}
+
+void Bridge::askAppRegion() {
+    if (!this->appRegion.isEmpty()) {
+        QTimer::singleShot(0, [this]() {
+            emit this->appRegionAnswered(this->appRegion);
+        });
+    }
+}
+
+void Bridge::calcTimezone() {
+    if (this->timezone.isEmpty()) {
+        QFile file("/etc/timezone");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            qWarning() << "Cannot open /etc/timezone for timezone information";
+        }
+        this->timezone = file.readAll().trimmed();
+        emit this->timezoneAnswered(this->timezone);
+    }
+}
+
+void Bridge::calcAppRegion() {
+    assert(!this->timezone.isEmpty());
+    if (this->timezone == "Asia/Shanghai" ||
+        this->timezone == "Asia/Chongqing" ||
+        this->timezone == "Asia/Chungking" ||
+        this->timezone == "Asia/Urumqi" ||
+        this->timezone == "Asia/Harbin" ||
+        this->timezone == "Asia/PRC") {
+        this->appRegion = "mainland";
+    } else {
+        this->appRegion = "international";
+    }
+    emit this->appRegionAnswered(this->appRegion);
+}
+
+void Bridge::askTimezone() {
+    if (!this->timezone.isEmpty()) {
+        QTimer::singleShot(0, [this]() {
+            emit this->timezoneAnswered(this->timezone);
+        });
+    }
+}
+
+void Bridge::askLanguages() {
+    if (this->languages.length()) {
+        QTimer::singleShot(0, [this]() {
+            emit this->languagesAnswered(this->languages);
+        });
+    }
+}
+
+void Bridge::calcLanguages() {
+    const auto languages = g_get_language_names();
+    const int length = sizeof(languages) / sizeof(void*);
+    for (int i = 0; i < length + 1; i++) {
+        this->languages << languages[i];
+    }
+    emit this->languagesAnswered(this->languages);
 }
