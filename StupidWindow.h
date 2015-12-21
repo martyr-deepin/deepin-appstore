@@ -39,6 +39,8 @@ public:
 public slots:
     void startMoving();
     void updateCursor(CornerEdge);
+    void showMaximized();
+    void showMinimized();
 
 protected:
     void changeEvent(QEvent* event) Q_DECL_OVERRIDE;

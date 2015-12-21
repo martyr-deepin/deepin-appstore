@@ -19,6 +19,10 @@
 #define _NET_WM_MOVERESIZE_SIZE_LEFT         7
 #define _NET_WM_MOVERESIZE_MOVE              8
 
+#define _NET_WM_STATE_REMOVE        0    /* remove/unset property */
+#define _NET_WM_STATE_ADD           1    /* add/set property */
+#define _NET_WM_STATE_TOGGLE        2    /* toggle property  */
+
 auto cornerEdge2WmGravity(const CornerEdge& ce) -> int {
     switch (ce) {
         case CornerEdge::Top:
@@ -100,13 +104,16 @@ void StupidWindow::mouseMoveEvent(QMouseEvent* event) {
 }
 
 void StupidWindow::startResizing(const QPoint& globalPoint, const CornerEdge& ce) {
+    const auto display = QX11Info::display();
+    const auto winId = this->winId();
+    const auto screen = QX11Info::appScreen();
+
     XEvent xev;
-    Atom netMoveResize = XInternAtom(QX11Info::display(), "_NET_WM_MOVERESIZE", false);
+    const Atom netMoveResize = XInternAtom(display, "_NET_WM_MOVERESIZE", false);
     xev.xclient.type = ClientMessage;
     xev.xclient.message_type = netMoveResize;
-    xev.xclient.display = QX11Info::display();
-
-    xev.xclient.window = this->winId();
+    xev.xclient.display = display;
+    xev.xclient.window = winId;
     xev.xclient.format = 32;
 
     xev.xclient.data.l[0] = globalPoint.x();
@@ -114,14 +121,14 @@ void StupidWindow::startResizing(const QPoint& globalPoint, const CornerEdge& ce
     xev.xclient.data.l[2] = cornerEdge2WmGravity(ce);
     xev.xclient.data.l[3] = Button1;
     xev.xclient.data.l[4] = 1;
-    XUngrabPointer(QX11Info::display(), QX11Info::appTime());
+    XUngrabPointer(display, QX11Info::appTime());
 
-    XSendEvent(QX11Info::display(),
-               QX11Info::appRootWindow(QX11Info::appScreen()),
+    XSendEvent(display,
+               QX11Info::appRootWindow(screen),
                false,
                SubstructureRedirectMask | SubstructureNotifyMask,
                &xev);
-    XFlush(QX11Info::display());
+    XFlush(display);
 }
 
 void StupidWindow::mouseReleaseEvent(QMouseEvent* event) {
@@ -183,13 +190,16 @@ void StupidWindow::updateCursor(CornerEdge ce) {
 }
 
 void StupidWindow::startMoving() {
+    const auto display = QX11Info::display();
+    const auto winId = this->winId();
+    const auto screen = QX11Info::appScreen();
+
     XEvent xev;
-    Atom netMoveResize = XInternAtom(QX11Info::display(), "_NET_WM_MOVERESIZE", false);
+    const Atom netMoveResize = XInternAtom(display, "_NET_WM_MOVERESIZE", false);
     xev.xclient.type = ClientMessage;
     xev.xclient.message_type = netMoveResize;
-    xev.xclient.display = QX11Info::display();
-
-    xev.xclient.window = this->winId();
+    xev.xclient.display = display;
+    xev.xclient.window = winId;
     xev.xclient.format = 32;
 
     const auto globalPos = QCursor::pos();
@@ -198,14 +208,14 @@ void StupidWindow::startMoving() {
     xev.xclient.data.l[2] = _NET_WM_MOVERESIZE_MOVE;
     xev.xclient.data.l[3] = Button1;
     xev.xclient.data.l[4] = 1;
-    XUngrabPointer(QX11Info::display(), QX11Info::appTime());
+    XUngrabPointer(display, QX11Info::appTime());
 
-    XSendEvent(QX11Info::display(),
-               QX11Info::appRootWindow(QX11Info::appScreen()),
+    XSendEvent(display,
+               QX11Info::appRootWindow(screen),
                false,
                SubstructureRedirectMask | SubstructureNotifyMask,
                &xev);
-    XFlush(QX11Info::display());
+    XFlush(display);
 }
 
 void StupidWindow::setMargins(unsigned int i) {
@@ -214,15 +224,18 @@ void StupidWindow::setMargins(unsigned int i) {
     }
     this->horizontalLayout->setContentsMargins(i, i, i, i);
 
+    const auto display = QX11Info::display();
+    const auto winId = this->winId();
+
     QString s;
     QTextStream ts(&s);
     ts << i;
 
     const auto qByteArray = s.toLatin1();
-    const Atom deepinShadow = XInternAtom(QX11Info::display(), "DEEPIN_WINDOW_SHADOW", false);
+    const Atom deepinShadow = XInternAtom(display, "DEEPIN_WINDOW_SHADOW", false);
     const auto result = XChangeProperty(
-            QX11Info::display(),
-            this->winId(),
+            display,
+            winId,
             deepinShadow, // property
             XA_STRING, // type
             8,
@@ -267,4 +280,64 @@ void StupidWindow::setMinimumSize(int w, int h) {
 void StupidWindow::setMaximumSize(int maxw, int maxh) {
     QWidget::setMaximumSize(maxw + this->layoutMargin * 2,
                             maxh + this->layoutMargin * 2);
+}
+
+void StupidWindow::showMaximized() {
+    const auto display = QX11Info::display();
+    const auto winId = this->winId();
+    const auto screen = QX11Info::appScreen();
+
+    XEvent xev;
+    memset(&xev, 0, sizeof(xev));
+    const Atom netWmState = XInternAtom(display, "_NET_WM_STATE", false);
+    const Atom verticalMaximized = XInternAtom(display, "_NET_WM_STATE_MAXIMIZED_VERT", false);
+    const Atom horizontalMaximized = XInternAtom(display, "_NET_WM_STATE_MAXIMIZED_HORZ", false);
+
+    xev.xclient.type = ClientMessage;
+    xev.xclient.message_type = netWmState;
+    xev.xclient.display = display;
+    xev.xclient.window = winId;
+    xev.xclient.format = 32;
+
+    xev.xclient.data.l[0] = _NET_WM_STATE_TOGGLE;
+    xev.xclient.data.l[1] = verticalMaximized;
+    xev.xclient.data.l[2] = horizontalMaximized;
+    xev.xclient.data.l[3] = 1;
+
+    XSendEvent(display,
+               QX11Info::appRootWindow(screen),
+               false,
+               SubstructureRedirectMask | SubstructureNotifyMask,
+               &xev);
+    XFlush(display);
+}
+
+void StupidWindow::showMinimized() {
+    const auto display = QX11Info::display();
+    const auto winId = this->winId();
+    const auto screen = QX11Info::appScreen();
+
+    XEvent xev;
+    memset(&xev, 0, sizeof(xev));
+    const Atom netWmState = XInternAtom(display, "_NET_WM_STATE", false);
+    const Atom hidden = XInternAtom(display, "_NET_WM_STATE_HIDDEN", false);
+    xev.xclient.type = ClientMessage;
+    xev.xclient.message_type = netWmState;
+    xev.xclient.display = display;
+    xev.xclient.window = winId;
+    xev.xclient.format = 32;
+
+    xev.xclient.data.l[0] = _NET_WM_STATE_TOGGLE;
+    xev.xclient.data.l[1] = hidden;
+    xev.xclient.data.l[2] = 0;
+    xev.xclient.data.l[3] = 1;
+
+    XSendEvent(display,
+        QX11Info::appRootWindow(screen),
+        false,
+        SubstructureRedirectMask | SubstructureNotifyMask,
+        &xev
+    );
+    XIconifyWindow(display, winId, screen);
+    XFlush(display);
 }
