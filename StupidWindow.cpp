@@ -63,10 +63,7 @@ StupidWindow::StupidWindow(QWidget* parent) : QWidget(parent),
     this->horizontalLayout = new QHBoxLayout(this);
     this->horizontalLayout->setSpacing(0);
     this->horizontalLayout->setObjectName("horizontalLayout");
-    this->horizontalLayout->setContentsMargins(this->layoutMargin,
-                                               this->layoutMargin,
-                                               this->layoutMargin,
-                                               this->layoutMargin);
+    this->setMargins(this->layoutMargin);
     this->setLayout(this->horizontalLayout);
 }
 
@@ -221,6 +218,32 @@ void StupidWindow::startMoving() {
     XFlush(QX11Info::display());
 }
 
+void StupidWindow::setMargins(unsigned int i) {
+    if (!this->horizontalLayout) {
+        return;
+    }
+    this->horizontalLayout->setContentsMargins(i, i, i, i);
+
+    QString s;
+    QTextStream ts(&s);
+    ts << i;
+
+    const auto qByteArray = s.toLatin1();
+    const Atom deepinShadow = XInternAtom(QX11Info::display(), "DEEPIN_WINDOW_SHADOW", false);
+    const auto result = XChangeProperty(
+            QX11Info::display(),
+            this->winId(),
+            deepinShadow, // property
+            XA_STRING, // type
+            8,
+            PropModeReplace,
+            (const unsigned char*)qByteArray.constData(), // data
+            strlen(qByteArray) // nelements
+    );
+    if (!result) {
+        qWarning() << "XChangeProperty failed";
+    }
+}
 
 QPoint StupidWindow::mapToGlobal(const QPoint& point) const {
     auto result = QWidget::mapToGlobal(point);
@@ -234,12 +257,9 @@ void StupidWindow::changeEvent(QEvent *event) {
     QWidget::changeEvent(event);
     if (event->type() == QEvent::WindowStateChange) {
         if (this->windowState() & Qt::WindowMaximized) {
-            this->horizontalLayout->setContentsMargins(0, 0, 0, 0);
+            this->setMargins(0);
         } else {
-            this->horizontalLayout->setContentsMargins(this->layoutMargin,
-                                                       this->layoutMargin,
-                                                       this->layoutMargin,
-                                                       this->layoutMargin);
+            this->setMargins(this->layoutMargin);
         }
     }
 }

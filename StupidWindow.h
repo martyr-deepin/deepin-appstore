@@ -63,6 +63,7 @@ private:
     CornerEdge resizingCornerEdge = CornerEdge::Nil;
     CornerEdge getCornerEdge(int, int);
 
+    void setMargins(unsigned int width);
 };
 
 
