@@ -19,16 +19,6 @@
 #define _NET_WM_MOVERESIZE_SIZE_LEFT         7
 #define _NET_WM_MOVERESIZE_MOVE              8
 
-int bound(int min, int between, int max) {
-    if (between < min) {
-        return min;
-    }
-    if (between > max) {
-        return max;
-    }
-    return between;
-}
-
 auto cornerEdge2WmGravity(const CornerEdge& ce) -> int {
     switch (ce) {
         case CornerEdge::Top:
