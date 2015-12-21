@@ -35,6 +35,7 @@ public:
     void resize(int w, int h);
     void setMinimumSize(int w, int h);
     void setMaximumSize(int maxw, int maxh);
+    void setModal(bool);
 
 public slots:
     void startMoving();

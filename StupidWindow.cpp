@@ -341,3 +341,11 @@ void StupidWindow::showMinimized() {
     XIconifyWindow(display, winId, screen);
     XFlush(display);
 }
+
+void StupidWindow::setModal(bool on) {
+    if (on) {
+        this->setWindowModality(Qt::WindowModality::ApplicationModal);
+    } else {
+        this->setWindowModality(Qt::WindowModality::NonModal);
+    }
+}
