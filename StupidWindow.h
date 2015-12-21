@@ -55,9 +55,6 @@ private:
     void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
 
-
-    bool recalcResizingInProgress = false;
-
     QGraphicsDropShadowEffect* shadowEffect = nullptr;
 
     CornerEdge resizingCornerEdge = CornerEdge::Nil;
