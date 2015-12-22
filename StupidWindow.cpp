@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 #include <QDebug>
 #include <QHBoxLayout>
+#include <QPainter>
 #include "StupidWindow.h"
 
 #include <X11/Xlib.h>
@@ -50,7 +51,8 @@ auto cornerEdge2WmGravity(const CornerEdge& ce) -> int {
 StupidWindow::StupidWindow(QWidget* parent) : QWidget(parent),
                                               resizeHandleWidth(5),
                                               shadowRadius(24),
-                                              layoutMargin(25) {
+                                              layoutMargin(25),
+                                              borderRadius(4) {
     this->setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::FramelessWindowHint);
 
@@ -70,7 +72,7 @@ void StupidWindow::polish() {
     if (!this->shadowEffect) {
         this->shadowEffect = new QGraphicsDropShadowEffect(this);
         this->shadowEffect->setBlurRadius(this->shadowRadius);
-        this->shadowEffect->setColor(QColor(0, 0, 0, 255 / 5));
+        this->shadowEffect->setColor(this->borderColor);
         this->shadowEffect->setOffset(0, 6);
         this->setGraphicsEffect(this->shadowEffect);
     }
@@ -348,4 +350,28 @@ void StupidWindow::setModal(bool on) {
     } else {
         this->setWindowModality(Qt::WindowModality::NonModal);
     }
+}
+
+void StupidWindow::paintEvent(QPaintEvent* event) {
+    QWidget::paintEvent(event);
+    this->paintOutline();
+}
+
+void StupidWindow::paintOutline() {
+    QPainter painter(this);
+
+    const auto outlinePadding = this->layout()->contentsMargins().left();
+    auto rect = this->rect();
+    rect.setX(outlinePadding);
+    rect.setY(outlinePadding);
+    rect.setWidth(rect.width() - outlinePadding);
+    rect.setHeight(rect.height() - outlinePadding);
+
+    QPainterPath path;
+    path.addRoundedRect(rect, this->borderRadius, this->borderRadius);
+    QPen pen;
+    pen.setColor(this->borderColor);
+    pen.setWidth(2);
+    painter.setPen(pen);
+    painter.drawPath(path);
 }

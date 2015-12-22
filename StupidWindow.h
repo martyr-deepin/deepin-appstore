@@ -44,7 +44,8 @@ public slots:
     void showMinimized();
 
 protected:
-    void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
+    void changeEvent(QEvent* event) override;
+    void paintEvent(QPaintEvent*) override;
 
 private:
     QHBoxLayout* horizontalLayout = nullptr;
@@ -53,6 +54,8 @@ private:
     const int resizeHandleWidth = 0;
     unsigned const int shadowRadius = 0;
     const int layoutMargin = 0;
+    const unsigned int borderRadius = 0;
+    const QColor borderColor = QColor(0, 0, 0, 255 / 5);
 
     void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
@@ -64,6 +67,7 @@ private:
     CornerEdge getCornerEdge(int, int);
 
     void setMargins(unsigned int width);
+    void paintOutline();
 };
 
 
