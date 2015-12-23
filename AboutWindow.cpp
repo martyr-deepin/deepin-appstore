@@ -1,5 +1,4 @@
 #include <QDebug>
-#include <cassert>
 #include <QDesktopServices>
 
 #include <QHBoxLayout>
