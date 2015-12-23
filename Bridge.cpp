@@ -181,10 +181,30 @@ void Bridge::openDesktopFile(const QString& path) {
 
     const auto fallbackOpenDesktopFile = [path]() {
         // fallback to gio
+        if (path.isEmpty()) {
+            qDebug() << "Failed to open desktop file with gio: desktop file path is empty";
+            return;
+        }
+
         const auto stdPath = path.toStdString();
         const char* cPath = stdPath.c_str();
+
         GDesktopAppInfo* appInfo = g_desktop_app_info_new_from_filename(cPath);
-        g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, NULL);
+        if (!appInfo) {
+            qDebug() << "Failed to open desktop file with gio: g_desktop_app_info_new_from_filename returns NULL. Check PATH maybe?";
+            return;
+        }
+        GError* gError = nullptr;
+        const auto ok = g_app_info_launch_uris(reinterpret_cast<GAppInfo*>(appInfo), NULL, NULL, &gError);
+
+        if (gError) {
+            qWarning() << "Error when trying to open desktop file with gio:" << gError->message;
+            g_error_free(gError);
+        }
+
+        if (!ok) {
+            qWarning() << "Failed to open desktop file with gio: g_app_info_launch_uris returns false";
+        }
         g_object_unref(appInfo);
     };
 
