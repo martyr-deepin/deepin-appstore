@@ -9,6 +9,7 @@ WebView::WebView(QWidget *parent) : QWebView(parent),
     this->customPage = new WebPage(this);
     this->setPage(this->customPage);
     this->setAcceptDrops(false);
+    this->setAttribute(Qt::WA_OpaquePaintEvent, true);
 
     const auto shell = static_cast<Shell*>(qApp);
     const auto settings = this->settings();
