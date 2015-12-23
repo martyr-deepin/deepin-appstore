@@ -69,6 +69,7 @@ StupidWindow::~StupidWindow() {
 
 void StupidWindow::polish() {
 #ifndef BUILD_WITH_WEBENGINE
+    // draw window shadow
     if (!this->shadowEffect) {
         this->shadowEffect = new QGraphicsDropShadowEffect(this);
         this->shadowEffect->setBlurRadius(this->shadowRadius);
@@ -77,6 +78,36 @@ void StupidWindow::polish() {
         this->setGraphicsEffect(this->shadowEffect);
     }
 #endif
+
+    // cut round corners
+    const auto layout = this->layout();
+    if (!layout ||
+        layout->count() == 0) {
+        return;
+    }
+
+    const auto widget = this->layout()->itemAt(0)->widget();
+    const auto region = QRegion(widget->rect(), QRegion::RegionType::Rectangle);
+
+    const auto tl = QRegion(0, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+            QRegion(0, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+    );
+    const auto tr = QRegion(widget->width() - borderRadius, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+            QRegion(widget->width() - 2 * borderRadius, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+    );
+    const auto bl = QRegion(0, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+            QRegion(0, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+    );
+    const auto br = QRegion(widget->width() - borderRadius, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+            QRegion(widget->width() - 2 * borderRadius, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+    );
+
+    const auto result = region
+            .subtracted(tl)
+            .subtracted(tr)
+            .subtracted(bl)
+            .subtracted(br);
+    widget->setMask(result);
 }
 
 
@@ -359,6 +390,7 @@ void StupidWindow::paintEvent(QPaintEvent* event) {
 
 void StupidWindow::paintOutline() {
     QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing, true);
 
     const auto outlinePadding = this->layout()->contentsMargins().left();
     auto rect = this->rect();
@@ -374,4 +406,9 @@ void StupidWindow::paintOutline() {
     pen.setWidth(2);
     painter.setPen(pen);
     painter.drawPath(path);
+}
+
+void StupidWindow::resizeEvent(QResizeEvent *event) {
+    QWidget::resizeEvent(event);
+    this->polish();
 }

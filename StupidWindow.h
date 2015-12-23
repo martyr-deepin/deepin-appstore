@@ -46,6 +46,7 @@ public slots:
 protected:
     void changeEvent(QEvent* event) override;
     void paintEvent(QPaintEvent*) override;
+    void resizeEvent(QResizeEvent*) override;
 
 private:
     QHBoxLayout* horizontalLayout = nullptr;
