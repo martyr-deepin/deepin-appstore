@@ -1,18 +1,19 @@
-# 深度商店|common/deepin-appstore.svg|
+# 深度商店|../common/deepin-appstore.svg|
 
-## 概述|common/icon_overview.svg|
+## 概述|../common/icon_overview.svg|
 深度商店V4.0是武汉深之度科技有限公司重新打造的一款集应用展示、下载、安装、评论、评分于一体的应用程序。深度商店为您精心筛选和收录了不同类别的应用，同时每款应用都经过人工安装并验证，您可以进入商店搜索热门应用，一键下载并自动安装。
 
  ![1|maininterface](png/maininterface.png)
 
-## 基本操作|common/icon_basicoperation.svg|
+## 基本操作|../common/icon_basicoperation.svg|
 
 ### 运行深度商店
 您可以通过执行以下操作来运行深度商店：
 
-- 点击任务栏上的 ![launcher-24](icon/launcher-24.svg) 进入启动器界面，通过浏览找到 ![store-24](icon/store-24.svg) 点击。
-- 如果您已经将深度商店固定到桌面，在桌面，双击 ![store-24](icon/store-24.svg)。
-- 如果您已经将深度商店固定到任务栏，点击任务栏上的 ![store-24](icon/store-24.svg) 。
+1. 点击任务栏上的 ![launcher-24](icon/launcher-24.svg) 进入启动器界面。
+2. 通过浏览找到 ![store-24](icon/store-24.svg) 点击。
+
+>  ![notes](icon/notes.svg) ：深度商店已经默认固定在任务栏上，您也可以点击任务栏上的 ![store-24](icon/store-24.svg) 来运行。
 
 ### 最大/最小化深度商店
 
@@ -27,7 +28,7 @@
 
 ![1|closestore](png/closestore.png)
 
-## 主界面|common/icon_maininterface.svg|
+## 主界面|../common/icon_maininterface.svg|
 深度商店主界面由导航栏、搜索框、首页轮播、首页栏目、专题应用、任务管理、菜单栏组成。
 
 > ![tips](icon/tips.svg)：向右或向左拖动导航栏边线，可以切换成图标或图标和名称显示。仅图标显示时，悬停在图标上就可以显示应用分类名称。
@@ -75,7 +76,7 @@
     </tbody>
  </table>
 
-## 管理应用|common/icon_manageinterface.svg|
+## 管理应用|../common/icon_manageinterface.svg|
 您可以通过深度商店搜索、下载、安装不同分类的应用，同时还可以根据热门推荐、下载排行、装机必备、热门专题、星级排行、用户评论等不同方式挖掘更多精彩应用。
 
 ### 搜索应用
@@ -125,7 +126,7 @@
 
 如果您需要卸载应用，可以通过进入启动器界面来卸载应用，具体操作请参阅 [卸载应用程序](dman:///dde#卸载应用程序)。
 
-## 应用界面|common/icon_appinterface.svg|
+## 应用界面|../common/icon_appinterface.svg|
 
 ### 应用详情
 您可以通过进入应用详情界面，了解应用的介绍、大小、版本、下载量、评分等信息。
@@ -207,7 +208,7 @@
     </tbody>
  </table>
 
-## 选项设置|common/icon_optionsetting.svg|
+## 选项设置|../common/icon_optionsetting.svg|
 
 ### 登录
 您可以使用深度科技论坛已注册的帐号直接登录深度商店。

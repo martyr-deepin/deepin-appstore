@@ -1,18 +1,19 @@
-# Deepin Store|common/deepin-appstore.svg|
+# Deepin Store|../common/deepin-appstore.svg|
 
-## Overview|common/icon_overview.svg|
+## Overview|../common/icon_overview.svg|
 Deepin Store V4.0 is an application recreated by Deepin Technology Co., Ltd. with the integration of display, download, installation, commenting and rating. Deepin Store elaborately screens and collects different types of applications for you. Each application has been artificially installed and verified, you can enter the store to search popular applications with one-click download and automatic installation.
 
  ![1|maininterface](png/maininterface.png)
 
-## Basic Operations|common/icon_basicoperation.svg|
+## Basic Operations|../common/icon_basicoperation.svg|
 
 ### Run Deepin Store
 You can run Deepin Store by executing one of the following operations:
 
-- Click on ![Launcher-24](icon/launcher-24.svg) on dock to enter launcher interface. Then find ![Deepin Store](icon/store-24.svg) to click on by skimming.
-- If you have fixed Deepin Store on desktop, double click on ![Deepin Store](icon/store-24.svg).
-- If you have fixed Deepin Store on dock, click on ![Deepin Store](icon/store-24.svg).
+1. Click on ![Launcher-24](icon/launcher-24.svg) on dock to enter launcher interface. 
+2. Then find ![Deepin Store](icon/store-24.svg) to click on by skimming.
+
+> ![notes](icon/notes.svg): Deepin Store has been fixed on Dock by default, you can click on ![Deepin Store](icon/store-24.svg) on Dock to run.
 
 ### Maximize/Minimize Deepin Store
 
@@ -27,7 +28,7 @@ On Deepin Store interface, click on ![Close](icon/icon_close.svg) to exit.
 
 ![1|Close Deepin Store](png/closestore.png)
 
-## Main Interface|common/icon_maininterface.svg|
+## Main Interface|../common/icon_maininterface.svg|
 The main interface of Deepin Store consists of navigation bar, search box, flashview, home column, hot topic, task management and menu bar.
 
 > ![tips](icon/tips.svg): Navigation bar can be displayed in icon or name & icon by dragging the edge rightward/leftward. When displayed in icon, hover over the icon to display the category name of applications.
@@ -75,7 +76,7 @@ The main interface of Deepin Store consists of navigation bar, search box, flash
     </tbody>
  </table>
 
-## Application Management|common/icon_manageinterface.svg|
+## Application Management|../common/icon_manageinterface.svg|
 You can search, download and install different categories of applications by Deepin Store. Meanwhile, more wonderful applications will be explored through popular recommendation, rankings, hotapps, hot topic, user comment and other ways.
 
 ### Search Applications
@@ -125,7 +126,7 @@ If you need to update and upgrade applications, you can set in Control Center, s
 
 If you need to uninstall applications, you can enter Launcher to uninstall, specific operations refer to [Uninstall Applications](dman:///dde#Uninstall Applications).
 
-## Application Interface|common/icon_appinterface.svg|
+## Application Interface|../common/icon_appinterface.svg|
 
 ### Application Details
 You can enter the interface of application details to know the introduction, size, version, downloads, ratings and so on.
@@ -207,7 +208,7 @@ You can comment on and rate applications only after signed in Deepin Store, or o
     </tbody>
  </table>
 
-## Option Settings|common/icon_optionsetting.svg|
+## Option Settings|../common/icon_optionsetting.svg|
 
 ### Sign In
 You can sign in Deepin Store with your account in Deepin Technology Forum.
