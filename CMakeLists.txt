@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.2)
 project(Shell)
 set(SHELL_VERSION 4.0.2pre)
-set(CMAKE_CXX_COMPILER /usr/bin/clang++)
+#set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 
 add_definitions(-D DEBUG_LASTORE=1)
-add_definitions(-D DEBUG_LOCAL_REQUEST=1)
+#add_definitions(-D DEBUG_LOCAL_REQUEST=1)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
