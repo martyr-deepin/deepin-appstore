@@ -87,27 +87,31 @@ void StupidWindow::polish() {
     }
 
     const auto widget = this->layout()->itemAt(0)->widget();
-    const auto region = QRegion(widget->rect(), QRegion::RegionType::Rectangle);
+    if (this->isMaximized() || this->isFullScreen()) {
+        widget->clearMask();
+    } else {
+        const auto region = QRegion(widget->rect(), QRegion::RegionType::Rectangle);
 
-    const auto tl = QRegion(0, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-            QRegion(0, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-    );
-    const auto tr = QRegion(widget->width() - borderRadius, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-            QRegion(widget->width() - 2 * borderRadius, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-    );
-    const auto bl = QRegion(0, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-            QRegion(0, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-    );
-    const auto br = QRegion(widget->width() - borderRadius, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-            QRegion(widget->width() - 2 * borderRadius, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-    );
+        const auto tl = QRegion(0, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+                QRegion(0, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+        );
+        const auto tr = QRegion(widget->width() - borderRadius, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+                QRegion(widget->width() - 2 * borderRadius, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+        );
+        const auto bl = QRegion(0, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+                QRegion(0, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+        );
+        const auto br = QRegion(widget->width() - borderRadius, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+                QRegion(widget->width() - 2 * borderRadius, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+        );
 
-    const auto result = region
-            .subtracted(tl)
-            .subtracted(tr)
-            .subtracted(bl)
-            .subtracted(br);
-    widget->setMask(result);
+        const auto result = region
+                .subtracted(tl)
+                .subtracted(tr)
+                .subtracted(bl)
+                .subtracted(br);
+        widget->setMask(result);
+    }
 }
 
 
