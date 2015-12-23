@@ -24,6 +24,15 @@
 #define _NET_WM_STATE_ADD           1    /* add/set property */
 #define _NET_WM_STATE_TOGGLE        2    /* toggle property  */
 
+#define XC_top_side 138
+#define XC_top_right_corner 136
+#define XC_right_side 96
+#define XC_bottom_right_corner 14
+#define XC_bottom_side 16
+#define XC_bottom_left_corner 12
+#define XC_left_side 70
+#define XC_top_left_corner 134
+
 auto cornerEdge2WmGravity(const CornerEdge& ce) -> int {
     switch (ce) {
         case CornerEdge::Top:
@@ -47,6 +56,29 @@ auto cornerEdge2WmGravity(const CornerEdge& ce) -> int {
     throw "Not a resizing CornerEdge";
 }
 
+auto cornerEdge2XCursor(const CornerEdge& ce) -> int {
+    switch (ce) {
+        case CornerEdge::Top:
+            return XC_top_side;
+        case CornerEdge::TopRight:
+            return XC_top_right_corner;
+        case CornerEdge::Right:
+            return XC_right_side;
+        case CornerEdge::BottomRight:
+            return XC_bottom_right_corner;
+        case CornerEdge::Bottom:
+            return XC_bottom_side;
+        case CornerEdge::BottomLeft:
+            return XC_bottom_left_corner;
+        case CornerEdge::Left:
+            return XC_left_side;
+        case CornerEdge::TopLeft:
+            return XC_top_left_corner;
+        default: {
+            return -1;
+        }
+    }
+}
 
 StupidWindow::StupidWindow(QWidget* parent) : QWidget(parent),
                                               resizeHandleWidth(5),
@@ -198,32 +230,17 @@ CornerEdge StupidWindow::getCornerEdge(int x, int y) {
 }
 
 void StupidWindow::updateCursor(CornerEdge ce) {
-    switch (ce) {
-        case CornerEdge::Nil: {
-            this->unsetCursor();
-            break;
-        }
-        case CornerEdge::Top:
-        case CornerEdge::Bottom: {
-            this->setCursor(Qt::SizeVerCursor);
-            break;
-        }
-        case CornerEdge::Left:
-        case CornerEdge::Right: {
-            this->setCursor(Qt::SizeHorCursor);
-            break;
-        }
-        case CornerEdge::TopLeft:
-        case CornerEdge::BottomRight: {
-            this->setCursor(Qt::SizeFDiagCursor);
-            break;
-        }
-        case CornerEdge::TopRight:
-        case CornerEdge::BottomLeft: {
-            this->setCursor(Qt::SizeBDiagCursor);
-            break;
-        };
+    const auto display = QX11Info::display();
+    const auto winId = this->winId();
+
+    const auto XCursor = cornerEdge2XCursor(ce);
+    if (XCursor != -1) {
+        const auto cursor = XCreateFontCursor(display, XCursor);
+        XDefineCursor(display, winId, cursor);
+    } else {
+        XUndefineCursor(display, winId);
     }
+    XFlush(display);
 }
 
 void StupidWindow::startMoving() {
