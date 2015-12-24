@@ -8,6 +8,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
 add_definitions(-D DEBUG_LASTORE=1)
 #add_definitions(-D DEBUG_LOCAL_REQUEST=1)
 
+# deepin-wm and mutter support the _NET_WM_OPAQUE_REGION
+# However this optimization causes uncomposited area to be black during window resizing
+# keep it disabled for now
+add_definitions(-D USE_OPAQUE_REGION_OPTIMIZATION=0)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

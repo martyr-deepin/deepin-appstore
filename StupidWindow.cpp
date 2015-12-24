@@ -161,7 +161,35 @@ void StupidWindow::polish() {
             widget->setMask(result);
         }
 
-        // TODO: set _NET_WM_OPAQUE_REGION to enable optimizations
+#if USE_OPAQUE_REGION_OPTIMIZATION
+        const auto display = QX11Info::display();
+        const auto winId = this->winId();
+
+        // each rect need 4 integers: x, y, width, height
+        // totally we need 2 rects to cover all areas other than the cut corners
+        unsigned long opaqueRectsData[4 * 2] = {0};
+
+        const auto padding = (unsigned)(layout->contentsMargins().left());
+        opaqueRectsData[0] = padding;
+        opaqueRectsData[1] = padding + this->borderRadius;
+        opaqueRectsData[2] = this->width() - padding * 2;
+        opaqueRectsData[3] = this->height() - padding * 2 - this->borderRadius * 2;
+
+        opaqueRectsData[4] = padding + this->borderRadius;
+        opaqueRectsData[5] = padding;
+        opaqueRectsData[6] = this->width() - padding * 2 - this->borderRadius * 2;
+        opaqueRectsData[7] = this->height() - padding * 2;
+
+        const Atom opaqueRegion = XInternAtom(display, "_NET_WM_OPAQUE_REGION", false);
+        XChangeProperty(display,
+                        winId,
+                        opaqueRegion,
+                        XA_CARDINAL,
+                        32,
+                        PropModeReplace,
+                        (const unsigned char*)&opaqueRectsData,
+                        8);
+#endif
     }
 }
 
