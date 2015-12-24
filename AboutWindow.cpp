@@ -14,7 +14,7 @@ AboutWindow::AboutWindow(QWidget *parent) : StupidWindow(parent),
     this->setAutoFillBackground(true);
     this->setWindowFlags(Qt::Dialog | this->windowFlags());
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->resize(this->contentWidth, this->contentHeight);
+    this->setFixedSize(this->contentWidth, this->contentHeight);
     this->setStyleSheet("AboutWindow { background: transparent }");
 
     this->content = new TextBrowser(this);

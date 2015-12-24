@@ -364,6 +364,11 @@ void StupidWindow::resize(int w, int h) {
                     h + this->layoutMargin * 2);
 }
 
+void StupidWindow::setFixedSize(int w, int h) {
+    QWidget::setFixedSize(w + this->layoutMargin * 2,
+                          h + this->layoutMargin * 2);
+}
+
 void StupidWindow::setMinimumSize(int w, int h) {
     QWidget::setMinimumSize(w + this->layoutMargin * 2,
                             h + this->layoutMargin * 2);

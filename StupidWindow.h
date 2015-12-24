@@ -33,6 +33,7 @@ public:
 
     QPoint mapToGlobal(const QPoint &) const;
     void resize(int w, int h);
+    void setFixedSize(int w, int h);
     void setMinimumSize(int w, int h);
     void setMaximumSize(int maxw, int maxh);
     void setModal(bool);
