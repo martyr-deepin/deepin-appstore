@@ -1,28 +1,21 @@
 #include <QDebug>
 #include <QDesktopServices>
 
-#include <QHBoxLayout>
-#include <QGraphicsDropShadowEffect>
-#include <QPainter>
+#include <QLayout>
 #include <QPushButton>
+#include "StupidWindow.h"
 #include "AboutWindow.h"
 #include "TextBrowser.h"
 
-AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent),
-                                            layoutMargin(25),
-                                            shadowRadius(12),
-                                            borderRadius(3),
-                                            contentWidth(355), contentHeight(340) {
+AboutWindow::AboutWindow(QWidget *parent) : StupidWindow(parent),
+                                            contentWidth(380), contentHeight(390) {
     this->setModal(true);
     this->setAutoFillBackground(true);
-    this->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
+    this->setWindowFlags(Qt::Dialog | this->windowFlags());
     this->setAttribute(Qt::WA_DeleteOnClose);
-    this->setAttribute(Qt::WA_TranslucentBackground, true);
-    this->setFixedSize(this->contentWidth + 2 * this->layoutMargin,
-                       this->contentHeight + 2 * this->layoutMargin);
+    this->resize(this->contentWidth, this->contentHeight);
     this->setStyleSheet("AboutWindow { background: transparent }");
 
-    const auto horizontalLayout = new QHBoxLayout(this);
     this->content = new TextBrowser(this);
     this->content->setTextInteractionFlags(Qt::LinksAccessibleByMouse |
                                            Qt::LinksAccessibleByKeyboard);
@@ -38,19 +31,15 @@ AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent),
         }
     });
 
-    horizontalLayout->setSpacing(0);
-    horizontalLayout->setObjectName("horizontalLayout");
-    horizontalLayout->setContentsMargins(this->layoutMargin,
-                                         this->layoutMargin,
-                                         this->layoutMargin,
-                                         this->layoutMargin);
-    horizontalLayout->addWidget(this->content);
+    // smaller shadow
+    this->shadowOffsetY = 4;
 
-    const auto closeBtn = new QPushButton(this);
+    this->layout()->addWidget(this->content);
+
+    const auto closeBtn = new QPushButton(this->content);
     closeBtn->setCheckable(true);
     closeBtn->setFixedSize(25, 24);
-    closeBtn->move(this->layoutMargin + this->contentWidth - closeBtn->width(),
-                   this->layoutMargin);
+    closeBtn->move(this->contentWidth - closeBtn->width(), 0);
     closeBtn->setStyleSheet(
         "QPushButton { border: 0; background: url(':/res/close_small_normal.png'); }"
         "QPushButton:hover { background: url(':/res/close_small_hover.png'); }"
@@ -61,7 +50,6 @@ AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent),
     connect(closeBtn, &QPushButton::clicked, [this]() {
         this->close();
     });
-    this->polish();
 
 }
 
@@ -71,15 +59,4 @@ void AboutWindow::setContent(const QString& html) {
 
 AboutWindow::~AboutWindow() {
 
-}
-
-void AboutWindow::polish() {
-    // window shadow
-    if (!this->shadowEffect) {
-        this->shadowEffect = new QGraphicsDropShadowEffect(this);
-        this->shadowEffect->setBlurRadius(this->shadowRadius);
-        this->shadowEffect->setColor(QColor(0, 0, 0, 255 / 5));
-        this->shadowEffect->setOffset(0, 4);
-        this->content->setGraphicsEffect(this->shadowEffect);
-    }
 }

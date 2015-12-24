@@ -44,6 +44,9 @@ public slots:
     void showMinimized();
 
 protected:
+    int shadowOffsetX = 0;
+    int shadowOffsetY = 6;
+
     void changeEvent(QEvent* event) override;
     void paintEvent(QPaintEvent*) override;
     void resizeEvent(QResizeEvent*) override;

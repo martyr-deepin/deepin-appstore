@@ -107,7 +107,7 @@ void StupidWindow::polish() {
         this->shadowEffect = new QGraphicsDropShadowEffect(this);
         this->shadowEffect->setBlurRadius(this->shadowRadius);
         this->shadowEffect->setColor(this->borderColor);
-        this->shadowEffect->setOffset(0, 6);
+        this->shadowEffect->setOffset(this->shadowOffsetX, this->shadowOffsetY);
         this->setGraphicsEffect(this->shadowEffect);
     }
 #endif
