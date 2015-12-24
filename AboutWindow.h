@@ -14,6 +14,10 @@ public:
     ~AboutWindow();
 
     void setContent(const QString& html);
+
+protected:
+    void keyPressEvent(QKeyEvent * event);
+
 private:
     TextBrowser* content = nullptr;
 

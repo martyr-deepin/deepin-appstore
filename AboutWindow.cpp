@@ -3,6 +3,7 @@
 
 #include <QLayout>
 #include <QPushButton>
+#include <QKeyEvent>
 #include "StupidWindow.h"
 #include "AboutWindow.h"
 #include "TextBrowser.h"
@@ -59,4 +60,11 @@ void AboutWindow::setContent(const QString& html) {
 
 AboutWindow::~AboutWindow() {
 
+}
+
+void AboutWindow::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Escape &&
+        event->modifiers() == Qt::NoModifier) {
+        this->close();
+    }
 }
