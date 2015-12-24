@@ -127,20 +127,6 @@ void LAStoreBridge::updateJobDict() {
                         }
                     }
 
-                    if (propertyName == "progress" ||
-                        propertyName == "type") {
-                        // adjust progress
-                        auto progress = toInsert->info["_progress"].toDouble();
-                        const auto& type = toInsert->info["type"].toString();
-                        if (type == "download" || type == "install") {
-                            progress /= 2.0;
-                        }
-                        if (type == "install") {
-                            progress += 0.50;
-                        }
-                        toInsert->info.insert("progress", progress);
-                    }
-
                     if (propertyName == "status" ||
                         propertyName == "type") {
                         const auto& type = toInsert->info["type"];
@@ -215,7 +201,7 @@ void LAStoreBridge::updateJobDict() {
 #endif
                 asyncWatcherFactory<QDBusVariant>(
                         toInsert->object->progress(),
-                        onFetchOneFactory<double>(toInsert, "_progress"),
+                        onFetchOneFactory<double>(toInsert, "progress"),
                         nullptr,
                         onFetchOneDoneFactory("progress")
                 );
