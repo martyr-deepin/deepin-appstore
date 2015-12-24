@@ -20,10 +20,12 @@ find_package(PkgConfig REQUIRED)
 
 pkg_search_module(GLIB REQUIRED glib-2.0)
 pkg_search_module(X11 REQUIRED x11)
+pkg_search_module(X11Ext REQUIRED xext)
 pkg_search_module(GIO REQUIRED gio-unix-2.0)
 
 include_directories(AFTER ${GLIB_INCLUDE_DIRS})
 include_directories(AFTER ${X11_INCLUDE_DIRS})
+include_directories(AFTER ${X11Ext_INCLUDE_DIRS})
 include_directories(AFTER ${GIO_INCLUDE_DIRS})
 
 set(SOURCE_FILES main.cpp main.h
@@ -47,6 +49,7 @@ set(LINK_LIBS
         Qt5::Gui
         ${GLIB_LIBRARIES}
         ${X11_LIBRARIES}
+        ${X11Ext_LIBRARIES}
         ${GIO_LIBRARIES}
 )
 

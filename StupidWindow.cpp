@@ -8,6 +8,7 @@
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
+#include <X11/extensions/shape.h>
 #include <QX11Info>
 
 #define _NET_WM_MOVERESIZE_SIZE_TOPLEFT      0
@@ -111,38 +112,56 @@ void StupidWindow::polish() {
     }
 #endif
 
-    // cut round corners
     const auto layout = this->layout();
-    if (!layout ||
-        layout->count() == 0) {
-        return;
+
+    // _GTK_FRAME_EXTENTS
+    if (layout) {
+        const auto display = QX11Info::display();
+        const auto winId = this->winId();
+        const auto padding = (unsigned)(layout->contentsMargins().left());
+
+        XRectangle contentXRect;
+        contentXRect.x = 0;
+        contentXRect.y = 0;
+        contentXRect.width = this->width() - padding * 2 + this->resizeHandleWidth * 2;
+        contentXRect.height = this->height() - padding * 2 + this->resizeHandleWidth * 2;
+        XShapeCombineRectangles(display, winId, ShapeInput,
+                                padding - this->resizeHandleWidth,
+                                padding - this->resizeHandleWidth,
+                                &contentXRect, 1, ShapeSet, YXBanded);
     }
 
-    const auto widget = this->layout()->itemAt(0)->widget();
-    if (this->isMaximized() || this->isFullScreen()) {
-        widget->clearMask();
-    } else {
-        const auto region = QRegion(widget->rect(), QRegion::RegionType::Rectangle);
+    // cut round corners
+    if (layout &&
+        layout->count() == 1) {
+        const auto widget = this->layout()->itemAt(0)->widget();
+        if (this->isMaximized() || this->isFullScreen()) {
+            widget->clearMask();
+        } else {
+            const auto region = QRegion(widget->rect(), QRegion::RegionType::Rectangle);
 
-        const auto tl = QRegion(0, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-                QRegion(0, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-        );
-        const auto tr = QRegion(widget->width() - borderRadius, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-                QRegion(widget->width() - 2 * borderRadius, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-        );
-        const auto bl = QRegion(0, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-                QRegion(0, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-        );
-        const auto br = QRegion(widget->width() - borderRadius, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
-                QRegion(widget->width() - 2 * borderRadius, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
-        );
+            const auto tl = QRegion(0, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+                    QRegion(0, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+            );
+            const auto tr = QRegion(widget->width() - borderRadius, 0, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+                    QRegion(widget->width() - 2 * borderRadius, 0, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+            );
+            const auto bl = QRegion(0, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+                    QRegion(0, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+            );
+            const auto br = QRegion(widget->width() - borderRadius, widget->height() - borderRadius, borderRadius, borderRadius, QRegion::RegionType::Rectangle).subtracted(
+                    QRegion(widget->width() - 2 * borderRadius, widget->height() - 2 * borderRadius, borderRadius * 2, borderRadius * 2, QRegion::RegionType::Ellipse)
+            );
 
-        const auto result = region
-                .subtracted(tl)
-                .subtracted(tr)
-                .subtracted(bl)
-                .subtracted(br);
-        widget->setMask(result);
+            const auto result = region
+                    .subtracted(tl)
+                    .subtracted(tr)
+                    .subtracted(bl)
+                    .subtracted(br);
+            widget->setMask(result);
+        }
+
+        // TODO: set _NET_WM_OPAQUE_REGION to enable optimizations
     }
 }
 
@@ -281,25 +300,16 @@ void StupidWindow::setMargins(unsigned int i) {
     const auto display = QX11Info::display();
     const auto winId = this->winId();
 
-    QString s;
-    QTextStream ts(&s);
-    ts << i;
-
-    const auto qByteArray = s.toLatin1();
-    const Atom deepinShadow = XInternAtom(display, "DEEPIN_WINDOW_SHADOW", false);
-    const auto result = XChangeProperty(
-            display,
-            winId,
-            deepinShadow, // property
-            XA_STRING, // type
-            8,
-            PropModeReplace,
-            (const unsigned char*)qByteArray.constData(), // data
-            strlen(qByteArray) // nelements
-    );
-    if (!result) {
-        qWarning() << "XChangeProperty failed";
-    }
+    const unsigned long data[4] = {i, i, i, i};
+    const Atom gtkFrameExtents = XInternAtom(display, "_GTK_FRAME_EXTENTS", false);
+    XChangeProperty(display,
+                    winId,
+                    gtkFrameExtents,
+                    XA_CARDINAL,
+                    32,
+                    PropModeReplace,
+                    (const unsigned char*)&data,
+                    4);
 }
 
 QPoint StupidWindow::mapToGlobal(const QPoint& point) const {
