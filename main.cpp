@@ -5,7 +5,8 @@
 #include "Shell.h"
 
 int main(int argc, char *argv[]) {
-    Shell::setApplicationName("Deepin Store");
+    Shell::setApplicationName("DeepinStore");
+    Shell::setApplicationDisplayName("Deepin Store");
     Shell::setApplicationVersion(SHELL_VERSION);
     Shell::setOrganizationDomain("deepin.org");
     Shell::setOrganizationName("Deepin");
