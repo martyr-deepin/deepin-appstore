@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 project(Shell)
-set(SHELL_VERSION 4.0.4pre)
+set(SHELL_VERSION 4.0.5pre)
 #set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
@@ -22,6 +22,7 @@ find_package(Qt5X11Extras REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5DBus REQUIRED)
 find_package(PkgConfig REQUIRED)
+find_package(Qt5Network REQUIRED)
 
 pkg_search_module(GLIB REQUIRED glib-2.0)
 pkg_search_module(X11 REQUIRED x11)
@@ -52,6 +53,7 @@ set(LINK_LIBS
         Qt5::X11Extras
         Qt5::DBus
         Qt5::Gui
+        Qt5::Network
         ${GLIB_LIBRARIES}
         ${X11_LIBRARIES}
         ${X11Ext_LIBRARIES}
