@@ -69,19 +69,28 @@ void LAStoreBridge::onJobListChanged() {
         [this](QDBusPendingReply<QDBusVariant> reply)  {
             const auto res = reply.argumentAt<0>().variant();
             const auto pathsDBus = qdbus_cast<QList<QDBusObjectPath> >(res);
+
+            // cast from list of DBusPath to list of QString
             QList<QString> paths;
             std::transform(pathsDBus.constBegin(), pathsDBus.constEnd(), std::back_inserter(paths),
                            [](const QDBusObjectPath path) {return path.path();});
+
+            // filter out not interested types of jobs: remove for example
             QList<QString> installPaths;
             std::copy_if(paths.constBegin(), paths.constEnd(), std::back_inserter(installPaths),
                          [](const QString path) { return path.contains("install"); });
-            this->jobPaths = installPaths;
+
 #ifdef DEBUG_LASTORE
-            debugLastore() << "JobPaths Answered (change)" << this->jobPaths;
+            debugLastore() << "JobPaths Answered (change)" << installPaths;
 #endif
-            emit this->jobPathsAnswered(this->jobPaths);
-            this->updateJobDict();
-            this->aggregateJobInfo();
+            // re-rendering a list of jobs can be very expensive in the WebView, as the current implementation would
+            // destroy all the DOM elements(including canvases) and re-create them, even if they were identical.
+            if (this->jobPaths != installPaths) {
+                this->jobPaths = installPaths;
+                emit this->jobPathsAnswered(this->jobPaths);
+                this->updateJobDict();
+                this->aggregateJobInfo();
+            }
         }
     );
 }
