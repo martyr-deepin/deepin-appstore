@@ -34,7 +34,7 @@ include_directories(AFTER ${X11_INCLUDE_DIRS})
 include_directories(AFTER ${X11Ext_INCLUDE_DIRS})
 include_directories(AFTER ${GIO_INCLUDE_DIRS})
 
-set(SOURCE_FILES main.cpp main.h
+set(SOURCE_FILES main.cpp
                  StupidWindow.cpp StupidWindow.h
                  MainWindow.cpp MainWindow.h
                  Shell.cpp Shell.h

@@ -4,7 +4,7 @@
 #include <QCommandLineParser>
 #include <QSettings>
 #include <QProcess>
-#include "main.h"
+
 #include "Shell.h"
 #include "MainWindow.h"
 #include "DBusInterface.h"

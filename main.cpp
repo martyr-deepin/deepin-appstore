@@ -1,7 +1,5 @@
 #include <QDebug>
-#include <QProcess>
 
-#include "main.h"
 #include "Shell.h"
 
 int main(int argc, char *argv[]) {
