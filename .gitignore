@@ -1,6 +1,10 @@
 .idea/
 .directory
 
+# Qt Creator
+*.autosave
+*.user
+
 /obj-*
 debian/files
 debian/*.log
