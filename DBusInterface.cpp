@@ -5,7 +5,7 @@
 DBusInterface::DBusInterface(QObject* parent) : QDBusAbstractAdaptor(parent) {
     auto result = this->connection.registerService("com.deepin.appstore");
     if (!result) {
-        throw "ServiceExist";
+        throw std::runtime_error("The DBus service already exists");
     }
 
     this->connection.registerObject("/",

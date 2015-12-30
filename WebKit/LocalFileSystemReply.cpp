@@ -97,11 +97,11 @@ qint64 LocalFileSystemReply::bytesAvailable() const {
 
 
 qint64 LocalFileSystemReply::writeData(const char* UNUSED(data), qint64 UNUSED(len)) {
-    throw "Not Implemented(writeData)";
+    throw std::logic_error("Not Implemented(writeData)");
 }
 
 void LocalFileSystemReply::close() {
-    throw "Not Implemented(close)";
+    throw std::logic_error("Not Implemented(close)");
 }
 
 void LocalFileSystemReply::abort() {
@@ -113,21 +113,17 @@ bool LocalFileSystemReply::isSequential() const {
 }
 
 void LocalFileSystemReply::sslConfigurationImplementation(QSslConfiguration& UNUSED(configuration)) const {
-    qWarning() << "sslConfigurationImplementation";
-    throw "Not Implemented";
+    throw std::logic_error("Not Implemented(sslConfigurationImplementation)");
 }
 
 void LocalFileSystemReply::setSslConfigurationImplementation(const QSslConfiguration& UNUSED(configuration)) {
-    qWarning() << "setSslConfigurationImplementation";
-    throw "Not Implemented";
+    throw std::logic_error("Not Implemented(setSslConfigurationImplementation)");
 }
 
 void LocalFileSystemReply::ignoreSslErrorsImplementation(const QList<QSslError>& UNUSED(list)) {
-    qWarning() << "ignoreSslErrorsImplementation";
-    throw "Not Implemented";
+    throw std::logic_error("Not Implemented(ignoreSslErrorsImplementation)");
 }
 
 void LocalFileSystemReply::ignoreSslErrors() {
-    qWarning() << "ignoreSslErrors";
-    throw "Not Implemented";
+    throw std::logic_error("Not Implemented(ignoreSslErrors)");
 }

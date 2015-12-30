@@ -54,7 +54,7 @@ auto cornerEdge2WmGravity(const CornerEdge& ce) -> int {
             return _NET_WM_MOVERESIZE_SIZE_TOPLEFT;
         default: {}
     }
-    throw "Not a resizing CornerEdge";
+    throw std::logic_error("Not a resizing CornerEdge");
 }
 
 auto cornerEdge2XCursor(const CornerEdge& ce) -> int {
