@@ -25,8 +25,8 @@ Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
 
     try {
         this->dbusInterface = new DBusInterface(this);
-    } catch (const char* name) {
-        if (strcmp("ServiceExist", name) == 0) {
+    } catch (const std::runtime_error error) {
+        if (strcmp(error.what(), "The DBus service already exists") == 0) {
             const auto connection = QDBusConnection::sessionBus();
             const auto msg = QDBusMessage::createMethodCall("com.deepin.dstoreclient",
                                                             "/",
@@ -35,6 +35,8 @@ Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
             connection.call(msg);
             qDebug() << "There is already a process running";
             ::exit(0);
+        } else {
+            throw error;
         }
     }
 
