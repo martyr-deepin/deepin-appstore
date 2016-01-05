@@ -15,16 +15,17 @@ bool FilterMouseMove::eventFilter(QObject *obj, QEvent *event) {
     switch (event->type()) {
         case QEvent::Leave: {
             static_cast<Shell* >(qApp)->setTooltipVisible(false);
-            return true;
+            // fall through
         }
         case QEvent::Enter: {
             static_cast<Shell*>(qApp)->setTooltipVisible(true);
             const auto mainWindow = static_cast<MainWindow*>(this->parent());
             mainWindow->updateCursor(CornerEdge::Nil);
-            return true;
+            // fall through
         }
         default: {
-            return QObject::eventFilter(obj, event);
+            // fall through
         }
     }
+    return QObject::eventFilter(obj, event);
 }
