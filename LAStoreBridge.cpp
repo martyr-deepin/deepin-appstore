@@ -1,4 +1,5 @@
 #include <cassert>
+#include <chrono>
 #include <QProcess>
 
 #include "LAStoreBridge.h"
@@ -11,9 +12,7 @@ using namespace dbus::objects::com::deepin::lastore;
 
 #ifdef DEBUG_LASTORE
 auto debugLastore() -> QDebug {
-    time_t t;
-    time(&t);
-    return qDebug() << "[LASTORE]" << t;
+    return qDebug() << "[LASTORE]" << std::chrono::system_clock::now().time_since_epoch().count();
 }
 #endif
 

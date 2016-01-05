@@ -1,3 +1,4 @@
+#include <chrono>
 #include <QDebug>
 #include <QNetworkDiskCache>
 #include <QCommandLineParser>
@@ -10,9 +11,7 @@
 
 #ifdef DEBUG_LOCAL_REQUEST
 auto debugLocalRequest() -> QDebug {
-    time_t t;
-    time(&t);
-    return qDebug() << "[LOCALREQ]" << t;
+    return qDebug() << "[LOCALREQ]" << std::chrono::system_clock::now().time_since_epoch().count();
 }
 #endif
 
