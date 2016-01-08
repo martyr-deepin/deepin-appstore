@@ -14,7 +14,7 @@ FilterMouseMove::~FilterMouseMove() {
 bool FilterMouseMove::eventFilter(QObject *obj, QEvent *event) {
     switch (event->type()) {
         case QEvent::Leave: {
-            static_cast<Shell* >(qApp)->setTooltipVisible(false);
+            static_cast<Shell*>(qApp)->setTooltipVisible(false);
             // fall through
         }
         case QEvent::Enter: {
