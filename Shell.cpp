@@ -11,7 +11,7 @@
 #include "ToolTip.h"
 
 
-Shell::Shell(int &argc, char **argv) : QApplication(argc, argv) {
+Shell::Shell(int& argc, char** argv) : QApplication(argc, argv) {
     this->parseOptions();
     this->basePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     this->settings = new QSettings(this);
