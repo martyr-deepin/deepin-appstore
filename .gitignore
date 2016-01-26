@@ -9,4 +9,4 @@
 debian/files
 debian/*.log
 debian/*.substvars
-debian/dstore-client
+debian/deepin-appstore
