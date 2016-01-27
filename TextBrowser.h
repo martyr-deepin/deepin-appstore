@@ -10,7 +10,7 @@ public:
     ~TextBrowser();
 
 protected:
-    virtual void paintEvent(QPaintEvent* event) Q_DECL_OVERRIDE;
+    virtual void paintEvent(QPaintEvent* event) override;
 
 private:
     unsigned int borderRadius = 0;

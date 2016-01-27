@@ -13,20 +13,20 @@ public:
     ~LocalFileSystemReply();
 
 
-    void close() Q_DECL_OVERRIDE;
-    bool isSequential() const Q_DECL_OVERRIDE;
-    qint64 bytesAvailable() const Q_DECL_OVERRIDE;
+    void close() override;
+    bool isSequential() const override;
+    qint64 bytesAvailable() const override;
 
 public Q_SLOTS:
-    void abort() Q_DECL_OVERRIDE;
-    void ignoreSslErrors() Q_DECL_OVERRIDE;
+    void abort() override;
+    void ignoreSslErrors() override;
 
 protected:
-    qint64 readData(char *data, qint64 maxlen) Q_DECL_OVERRIDE;
-    qint64 writeData(const char *data, qint64 len) Q_DECL_OVERRIDE;
-    void sslConfigurationImplementation(QSslConfiguration &) const Q_DECL_OVERRIDE;
-    void setSslConfigurationImplementation(const QSslConfiguration &) Q_DECL_OVERRIDE;
-    void ignoreSslErrorsImplementation(const QList<QSslError> &) Q_DECL_OVERRIDE;
+    qint64 readData(char *data, qint64 maxlen) override;
+    qint64 writeData(const char *data, qint64 len) override;
+    void sslConfigurationImplementation(QSslConfiguration &) const override;
+    void setSslConfigurationImplementation(const QSslConfiguration &) override;
+    void ignoreSslErrorsImplementation(const QList<QSslError> &) override;
 
 private:
     QByteArray content;

@@ -10,7 +10,7 @@ public:
     explicit WebPage(QWidget* parent = nullptr);
     ~WebPage();
 
-    void javaScriptConsoleMessage(const QString& message, int lineNumber, const QString& sourceID) Q_DECL_OVERRIDE;
+    void javaScriptConsoleMessage(const QString& message, int lineNumber, const QString& sourceID) override;
 public slots:
     void addBridge();
 
