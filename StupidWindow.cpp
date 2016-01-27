@@ -338,6 +338,9 @@ void StupidWindow::setMargins(unsigned int i) {
                     PropModeReplace,
                     (const unsigned char*)&data,
                     4);
+
+    this->applyMinimumSizeRestriction();
+    this->applyMaximumSizeRestriction();
 }
 
 QPoint StupidWindow::mapToGlobal(const QPoint& point) const {
@@ -357,6 +360,7 @@ void StupidWindow::changeEvent(QEvent *event) {
             this->setMargins(this->layoutMargin);
         }
     }
+    this->setUpdatesEnabled(true);
 }
 
 void StupidWindow::resize(int w, int h) {
@@ -369,17 +373,45 @@ void StupidWindow::setFixedSize(int w, int h) {
                           h + this->layoutMargin * 2);
 }
 
+void StupidWindow::applyMinimumSizeRestriction() {
+    if (this->userMinimumWidth && this->userMinimumHeight) {
+        const auto currentLayoutMargin = this->horizontalLayout->contentsMargins().left();
+        QWidget::setMinimumSize(this->userMinimumWidth + currentLayoutMargin * 2,
+                                this->userMinimumHeight + currentLayoutMargin * 2);
+    } else {
+        QWidget::setMinimumSize(0, 0);
+    }
+}
+
 void StupidWindow::setMinimumSize(int w, int h) {
-    QWidget::setMinimumSize(w + this->layoutMargin * 2,
-                            h + this->layoutMargin * 2);
+    this->userMinimumWidth = w;
+    this->userMinimumHeight = h;
+
+    this->applyMinimumSizeRestriction();
+}
+
+void StupidWindow::applyMaximumSizeRestriction() {
+    if ((this->userMaximumWidth != QWIDGETSIZE_MAX) &
+        (this->userMaximumHeight != QWIDGETSIZE_MAX)) {
+        const auto currentLayoutMargin = this->horizontalLayout->contentsMargins().left();
+        QWidget::setMaximumSize(this->userMaximumWidth + currentLayoutMargin * 2,
+                                this->userMaximumHeight + currentLayoutMargin * 2);
+    } else {
+        QWidget::setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+    }
 }
 
 void StupidWindow::setMaximumSize(int maxw, int maxh) {
-    QWidget::setMaximumSize(maxw + this->layoutMargin * 2,
-                            maxh + this->layoutMargin * 2);
+    this->userMaximumWidth = maxw;
+    this->userMaximumHeight = maxh;
+
+    this->applyMaximumSizeRestriction();
 }
 
 void StupidWindow::showMaximized() {
+    this->setUpdatesEnabled(false); // until changeEvent
+    this->setMargins(0);
+
     const auto display = QX11Info::display();
     const auto winId = this->winId();
     const auto screen = QX11Info::appScreen();
@@ -396,7 +428,40 @@ void StupidWindow::showMaximized() {
     xev.xclient.window = winId;
     xev.xclient.format = 32;
 
-    xev.xclient.data.l[0] = _NET_WM_STATE_TOGGLE;
+    xev.xclient.data.l[0] = _NET_WM_STATE_ADD;
+    xev.xclient.data.l[1] = verticalMaximized;
+    xev.xclient.data.l[2] = horizontalMaximized;
+    xev.xclient.data.l[3] = 1;
+
+    XSendEvent(display,
+               QX11Info::appRootWindow(screen),
+               false,
+               SubstructureRedirectMask | SubstructureNotifyMask,
+               &xev);
+    XFlush(display);
+}
+
+void StupidWindow::showNormal() {
+    this->setUpdatesEnabled(false); // until changeEvent
+    this->setMargins(this->layoutMargin * 2);
+
+    const auto display = QX11Info::display();
+    const auto winId = this->winId();
+    const auto screen = QX11Info::appScreen();
+
+    XEvent xev;
+    memset(&xev, 0, sizeof(xev));
+    const Atom netWmState = XInternAtom(display, "_NET_WM_STATE", false);
+    const Atom verticalMaximized = XInternAtom(display, "_NET_WM_STATE_MAXIMIZED_VERT", false);
+    const Atom horizontalMaximized = XInternAtom(display, "_NET_WM_STATE_MAXIMIZED_HORZ", false);
+
+    xev.xclient.type = ClientMessage;
+    xev.xclient.message_type = netWmState;
+    xev.xclient.display = display;
+    xev.xclient.window = winId;
+    xev.xclient.format = 32;
+
+    xev.xclient.data.l[0] = _NET_WM_STATE_REMOVE;
     xev.xclient.data.l[1] = verticalMaximized;
     xev.xclient.data.l[2] = horizontalMaximized;
     xev.xclient.data.l[3] = 1;

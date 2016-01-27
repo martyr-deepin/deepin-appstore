@@ -42,6 +42,7 @@ public slots:
     void startMoving();
     void updateCursor(CornerEdge);
     void showMaximized();
+    void showNormal();
     void showMinimized();
 
 protected:
@@ -61,6 +62,14 @@ private:
     const int layoutMargin = 0;
     const unsigned int borderRadius = 0;
     const QColor borderColor = QColor(0, 0, 0, 255 / 5);
+
+    int userMinimumWidth = 0;
+    int userMinimumHeight = 0;
+    void applyMinimumSizeRestriction();
+
+    int userMaximumWidth = QWIDGETSIZE_MAX;
+    int userMaximumHeight = QWIDGETSIZE_MAX;
+    void applyMaximumSizeRestriction();
 
     void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
