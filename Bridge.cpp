@@ -58,9 +58,15 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
                 emit this->windowStateAnswered(nameWindowState(state));
             });
 
+    QObject::connect(
+        // In the current implementation, AppRegion only depends on timezone
+        // here we set up a listener for the resolution of timezone.
+        this, &Bridge::timezoneAnswered,
+        [this]() {
+            this->calcAppRegion();
+        });
     this->calcLanguages(); // may or may not contain blocking code
-    this->calcTimezone(); // contains blocking code
-    this->calcAppRegion(); // no blocking code
+    this->calcTimezone(); // may or may not blocking code
 }
 
 Bridge::~Bridge() {
@@ -270,14 +276,37 @@ void Bridge::askAppRegion() {
 }
 
 void Bridge::calcTimezone() {
-    if (this->timezone.isEmpty()) {
-        QFile file("/etc/timezone");
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            qWarning() << "Cannot open /etc/timezone for timezone information";
+    // fallback to use /etc/timezone, second
+    const auto fallback = [this]() {
+        if (this->timezone.isEmpty()) {
+            QFile file("/etc/timezone");
+            if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                qWarning() << "Cannot open /etc/timezone for timezone information";
+            }
+            this->timezone = file.readAll().trimmed();
+            emit this->timezoneAnswered(this->timezone);
         }
-        this->timezone = file.readAll().trimmed();
-        emit this->timezoneAnswered(this->timezone);
-    }
+    };
+
+    // try dbus timedate service, first
+    auto connection = QDBusConnection::systemBus();
+    auto msg = QDBusMessage::createMethodCall("org.freedesktop.timedate1",
+                                              "/org/freedesktop/timedate1",
+                                              "org.freedesktop.DBus.Properties",
+                                              "Get");
+    msg << "org.freedesktop.timedate1" << "Timezone";
+    const auto reply = QDBusPendingReply<QDBusVariant>(connection.asyncCall(msg));
+    asyncWatcherFactory<QDBusVariant>(
+        reply,
+        [this](QDBusPendingReply<QDBusVariant> reply) {
+            this->timezone = qdbus_cast<QString>(reply.argumentAt<0>().variant());
+            emit this->timezoneAnswered(this->timezone);
+        },
+        [fallback](QDBusError UNUSED(error)) {
+            // fallback to /etc/timezone
+            fallback();
+        }
+    );
 }
 
 void Bridge::calcAppRegion() {
