@@ -72,3 +72,13 @@ void MainWindow::keyPressEvent(QKeyEvent* event) {
 MainWindow::~MainWindow() {
 
 }
+
+bool MainWindow::event(QEvent* event) {
+    if (event->type() == QEvent::WindowDeactivate) {
+        // Try hard to kill tooltips
+        // https://bugzilla.deepin.io/show_bug.cgi?id=4351
+        const auto shell = static_cast<Shell*>(qApp);
+        shell->showTooltip("", QRect());
+    }
+    return QWidget::event(event);
+}

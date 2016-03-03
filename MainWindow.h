@@ -38,6 +38,7 @@ private:
     WebView* webView = nullptr;
 
 protected:
+    bool event(QEvent* event) override;
     void changeEvent(QEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
 };
