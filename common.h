@@ -46,7 +46,7 @@ template
                              }
                          }
                          if (onDone) {
-                             onDone(reply.isError());
+                             onDone(!reply.isError());
                          }
                          delete watcher;
                      });
