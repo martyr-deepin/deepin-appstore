@@ -7,10 +7,13 @@
  * (at your option) any later version.
  **/
 #include <QDebug>
+#include <QNetworkProxyFactory>
 
 #include "Shell.h"
 
 int main(int argc, char *argv[]) {
+    QNetworkProxyFactory::setUseSystemConfiguration(true);
+
     Shell::setApplicationName("DeepinStore");
     Shell::setApplicationDisplayName("Deepin Store");
     Shell::setApplicationVersion(SHELL_VERSION);
