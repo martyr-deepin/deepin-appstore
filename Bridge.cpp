@@ -316,6 +316,7 @@ void Bridge::calcAppRegion() {
         this->timezone == "Asia/Chungking" ||
         this->timezone == "Asia/Urumqi" ||
         this->timezone == "Asia/Harbin" ||
+        this->timezone == "Etc/UTC" ||
         this->timezone == "Asia/PRC") {
         this->appRegion = "mainland";
     } else {
