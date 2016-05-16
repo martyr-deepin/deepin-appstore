@@ -31,6 +31,7 @@
 #include "Bridge.h"
 #include "WebWidget.h"
 
+#include <QSettings>
 #include <QDesktopServices>
 #include "MainWindow.h"
 #include "AboutWindow.h"
@@ -59,11 +60,11 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
             });
 
     QObject::connect(
-        // In the current implementation, AppRegion only depends on timezone
         // here we set up a listener for the resolution of timezone.
         this, &Bridge::timezoneAnswered,
         [this]() {
             this->calcAppRegion();
+            emit this->appRegionAnswered(this->appRegion);
         });
     this->calcLanguages(); // may or may not contain blocking code
     this->calcTimezone(); // may or may not blocking code
@@ -310,6 +311,15 @@ void Bridge::calcTimezone() {
 }
 
 void Bridge::calcAppRegion() {
+    // Force set appRegion to professional according to the /etc/deepin-version
+    QSettings s("/etc/deepin-version", QSettings::IniFormat, 0);
+    s.setIniCodec("UTF-8");
+    if (s.value("Release/Type").toString() == "Professional") {
+        this->appRegion = "professional";
+        return;
+    }
+
+    // Auto detect the appRegion according by timezone
     assert(!this->timezone.isEmpty());
     if (this->timezone == "Asia/Shanghai" ||
         this->timezone == "Asia/Chongqing" ||
@@ -321,7 +331,6 @@ void Bridge::calcAppRegion() {
     } else {
         this->appRegion = "international";
     }
-    emit this->appRegionAnswered(this->appRegion);
 }
 
 void Bridge::askTimezone() {
