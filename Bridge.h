@@ -19,6 +19,7 @@ class AboutWindow;
 class DBusMenuManager;
 class DBusMenu;
 
+bool isProfessionalVersion();
 // An object that bridges between the webpage and the QT world.
 // Manages window behaviors, hot keys and other general behaviors.
 class Bridge : public QObject {

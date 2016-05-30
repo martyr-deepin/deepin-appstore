@@ -310,11 +310,19 @@ void Bridge::calcTimezone() {
     );
 }
 
-void Bridge::calcAppRegion() {
-    // Force set appRegion to professional according to the /etc/deepin-version
+bool isProfessionalVersion()
+{
     QSettings s("/etc/deepin-version", QSettings::IniFormat, 0);
     s.setIniCodec("UTF-8");
     if (s.value("Release/Type").toString() == "Professional") {
+	return true;
+    }
+    return false;
+}
+
+void Bridge::calcAppRegion() {
+    // Force set appRegion to professional according to the /etc/deepin-version
+    if (isProfessionalVersion()) {
         this->appRegion = "professional";
         return;
     }

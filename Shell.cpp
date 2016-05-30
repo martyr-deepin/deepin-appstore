@@ -17,6 +17,7 @@
 #include "MainWindow.h"
 #include "DBusInterface.h"
 #include "ToolTip.h"
+#include "Bridge.h"
 
 
 Shell::Shell(int& argc, char** argv) : QApplication(argc, argv) {
@@ -51,8 +52,10 @@ Shell::Shell(int& argc, char** argv) : QApplication(argc, argv) {
     auto initUrl = this->argsParser->value("host");
     if (initUrl.size()) {
         this->initUrl = QUrl(initUrl);
+    } else if (isProfessionalVersion()){
+        this->initUrl = QUrl("http://appstore.deepin.com/");
     } else {
-        this->initUrl = QUrl("http://appstore.deepin.org/");
+	this->initUrl = QUrl("http://appstore.deepin.org/");
     }
 
     this->origin = this->initUrl.scheme() + "://" + this->initUrl.host();
