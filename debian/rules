@@ -4,3 +4,21 @@ export DH_VERBOSE=1
 
 %:
 	dh $@
+
+override_dh_auto_build:
+	dh_auto_build --
+	wget  https://ci.deepin.io/view/dstore/job/appstore-webapp/lastBuild/artifact/code-dist.tar.gz 
+	if [ -d build ];then rm -rf build; fi
+	mkdir -p build
+	tar xvf code-dist.tar.gz -C build
+
+override_dh_auto_install:
+	dh_auto_install --  
+	mkdir -p debian/tmp/usr/share/deepin-appstore/webapp
+	cp -ar build/* debian/tmp/usr/share/deepin-appstore/webapp
+
+override_dh_auto_clean:
+	dh_auto_clean --
+	-rm -fr build
+	-rm -fr code-dist.tar.gz
+	

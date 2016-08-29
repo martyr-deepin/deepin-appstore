@@ -1,5 +1,161 @@
-deepin-appstore (4.0.6) 15; urgency=low
+deepin-appstore (4.0.8.1-4) stable; urgency=low
+
+  * Rebuild Version 4.0.8.1 
+
+ -- TagBuilder <tagbuilder@deepin.com>  Fri, 05 Aug 2016 07:43:45 +0000
+
+deepin-appstore (4.0.8.1-3) stable; urgency=low
+
+  * Rebuild Version 4.0.8.1 
+
+ -- TagBuilder <tagbuilder@deepin.com>  Thu, 04 Aug 2016 09:05:23 +0000
+
+deepin-appstore (4.0.8.1-2) stable; urgency=low
+
+  * Rebuild Version 4.0.8.1 
+
+ -- TagBuilder <tagbuilder@deepin.com>  Thu, 04 Aug 2016 08:00:26 +0000
+
+deepin-appstore (4.0.8.1-1) stable; urgency=low
+
+  * Autobuild Tag 4.0.8.1 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 31 May 2016 06:10:08 +0000
+
+deepin-appstore (4.0.8-2) stable; urgency=low
+
+  * Rebuild Version 4.0.8 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 23 May 2016 14:49:07 +0000
+
+deepin-appstore (4.0.8-1) stable; urgency=low
+
+  * Autobuild Tag 4.0.8 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Mon, 23 May 2016 14:23:03 +0000
+
+deepin-appstore (4.0.7-2) stable; urgency=low
+
+  * Rebuild Version 4.0.7 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Thu, 21 Apr 2016 16:15:26 +0000
+
+deepin-appstore (4.0.7-1) stable; urgency=low
+
+  * Autobuild Tag 4.0.7 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Wed, 27 Jan 2016 18:52:02 +0000
+
+deepin-appstore (4.0.6-1) stable; urgency=low
+
+  * Autobuild Tag 4.0.6 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Wed, 27 Jan 2016 15:26:44 +0000
+
+deepin-appstore (4.0.5-2) stable; urgency=low
+
+  * Rebuild Version 4.0.5 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 12 Jan 2016 20:08:50 +0000
+
+deepin-appstore (4.0.5-1) stable; urgency=low
+
+  * Autobuild Tag 4.0.5 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 12 Jan 2016 18:02:39 +0000
+
+deepin-appstore (4.0.4-1) stable; urgency=low
+
+  * Autobuild Tag 4.0.4 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 29 Dec 2015 21:49:50 +0000
+
+deepin-appstore (4.0.2-1) stable; urgency=low
+
+  * Autobuild Tag 4.0.2 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Fri, 25 Dec 2015 12:14:02 +0000
+
+deepin-appstore (4.0.1-1) stable; urgency=low
+
+  * Autobuild Tag 4.0.1 
+
+ -- TagBuilder <tagbuilder@linuxdeepin.com>  Tue, 22 Dec 2015 17:08:31 +0000
+
+deepin-appstore (4.0-1) stable; urgency=low
+
+  * Autobuild Tag 4.0 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Tue, 15 Dec 2015 12:07:31 +0000
+
+deepin-appstore (3.9.6-1) stable; urgency=low
+
+  * Autobuild Tag 3.9.6 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Wed, 09 Dec 2015 10:24:53 +0000
+
+deepin-appstore (3.9.5-3) stable; urgency=low
+
+  * Rebuild Version 3.9.5 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Mon, 07 Dec 2015 17:40:36 +0000
+
+deepin-appstore (3.9.5-2) stable; urgency=low
+
+  * Rebuild Version 3.9.5 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Mon, 07 Dec 2015 15:37:54 +0000
+
+deepin-appstore (3.9.5-1) stable; urgency=low
+
+  * Autobuild Tag 3.9.5 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Mon, 07 Dec 2015 15:01:36 +0000
+
+deepin-appstore (3.9.4-1) stable; urgency=low
+
+  * Autobuild Tag 3.9.4 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Thu, 26 Nov 2015 10:41:17 +0000
+
+deepin-appstore (3.9.3-5) stable; urgency=low
+
+  * Rebuild Version 3.9.3 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Wed, 25 Nov 2015 16:02:14 +0000
+
+deepin-appstore (3.9.3-4) stable; urgency=low
+
+  * Rebuild Version 3.9.3 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Wed, 25 Nov 2015 15:46:33 +0000
+
+deepin-appstore (3.9.3-3) stable; urgency=low
+
+  * Rebuild Version 3.9.3 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Wed, 25 Nov 2015 15:37:16 +0000
+
+deepin-appstore (3.9.3-2) stable; urgency=low
+
+  * Rebuild Version 3.9.3 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Wed, 25 Nov 2015 15:26:49 +0000
+
+deepin-appstore (3.9.3-1) stable; urgency=low
+
+  * Autobuild Tag 3.9.3 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Tue, 24 Nov 2015 13:51:37 +0000
+
+deepin-appstore (3.9.2-1) stable; urgency=low
+
+  * Autobuild Tag 3.9.2 
+
+ -- TagBuilder <tabbuilder@linuxdeepin.com>  Mon, 23 Nov 2015 11:41:55 +0000
+
+deepin-appstore (0.0.1) 2015; urgency=low
 
   * XXXXXXXXX
 
- -- Xinkai Chen <chenxinkai@linuxdeepin.com>  Tue, 26 Jan 2016 00:00:00 -0800
+ -- Xinkai Chen <chenxinkai@linuxdeepin.com>  Wed, 09 Sep 2015 00:00:00 -0800
