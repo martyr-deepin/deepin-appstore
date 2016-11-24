@@ -14,7 +14,7 @@
 #include <QKeyEvent>
 #include "StupidWindow.h"
 #include "AboutWindow.h"
-#include "TextBrowser.h"
+#include "WebWidget.h"
 
 AboutWindow::AboutWindow(QWidget *parent) : StupidWindow(parent),
                                             contentWidth(380), contentHeight(390) {
@@ -25,15 +25,13 @@ AboutWindow::AboutWindow(QWidget *parent) : StupidWindow(parent),
     this->setFixedSize(this->contentWidth, this->contentHeight);
     this->setStyleSheet("AboutWindow { background: transparent }");
 
-    this->content = new TextBrowser(this);
-    this->content->setTextInteractionFlags(Qt::LinksAccessibleByMouse |
-                                           Qt::LinksAccessibleByKeyboard);
+    this->content = new WebView(this);
     this->content->setFixedSize(this->contentWidth, this->contentHeight);
-    this->content->setStyleSheet("QTextBrowser { border: 0 }");
+    this->content->setStyleSheet("QWebView { border: 0 }");
 
     // handle anchors
-    this->content->setOpenLinks(false);
-    connect(this->content, &TextBrowser::anchorClicked, [](const QUrl& url) {
+    this->content->page()->setLinkDelegationPolicy(QWebPage::DelegateAllLinks);
+    connect(this->content, &QWebView::linkClicked, [](const QUrl& url) {
         if (url.url().startsWith("http://") ||
             url.url().startsWith("https://")) {
             QDesktopServices::openUrl(url);

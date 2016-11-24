@@ -11,7 +11,7 @@
 #define SHELL_ABOUTWINDOW_H
 
 #include "StupidWindow.h"
-class TextBrowser;
+class WebView;
 class QGraphicsDropShadowEffect;
 
 class AboutWindow : public StupidWindow {
@@ -27,7 +27,7 @@ protected:
     void keyPressEvent(QKeyEvent * event);
 
 private:
-    TextBrowser* content = nullptr;
+    WebView* content = nullptr;
 
     unsigned int contentWidth = 0;
     unsigned int contentHeight = 0;
