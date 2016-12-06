@@ -48,7 +48,7 @@ public:
     Q_SLOT void askAppInstalled(const QString& pkgId);
     Q_SLOT void askDownloadSize(const QString& pkgId);
 
-signals:
+Q_SIGNALS:
     void jobPathsAnswered(QStringList jobPaths);
     void runningJobsAnswered(QStringList runningJobs);
     void updatableAppsAnswered(QStringList updatableApps);

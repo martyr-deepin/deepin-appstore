@@ -31,7 +31,7 @@ public:
     void setUrl(const QUrl& url);
 
 
-signals:
+Q_SIGNALS:
     void windowStateChanged(Qt::WindowState state);
 
 private:

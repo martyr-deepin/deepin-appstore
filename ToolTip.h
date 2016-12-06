@@ -31,7 +31,7 @@ public:
 
     void moveShow(const int x, const int y);
 
-public slots:
+public Q_SLOTS:
     void show(const QString& text,
               const QRect& activationGeometry);
 

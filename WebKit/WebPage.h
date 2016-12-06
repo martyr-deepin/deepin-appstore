@@ -19,7 +19,7 @@ public:
     ~WebPage();
 
     void javaScriptConsoleMessage(const QString& message, int lineNumber, const QString& sourceID) override;
-public slots:
+public Q_SLOTS:
     void addBridge();
 
 private:

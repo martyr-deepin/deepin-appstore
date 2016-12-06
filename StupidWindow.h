@@ -46,7 +46,7 @@ public:
     void setMaximumSize(int maxw, int maxh);
     void setModal(bool);
 
-public slots:
+public Q_SLOTS:
     void startMoving();
     void updateCursor(CornerEdge);
     void showMaximized();

@@ -20,7 +20,7 @@ public:
     explicit DBusInterface(QObject* parent = nullptr);
     ~DBusInterface();
 
-public slots:
+public Q_SLOTS:
     void raise();
 
 private:

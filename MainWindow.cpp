@@ -53,7 +53,7 @@ void MainWindow::toggleMaximized() {
 void MainWindow::changeEvent(QEvent *event) {
     StupidWindow::changeEvent(event);
     if (event->type() == QEvent::WindowStateChange) {
-        emit this->windowStateChanged((Qt::WindowState)(int)this->windowState());
+        Q_EMIT this->windowStateChanged((Qt::WindowState)(int)this->windowState());
     }
 }
 

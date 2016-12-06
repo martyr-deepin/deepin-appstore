@@ -6,15 +6,16 @@
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  **/
-#define QT_NO_KEYWORDS
-    // for opening .desktop files
-    #include <gio/gio.h>
-    #include <gio/gdesktopappinfo.h>
 
-    // for locales
-    #include <glib.h>
-    #include <glib/gi18n.h>
-#undef QT_NO_KEYWORDS
+
+// for opening .desktop files
+#include <gio/gio.h>
+#include <gio/gdesktopappinfo.h>
+
+// for locales
+#include <glib.h>
+#include <glib/gi18n.h>
+
 
 #include "common.h"
 #include <cassert>
@@ -56,7 +57,7 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
     const auto mainWin = this->getMainWindow();
     connect(mainWin, &MainWindow::windowStateChanged,
             this, [this](Qt::WindowState state) {
-                emit this->windowStateAnswered(nameWindowState(state));
+                Q_EMIT this->windowStateAnswered(nameWindowState(state));
             });
 
     QObject::connect(
@@ -64,7 +65,7 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
         this, &Bridge::timezoneAnswered,
         [this]() {
             this->calcAppRegion();
-            emit this->appRegionAnswered(this->appRegion);
+            Q_EMIT this->appRegionAnswered(this->appRegion);
         });
     this->calcLanguages(); // may or may not contain blocking code
     this->calcTimezone(); // may or may not blocking code
@@ -173,9 +174,9 @@ void Bridge::onItemInvoked(const QString& id, bool UNUSED(checked)) {
     } else if (id == "about") {
         this->showAboutWindow();
     } else if (id == "logout") {
-        emit this->logoutRequested();
+        Q_EMIT this->logoutRequested();
     } else if (id == "login") {
-        emit this->loginRequested();
+        Q_EMIT this->loginRequested();
     }
 }
 
@@ -263,7 +264,7 @@ unsigned int Bridge::layoutMargin() {
 void Bridge::askWindowState() {
     const auto windowState = this->getMainWindow()->windowState();
     QTimer::singleShot(0, [this, windowState]() {
-        emit this->windowStateAnswered(nameWindowState(windowState));
+        Q_EMIT this->windowStateAnswered(nameWindowState(windowState));
     });
 
 }
@@ -271,7 +272,7 @@ void Bridge::askWindowState() {
 void Bridge::askAppRegion() {
     if (!this->appRegion.isEmpty()) {
         QTimer::singleShot(0, [this]() {
-            emit this->appRegionAnswered(this->appRegion);
+            Q_EMIT this->appRegionAnswered(this->appRegion);
         });
     }
 }
@@ -285,7 +286,7 @@ void Bridge::calcTimezone() {
                 qWarning() << "Cannot open /etc/timezone for timezone information";
             }
             this->timezone = file.readAll().trimmed();
-            emit this->timezoneAnswered(this->timezone);
+            Q_EMIT this->timezoneAnswered(this->timezone);
         }
     };
 
@@ -301,7 +302,7 @@ void Bridge::calcTimezone() {
         reply,
         [this](QDBusPendingReply<QDBusVariant> reply) {
             this->timezone = qdbus_cast<QString>(reply.argumentAt<0>().variant());
-            emit this->timezoneAnswered(this->timezone);
+            Q_EMIT this->timezoneAnswered(this->timezone);
         },
         [fallback](QDBusError UNUSED(error)) {
             // fallback to /etc/timezone
@@ -344,7 +345,7 @@ void Bridge::calcAppRegion() {
 void Bridge::askTimezone() {
     if (!this->timezone.isEmpty()) {
         QTimer::singleShot(0, [this]() {
-            emit this->timezoneAnswered(this->timezone);
+            Q_EMIT this->timezoneAnswered(this->timezone);
         });
     }
 }
@@ -352,7 +353,7 @@ void Bridge::askTimezone() {
 void Bridge::askLanguages() {
     if (this->languages.length()) {
         QTimer::singleShot(0, [this]() {
-            emit this->languagesAnswered(this->languages);
+            Q_EMIT this->languagesAnswered(this->languages);
         });
     }
 }
@@ -363,5 +364,5 @@ void Bridge::calcLanguages() {
     for (int i = 0; i < length + 1; i++) {
         this->languages << languages[i];
     }
-    emit this->languagesAnswered(this->languages);
+    Q_EMIT this->languagesAnswered(this->languages);
 }

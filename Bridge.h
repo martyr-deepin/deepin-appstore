@@ -33,7 +33,7 @@ public:
     Bridge(QObject* parent = nullptr);
     ~Bridge();
 
-public slots:
+public Q_SLOTS:
     Q_INVOKABLE void exit();
     Q_INVOKABLE void showMinimize();
     Q_INVOKABLE void toggleMaximized();

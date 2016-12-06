@@ -37,7 +37,7 @@ LAStoreBridge::LAStoreBridge(QObject *parent) : QObject(parent) {
 #ifdef DEBUG_LASTORE
             debugLastore() << "SystemArchitectures Answered (change)" << this->architectures;
 #endif
-            emit this->systemArchitecturesAnswered(this->architectures);
+            Q_EMIT this->systemArchitecturesAnswered(this->architectures);
         }
     );
 
@@ -94,7 +94,7 @@ void LAStoreBridge::onJobListChanged() {
             // destroy all the DOM elements(including canvases) and re-create them, even if they were identical.
             if (this->jobPaths != installPaths) {
                 this->jobPaths = installPaths;
-                emit this->jobPathsAnswered(this->jobPaths);
+                Q_EMIT this->jobPathsAnswered(this->jobPaths);
                 this->updateJobDict();
                 this->aggregateJobInfo();
             }
@@ -115,7 +115,7 @@ void LAStoreBridge::updateJobDict() {
     // and keep them in job dict
 
     // find and insert new jobs
-    foreach (const auto& path, this->jobPaths) {
+    Q_FOREACH (const auto& path, this->jobPaths) {
         if (!this->jobDict.contains(path)) {
             const auto job = new Job("system", "com.deepin.lastore", path, this);
             const auto toInsert = new JobCombo();
@@ -174,7 +174,7 @@ void LAStoreBridge::updateJobDict() {
                         #ifdef DEBUG_LASTORE
                             debugLastore() << "JobInfo Answered (change)" << toInsert->info["path"].toString() << toInsert->info;
                         #endif
-                        emit this->jobInfoAnswered(toInsert->info["path"].toString(), toInsert->info);
+                        Q_EMIT this->jobInfoAnswered(toInsert->info["path"].toString(), toInsert->info);
                         this->aggregateJobInfo();
                     }
                 };
@@ -293,14 +293,14 @@ void LAStoreBridge::updateJobDict() {
     // find old jobs
     const auto paths = this->jobDict.keys();
     QStringList toRemove;
-    foreach (const auto& path, paths) {
+    Q_FOREACH (const auto& path, paths) {
         if (!this->jobPaths.contains(path)) {
             toRemove << path;
         }
     }
 
     // remove old jobs
-    foreach (const auto& path, toRemove) {
+    Q_FOREACH (const auto& path, toRemove) {
         const auto jobCombo = this->jobDict[path];
         if (jobCombo) {
             jobCombo->object->deleteLater();
@@ -338,7 +338,7 @@ void LAStoreBridge::askDownloadSize(const QString& pkgId) {
 #ifdef DEBUG_LASTORE
             debugLastore() << "DownloadSize Answered" << pkgId << size;
 #endif
-            emit this->downloadSizeAnswered(pkgId, size);
+            Q_EMIT this->downloadSizeAnswered(pkgId, size);
         }
     );
 }
@@ -354,7 +354,7 @@ void LAStoreBridge::onUpdatableAppsChanged() {
 #ifdef DEBUG_LASTORE
             debugLastore() << "UpdatableApps Answered (change)" << this->updatableApps;
 #endif
-            emit this->updatableAppsAnswered(this->updatableApps);
+            Q_EMIT this->updatableAppsAnswered(this->updatableApps);
         }
     );
 }
@@ -369,7 +369,7 @@ void LAStoreBridge::askAppInstalled(const QString& pkgId) {
 #ifdef DEBUG_LASTORE
             debugLastore() << "AppInstalled Answered" << pkgId << reply.argumentAt<0>();
 #endif
-            emit this->appInstalledAnswered(pkgId, reply.argumentAt<0>());
+            Q_EMIT this->appInstalledAnswered(pkgId, reply.argumentAt<0>());
         }
     );
 }
@@ -417,7 +417,7 @@ void LAStoreBridge::askJobInfo(const QString& jobPath) {
 #ifdef DEBUG_LASTORE
             debugLastore() << "JobInfo Answered" << jobPath << jobInfo;
 #endif
-            emit this->jobInfoAnswered(jobPath, jobInfo);
+            Q_EMIT this->jobInfoAnswered(jobPath, jobInfo);
         });
     } else {
         qDebug() << "askJobInfo" << "Cannot find" << jobPath;
@@ -428,7 +428,7 @@ void LAStoreBridge::aggregateJobInfo() {
     QSet<QString> installingAppsSet;
     QSet<QString> runningJobsSet;
     double overallProgress = 0;
-    foreach(const auto jobCombo, this->jobDict) {
+    Q_FOREACH(const auto jobCombo, this->jobDict) {
         if (!jobCombo) {
             // invalid ones, entries in debug page, for instance
             continue;
@@ -457,7 +457,7 @@ void LAStoreBridge::aggregateJobInfo() {
 #ifdef DEBUG_LASTORE
         debugLastore() << "InstallingApps Answered (change)" << this->installingApps;
 #endif
-        emit this->installingAppsAnswered(this->installingApps);
+        Q_EMIT this->installingAppsAnswered(this->installingApps);
     }
 
     if (this->runningJobsSet != runningJobsSet) {
@@ -467,7 +467,7 @@ void LAStoreBridge::aggregateJobInfo() {
 #ifdef DEBUG_LASTORE
         debugLastore() << "RunningJobs Answered (change)" << this->runningJobs;
 #endif
-        emit this->runningJobsAnswered(this->runningJobs);
+        Q_EMIT this->runningJobsAnswered(this->runningJobs);
     }
 
     const auto length = this->jobPaths.length();
@@ -476,7 +476,7 @@ void LAStoreBridge::aggregateJobInfo() {
 #ifdef DEBUG_LASTORE
         debugLastore() << "OverallProgress Answered (change)" << this->overallProgress;
 #endif
-        emit this->overallProgressAnswered(this->overallProgress);
+        Q_EMIT this->overallProgressAnswered(this->overallProgress);
     }
 }
 
@@ -488,7 +488,7 @@ void LAStoreBridge::askOverallProgress() {
 #ifdef DEBUG_LASTORE
         debugLastore() << "OverallProgress Answered" << this->overallProgress;
 #endif
-        emit this->overallProgressAnswered(this->overallProgress);
+        Q_EMIT this->overallProgressAnswered(this->overallProgress);
     });
 }
 
@@ -502,7 +502,7 @@ void LAStoreBridge::askSystemArchitectures() {
 #ifdef DEBUG_LASTORE
             debugLastore() << "SystemArchitectures Answered" << this->architectures;
 #endif
-            emit this->systemArchitecturesAnswered(this->architectures);
+            Q_EMIT this->systemArchitecturesAnswered(this->architectures);
         });
     }
 }
@@ -515,7 +515,7 @@ void LAStoreBridge::askRunningJobs() {
 #ifdef DEBUG_LASTORE
         debugLastore() << "RunningJobs Answered" << this->runningJobs;
 #endif
-        emit this->runningJobsAnswered(this->runningJobs);
+        Q_EMIT this->runningJobsAnswered(this->runningJobs);
     });
 }
 
@@ -527,7 +527,7 @@ void LAStoreBridge::askInstallingApps() {
 #ifdef DEBUG_LASTORE
         debugLastore() << "InstallingApps Answered" << this->installingApps;
 #endif
-        emit this->installingAppsAnswered(this->installingApps);
+        Q_EMIT this->installingAppsAnswered(this->installingApps);
     });
 }
 
@@ -539,7 +539,7 @@ void LAStoreBridge::askUpdatableApps() {
 #ifdef DEBUG_LASTORE
         debugLastore() << "UpdatableApps Answered" << this->updatableApps;
 #endif
-        emit this->updatableAppsAnswered(this->updatableApps);
+        Q_EMIT this->updatableAppsAnswered(this->updatableApps);
     });
 }
 
@@ -551,6 +551,6 @@ void LAStoreBridge::askJobPaths() {
 #ifdef DEBUG_LASTORE
         debugLastore() << "JobPaths Answered" << this->jobPaths;
 #endif
-        emit this->jobPathsAnswered(this->jobPaths);
+        Q_EMIT this->jobPathsAnswered(this->jobPaths);
     });
 }

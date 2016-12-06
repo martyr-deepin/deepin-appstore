@@ -74,7 +74,7 @@ LocalFileSystemReply::LocalFileSystemReply(QNetworkAccessManager::Operation UNUS
 
     this->timer = new QTimer(this);
     QObject::connect(this->timer, &QTimer::timeout, [this]() {
-        emit this->finished();
+        Q_EMIT this->finished();
     });
     this->timer->setSingleShot(true);
     this->timer->start(0);
