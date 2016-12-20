@@ -11,10 +11,17 @@
 #include "Shell.h"
 #include "WebView.h"
 #include "WebPage.h"
+#include "NetworkAccessManager.h"
 
 WebView::WebView(QWidget *parent) : QWebView(parent) {
     this->customPage = new WebPage(this);
     this->setPage(this->customPage);
+
+    if (!(static_cast<Shell*>(qApp))->argsParser->isSet("disableDataCache")) {
+        const auto nam = new NetworkAccessManager(this->customPage);
+        this->customPage->setNetworkAccessManager(nam);
+    }
+
     this->setAcceptDrops(false);
     this->setAttribute(Qt::WA_OpaquePaintEvent, true);
 

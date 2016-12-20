@@ -12,11 +12,9 @@
 #include <QWebFrame>
 #include "WebPage.h"
 #include "Bridge.h"
-#include "NetworkAccessManager.h"
+
 
 WebPage::WebPage(QWidget* parent) : QWebPage(parent) {
-    const auto nam = new NetworkAccessManager(this);
-    this->setNetworkAccessManager(nam);
     QObject::connect(this->mainFrame(), &QWebFrame::javaScriptWindowObjectCleared,
                      this, &WebPage::addBridge);
 }

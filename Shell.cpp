@@ -111,6 +111,8 @@ void Shell::parseOptions() {
          QCoreApplication::translate("main", "Remove deepin-store related files under $HOME.")},
         {{"o", "offline"},
          QCoreApplication::translate("main", "Start Deepin AppStore in offline mode (for testing purposes).")},
+        {"disableDataCache",
+         QCoreApplication::translate("main", "Disable load data from /usr/share/deepin-appstore")},
     });
 
     this->argsParser->process(qApp->arguments());
