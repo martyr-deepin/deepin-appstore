@@ -58,6 +58,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void loginRequested();
     void logoutRequested();
+    void menuItemClicked(const QString&);
 
     void windowStateAnswered(QString);
     void languagesAnswered(QStringList);

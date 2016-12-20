@@ -178,6 +178,9 @@ void Bridge::onItemInvoked(const QString& id, bool UNUSED(checked)) {
     } else if (id == "login") {
         Q_EMIT this->loginRequested();
     }
+    //TODO: remove logout/loginRequested.
+
+    Q_EMIT this->menuItemClicked(id);
 }
 
 void Bridge::openExternalBrowser(const QString& url) {
