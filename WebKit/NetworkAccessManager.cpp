@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QNetworkDiskCache>
 #include <QCommandLineParser>
+#include <QFile>
 
 #include "../Shell.h"
 
@@ -55,16 +56,5 @@ QNetworkReply *NetworkAccessManager::createRequest(QNetworkAccessManager::Operat
 }
 
 bool NetworkAccessManager::isLocallyServable(const QUrl& url) {
-    const auto host = url.host();
-    if (host.endsWith("appstore.deepin.test") ||
-        host.endsWith("appstore.deepin.org") ||
-	host.endsWith("appstore.deepin.com")) {
-        const auto path = url.path();
-        if (!(path.contains("/endpoints/v1/") ||
-	      path.contains("/_api/") ||
-              path.contains("/data/v1/"))) {
-            return true;
-        }
-    }
-    return false;
+    return QFile("/usr/share/deepin-appstore/webapp/" + url.path()).exists();
 }
