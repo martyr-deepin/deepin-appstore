@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 project(Shell)
-set(SHELL_VERSION 4.0.8)
+set(SHELL_VERSION 4.0.9)
 #set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
