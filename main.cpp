@@ -14,11 +14,11 @@
 int main(int argc, char *argv[]) {
     QNetworkProxyFactory::setUseSystemConfiguration(true);
 
-    Shell::setApplicationName("DeepinStore");
-    Shell::setApplicationDisplayName("Deepin Store");
+    Shell::setApplicationName("deepin-appstore");
+    Shell::setApplicationDisplayName(QObject::tr("Deepin Store"));
     Shell::setApplicationVersion(SHELL_VERSION);
     Shell::setOrganizationDomain("deepin.org");
-    Shell::setOrganizationName("Deepin");
+    Shell::setOrganizationName("deepin");
 
     Shell shell(argc, argv);
     int result = shell.exec();
