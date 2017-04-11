@@ -14,6 +14,8 @@
 int main(int argc, char *argv[]) {
     QNetworkProxyFactory::setUseSystemConfiguration(true);
 
+    // The matching client version code in frontend(jssrc/services/AboutContentService.js)
+    // should be sync with the ApplicationName here.
     Shell::setApplicationName("deepin-appstore");
     Shell::setApplicationDisplayName(QObject::tr("Deepin Store"));
     Shell::setApplicationVersion(SHELL_VERSION);
