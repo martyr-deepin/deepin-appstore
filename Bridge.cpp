@@ -19,7 +19,9 @@
 
 #include "common.h"
 #include <cassert>
-#include <QApplication>
+#include <DApplication>
+
+#include <QMouseEvent>
 
 // for tooltips
 #include <QFont>
@@ -106,7 +108,11 @@ void Bridge::showTooltip(const QString& text,
 
 
 void Bridge::startMoving() {
-    this->getMainWindow()->startMoving();
+    QMouseEvent ev( (QEvent::MouseMove), QPoint(0, 0),
+                     Qt::NoButton,
+                     Qt::NoButton,
+                     Qt::NoModifier   );
+    QApplication::sendEvent(this->getMainWindow(), &ev);
 }
 
 

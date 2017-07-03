@@ -14,7 +14,7 @@
 //#include <QPropertyAnimation>
 
 
-ToolTip::ToolTip(QWidget *parent) : QWidget(parent) {
+ToolTip::ToolTip(bool b, QWidget *parent) : QWidget(parent), supportBorder(b) {
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::ToolTip);
     this->setAttribute(Qt::WA_TranslucentBackground);
     this->setFixedHeight(40);
@@ -26,10 +26,6 @@ ToolTip::ToolTip(QWidget *parent) : QWidget(parent) {
     this->layout->addWidget(this->label);
     this->layout->setMargin(0);
 
-//    this->animation = new QPropertyAnimation(this, "geometry");
-//    this->animation->setEasingCurve(QEasingCurve::OutCubic);
-//    this->animation->setDuration(201);
-
     this->setLayout(this->layout);
 }
 
@@ -38,31 +34,31 @@ ToolTip::~ToolTip() {
 }
 
 void ToolTip::moveShow(const int x, const int y) {
-//    if (!this->isVisible()) {
-//        this->move(x, y);
-//    } else {
-//        this->animation->stop();
-//        this->move(x, this->geometry().y());
-//        this->animation->setStartValue(this->geometry());
-//        this->animation->setEndValue(QRect(x, y, this->width(), this->height()));
-//        this->animation->start();
-//    }
     this->move(x, y);
     QWidget::show();
 }
 
 void ToolTip::updateStyle() {
+    QString border = "0px 0px 0px 0px";
     if (this->arrowDirection == ArrowLeft) {
-        this->setStyleSheet("color: white;\
-                             font-size: 12px;\
-                             border-width: 6px 15px 6px 20px;\
-                             padding-left: 6px;\
-                             border-image: url(:/res/tooltip_left.png) 6 15 6 20 stretch;");
+        if (supportBorder) {
+            border = "6px 15px 6px 20px";
+        }
+        this->setStyleSheet(
+            QString("color: white;\
+                     font-size: 12px;\
+                     border-width: 6px 15px 6px 20px;\
+                     padding-left: 6px;") +
+            (supportBorder ? "border-image: url(:/res/tooltip_left.png) %1 stretch;" : ""));
     } else {
-        this->setStyleSheet("color: white;\
-                             font-size: 12px;\
-                             border-width: 6px 20px 6px 15px;\
-                             border-image: url(:/res/tooltip_right.png) 6 20 6 15 stretch;");
+        if (supportBorder) {
+            border = "6px 20px 6px 15px";
+        }
+        this->setStyleSheet(
+            QString("color: white;\
+                     font-size: 12px;\
+                     border-width: 6px 20px 6px 15px;") +
+            (supportBorder ? "border-image: url(:/res/tooltip_right.png) 6px 20px 6px 15px stretch;": ""));
     }
 }
 

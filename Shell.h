@@ -10,7 +10,12 @@
 #ifndef SHELL_SHELL_H
 #define SHELL_SHELL_H
 
-#include <QApplication>
+#include <DApplication>
+#if defined(qApp)
+#undef qApp
+#endif
+#define qApp (static_cast<QApplication *>(QCoreApplication::instance()))
+
 #include <QUrl>
 class QCommandLineParser;
 class QSettings;
@@ -20,7 +25,7 @@ class MainWindow;
 
 class ToolTip;
 
-class Shell : public QApplication {
+class Shell : public Dtk::Widget::DApplication {
     Q_OBJECT
 public:
     Shell(int& argc, char** argv);

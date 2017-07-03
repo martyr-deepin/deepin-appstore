@@ -13,22 +13,34 @@
 
 
 #include <QWidget>
-#include "StupidWindow.h"
 #include "WebWidget.h"
 
 class QHBoxLayout;
 
+enum CornerEdge {
+    Nil = 0,
+    Top = 1,
+    Right = 2,
+    Bottom = 4,
+    Left = 8,
+    TopLeft = Top | Left,
+    TopRight = Top | Right,
+    BottomLeft = Bottom | Left,
+    BottomRight = Bottom | Right,
+};
 
 
-class MainWindow : public StupidWindow {
+class MainWindow : public QWidget {
     Q_OBJECT
 
 public:
-    explicit MainWindow(StupidWindow* parent = nullptr);
+    explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
     void toggleMaximized();
     void setUrl(const QUrl& url);
+
+    void updateCursor(CornerEdge);
 
 
 Q_SIGNALS:
@@ -41,6 +53,8 @@ protected:
     bool event(QEvent* event) override;
     void changeEvent(QEvent* event) override;
     void keyPressEvent(QKeyEvent* event) override;
+
+    void setBorderRadius(int s);
 };
 
 #endif //SHELL_MAINWINDOW_H

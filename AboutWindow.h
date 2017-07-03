@@ -9,12 +9,11 @@
 
 #ifndef SHELL_ABOUTWINDOW_H
 #define SHELL_ABOUTWINDOW_H
-
-#include "StupidWindow.h"
+#include <QWidget>
 class WebView;
 class QGraphicsDropShadowEffect;
 
-class AboutWindow : public StupidWindow {
+class AboutWindow : public QWidget {
     Q_OBJECT
 
 public:

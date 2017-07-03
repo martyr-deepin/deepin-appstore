@@ -13,6 +13,8 @@
 #include <QSettings>
 #include <QProcess>
 
+#include <DWindowManagerHelper>
+
 #include "Shell.h"
 #include "MainWindow.h"
 #include "DBusInterface.h"
@@ -20,7 +22,7 @@
 #include "Bridge.h"
 
 
-Shell::Shell(int& argc, char** argv) : QApplication(argc, argv) {
+Shell::Shell(int& argc, char** argv) : Dtk::Widget::DApplication(argc, argv) {
     this->parseOptions();
     this->basePath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     this->settings = new QSettings(this);
@@ -81,7 +83,8 @@ void Shell::showTooltip(const QString& text, const QRect& globalGeometry) {
     if (text.isEmpty()) {
         return;
     }
-    this->tooltip = new ToolTip();
+
+    this->tooltip = new ToolTip(Dtk::Widget::DWindowManagerHelper::instance()->hasComposite());
     connect(this->tooltip, &ToolTip::destroyed, [this]() {
         this->tooltip = nullptr;
     });
@@ -120,9 +123,9 @@ void Shell::parseOptions() {
 
 void Shell::startWebView() {
     this->win = new MainWindow();
+
     this->win->setUrl(this->initUrl);
     this->win->show();
-    this->win->polish();
 }
 
 void Shell::openManual() {

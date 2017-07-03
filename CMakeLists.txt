@@ -24,23 +24,25 @@ find_package(Qt5DBus REQUIRED)
 find_package(PkgConfig REQUIRED)
 find_package(Qt5Network REQUIRED)
 
+pkg_search_module(DTKWIDGET REQUIRED dtkwidget)
 pkg_search_module(GLIB REQUIRED glib-2.0)
 pkg_search_module(X11 REQUIRED x11)
 pkg_search_module(X11Ext REQUIRED xext)
 pkg_search_module(GIO REQUIRED gio-unix-2.0)
 
+include_directories(AFTER ${DTKWIDGET_INCLUDE_DIRS})
 include_directories(AFTER ${GLIB_INCLUDE_DIRS})
 include_directories(AFTER ${X11_INCLUDE_DIRS})
 include_directories(AFTER ${X11Ext_INCLUDE_DIRS})
 include_directories(AFTER ${GIO_INCLUDE_DIRS})
 
 set(SOURCE_FILES main.cpp
-                 StupidWindow.cpp StupidWindow.h
                  MainWindow.cpp MainWindow.h
                  Shell.cpp Shell.h
                  Bridge.cpp Bridge.h
                  FilterMouseMove.cpp FilterMouseMove.h
                  AboutWindow.cpp AboutWindow.h
+                 lastore-daemon.h
                  DBusInterface.cpp DBusInterface.h)
 
 set(TOOLTIP_FILES ToolTip.cpp)
@@ -54,6 +56,7 @@ set(LINK_LIBS
         Qt5::Gui
         Qt5::Network
         ${GLIB_LIBRARIES}
+        ${DTKWIDGET_LIBRARIES}
         ${X11_LIBRARIES}
         ${X11Ext_LIBRARIES}
         ${GIO_LIBRARIES}
@@ -69,8 +72,7 @@ if(Qt5WebEngineWidgets_FOUND)
     set(WEB_WIDGET_FILES WebEngine/WebView.cpp WebEngine/WebView.h WebEngine/WebPage.cpp WebEngine/WebPage.h)
     add_definitions(-D BUILD_WITH_WEBENGINE=1)
     add_executable(deepin-appstore ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
-                   res.qrc
-                   "/usr/include/lastore-daemon.h")
+                   res.qrc)
     target_link_libraries(deepin-appstore ${LINK_LIBS} Qt5::WebEngineWidgets Qt5::WebChannel)
 else()
     set(WEB_WIDGET_FILES WebKit/WebView.cpp WebKit/WebView.h
@@ -83,8 +85,7 @@ else()
     find_package(Qt5WebKitWidgets REQUIRED)
     add_definitions(-DBUILD_WITH_WEBKIT=1)
     add_executable(deepin-appstore ${SOURCE_FILES} ${TOOLTIP_FILES} ${DBUSMENU_FILES} ${DBUS_BACKEND_FILES} ${WEB_WIDGET_FILES}
-                   res.qrc
-                   "/usr/include/lastore-daemon.h")
+                   res.qrc)
 
     target_link_libraries(deepin-appstore ${LINK_LIBS} Qt5::WebKitWidgets)
 endif()

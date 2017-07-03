@@ -22,6 +22,8 @@ int main(int argc, char *argv[]) {
     Shell::setOrganizationDomain("deepin.org");
     Shell::setOrganizationName("deepin");
 
+    Shell::loadDXcbPlugin();
+
     Shell shell(argc, argv);
     int result = shell.exec();
     return result;

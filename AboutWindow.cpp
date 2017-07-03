@@ -9,18 +9,18 @@
 #include <QDebug>
 #include <QDesktopServices>
 
+#include <DPlatformWindowHandle>
 #include <QLayout>
 #include <QPushButton>
 #include <QKeyEvent>
-#include "StupidWindow.h"
 #include "AboutWindow.h"
 #include "WebWidget.h"
 
-AboutWindow::AboutWindow(QWidget *parent) : StupidWindow(parent),
+AboutWindow::AboutWindow(QWidget *parent) : QWidget(parent),
                                             contentWidth(380), contentHeight(390) {
-    this->setModal(true);
+    this->setWindowModality(Qt::WindowModality::ApplicationModal);
     this->setAutoFillBackground(true);
-    this->setWindowFlags(Qt::Dialog | this->windowFlags());
+    this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(this->contentWidth, this->contentHeight);
     this->setStyleSheet("AboutWindow { background: transparent }");
@@ -39,8 +39,11 @@ AboutWindow::AboutWindow(QWidget *parent) : StupidWindow(parent),
     });
 
     // smaller shadow
-    this->shadowOffsetY = 4;
-
+    auto horizontalLayout = new QHBoxLayout(this);
+    horizontalLayout->setSpacing(0);
+    horizontalLayout->setMargin(0);
+    horizontalLayout->setObjectName("horizontalLayout");
+    this->setLayout(horizontalLayout);
     this->layout()->addWidget(this->content);
 
     const auto closeBtn = new QPushButton(this->content);
@@ -58,6 +61,8 @@ AboutWindow::AboutWindow(QWidget *parent) : StupidWindow(parent),
         this->close();
     });
 
+    DPlatformWindowHandle handler(this);
+    handler.setWindowRadius(5);
 }
 
 void AboutWindow::setContent(const QString& html) {

@@ -26,7 +26,7 @@ public:
         ArrowRight,
     };
 
-    explicit ToolTip(QWidget* parent = nullptr);
+    explicit ToolTip(bool supportBorder, QWidget* parent = nullptr);
     ~ToolTip();
 
     void moveShow(const int x, const int y);
@@ -41,6 +41,8 @@ private:
     QHBoxLayout* layout = nullptr;
     ArrowDirection arrowDirection = ArrowRight;
     // QPropertyAnimation* animation = nullptr;
+
+    const bool supportBorder = true;
 
     void updateStyle();
 };
