@@ -10,6 +10,7 @@ override_dh_auto_build:
 	if [ -d build ];then rm -rf build; fi
 	mkdir -p build
 	tar xvf debian/code-dist.tar.gz -C build
+	cp debian/config.js build/scripts/config.js
 
 override_dh_auto_install:
 	dh_auto_install --  
