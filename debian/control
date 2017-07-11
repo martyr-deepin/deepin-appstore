@@ -1,5 +1,5 @@
 Source: deepin-appstore
-Maintainer: Deepin Sysdev <sysdev@linuxdeepin.com>
+Maintainer: Deepin Sysdev <sysdev@deepin.com>
 Section: admin
 Priority: optional
 Build-Depends:
@@ -7,7 +7,7 @@ Build-Depends:
  cmake, pkg-config,
  libglib2.0-dev,
  libqt5webkit5-dev, libqt5x11extras5-dev,
- libxext-dev, libdtkwidget (>= 0.2.10),
+ libxext-dev, libdtkwidget-dev (>= 0.2.10),
  wget,ca-certificates,
 Standards-Version: 3.9.5
 Homepage: https://gitcafe.com/Deepin/deepin-appstore/
@@ -17,7 +17,7 @@ Vcs-Browser: https://gitcafe.com/Deepin/deepin-appstore
 Package: deepin-appstore
 Architecture: any
 Depends:${shlibs:Depends}, ${misc:Depends},
- lastore-daemon (>=0.9.0), deepin-appstore-data
+ lastore-daemon (>=0.9.0), deepin-appstore-data, dde-qt5integration (>=0.2.0)
 Replaces: dstore-client
 Description: Deepin App Store
  Deepin App Store Client.
