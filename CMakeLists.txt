@@ -41,6 +41,7 @@ set(SOURCE_FILES main.cpp
                  Shell.cpp Shell.h
                  Bridge.cpp Bridge.h
                  FilterMouseMove.cpp FilterMouseMove.h
+                 configure.h configure.cpp
                  AboutWindow.cpp AboutWindow.h
                  lastore-daemon.h
                  DBusInterface.cpp DBusInterface.h)

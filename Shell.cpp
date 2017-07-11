@@ -20,7 +20,7 @@
 #include "DBusInterface.h"
 #include "ToolTip.h"
 #include "Bridge.h"
-
+#include "configure.h"
 
 Shell::Shell(int& argc, char** argv) : Dtk::Widget::DApplication(argc, argv) {
     this->parseOptions();
@@ -54,10 +54,8 @@ Shell::Shell(int& argc, char** argv) : Dtk::Widget::DApplication(argc, argv) {
     auto initUrl = this->argsParser->value("host");
     if (initUrl.size()) {
         this->initUrl = QUrl(initUrl);
-    } else if (isProfessionalVersion()){
-        this->initUrl = QUrl("http://appstore.deepin.com/");
     } else {
-	this->initUrl = QUrl("http://appstore.deepin.org/");
+        this->initUrl = LoadConfig().host;
     }
 
     this->origin = this->initUrl.scheme() + "://" + this->initUrl.host();

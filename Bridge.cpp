@@ -34,12 +34,13 @@
 #include "Bridge.h"
 #include "WebWidget.h"
 
-#include <QSettings>
 #include <QDesktopServices>
 #include "MainWindow.h"
 #include "AboutWindow.h"
 #include "dbusmenu.h"
 #include "dbusmenumanager.h"
+
+#include "configure.h"
 
 auto nameWindowState(Qt::WindowStates state) -> QString {
     if (state & Qt::WindowMaximized) {
@@ -51,7 +52,7 @@ auto nameWindowState(Qt::WindowStates state) -> QString {
     }
 }
 
-Bridge::Bridge(QObject *parent) : QObject(parent) {
+Bridge::Bridge(QObject *parent) : QObject(parent), appRegion(LoadConfig().region) {
     this->lastore = new LAStoreBridge(this);
     this->menuManager = new DBusMenuManager(this);
 
@@ -61,14 +62,6 @@ Bridge::Bridge(QObject *parent) : QObject(parent) {
             this, [this](Qt::WindowState state) {
                 Q_EMIT this->windowStateAnswered(nameWindowState(state));
             });
-
-    QObject::connect(
-        // here we set up a listener for the resolution of timezone.
-        this, &Bridge::timezoneAnswered,
-        [this]() {
-            this->calcAppRegion();
-            Q_EMIT this->appRegionAnswered(this->appRegion);
-        });
     this->calcLanguages(); // may or may not contain blocking code
     this->calcTimezone(); // may or may not blocking code
 }
@@ -286,6 +279,14 @@ void Bridge::askAppRegion() {
     }
 }
 
+void Bridge::askTimezone() {
+    if (!this->timezone.isEmpty()) {
+        QTimer::singleShot(0, [this]() {
+            Q_EMIT this->timezoneAnswered(this->timezone);
+        });
+    }
+}
+
 void Bridge::calcTimezone() {
     // fallback to use /etc/timezone, second
     const auto fallback = [this]() {
@@ -318,45 +319,6 @@ void Bridge::calcTimezone() {
             fallback();
         }
     );
-}
-
-bool isProfessionalVersion()
-{
-    QSettings s("/etc/deepin-version", QSettings::IniFormat, 0);
-    s.setIniCodec("UTF-8");
-    if (s.value("Release/Type").toString() == "Professional") {
-	return true;
-    }
-    return false;
-}
-
-void Bridge::calcAppRegion() {
-    // Force set appRegion to professional according to the /etc/deepin-version
-    if (isProfessionalVersion()) {
-        this->appRegion = "professional";
-        return;
-    }
-
-    // Auto detect the appRegion according by timezone
-    assert(!this->timezone.isEmpty());
-    if (this->timezone == "Asia/Shanghai" ||
-        this->timezone == "Asia/Chongqing" ||
-        this->timezone == "Asia/Chungking" ||
-        this->timezone == "Asia/Urumqi" ||
-        this->timezone == "Asia/Harbin" ||
-        this->timezone == "Asia/PRC") {
-        this->appRegion = "mainland";
-    } else {
-        this->appRegion = "international";
-    }
-}
-
-void Bridge::askTimezone() {
-    if (!this->timezone.isEmpty()) {
-        QTimer::singleShot(0, [this]() {
-            Q_EMIT this->timezoneAnswered(this->timezone);
-        });
-    }
 }
 
 void Bridge::askLanguages() {
