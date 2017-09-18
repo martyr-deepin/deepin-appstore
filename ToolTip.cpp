@@ -40,26 +40,20 @@ void ToolTip::moveShow(const int x, const int y) {
 
 void ToolTip::updateStyle() {
     QString border = "0px 0px 0px 0px";
+    QString img = "";
     if (this->arrowDirection == ArrowLeft) {
         if (supportBorder) {
             border = "6px 15px 6px 20px";
+            img = QString("border-image: url(:/res/tooltip_left.png) %1 stretch;").arg(border);
         }
-        this->setStyleSheet(
-            QString("color: white;\
-                     font-size: 12px;\
-                     border-width: 6px 15px 6px 20px;\
-                     padding-left: 6px;") +
-            (supportBorder ? "border-image: url(:/res/tooltip_left.png) %1 stretch;" : ""));
     } else {
         if (supportBorder) {
             border = "6px 20px 6px 15px";
+            img = QString("border-image: url(:/res/tooltip_right.png) %1 stretch;").arg(border);
         }
-        this->setStyleSheet(
-            QString("color: white;\
-                     font-size: 12px;\
-                     border-width: 6px 20px 6px 15px;") +
-            (supportBorder ? "border-image: url(:/res/tooltip_right.png) 6px 20px 6px 15px stretch;": ""));
+
     }
+    this->setStyleSheet(img + QString("color: white; font-size: 12px; border-width: %1;").arg(border));
 }
 
 void ToolTip::show(const QString& text, const QRect& activationGeometry) {
