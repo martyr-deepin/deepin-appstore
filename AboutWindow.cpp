@@ -35,6 +35,7 @@ AboutWindow::AboutWindow(QWidget *parent) : QWidget(parent),
     this->setStyleSheet("AboutWindow { background: transparent }");
 
     this->content = new WebView(this);
+    this->content->ignoreMouseMoveEvent = true;
     this->content->setFixedSize(this->contentWidth, this->contentHeight);
     this->content->setStyleSheet("QWebView { border: 0 }");
 

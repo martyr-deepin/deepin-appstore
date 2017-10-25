@@ -52,3 +52,11 @@ WebView::WebView(QWidget *parent) : QWebView(parent) {
 WebView::~WebView() {
 
 }
+
+void WebView::mouseMoveEvent(QMouseEvent *event)
+{
+    if (ignoreMouseMoveEvent)
+        return QWidget::mouseMoveEvent(event);
+
+    return QWebView::mouseMoveEvent(event);
+}

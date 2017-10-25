@@ -34,6 +34,7 @@
 #include <QFont>
 #include <QFontMetrics>
 #include <QLabel>
+#include <QWindow>
 
 #include <QLayout>
 
@@ -106,13 +107,14 @@ void Bridge::showTooltip(const QString& text,
                                            QRect(globalPos.x(), globalPos.y(), w, h));
 }
 
-
 void Bridge::startMoving() {
-    QMouseEvent ev( (QEvent::MouseMove), QPoint(0, 0),
+    QMouseEvent ev( (QEvent::MouseMove), getMainWindow()->rect().center(),
                      Qt::NoButton,
                      Qt::NoButton,
                      Qt::NoModifier   );
-    QApplication::sendEvent(this->getMainWindow(), &ev);
+    static_cast<WebView*>(this->parent()->parent())->ignoreMouseMoveEvent = true;
+    QApplication::sendEvent(this->getMainWindow()->windowHandle(), &ev);
+    static_cast<WebView*>(this->parent()->parent())->ignoreMouseMoveEvent = false;
 }
 
 

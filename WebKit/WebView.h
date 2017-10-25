@@ -29,7 +29,13 @@ public:
     ~WebView();
 
 private:
+    void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+
     WebPage* customPage = nullptr;
+    bool ignoreMouseMoveEvent = false;
+
+    friend class Bridge;
+    friend class AboutWindow;
 };
 
 
