@@ -97,5 +97,3 @@ install(FILES support/deepin-appstore.desktop
         DESTINATION "/usr/share/applications")
 install(DIRECTORY support/icons/
         DESTINATION "/usr/share/icons/")
-install(DIRECTORY manual/
-        DESTINATION "/usr/share/dman/deepin-appstore")
