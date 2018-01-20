@@ -1,0 +1,8 @@
+2018-01-20 5.0.0 xushaohua<xushaohua@deepin.com>
+	* Port to qcef
+
+2017-10-26 4.0.11 xushaohua<xushaohua@deepin.com>
+	* Fixed: can not move the window
+
+2017-09-18 4.0.10 xushaohua<xushaohua@deepin.com>
+	* Fixed: invalid tooltip css

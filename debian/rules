@@ -1,22 +1,10 @@
 #!/usr/bin/make -f
 
 export DH_VERBOSE=1
+export QT_SELECT=qt5
 
 %:
-	dh $@
+	dh $@  --parallel
 
-override_dh_auto_build:
-	dh_auto_build --
-	if [ -d build ];then rm -rf build; fi
-	mkdir -p build
-	tar xvf debian/code-dist.tar.gz -C build
-	cp debian/config.js build/scripts/config.js
-
-override_dh_auto_install:
-	dh_auto_install --  
-	mkdir -p debian/tmp/usr/share/deepin-appstore/webapp
-	cp -ar build/* debian/tmp/usr/share/deepin-appstore/webapp
-
-override_dh_auto_clean:
-	dh_auto_clean --
-	-rm -fr build
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release

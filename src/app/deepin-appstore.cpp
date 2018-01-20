@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 ~ 2017 Deepin Technology Co., Ltd.
+ * Copyright (C) 2017 ~ 2017 Deepin Technology Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,18 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SHELL_WEBWIDGET_H
-#define SHELL_WEBWIDGET_H
+#include <stdio.h>
 
-#ifdef BUILD_WITH_WEBENGINE
-    #include "WebEngine/WebView.h"
-    #include "WebEngine/WebPage.h"
-    #define WebWidgetName "WebEngine"
-#else
-    #include "WebKit/WebView.h"
-    #include "WebKit/WebPage.h"
-    #define WebWidgetName "WebKit"
-#endif
-
-
-#endif //SHELL_WEBWIDGET_H
+int main() {
+  printf("Hello, world\n");
+  return 0;
+}

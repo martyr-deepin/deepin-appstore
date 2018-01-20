@@ -1,3 +1,9 @@
+deepin-appstore (5.0.0-1) unstable; urgency=medium
+
+  * Port to qcef
+
+ -- xushaohua <xushaohua@deepin.com>  Sat, 20 Jan 2018 11:08:29 +0800
+
 deepin-appstore (4.0.9.7-1) unstable; urgency=low
 
   * Upgrade dtk rebuild.
