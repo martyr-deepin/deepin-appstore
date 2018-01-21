@@ -80,15 +80,42 @@ set(BASE_FILES
 set(RESOURCES_FILES
     resources/images.cpp
     resources/images.h
-
     )
+
+set(UI_FILES
+    ui/web_event_delegate.cpp
+    ui/web_event_delegate.h
+    ui/web_window.cpp
+    ui/web_window.h
+    )
+
+
+## Executable files
+# Generate .qm files from .ts files.
+file(GLOB DMAN_TRANSLATION_TS
+     ${CMAKE_SOURCE_DIR}/translations/deepin-appstore*.ts)
+set_source_files_properties(${DMAN_TRANSLATION_TS}
+                            PROPERTIES OUTPUT_LOCATION ${CMAKE_BINARY_DIR}/translations)
+qt5_add_translation(DMAN_TRANSLATION_QM ${DMAN_TRANSLATION_TS})
+add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
+
+# Build web project and generate js files.
+add_custom_command(OUTPUT rebuild-web
+                   COMMAND ./node_modules/.bin/ng build --output-path=${CMAKE_CURRENT_BINARY_DIR}/web
+                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web/
+                   )
+add_custom_target(update-web DEPENDS rebuild-web)
 
 add_executable(deepin-appstore
                app/deepin_appstore.cpp
                ${BASE_FILES}
                ${RESOURCES_FILES}
+               ${UI_FILES}
                )
 target_link_libraries(deepin-appstore ${LINK_LIBS})
+add_dependencies(deepin-appstore
+                 update-qm
+                 update-web)
 
 install(TARGETS deepin-appstore
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

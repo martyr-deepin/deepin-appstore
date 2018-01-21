@@ -21,6 +21,7 @@
 
 #include "base/consts.h"
 #include "resources/images.h"
+#include "ui/web_window.h"
 
 int main(int argc, char** argv) {
   QCefGlobalSettings settings;
@@ -49,7 +50,7 @@ int main(int argc, char** argv) {
     return exit_code;
   }
 
-  Dtk::Widget::DApplication::loadDXcbPlugin();
+//  Dtk::Widget::DApplication::loadDXcbPlugin();
 
   Dtk::Widget::DApplication app(argc, argv);
   QCefBindApp(&app);
@@ -67,6 +68,10 @@ int main(int argc, char** argv) {
   app.setApplicationDescription(QObject::tr("Deepin app store"));
   app.setApplicationAcknowledgementPage(
       "https://www.deepin.org/acknowledgments/deepin-appstore/");
+
+  dstore::WebWindow window;
+  window.loadPage();
+  window.show();
 
   return app.exec();
 }
