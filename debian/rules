@@ -7,4 +7,16 @@ export QT_SELECT=qt5
 	dh $@  --parallel
 
 override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release
+	dh_auto_configure -- \
+	  -DCMAKE_BUILD_TYPE=Release \
+	  -DSTORE_RELEASE=ON
+
+override_dh_auto_build:
+ifneq (,$(wildcard .git/config))
+	git submodule update --init --recursive
+	git submodule update --remote
+else
+	rm -rf src/web/node_modules
+	git clone https://cr.deepin.io/vendor-deps src/web/node_modules
+	cd src/web/node_modules && git checkout deepin-appstore
+endif

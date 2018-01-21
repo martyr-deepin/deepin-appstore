@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
+#include "resources/images.h"
 
-int main() {
-  printf("Hello, world\n");
-  return 0;
-}
+namespace dstore {
+const char* const kImageDeepinAppStore = ":/common/images/deepin-appstore.svg";
+
+}  // namespace store

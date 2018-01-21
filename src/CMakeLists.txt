@@ -1,4 +1,10 @@
 
+if (DSTORE_RELEASE)
+  add_definitions(-DDSTORE_WEB_DIR="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/web")
+else()
+  add_definitions(-DDSTORE_WEB_DIR="${CMAKE_CURRENT_BINARY_DIR}/web")
+endif ()
+
 add_subdirectory(dbus)
 add_subdirectory(resources)
 
@@ -62,8 +68,27 @@ set(LINK_LIBS
     ${QCef_LDFLAGS}
     )
 
+set(BASE_FILES
+    base/command.cpp
+    base/command.h
+    base/consts.cpp
+    base/consts.h
+    base/file_util.cpp
+    base/file_util.h
+    )
+
+set(RESOURCES_FILES
+    resources/images.cpp
+    resources/images.h
+
+    )
+
 add_executable(deepin-appstore
-               app/deepin-appstore.cpp)
+               app/deepin_appstore.cpp
+               ${BASE_FILES}
+               ${RESOURCES_FILES}
+               )
+target_link_libraries(deepin-appstore ${LINK_LIBS})
 
 install(TARGETS deepin-appstore
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
