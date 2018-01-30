@@ -84,6 +84,8 @@ set(RESOURCES_FILES
 set(UI_FILES
     ui/web_window.cpp
     ui/web_window.h
+    ui/widgets/web_view.cpp
+    ui/widgets/web_view.h
     )
 
 

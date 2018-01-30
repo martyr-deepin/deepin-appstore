@@ -15,39 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ui/web_window.h"
-
-#include <QWebEnginePage>
-
-#include "base/consts.h"
 #include "ui/widgets/web_view.h"
+
+#include <QContextMenuEvent>
+#include <QMenu>
+#include <QWebEngineContextMenuData>
 
 namespace dstore {
 
-WebWindow::WebWindow(QWidget* parent) : DMainWindow(parent) {
-  this->initUI();
-  this->initConnections();
-}
-
-WebWindow::~WebWindow() {
+WebView::WebView(QWidget* parent) : QWebEngineView(parent) {
 
 }
 
-void WebWindow::loadPage() {
-  web_view_->load(QUrl::fromLocalFile(kIndexPage));
-}
-
-void WebWindow::initConnections() {
+WebView::~WebView() {
 
 }
 
-void WebWindow::initUI() {
-  web_view_ = new WebView();
-  this->setCentralWidget(web_view_);
-
-  // Disable web security.
-
-  this->setFocusPolicy(Qt::ClickFocus);
+void WebView::contextMenuEvent(QContextMenuEvent* event) {
+  const QString selected = page()->contextMenuData().selectedText();
+  if (!selected.isEmpty()) {
+    QMenu* menu = new QMenu(this);
+    menu->addAction(page()->action(QWebEnginePage::WebAction::Copy));
+    menu->popup(event->globalPos());
+  }
 }
 
 }  // namespace dstore
