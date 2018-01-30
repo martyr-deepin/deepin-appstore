@@ -17,8 +17,8 @@
 
 #include "ui/web_window.h"
 
-#include <qcef_web_page.h>
-#include <qcef_web_settings.h>
+#include <QWebEnginePage>
+#include <QWebEngineView>
 
 #include "base/consts.h"
 
@@ -42,12 +42,10 @@ void WebWindow::initConnections() {
 }
 
 void WebWindow::initUI() {
-  web_view_ = new QCefWebView();
+  web_view_ = new QWebEngineView();
   this->setCentralWidget(web_view_);
-  web_event_delegate_ = new WebEventDelegate(this);
-  web_view_->page()->setEventDelegate(web_event_delegate_);
+
   // Disable web security.
-  web_view_->page()->settings()->setWebSecurity(QCefWebSettings::StateDisabled);
 
   this->setFocusPolicy(Qt::ClickFocus);
 }

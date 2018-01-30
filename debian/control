@@ -6,11 +6,12 @@ Build-Depends:
  cmake,
  debhelper (>= 9),
  git,
+ libdeepin-webengine-dev,
  libdtkwidget-dev,
- libqcef-dev,
  libqt5webchannel5-dev,
  libsass0,
  nodejs,
+ qtpositioning5-dev,
  qttools5-dev-tools,
 Standards-Version: 3.9.5
 Homepage: https://deepin.org

@@ -44,6 +44,7 @@ endif()
 find_package(PkgConfig REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5DBus REQUIRED)
+find_package(Qt5DeepinWebEngineWidgets REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5LinguistTools)
 find_package(Qt5Sql REQUIRED)
@@ -52,20 +53,18 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5LinguistTools REQUIRED)
 
 pkg_search_module(DtkWidget REQUIRED dtkwidget)
-pkg_search_module(QCef REQUIRED libqcef)
 
 include_directories(${DtkWidget_INCLUDE_DIRS})
-include_directories(${QCef_INCLUDE_DIRS})
 
 set(LINK_LIBS
     Qt5::Core
     Qt5::DBus
+    Qt5::DeepinWebEngineWidgets
     Qt5::Sql
     Qt5::Widgets
     Qt5::WebChannel
 
     ${DtkWidget_LDFLAGS}
-    ${QCef_LDFLAGS}
     )
 
 set(BASE_FILES
@@ -83,8 +82,6 @@ set(RESOURCES_FILES
     )
 
 set(UI_FILES
-    ui/web_event_delegate.cpp
-    ui/web_event_delegate.h
     ui/web_window.cpp
     ui/web_window.h
     )

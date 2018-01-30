@@ -19,9 +19,7 @@
 #define DEEPIN_APPSTORE_UI_WEB_WINDOW_H
 
 #include <DMainWindow>
-#include <qcef_web_view.h>
-
-#include "ui/web_event_delegate.h"
+class QWebEngineView;
 
 namespace dstore {
 
@@ -40,8 +38,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   void initConnections();
   void initUI();
 
-  QCefWebView* web_view_ = nullptr;
-  WebEventDelegate* web_event_delegate_ = nullptr;
+  QWebEngineView* web_view_ = nullptr;
 };
 
 }  // namespace dstore

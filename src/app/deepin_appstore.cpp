@@ -17,43 +17,15 @@
 
 #include <DApplication>
 #include <QIcon>
-#include <qcef_context.h>
 
 #include "base/consts.h"
 #include "resources/images.h"
 #include "ui/web_window.h"
 
 int main(int argc, char** argv) {
-  QCefGlobalSettings settings;
-
-  // Do not use sandbox.
-  settings.setNoSandbox(true);
-//#ifndef N_DEBUG
-  // Open http://localhost:9222 in chromium browser to see dev tools.
-  settings.setRemoteDebug(true);
-  settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
-//#else
-//  settings.setRemoteDebug(false);
-//  settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
-//#endif
-
-  // Disable GPU process.
-  settings.addCommandLineSwitch("--disable-gpu", "");
-  // Set web cache folder.
-  QDir cache_dir(dstore::GetCacheDir());
-  cache_dir.mkpath(".");
-  settings.setCachePath(cache_dir.filePath("cache"));
-  settings.setUserDataPath(cache_dir.filePath("data"));
-
-  const int exit_code = QCefInit(argc, argv, settings);
-  if (exit_code >= 0) {
-    return exit_code;
-  }
-
-//  Dtk::Widget::DApplication::loadDXcbPlugin();
+  Dtk::Widget::DApplication::loadDXcbPlugin();
 
   Dtk::Widget::DApplication app(argc, argv);
-  QCefBindApp(&app);
 
   app.setTheme("light");
   app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
