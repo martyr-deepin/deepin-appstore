@@ -15,35 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_UI_WEB_WINDOW_H
-#define DEEPIN_APPSTORE_UI_WEB_WINDOW_H
-
-#include <DMainWindow>
-class QWebEngineView;
+#include "services/store_daemon_proxy.h"
 
 namespace dstore {
 
-class StoreDaemonProxy;
+StoreDaemonProxy::StoreDaemonProxy(QObject* parent) : QObject(parent) {
 
-class WebWindow : public Dtk::Widget::DMainWindow {
-  Q_OBJECT
- public:
-  explicit WebWindow(QWidget* parent = nullptr);
-  ~WebWindow() override;
+}
 
-  /**
-   * Load app store main web page.
-   */
-  void loadPage();
+StoreDaemonProxy::~StoreDaemonProxy() {
 
- private:
-  void initConnections();
-  void initUI();
-
-  QWebEngineView* web_view_ = nullptr;
-  StoreDaemonProxy* store_daemon_proxy_ = nullptr;
-};
+}
 
 }  // namespace dstore
-
-#endif  // DEEPIN_APPSTORE_UI_WEB_WINDOW_H

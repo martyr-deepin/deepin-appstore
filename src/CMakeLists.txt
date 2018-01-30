@@ -81,6 +81,11 @@ set(RESOURCES_FILES
     resources/images.h
     )
 
+set(SERVICES_FILES
+    services/store_daemon_proxy.cpp
+    services/store_daemon_proxy.h
+    )
+
 set(UI_FILES
     ui/web_window.cpp
     ui/web_window.h
@@ -109,6 +114,7 @@ add_executable(deepin-appstore
                app/deepin_appstore.cpp
                ${BASE_FILES}
                ${RESOURCES_FILES}
+               ${SERVICES_FILES}
                ${UI_FILES}
                )
 target_link_libraries(deepin-appstore ${LINK_LIBS})

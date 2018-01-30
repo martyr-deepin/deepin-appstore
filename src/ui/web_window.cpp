@@ -17,9 +17,11 @@
 
 #include "ui/web_window.h"
 
+#include <QWebChannel>
 #include <QWebEnginePage>
 
 #include "base/consts.h"
+#include "services/store_daemon_proxy.h"
 #include "ui/widgets/web_view.h"
 
 namespace dstore {
@@ -46,6 +48,11 @@ void WebWindow::initUI() {
   this->setCentralWidget(web_view_);
 
   // Disable web security.
+
+  QWebChannel* web_channel = new QWebChannel(web_view_);
+  web_view_->page()->setWebChannel(web_channel);
+  store_daemon_proxy_ = new StoreDaemonProxy(this);
+  web_channel->registerObject("storeDaemon", store_daemon_proxy_);
 
   this->setFocusPolicy(Qt::ClickFocus);
 }
