@@ -15,39 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_UI_WEB_WINDOW_H
-#define DEEPIN_APPSTORE_UI_WEB_WINDOW_H
+#ifndef DEEPIN_APPSTORE_UI_IMAGE_VIEWER_PROXY_H
+#define DEEPIN_APPSTORE_UI_IMAGE_VIEWER_PROXY_H
 
-#include <DMainWindow>
-class QWebEngineView;
+#include <QObject>
 
 namespace dstore {
 
 class ImageViewer;
-class ImageViewerProxy;
-class StoreDaemonProxy;
 
-class WebWindow : public Dtk::Widget::DMainWindow {
+class ImageViewerProxy : public QObject {
   Q_OBJECT
  public:
-  explicit WebWindow(QWidget* parent = nullptr);
-  ~WebWindow() override;
+  explicit ImageViewerProxy(ImageViewer* viewer, QObject* parent = nullptr);
+  ~ImageViewerProxy() override;
 
-  /**
-   * Load app store main web page.
+ public slots: /**
+   * Open image in viewer window.
+   * @param filepath Absolute path to image file.
    */
-  void loadPage();
+  void open(const QString& filepath);
 
  private:
-  void initConnections();
-  void initUI();
-
-  QWebEngineView* web_view_ = nullptr;
-  ImageViewer* image_viewer_ = nullptr;
-  ImageViewerProxy* image_viewer_proxy_ = nullptr;
-  StoreDaemonProxy* store_daemon_proxy_ = nullptr;
+  ImageViewer* viewer_ = nullptr;
 };
 
 }  // namespace dstore
 
-#endif  // DEEPIN_APPSTORE_UI_WEB_WINDOW_H
+#endif  // DEEPIN_APPSTORE_UI_IMAGE_VIEWER_PROXY_H

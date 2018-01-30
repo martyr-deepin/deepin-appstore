@@ -87,6 +87,10 @@ set(SERVICES_FILES
     )
 
 set(UI_FILES
+
+    ui/image_viewer_proxy.cpp
+    ui/image_viewer_proxy.h
+
     ui/web_window.cpp
     ui/web_window.h
 
