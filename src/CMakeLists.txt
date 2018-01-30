@@ -76,6 +76,16 @@ set(BASE_FILES
     base/file_util.h
     )
 
+set(DBUS_FILES
+    dbus/dbusvariant/app_update_info.cpp
+    dbus/dbusvariant/app_update_info.h
+
+    dbus/app_store_daemon_dbus_interface.cpp
+    dbus/app_store_daemon_dbus_interface.h
+    dbus/app_store_dbus_adapter.cpp
+    dbus/app_store_dbus_adapter.h
+    )
+
 set(RESOURCES_FILES
     resources/images.cpp
     resources/images.h

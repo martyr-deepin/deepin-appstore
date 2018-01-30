@@ -6,4 +6,8 @@ qdbusxml2cpp com.deepin.AppStore.xml \
 
 qdbusxml2cpp com.deepin.AppStore.xml \
   -p app_store_dbus_interface \
-  -c AppstoreDBusInterface
+  -c AppStoreDBusInterface
+
+qdbusxml2cpp com.deepin.lastore.xml \
+  -p app_store_daemon_dbus_interface \
+  -c AppStoreDaemonDBusInterface
