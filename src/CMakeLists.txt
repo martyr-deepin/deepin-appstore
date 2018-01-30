@@ -89,6 +89,7 @@ set(DBUS_FILES
 set(RESOURCES_FILES
     resources/images.cpp
     resources/images.h
+    resources/themes/themes.qrc
     )
 
 set(SERVICES_FILES

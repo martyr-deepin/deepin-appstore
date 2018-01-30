@@ -1,0 +1,20 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <file>common/images/deepin-appstore.svg</file>
+        <file>light/images/backward_hover.svg</file>
+        <file>light/images/backward_insensitive.svg</file>
+        <file>light/images/backward_normal.svg</file>
+        <file>light/images/backward_press.svg</file>
+        <file>light/images/close_hover.svg</file>
+        <file>light/images/close_normal.svg</file>
+        <file>light/images/close_press.svg</file>
+        <file>light/images/forward_hover.svg</file>
+        <file>light/images/forward_insensitive.svg</file>
+        <file>light/images/forward_normal.svg</file>
+        <file>light/images/forward_press.svg</file>
+        <file>light/ImageViewer.css</file>
+        <file>light/SearchCompletionWindow.css</file>
+        <file>light/TitleBar.css</file>
+    </qresource>
+</RCC>

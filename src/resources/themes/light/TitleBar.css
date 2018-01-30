@@ -1,0 +1,18 @@
+
+#AppIcon {
+  image: url(:/common/images/deepin-appstore.svg);
+}
+
+#BackButton {
+  qproperty-normalPic: url(:/light/images/backward_normal.svg);
+  qproperty-hoverPic: url(:/light/images/backward_hover.svg);
+  qproperty-pressPic: url(:/light/images/backward_press.svg);
+  qproperty-disabledPic: url(:/light/images/backward_insensitive.svg);
+}
+
+#ForwardButton {
+  qproperty-normalPic: url(:/light/images/forward_normal.svg);
+  qproperty-hoverPic: url(:/light/images/forward_hover.svg);
+  qproperty-pressPic: url(:/light/images/forward_press.svg);
+  qproperty-disabledPic: url(:/light/images/forward_insensitive.svg);
+}
