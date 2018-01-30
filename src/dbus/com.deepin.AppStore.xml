@@ -1,0 +1,8 @@
+<interface name="com.deepin.AppStore">
+    <method name="Raise">
+    </method>
+
+    <method name="OpenApp">
+        <arg direction="in" type="s"/>
+    </method>
+</interface>
