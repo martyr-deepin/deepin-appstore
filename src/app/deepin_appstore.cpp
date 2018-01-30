@@ -17,6 +17,7 @@
 
 #include <DApplication>
 #include <QIcon>
+#include <QWebEngineProfile>
 
 #include "base/consts.h"
 #include "resources/images.h"
@@ -40,6 +41,11 @@ int main(int argc, char** argv) {
   app.setApplicationDescription(QObject::tr("Deepin app store"));
   app.setApplicationAcknowledgementPage(
       "https://www.deepin.org/acknowledgments/deepin-appstore/");
+
+  QWebEngineProfile* profile = QWebEngineProfile::defaultProfile();
+  QDir cache_dir = dstore::GetCacheDir();
+  profile->setCachePath(cache_dir.filePath("cache"));
+  profile->setPersistentStoragePath(cache_dir.filePath("storage"));
 
   dstore::WebWindow window;
   window.loadPage();
