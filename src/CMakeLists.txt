@@ -82,13 +82,19 @@ set(RESOURCES_FILES
     )
 
 set(SERVICES_FILES
-    services/store_daemon_proxy.cpp
-    services/store_daemon_proxy.h
+    ui/store_daemon_proxy.cpp
+    ui/store_daemon_proxy.h
     )
 
 set(UI_FILES
     ui/web_window.cpp
     ui/web_window.h
+
+    ui/utils/theme_manager.cpp
+    ui/utils/theme_manager.h
+
+    ui/widgets/image_viewer.cpp
+    ui/widgets/image_viewer.h
     ui/widgets/web_view.cpp
     ui/widgets/web_view.h
     )

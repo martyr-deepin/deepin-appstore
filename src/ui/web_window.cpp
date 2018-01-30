@@ -21,7 +21,7 @@
 #include <QWebEnginePage>
 
 #include "base/consts.h"
-#include "services/store_daemon_proxy.h"
+#include "store_daemon_proxy.h"
 #include "ui/widgets/web_view.h"
 
 namespace dstore {

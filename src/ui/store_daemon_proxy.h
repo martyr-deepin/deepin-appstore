@@ -15,16 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "services/store_daemon_proxy.h"
+#ifndef DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
+#define DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
+
+#include <QObject>
 
 namespace dstore {
 
-StoreDaemonProxy::StoreDaemonProxy(QObject* parent) : QObject(parent) {
-
-}
-
-StoreDaemonProxy::~StoreDaemonProxy() {
-
-}
+class StoreDaemonProxy : public QObject {
+  Q_OBJECT
+ public:
+  explicit StoreDaemonProxy(QObject* parent = nullptr);
+  ~StoreDaemonProxy() override;
+};
 
 }  // namespace dstore
+
+#endif  // DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H

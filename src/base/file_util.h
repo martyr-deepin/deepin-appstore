@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_MANUAL_BASE_FILE_UTIL_H
-#define DEEPIN_MANUAL_BASE_FILE_UTIL_H
+#ifndef DEEPIN_APPSTORE_BASE_FILE_UTIL_H
+#define DEEPIN_APPSTORE_BASE_FILE_UTIL_H
 
 #include <QDir>
 #include <QString>
 
-namespace dman {
+namespace dstore {
 
 // Create a folder with |folder_name| in |parent_dir| directory and
 // returns a QDir object referencing to its absolute path.
@@ -79,6 +79,6 @@ bool ReadTextFile(const QString& path, QString& content);
 // Write content to file, returns true if succeeded, or false otherwise.
 bool WriteTextFile(const QString& path, const QString& content);
 
-}  // namespace dman
+}  // namespace dstore
 
-#endif  // DEEPIN_MANUAL_BASE_FILE_UTIL_H
+#endif  // DEEPIN_APPSTORE_BASE_FILE_UTIL_H

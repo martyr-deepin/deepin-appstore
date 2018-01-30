@@ -22,7 +22,7 @@
 #include <QDirIterator>
 #include <QTextCodec>
 
-namespace dman {
+namespace dstore {
 
 QDir ConcateDir(const QDir& parent_dir, const QString& folder_name) {
   if (!parent_dir.exists(folder_name)) {
@@ -233,4 +233,4 @@ bool WriteTextFile(const QString& path, const QString& content) {
   }
 }
 
-}  // namespace dman
+}  // namespace dstore
