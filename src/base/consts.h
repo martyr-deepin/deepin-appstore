@@ -23,7 +23,6 @@
 namespace dstore {
 
 extern const char kAppName[];
-extern const char* kAppDisplayName;
 extern const char kAppVersion[];
 extern const char kIndexPage[];
 

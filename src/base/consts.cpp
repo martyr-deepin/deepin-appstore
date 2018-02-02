@@ -20,7 +20,6 @@
 namespace dstore {
 
 const char kAppName[] = "deepin-appstore";
-const char* kAppDisplayName = "Deepin App Store";
 const char kAppVersion[] = "5.0.0";
 const char kIndexPage[] = DSTORE_WEB_DIR "/index.html";
 
