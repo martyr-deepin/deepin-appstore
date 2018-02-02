@@ -15,17 +15,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "base/consts.h"
+#include "ui/widgets/search_edit.h"
+
+#include <QKeyEvent>
 
 namespace dstore {
 
-const char kAppName[] = "deepin-appstore";
-const char kAppVersion[] = "5.0.0";
-const char kIndexPage[] = DSTORE_WEB_DIR "/index.html";
+SearchEdit::SearchEdit(QWidget* parent) : DSearchEdit(parent) {
 
-QString GetCacheDir() {
-  const char kAppCacheDir[] = ".cache/deepin/deepin-appstore";
-  return QDir::home().absoluteFilePath(kAppCacheDir);
+}
+
+SearchEdit::~SearchEdit() {
+
+}
+
+void SearchEdit::keyPressEvent(QKeyEvent* event) {
+  switch (event->key()) {
+    case Qt::Key_Up: {
+      emit this->upKeyPressed();
+      break;
+    }
+    case Qt::Key_Down: {
+      emit this->downKeyPressed();
+      break;
+    }
+    case Qt::Key_Enter:  // Fall through
+    case Qt::Key_Return: {
+      emit this->enterPressed();
+      break;
+    }
+    default: {
+    }
+  }
+
+  DSearchEdit::keyPressEvent(event);
 }
 
 }  // namespace dstore

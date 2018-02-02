@@ -15,33 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ui/widgets/web_view.h"
-
-#include <QContextMenuEvent>
-#include <QMenu>
-#include <QWebEngineContextMenuData>
-
 #include "ui/widgets/web_page.h"
+
+#include <QDesktopServices>
 
 namespace dstore {
 
-WebView::WebView(QWidget* parent) : QWebEngineView(parent) {
-  this->setPage(new WebPage(this));
+WebPage::WebPage(QObject* parent)
+    : QWebEnginePage(parent),
+      window_type_(QWebEnginePage::WebWindowType::WebBrowserWindow) {
 }
 
-WebView::~WebView() {
+WebPage::~WebPage() {
 
 }
 
-void WebView::contextMenuEvent(QContextMenuEvent* event) {
-  const QString selected = page()->contextMenuData().selectedText();
-  if (!selected.isEmpty()) {
-    QMenu* menu;
-    menu = new QMenu(this);
-    auto copy = page()->action(QWebEnginePage::Copy);
-    copy->setText(QObject::tr("Copy"));
-    menu->addAction(copy);
-    menu->popup(event->globalPos());
+QWebEnginePage* WebPage::createWindow(QWebEnginePage::WebWindowType type) {
+  window_type_ = type;
+  return this;
+}
+
+bool WebPage::acceptNavigationRequest(const QUrl& url,
+                                      QWebEnginePage::NavigationType type,
+                                      bool isMainFrame) {
+  switch (window_type_) {
+    case WebBrowserBackgroundTab: // fall through
+    case WebBrowserTab: {
+      QDesktopServices::openUrl(url);
+      return false;
+    }
+    default: {
+      return QWebEnginePage::acceptNavigationRequest(url, type, isMainFrame);
+    }
   }
 }
 

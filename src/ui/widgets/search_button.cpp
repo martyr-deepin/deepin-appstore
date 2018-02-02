@@ -15,17 +15,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "base/consts.h"
+#include "ui/widgets/search_button.h"
 
 namespace dstore {
 
-const char kAppName[] = "deepin-appstore";
-const char kAppVersion[] = "5.0.0";
-const char kIndexPage[] = DSTORE_WEB_DIR "/index.html";
+SearchButton::SearchButton(QWidget* parent) : QPushButton(parent) {
 
-QString GetCacheDir() {
-  const char kAppCacheDir[] = ".cache/deepin/deepin-appstore";
-  return QDir::home().absoluteFilePath(kAppCacheDir);
+}
+
+SearchButton::~SearchButton() {
+
+}
+
+void SearchButton::enterEvent(QEvent* event) {
+  emit this->entered();
+  QPushButton::enterEvent(event);
 }
 
 }  // namespace dstore

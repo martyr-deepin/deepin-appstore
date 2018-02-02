@@ -15,17 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "base/consts.h"
+#ifndef DEEPIN_APPSTORE_UI_WIDGETS_SEARCH_BUTTON_H
+#define DEEPIN_APPSTORE_UI_WIDGETS_SEARCH_BUTTON_H
+
+#include <QPushButton>
 
 namespace dstore {
 
-const char kAppName[] = "deepin-appstore";
-const char kAppVersion[] = "5.0.0";
-const char kIndexPage[] = DSTORE_WEB_DIR "/index.html";
+/**
+ * Overloading of push button which emits entered() signal on mouse hover.
+ */
+class SearchButton : public QPushButton {
+  Q_OBJECT
+ public:
+  explicit SearchButton(QWidget* parent = nullptr);
+  ~SearchButton() override;
 
-QString GetCacheDir() {
-  const char kAppCacheDir[] = ".cache/deepin/deepin-appstore";
-  return QDir::home().absoluteFilePath(kAppCacheDir);
-}
+ signals:
+  void entered();
+
+ protected:
+  void enterEvent(QEvent* event) override;
+};
 
 }  // namespace dstore
+
+#endif  // DEEPIN_APPSTORE_UI_WIDGETS_SEARCH_BUTTON_H

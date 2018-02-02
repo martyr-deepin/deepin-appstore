@@ -15,17 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "base/consts.h"
+#ifndef DEEPIN_APPSTORE_UI_WIDGETS_SEARCH_EDIT_H
+#define DEEPIN_APPSTORE_UI_WIDGETS_SEARCH_EDIT_H
+
+#include <DSearchEdit>
 
 namespace dstore {
 
-const char kAppName[] = "deepin-appstore";
-const char kAppVersion[] = "5.0.0";
-const char kIndexPage[] = DSTORE_WEB_DIR "/index.html";
+/**
+ * Provides an edit box in TitleBar.
+ */
+class SearchEdit : public Dtk::Widget::DSearchEdit {
+  Q_OBJECT
+ public:
+  explicit SearchEdit(QWidget* parent = nullptr);
+  ~SearchEdit() override;
 
-QString GetCacheDir() {
-  const char kAppCacheDir[] = ".cache/deepin/deepin-appstore";
-  return QDir::home().absoluteFilePath(kAppCacheDir);
-}
+ signals:
+  void downKeyPressed();
+  void enterPressed();
+  void upKeyPressed();
+
+ protected:
+  void keyPressEvent(QKeyEvent* event) override;
+};
 
 }  // namespace dstore
+
+#endif  // DEEPIN_APPSTORE_UI_WIDGETS_SEARCH_EDIT_H

@@ -15,17 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "base/consts.h"
+#ifndef DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H
+#define DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H
+
+#include <QList>
 
 namespace dstore {
 
-const char kAppName[] = "deepin-appstore";
-const char kAppVersion[] = "5.0.0";
-const char kIndexPage[] = DSTORE_WEB_DIR "/index.html";
+struct SearchResult {
 
-QString GetCacheDir() {
-  const char kAppCacheDir[] = ".cache/deepin/deepin-appstore";
-  return QDir::home().absoluteFilePath(kAppCacheDir);
-}
+};
+
+typedef QList<SearchResult> SearchResultList;
 
 }  // namespace dstore
+
+#endif  // DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H

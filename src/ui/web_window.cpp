@@ -17,13 +17,17 @@
 
 #include "ui/web_window.h"
 
+#include <DTitlebar>
 #include <QWebChannel>
 #include <QWebEnginePage>
+#include <QWebEngineSettings>
 
 #include "base/consts.h"
 #include "ui/image_viewer_proxy.h"
 #include "ui/store_daemon_proxy.h"
 #include "ui/widgets/image_viewer.h"
+#include "ui/widgets/search_completion_window.h"
+#include "ui/widgets/title_bar.h"
 #include "ui/widgets/web_view.h"
 
 namespace dstore {
@@ -51,9 +55,22 @@ void WebWindow::initUI() {
 
   image_viewer_ = new ImageViewer(this);
 
-  // Disable web security.
+  completion_window_ = new SearchCompletionWindow(this);
+  completion_window_->hide();
 
-  QWebChannel* web_channel = new QWebChannel(web_view_);
+  title_bar_ = new TitleBar();
+  this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
+  this->titlebar()->setSeparatorVisible(true);
+
+  // Disable web security.
+  auto settings = web_view_->page()->settings();
+  settings->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
+  settings->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
+  settings->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
+  settings->setAttribute(QWebEngineSettings::JavascriptEnabled, true);
+  settings->setAttribute(QWebEngineSettings::JavascriptCanAccessClipboard, true);
+
+  auto web_channel = new QWebChannel(web_view_);
   web_view_->page()->setWebChannel(web_channel);
   image_viewer_proxy_ = new ImageViewerProxy(image_viewer_, this);
   store_daemon_proxy_ = new StoreDaemonProxy(this);

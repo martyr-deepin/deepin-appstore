@@ -15,17 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "base/consts.h"
+#ifndef DEEPIN_APPSTORE_UI_WIDGETS_WEB_PAGE_H
+#define DEEPIN_APPSTORE_UI_WIDGETS_WEB_PAGE_H
+
+#include <QWebEnginePage>
 
 namespace dstore {
 
-const char kAppName[] = "deepin-appstore";
-const char kAppVersion[] = "5.0.0";
-const char kIndexPage[] = DSTORE_WEB_DIR "/index.html";
+/**
+ * Re-implement QWebEnginePage to handle url request opened in new tab.
+ */
+class WebPage : public QWebEnginePage {
+  Q_OBJECT
+ public:
+  explicit WebPage(QObject* parent = nullptr);
+  ~WebPage() override;
 
-QString GetCacheDir() {
-  const char kAppCacheDir[] = ".cache/deepin/deepin-appstore";
-  return QDir::home().absoluteFilePath(kAppCacheDir);
-}
+ protected:
+  bool acceptNavigationRequest(const QUrl& url, NavigationType type,
+                               bool isMainFrame) override;
+
+ protected:
+  QWebEnginePage* createWindow(WebWindowType type) override;
+
+ private:
+  QWebEnginePage::WebWindowType window_type_;
+};
 
 }  // namespace dstore
+
+#endif  // DEEPIN_APPSTORE_UI_WIDGETS_WEB_PAGE_H

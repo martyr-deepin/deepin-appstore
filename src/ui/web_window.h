@@ -25,7 +25,9 @@ namespace dstore {
 
 class ImageViewer;
 class ImageViewerProxy;
+class SearchCompletionWindow;
 class StoreDaemonProxy;
+class TitleBar;
 
 class WebWindow : public Dtk::Widget::DMainWindow {
   Q_OBJECT
@@ -45,7 +47,9 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   QWebEngineView* web_view_ = nullptr;
   ImageViewer* image_viewer_ = nullptr;
   ImageViewerProxy* image_viewer_proxy_ = nullptr;
+  SearchCompletionWindow* completion_window_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
+  TitleBar* title_bar_ = nullptr;
 };
 
 }  // namespace dstore

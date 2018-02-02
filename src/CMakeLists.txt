@@ -93,15 +93,14 @@ set(RESOURCES_FILES
     )
 
 set(SERVICES_FILES
-    ui/store_daemon_proxy.cpp
-    ui/store_daemon_proxy.h
+    services/search_result.h
     )
 
 set(UI_FILES
-
     ui/image_viewer_proxy.cpp
     ui/image_viewer_proxy.h
-
+    ui/store_daemon_proxy.cpp
+    ui/store_daemon_proxy.h
     ui/web_window.cpp
     ui/web_window.h
 
@@ -110,6 +109,16 @@ set(UI_FILES
 
     ui/widgets/image_viewer.cpp
     ui/widgets/image_viewer.h
+    ui/widgets/search_button.cpp
+    ui/widgets/search_button.h
+    ui/widgets/search_completion_window.cpp
+    ui/widgets/search_completion_window.h
+    ui/widgets/search_edit.cpp
+    ui/widgets/search_edit.h
+    ui/widgets/title_bar.cpp
+    ui/widgets/title_bar.h
+    ui/widgets/web_page.cpp
+    ui/widgets/web_page.h
     ui/widgets/web_view.cpp
     ui/widgets/web_view.h
     )
