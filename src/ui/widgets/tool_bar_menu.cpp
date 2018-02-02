@@ -21,7 +21,9 @@
 
 namespace dstore {
 
-ToolBarMenu::ToolBarMenu(QWidget* parent) : QMenu(parent) {
+ToolBarMenu::ToolBarMenu(bool support_sign_in, QWidget* parent)
+    : QMenu(parent),
+      support_sign_in_(support_sign_in) {
 
   this->initActions();
 }
@@ -43,11 +45,15 @@ bool ToolBarMenu::isDarkTheme() const {
 }
 
 void ToolBarMenu::setSignedIn(bool is_signed_in) {
+  Q_ASSERT(support_sign_in_);
+
   is_signed_in_ = is_signed_in;
-  if (is_signed_in) {
-    sign_in_action_->setText(QObject::tr("Sign Out"));
-  } else {
-    sign_in_action_->setText(QObject::tr("Sign In"));
+  if (support_sign_in_) {
+    if (is_signed_in) {
+      sign_in_action_->setText(QObject::tr("Sign Out"));
+    } else {
+      sign_in_action_->setText(QObject::tr("Sign In"));
+    }
   }
 }
 
@@ -69,12 +75,14 @@ void ToolBarMenu::setDarkTheme(bool is_dark_theme) {
 }
 
 void ToolBarMenu::initActions() {
-  sign_in_action_ = this->addAction(QObject::tr("Sign In"));
-  connect(sign_in_action_, &QAction::triggered,
-          this, &ToolBarMenu::onSigninActionTriggered);
+  if (support_sign_in_) {
+    sign_in_action_ = this->addAction(QObject::tr("Sign In"));
+    connect(sign_in_action_, &QAction::triggered,
+            this, &ToolBarMenu::onSignInActionTriggered);
 
-  this->addAction(QObject::tr("Recommend App"),
-                  this, &ToolBarMenu::recommendAppRequested);
+    this->addAction(QObject::tr("Recommend App"),
+                    this, &ToolBarMenu::recommendAppRequested);
+  }
 
   auto region_menu = this->addMenu(QObject::tr("Select Region"));
   region_china_ = region_menu->addAction(QObject::tr("China"));
@@ -99,7 +107,7 @@ void ToolBarMenu::initActions() {
   this->addSeparator();
 }
 
-void ToolBarMenu::onSigninActionTriggered() {
+void ToolBarMenu::onSignInActionTriggered() {
   this->setSignedIn(!is_signed_in_);
 }
 

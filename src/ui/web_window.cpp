@@ -67,7 +67,7 @@ void WebWindow::initUI() {
   title_bar_ = new TitleBar();
   this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
   this->titlebar()->setSeparatorVisible(true);
-  tool_bar_menu_ = new ToolBarMenu(this);
+  tool_bar_menu_ = new ToolBarMenu(false, this);
   this->titlebar()->setMenu(tool_bar_menu_);
 
   // Disable web security.

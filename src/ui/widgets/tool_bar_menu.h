@@ -35,7 +35,7 @@ class ToolBarMenu : public QMenu {
                  NOTIFY themeChanged)
 
  public:
-  explicit ToolBarMenu(QWidget* parent = nullptr);
+  explicit ToolBarMenu(bool support_sign_in, QWidget* parent = nullptr);
   ~ToolBarMenu() override;
 
   bool isSignedIn() const;
@@ -63,6 +63,8 @@ class ToolBarMenu : public QMenu {
  private:
   void initActions();
 
+  bool support_sign_in_ = false;
+
   bool is_signed_in_ = false;
   QAction* sign_in_action_ = nullptr;
   QActionGroup* region_group_ = nullptr;
@@ -72,7 +74,7 @@ class ToolBarMenu : public QMenu {
   QAction* switch_theme_action_ = nullptr;
 
  private slots:
-  void onSigninActionTriggered();
+  void onSignInActionTriggered();
   void onThemeActionTriggered();
   void onRegionGroupTriggered(QAction* action);
 };
