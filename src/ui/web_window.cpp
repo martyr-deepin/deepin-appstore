@@ -26,6 +26,7 @@
 #include "ui/image_viewer_proxy.h"
 #include "ui/store_daemon_proxy.h"
 #include "ui/widgets/image_viewer.h"
+#include "ui/widgets/recommend_app.h"
 #include "ui/widgets/search_completion_window.h"
 #include "ui/widgets/title_bar.h"
 #include "ui/widgets/tool_bar_menu.h"
@@ -47,7 +48,8 @@ void WebWindow::loadPage() {
 }
 
 void WebWindow::initConnections() {
-
+  connect(tool_bar_menu_, &ToolBarMenu::recommendAppRequested,
+          this, &WebWindow::onRecommendAppActive);
 }
 
 void WebWindow::initUI() {
@@ -58,6 +60,9 @@ void WebWindow::initUI() {
 
   completion_window_ = new SearchCompletionWindow(this);
   completion_window_->hide();
+
+  recommend_app_ = new RecommendApp(this);
+  recommend_app_->hide();
 
   title_bar_ = new TitleBar();
   this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
@@ -81,6 +86,11 @@ void WebWindow::initUI() {
   web_channel->registerObject("storeDaemon", store_daemon_proxy_);
 
   this->setFocusPolicy(Qt::ClickFocus);
+}
+
+void WebWindow::onRecommendAppActive() {
+  recommend_app_->clearForm();
+  recommend_app_->show();
 }
 
 }  // namespace dstore

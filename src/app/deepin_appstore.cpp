@@ -24,7 +24,7 @@
 #include "ui/web_window.h"
 
 int main(int argc, char** argv) {
-//  Dtk::Widget::DApplication::loadDXcbPlugin();
+  Dtk::Widget::DApplication::loadDXcbPlugin();
 
   Dtk::Widget::DApplication app(argc, argv);
 

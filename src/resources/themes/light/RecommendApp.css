@@ -1,0 +1,10 @@
+
+#ImageLabel {
+  /*box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.30);*/
+}
+
+#CloseButton {
+  qproperty-normalPic: url(:/light/images/close_normal.svg);
+  qproperty-hoverPic: url(:/light/images/close_hover.svg);
+  qproperty-pressPic: url(:/light/images/close_press.svg);
+}

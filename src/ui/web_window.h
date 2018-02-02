@@ -27,6 +27,7 @@ namespace dstore {
 
 class ImageViewer;
 class ImageViewerProxy;
+class RecommendApp;
 class SearchCompletionWindow;
 class StoreDaemonProxy;
 class TitleBar;
@@ -50,11 +51,15 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   QWebEngineView* web_view_ = nullptr;
   ImageViewer* image_viewer_ = nullptr;
   ImageViewerProxy* image_viewer_proxy_ = nullptr;
+  RecommendApp* recommend_app_ = nullptr;
   SearchCompletionWindow* completion_window_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
   TitleBar* title_bar_ = nullptr;
 
   ToolBarMenu* tool_bar_menu_ = nullptr;
+
+ private slots:
+  void onRecommendAppActive();
 };
 
 }  // namespace dstore

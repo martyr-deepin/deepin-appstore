@@ -109,6 +109,8 @@ set(UI_FILES
 
     ui/widgets/image_viewer.cpp
     ui/widgets/image_viewer.h
+    ui/widgets/recommend_app.cpp
+    ui/widgets/recommend_app.h
     ui/widgets/search_button.cpp
     ui/widgets/search_button.h
     ui/widgets/search_completion_window.cpp
@@ -124,7 +126,6 @@ set(UI_FILES
     ui/widgets/web_view.cpp
     ui/widgets/web_view.h
     )
-
 
 ## Executable files
 # Generate .qm files from .ts files.
