@@ -14,6 +14,7 @@
         <file>light/images/forward_normal.svg</file>
         <file>light/images/forward_press.svg</file>
         <file>light/ImageViewer.css</file>
+        <file>light/RecommendApp.css</file>
         <file>light/SearchCompletionWindow.css</file>
         <file>light/TitleBar.css</file>
     </qresource>

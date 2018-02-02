@@ -23,6 +23,7 @@
 #include <QWebEngineSettings>
 
 #include "base/consts.h"
+#include "services/settings_manager.h"
 #include "ui/image_viewer_proxy.h"
 #include "ui/store_daemon_proxy.h"
 #include "ui/widgets/image_viewer.h"
@@ -67,7 +68,7 @@ void WebWindow::initUI() {
   title_bar_ = new TitleBar();
   this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
   this->titlebar()->setSeparatorVisible(true);
-  tool_bar_menu_ = new ToolBarMenu(false, this);
+  tool_bar_menu_ = new ToolBarMenu(IsSignInSupported(), this);
   this->titlebar()->setMenu(tool_bar_menu_);
 
   // Disable web security.

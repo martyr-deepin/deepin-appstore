@@ -1,8 +1,10 @@
 
 if (DSTORE_RELEASE)
   add_definitions(-DDSTORE_WEB_DIR="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/web")
+  add_definitions(-DSETTINGS_FILE="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/settings.ini")
 else()
   add_definitions(-DDSTORE_WEB_DIR="${CMAKE_CURRENT_BINARY_DIR}/web")
+  add_definitions(-DSETTINGS_FILE="${CMAKE_CURRENT_SOURCE_DIR}/resources/settings.ini")
 endif ()
 
 add_subdirectory(dbus)
@@ -94,6 +96,8 @@ set(RESOURCES_FILES
 
 set(SERVICES_FILES
     services/search_result.h
+    services/settings_manager.cpp
+    services/settings_manager.h
     )
 
 set(UI_FILES
