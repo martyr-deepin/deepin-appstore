@@ -28,6 +28,7 @@
 #include "ui/widgets/image_viewer.h"
 #include "ui/widgets/search_completion_window.h"
 #include "ui/widgets/title_bar.h"
+#include "ui/widgets/tool_bar_menu.h"
 #include "ui/widgets/web_view.h"
 
 namespace dstore {
@@ -61,6 +62,8 @@ void WebWindow::initUI() {
   title_bar_ = new TitleBar();
   this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
   this->titlebar()->setSeparatorVisible(true);
+  tool_bar_menu_ = new ToolBarMenu(this);
+  this->titlebar()->setMenu(tool_bar_menu_);
 
   // Disable web security.
   auto settings = web_view_->page()->settings();

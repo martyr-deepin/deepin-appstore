@@ -117,6 +117,8 @@ set(UI_FILES
     ui/widgets/search_edit.h
     ui/widgets/title_bar.cpp
     ui/widgets/title_bar.h
+    ui/widgets/tool_bar_menu.cpp
+    ui/widgets/tool_bar_menu.h
     ui/widgets/web_page.cpp
     ui/widgets/web_page.h
     ui/widgets/web_view.cpp
@@ -148,9 +150,11 @@ add_executable(deepin-appstore
                ${UI_FILES}
                )
 target_link_libraries(deepin-appstore ${LINK_LIBS})
-add_dependencies(deepin-appstore
-                 update-qm
-                 update-web)
+if (CMAKE_BUILD_TYPE MATCHES Release)
+  add_dependencies(deepin-appstore
+                   update-qm
+                   update-web)
+endif ()
 
 install(TARGETS deepin-appstore
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

@@ -18,7 +18,9 @@
 #ifndef DEEPIN_APPSTORE_UI_WEB_WINDOW_H
 #define DEEPIN_APPSTORE_UI_WEB_WINDOW_H
 
+#include <QAction>
 #include <DMainWindow>
+#include <QMenu>
 class QWebEngineView;
 
 namespace dstore {
@@ -28,6 +30,7 @@ class ImageViewerProxy;
 class SearchCompletionWindow;
 class StoreDaemonProxy;
 class TitleBar;
+class ToolBarMenu;
 
 class WebWindow : public Dtk::Widget::DMainWindow {
   Q_OBJECT
@@ -50,6 +53,8 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   SearchCompletionWindow* completion_window_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
   TitleBar* title_bar_ = nullptr;
+
+  ToolBarMenu* tool_bar_menu_ = nullptr;
 };
 
 }  // namespace dstore
