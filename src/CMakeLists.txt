@@ -82,10 +82,12 @@ set(DBUS_FILES
     dbus/dbusvariant/app_update_info.cpp
     dbus/dbusvariant/app_update_info.h
 
-    dbus/app_store_daemon_dbus_interface.cpp
-    dbus/app_store_daemon_dbus_interface.h
+#    dbus/app_store_daemon_dbus_interface.cpp
+#    dbus/app_store_daemon_dbus_interface.h
     dbus/app_store_dbus_adapter.cpp
     dbus/app_store_dbus_adapter.h
+    dbus/app_store_dbus_proxy.cpp
+    dbus/app_store_dbus_proxy.h
     )
 
 set(RESOURCES_FILES
@@ -100,7 +102,7 @@ set(SERVICES_FILES
     services/search_result.h
     services/settings_manager.cpp
     services/settings_manager.h
-    )
+    services/args_parser.cpp services/args_parser.h)
 
 set(UI_FILES
     ui/image_viewer_proxy.cpp
@@ -152,6 +154,7 @@ add_custom_target(update-web DEPENDS rebuild-web)
 add_executable(deepin-appstore
                app/deepin_appstore.cpp
                ${BASE_FILES}
+               ${DBUS_FILES}
                ${RESOURCES_FILES}
                ${SERVICES_FILES}
                ${UI_FILES}

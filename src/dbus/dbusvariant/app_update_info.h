@@ -19,6 +19,8 @@
 #define DEEPIN_APPSTORE_DBUS_DBUS_VARIANT_APP_UPDATE_INFO_H
 
 #include <QString>
+#include <QDebug>
+#include <QtDBus>
 
 struct AppUpdateInfo {
  public:
@@ -28,7 +30,7 @@ struct AppUpdateInfo {
   static void registerMetaType();
 
   inline bool operator==(const AppUpdateInfo& other) const {
-    return this.id == other.id;
+    return this->id == other.id;
   }
 
   friend QDebug operator<<(QDebug debug, const AppUpdateInfo& info);
