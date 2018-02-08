@@ -16,6 +16,7 @@
  */
 
 #include <DApplication>
+#include <DLog>
 #include <QIcon>
 #include <QWebEngineProfile>
 
@@ -45,6 +46,9 @@ int main(int argc, char** argv) {
           "update, uninstall and so on."));
   app.setApplicationAcknowledgementPage(
       "https://www.deepin.org/acknowledgments/deepin-appstore/");
+
+  Dtk::Core::DLogManager::registerConsoleAppender();
+  Dtk::Core::DLogManager::registerFileAppender();
 
   QWebEngineProfile* profile = QWebEngineProfile::defaultProfile();
   QDir cache_dir = dstore::GetCacheDir();
