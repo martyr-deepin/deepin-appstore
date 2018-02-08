@@ -95,6 +95,8 @@ set(RESOURCES_FILES
     )
 
 set(SERVICES_FILES
+    services/dpk_link_validation.cpp
+    services/dpk_link_validation.h
     services/search_result.h
     services/settings_manager.cpp
     services/settings_manager.h
