@@ -1,5 +1,5 @@
 
-if (DSTORE_RELEASE)
+if (CMAKE_BUILD_TYPE MATCHES Release)
   add_definitions(-DDSTORE_WEB_DIR="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/web")
   add_definitions(-DSETTINGS_FILE="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/settings.ini")
 else()

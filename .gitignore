@@ -11,3 +11,4 @@ debian/*.log
 debian/*.substvars
 debian/deepin-appstore
 debian/debhelper-build-stamp
+debian/.debhelper/
