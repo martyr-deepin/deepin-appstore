@@ -82,12 +82,14 @@ set(DBUS_FILES
     dbus/dbusvariant/app_update_info.cpp
     dbus/dbusvariant/app_update_info.h
 
-#    dbus/app_store_daemon_dbus_interface.cpp
-#    dbus/app_store_daemon_dbus_interface.h
     dbus/app_store_dbus_adapter.cpp
     dbus/app_store_dbus_adapter.h
     dbus/app_store_dbus_proxy.cpp
     dbus/app_store_dbus_proxy.h
+    dbus/lastore_manager_interface.cpp
+    dbus/lastore_manager_interface.h
+    dbus/lastore_updater_interface.cpp
+    dbus/lastore_updater_interface.h
     )
 
 set(RESOURCES_FILES
