@@ -15,30 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_SERVICES_ARGS_PARSER_H
-#define DEEPIN_APPSTORE_SERVICES_ARGS_PARSER_H
-
-#include <QObject>
+#include "dbus/dbus_consts.h"
 
 namespace dstore {
 
-class ArgsParser : public QObject {
-  Q_OBJECT
- public:
-  explicit ArgsParser(QObject* parent = nullptr);
-  ~ArgsParser() override;
-
-  bool parseArguments();
-
-  void openAppDelay();
-
- signals:
-  void openAppRequested(const QString& app);
-
- private:
-  QString app_name_;
-};
+const char kAppStoreDbusInterface[] = "";
+const char kAppStoreDbusService[] = "";
 
 }  // namespace dstore
-
-#endif  // DEEPIN_APPSTORE_SERVICES_ARGS_PARSER_H

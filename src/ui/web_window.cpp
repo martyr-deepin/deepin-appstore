@@ -48,6 +48,10 @@ void WebWindow::loadPage() {
   web_view_->load(QUrl::fromLocalFile(kIndexPage));
 }
 
+void WebWindow::openApp(const QString& app_name) {
+  Q_UNUSED(app_name);
+}
+
 void WebWindow::initConnections() {
   connect(tool_bar_menu_, &ToolBarMenu::recommendAppRequested,
           this, &WebWindow::onRecommendAppActive);

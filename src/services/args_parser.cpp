@@ -19,8 +19,12 @@
 
 #include <QCommandLineParser>
 #include <QDebug>
+#include <QtDBus>
 
 #include "dbus/app_store_dbus_adapter.h"
+#include "dbus/app_store_dbus_interface.h"
+#include "dbus/app_store_dbus_proxy.h"
+#include "dbus/dbus_consts.h"
 
 namespace dstore {
 
@@ -33,7 +37,56 @@ ArgsParser::~ArgsParser() {
 }
 
 bool ArgsParser::parseArguments() {
+  QCommandLineParser parser;
+  parser.addHelpOption();
+  parser.addVersionOption();
+  parser.addOption(QCommandLineOption(
+      "dbus", "enable daemon mode"
+  ));
+  parser.parse(qApp->arguments());
+
+  // Register dbus service.
+  QDBusConnection conn = QDBusConnection::sessionBus();
+  AppStoreDbusProxy* proxy = new AppStoreDbusProxy(this);
+
+  AppStoreDBusAdapter* adapter = new AppStoreDBusAdapter(proxy);
+  Q_UNUSED(adapter);
+
+  if (!conn.registerService(kAppStoreDbusService) ||
+      !conn.registerObject(kAppStoreDbusInterface, proxy)) {
+    qWarning() << Q_FUNC_INFO << "Failed to register dbus service";
+
+    // Failed to register dbus service.
+    // Open app with dbus interface.
+    const QStringList args = parser.positionalArguments();
+    if (!args.isEmpty()) {
+      AppStoreDBusInterface* interface = new AppStoreDBusInterface(
+          kAppStoreDbusService,
+          kAppStoreDbusInterface,
+          conn,
+          this
+      );
+
+      // Only pass the first positional argument.
+      interface->OpenApp(args.first());
+    }
+
+    return true;
+  } else {
+    qDebug() << "Register dbus service successfully.";
+    const QStringList args = parser.positionalArguments();
+    if (!args.isEmpty()) {
+      app_name_ = args.first();
+    }
+  }
+
   return false;
+}
+
+void ArgsParser::openAppDelay() {
+  if (!app_name_.isEmpty()) {
+    emit this->openAppRequested(app_name_);
+  }
 }
 
 }  // namespace dstore

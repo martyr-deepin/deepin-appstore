@@ -84,8 +84,12 @@ set(DBUS_FILES
 
     dbus/app_store_dbus_adapter.cpp
     dbus/app_store_dbus_adapter.h
+    dbus/app_store_dbus_interface.cpp
+    dbus/app_store_dbus_interface.h
     dbus/app_store_dbus_proxy.cpp
     dbus/app_store_dbus_proxy.h
+    dbus/dbus_consts.cpp
+    dbus/dbus_consts.h
     dbus/lastore_manager_interface.cpp
     dbus/lastore_manager_interface.h
     dbus/lastore_updater_interface.cpp
@@ -104,7 +108,9 @@ set(SERVICES_FILES
     services/search_result.h
     services/settings_manager.cpp
     services/settings_manager.h
-    services/args_parser.cpp services/args_parser.h)
+    services/args_parser.cpp
+    services/args_parser.h
+    )
 
 set(UI_FILES
     ui/image_viewer_proxy.cpp
@@ -134,8 +140,7 @@ set(UI_FILES
     ui/widgets/web_page.cpp
     ui/widgets/web_page.h
     ui/widgets/web_view.cpp
-    ui/widgets/web_view.h
-    )
+    ui/widgets/web_view.h)
 
 ## Executable files
 # Generate .qm files from .ts files.

@@ -22,6 +22,7 @@
 
 #include "base/consts.h"
 #include "resources/images.h"
+#include "services/args_parser.h"
 #include "ui/web_window.h"
 
 int main(int argc, char** argv) {
@@ -55,9 +56,21 @@ int main(int argc, char** argv) {
   profile->setCachePath(cache_dir.filePath("cache"));
   profile->setPersistentStoragePath(cache_dir.filePath("storage"));
 
-  dstore::WebWindow window;
-  window.loadPage();
-  window.show();
+  dstore::ArgsParser parser;
+  if (parser.parseArguments()) {
+    // Exit process after 1000ms.
+    QTimer::singleShot(1000, [&]() {
+      app.quit();
+    });
+    return app.exec();
+  } else {
+    dstore::WebWindow window;
+    QObject::connect(&parser, &dstore::ArgsParser::openAppRequested,
+                     &window, &dstore::WebWindow::openApp);
+    window.loadPage();
+    window.show();
+    parser.openAppDelay();
+  }
 
   return app.exec();
 }

@@ -44,6 +44,9 @@ class WebWindow : public Dtk::Widget::DMainWindow {
    */
   void loadPage();
 
+ public slots:
+  void openApp(const QString& app_name);
+
  private:
   void initConnections();
   void initUI();
