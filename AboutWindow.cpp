@@ -32,7 +32,6 @@ AboutWindow::AboutWindow(QWidget *parent) : QWidget(parent),
     this->setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
     this->setAttribute(Qt::WA_DeleteOnClose);
     this->setFixedSize(this->contentWidth, this->contentHeight);
-    this->setStyleSheet("AboutWindow { background: transparent }");
 
     this->content = new WebView(this);
     this->content->ignoreMouseMoveEvent = true;

@@ -49,6 +49,12 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent) {
 
     this->webView = new WebView(this);
 
+    // reset webview background color
+    QPalette pa = this->webView->palette();
+    pa.setColor(QPalette::Base, Qt::white);
+
+    this->webView->setPalette(pa);
+
     // Leave event will cause problems with <horizontal-resizer>, eat leave events!
     const auto filter = new FilterMouseMove(this);
     this->webView->installEventFilter(filter);
