@@ -1,3 +1,13 @@
+<a name="4.0.12"></a>
+## 4.0.12 (2018-03-06)
+
+
+#### Bug Fixes
+
+*   window background is transparent ([eb0fd6ea](https://github.com/linuxdeepin/deepin-appstore/commit/eb0fd6ea3c17df2612dfdd134a28c09ec23e5980))
+
+
+
 <a name="4.0.11"></a>
 ### 4.0.11 (2017-10-26)
 
