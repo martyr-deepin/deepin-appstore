@@ -21,7 +21,7 @@
 #include <QAction>
 #include <DMainWindow>
 #include <QMenu>
-class QWebEngineView;
+class QCefWebView;
 
 namespace dstore {
 
@@ -51,7 +51,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   void initConnections();
   void initUI();
 
-  QWebEngineView* web_view_ = nullptr;
+  QCefWebView* web_view_ = nullptr;
   ImageViewer* image_viewer_ = nullptr;
   ImageViewerProxy* image_viewer_proxy_ = nullptr;
   RecommendApp* recommend_app_ = nullptr;

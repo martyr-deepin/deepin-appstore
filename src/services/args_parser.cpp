@@ -67,11 +67,17 @@ bool ArgsParser::parseArguments() {
           this
       );
 
-      // Only pass the first positional argument.
-      interface->OpenApp(args.first());
+      if (interface->isValid()) {
+        // Only pass the first positional argument.
+        interface->OpenApp(args.first());
+        return true;
+      } else {
+        app_name_ = args.first();
+        return false;
+      }
+    } else {
+      return false;
     }
-
-    return true;
   } else {
     qDebug() << "Register dbus service successfully.";
     const QStringList args = parser.positionalArguments();

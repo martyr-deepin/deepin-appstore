@@ -46,7 +46,6 @@ endif()
 find_package(PkgConfig REQUIRED)
 find_package(Qt5Core REQUIRED)
 find_package(Qt5DBus REQUIRED)
-find_package(Qt5DeepinWebEngineWidgets REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5LinguistTools)
 find_package(Qt5Sql REQUIRED)
@@ -55,18 +54,20 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5LinguistTools REQUIRED)
 
 pkg_search_module(DtkWidget REQUIRED dtkwidget)
+pkg_search_module(LibQCef REQUIRED libqcef)
 
 include_directories(${DtkWidget_INCLUDE_DIRS})
+include_directories(${LibQCef_INCLUDE_DIRS})
 
 set(LINK_LIBS
     Qt5::Core
     Qt5::DBus
-    Qt5::DeepinWebEngineWidgets
     Qt5::Sql
     Qt5::Widgets
     Qt5::WebChannel
 
     ${DtkWidget_LDFLAGS}
+    ${LibQCef_LDFLAGS}
     )
 
 set(BASE_FILES
@@ -137,10 +138,7 @@ set(UI_FILES
     ui/widgets/title_bar.h
     ui/widgets/tool_bar_menu.cpp
     ui/widgets/tool_bar_menu.h
-    ui/widgets/web_page.cpp
-    ui/widgets/web_page.h
-    ui/widgets/web_view.cpp
-    ui/widgets/web_view.h)
+    )
 
 ## Executable files
 # Generate .qm files from .ts files.
