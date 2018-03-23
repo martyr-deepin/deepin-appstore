@@ -60,7 +60,7 @@ void WebWindow::initConnections() {
 
 void WebWindow::initUI() {
   web_view_ = new QCefWebView();
-//  this->setCentralWidget(web_view_);
+  this->setCentralWidget(web_view_);
 
   image_viewer_ = new ImageViewer(this);
 
@@ -87,6 +87,8 @@ void WebWindow::initUI() {
   web_channel->registerObject("storeDaemon", store_daemon_proxy_);
 
   this->setFocusPolicy(Qt::ClickFocus);
+
+  this->resize(800, 600);
 }
 
 void WebWindow::onRecommendAppActive() {

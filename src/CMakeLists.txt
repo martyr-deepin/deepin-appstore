@@ -166,9 +166,7 @@ add_executable(deepin-appstore
                )
 target_link_libraries(deepin-appstore ${LINK_LIBS})
 if (CMAKE_BUILD_TYPE MATCHES Release)
-  add_dependencies(deepin-appstore
-                   update-qm
-                   update-web)
+  add_dependencies(deepin-appstore update-qm)
 endif ()
 
 install(TARGETS deepin-appstore

@@ -20,6 +20,7 @@
 #include <QIcon>
 #include <qcef_context.h>
 #include <qcef_web_settings.h>
+#include <DPlatformWindowHandle>
 
 #include "base/consts.h"
 #include "resources/images.h"
@@ -49,9 +50,15 @@ int main(int argc, char** argv) {
   settings.setCachePath(cache_dir.filePath("cache"));
   settings.setUserDataPath(cache_dir.filePath("cef-storage"));
 
-//  Dtk::Widget::DApplication::loadDXcbPlugin();
+  if (QCefInit(argc, argv, settings) >= 0) {
+    return 0;
+  }
 
+  Dtk::Widget::DApplication::loadDXcbPlugin();
   Dtk::Widget::DApplication app(argc, argv);
+  if (!Dtk::Widget::DPlatformWindowHandle::pluginVersion().isEmpty()) {
+    app.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);
+  }
 
   app.setTheme("light");
   app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
