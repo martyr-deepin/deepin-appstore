@@ -17,4 +17,6 @@ else
 	rm -rf src/web/node_modules
 	git clone https://cr.deepin.io/vendor-deps src/web/node_modules
 	cd src/web/node_modules && git checkout deepin-appstore
+	rm -rf src/web/src/app/dstore
+	git clone https://cr.deepin.io/dstore-web-components src/web/src/app/dstore
 endif
