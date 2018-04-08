@@ -42,6 +42,7 @@ namespace dstore {
 WebWindow::WebWindow(QWidget* parent) : DMainWindow(parent) {
   this->initUI();
   this->initConnections();
+  this->initProxy();
 }
 
 WebWindow::~WebWindow() {
@@ -59,6 +60,17 @@ void WebWindow::openApp(const QString& app_name) {
 void WebWindow::initConnections() {
   connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
           this, &WebWindow::onRecommendAppActive);
+}
+
+void WebWindow::initProxy() {
+  auto web_channel = web_view_->page()->webChannel();
+  title_bar_proxy_ = new TitleBarProxy(this);
+  image_viewer_proxy_ = new ImageViewerProxy(image_viewer_, this);
+  store_daemon_proxy_ = new StoreDaemonProxy(this);
+
+  web_channel->registerObject("imageViewer", image_viewer_proxy_);
+  web_channel->registerObject("storeDaemon", store_daemon_proxy_);
+  web_channel->registerObject("titleBar", title_bar_proxy_);
 }
 
 void WebWindow::initUI() {
@@ -82,14 +94,6 @@ void WebWindow::initUI() {
   // Disable web security.
   auto settings = web_view_->page()->settings();
   settings->setWebSecurity(QCefWebSettings::StateDisabled);
-
-  auto web_channel = web_view_->page()->webChannel();
-  title_bar_proxy_ = new TitleBarProxy(this);
-  image_viewer_proxy_ = new ImageViewerProxy(image_viewer_, this);
-  store_daemon_proxy_ = new StoreDaemonProxy(this);
-  web_channel->registerObject("imageViewer", image_viewer_proxy_);
-  web_channel->registerObject("storeDaemon", store_daemon_proxy_);
-  web_channel->registerObject("titleBar", title_bar_proxy_);
 
   this->setFocusPolicy(Qt::ClickFocus);
 

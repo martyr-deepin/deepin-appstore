@@ -20,6 +20,9 @@
 
 #include <QObject>
 
+class LastoreManagerInterface;
+class LastoreUpdaterInterface;
+
 namespace dstore {
 
 class StoreDaemonProxy : public QObject {
@@ -27,6 +30,18 @@ class StoreDaemonProxy : public QObject {
  public:
   explicit StoreDaemonProxy(QObject* parent = nullptr);
   ~StoreDaemonProxy() override;
+
+ signals:
+
+ public slots:
+  QVariantList listMirrorSources(const QString& opt);
+  void setAutoCheckUpdates(bool check);
+  void setAutoDownloadUpdates(bool update);
+  void setMirrorSource(const QString& src);
+
+ private:
+  LastoreManagerInterface* store_manager_iface_ = nullptr;
+  LastoreUpdaterInterface* store_updater_iface_ = nullptr;
 };
 
 }  // namespace dstore

@@ -17,14 +17,47 @@
 
 #include "ui/channel/store_daemon_proxy.h"
 
+#include "dbus/dbus_consts.h"
+#include "dbus/lastore_manager_interface.h"
+#include "dbus/lastore_updater_interface.h"
+
 namespace dstore {
 
 StoreDaemonProxy::StoreDaemonProxy(QObject* parent) : QObject(parent) {
-
+  // TODO(Shaohua): Handles dbus connection error.
+  store_manager_iface_ = new LastoreManagerInterface(
+      kLastoreManagerService,
+      kLastoreManagerInterface,
+      QDBusConnection::sessionBus(),
+      this);
+  store_updater_iface_ = new LastoreUpdaterInterface(
+      kLastoreUpdaterService,
+      kLastoreUpdaterInterface,
+      QDBusConnection::sessionBus(),
+      this);
+  AppUpdateInfo::registerMetaType();
 }
 
 StoreDaemonProxy::~StoreDaemonProxy() {
 
+}
+
+void StoreDaemonProxy::setMirrorSource(const QString& src) {
+  store_updater_iface_->SetMirrorSource(src);
+}
+
+void StoreDaemonProxy::setAutoDownloadUpdates(bool update) {
+  store_updater_iface_->SetAutoDownloadUpdates(update);
+}
+
+void StoreDaemonProxy::setAutoCheckUpdates(bool check) {
+  store_updater_iface_->SetAutoCheckUpdates(check);
+}
+
+QVariantList StoreDaemonProxy::listMirrorSources(const QString& opt) {
+  QVariantList result;
+  auto reply = store_updater_iface_->ListMirrorSources(opt);
+  return result;
 }
 
 }  // namespace dstore

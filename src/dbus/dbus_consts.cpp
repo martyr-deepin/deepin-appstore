@@ -19,7 +19,14 @@
 
 namespace dstore {
 
-const char kAppStoreDbusInterface[] = "";
-const char kAppStoreDbusService[] = "";
+// TODO(Shaohua): Specify dbus interface.
+const char kAppStoreDbusInterface[] = "0";
+const char kAppStoreDbusService[] = "0";
+
+const char kLastoreManagerInterface[] = "com.deepin.lastore.Manager";
+const char kLastoreManagerService[] = "com.deepin.lastore.Manager";
+
+const char kLastoreUpdaterInterface[] = "com.deepin.lastore.Updater";
+const char kLastoreUpdaterService[] = "com.deepin.lastore.Updater";
 
 }  // namespace dstore

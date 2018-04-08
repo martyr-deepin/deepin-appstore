@@ -57,6 +57,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
  private:
   void initConnections();
   void initUI();
+  void initProxy();
 
   QCefWebView* web_view_ = nullptr;
   ImageViewer* image_viewer_ = nullptr;
