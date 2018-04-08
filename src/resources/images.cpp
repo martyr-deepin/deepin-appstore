@@ -18,6 +18,7 @@
 #include "resources/images.h"
 
 namespace dstore {
+
 const char* const kImageDeepinAppStore = ":/common/images/deepin-appstore.svg";
 
 }  // namespace store
