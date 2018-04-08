@@ -104,13 +104,15 @@ set(RESOURCES_FILES
     )
 
 set(SERVICES_FILES
+    services/args_parser.cpp
+    services/args_parser.h
     services/dpk_link_validation.cpp
     services/dpk_link_validation.h
+    services/rcc_scheme_handler.cpp
+    services/rcc_scheme_handler.h
     services/search_result.h
     services/settings_manager.cpp
     services/settings_manager.h
-    services/args_parser.cpp
-    services/args_parser.h
     )
 
 set(UI_FILES

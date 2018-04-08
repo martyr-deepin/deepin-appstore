@@ -25,6 +25,7 @@
 #include "base/consts.h"
 #include "resources/images.h"
 #include "services/args_parser.h"
+#include "services/rcc_scheme_handler.h"
 #include "ui/web_window.h"
 
 int main(int argc, char** argv) {
@@ -49,6 +50,9 @@ int main(int argc, char** argv) {
   cache_dir.mkpath(".");
   settings.setCachePath(cache_dir.filePath("cache"));
   settings.setUserDataPath(cache_dir.filePath("cef-storage"));
+
+  settings.setCustomSchemeHandler(dstore::RccSchemeHandler);
+  settings.addCustomScheme(QUrl("rcc://web"));
 
   if (QCefInit(argc, argv, settings) >= 0) {
     return 0;

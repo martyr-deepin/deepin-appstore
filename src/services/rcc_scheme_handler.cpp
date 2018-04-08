@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2017 ~ $year Deepin Technology Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,17 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "base/consts.h"
+#include "services/rcc_scheme_handler.h"
+
+#include <QDebug>
 
 namespace dstore {
 
-const char kAppName[] = "deepin-appstore";
-const char kAppVersion[] = "5.0.0";
-const char kIndexPage[] = "rcc://web/index.html";
-
-QString GetCacheDir() {
-  const char kAppCacheDir[] = ".cache/deepin/deepin-appstore";
-  return QDir::home().absoluteFilePath(kAppCacheDir);
+QString RccSchemeHandler(const QUrl& url) {
+  const QString filepath = QString("%1/%2")
+      .arg(DSTORE_WEB_DIR)
+      .arg(url.fileName());
+  return filepath;
 }
 
 }  // namespace dstore

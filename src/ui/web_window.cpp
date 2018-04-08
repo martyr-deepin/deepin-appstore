@@ -49,7 +49,7 @@ WebWindow::~WebWindow() {
 }
 
 void WebWindow::loadPage() {
-  web_view_->load(QUrl::fromLocalFile(kIndexPage));
+  web_view_->load(QUrl(kIndexPage));
 }
 
 void WebWindow::openApp(const QString& app_name) {
