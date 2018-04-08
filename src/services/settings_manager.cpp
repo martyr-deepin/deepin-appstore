@@ -32,7 +32,15 @@ QVariant GetSettingsValue(const QString& key) {
 }  // namespace
 
 bool IsSignInSupported() {
-  return GetSettingsValue("support_sign_in").toBool();
+  return GetSettingsValue("supportSignIn").toBool();
+}
+
+QString GetMetadataServer() {
+  return GetSettingsValue("metadataServer").toString();
+}
+
+QString GetOperationServer() {
+  return GetSettingsValue("operationServer").toString();
 }
 
 }  // namespace dstore

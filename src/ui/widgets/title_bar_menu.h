@@ -22,21 +22,21 @@
 
 namespace dstore {
 
-class ToolBarMenu : public QMenu {
+class TitleBarMenu : public QMenu {
   Q_OBJECT
   Q_PROPERTY(bool signInState
                  READ isSignedIn
                  WRITE setSignedIn
-                 NOTIFY signInStateChanged)
-  Q_PROPERTY(bool regionChina READ getRegion WRITE setRegion NOTIFY regionChanged)
+                 NOTIFY signInRequested)
+  Q_PROPERTY(bool regionChina READ getRegion WRITE setRegion NOTIFY switchRegionRequested)
   Q_PROPERTY(bool darkTheme
                  READ isDarkTheme
                  WRITE setDarkTheme
-                 NOTIFY themeChanged)
+                 NOTIFY switchThemeRequested)
 
  public:
-  explicit ToolBarMenu(bool support_sign_in, QWidget* parent = nullptr);
-  ~ToolBarMenu() override;
+  explicit TitleBarMenu(bool support_sign_in, QWidget* parent = nullptr);
+  ~TitleBarMenu() override;
 
   bool isSignedIn() const;
 
@@ -49,10 +49,10 @@ class ToolBarMenu : public QMenu {
   bool isDarkTheme() const;
 
  signals:
-  void signInStateChanged(bool is_signed_in);
-  void themeChanged(bool is_dark_theme);
+  void signInRequested(bool is_signed_in);
+  void switchThemeRequested(bool is_dark_theme);
   void recommendAppRequested();
-  void regionChanged(bool is_china);
+  void switchRegionRequested(bool is_china);
   void clearCacheRequested();
 
  public slots:

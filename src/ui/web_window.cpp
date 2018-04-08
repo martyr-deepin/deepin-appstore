@@ -35,7 +35,7 @@
 #include "ui/widgets/recommend_app.h"
 #include "ui/widgets/search_completion_window.h"
 #include "ui/widgets/title_bar.h"
-#include "ui/widgets/tool_bar_menu.h"
+#include "ui/widgets/title_bar_menu.h"
 
 namespace dstore {
 
@@ -57,7 +57,7 @@ void WebWindow::openApp(const QString& app_name) {
 }
 
 void WebWindow::initConnections() {
-  connect(tool_bar_menu_, &ToolBarMenu::recommendAppRequested,
+  connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
           this, &WebWindow::onRecommendAppActive);
 }
 
@@ -76,7 +76,7 @@ void WebWindow::initUI() {
   title_bar_ = new TitleBar();
   this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
   this->titlebar()->setSeparatorVisible(true);
-  tool_bar_menu_ = new ToolBarMenu(IsSignInSupported(), this);
+  tool_bar_menu_ = new TitleBarMenu(IsSignInSupported(), this);
   this->titlebar()->setMenu(tool_bar_menu_);
 
   // Disable web security.

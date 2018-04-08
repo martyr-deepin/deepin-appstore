@@ -32,7 +32,7 @@ class SearchCompletionWindow;
 class StoreDaemonProxy;
 class TitleBar;
 class TitleBarProxy;
-class ToolBarMenu;
+class TitleBarMenu;
 
 class WebWindow : public Dtk::Widget::DMainWindow {
   Q_OBJECT
@@ -67,7 +67,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   TitleBar* title_bar_ = nullptr;
   TitleBarProxy* title_bar_proxy_ = nullptr;
 
-  ToolBarMenu* tool_bar_menu_ = nullptr;
+  TitleBarMenu* tool_bar_menu_ = nullptr;
 
  private slots:
   void onRecommendAppActive();

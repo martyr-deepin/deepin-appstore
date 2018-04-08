@@ -18,9 +18,15 @@
 #ifndef DEEPIN_APPSTORE_SERVICES_SETTINGS_MANAGER_H
 #define DEEPIN_APPSTORE_SERVICES_SETTINGS_MANAGER_H
 
+#include <QString>
+
 namespace dstore {
 
 bool IsSignInSupported();
+
+QString GetMetadataServer();
+
+QString GetOperationServer();
 
 }  // namespace dstore
 

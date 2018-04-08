@@ -15,36 +15,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ui/widgets/tool_bar_menu.h"
+#include "ui/widgets/title_bar_menu.h"
 
 #include <QDebug>
 
 namespace dstore {
 
-ToolBarMenu::ToolBarMenu(bool support_sign_in, QWidget* parent)
+TitleBarMenu::TitleBarMenu(bool support_sign_in, QWidget* parent)
     : QMenu(parent),
       support_sign_in_(support_sign_in) {
 
   this->initActions();
 }
 
-ToolBarMenu::~ToolBarMenu() {
+TitleBarMenu::~TitleBarMenu() {
 
 }
 
-bool ToolBarMenu::isSignedIn() const {
+bool TitleBarMenu::isSignedIn() const {
   return is_signed_in_;
 }
 
-bool ToolBarMenu::getRegion() const {
+bool TitleBarMenu::getRegion() const {
   return region_group_->checkedAction() == region_china_;
 }
 
-bool ToolBarMenu::isDarkTheme() const {
+bool TitleBarMenu::isDarkTheme() const {
   return is_dark_theme_;
 }
 
-void ToolBarMenu::setSignedIn(bool is_signed_in) {
+void TitleBarMenu::setSignedIn(bool is_signed_in) {
   Q_ASSERT(support_sign_in_);
 
   is_signed_in_ = is_signed_in;
@@ -57,7 +57,7 @@ void ToolBarMenu::setSignedIn(bool is_signed_in) {
   }
 }
 
-void ToolBarMenu::setRegion(bool is_china) {
+void TitleBarMenu::setRegion(bool is_china) {
   if (is_china) {
     region_china_->setChecked(true);
   } else {
@@ -65,7 +65,7 @@ void ToolBarMenu::setRegion(bool is_china) {
   }
 }
 
-void ToolBarMenu::setDarkTheme(bool is_dark_theme) {
+void TitleBarMenu::setDarkTheme(bool is_dark_theme) {
   is_dark_theme_ = is_dark_theme;
   if (is_dark_theme) {
     switch_theme_action_->setText(QObject::tr("Light Theme"));
@@ -74,14 +74,14 @@ void ToolBarMenu::setDarkTheme(bool is_dark_theme) {
   }
 }
 
-void ToolBarMenu::initActions() {
+void TitleBarMenu::initActions() {
   if (support_sign_in_) {
     sign_in_action_ = this->addAction(QObject::tr("Sign In"));
     connect(sign_in_action_, &QAction::triggered,
-            this, &ToolBarMenu::onSignInActionTriggered);
+            this, &TitleBarMenu::onSignInActionTriggered);
 
     this->addAction(QObject::tr("Recommend App"),
-                    this, &ToolBarMenu::recommendAppRequested);
+                    this, &TitleBarMenu::recommendAppRequested);
   }
 
   auto region_menu = this->addMenu(QObject::tr("Select Region"));
@@ -95,28 +95,28 @@ void ToolBarMenu::initActions() {
   region_group_->addAction(region_international_);
   region_china_->setChecked(true);
   connect(region_group_, &QActionGroup::triggered,
-          this, &ToolBarMenu::onRegionGroupTriggered);
+          this, &TitleBarMenu::onRegionGroupTriggered);
 
   this->addAction(QObject::tr("Clear Cache"),
-                  this, &ToolBarMenu::clearCacheRequested);
+                  this, &TitleBarMenu::clearCacheRequested);
 
   switch_theme_action_ = this->addAction(QObject::tr("Dark Theme"));
   connect(switch_theme_action_, &QAction::triggered,
-          this, &ToolBarMenu::onThemeActionTriggered);
+          this, &TitleBarMenu::onThemeActionTriggered);
 
   this->addSeparator();
 }
 
-void ToolBarMenu::onSignInActionTriggered() {
-  this->setSignedIn(!is_signed_in_);
+void TitleBarMenu::onSignInActionTriggered() {
+  emit this->signInRequested(!is_signed_in_);
 }
 
-void ToolBarMenu::onThemeActionTriggered() {
-  this->setDarkTheme(!is_dark_theme_);
+void TitleBarMenu::onThemeActionTriggered() {
+  emit this->switchThemeRequested(!is_dark_theme_);
 }
 
-void ToolBarMenu::onRegionGroupTriggered(QAction* action) {
-  emit this->regionChanged(action == region_china_);
+void TitleBarMenu::onRegionGroupTriggered(QAction* action) {
+  emit this->switchRegionRequested(action == region_china_);
 }
 
 }  // namespace dstore

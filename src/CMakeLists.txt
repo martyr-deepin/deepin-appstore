@@ -100,8 +100,6 @@ set(DBUS_FILES
 set(RESOURCES_FILES
     resources/images.cpp
     resources/images.h
-    resources/settings.cpp
-    resources/settings.h
     resources/themes/themes.qrc
     )
 
@@ -141,8 +139,8 @@ set(UI_FILES
     ui/widgets/search_edit.h
     ui/widgets/title_bar.cpp
     ui/widgets/title_bar.h
-    ui/widgets/tool_bar_menu.cpp
-    ui/widgets/tool_bar_menu.h
+    ui/widgets/title_bar_menu.cpp
+    ui/widgets/title_bar_menu.h
     )
 
 ## Executable files
