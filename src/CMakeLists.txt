@@ -100,6 +100,8 @@ set(DBUS_FILES
 set(RESOURCES_FILES
     resources/images.cpp
     resources/images.h
+    resources/settings.cpp
+    resources/settings.h
     resources/themes/themes.qrc
     )
 
