@@ -28,9 +28,9 @@
 
 #include "base/consts.h"
 #include "services/settings_manager.h"
-#include "ui/image_viewer_proxy.h"
-#include "ui/store_daemon_proxy.h"
-#include "ui/title_bar_proxy.h"
+#include "ui/channel/image_viewer_proxy.h"
+#include "ui/channel/store_daemon_proxy.h"
+#include "ui/channel/title_bar_proxy.h"
 #include "ui/widgets/image_viewer.h"
 #include "ui/widgets/recommend_app.h"
 #include "ui/widgets/search_completion_window.h"

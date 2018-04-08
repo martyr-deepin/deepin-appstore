@@ -15,22 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ui/image_viewer_proxy.h"
-
-#include "ui/widgets/image_viewer.h"
+#include "ui/channel/store_daemon_proxy.h"
 
 namespace dstore {
 
-ImageViewerProxy::ImageViewerProxy(ImageViewer* viewer, QObject* parent)
-    : QObject(parent), viewer_(viewer) {
-}
-
-ImageViewerProxy::~ImageViewerProxy() {
+StoreDaemonProxy::StoreDaemonProxy(QObject* parent) : QObject(parent) {
 
 }
 
-void ImageViewerProxy::open(const QString& filepath) {
-  viewer_->open(filepath);
+StoreDaemonProxy::~StoreDaemonProxy() {
+
 }
 
 }  // namespace dstore

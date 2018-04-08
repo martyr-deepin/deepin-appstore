@@ -116,14 +116,15 @@ set(SERVICES_FILES
     )
 
 set(UI_FILES
-    ui/image_viewer_proxy.cpp
-    ui/image_viewer_proxy.h
-    ui/store_daemon_proxy.cpp
-    ui/store_daemon_proxy.h
-    ui/title_bar_proxy.cpp
-    ui/title_bar_proxy.h
     ui/web_window.cpp
     ui/web_window.h
+    
+    ui/channel/image_viewer_proxy.cpp
+    ui/channel/image_viewer_proxy.h
+    ui/channel/store_daemon_proxy.cpp
+    ui/channel/store_daemon_proxy.h
+    ui/channel/title_bar_proxy.cpp
+    ui/channel/title_bar_proxy.h
 
     ui/utils/theme_manager.cpp
     ui/utils/theme_manager.h
