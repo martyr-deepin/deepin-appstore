@@ -1,9 +1,9 @@
 
 if (CMAKE_BUILD_TYPE MATCHES Release)
-  add_definitions(-DDSTORE_WEB_DIR="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/web")
+  add_definitions(-DDSTORE_WEB_DIR="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/web_dist")
   add_definitions(-DSETTINGS_FILE="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/settings.ini")
 else()
-  add_definitions(-DDSTORE_WEB_DIR="${CMAKE_CURRENT_BINARY_DIR}/web")
+  add_definitions(-DDSTORE_WEB_DIR="${CMAKE_CURRENT_SOURCE_DIR}/web_dist")
   add_definitions(-DSETTINGS_FILE="${CMAKE_CURRENT_SOURCE_DIR}/resources/settings.ini")
 endif ()
 
@@ -154,7 +154,7 @@ add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 
 # Build web project and generate js files.
 add_custom_command(OUTPUT rebuild-web
-                   COMMAND ./node_modules/.bin/ng build --output-path=${CMAKE_CURRENT_BINARY_DIR}/web
+                   COMMAND ./node_modules/.bin/ng build --output-path=${CMAKE_CURRENT_SOURCE_DIR}/web_dist
                    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web/
                    )
 add_custom_target(update-web DEPENDS rebuild-web)
