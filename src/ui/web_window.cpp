@@ -18,6 +18,7 @@
 #include "ui/web_window.h"
 
 #include <DTitlebar>
+#include <QApplication>
 #include <QDebug>
 #include <QResizeEvent>
 #include <QWebChannel>
@@ -29,6 +30,7 @@
 #include "services/settings_manager.h"
 #include "ui/image_viewer_proxy.h"
 #include "ui/store_daemon_proxy.h"
+#include "ui/title_bar_proxy.h"
 #include "ui/widgets/image_viewer.h"
 #include "ui/widgets/recommend_app.h"
 #include "ui/widgets/search_completion_window.h"
@@ -82,17 +84,17 @@ void WebWindow::initUI() {
   settings->setWebSecurity(QCefWebSettings::StateDisabled);
 
   auto web_channel = web_view_->page()->webChannel();
+  title_bar_proxy_ = new TitleBarProxy(this);
   image_viewer_proxy_ = new ImageViewerProxy(image_viewer_, this);
   store_daemon_proxy_ = new StoreDaemonProxy(this);
   web_channel->registerObject("imageViewer", image_viewer_proxy_);
   web_channel->registerObject("storeDaemon", store_daemon_proxy_);
+  web_channel->registerObject("titleBar", title_bar_proxy_);
 
   this->setFocusPolicy(Qt::ClickFocus);
 
   this->resize(800, 600);
 }
-
-
 
 void WebWindow::onRecommendAppActive() {
   recommend_app_->clearForm();
@@ -101,23 +103,23 @@ void WebWindow::onRecommendAppActive() {
 
 bool WebWindow::eventFilter(QObject* watched, QEvent* event) {
   // Filters mouse press event only.
-//  if (event->type() == QEvent::MouseButtonPress &&
-//      qApp->activeWindow() == this &&
-//      watched->objectName() == QLatin1String("QMainWindowClassWindow")) {
-//    QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
-//    switch (mouseEvent->button()) {
-//      case Qt::BackButton: {
-//        title_bar_proxy_->backwardButtonClicked();
-//        break;
-//      }
-//      case Qt::ForwardButton: {
-//        title_bar_proxy_->forwardButtonClicked();
-//        break;
-//      }
-//      default: {
-//      }
-//    }
-//  }
+  if (event->type() == QEvent::MouseButtonPress &&
+      qApp->activeWindow() == this &&
+      watched->objectName() == QLatin1String("QMainWindowClassWindow")) {
+    QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+    switch (mouseEvent->button()) {
+      case Qt::BackButton: {
+        title_bar_proxy_->backwardButtonClicked();
+        break;
+      }
+      case Qt::ForwardButton: {
+        title_bar_proxy_->forwardButtonClicked();
+        break;
+      }
+      default: {
+      }
+    }
+  }
   return QObject::eventFilter(watched, event);
 }
 

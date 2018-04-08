@@ -31,6 +31,7 @@ class RecommendApp;
 class SearchCompletionWindow;
 class StoreDaemonProxy;
 class TitleBar;
+class TitleBarProxy;
 class ToolBarMenu;
 
 class WebWindow : public Dtk::Widget::DMainWindow {
@@ -64,6 +65,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   SearchCompletionWindow* completion_window_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
   TitleBar* title_bar_ = nullptr;
+  TitleBarProxy* title_bar_proxy_ = nullptr;
 
   ToolBarMenu* tool_bar_menu_ = nullptr;
 

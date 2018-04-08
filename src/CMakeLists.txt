@@ -120,6 +120,8 @@ set(UI_FILES
     ui/image_viewer_proxy.h
     ui/store_daemon_proxy.cpp
     ui/store_daemon_proxy.h
+    ui/title_bar_proxy.cpp
+    ui/title_bar_proxy.h
     ui/web_window.cpp
     ui/web_window.h
 
