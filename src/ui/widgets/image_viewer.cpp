@@ -60,7 +60,6 @@ void ImageViewer::open(const QString& filepath) {
 
   QPixmap pixmap(abspath);
   const QRect screen_rect = qApp->desktop()->screenGeometry(QCursor::pos());
-  // Resize image to fix screen.
   const int pixmap_max_width = static_cast<int>(screen_rect.width() * 0.8);
   const int pixmap_max_height = static_cast<int>(screen_rect.height() * 0.8);
   if ((pixmap.width() > pixmap_max_width) ||
@@ -71,10 +70,16 @@ void ImageViewer::open(const QString& filepath) {
                            Qt::SmoothTransformation);
   }
 
+  this->move(screen_rect.topLeft());
+  this->resize(screen_rect.size());
+  this->showFullScreen();
+
   img_label_->setPixmap(pixmap);
   img_label_->setFixedSize(pixmap.width(), pixmap.height());
   QRect img_rect = img_label_->rect();
-  img_rect.moveCenter(screen_rect.center());
+  img_rect.moveTo(
+      static_cast<int>((screen_rect.width() - pixmap.width()) / 2.0),
+      static_cast<int>((screen_rect.height() - pixmap.height()) / 2.0));
   img_label_->move(img_rect.topLeft());
 
   // Move close button to top-right corner of image.
@@ -83,7 +88,6 @@ void ImageViewer::open(const QString& filepath) {
                       top_right_point.y() - kCloseBtnSize / 2);
   close_button_->show();
   close_button_->raise();
-  this->showFullScreen();
 }
 
 void ImageViewer::initUI() {
@@ -113,7 +117,7 @@ void ImageViewer::mousePressEvent(QMouseEvent* event) {
 void ImageViewer::paintEvent(QPaintEvent* event) {
   Q_UNUSED(event);
   QPainter painter(this);
-  painter.fillRect(this->geometry(), QColor(0, 0, 0, 77));
+  painter.fillRect(0, 0, this->width(), this->height(), QColor(0, 0, 0, 77));
 }
 
 }  // namespace dstore
