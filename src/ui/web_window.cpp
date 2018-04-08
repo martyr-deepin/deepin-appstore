@@ -19,6 +19,7 @@
 
 #include <DTitlebar>
 #include <QDebug>
+#include <QResizeEvent>
 #include <QWebChannel>
 #include <qcef_web_page.h>
 #include <qcef_web_settings.h>
@@ -91,9 +92,38 @@ void WebWindow::initUI() {
   this->resize(800, 600);
 }
 
+
+
 void WebWindow::onRecommendAppActive() {
   recommend_app_->clearForm();
   recommend_app_->show();
+}
+
+bool WebWindow::eventFilter(QObject* watched, QEvent* event) {
+  // Filters mouse press event only.
+//  if (event->type() == QEvent::MouseButtonPress &&
+//      qApp->activeWindow() == this &&
+//      watched->objectName() == QLatin1String("QMainWindowClassWindow")) {
+//    QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+//    switch (mouseEvent->button()) {
+//      case Qt::BackButton: {
+//        title_bar_proxy_->backwardButtonClicked();
+//        break;
+//      }
+//      case Qt::ForwardButton: {
+//        title_bar_proxy_->forwardButtonClicked();
+//        break;
+//      }
+//      default: {
+//      }
+//    }
+//  }
+  return QObject::eventFilter(watched, event);
+}
+
+void WebWindow::resizeEvent(QResizeEvent* event) {
+  QWidget::resizeEvent(event);
+  title_bar_->setFixedWidth(event->size().width());
 }
 
 }  // namespace dstore

@@ -108,7 +108,6 @@ void TitleBar::initUI() {
   ThemeManager::instance()->registerWidget(this);
 }
 
-
 void TitleBar::onSearchTextChanged() {
   emit this->searchTextChanged(search_edit_->text());
 }
