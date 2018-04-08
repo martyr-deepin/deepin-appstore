@@ -176,3 +176,6 @@ endif ()
 
 install(TARGETS deepin-appstore
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/)
