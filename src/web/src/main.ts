@@ -8,5 +8,19 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+const bootstrap = () => {
+  platformBrowserDynamic().bootstrapModule(AppModule)
+    .catch(err => console.log(err));
+};
+
+if (window['QWebChannel'] !== undefined) {
+  // Native client mode.
+  // noinspection TsLint
+  new window['QWebChannel'](window['qt'].webChannelTransport, (channel) => {
+    window['channel'] = channel;
+    bootstrap();
+  });
+} else {
+  // Browser mode.
+  bootstrap();
+}
