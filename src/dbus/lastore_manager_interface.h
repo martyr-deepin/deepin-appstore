@@ -36,6 +36,10 @@ public:
 
     ~LastoreManagerInterface();
 
+    Q_PROPERTY(bool AutoClean READ autoClean)
+    inline bool autoClean() const
+    { return qvariant_cast< bool >(property("AutoClean")); }
+
     Q_PROPERTY(QList<QDBusObjectPath> JobList READ jobList)
     inline QList<QDBusObjectPath> jobList() const
     { return qvariant_cast< QList<QDBusObjectPath> >(property("JobList")); }
@@ -53,6 +57,12 @@ public:
     { return qvariant_cast< QStringList >(property("UpgradableApps")); }
 
 public Q_SLOTS: // METHODS
+    inline QDBusPendingReply<QDBusObjectPath> CleanArchives()
+    {
+        QList<QVariant> argumentList;
+        return asyncCallWithArgumentList(QStringLiteral("CleanArchives"), argumentList);
+    }
+
     inline QDBusPendingReply<> CleanJob(const QString &in0)
     {
         QList<QVariant> argumentList;
@@ -126,6 +136,27 @@ public Q_SLOTS: // METHODS
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(in0) << QVariant::fromValue(in1);
         return asyncCallWithArgumentList(QStringLiteral("RemovePackage"), argumentList);
+    }
+
+    inline QDBusPendingReply<> SetAutoClean(bool in0)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(in0);
+        return asyncCallWithArgumentList(QStringLiteral("SetAutoClean"), argumentList);
+    }
+
+    inline QDBusPendingReply<> SetCurrentX11Id(const QString &in0, const QString &in1)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(in0) << QVariant::fromValue(in1);
+        return asyncCallWithArgumentList(QStringLiteral("SetCurrentX11Id"), argumentList);
+    }
+
+    inline QDBusPendingReply<> SetLogger(const QString &in0, const QString &in1, const QString &in2)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(in0) << QVariant::fromValue(in1) << QVariant::fromValue(in2);
+        return asyncCallWithArgumentList(QStringLiteral("SetLogger"), argumentList);
     }
 
     inline QDBusPendingReply<> SetRegion(const QString &in0)

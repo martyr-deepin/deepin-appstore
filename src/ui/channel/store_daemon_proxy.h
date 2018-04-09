@@ -20,6 +20,8 @@
 
 #include <QObject>
 
+#include "dbus/dbusvariant/app_update_info.h"
+#include "dbus/dbusvariant/locale_mirror_source.h"
 class LastoreManagerInterface;
 class LastoreUpdaterInterface;
 
@@ -34,10 +36,53 @@ class StoreDaemonProxy : public QObject {
  signals:
 
  public slots:
-  QVariantList listMirrorSources(const QString& opt);
+  // Store Manager methods:
+  QString cleanArchives();
+  void cleanJob(const QString& job);
+  QString distUpgrade();
+  QString installPackage(const QString& job, const QString& package);
+  QString packageDesktopPath(const QString& package);
+  bool packageExists(const QString& package);
+  bool packageInstallable(const QString& package);
+  qint64 packagesDownloadSize(const QString& package);
+  void pauseJob(const QString& job);
+  QString prepareDistUpgrade();
+  void recordLocaleInfo();
+  void startJob(const QString& job);
+  QString updatePackage(const QString& job, const QString& packages);
+  QString updateSource();
+
+  /**
+   * Remove specific packages.
+   * @param job
+   * @param packages A list of package names, separated with spaces.
+   * @return
+   */
+  QString removePackage(const QString& job, const QString& packages);
+  void setAutoClean(bool enabled);
+  void setRegion(const QString& region);
+
+  // Store Manager properties:
+  bool autoClean();
+  QStringList jobList();
+  QStringList systemArchitectures();
+  bool systemOnChanging();
+  QStringList upgradableApps();
+
+
+  // Store Updater methods:
+  AppUpdateInfoList applicationUpdateInfos(const QString& language);
+  LocaleMirrorSourceList listMirrorSources(const QString& language);
   void setAutoCheckUpdates(bool check);
   void setAutoDownloadUpdates(bool update);
-  void setMirrorSource(const QString& src);
+  void setMirrorSource(const QString& id);
+
+  // Store Manager properties:
+  bool autoCheckUpdates();
+  bool autoDownloadUpdates();
+  QString mirrorSource();
+  QStringList updatableApps();
+  QStringList updatablePackages();
 
  private:
   LastoreManagerInterface* store_manager_iface_ = nullptr;

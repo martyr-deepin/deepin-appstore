@@ -95,7 +95,7 @@ set(DBUS_FILES
     dbus/lastore_manager_interface.h
     dbus/lastore_updater_interface.cpp
     dbus/lastore_updater_interface.h
-    )
+    dbus/dbusvariant/locale_mirror_source.cpp dbus/dbusvariant/locale_mirror_source.h)
 
 set(RESOURCES_FILES
     resources/images.cpp

@@ -42,22 +42,149 @@ StoreDaemonProxy::~StoreDaemonProxy() {
 
 }
 
-void StoreDaemonProxy::setMirrorSource(const QString& src) {
-  store_updater_iface_->SetMirrorSource(src);
+QString StoreDaemonProxy::cleanArchives() {
+  return QString();
 }
 
-void StoreDaemonProxy::setAutoDownloadUpdates(bool update) {
-  store_updater_iface_->SetAutoDownloadUpdates(update);
+void StoreDaemonProxy::cleanJob(const QString& job) {
+  Q_UNUSED(job);
+}
+
+QString StoreDaemonProxy::distUpgrade() {
+  return QString();
+}
+
+QString StoreDaemonProxy::installPackage(const QString& job,
+                                         const QString& package) {
+  Q_UNUSED(job);
+  Q_UNUSED(package);
+  return QString();
+}
+
+QString StoreDaemonProxy::packageDesktopPath(const QString& package) {
+  Q_UNUSED(package);
+  return QString();
+}
+
+bool StoreDaemonProxy::packageExists(const QString& package) {
+  Q_UNUSED(package);
+  return false;
+}
+
+bool StoreDaemonProxy::packageInstallable(const QString& package) {
+  Q_UNUSED(package);
+  return false;
+}
+
+qint64 StoreDaemonProxy::packagesDownloadSize(const QString& package) {
+  Q_UNUSED(package);
+  return 0;
+}
+
+void StoreDaemonProxy::pauseJob(const QString& job) {
+  Q_UNUSED(job);
+}
+
+QString StoreDaemonProxy::prepareDistUpgrade() {
+  return QString();
+}
+
+void StoreDaemonProxy::recordLocaleInfo() {
+
+}
+
+void StoreDaemonProxy::startJob(const QString& job) {
+  Q_UNUSED(job);
+}
+
+QString StoreDaemonProxy::updatePackage(const QString& job,
+                                        const QString& packages) {
+  Q_UNUSED(job);
+  Q_UNUSED(packages);
+  return QString();
+}
+
+QString StoreDaemonProxy::updateSource() {
+  return QString();
+}
+
+QString StoreDaemonProxy::removePackage(const QString& job,
+                                        const QString& packages) {
+  Q_UNUSED(job);
+  Q_UNUSED(packages);
+  return QString();
+}
+
+void StoreDaemonProxy::setAutoClean(bool enabled) {
+  Q_UNUSED(enabled);
+}
+
+void StoreDaemonProxy::setRegion(const QString& region) {
+  Q_UNUSED(region);
+}
+
+bool StoreDaemonProxy::autoClean() {
+  return false;
+}
+
+QStringList StoreDaemonProxy::jobList() {
+  return QStringList();
+}
+
+QStringList StoreDaemonProxy::systemArchitectures() {
+  return QStringList();
+}
+
+bool StoreDaemonProxy::systemOnChanging() {
+  return false;
+}
+
+QStringList StoreDaemonProxy::upgradableApps() {
+  return QStringList();
+}
+
+AppUpdateInfoList StoreDaemonProxy::applicationUpdateInfos(
+    const QString& language) {
+  Q_UNUSED(language);
+  return AppUpdateInfoList();
+}
+
+LocaleMirrorSourceList StoreDaemonProxy::listMirrorSources(
+    const QString& language) {
+  Q_UNUSED(language);
+  return LocaleMirrorSourceList();
 }
 
 void StoreDaemonProxy::setAutoCheckUpdates(bool check) {
-  store_updater_iface_->SetAutoCheckUpdates(check);
+  Q_UNUSED(check);
 }
 
-QVariantList StoreDaemonProxy::listMirrorSources(const QString& opt) {
-  QVariantList result;
-  auto reply = store_updater_iface_->ListMirrorSources(opt);
-  return result;
+void StoreDaemonProxy::setAutoDownloadUpdates(bool update) {
+  Q_UNUSED(update);
+}
+
+void StoreDaemonProxy::setMirrorSource(const QString& id) {
+  Q_UNUSED(id);
+}
+
+bool StoreDaemonProxy::autoCheckUpdates() {
+  return false;
+}
+
+bool StoreDaemonProxy::autoDownloadUpdates() {
+  return false;
+}
+
+QString StoreDaemonProxy::mirrorSource() {
+  return QString();
+}
+
+QStringList StoreDaemonProxy::updatableApps() {
+  return QStringList();
+}
+
+QStringList StoreDaemonProxy::updatablePackages() {
+  return QStringList();
 }
 
 }  // namespace dstore
