@@ -19,9 +19,8 @@
 
 namespace dstore {
 
-// TODO(Shaohua): Specify dbus interface.
-const char kAppStoreDbusInterface[] = "0";
-const char kAppStoreDbusService[] = "0";
+const char kAppStoreDbusPath[] = "/com/deepin/AppStore";
+const char kAppStoreDbusService[] = "com.deepin.AppStore";
 
 const char kLastoreManagerPath[] = "/com/deepin/lastore";
 const char kLastoreManagerService[] = "com.deepin.lastore";

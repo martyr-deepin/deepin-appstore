@@ -20,7 +20,7 @@
 
 namespace dstore {
 
-extern const char kAppStoreDbusInterface[];
+extern const char kAppStoreDbusPath[];
 extern const char kAppStoreDbusService[];
 
 extern const char kLastoreManagerPath[];

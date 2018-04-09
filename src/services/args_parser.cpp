@@ -53,7 +53,7 @@ bool ArgsParser::parseArguments() {
   Q_UNUSED(adapter);
 
   if (!conn.registerService(kAppStoreDbusService) ||
-      !conn.registerObject(kAppStoreDbusInterface, proxy)) {
+      !conn.registerObject(kAppStoreDbusPath, proxy)) {
     qWarning() << Q_FUNC_INFO << "Failed to register dbus service";
 
     // Failed to register dbus service.
@@ -62,7 +62,7 @@ bool ArgsParser::parseArguments() {
     if (!args.isEmpty()) {
       AppStoreDBusInterface* interface = new AppStoreDBusInterface(
           kAppStoreDbusService,
-          kAppStoreDbusInterface,
+          kAppStoreDbusPath,
           conn,
           this
       );
@@ -76,7 +76,7 @@ bool ArgsParser::parseArguments() {
         return false;
       }
     } else {
-      return false;
+      return true;
     }
   } else {
     qDebug() << "Register dbus service successfully.";
