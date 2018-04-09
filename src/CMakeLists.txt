@@ -118,9 +118,11 @@ set(SERVICES_FILES
 set(UI_FILES
     ui/web_window.cpp
     ui/web_window.h
-    
+
     ui/channel/image_viewer_proxy.cpp
     ui/channel/image_viewer_proxy.h
+    ui/channel/log_proxy.cpp
+    ui/channel/log_proxy.h
     ui/channel/store_daemon_proxy.cpp
     ui/channel/store_daemon_proxy.h
     ui/channel/title_bar_proxy.cpp

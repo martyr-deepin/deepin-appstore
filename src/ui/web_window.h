@@ -27,6 +27,7 @@ namespace dstore {
 
 class ImageViewer;
 class ImageViewerProxy;
+class LogProxy;
 class RecommendApp;
 class SearchCompletionWindow;
 class StoreDaemonProxy;
@@ -62,6 +63,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   QCefWebView* web_view_ = nullptr;
   ImageViewer* image_viewer_ = nullptr;
   ImageViewerProxy* image_viewer_proxy_ = nullptr;
+  LogProxy* log_proxy_ = nullptr;
   RecommendApp* recommend_app_ = nullptr;
   SearchCompletionWindow* completion_window_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
