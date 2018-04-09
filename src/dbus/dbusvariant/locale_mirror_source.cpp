@@ -29,8 +29,8 @@ LocaleMirrorSource::~LocaleMirrorSource() {
 void LocaleMirrorSource::registerMetaType() {
   qRegisterMetaType<LocaleMirrorSource>("LocaleMirrorSource");
   qDBusRegisterMetaType<LocaleMirrorSource>();
-  qRegisterMetaType<LocaleMirrorSource>("LocaleMirrorSourceList");
-  qDBusRegisterMetaType<LocaleMirrorSource>();
+  qRegisterMetaType<LocaleMirrorSourceList>("LocaleMirrorSourceList");
+  qDBusRegisterMetaType<LocaleMirrorSourceList>();
 }
 
 QDebug operator<<(QDebug debug, const LocaleMirrorSource& info) {

@@ -23,10 +23,10 @@ namespace dstore {
 const char kAppStoreDbusInterface[] = "0";
 const char kAppStoreDbusService[] = "0";
 
-const char kLastoreManagerInterface[] = "com.deepin.lastore.Manager";
-const char kLastoreManagerService[] = "com.deepin.lastore.Manager";
+const char kLastoreManagerPath[] = "/com/deepin/lastore";
+const char kLastoreManagerService[] = "com.deepin.lastore";
 
-const char kLastoreUpdaterInterface[] = "com.deepin.lastore.Updater";
-const char kLastoreUpdaterService[] = "com.deepin.lastore.Updater";
+const char kLastoreUpdaterPath[] = "/com/deepin/lastore";
+const char kLastoreUpdaterService[] = "com.deepin.lastore";
 
 }  // namespace dstore

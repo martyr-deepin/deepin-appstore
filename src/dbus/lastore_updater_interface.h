@@ -58,14 +58,14 @@ public:
     { return qvariant_cast< QStringList >(property("UpdatablePackages")); }
 
 public Q_SLOTS: // METHODS
-    inline QDBusPendingReply<AppUpdateInfo> ApplicationUpdateInfos(const QString &in0)
+    inline QDBusPendingReply<AppUpdateInfoList> ApplicationUpdateInfos(const QString &in0)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(in0);
         return asyncCallWithArgumentList(QStringLiteral("ApplicationUpdateInfos"), argumentList);
     }
 
-    inline QDBusPendingReply<LocaleMirrorSource> ListMirrorSources(const QString &in0)
+    inline QDBusPendingReply<LocaleMirrorSourceList> ListMirrorSources(const QString &in0)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(in0);

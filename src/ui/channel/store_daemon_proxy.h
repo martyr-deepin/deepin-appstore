@@ -36,6 +36,12 @@ class StoreDaemonProxy : public QObject {
  signals:
 
  public slots:
+  /**
+   * Check connecting to backend app store daemon or not.
+   * @return
+   */
+  bool isDBusConnected() const;
+
   // Store Manager methods:
   QString cleanArchives();
   void cleanJob(const QString& job);
@@ -44,10 +50,10 @@ class StoreDaemonProxy : public QObject {
   QString packageDesktopPath(const QString& package);
   bool packageExists(const QString& package);
   bool packageInstallable(const QString& package);
-  qint64 packagesDownloadSize(const QString& package);
+  qlonglong packagesDownloadSize(const QStringList& packages);
   void pauseJob(const QString& job);
   QString prepareDistUpgrade();
-  void recordLocaleInfo();
+  void recordLocaleInfo(const QString& language);
   void startJob(const QString& job);
   QString updatePackage(const QString& job, const QString& packages);
   QString updateSource();
@@ -85,8 +91,8 @@ class StoreDaemonProxy : public QObject {
   QStringList updatablePackages();
 
  private:
-  LastoreManagerInterface* store_manager_iface_ = nullptr;
-  LastoreUpdaterInterface* store_updater_iface_ = nullptr;
+  LastoreManagerInterface* manager_ = nullptr;
+  LastoreUpdaterInterface* updater_ = nullptr;
 };
 
 }  // namespace dstore

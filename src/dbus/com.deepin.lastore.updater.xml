@@ -4,13 +4,13 @@
             <arg type="s" direction="in"></arg>
             <arg type="a(sssss)" direction="out"></arg>
             <annotation name="org.qtproject.QtDBus.QtTypeName.Out0"
-                        value="AppUpdateInfo"/>
+                        value="AppUpdateInfoList"/>
         </method>
         <method name="ListMirrorSources">
             <arg type="s" direction="in"></arg>
             <arg type="a(sss)" direction="out"></arg>
             <annotation name="org.qtproject.QtDBus.QtTypeName.Out0"
-                        value="LocaleMirrorSource"/>
+                        value="LocaleMirrorSourceList"/>
         </method>
         <method name="SetAutoCheckUpdates">
             <arg type="b" direction="in"></arg>

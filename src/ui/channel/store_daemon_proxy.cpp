@@ -24,167 +24,171 @@
 namespace dstore {
 
 StoreDaemonProxy::StoreDaemonProxy(QObject* parent) : QObject(parent) {
-  // TODO(Shaohua): Handles dbus connection error.
-  store_manager_iface_ = new LastoreManagerInterface(
+  manager_ = new LastoreManagerInterface(
       kLastoreManagerService,
-      kLastoreManagerInterface,
-      QDBusConnection::sessionBus(),
+      kLastoreManagerPath,
+      QDBusConnection::systemBus(),
       this);
-  store_updater_iface_ = new LastoreUpdaterInterface(
+  updater_ = new LastoreUpdaterInterface(
       kLastoreUpdaterService,
-      kLastoreUpdaterInterface,
-      QDBusConnection::sessionBus(),
+      kLastoreUpdaterPath,
+      QDBusConnection::systemBus(),
       this);
   AppUpdateInfo::registerMetaType();
+  LocaleMirrorSource::registerMetaType();
 }
 
 StoreDaemonProxy::~StoreDaemonProxy() {
 
 }
 
+bool StoreDaemonProxy::isDBusConnected() const {
+  return (manager_->isValid() && updater_->isValid());
+}
+
 QString StoreDaemonProxy::cleanArchives() {
-  return QString();
+  const QDBusObjectPath path = manager_->CleanArchives();
+  return path.path();
 }
 
 void StoreDaemonProxy::cleanJob(const QString& job) {
-  Q_UNUSED(job);
+  manager_->CleanJob(job);
 }
 
 QString StoreDaemonProxy::distUpgrade() {
-  return QString();
+  const QDBusObjectPath path = manager_->DistUpgrade();
+  return path.path();
 }
 
 QString StoreDaemonProxy::installPackage(const QString& job,
                                          const QString& package) {
-  Q_UNUSED(job);
-  Q_UNUSED(package);
-  return QString();
+  const QDBusObjectPath path = manager_->InstallPackage(job, package);
+  return path.path();
 }
 
 QString StoreDaemonProxy::packageDesktopPath(const QString& package) {
-  Q_UNUSED(package);
-  return QString();
+  return manager_->PackageDesktopPath(package);
 }
 
 bool StoreDaemonProxy::packageExists(const QString& package) {
-  Q_UNUSED(package);
-  return false;
+  return manager_->PackageExists(package);
 }
 
 bool StoreDaemonProxy::packageInstallable(const QString& package) {
-  Q_UNUSED(package);
-  return false;
+  return manager_->PackageInstallable(package);
 }
 
-qint64 StoreDaemonProxy::packagesDownloadSize(const QString& package) {
-  Q_UNUSED(package);
-  return 0;
+qlonglong StoreDaemonProxy::packagesDownloadSize(const QStringList& packages) {
+  return manager_->PackagesDownloadSize(packages);
 }
 
 void StoreDaemonProxy::pauseJob(const QString& job) {
-  Q_UNUSED(job);
+  manager_->PauseJob(job);
 }
 
 QString StoreDaemonProxy::prepareDistUpgrade() {
-  return QString();
+  const QDBusObjectPath path = manager_->PrepareDistUpgrade();
+  return path.path();
 }
 
-void StoreDaemonProxy::recordLocaleInfo() {
-
+void StoreDaemonProxy::recordLocaleInfo(const QString& language) {
+  manager_->RecordLocaleInfo(language);
 }
 
 void StoreDaemonProxy::startJob(const QString& job) {
-  Q_UNUSED(job);
+  manager_->StartJob(job);
 }
 
 QString StoreDaemonProxy::updatePackage(const QString& job,
                                         const QString& packages) {
-  Q_UNUSED(job);
-  Q_UNUSED(packages);
-  return QString();
+  const QDBusObjectPath path = manager_->UpdatePackage(job, packages);
+  return path.path();
 }
 
 QString StoreDaemonProxy::updateSource() {
-  return QString();
+  const QDBusObjectPath path = manager_->UpdateSource();
+  return path.path();
 }
 
 QString StoreDaemonProxy::removePackage(const QString& job,
                                         const QString& packages) {
-  Q_UNUSED(job);
-  Q_UNUSED(packages);
-  return QString();
+  const QDBusObjectPath path = manager_->RemovePackage(job, packages);
+  return path.path();
 }
 
 void StoreDaemonProxy::setAutoClean(bool enabled) {
-  Q_UNUSED(enabled);
+  manager_->SetAutoClean(enabled);
 }
 
 void StoreDaemonProxy::setRegion(const QString& region) {
-  Q_UNUSED(region);
+  manager_->SetRegion(region);
 }
 
 bool StoreDaemonProxy::autoClean() {
-  return false;
+  return manager_->autoClean();
 }
 
 QStringList StoreDaemonProxy::jobList() {
-  return QStringList();
+  auto list = manager_->jobList();
+  QStringList result;
+  for (const QDBusObjectPath& path : list ) {
+    result.append(path.path());
+  }
+  return result;
 }
 
 QStringList StoreDaemonProxy::systemArchitectures() {
-  return QStringList();
+  return manager_->systemArchitectures();
 }
 
 bool StoreDaemonProxy::systemOnChanging() {
-  return false;
+  return manager_->systemOnChanging();
 }
 
 QStringList StoreDaemonProxy::upgradableApps() {
-  return QStringList();
+  return manager_->upgradableApps();
 }
 
 AppUpdateInfoList StoreDaemonProxy::applicationUpdateInfos(
     const QString& language) {
-  Q_UNUSED(language);
-  return AppUpdateInfoList();
+  return updater_->ApplicationUpdateInfos(language);
 }
 
 LocaleMirrorSourceList StoreDaemonProxy::listMirrorSources(
     const QString& language) {
-  Q_UNUSED(language);
-  return LocaleMirrorSourceList();
+  return updater_->ListMirrorSources(language);
 }
 
 void StoreDaemonProxy::setAutoCheckUpdates(bool check) {
-  Q_UNUSED(check);
+  updater_->SetAutoCheckUpdates(check);
 }
 
 void StoreDaemonProxy::setAutoDownloadUpdates(bool update) {
-  Q_UNUSED(update);
+  updater_->SetAutoDownloadUpdates(update);
 }
 
 void StoreDaemonProxy::setMirrorSource(const QString& id) {
-  Q_UNUSED(id);
+  updater_->SetMirrorSource(id);
 }
 
 bool StoreDaemonProxy::autoCheckUpdates() {
-  return false;
+  return updater_->autoCheckUpdates();
 }
 
 bool StoreDaemonProxy::autoDownloadUpdates() {
-  return false;
+  return updater_->autoDownloadUpdates();
 }
 
 QString StoreDaemonProxy::mirrorSource() {
-  return QString();
+  return updater_->mirrorSource();
 }
 
 QStringList StoreDaemonProxy::updatableApps() {
-  return QStringList();
+  return updater_->updatableApps();
 }
 
 QStringList StoreDaemonProxy::updatablePackages() {
-  return QStringList();
+  return updater_->updatablePackages();
 }
 
 }  // namespace dstore
