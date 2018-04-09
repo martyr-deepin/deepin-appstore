@@ -98,6 +98,8 @@ int main(int argc, char** argv) {
     dstore::WebWindow window;
     QObject::connect(&parser, &dstore::ArgsParser::openAppRequested,
                      &window, &dstore::WebWindow::openApp);
+    QObject::connect(&parser, &dstore::ArgsParser::raiseRequested,
+                     &window, &dstore::WebWindow::raiseWindow);
 
     window.loadPage();
     window.show();

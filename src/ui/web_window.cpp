@@ -19,7 +19,6 @@
 
 #include <DTitlebar>
 #include <QApplication>
-#include <QDebug>
 #include <QResizeEvent>
 #include <QWebChannel>
 #include <qcef_web_page.h>
@@ -55,7 +54,11 @@ void WebWindow::loadPage() {
 }
 
 void WebWindow::openApp(const QString& app_name) {
-  Q_UNUSED(app_name);
+  qDebug() << Q_FUNC_INFO << app_name;
+}
+
+void WebWindow::raiseWindow() {
+  this->raise();
 }
 
 void WebWindow::initConnections() {

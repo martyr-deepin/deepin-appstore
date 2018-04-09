@@ -35,6 +35,9 @@ class TitleBar;
 class TitleBarProxy;
 class TitleBarMenu;
 
+/**
+ * Main window of app store.
+ */
 class WebWindow : public Dtk::Widget::DMainWindow {
   Q_OBJECT
  public:
@@ -50,6 +53,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
 
  public slots:
   void openApp(const QString& app_name);
+  void raiseWindow();
 
  protected:
   // Update width of title bar when main window is resized.

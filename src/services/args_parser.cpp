@@ -46,14 +46,18 @@ bool ArgsParser::parseArguments() {
   parser.parse(qApp->arguments());
 
   // Register dbus service.
-  QDBusConnection conn = QDBusConnection::sessionBus();
+  QDBusConnection session_bus = QDBusConnection::sessionBus();
   AppStoreDbusProxy* proxy = new AppStoreDbusProxy(this);
+  connect(proxy, &AppStoreDbusProxy::raiseRequested,
+          this, &ArgsParser::raiseRequested);
+  connect(proxy, &AppStoreDbusProxy::openAppRequested,
+          this, &ArgsParser::openAppRequested);
 
   AppStoreDBusAdapter* adapter = new AppStoreDBusAdapter(proxy);
   Q_UNUSED(adapter);
 
-  if (!conn.registerService(kAppStoreDbusService) ||
-      !conn.registerObject(kAppStoreDbusPath, proxy)) {
+  if (!session_bus.registerService(kAppStoreDbusService) ||
+      !session_bus.registerObject(kAppStoreDbusPath, proxy)) {
     qWarning() << Q_FUNC_INFO << "Failed to register dbus service";
 
     // Failed to register dbus service.
@@ -63,7 +67,7 @@ bool ArgsParser::parseArguments() {
       AppStoreDBusInterface* interface = new AppStoreDBusInterface(
           kAppStoreDbusService,
           kAppStoreDbusPath,
-          conn,
+          session_bus,
           this
       );
 

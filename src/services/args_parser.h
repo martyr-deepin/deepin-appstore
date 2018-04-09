@@ -34,6 +34,7 @@ class ArgsParser : public QObject {
 
  signals:
   void openAppRequested(const QString& app);
+  void raiseRequested();
 
  private:
   QString app_name_;
