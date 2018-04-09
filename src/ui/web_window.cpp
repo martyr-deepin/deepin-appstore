@@ -19,6 +19,7 @@
 
 #include <DTitlebar>
 #include <QApplication>
+#include <QDesktopWidget>
 #include <QResizeEvent>
 #include <QWebChannel>
 #include <qcef_web_page.h>
@@ -51,6 +52,19 @@ WebWindow::~WebWindow() {
 
 void WebWindow::loadPage() {
   web_view_->load(QUrl(kIndexPage));
+}
+
+void WebWindow::showWindow() {
+  this->setMinimumSize(872, 548);
+  const QRect geometry = qApp->desktop()->availableGeometry(this);
+  if (geometry.width() >= 1920) {
+    this->resize(1208, 778);
+  } else if (geometry.width() >= 1366) {
+    this->resize(1108, 668);
+  } else {
+    this->resize(872, 548);
+  }
+  this->show();
 }
 
 void WebWindow::openApp(const QString& app_name) {
@@ -102,8 +116,6 @@ void WebWindow::initUI() {
   settings->setWebSecurity(QCefWebSettings::StateDisabled);
 
   this->setFocusPolicy(Qt::ClickFocus);
-
-  this->resize(800, 600);
 }
 
 void WebWindow::onRecommendAppActive() {

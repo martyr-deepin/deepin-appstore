@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
                      &window, &dstore::WebWindow::raiseWindow);
 
     window.loadPage();
-    window.show();
+    window.showWindow();
     parser.openAppDelay();
 
     return app.exec();

@@ -49,6 +49,8 @@ class WebWindow : public Dtk::Widget::DMainWindow {
    */
   void loadPage();
 
+  void showWindow();
+
   bool eventFilter(QObject* watched, QEvent* event) override;
 
  public slots:
