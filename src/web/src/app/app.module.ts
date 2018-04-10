@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
@@ -8,6 +8,7 @@ import { DownloadComponent } from './download/download.component';
 import { UninstallComponent } from './uninstall/uninstall.component';
 import { RoutingModule } from './routing/routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { Locale } from './utils/locale';
 
 
 @NgModule({
@@ -22,7 +23,10 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     BrowserModule,
     RoutingModule
   ],
-  providers: [],
+  providers: [{
+    provide: LOCALE_ID,
+    useValue: Locale.getAngularLocale()
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
