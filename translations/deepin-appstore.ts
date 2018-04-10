@@ -1,15 +1,15 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="en" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="en">
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="76"/>
         <source>Deepin App Store</source>
-        <translation>Deepin App Store</translation>
+        <translation type="vanished">Deepin App Store</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="77"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Hot recommendation, new arrivals and topic introduction are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Deepin Store is an Appstore with quality and rich applications. Hot recommendation, new arrivals and topic introduction are available. It supports one click to download, install, update, uninstall and so on.</translation>
+        <translation type="vanished">Deepin Store is an Appstore with quality and rich applications. Hot recommendation, new arrivals and topic introduction are available. It supports one click to download, install, update, uninstall and so on.</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/recommend_app.cpp" line="76"/>
