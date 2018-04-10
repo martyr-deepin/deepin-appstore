@@ -9,11 +9,15 @@ import { UninstallComponent } from './uninstall/uninstall.component';
 import { RoutingModule } from './routing/routing.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { Locale } from './utils/locale';
+import { AppDetailComponent } from './app-detail/app-detail.component';
+import { CategoryComponent } from './category/category.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AppDetailComponent,
+    CategoryComponent,
     DownloadComponent,
     UninstallComponent,
     UpdateComponent,
