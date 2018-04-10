@@ -11,13 +11,13 @@ if (environment.production) {
 
 declare const require;
 
-const initComponents = () => {
+const bootstrap = () => {
   const locale = Locale.getAngularLocale();
   const bootstrapModuleAlias = platformBrowserDynamic().bootstrapModule;
-  let compilerOptions: object = null;
+  let compilerOptions: object[];
   if (Locale.localeFileExists(locale)) {
     const translations = require(`raw-loader!./locale/messages.${locale}.xlf`);
-    compilerOptions = {
+    const compilerOption = {
       missingTranslation: MissingTranslationStrategy.Ignore,
       providers: [
         {
@@ -30,11 +30,12 @@ const initComponents = () => {
         }
       ]
     };
-    platformBrowserDynamic().bootstrapModule(AppModule, compilerOptions)
-      .catch(err => console.log(err));
-    // platformBrowserDynamic().bootstrapModule(AppModule, compilerOptions)
-    //   .catch(err => console.log(err));
+    compilerOptions = [compilerOption];
+  } else {
+    compilerOptions = [];
   }
+  platformBrowserDynamic().bootstrapModule(AppModule, ...compilerOptions)
+    .catch(err => console.log(err));
 };
 
 if (window['QWebChannel'] !== undefined) {
@@ -42,9 +43,9 @@ if (window['QWebChannel'] !== undefined) {
   // noinspection TsLint
   new window['QWebChannel'](window['qt'].webChannelTransport, (channel) => {
     window['channel'] = channel;
-    initComponents();
+    bootstrap();
   });
 } else {
   // Browser mode.
-  initComponents();
+  bootstrap();
 }
