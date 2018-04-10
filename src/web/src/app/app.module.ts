@@ -25,7 +25,7 @@ import { Locale } from './utils/locale';
   ],
   providers: [{
     provide: LOCALE_ID,
-    useValue: Locale.getAngularLocale()
+    useValue: Locale.getPcp47Locale()
   }],
   bootstrap: [AppComponent]
 })

@@ -12,11 +12,10 @@ if (environment.production) {
 declare const require;
 
 const bootstrap = () => {
-  const locale = Locale.getAngularLocale();
   const bootstrapModuleAlias = platformBrowserDynamic().bootstrapModule;
   let compilerOptions: object[];
-  if (Locale.localeFileExists(locale)) {
-    const translations = require(`raw-loader!./locale/messages.${locale}.xlf`);
+  if (Locale.localeFileExists()) {
+    const translations = Locale.getUnixLocaleFileContent();
     const compilerOption = {
       missingTranslation: MissingTranslationStrategy.Ignore,
       providers: [
