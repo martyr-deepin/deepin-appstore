@@ -1,13 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UninstallComponent } from '../uninstall/uninstall.component';
-import { DownloadComponent } from '../download/download.component';
-import { UpdateComponent } from '../update/update.component';
+
+import { IndexComponent } from '../components/index/index.component';
+import { CategoryComponent } from '../components/category/category.component';
+import { RankingComponent } from '../components/ranking/ranking.component';
+import { DownloadComponent } from '../components/download/download.component';
+import { UpdateComponent } from '../components/update/update.component';
+import { UninstallComponent } from '../components/uninstall/uninstall.component';
 
 const routes: Routes = [
+  { path: 'index', component: IndexComponent },
   {
-    path: 'download',
-    component: DownloadComponent
+    path: 'category/:id',
+    component: CategoryComponent
+  },
+  {
+    path: 'ranking',
+    component: RankingComponent
   },
   {
     path: 'update',
@@ -16,12 +25,15 @@ const routes: Routes = [
   {
     path: 'uninstall',
     component: UninstallComponent
+  },
+  {
+    path: 'download',
+    component: DownloadComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {enableTracing: false})],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule]
 })
-export class RoutingModule {
-}
+export class RoutingModule {}

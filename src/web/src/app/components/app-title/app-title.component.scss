@@ -1,0 +1,28 @@
+.title {
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  .count {
+    font-size: 0.5rem;
+    color: gray;
+  }
+  .dropdown-menu {
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border-radius: 5px;
+    padding: 5px 0;
+    background-color: white;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+    outline: none;
+    li {
+      padding: 0 2rem;
+      &:hover {
+        background-color: #26a2f1;
+      }
+    }
+  }
+}

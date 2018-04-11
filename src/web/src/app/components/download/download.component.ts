@@ -3,13 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
-  styleUrls: ['./download.component.css']
+  styleUrls: ['./download.component.scss']
 })
 export class DownloadComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

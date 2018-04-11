@@ -1,0 +1,13 @@
+.app {
+  display: flex;
+  .nav {
+    flex: 1;
+    // border-right: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.3);
+  }
+  .context {
+    flex: 9;
+    height: 100vh;
+    overflow-y: auto;
+  }
+}

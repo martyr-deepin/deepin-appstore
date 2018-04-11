@@ -1,0 +1,14 @@
+<div class="sectionList">
+  <ng-container *ngFor="let section of sectionList">
+    <div [style.gridColumnEnd]='"span "+section.colSpan' [style.gridRowEnd]='"span "+section.rowSpan' [style.overflow]="'hidden'"
+      [ngSwitch]="section.type">
+      <dstore-carousel *ngSwitchCase="SectionType.Carousel" [carouselList]="section.items"></dstore-carousel>
+      <dstore-cover *ngSwitchCase="SectionType.Cover" [title]="section.title" [apps]="section.items"></dstore-cover>
+      <dstore-phrase *ngSwitchCase="SectionType.Phrase" [phraseList]="section.items" [title]="section.title"></dstore-phrase>
+      <dstore-ranking *ngSwitchCase="SectionType.Ranking" [title]="section.title" [category]="section.ranking.category" [count]="section.ranking.count"></dstore-ranking>
+      <dstore-topic *ngSwitchCase="SectionType.Topic" [section]="section"></dstore-topic>
+      <dstore-icon *ngSwitchCase="SectionType.Icon" [title]="section.title" [apps]="section.items"></dstore-icon>
+      <dstore-assemble *ngSwitchCase="SectionType.Assemble" [title]="section.title" [assembleList]="section.items"></dstore-assemble>
+    </div>
+  </ng-container>
+</div>

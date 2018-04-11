@@ -1,17 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { RoutingModule } from './routing/routing.module';
+import { DstoreModule } from './dstore/dstore.module';
+
+import { Locale } from './utils/locale';
+
+import { AppService } from './services/app.service';
+import { CategoryService } from './services/category.service';
+import { SectionService } from './services/section.service';
+import { DownloadService } from './services/download.service';
 
 import { AppComponent } from './app.component';
-import { UpdateComponent } from './update/update.component';
-import { DownloadComponent } from './download/download.component';
-import { UninstallComponent } from './uninstall/uninstall.component';
-import { RoutingModule } from './routing/routing.module';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { Locale } from './utils/locale';
-import { AppDetailComponent } from './app-detail/app-detail.component';
-import { CategoryComponent } from './category/category.component';
-
+import { AppDetailComponent } from './components/app-detail/app-detail.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { CategoryComponent } from './components/category/category.component';
+import { IndexComponent } from './components/index/index.component';
+import { DownloadComponent } from './components/download/download.component';
+import { UpdateComponent } from './components/update/update.component';
+import { UninstallComponent } from './components/uninstall/uninstall.component';
+import { RankingComponent } from './components/ranking/ranking.component';
+import { AppListComponent } from './components/app-list/app-list.component';
+import { AppTitleComponent } from './components/app-title/app-title.component';
 
 @NgModule({
   declarations: [
@@ -21,17 +32,27 @@ import { CategoryComponent } from './category/category.component';
     DownloadComponent,
     UninstallComponent,
     UpdateComponent,
-    NavBarComponent
+    SideNavComponent,
+    CategoryComponent,
+    IndexComponent,
+    DownloadComponent,
+    UpdateComponent,
+    UninstallComponent,
+    RankingComponent,
+    AppListComponent,
+    AppTitleComponent
   ],
-  imports: [
-    BrowserModule,
-    RoutingModule
+  imports: [BrowserModule, HttpClientModule, DstoreModule, RoutingModule],
+  providers: [
+    AppService,
+    CategoryService,
+    SectionService,
+    DownloadService,
+    {
+      provide: LOCALE_ID,
+      useValue: Locale.getPcp47Locale()
+    }
   ],
-  providers: [{
-    provide: LOCALE_ID,
-    useValue: Locale.getPcp47Locale()
-  }],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

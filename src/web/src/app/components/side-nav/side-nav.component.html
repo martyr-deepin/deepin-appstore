@@ -1,0 +1,21 @@
+<div class="nav">
+  <div class="navItem" routerLinkActive="active" [routerLink]="['index']">
+    首页推荐
+  </div>
+  <div class="navItem" routerLinkActive="active" [routerLink]="['ranking']">
+    排行榜
+  </div>
+  <div class="navItem" [routerLink]="['category',c.id]" routerLinkActive="active" *ngFor="let c of cs">
+    {{c.title}}
+  </div>
+  <hr>
+  <div i18n class="navItem" routerLinkActive="active" [routerLink]="['download']">
+    Download
+  </div>
+  <div i18n class="navItem" routerLinkActive="active" [routerLink]="['update']">
+    Update
+  </div>
+  <div i18n class="navItem" routerLinkActive="active" [routerLink]="['uninstall']">
+    Uninstall
+  </div>
+</div>

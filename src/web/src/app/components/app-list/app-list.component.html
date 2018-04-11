@@ -1,0 +1,15 @@
+<div class="appList">
+  <div class="app" *ngFor="let app of appsObs|async">
+    <img class="cover" src="http://10.0.12.148:8000/images%2Fzeroballistics_cover_zh-CN_077fb552.jpeg">
+    <div class="name">
+      {{app.localInfo.description.name}}
+    </div>
+    <div class="info">
+      <span class="category">{{app.localCategory}}</span>
+      <span class="score">
+        <div></div>
+      </span>
+    </div>
+  </div>
+  <div class="app" *ngFor="let a of [1,2,3,4,5,6]"></div>
+</div>

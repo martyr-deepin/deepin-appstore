@@ -1,4 +1,9 @@
-import { enableProdMode, MissingTranslationStrategy, TRANSLATIONS, TRANSLATIONS_FORMAT } from '@angular/core';
+import {
+  enableProdMode,
+  MissingTranslationStrategy,
+  TRANSLATIONS,
+  TRANSLATIONS_FORMAT
+} from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
@@ -33,14 +38,16 @@ const bootstrap = () => {
   } else {
     compilerOptions = [];
   }
-  platformBrowserDynamic().bootstrapModule(AppModule, ...compilerOptions)
+  platformBrowserDynamic()
+    .bootstrapModule(AppModule, ...compilerOptions)
     .catch(err => console.log(err));
 };
 
 if (window['QWebChannel'] !== undefined) {
   // Native client mode.
   // noinspection TsLint
-  new window['QWebChannel'](window['qt'].webChannelTransport, (channel) => {
+  // tslint:disable-next-line:no-unused-expression
+  new window['QWebChannel'](window['qt'].webChannelTransport, channel => {
     window['channel'] = channel;
     bootstrap();
   });

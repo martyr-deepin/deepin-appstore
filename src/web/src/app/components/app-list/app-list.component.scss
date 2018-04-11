@@ -1,0 +1,38 @@
+.appList {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+  .app {
+    width: 228px;
+    margin: 1rem;
+    .cover {
+      border-radius: 5px;
+    }
+    .info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      .category {
+        color: gray;
+      }
+      .score {
+        position: relative;
+        font-size: 8px;
+        div {
+          position: absolute;
+          overflow: hidden;
+          &::before {
+            content: '★★★★★';
+            color: darkgoldenrod;
+            font-weight: bold;
+          }
+        }
+        &::after {
+          content: '★★★★★';
+          color: lightgray;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.sectionList {
+  width: 1000px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(5rem, auto);
+}

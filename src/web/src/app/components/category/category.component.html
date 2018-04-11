@@ -1,0 +1,8 @@
+<app-app-title [title]="(categoryObs|async)?.title" [sortBy]="sortBy" (sort)="sortBy=$event"></app-app-title>
+<ng-container *ngIf="appsObs|async as apps; else loading">
+  <app-app-list [apps]="apps" [sortBy]="sortBy">
+  </app-app-list>
+</ng-container>
+<ng-template #loading>
+  loading...
+</ng-template>

@@ -8,5 +8,5 @@ export const environment = {
 
   // Server address only used in browser mode.
   metadataServer: 'http://10.0.12.148:8000',
-  operationServer: 'http://10.0.12.148:8100',
+  operationServer: 'http://10.0.12.148:8100'
 };
