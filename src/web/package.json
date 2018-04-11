@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --output-path=../web_dist",
+    "build": "ng build --prod --no-aot --output-path=../web_dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
