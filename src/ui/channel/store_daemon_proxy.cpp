@@ -23,18 +23,19 @@
 
 namespace dstore {
 
-StoreDaemonProxy::StoreDaemonProxy(QObject* parent) : QObject(parent) {
+StoreDaemonProxy::StoreDaemonProxy(QObject* parent)
+    : QObject(parent),
+      manager_(new LastoreManagerInterface(
+          kLastoreManagerService,
+          kLastoreManagerPath,
+          QDBusConnection::systemBus(),
+          this)),
+      updater_(new LastoreUpdaterInterface(
+          kLastoreUpdaterService,
+          kLastoreUpdaterPath,
+          QDBusConnection::systemBus(),
+          this)) {
   this->setObjectName("StoreDaemonProxy");
-  manager_ = new LastoreManagerInterface(
-      kLastoreManagerService,
-      kLastoreManagerPath,
-      QDBusConnection::systemBus(),
-      this);
-  updater_ = new LastoreUpdaterInterface(
-      kLastoreUpdaterService,
-      kLastoreUpdaterPath,
-      QDBusConnection::systemBus(),
-      this);
   AppUpdateInfo::registerMetaType();
   LocaleMirrorSource::registerMetaType();
 }
