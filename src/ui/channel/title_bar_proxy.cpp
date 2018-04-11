@@ -20,7 +20,7 @@
 namespace dstore {
 
 TitleBarProxy::TitleBarProxy(QObject* parent) : QObject(parent) {
-
+  this->setObjectName("TitleBarProxy");
 }
 
 TitleBarProxy::~TitleBarProxy() {

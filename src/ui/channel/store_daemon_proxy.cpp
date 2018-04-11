@@ -24,6 +24,7 @@
 namespace dstore {
 
 StoreDaemonProxy::StoreDaemonProxy(QObject* parent) : QObject(parent) {
+  this->setObjectName("StoreDaemonProxy");
   manager_ = new LastoreManagerInterface(
       kLastoreManagerService,
       kLastoreManagerPath,

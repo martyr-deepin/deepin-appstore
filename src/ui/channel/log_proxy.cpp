@@ -22,7 +22,7 @@
 namespace dstore {
 
 LogProxy::LogProxy(QObject* parent) : QObject(parent) {
-
+  this->setObjectName("LogProxy");
 }
 
 LogProxy::~LogProxy() {

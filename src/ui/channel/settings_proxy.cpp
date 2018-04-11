@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2017 ~ $year Deepin Technology Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,23 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ui/channel/image_viewer_proxy.h"
-
-#include "ui/widgets/image_viewer.h"
+#include "ui/channel/settings_proxy.h"
 
 namespace dstore {
 
-ImageViewerProxy::ImageViewerProxy(ImageViewer* viewer, QObject* parent)
-    : QObject(parent), viewer_(viewer) {
-  this->setObjectName("ImageViewerProxy");
+SettingsProxy::SettingsProxy(QObject* parent) : QObject(parent) {
+  this->setObjectName("SettingsProxy");
 }
 
-ImageViewerProxy::~ImageViewerProxy() {
+SettingsProxy::~SettingsProxy() {
 
-}
-
-void ImageViewerProxy::open(const QString& filepath) {
-  viewer_->open(filepath);
 }
 
 }  // namespace dstore
