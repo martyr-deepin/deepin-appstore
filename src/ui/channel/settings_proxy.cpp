@@ -17,6 +17,8 @@
 
 #include "ui/channel/settings_proxy.h"
 
+#include "services/settings_manager.h"
+
 namespace dstore {
 
 SettingsProxy::SettingsProxy(QObject* parent) : QObject(parent) {
@@ -25,6 +27,14 @@ SettingsProxy::SettingsProxy(QObject* parent) : QObject(parent) {
 
 SettingsProxy::~SettingsProxy() {
 
+}
+
+QString SettingsProxy::getMetadataServer() {
+  return GetMetadataServer();
+}
+
+QString SettingsProxy::getOperationServer() {
+  return GetOperationServer();
 }
 
 }  // namespace dstore

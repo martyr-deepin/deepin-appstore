@@ -30,6 +30,7 @@
 #include "services/settings_manager.h"
 #include "ui/channel/image_viewer_proxy.h"
 #include "ui/channel/log_proxy.h"
+#include "ui/channel/settings_proxy.h"
 #include "ui/channel/store_daemon_proxy.h"
 #include "ui/channel/title_bar_proxy.h"
 #include "ui/widgets/image_viewer.h"
@@ -84,11 +85,13 @@ void WebWindow::initProxy() {
   auto web_channel = web_view_->page()->webChannel();
   image_viewer_proxy_ = new ImageViewerProxy(image_viewer_, this);
   log_proxy_ = new LogProxy(this);
-  title_bar_proxy_ = new TitleBarProxy(this);
+  settings_proxy_ = new SettingsProxy(this);
   store_daemon_proxy_ = new StoreDaemonProxy(this);
+  title_bar_proxy_ = new TitleBarProxy(this);
 
   web_channel->registerObject("imageViewer", image_viewer_proxy_);
   web_channel->registerObject("log", log_proxy_);
+  web_channel->registerObject("settings", settings_proxy_);
   web_channel->registerObject("storeDaemon", store_daemon_proxy_);
   web_channel->registerObject("titleBar", title_bar_proxy_);
 }

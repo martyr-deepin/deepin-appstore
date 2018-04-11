@@ -22,11 +22,18 @@
 
 namespace dstore {
 
+/**
+ * Expose backend settings to web page.
+ */
 class SettingsProxy : public QObject {
   Q_OBJECT
  public:
   explicit SettingsProxy(QObject* parent = nullptr);
   ~SettingsProxy() override;
+
+ public slots:
+  QString getMetadataServer();
+  QString getOperationServer();
 };
 
 }  // namespace dstore
