@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { App } from '../../dstore/services/app';
+import { AppService } from '../../dstore/services/app.service';
+import { BaseService } from '../../dstore/services/base.service';
 
 @Component({
   selector: 'app-download',
@@ -6,7 +11,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./download.component.scss']
 })
 export class DownloadComponent implements OnInit {
-  constructor() {}
+  metadataServer: string;
+  constructor(
+    private appService: AppService,
+    private baseService: BaseService
+  ) {}
 
-  ngOnInit() {}
+  appsObs: Observable<App[]>;
+  ngOnInit() {
+    this.metadataServer = this.baseService.serverHosts.metadataServer;
+    this.appsObs = this.getList();
+  }
+  getList() {
+    return this.appService.getAppList().map(apps => apps.slice(0, 10));
+  }
 }

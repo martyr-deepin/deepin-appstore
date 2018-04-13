@@ -1,0 +1,58 @@
+:host {
+  display: block;
+  margin: 1rem 3rem;
+}
+
+.title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  padding-bottom: 10px;
+}
+.list {
+  .item {
+    margin: 1rem 0;
+    display: flex;
+    .content {
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      .appInfo {
+        flex: 5;
+        display: flex;
+        flex-direction: column;
+        height: 48px;
+        justify-content: space-between;
+        .version {
+          color: gray;
+          font-size: 14px;
+        }
+      }
+      .time {
+        flex: 2;
+        color: gray;
+      }
+      .progressInfo {
+        flex: 2;
+        progress {
+          width: 100%;
+        }
+        .speed {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      .btnGroup {
+        flex: 1;
+        text-align: right;
+        .close {
+          border-radius: 50%;
+          padding: 8px;
+          font-size: 10px;
+          box-shadow: 0 0 1px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
