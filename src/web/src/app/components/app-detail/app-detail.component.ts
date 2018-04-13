@@ -1,15 +1,46 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+
+import { App } from '../../dstore/services/app';
+import { AppService } from '../../services/app.service';
+import { BaseService } from '../../dstore/services/base.service';
 
 @Component({
   selector: 'app-app-detail',
   templateUrl: './app-detail.component.html',
-  styleUrls: ['./app-detail.component.css']
+  styleUrls: ['./app-detail.component.scss']
 })
 export class AppDetailComponent implements OnInit {
-
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private appService: AppService,
+    private baseService: BaseService
+  ) {}
+  metadataServer: string;
+  appObs: Observable<App>;
 
   ngOnInit() {
+    this.metadataServer = this.baseService.serverHosts.metadataServer;
+    this.appObs = this.route.paramMap.mergeMap(param => {
+      return this.appService.getApp(param.get('appName'));
+    });
   }
+  screenshotClick(event: MouseEvent, index: number) {
+    (<HTMLElement>event.target).scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'nearest'
+    });
+  }
+}
 
+interface Desc {
+  Rate: number;
+  Category: number;
+  Version: string;
+  Size: string;
+  UpdateDate: Date;
+  OfficialWebsite: string;
+  Introduction: string;
 }

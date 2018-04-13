@@ -1,0 +1,143 @@
+:host {
+  margin: 1.5rem;
+  display: block;
+}
+.appInfo {
+  display: flex;
+  .info-left {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .controlBtn {
+      width: 8rem;
+      text-align: center;
+      background-color: #34b2f9;
+      color: white;
+      border-radius: 5px;
+    }
+  }
+  .info-right {
+    flex: 9;
+    .title {
+      font-size: 2em;
+    }
+    .content {
+      display: flex;
+      .desc {
+        div {
+          height: 2rem;
+          color: gray;
+          text-align: right;
+          white-space: nowrap;
+          &::after {
+            content: '：';
+          }
+        }
+      }
+      .info {
+        div {
+          min-height: 2rem;
+        }
+      }
+    }
+  }
+}
+.score {
+  position: relative;
+  font-size: 8px;
+  div:first-child {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    &::before {
+      content: '★★★★★';
+      color: darkgoldenrod;
+      font-weight: bold;
+    }
+  }
+  &::before {
+    content: '★★★★★';
+    color: lightgray;
+    font-weight: bold;
+  }
+  .details {
+    word-spacing: 1rem;
+  }
+}
+
+.screenshots {
+  .imgList {
+    display: flex;
+    div {
+      margin: 1rem 2rem;
+      margin-left: 0;
+      border: 1px solid blue;
+      img {
+        height: 200px;
+      }
+    }
+  }
+  overflow-x: hidden;
+}
+
+.tip {
+  text-align: center;
+  .tipButton {
+    display: -webkit-inline-box;
+    padding: 0.8rem 2rem;
+    border-radius: 5px;
+    border: 1px solid;
+    word-spacing: 0.3rem;
+    color: #0c9cf0;
+  }
+  .tipList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .iconList {
+      margin-right: 1rem;
+      border: #0c9cf0;
+      .icon {
+        margin: -0.5rem;
+      }
+    }
+  }
+}
+
+.comment {
+  font-size: 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  padding: 0 1rem;
+  .title {
+    padding: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  .input-box {
+    position: relative;
+    .input {
+      border: 0px;
+      outline: 0px;
+      margin: 0px;
+      height: 8em;
+      resize: none;
+    }
+    .placeholder {
+      position: absolute;
+      left: 50%;
+      top: 40%;
+    }
+    .loginBtn {
+      position: absolute;
+      padding: 0.5rem 1.5rem;
+      border-radius: 5px;
+      top: 40%;
+      left: 50%;
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+    }
+  }
+}

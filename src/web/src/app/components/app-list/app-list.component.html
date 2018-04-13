@@ -1,5 +1,5 @@
-<div class="appList" *ngIf="appsObs|async as apps">
-  <div class="app" *ngFor="let app of apps" [routerLink]="app.name">
+<div class="appList">
+  <div class="app" *ngFor="let app of appList" [routerLink]="app.name">
     <img class="cover" src="http://10.0.12.148:8000/images%2Fzeroballistics_cover_zh-CN_077fb552.jpeg">
     <div class="name">
       {{app.localInfo.description.name}}
@@ -7,7 +7,7 @@
     <div class="info">
       <span class="category">{{app.localCategory}}</span>
       <span class="score">
-        <div></div>
+        <div [style.width.em]="app.rate"></div>
       </span>
     </div>
   </div>
