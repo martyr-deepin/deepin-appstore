@@ -1,6 +1,6 @@
 .idea/
 .directory
-
+build/
 # Qt Creator
 *.autosave
 *.user

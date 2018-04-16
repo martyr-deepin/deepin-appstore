@@ -17,6 +17,7 @@ export class AppDetailComponent implements OnInit {
     private appService: AppService,
     private baseService: BaseService
   ) {}
+
   metadataServer: string;
   appObs: Observable<App>;
 
@@ -32,6 +33,9 @@ export class AppDetailComponent implements OnInit {
       inline: 'center',
       block: 'nearest'
     });
+  }
+  log(v) {
+    console.log(v);
   }
 }
 

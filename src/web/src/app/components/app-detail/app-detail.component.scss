@@ -105,39 +105,3 @@
     }
   }
 }
-
-.comment {
-  font-size: 12px;
-  border-radius: 4px;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-  padding: 0 1rem;
-  .title {
-    padding: 0.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  }
-  .input-box {
-    position: relative;
-    .input {
-      border: 0px;
-      outline: 0px;
-      margin: 0px;
-      height: 8em;
-      resize: none;
-    }
-    .placeholder {
-      position: absolute;
-      left: 50%;
-      top: 40%;
-    }
-    .loginBtn {
-      position: absolute;
-      padding: 0.5rem 1.5rem;
-      border-radius: 5px;
-      top: 40%;
-      left: 50%;
-      box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-    }
-  }
-}

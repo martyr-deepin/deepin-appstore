@@ -1,4 +1,4 @@
-<ng-container *ngIf="appObs|async as app">
+<div *ngIf="appObs|async as app">
   <div class="appInfo">
     <div class="info-left">
       <img class="icon" [src]="metadataServer+'/'+app.icon">
@@ -25,7 +25,7 @@
             </div>
           </div>
           <div>{{app.localCategory}}</div>
-          <div>5.10</div>
+          <div>5.10</div>grb
           <div></div>
           <div>{{app.updateTime.toLocaleDateString()}}</div>
           <div>{{app.homePage}}</div>
@@ -46,6 +46,7 @@
   <div class="tip">
     <div class="tipButton">Tip</div>
     <div>
+      <br>
       <span class="tipList">
         <div class="iconList">
           <img class="icon" [src]="metadataServer+'/'+app.icon">
@@ -55,30 +56,9 @@
         </div>
         等20人
       </span>
+      <br>
     </div>
   </div>
 
-  <div class="comment">
-    <div class="title">
-      <span>请登录后对应用进行评价</span>
-      <a href="">注册</a>
-    </div>
-    <div class="input-box">
-      <div class="loginBtn" (click)="placeholder.hidden=false; input.removeAttribute('readOnly'); btn.hidden=true" #btn>登录</div>
-      <textarea class="input" #input readonly (input)="placeholder.hidden=true"></textarea>
-      <span class="placeholder" #placeholder hidden>请输入评论内容</span>
-    </div>
-  </div>
-  <br>
-  <br>
-  <!-- <div class="commentList">
-    <div>用户评价</div>
-    <div class="commentItem">
-      <div class="head">
-        <img class="icon" [src]="metadataServer+'/'+app.icon">
-        <span>用户名</span>
-      </div>
-    </div>
-  </div> -->
-
-</ng-container>
+  <app-app-comment></app-app-comment>
+</div>

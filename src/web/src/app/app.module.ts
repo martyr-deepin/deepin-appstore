@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -11,6 +12,8 @@ import { AppService } from './services/app.service';
 import { CategoryService } from './services/category.service';
 import { SectionService } from './services/section.service';
 import { DownloadService } from './services/download.service';
+import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 import { AppComponent } from './app.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
@@ -23,6 +26,7 @@ import { UninstallComponent } from './components/uninstall/uninstall.component';
 import { RankingComponent } from './components/ranking/ranking.component';
 import { AppListComponent } from './components/app-list/app-list.component';
 import { AppTitleComponent } from './components/app-title/app-title.component';
+import { AppCommentComponent } from './components/app-comment/app-comment.component';
 
 @NgModule({
   declarations: [
@@ -40,14 +44,24 @@ import { AppTitleComponent } from './components/app-title/app-title.component';
     UninstallComponent,
     RankingComponent,
     AppListComponent,
-    AppTitleComponent
+    AppTitleComponent,
+    AppCommentComponent
   ],
-  imports: [BrowserModule, HttpClientModule, DstoreModule, RoutingModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    DstoreModule,
+    RoutingModule
+  ],
   providers: [
     AppService,
     CategoryService,
     SectionService,
     DownloadService,
+    AuthGuardService,
+    AuthService,
     {
       provide: LOCALE_ID,
       useValue: Locale.getPcp47Locale()
