@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 
 import { BaseService } from '../dstore/services/base.service';
