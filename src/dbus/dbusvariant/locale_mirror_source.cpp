@@ -73,3 +73,21 @@ const QDataStream& operator>>(QDataStream& stream, LocaleMirrorSource& src) {
          >> src.name;
   return stream;
 }
+
+const QVariantMap LocaleMirrorSource::toVariantMap() const {
+  const QVariantMap result {
+      { "id", this->id },
+      { "url", this->url },
+      { "name", this->name }
+  };
+  return result;
+}
+
+const QVariantList LocaleMirrorSourceListToVariant(
+    const LocaleMirrorSourceList& list) {
+  QVariantList result;
+  for (const LocaleMirrorSource& mirror : list) {
+    result.append(mirror.toVariantMap());
+  }
+  return result;
+}

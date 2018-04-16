@@ -77,8 +77,8 @@ class StoreDaemonProxy : public QObject {
 
 
   // Store Updater methods:
-  AppUpdateInfoList applicationUpdateInfos(const QString& language);
-  LocaleMirrorSourceList listMirrorSources(const QString& language);
+  const QVariantList applicationUpdateInfos(const QString& language);
+  const QVariantList listMirrorSources(const QString& language);
   void setAutoCheckUpdates(bool check);
   void setAutoDownloadUpdates(bool update);
   void setMirrorSource(const QString& id);

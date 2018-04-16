@@ -42,6 +42,8 @@ struct AppUpdateInfo {
                                          AppUpdateInfo& info);
   friend const QDataStream& operator>>(QDataStream& stream, AppUpdateInfo& info);
 
+  const QVariantMap toVariantMap() const;
+
   QString id;
   QString name;
   QString icon;
@@ -53,5 +55,7 @@ struct AppUpdateInfo {
 typedef QList<AppUpdateInfo> AppUpdateInfoList;
 Q_DECLARE_METATYPE(AppUpdateInfo)
 Q_DECLARE_METATYPE(AppUpdateInfoList)
+
+const QVariantList AppUpdateInfoListToVariant(const AppUpdateInfoList& list);
 
 #endif  // DEEPIN_APPSTORE_DBUS_DBUS_VARIANT_APP_UPDATE_INFO_H

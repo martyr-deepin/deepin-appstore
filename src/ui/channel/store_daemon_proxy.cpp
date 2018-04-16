@@ -151,14 +151,17 @@ QStringList StoreDaemonProxy::upgradableApps() {
   return manager_->upgradableApps();
 }
 
-AppUpdateInfoList StoreDaemonProxy::applicationUpdateInfos(
+const QVariantList StoreDaemonProxy::applicationUpdateInfos(
     const QString& language) {
-  return updater_->ApplicationUpdateInfos(language);
+  const AppUpdateInfoList list = updater_->ApplicationUpdateInfos(language);
+  qDebug() << Q_FUNC_INFO << language << list;
+  return AppUpdateInfoListToVariant(list);
 }
 
-LocaleMirrorSourceList StoreDaemonProxy::listMirrorSources(
+const QVariantList StoreDaemonProxy::listMirrorSources(
     const QString& language) {
-  return updater_->ListMirrorSources(language);
+  const LocaleMirrorSourceList mirrors = updater_->ListMirrorSources(language);
+  return LocaleMirrorSourceListToVariant(mirrors);
 }
 
 void StoreDaemonProxy::setAutoCheckUpdates(bool check) {

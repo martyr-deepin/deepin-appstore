@@ -87,3 +87,23 @@ const QDataStream& operator>>(QDataStream& stream, AppUpdateInfo& info) {
          >> info.changelog;
   return stream;
 }
+
+const QVariantMap AppUpdateInfo::toVariantMap() const {
+  const QVariantMap result {
+      { "id", this->id },
+      { "name", this->name },
+      { "icon", this->icon },
+      { "currentVersion", this->current_version },
+      { "lastVersion", this->last_version },
+      { "changeLog", this->changelog },
+  };
+  return result;
+}
+
+const QVariantList AppUpdateInfoListToVariant(const AppUpdateInfoList& list) {
+  QVariantList result;
+  for (const AppUpdateInfo& info : list) {
+    result.append(info.toVariantMap());
+  }
+  return result;
+}

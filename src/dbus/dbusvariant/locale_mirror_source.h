@@ -43,6 +43,12 @@ struct LocaleMirrorSource {
   friend const QDataStream& operator>>(QDataStream& stream,
                                        LocaleMirrorSource& src);
 
+  /**
+   * Convert instance of this class to a variant map.
+   * @return
+   */
+  const QVariantMap toVariantMap() const;
+
   QString id;
   QString url;
   QString name;
@@ -51,5 +57,8 @@ struct LocaleMirrorSource {
 typedef QList<LocaleMirrorSource> LocaleMirrorSourceList;
 Q_DECLARE_METATYPE(LocaleMirrorSource)
 Q_DECLARE_METATYPE(LocaleMirrorSourceList)
+
+const QVariantList LocaleMirrorSourceListToVariant(
+    const LocaleMirrorSourceList& list);
 
 #endif  // DEEPIN_APPSTORE_DBUS_DBUS_VARIANT_LOCALE_MIRROR_SOURCE_H
