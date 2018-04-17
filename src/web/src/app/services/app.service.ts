@@ -24,7 +24,7 @@ export class AppService {
     this._list = this.getList().shareReplay();
   }
 
-  get list() {
+  get list() : Observable<App[]> {
     return this._list;
   }
 
