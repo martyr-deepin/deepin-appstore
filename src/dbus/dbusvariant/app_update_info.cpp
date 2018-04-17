@@ -37,8 +37,7 @@ QDebug operator<<(QDebug debug, const AppUpdateInfo& info) {
         << info.name
         << info.icon
         << info.current_version
-        << info.last_version
-        << info.changelog;
+        << info.last_version;
   return debug;
 }
 
@@ -49,8 +48,7 @@ QDBusArgument& operator<<(QDBusArgument& argument,
            << info.name
            << info.icon
            << info.current_version
-           << info.last_version
-           << info.changelog;
+           << info.last_version;
   argument.endStructure();
   return argument;
 }
@@ -60,8 +58,7 @@ QDataStream& operator<<(QDataStream& stream, const AppUpdateInfo& info) {
          << info.name
          << info.icon
          << info.current_version
-         << info.last_version
-         << info.changelog;
+         << info.last_version;
   return stream;
 }
 
@@ -72,8 +69,7 @@ const QDBusArgument& operator>>(const QDBusArgument& argument,
            >> info.name
            >> info.icon
            >> info.current_version
-           >> info.last_version
-           >> info.changelog;
+           >> info.last_version;
   argument.endStructure();
   return argument;
 }
@@ -83,8 +79,7 @@ const QDataStream& operator>>(QDataStream& stream, AppUpdateInfo& info) {
          >> info.name
          >> info.icon
          >> info.current_version
-         >> info.last_version
-         >> info.changelog;
+         >> info.last_version;
   return stream;
 }
 
@@ -95,7 +90,6 @@ const QVariantMap AppUpdateInfo::toVariantMap() const {
       { "icon", this->icon },
       { "currentVersion", this->current_version },
       { "lastVersion", this->last_version },
-      { "changeLog", this->changelog },
   };
   return result;
 }

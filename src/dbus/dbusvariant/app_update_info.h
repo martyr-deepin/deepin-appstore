@@ -49,7 +49,6 @@ struct AppUpdateInfo {
   QString icon;
   QString current_version;
   QString last_version;
-  QString changelog;
 };
 
 typedef QList<AppUpdateInfo> AppUpdateInfoList;
