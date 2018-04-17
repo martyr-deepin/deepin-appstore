@@ -29,12 +29,19 @@ SettingsProxy::~SettingsProxy() {
 
 }
 
-QString SettingsProxy::getMetadataServer() {
+const QString SettingsProxy::getMetadataServer() {
   return GetMetadataServer();
 }
 
-QString SettingsProxy::getOperationServer() {
+const QString SettingsProxy::getOperationServer() {
   return GetOperationServer();
+}
+
+const QVariantMap SettingsProxy::getServers() {
+  return QVariantMap {
+      { "metadataServer", GetMetadataServer() },
+      { "operationServer", GetOperationServer() },
+    };
 }
 
 }  // namespace dstore

@@ -19,6 +19,7 @@
 #define DEEPIN_APPSTORE_UI_CHANNEL_SETTINGS_PROXY_H
 
 #include <QObject>
+#include <QVariantMap>
 
 namespace dstore {
 
@@ -32,8 +33,14 @@ class SettingsProxy : public QObject {
   ~SettingsProxy() override;
 
  public slots:
-  QString getMetadataServer();
-  QString getOperationServer();
+  const QString getMetadataServer();
+  const QString getOperationServer();
+
+  /**
+   * Returns metadata server and operation server address.
+   * @return
+   */
+  const QVariantMap getServers();
 };
 
 }  // namespace dstore
