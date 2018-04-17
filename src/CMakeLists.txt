@@ -120,6 +120,8 @@ set(SERVICES_FILES
     )
 
 set(UI_FILES
+    ui/web_event_delegate.cpp
+    ui/web_event_delegate.h
     ui/web_window.cpp
     ui/web_window.h
 

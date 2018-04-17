@@ -35,6 +35,7 @@ class StoreDaemonProxy;
 class TitleBar;
 class TitleBarProxy;
 class TitleBarMenu;
+class WebEventDelegate;
 
 /**
  * Main window of app store.
@@ -77,6 +78,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
   TitleBar* title_bar_ = nullptr;
   TitleBarProxy* title_bar_proxy_ = nullptr;
+  WebEventDelegate* web_event_delegate_ = nullptr;
 
   TitleBarMenu* tool_bar_menu_ = nullptr;
 

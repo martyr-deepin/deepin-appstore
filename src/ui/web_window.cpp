@@ -28,6 +28,7 @@
 
 #include "base/consts.h"
 #include "services/settings_manager.h"
+#include "ui/web_event_delegate.h"
 #include "ui/channel/image_viewer_proxy.h"
 #include "ui/channel/log_proxy.h"
 #include "ui/channel/settings_proxy.h"
@@ -117,6 +118,9 @@ void WebWindow::initUI() {
   // Disable web security.
   auto settings = web_view_->page()->settings();
   settings->setWebSecurity(QCefWebSettings::StateDisabled);
+
+  web_event_delegate_ = new WebEventDelegate(this);
+  web_view_->page()->setEventDelegate(web_event_delegate_);
 
   this->setFocusPolicy(Qt::ClickFocus);
 }
