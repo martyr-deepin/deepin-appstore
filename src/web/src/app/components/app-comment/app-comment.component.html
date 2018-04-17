@@ -15,8 +15,8 @@
       <div class="title">
         <span class="star">
           <div>您的评分</div>
-          <dstore-star #star></dstore-star>
-          <div>{{star.rateHover||star.rate}}</div>
+          <dstore-star #star [readonly]="false"></dstore-star>
+          <div>{{star.rateHover||star.rate}}分</div>
         </span>
         <a href=""></a>
       </div>

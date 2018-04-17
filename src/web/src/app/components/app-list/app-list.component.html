@@ -6,9 +6,7 @@
     </div>
     <div class="info">
       <span class="category">{{app.localCategory}}</span>
-      <span class="score">
-        <div [style.width.em]="app.rate"></div>
-      </span>
+      <dstore-star [rate]="app.rate"></dstore-star>
     </div>
   </div>
   <div class="app" *ngFor="let a of [1,2,3,4,5,6]"></div>
