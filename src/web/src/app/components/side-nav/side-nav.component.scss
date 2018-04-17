@@ -1,18 +1,25 @@
 .nav {
   user-select: none;
+  min-width: 130px;
   text-align: center;
   .navItem {
-    padding: 0.4rem;
-    margin-bottom: 1rem;
+    font-size: 14px;
+    padding: 6px 0;
+    margin-bottom: 6px;
     outline: none;
     cursor: pointer;
+    border-right: 3px solid transparent;
     &.active {
-      border-right: 3px solid #26a2f1;
+      border-right: 3px solid #2ca7f8;
       background-color: #d6eefe;
-      color: #53a8e0;
+      color: #2ca7f8;
     }
     &:not(.active):hover {
-      background-color: lightgray;
+      background-color: rgba(0, 0, 0, 0.1);
     }
+  }
+  .hr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 6px;
   }
 }
