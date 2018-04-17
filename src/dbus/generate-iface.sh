@@ -18,3 +18,7 @@ qdbusxml2cpp com.deepin.lastore.updater.xml \
   -i dbus/dbusvariant/app_update_info.h \
   -i dbus/dbusvariant/locale_mirror_source.h \
   -c LastoreUpdaterInterface
+
+qdbusxml2cpp com.deepin.lastore.job.xml \
+  -p lastore_job_interface \
+  -c LastoreJobInterface

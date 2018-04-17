@@ -29,6 +29,8 @@ extern const char kLastoreManagerService[];
 extern const char kLastoreUpdaterPath[];
 extern const char kLastoreUpdaterService[];
 
+extern const char kLastoreJobService[];
+
 }  // namespace dstore
 
 #endif  // DEEPIN_APPSTORE_DBUS_DBUS_CONSTS_H

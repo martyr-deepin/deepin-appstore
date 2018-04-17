@@ -28,4 +28,6 @@ const char kLastoreManagerService[] = "com.deepin.lastore";
 const char kLastoreUpdaterPath[] = "/com/deepin/lastore";
 const char kLastoreUpdaterService[] = "com.deepin.lastore";
 
+const char kLastoreJobService[] = "com.deepin.lastore";
+
 }  // namespace dstore
