@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 
 import { App } from '../../dstore/services/app';
 import { AppService } from '../../services/app.service';
@@ -27,12 +28,14 @@ export class AppDetailComponent implements OnInit {
       return this.appService.getApp(param.get('appName'));
     });
   }
-  screenshotClick(event: MouseEvent, index: number) {
-    (<HTMLElement>event.target).scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center',
-      block: 'nearest'
-    });
+  screenshotClick(elID: string) {
+    ScrollIntoView(document.getElementById(elID));
+    // chrome version 61 support
+    // (<HTMLElement>event.target).scrollIntoView({
+    //   behavior: 'smooth',
+    //   inline: 'center',
+    //   block: 'nearest'
+    // });
   }
   log(v) {
     console.log(v);

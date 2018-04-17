@@ -37,11 +37,12 @@
 
   <div class="screenshots">
     <div class="imgList">
-      <div *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index">
-        <img [src]="metadataServer+'/'+screenshot" (click)="screenshotClick($event,$index)">
+      <div *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index" [id]="'screenshot-'+$index">
+        <img [src]="metadataServer+'/'+screenshot" (click)="screenshotClick('screenshot-'+$index);indication.selectIndex=$index">
       </div>
     </div>
   </div>
+  <dstore-indication [count]="app.localInfo.images.screenshot.length" #indication (change)="screenshotClick('screenshot-'+$event)"></dstore-indication>
 
   <div class="tip">
     <div class="tipButton">Tip</div>

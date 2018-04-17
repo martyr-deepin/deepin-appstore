@@ -29,6 +29,7 @@
     "materialize-css": "^0.100.2",
     "node-sass": "^4.8.3",
     "rxjs": "^5.5.10",
+    "scroll-into-view": "^1.9.3",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
