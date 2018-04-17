@@ -20,9 +20,9 @@
         </span>
         <a href=""></a>
       </div>
-      <div class="input-box">
-        <textarea class="input" name="comment"></textarea>
-        <span class="placeholder">请输入评论内容</span>
+      <div class="input-box" (click)="input.focus()">
+        <textarea class="input" #input (keyup)="null"></textarea>
+        <span class="placeholder" [hidden]="input.value">请输入评论内容</span>
       </div>
     </div>
   </form>

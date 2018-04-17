@@ -13,7 +13,7 @@ import { BaseService } from '../../dstore/services/base.service';
 export class AppCommentComponent implements OnInit {
   operationServer: string;
   authUrl: SafeUrl;
-  comment = '';
+  commentContext = '';
   constructor(
     private baseService: BaseService,
     private domSanitizer: DomSanitizer,
