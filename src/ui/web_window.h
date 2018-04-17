@@ -30,6 +30,7 @@ class ImageViewerProxy;
 class LogProxy;
 class RecommendApp;
 class SearchCompletionWindow;
+class SearchProxy;
 class SettingsProxy;
 class StoreDaemonProxy;
 class TitleBar;
@@ -74,6 +75,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   LogProxy* log_proxy_ = nullptr;
   RecommendApp* recommend_app_ = nullptr;
   SearchCompletionWindow* completion_window_ = nullptr;
+  SearchProxy* search_proxy_ = nullptr;
   SettingsProxy* settings_proxy_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
   TitleBar* title_bar_ = nullptr;
