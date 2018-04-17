@@ -48,8 +48,15 @@ if (window['QWebChannel'] !== undefined) {
   // noinspection TsLint
   // tslint:disable-next-line:no-unused-expression
   new window['QWebChannel'](window['qt'].webChannelTransport, channel => {
-    window['channel'] = channel;
-    bootstrap();
+    window['dstore'] = {};
+    window['dstore']['channel'] = channel;
+    channel.objects.settings.getServers((obj: Object) => {
+      // These properties are defined in src/ui/channel/settings_proxy.cpp
+      window['dstore']['metadataServer'] = obj['metadataServer'];
+      window['dstore']['operationServer'] = obj['operationServer'];
+
+      bootstrap();
+    });
   });
 } else {
   // Browser mode.
