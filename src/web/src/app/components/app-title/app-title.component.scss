@@ -2,8 +2,9 @@
   user-select: none;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  align-items: center;
+  height: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   .count {
     font-size: 0.5rem;
     color: gray;
