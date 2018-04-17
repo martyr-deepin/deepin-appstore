@@ -1,3 +1,13 @@
+<dialog #dialog (click)="dialog.close()" class="loginDialog">
+  <ng-container *ngIf="!isLoggedIn">
+    <iframe [src]="authUrl" frameborder="0" [hidden]="iframeLoading" (load)="iframeLoad($event)"></iframe>
+    <div class="progress" *ngIf="iframeLoading">
+      <progress></progress>
+      <div>登录页面加载中...</div>
+    </div>
+  </ng-container>
+</dialog>
+
 <div class="comment" *ngIf="!isLoggedIn;else comment">
   <div class="title">
     <span>请登录后对应用进行评价</span>
@@ -9,31 +19,21 @@
     <span class="placeholder" hidden>请输入评论内容</span>
   </div>
 </div>
-<ng-template #comment>
-  <form action="">
-    <div class="comment">
-      <div class="title">
-        <span class="star">
-          <div>您的评分</div>
-          <dstore-star #star [readonly]="false"></dstore-star>
-          <div>{{star.rateHover||star.rate}}分</div>
-        </span>
-        <a href=""></a>
-      </div>
-      <div class="input-box" (click)="input.focus()">
-        <textarea class="input" #input (keyup)="null"></textarea>
-        <span class="placeholder" [hidden]="input.value">请输入评论内容</span>
-      </div>
-    </div>
-  </form>
-</ng-template>
 
-<dialog #dialog (click)="dialog.close()" class="loginDialog">
-  <ng-container *ngIf="!isLoggedIn">
-    <iframe [src]="authUrl" frameborder="0" [hidden]="iframeLoading" (load)="iframeLoad($event)"></iframe>
-    <div class="progress" *ngIf="iframeLoading">
-      <progress></progress>
-      <div>登录页面加载中...</div>
+<ng-template #comment>
+  <div class="comment">
+    <div class="title">
+      <span class="star">
+        <div>您的评分</div>
+        <dstore-star #star [readonly]="false"></dstore-star>
+        <div>{{star.rateHover||star.rate}}分</div>
+      </span>
+      <a href=""></a>
     </div>
-  </ng-container>
-</dialog>
+    <div class="input-box" (click)="input.focus()">
+      <textarea class="input" #input (keyup)="null"></textarea>
+      <span class="placeholder" [hidden]="input.value">请输入评论内容</span>
+    </div>
+  </div>
+  <button class="submitBtn" [disabled]="!input.value || !star.rate">提交评论</button>
+</ng-template>

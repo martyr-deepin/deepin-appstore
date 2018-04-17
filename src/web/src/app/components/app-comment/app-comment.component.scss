@@ -7,7 +7,7 @@
     padding: 0.5rem 0;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     .star {
       display: flex;
       align-items: center;
@@ -37,6 +37,15 @@
       box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
     }
   }
+}
+.submitBtn {
+  margin: 0.5rem 0;
+  padding: 0.2rem 1rem;
+  float: right;
+  border-radius: 3px;
+  background: white;
+  font-size: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .loginDialog {
