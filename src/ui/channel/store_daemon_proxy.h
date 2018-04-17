@@ -90,6 +90,19 @@ class StoreDaemonProxy : public QObject {
   QStringList updatableApps();
   QStringList updatablePackages();
 
+  /**
+   * Get temporary job info.
+   * * valid: bool, false if this job is invalid.
+   * * id: string
+   * * name: string
+   * * status: string
+   * * type: string
+   * * speed: int64
+   * * description: string
+   * * cancelable: boolean
+   * * packages: stringList
+   */
+   const QVariantMap getJobInfo(const QString& job);
  private:
   LastoreManagerInterface* manager_ = nullptr;
   LastoreUpdaterInterface* updater_ = nullptr;

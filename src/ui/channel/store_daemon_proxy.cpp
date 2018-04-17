@@ -18,6 +18,7 @@
 #include "ui/channel/store_daemon_proxy.h"
 
 #include "dbus/dbus_consts.h"
+#include "dbus/lastore_job_interface.h"
 #include "dbus/lastore_manager_interface.h"
 #include "dbus/lastore_updater_interface.h"
 
@@ -194,6 +195,25 @@ QStringList StoreDaemonProxy::updatableApps() {
 
 QStringList StoreDaemonProxy::updatablePackages() {
   return updater_->updatablePackages();
+}
+
+const QVariantMap StoreDaemonProxy::getJobInfo(const QString& job) {
+  QVariantMap result;
+  LastoreJobInterface job_interface(kLastoreJobService,
+                                    job,
+                                    QDBusConnection::systemBus(),
+                                    this);
+  if (job_interface.isValid()) {
+    result.insert("id", job_interface.id());
+    result.insert("name", job_interface.name());
+    result.insert("status", job_interface.status());
+    result.insert("type", job_interface.type());
+    result.insert("speed", job_interface.speed());
+    result.insert("description", job_interface.description());
+    result.insert("packages", job_interface.packages());
+    result.insert("cancelable", job_interface.cancelable());
+  }
+  return result;
 }
 
 }  // namespace dstore

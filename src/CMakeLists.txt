@@ -82,6 +82,8 @@ set(BASE_FILES
 set(DBUS_FILES
     dbus/dbusvariant/app_update_info.cpp
     dbus/dbusvariant/app_update_info.h
+    dbus/dbusvariant/locale_mirror_source.cpp
+    dbus/dbusvariant/locale_mirror_source.h
 
     dbus/app_store_dbus_adapter.cpp
     dbus/app_store_dbus_adapter.h
@@ -91,11 +93,13 @@ set(DBUS_FILES
     dbus/app_store_dbus_proxy.h
     dbus/dbus_consts.cpp
     dbus/dbus_consts.h
+    dbus/lastore_job_interface.cpp
+    dbus/lastore_job_interface.h
     dbus/lastore_manager_interface.cpp
     dbus/lastore_manager_interface.h
     dbus/lastore_updater_interface.cpp
     dbus/lastore_updater_interface.h
-    dbus/dbusvariant/locale_mirror_source.cpp dbus/dbusvariant/locale_mirror_source.h)
+    )
 
 set(RESOURCES_FILES
     resources/images.cpp
