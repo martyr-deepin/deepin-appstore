@@ -3,8 +3,9 @@ html,
 body {
   overflow: hidden;
   margin: 0;
-
-  font-family: SourceHanSansSC;
+  /* font-family: 'SourceHanSansSC'; */
+  font-family: 'Source Han Sans SC, sans-serif';
+  font-size: 13px;
 }
 
 .icon {

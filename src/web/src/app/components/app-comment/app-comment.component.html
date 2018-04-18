@@ -8,6 +8,7 @@
   </ng-container>
 </dialog>
 
+<br>
 <div class="comment" *ngIf="!isLoggedIn;else comment">
   <div class="title">
     <span>请登录后对应用进行评价</span>
@@ -19,7 +20,6 @@
     <span class="placeholder" hidden>请输入评论内容</span>
   </div>
 </div>
-
 <ng-template #comment>
   <div class="comment">
     <div class="title">
@@ -37,3 +37,34 @@
   </div>
   <button class="submitBtn" [disabled]="!input.value || !star.rate">提交评论</button>
 </ng-template>
+<br>
+<br>
+<div class="paging">
+  <div class="title">
+    用户评价
+  </div>
+</div>
+<div class="commentList" *ngIf="commentListObs|async as cs">
+  <div class="commentItem" *ngIf="cs.length==0">
+    空的列表
+  </div>
+  <div class="commentItem" *ngFor="let c of cs">
+    <div class="head">
+      <img src="http://10.0.12.148:8000/images/rooarr-icon.svg" class="icon">
+      <span>{{c.user.name}}</span>
+    </div>
+    <div class="body">
+      <div class="rate">
+        <dstore-star [rate]="c.rate"></dstore-star>
+        <span>{{c.rate}}</span>
+      </div>
+      <span>{{c.content}}</span>
+    </div>
+    <div class="time">
+      {{c.createTime}}
+    </div>
+    <div class="like">
+      ({{c.likeCount}})👍
+    </div>
+  </div>
+</div>

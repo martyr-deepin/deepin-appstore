@@ -17,6 +17,7 @@
   .info-right {
     flex: 9;
     .title {
+      margin: 2rem 0;
       font-size: 2em;
     }
     .content {
@@ -24,6 +25,7 @@
       .desc {
         div {
           height: 2rem;
+          line-height: 2rem;
           color: gray;
           text-align: right;
           white-space: nowrap;
@@ -35,47 +37,33 @@
       .info {
         div {
           min-height: 2rem;
+          line-height: 2rem;
         }
       }
     }
   }
 }
-.score {
-  position: relative;
-  font-size: 8px;
-  div:first-child {
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    &::before {
-      content: '★★★★★';
-      color: darkgoldenrod;
-      font-weight: bold;
-    }
-  }
-  &::before {
-    content: '★★★★★';
-    color: lightgray;
-    font-weight: bold;
-  }
+.rate {
+  display: flex;
+  align-items: baseline;
   .details {
+    margin-left: 1rem;
     word-spacing: 1rem;
   }
 }
-
+.hr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
 .screenshots {
-  .imgList {
-    display: flex;
-    div {
-      margin: 1rem 2rem;
-      margin-left: 0;
-      border: 1px solid blue;
-      img {
-        height: 200px;
-      }
-    }
-  }
+  display: flex;
   overflow-x: hidden;
+  img {
+    margin: 1rem 2rem;
+    margin-left: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    height: 250px;
+  }
 }
 
 .tip {

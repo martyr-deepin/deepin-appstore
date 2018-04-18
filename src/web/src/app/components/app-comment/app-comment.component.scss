@@ -1,7 +1,8 @@
 .comment {
   font-size: 12px;
   border-radius: 4px;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0 1rem;
   .title {
     padding: 0.5rem 0;
@@ -10,7 +11,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     .star {
       display: flex;
-      align-items: center;
+      align-items: baseline;
     }
   }
   .input-box {
@@ -20,6 +21,7 @@
       outline: 0px;
       margin: 0px;
       height: 8em;
+      width: 100%;
       resize: none;
     }
     .placeholder {
@@ -67,5 +69,49 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+  }
+}
+.paging {
+  margin-top: 1rem;
+  .title {
+    font-size: 1.2rem;
+  }
+}
+.commentList {
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  .commentItem {
+    display: flex;
+    border-radius: 3px;
+    padding: 1rem;
+    &:not(:first-child) {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .body {
+      flex: 1;
+      padding: 0.5rem;
+      .rate {
+        display: flex;
+        align-items: baseline;
+        span {
+          margin-left: 1rem;
+        }
+      }
+    }
+    .time {
+      width: 12rem;
+      color: gray;
+      text-align: right;
+    }
+    .like {
+      width: 6rem;
+      color: gray;
+      text-align: right;
+    }
   }
 }

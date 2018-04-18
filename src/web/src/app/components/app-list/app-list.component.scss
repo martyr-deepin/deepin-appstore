@@ -12,13 +12,13 @@
     .info {
       display: flex;
       justify-content: space-between;
-      font-size: 13px;
+      align-items: baseline;
       .category {
         color: gray;
       }
       .score {
         position: relative;
-        font-size: 8px;
+        font-size: 0.8rem;
         div {
           position: absolute;
           overflow: hidden;

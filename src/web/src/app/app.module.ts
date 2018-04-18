@@ -14,6 +14,7 @@ import { SectionService } from './services/section.service';
 import { DownloadService } from './services/download.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { CommentService } from './services/comment.service';
 
 import { AppComponent } from './app.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
@@ -46,7 +47,7 @@ import { StoreService } from './services/store.service';
     RankingComponent,
     AppListComponent,
     AppTitleComponent,
-    AppCommentComponent
+    AppCommentComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +55,7 @@ import { StoreService } from './services/store.service';
     ReactiveFormsModule,
     HttpClientModule,
     DstoreModule,
-    RoutingModule
+    RoutingModule,
   ],
   providers: [
     AppService,
@@ -64,12 +65,12 @@ import { StoreService } from './services/store.service';
     AuthGuardService,
     AuthService,
     StoreService,
-
+    CommentService,
     {
       provide: LOCALE_ID,
-      useValue: Locale.getPcp47Locale()
-    }
+      useValue: Locale.getPcp47Locale(),
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

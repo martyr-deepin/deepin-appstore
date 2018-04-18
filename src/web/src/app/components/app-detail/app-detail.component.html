@@ -18,15 +18,13 @@
           <div>Introduction</div>
         </div>
         <div class="info">
-          <div>
-            <div class="score">
-              <div [style.width.em]="app.rate"></div>
-              <span class="details">{{app.rate.toFixed(1)}}分 {{app.downloads}}人下载 {{app.ratings}}人评分</span>
-            </div>
+          <div class="rate">
+            <dstore-star [rate]="app.rate"></dstore-star>
+            <span class="details">{{app.rate.toFixed(1)}}分 {{app.downloads}}人下载 {{app.ratings}}人评分</span>
           </div>
           <div>{{app.localCategory}}</div>
-          <div>5.10</div>grb
           <div></div>
+          <div>&nbsp;</div>
           <div>{{app.updateTime.toLocaleDateString()}}</div>
           <div>{{app.homePage}}</div>
           <div>{{app.localInfo.description.description}}</div>
@@ -34,16 +32,17 @@
       </div>
     </div>
   </div>
-
+  <br>
+  <br>
   <div class="screenshots">
-    <div class="imgList">
-      <div *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index" [id]="'screenshot-'+$index">
-        <img [src]="metadataServer+'/'+screenshot" (click)="screenshotClick('screenshot-'+$index);indication.selectIndex=$index">
-      </div>
-    </div>
+    <img *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index" [id]="'screenshot-'+$index" [src]="metadataServer+'/'+screenshot"
+      (click)="screenshotClick('screenshot-'+$index);indication.selectIndex=$index">
   </div>
   <dstore-indication [count]="app.localInfo.images.screenshot.length" #indication (change)="screenshotClick('screenshot-'+$event)"></dstore-indication>
 
+  <div class="hr">
+  </div>
+  <br>
   <div class="tip">
     <div class="tipButton">Tip</div>
     <div>
@@ -61,5 +60,5 @@
     </div>
   </div>
 
-  <app-app-comment></app-app-comment>
+  <app-app-comment [appName]="app.name"></app-app-comment>
 </div>

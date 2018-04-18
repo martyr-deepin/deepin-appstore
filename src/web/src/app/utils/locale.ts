@@ -1,7 +1,6 @@
 declare const require;
 
 export class Locale {
-
   /**
    * Browser language like 'en-US', 'zh-CN'.
    * @returns {string}
@@ -41,7 +40,7 @@ export class Locale {
     const langMap = {
       'zh-CN': 'zh-Hans',
       'zh-HK': 'zh-Hant-HK',
-      'zh-TW': 'zh-Hant'
+      'zh-TW': 'zh-Hant',
     };
     if (lang in langMap) {
       return langMap[lang];
