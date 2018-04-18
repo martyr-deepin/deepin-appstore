@@ -114,6 +114,8 @@ set(SERVICES_FILES
     services/dpk_link_validation.h
     services/rcc_scheme_handler.cpp
     services/rcc_scheme_handler.h
+    services/search_manager.cpp
+    services/search_manager.h
     services/search_result.h
     services/settings_manager.cpp
     services/settings_manager.h

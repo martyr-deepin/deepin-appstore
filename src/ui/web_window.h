@@ -30,6 +30,7 @@ class ImageViewerProxy;
 class LogProxy;
 class RecommendApp;
 class SearchCompletionWindow;
+class SearchManager;
 class SearchProxy;
 class SettingsProxy;
 class StoreDaemonProxy;
@@ -67,6 +68,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   void initConnections();
   void initUI();
   void initProxy();
+  void initServices();
 
   QCefWebView* web_view_ = nullptr;
   ImageViewer* image_viewer_ = nullptr;
@@ -74,6 +76,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   LogProxy* log_proxy_ = nullptr;
   RecommendApp* recommend_app_ = nullptr;
   SearchCompletionWindow* completion_window_ = nullptr;
+  SearchManager* search_manager_ = nullptr;
   SearchProxy* search_proxy_ = nullptr;
   SettingsProxy* settings_proxy_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;

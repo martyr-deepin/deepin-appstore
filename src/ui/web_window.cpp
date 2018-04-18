@@ -27,6 +27,7 @@
 #include <qcef_web_view.h>
 
 #include "base/consts.h"
+#include "services/search_manager.h"
 #include "services/settings_manager.h"
 #include "ui/web_event_delegate.h"
 #include "ui/channel/image_viewer_proxy.h"
@@ -44,8 +45,10 @@ namespace dstore {
 
 WebWindow::WebWindow(QWidget* parent) : DMainWindow(parent) {
   this->initUI();
-  this->initConnections();
+  this->initServices();
   this->initProxy();
+  // Connect signals to slots after all of internal objects are constructed.
+  this->initConnections();
 }
 
 WebWindow::~WebWindow() {
@@ -78,12 +81,19 @@ void WebWindow::raiseWindow() {
 }
 
 void WebWindow::initConnections() {
+  connect(search_proxy_, &SearchProxy::onAppListUpdated,
+          search_manager_, &SearchManager::updateAppList);
+
   connect(title_bar_, &TitleBar::backwardButtonClicked,
           this, &WebWindow::webViewGoBack);
   connect(title_bar_, &TitleBar::forwardButtonClicked,
           this, &WebWindow::webViewGoForward);
+  connect(title_bar_, &TitleBar::searchTextChanged,
+          search_manager_, &SearchManager::searchApp);
+
   connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
           this, &WebWindow::onRecommendAppActive);
+
   connect(web_view_->page(), &QCefWebPage::urlChanged,
           this, &WebWindow::onWebViewUrlChanged);
 }
@@ -129,6 +139,10 @@ void WebWindow::initUI() {
   web_view_->page()->setEventDelegate(web_event_delegate_);
 
   this->setFocusPolicy(Qt::ClickFocus);
+}
+
+void WebWindow::initServices() {
+  search_manager_ = new SearchManager(this);
 }
 
 bool WebWindow::eventFilter(QObject* watched, QEvent* event) {
