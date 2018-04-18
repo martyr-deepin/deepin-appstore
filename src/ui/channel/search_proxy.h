@@ -33,7 +33,23 @@ class SearchProxy : public QObject {
  signals:
   void onAppListUpdated(const AppSearchRecordList& record_list);
 
+  /**
+   * Requested to open app info page
+   * @param name
+   */
+  void openApp(const QString& name);
+
+  /**
+   * Request to open app search result page
+   * @param names
+   */
+  void openAppList(const QStringList& names);
+
  public slots:
+  /**
+   * Update app list used in search service.
+   * @param apps Serialized application info
+   */
   void updateAppList(const QString& apps);
 };
 

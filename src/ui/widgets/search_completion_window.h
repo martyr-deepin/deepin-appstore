@@ -36,6 +36,7 @@ class SearchCompletionWindow : public QFrame {
   ~SearchCompletionWindow() override;
 
   void autoResize();
+  const AppSearchRecordList& searchResult() const { return result_; }
 
  signals:
   void resultClicked(const AppSearchRecord& result);
@@ -47,7 +48,7 @@ class SearchCompletionWindow : public QFrame {
   void onEnterPressed();
 
   void setKeyword(const QString& keyword);
-  void setSearchAnchorResult(const AppSearchRecordList& result);
+  void setSearchResult(const AppSearchRecordList& result);
 
  private:
   void initConnections();

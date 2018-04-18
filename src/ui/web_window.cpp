@@ -224,7 +224,7 @@ void WebWindow::onSearchAppResult(const AppSearchRecordList& result) {
     completion_window_->move(global_point);
     completion_window_->setFocusPolicy(Qt::NoFocus);
     completion_window_->setFocusPolicy(Qt::StrongFocus);
-    completion_window_->setSearchAnchorResult(result);
+    completion_window_->setSearchResult(result);
   }
 }
 
@@ -235,15 +235,17 @@ void WebWindow::onSearchEditFocusOut() {
 }
 
 void WebWindow::onSearchButtonClicked() {
-  const QString keyword = title_bar_->getSearchText();
-  search_manager_->searchApp(keyword);
-
-  // TODO(Shaohua): Show search page in web.
+  // Show search page in web.
+  QStringList names;
+  for (const AppSearchRecord& app : completion_window_->searchResult()) {
+    names.append(app.name);
+  }
+  emit search_proxy_->openAppList(names);
 }
 
 void WebWindow::onSearchResultClicked(const AppSearchRecord& result) {
-  qDebug() << Q_FUNC_INFO << result.name;
-  // TODO(Shaohua): Emit signal.
+  // Emit signal to web page.
+  emit search_proxy_->openApp(result.name);
 }
 
 void WebWindow::onSearchTextChanged(const QString& text) {

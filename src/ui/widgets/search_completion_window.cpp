@@ -116,7 +116,7 @@ void SearchCompletionWindow::setKeyword(const QString& keyword) {
   model_->setStringList(QStringList());
 }
 
-void SearchCompletionWindow::setSearchAnchorResult(
+void SearchCompletionWindow::setSearchResult(
     const AppSearchRecordList& result) {
   result_ = result;
   QStringList names;
