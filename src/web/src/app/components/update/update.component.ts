@@ -1,29 +1,37 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/delay';
+
+import { AppService, App } from '../../services/app.service';
 import { StoreService } from '../../services/store.service';
+import { BaseService } from '../../dstore/services/base.service';
 
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',
-  styleUrls: ['./update.component.scss']
+  styleUrls: ['./update.component.scss'],
 })
 export class UpdateComponent implements OnInit {
-
-  constructor(private storeService: StoreService) {}
+  server: string;
+  upgrade$: Observable<UpgradeResult[]>;
+  constructor(
+    private storeService: StoreService,
+    private appService: AppService,
+    private baseService: BaseService,
+  ) {}
 
   ngOnInit() {
-    console.log('get job list');
-    // this.storeService.getJobList()
-    //   .subscribe(jobsList => console.log('jobList: ', jobsList));
-    this.storeService.installPackage('mariadb-server')
-      .subscribe(job => {
-        console.log('job path: ', job);
-        window.setTimeout(() => {
-          this.storeService.pauseJob(job);
-          this.storeService.getJobInfo(job)
-            .subscribe(jobInfo => {
-              console.log('job info:', jobInfo);
-            });
-        }, 200);
-      });
+    this.server = this.baseService.serverHosts.metadataServer;
+    this.upgrade$ = this.storeService.getUpgradableApps().map(list =>
+      list.map(appName => ({
+        app$: this.appService.getApp(appName + '40'),
+        downloadSize$: this.storeService.appDownloadSize(appName),
+      })),
+    );
   }
+}
+
+interface UpgradeResult {
+  app$: Observable<App>;
+  downloadSize$: Observable<number>;
 }

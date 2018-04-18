@@ -3,11 +3,11 @@ import { AppService } from './app.service';
 import { Channel } from '../utils/channel';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import 'rxjs/add/observable/fromPromise';
 import { StoreJobInfo } from './store-job-info';
 
 @Injectable()
 export class StoreService {
-
   constructor(private appService: AppService) {}
 
   clearJob(job: string): void {
@@ -30,7 +30,6 @@ export class StoreService {
   installPackage(appName: string): Observable<string> {
     console.log('StoreService.installPackage()');
     return this.execWithCallback('storeDaemon.installPackage', appName);
-
   }
 
   removePackage(appName: string): Observable<string> {
@@ -62,7 +61,7 @@ export class StoreService {
    * @returns {Observable<number>}
    */
   appDownloadSize(appName: string): Observable<number> {
-    return this.execWithCallback('storeDaemon.packagesDownloadSize', appName);
+    return this.execWithCallback('storeDaemon.packagesDownloadSize', [appName]);
   }
 
   /**
@@ -86,14 +85,16 @@ export class StoreService {
   }
 
   execWithCallback(method: string, ...args: any[]): Observable<any> {
-    let outerObserver: Observer<any>;
-    const observable: Observable<any> = Observable.create((observer: Observer<any>) => {
-      outerObserver = observer;
-    });
-    Channel.execWithCallback((response: any) => {
-      outerObserver.next(response);
-      outerObserver.complete();
-    }, method, ...args);
-    return observable;
+    return Observable.fromPromise(
+      new Promise((resolve, reject) => {
+        Channel.execWithCallback(
+          (response: any) => {
+            resolve(response);
+          },
+          method,
+          ...args,
+        );
+      }),
+    );
   }
 }

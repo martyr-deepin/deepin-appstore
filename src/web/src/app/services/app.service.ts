@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
-import { App } from '../dstore/services/app';
+import { App as DstoreApp } from '../dstore/services/app';
 
 @Injectable()
 export class AppService {
@@ -18,7 +18,7 @@ export class AppService {
   constructor(
     private http: HttpClient,
     private appService: DstoreAppService,
-    private baseService: BaseService
+    private baseService: BaseService,
   ) {
     this.server = this.baseService.serverHosts.operationServer;
     this._list = this.getList().shareReplay();
@@ -46,7 +46,7 @@ export class AppService {
           .getAppList()
           .map(appList => appList.filter(app => resp.apps.includes(app.name)));
       })
-      .flatMap((apps: DstoreApp[]) =>
+      .flatMap((apps: App[]) =>
         this.http.get(`${this.server}/api/appstat`).map((stat: AppStat) => {
           const downloadsDict = _.keyBy(stat.downloadCount, 'appName');
           const rateDict = _.keyBy(stat.rate, 'appName');
@@ -54,18 +54,18 @@ export class AppService {
             app.downloads = _.get(
               downloadsDict,
               [app.name, 'count'],
-              0
+              0,
             ) as number;
             app.rate = (_.get(rateDict, [app.name, 'rate'], 0) as number) / 2;
             app.ratings = _.get(rateDict, [app.name, 'count'], 0) as number;
           });
           return apps;
-        })
+        }),
       );
   }
 }
 
-export class DstoreApp extends App {
+export class App extends DstoreApp {
   downloads = 0;
   rate = 0;
   ratings = 0;
