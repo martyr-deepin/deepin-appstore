@@ -78,12 +78,14 @@ void WebWindow::raiseWindow() {
 }
 
 void WebWindow::initConnections() {
-  connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
-          this, &WebWindow::onRecommendAppActive);
   connect(title_bar_, &TitleBar::backwardButtonClicked,
           this, &WebWindow::webViewGoBack);
   connect(title_bar_, &TitleBar::forwardButtonClicked,
           this, &WebWindow::webViewGoForward);
+  connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
+          this, &WebWindow::onRecommendAppActive);
+  connect(web_view_->page(), &QCefWebPage::urlChanged,
+          this, &WebWindow::onWebViewUrlChanged);
 }
 
 void WebWindow::initProxy() {
@@ -159,6 +161,12 @@ void WebWindow::resizeEvent(QResizeEvent* event) {
 void WebWindow::onRecommendAppActive() {
   recommend_app_->clearForm();
   recommend_app_->show();
+}
+
+void WebWindow::onWebViewUrlChanged(const QUrl& url) {
+  auto page = web_view_->page();
+  title_bar_->setBackwardButtonActive(page->canGoBack());
+  title_bar_->setForwardButtonActive(page->canGoForward());
 }
 
 void WebWindow::webViewGoBack() {

@@ -84,6 +84,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
 
  private slots:
   void onRecommendAppActive();
+  void onWebViewUrlChanged(const QUrl& url);
 
   void webViewGoBack();
   void webViewGoForward();

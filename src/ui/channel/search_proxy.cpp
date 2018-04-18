@@ -44,7 +44,6 @@ void SearchProxy::updateAppList(const QString& apps) {
   AppSearchRecordList record_list;
 
   for (const QJsonValue& app_value : apps_array) {
-    qDebug() << app_value;
     if (!app_value.isObject()) {
       qWarning() << Q_FUNC_INFO << "app is not object:" << app_value;
       continue;
