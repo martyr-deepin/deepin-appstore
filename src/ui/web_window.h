@@ -22,6 +22,7 @@
 #include <DMainWindow>
 #include <QMenu>
 class QCefWebView;
+class QTimer;
 
 #include "services/search_result.h"
 
@@ -87,9 +88,19 @@ class WebWindow : public Dtk::Widget::DMainWindow {
 
   TitleBarMenu* tool_bar_menu_ = nullptr;
 
+  QTimer* search_timer_ = nullptr;
+
  private slots:
   void onRecommendAppActive();
+
   void onSearchAppResult(const AppSearchRecordList& result);
+  void onSearchEditFocusOut();
+  void onSearchButtonClicked();
+  void onSearchResultClicked(const AppSearchRecord& result);
+  void onSearchTextChanged(const QString& text);
+  void onSearchTextChangedDelay();
+  void onTitleBarEntered();
+
   void onWebViewUrlChanged(const QUrl& url);
 
   void webViewGoBack();

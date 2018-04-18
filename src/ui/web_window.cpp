@@ -21,6 +21,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QResizeEvent>
+#include <QTimer>
 #include <QWebChannel>
 #include <qcef_web_page.h>
 #include <qcef_web_settings.h>
@@ -43,7 +44,19 @@
 
 namespace dstore {
 
-WebWindow::WebWindow(QWidget* parent) : DMainWindow(parent) {
+namespace {
+
+const int kSearchDelay = 200;
+
+}  // namespace
+
+WebWindow::WebWindow(QWidget* parent)
+    : DMainWindow(parent),
+      search_timer_(new QTimer(this)){
+  this->setObjectName("WebWindow");
+
+  search_timer_->setSingleShot(true);
+
   this->initUI();
   this->initServices();
   this->initProxy();
@@ -82,18 +95,34 @@ void WebWindow::raiseWindow() {
 }
 
 void WebWindow::initConnections() {
+  connect(completion_window_, &SearchCompletionWindow::resultClicked,
+          this, &WebWindow::onSearchResultClicked);
+  connect(completion_window_, &SearchCompletionWindow::searchButtonClicked,
+          this, &WebWindow::onSearchButtonClicked);
+
   connect(search_manager_, &SearchManager::searchAppResult,
           this, &WebWindow::onSearchAppResult);
 
   connect(search_proxy_, &SearchProxy::onAppListUpdated,
           search_manager_, &SearchManager::updateAppList);
 
+  connect(search_timer_, &QTimer::timeout,
+          this, &WebWindow::onSearchTextChangedDelay);
+
   connect(title_bar_, &TitleBar::backwardButtonClicked,
           this, &WebWindow::webViewGoBack);
   connect(title_bar_, &TitleBar::forwardButtonClicked,
           this, &WebWindow::webViewGoForward);
   connect(title_bar_, &TitleBar::searchTextChanged,
-          search_manager_, &SearchManager::searchApp);
+          this, &WebWindow::onSearchTextChanged);
+  connect(title_bar_, &TitleBar::downKeyPressed,
+          completion_window_, &SearchCompletionWindow::goDown);
+  connect(title_bar_, &TitleBar::enterPressed,
+          this, &WebWindow::onTitleBarEntered);
+  connect(title_bar_, &TitleBar::upKeyPressed,
+          completion_window_, &SearchCompletionWindow::goUp);
+  connect(title_bar_, &TitleBar::focusOut,
+          this, &WebWindow::onSearchEditFocusOut);
 
   connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
           this, &WebWindow::onRecommendAppActive);
@@ -196,6 +225,53 @@ void WebWindow::onSearchAppResult(const AppSearchRecordList& result) {
     completion_window_->setFocusPolicy(Qt::NoFocus);
     completion_window_->setFocusPolicy(Qt::StrongFocus);
     completion_window_->setSearchAnchorResult(result);
+  }
+}
+
+void WebWindow::onSearchEditFocusOut() {
+  QTimer::singleShot(20, [=]() {
+    this->completion_window_->hide();
+  });
+}
+
+void WebWindow::onSearchButtonClicked() {
+  const QString keyword = title_bar_->getSearchText();
+  search_manager_->searchApp(keyword);
+
+  // TODO(Shaohua): Show search page in web.
+}
+
+void WebWindow::onSearchResultClicked(const AppSearchRecord& result) {
+  qDebug() << Q_FUNC_INFO << result.name;
+  // TODO(Shaohua): Emit signal.
+}
+
+void WebWindow::onSearchTextChanged(const QString& text) {
+  if (text.size() > 1) {
+    search_timer_->stop();
+    search_timer_->start(kSearchDelay);
+  } else {
+    this->onSearchEditFocusOut();
+  }
+}
+
+void WebWindow::onSearchTextChangedDelay() {
+  const QString text = title_bar_->getSearchText();
+  // Filters special chars.
+  if (text.size() <= 1 || text.contains(QRegExp("[+-_$!@#%^&\\(\\)]"))) {
+    return;
+  }
+
+  completion_window_->setKeyword(text);
+
+  // Do real search.
+  search_manager_->searchApp(text);
+}
+
+void WebWindow::onTitleBarEntered() {
+  const QString text = title_bar_->getSearchText();
+  if (text.size() > 1) {
+    completion_window_->onEnterPressed();
   }
 }
 

@@ -120,8 +120,8 @@ void SearchCompletionWindow::setSearchAnchorResult(
     const AppSearchRecordList& result) {
   result_ = result;
   QStringList names;
-  for (const AppSearchRecord& app : result) {
-    names.append(app.name);
+  for (const AppSearchRecord& entry : result) {
+    names.append(entry.local_name);
   }
   model_->setStringList(names);
   this->autoResize();
@@ -172,7 +172,7 @@ void SearchCompletionWindow::initUI() {
   this->setLayout(main_layout);
   this->setContentsMargins(0, 0, 0, 0);
   this->setMinimumHeight(kItemHeight);
-  this->setFixedWidth(262);
+  this->setFixedWidth(242);
   this->setWindowFlags(Qt::FramelessWindowHint |
                        Qt::CustomizeWindowHint |
                        Qt::BypassWindowManagerHint);
