@@ -47,6 +47,7 @@ WebWindow::WebWindow(QWidget* parent) : DMainWindow(parent) {
   this->initUI();
   this->initServices();
   this->initProxy();
+
   // Connect signals to slots after all of internal objects are constructed.
   this->initConnections();
 }
@@ -81,6 +82,9 @@ void WebWindow::raiseWindow() {
 }
 
 void WebWindow::initConnections() {
+  connect(search_manager_, &SearchManager::searchAppResult,
+          this, &WebWindow::onSearchAppResult);
+
   connect(search_proxy_, &SearchProxy::onAppListUpdated,
           search_manager_, &SearchManager::updateAppList);
 
@@ -119,7 +123,7 @@ void WebWindow::initUI() {
 
   image_viewer_ = new ImageViewer(this);
 
-  completion_window_ = new SearchCompletionWindow(this);
+  completion_window_ = new SearchCompletionWindow();
   completion_window_->hide();
 
   recommend_app_ = new RecommendApp(this);
@@ -175,6 +179,24 @@ void WebWindow::resizeEvent(QResizeEvent* event) {
 void WebWindow::onRecommendAppActive() {
   recommend_app_->clearForm();
   recommend_app_->show();
+}
+
+void WebWindow::onSearchAppResult(const AppSearchRecordList& result) {
+  if (result.isEmpty()) {
+    // Hide completion window if no anchor entry matches.
+    completion_window_->hide();
+  } else {
+    completion_window_->show();
+    completion_window_->raise();
+    completion_window_->autoResize();
+    // Move to below of search edit.
+    const QPoint local_point(this->rect().width() / 2 - 94, 36);
+    const QPoint global_point(this->mapToGlobal(local_point));
+    completion_window_->move(global_point);
+    completion_window_->setFocusPolicy(Qt::NoFocus);
+    completion_window_->setFocusPolicy(Qt::StrongFocus);
+    completion_window_->setSearchAnchorResult(result);
+  }
 }
 
 void WebWindow::onWebViewUrlChanged(const QUrl& url) {

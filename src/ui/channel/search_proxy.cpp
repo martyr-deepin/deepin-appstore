@@ -63,7 +63,11 @@ void SearchProxy::updateAppList(const QString& apps) {
     });
   }
 
-  emit this->onAppListUpdated(record_list);
+  if (record_list.isEmpty()) {
+    qWarning() << Q_FUNC_INFO << "record list is empty!" << apps;
+  } else {
+    emit this->onAppListUpdated(record_list);
+  }
 }
 
 }  // namespace dstore

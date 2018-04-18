@@ -22,10 +22,6 @@
 
 namespace dstore {
 
-struct SearchResult {
-};
-typedef QList<SearchResult> SearchResultList;
-
 // App entry used in search service.
 struct AppSearchRecord {
   QString name;

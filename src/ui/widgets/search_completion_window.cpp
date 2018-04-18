@@ -117,12 +117,12 @@ void SearchCompletionWindow::setKeyword(const QString& keyword) {
 }
 
 void SearchCompletionWindow::setSearchAnchorResult(
-    const SearchResultList& result) {
+    const AppSearchRecordList& result) {
   result_ = result;
   QStringList names;
-//  for (const SearchResult& entry : result) {
-//    names.append(entry.anchor);
-//  }
+  for (const AppSearchRecord& app : result) {
+    names.append(app.name);
+  }
   model_->setStringList(names);
   this->autoResize();
 }
@@ -173,10 +173,10 @@ void SearchCompletionWindow::initUI() {
   this->setContentsMargins(0, 0, 0, 0);
   this->setMinimumHeight(kItemHeight);
   this->setFixedWidth(262);
-//  this->setWindowFlags(Qt::FramelessWindowHint |
-//                       Qt::CustomizeWindowHint |
-//                       Qt::BypassWindowManagerHint);
-//  this->setAttribute(Qt::WA_NativeWindow, true);
+  this->setWindowFlags(Qt::FramelessWindowHint |
+                       Qt::CustomizeWindowHint |
+                       Qt::BypassWindowManagerHint);
+  this->setAttribute(Qt::WA_NativeWindow, true);
 
   ThemeManager::instance()->registerWidget(this);
 }

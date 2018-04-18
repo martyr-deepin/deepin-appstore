@@ -34,12 +34,19 @@ class SearchManager : public QObject {
   ~SearchManager() override;
 
  signals:
-  void searchAppResult();
+  /**
+   * Emitted after searchApp() is successfully handled.
+   * @param record_list matched apps, might be empty.
+   */
+  void searchAppResult(const AppSearchRecordList& record_list);
 
  public slots:
   void searchApp(const QString& keyword);
 
   void updateAppList(const AppSearchRecordList& record_list);
+
+ private:
+  AppSearchRecordList record_list_;
 };
 
 }  // namespace dstore

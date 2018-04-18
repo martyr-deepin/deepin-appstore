@@ -23,6 +23,8 @@
 #include <QMenu>
 class QCefWebView;
 
+#include "services/search_result.h"
+
 namespace dstore {
 
 class ImageViewer;
@@ -87,6 +89,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
 
  private slots:
   void onRecommendAppActive();
+  void onSearchAppResult(const AppSearchRecordList& result);
   void onWebViewUrlChanged(const QUrl& url);
 
   void webViewGoBack();

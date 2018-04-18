@@ -21,7 +21,9 @@
 
 namespace dstore {
 
-SearchManager::SearchManager(QObject* parent) : QObject(parent) {
+SearchManager::SearchManager(QObject* parent)
+    : QObject(parent),
+      record_list_() {
   this->setObjectName("SearchManager");
 }
 
@@ -31,10 +33,23 @@ SearchManager::~SearchManager() {
 
 void SearchManager::searchApp(const QString& keyword) {
   qDebug() << Q_FUNC_INFO << keyword;
+  AppSearchRecordList result;
+  for (const AppSearchRecord& app : record_list_) {
+    if (app.name.contains(keyword, Qt::CaseInsensitive) ||
+        app.local_name.contains(keyword, Qt::CaseInsensitive) ||
+        app.slogan.contains(keyword, Qt::CaseInsensitive) ||
+        app.description.contains(keyword, Qt::CaseInsensitive)) {
+      result.append(app);
+    }
+  }
+
+  qDebug() << Q_FUNC_INFO << "search app result: " << result.size();
+  emit this->searchAppResult(result);
 }
 
 void SearchManager::updateAppList(const AppSearchRecordList& record_list) {
   qDebug() << Q_FUNC_INFO << record_list.size();
+  record_list_ = record_list;
 }
 
 }  // namespace dstore
