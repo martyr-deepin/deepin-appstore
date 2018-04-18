@@ -206,6 +206,7 @@ const QVariantMap StoreDaemonProxy::getJobInfo(const QString& job) {
     result.insert("status", job_interface.status());
     result.insert("type", job_interface.type());
     result.insert("speed", job_interface.speed());
+    result.insert("progress", job_interface.progress());
     result.insert("description", job_interface.description());
     result.insert("packages", job_interface.packages());
     result.insert("cancelable", job_interface.cancelable());

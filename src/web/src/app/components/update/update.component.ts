@@ -12,7 +12,18 @@ export class UpdateComponent implements OnInit {
 
   ngOnInit() {
     console.log('get job list');
-    this.storeService.getJobList()
-      .subscribe(jobsList => console.log('jobList: ', jobsList));
+    // this.storeService.getJobList()
+    //   .subscribe(jobsList => console.log('jobList: ', jobsList));
+    this.storeService.installPackage('mariadb-server')
+      .subscribe(job => {
+        console.log('job path: ', job);
+        window.setTimeout(() => {
+          this.storeService.pauseJob(job);
+          this.storeService.getJobInfo(job)
+            .subscribe(jobInfo => {
+              console.log('job info:', jobInfo);
+            });
+        }, 200);
+      });
   }
 }

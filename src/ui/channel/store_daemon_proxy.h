@@ -91,6 +91,7 @@ class StoreDaemonProxy : public QObject {
    * * status: string
    * * type: string
    * * speed: int64
+   * * progress: double
    * * description: string
    * * cancelable: boolean
    * * packages: stringList
