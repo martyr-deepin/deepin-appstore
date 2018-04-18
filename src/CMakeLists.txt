@@ -135,8 +135,6 @@ set(UI_FILES
     ui/channel/settings_proxy.h
     ui/channel/store_daemon_proxy.cpp
     ui/channel/store_daemon_proxy.h
-    ui/channel/title_bar_proxy.cpp
-    ui/channel/title_bar_proxy.h
 
     ui/utils/theme_manager.cpp
     ui/utils/theme_manager.h

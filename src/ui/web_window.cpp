@@ -34,7 +34,6 @@
 #include "ui/channel/search_proxy.h"
 #include "ui/channel/settings_proxy.h"
 #include "ui/channel/store_daemon_proxy.h"
-#include "ui/channel/title_bar_proxy.h"
 #include "ui/widgets/image_viewer.h"
 #include "ui/widgets/recommend_app.h"
 #include "ui/widgets/search_completion_window.h"
@@ -90,14 +89,12 @@ void WebWindow::initProxy() {
   search_proxy_ = new SearchProxy(this);
   settings_proxy_ = new SettingsProxy(this);
   store_daemon_proxy_ = new StoreDaemonProxy(this);
-  title_bar_proxy_ = new TitleBarProxy(this);
 
   web_channel->registerObject("imageViewer", image_viewer_proxy_);
   web_channel->registerObject("log", log_proxy_);
   web_channel->registerObject("search", search_proxy_);
   web_channel->registerObject("settings", settings_proxy_);
   web_channel->registerObject("storeDaemon", store_daemon_proxy_);
-  web_channel->registerObject("titleBar", title_bar_proxy_);
 }
 
 void WebWindow::initUI() {
@@ -141,11 +138,9 @@ bool WebWindow::eventFilter(QObject* watched, QEvent* event) {
     QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
     switch (mouseEvent->button()) {
       case Qt::BackButton: {
-        title_bar_proxy_->backwardButtonClicked();
         break;
       }
       case Qt::ForwardButton: {
-        title_bar_proxy_->forwardButtonClicked();
         break;
       }
       default: {

@@ -34,7 +34,6 @@ class SearchProxy;
 class SettingsProxy;
 class StoreDaemonProxy;
 class TitleBar;
-class TitleBarProxy;
 class TitleBarMenu;
 class WebEventDelegate;
 
@@ -79,7 +78,6 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   SettingsProxy* settings_proxy_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
   TitleBar* title_bar_ = nullptr;
-  TitleBarProxy* title_bar_proxy_ = nullptr;
   WebEventDelegate* web_event_delegate_ = nullptr;
 
   TitleBarMenu* tool_bar_menu_ = nullptr;
