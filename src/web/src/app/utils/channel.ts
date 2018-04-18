@@ -8,7 +8,30 @@ export class Channel {
     if (window['dstore'] && window['dstore']['channel']) {
       const channel = window['dstore']['channel'];
       const [objectName, methodName] = method.split('.');
-      channel['objects'][objectName][methodName](...args);
+      try {
+        channel['objects'][objectName][methodName](...args);
+      } catch (error) {
+        console.error(method, args, error);
+      }
+    }
+  }
+
+  /**
+   * Execute dbus object methods and receive its return value
+   * @param {(resp: any) => void} callback
+   * @param {string} method
+   * @param args
+   */
+  static execWithCallback(callback: (resp: any) => void, method: string, ...args: any[]) {
+    console.log('execWithCallback(): ', method, ', args: ', ...args);
+    if (window['dstore'] && window['dstore']['channel']) {
+      const channel = window['dstore']['channel'];
+      const [objectName, methodName] = method.split('.');
+      try {
+        channel['objects'][objectName][methodName](...args, callback);
+      } catch (error) {
+        console.error(callback, 'method: ', method, ', args:', args, ', error: ', error);
+      }
     }
   }
 }

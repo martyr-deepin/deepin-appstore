@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StoreService } from '../../services/store.service';
 
 @Component({
   selector: 'app-update',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update.component.scss']
 })
 export class UpdateComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit() {}
+  constructor(private storeService: StoreService) {}
+
+  ngOnInit() {
+    this.storeService.installPackage('mysql');
+  }
 }

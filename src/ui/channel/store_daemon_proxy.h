@@ -46,7 +46,7 @@ class StoreDaemonProxy : public QObject {
   QString cleanArchives();
   void cleanJob(const QString& job);
   QString distUpgrade();
-  QString installPackage(const QString& job, const QString& package);
+  QString installPackage(const QString& package);
   QString packageDesktopPath(const QString& package);
   bool packageExists(const QString& package);
   bool packageInstallable(const QString& package);
@@ -55,16 +55,9 @@ class StoreDaemonProxy : public QObject {
   QString prepareDistUpgrade();
   void recordLocaleInfo(const QString& language);
   void startJob(const QString& job);
-  QString updatePackage(const QString& job, const QString& packages);
+  QString updatePackage(const QString& package);
   QString updateSource();
-
-  /**
-   * Remove specific packages.
-   * @param job
-   * @param packages A list of package names, separated with spaces.
-   * @return
-   */
-  QString removePackage(const QString& job, const QString& packages);
+  QString removePackage(const QString& package);
   void setAutoClean(bool enabled);
   void setRegion(const QString& region);
 
@@ -87,8 +80,8 @@ class StoreDaemonProxy : public QObject {
   bool autoCheckUpdates();
   bool autoDownloadUpdates();
   QString mirrorSource();
-  QStringList updatableApps();
-  QStringList updatablePackages();
+//  QStringList updatableApps();
+//  QStringList updatablePackages();
 
   /**
    * Get temporary job info.

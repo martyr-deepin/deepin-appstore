@@ -63,9 +63,8 @@ QString StoreDaemonProxy::distUpgrade() {
   return path.path();
 }
 
-QString StoreDaemonProxy::installPackage(const QString& job,
-                                         const QString& package) {
-  const QDBusObjectPath path = manager_->InstallPackage(job, package);
+QString StoreDaemonProxy::installPackage(const QString& package) {
+  const QDBusObjectPath path = manager_->InstallPackage("", package);
   return path.path();
 }
 
@@ -102,9 +101,8 @@ void StoreDaemonProxy::startJob(const QString& job) {
   manager_->StartJob(job);
 }
 
-QString StoreDaemonProxy::updatePackage(const QString& job,
-                                        const QString& packages) {
-  const QDBusObjectPath path = manager_->UpdatePackage(job, packages);
+QString StoreDaemonProxy::updatePackage(const QString& package) {
+  const QDBusObjectPath path = manager_->UpdatePackage("", package);
   return path.path();
 }
 
@@ -113,9 +111,8 @@ QString StoreDaemonProxy::updateSource() {
   return path.path();
 }
 
-QString StoreDaemonProxy::removePackage(const QString& job,
-                                        const QString& packages) {
-  const QDBusObjectPath path = manager_->RemovePackage(job, packages);
+QString StoreDaemonProxy::removePackage(const QString& package) {
+  const QDBusObjectPath path = manager_->RemovePackage("", package);
   return path.path();
 }
 
@@ -189,13 +186,13 @@ QString StoreDaemonProxy::mirrorSource() {
   return updater_->mirrorSource();
 }
 
-QStringList StoreDaemonProxy::updatableApps() {
-  return updater_->updatableApps();
-}
-
-QStringList StoreDaemonProxy::updatablePackages() {
-  return updater_->updatablePackages();
-}
+//QStringList StoreDaemonProxy::updatableApps() {
+//  return updater_->updatableApps();
+//}
+//
+//QStringList StoreDaemonProxy::updatablePackages() {
+//  return updater_->updatablePackages();
+//}
 
 const QVariantMap StoreDaemonProxy::getJobInfo(const QString& job) {
   QVariantMap result;

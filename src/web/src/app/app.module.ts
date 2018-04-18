@@ -27,6 +27,7 @@ import { RankingComponent } from './components/ranking/ranking.component';
 import { AppListComponent } from './components/app-list/app-list.component';
 import { AppTitleComponent } from './components/app-title/app-title.component';
 import { AppCommentComponent } from './components/app-comment/app-comment.component';
+import { StoreService } from './services/store.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,8 @@ import { AppCommentComponent } from './components/app-comment/app-comment.compon
     DownloadService,
     AuthGuardService,
     AuthService,
+    StoreService,
+
     {
       provide: LOCALE_ID,
       useValue: Locale.getPcp47Locale()
