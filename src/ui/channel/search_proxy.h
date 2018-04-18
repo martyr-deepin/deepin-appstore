@@ -20,6 +20,8 @@
 
 #include <QObject>
 
+#include "services/search_result.h"
+
 namespace dstore {
 
 class SearchProxy : public QObject {
@@ -27,6 +29,9 @@ class SearchProxy : public QObject {
  public:
   explicit SearchProxy(QObject* parent = nullptr);
   ~SearchProxy() override;
+
+ signals:
+  void onAppListUpdated(const AppSearchRecordList& record_list);
 
  public slots:
   void updateAppList(const QString& apps);

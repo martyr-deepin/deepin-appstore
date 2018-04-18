@@ -18,6 +18,9 @@
 #include "ui/channel/search_proxy.h"
 
 #include <QDebug>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 namespace dstore {
 
@@ -30,7 +33,38 @@ SearchProxy::~SearchProxy() {
 }
 
 void SearchProxy::updateAppList(const QString& apps) {
-  qDebug() << Q_FUNC_INFO << apps;
+  // Un-marshal app list.
+  const QJsonDocument doc = QJsonDocument::fromJson(apps.toUtf8());
+  if (!doc.isArray()) {
+    qWarning() << Q_FUNC_INFO << "apps is not an array!";
+    return;
+  }
+  const QJsonArray apps_array = doc.array();
+
+  AppSearchRecordList record_list;
+
+  for (const QJsonValue& app_value : apps_array) {
+    qDebug() << app_value;
+    if (!app_value.isObject()) {
+      qWarning() << Q_FUNC_INFO << "app is not object:" << app_value;
+      continue;
+    }
+    const QJsonObject app = app_value.toObject();
+    const QString name = app.value("name").toString();
+    const QJsonObject local_info = app.value("localInfo").toObject();
+    const QJsonObject description = local_info.value("description").toObject();
+    const QString local_name = description.value("name").toString();
+    const QString slogan = description.value("slogan").toString();
+    const QString local_desc = description.value("description").toString();
+    record_list.append(AppSearchRecord {
+      name,
+      local_name,
+      slogan,
+      local_desc
+    });
+  }
+
+  emit this->onAppListUpdated(record_list);
 }
 
 }  // namespace dstore
