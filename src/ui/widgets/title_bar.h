@@ -39,8 +39,6 @@ class TitleBar : public QFrame {
   QString getSearchText() const;
 
  signals:
-  void backwordButtonActiveChanged(bool active);
-  void forwordButtonActiveChanged(bool active);
   void backwardButtonClicked();
   void forwardButtonClicked();
 

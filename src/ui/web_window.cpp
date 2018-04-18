@@ -164,6 +164,7 @@ void WebWindow::onRecommendAppActive() {
 }
 
 void WebWindow::onWebViewUrlChanged(const QUrl& url) {
+  Q_UNUSED(url);
   auto page = web_view_->page();
   title_bar_->setBackwardButtonActive(page->canGoBack());
   title_bar_->setForwardButtonActive(page->canGoForward());
