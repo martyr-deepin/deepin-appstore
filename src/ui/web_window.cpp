@@ -80,6 +80,10 @@ void WebWindow::raiseWindow() {
 void WebWindow::initConnections() {
   connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
           this, &WebWindow::onRecommendAppActive);
+  connect(title_bar_, &TitleBar::backwardButtonClicked,
+          this, &WebWindow::webViewGoBack);
+  connect(title_bar_, &TitleBar::forwardButtonClicked,
+          this, &WebWindow::webViewGoForward);
 }
 
 void WebWindow::initProxy() {
@@ -125,11 +129,6 @@ void WebWindow::initUI() {
   this->setFocusPolicy(Qt::ClickFocus);
 }
 
-void WebWindow::onRecommendAppActive() {
-  recommend_app_->clearForm();
-  recommend_app_->show();
-}
-
 bool WebWindow::eventFilter(QObject* watched, QEvent* event) {
   // Filters mouse press event only.
   if (event->type() == QEvent::MouseButtonPress &&
@@ -138,9 +137,11 @@ bool WebWindow::eventFilter(QObject* watched, QEvent* event) {
     QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
     switch (mouseEvent->button()) {
       case Qt::BackButton: {
+        this->webViewGoBack();
         break;
       }
       case Qt::ForwardButton: {
+        this->webViewGoForward();
         break;
       }
       default: {
@@ -153,6 +154,25 @@ bool WebWindow::eventFilter(QObject* watched, QEvent* event) {
 void WebWindow::resizeEvent(QResizeEvent* event) {
   QWidget::resizeEvent(event);
   title_bar_->setFixedWidth(event->size().width());
+}
+
+void WebWindow::onRecommendAppActive() {
+  recommend_app_->clearForm();
+  recommend_app_->show();
+}
+
+void WebWindow::webViewGoBack() {
+  auto page = web_view_->page();
+  if (page->canGoBack()) {
+    page->back();
+  }
+}
+
+void WebWindow::webViewGoForward() {
+  auto page = web_view_->page();
+  if (page->canGoForward()) {
+    page->forward();
+  }
 }
 
 }  // namespace dstore

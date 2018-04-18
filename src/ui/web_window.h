@@ -84,6 +84,9 @@ class WebWindow : public Dtk::Widget::DMainWindow {
 
  private slots:
   void onRecommendAppActive();
+
+  void webViewGoBack();
+  void webViewGoForward();
 };
 
 }  // namespace dstore
