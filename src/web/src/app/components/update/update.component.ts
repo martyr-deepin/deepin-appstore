@@ -11,6 +11,8 @@ export class UpdateComponent implements OnInit {
   constructor(private storeService: StoreService) {}
 
   ngOnInit() {
-    this.storeService.installPackage('mysql');
+    console.log('get job list');
+    this.storeService.getJobList()
+      .subscribe(jobsList => console.log('jobList: ', jobsList));
   }
 }

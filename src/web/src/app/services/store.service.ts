@@ -44,7 +44,7 @@ export class StoreService {
    * @returns {Observable<boolean>}
    */
   appInstalled(appName: string): Observable<boolean> {
-    return this.execWithCallback('dstoreDaemon.packageExists', appName);
+    return this.execWithCallback('storeDaemon.packageExists', appName);
   }
 
   /**
@@ -53,7 +53,7 @@ export class StoreService {
    * @returns {Observable<boolean>}
    */
   appInstallable(appName: string): Observable<boolean> {
-    return this.execWithCallback('dstoreDaemon.packageInstallable', appName);
+    return this.execWithCallback('storeDaemon.packageInstallable', appName);
   }
 
   /**
@@ -62,7 +62,7 @@ export class StoreService {
    * @returns {Observable<number>}
    */
   appDownloadSize(appName: string): Observable<number> {
-    return this.execWithCallback('dstoreDaemon.packagesDownloadSize', appName);
+    return this.execWithCallback('storeDaemon.packagesDownloadSize', appName);
   }
 
   /**
@@ -70,21 +70,30 @@ export class StoreService {
    * @returns {Observable<string[]>}
    */
   getUpgradableApps(): Observable<string[]> {
-    return this.execWithCallback('dstoreDaemon.upgradableApps');
+    return this.execWithCallback('storeDaemon.upgradableApps');
   }
 
   getJobInfo(jobPath: string): Observable<StoreJobInfo> {
-    return this.execWithCallback('dstoreDaemon.getJobInfo', jobPath);
+    return this.execWithCallback('storeDaemon.getJobInfo', jobPath);
+  }
+
+  /**
+   * Get all of jobs in backend.
+   * @returns {Observable<string[]>}
+   */
+  getJobList(): Observable<string[]> {
+    return this.execWithCallback('storeDaemon.jobList');
   }
 
   execWithCallback(method: string, ...args: any[]): Observable<any> {
-    let response: any;
+    let outerObserver: Observer<any>;
     const observable: Observable<any> = Observable.create((observer: Observer<any>) => {
-      observer.next(response);
-      observer.complete();
+      outerObserver = observer;
     });
-    Channel.execWithCallback((dbusResponse: any) => response = dbusResponse,
-      method, ...args);
+    Channel.execWithCallback((response: any) => {
+      outerObserver.next(response);
+      outerObserver.complete();
+    }, method, ...args);
     return observable;
   }
 }
