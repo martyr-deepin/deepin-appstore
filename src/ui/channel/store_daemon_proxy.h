@@ -50,7 +50,7 @@ class StoreDaemonProxy : public QObject {
   QString packageDesktopPath(const QString& package);
   bool packageExists(const QString& package);
   bool packageInstallable(const QString& package);
-  qlonglong packagesDownloadSize(const QStringList& packages);
+  qlonglong packageDownloadSize(const QString& package);
   void pauseJob(const QString& job);
   QString prepareDistUpgrade();
   void recordLocaleInfo(const QString& language);

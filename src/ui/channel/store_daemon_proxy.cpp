@@ -80,8 +80,8 @@ bool StoreDaemonProxy::packageInstallable(const QString& package) {
   return manager_->PackageInstallable(package);
 }
 
-qlonglong StoreDaemonProxy::packagesDownloadSize(const QStringList& packages) {
-  return manager_->PackagesDownloadSize(packages);
+qlonglong StoreDaemonProxy::packageDownloadSize(const QString& package) {
+  return manager_->PackagesDownloadSize({package});
 }
 
 void StoreDaemonProxy::pauseJob(const QString& job) {

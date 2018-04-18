@@ -61,7 +61,7 @@ export class StoreService {
    * @returns {Observable<number>}
    */
   appDownloadSize(appName: string): Observable<number> {
-    return this.execWithCallback('storeDaemon.packagesDownloadSize', [appName]);
+    return this.execWithCallback('storeDaemon.packageDownloadSize', appName);
   }
 
   /**
