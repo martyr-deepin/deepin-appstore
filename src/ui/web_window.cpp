@@ -88,6 +88,8 @@ void WebWindow::showWindow() {
 
 void WebWindow::openApp(const QString& app_name) {
   qDebug() << Q_FUNC_INFO << app_name;
+  // TODO(Shaohua): Make sure angular context has been initialized.
+  emit search_proxy_->openApp(app_name);
 }
 
 void WebWindow::raiseWindow() {
