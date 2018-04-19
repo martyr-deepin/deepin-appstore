@@ -40,6 +40,16 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.installPackage', appName);
   }
 
+  /**
+   * Update a spcific package. Call getUpgradableApps() first.
+   * @param {string} appName
+   * @returns {Observable<string>}
+   */
+  updatePackage(appName: string): Observable<string> {
+    console.log('updatePackage: ', appName);
+    return this.execWithCallback('storeDaemon.updatePackage', appName);
+  }
+
   removePackage(appName: string): Observable<string> {
     console.log('removePackage: ', appName);
     return this.execWithCallback('storeDaemon.removePackage', appName);
