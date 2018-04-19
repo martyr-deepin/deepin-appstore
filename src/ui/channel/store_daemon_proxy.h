@@ -19,6 +19,7 @@
 #define DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
 
 #include <QObject>
+#include <QVariantMap>
 
 #include "dbus/dbusvariant/app_update_info.h"
 #include "dbus/dbusvariant/locale_mirror_source.h"
@@ -33,8 +34,6 @@ class StoreDaemonProxy : public QObject {
   explicit StoreDaemonProxy(QObject* parent = nullptr);
   ~StoreDaemonProxy() override;
 
- signals:
-
  public slots:
   /**
    * Check connecting to backend app store daemon or not.
@@ -43,31 +42,99 @@ class StoreDaemonProxy : public QObject {
   bool isDBusConnected() const;
 
   // Store Manager methods:
-  QString cleanArchives();
-  void cleanJob(const QString& job);
-  QString distUpgrade();
-  QString installPackage(const QString& package);
-  QString packageDesktopPath(const QString& package);
-  bool packageExists(const QString& package);
-  bool packageInstallable(const QString& package);
-  qlonglong packageDownloadSize(const QString& package);
-  void pauseJob(const QString& job);
-  QString prepareDistUpgrade();
+  /**
+   * apt-get clean
+   * @return string, returns job path
+   */
+  const QVariantMap cleanArchives();
+
+  /**
+   * Clean up a specific job.
+   * @param job
+   * @return void
+   */
+  const QVariantMap cleanJob(const QString& job);
+
+  /**
+   * Pause a running job
+   * @param job
+   * @return void
+   */
+  const QVariantMap pauseJob(const QString& job);
+
+  /**
+   * Resume a paused job
+   * @param job
+   * @return void
+   */
+  const QVariantMap startJob(const QString& job);
+
+  const QString distUpgrade();
+
+  /**
+   * apt-get install xxx
+   * @param package
+   * @return string returns job path
+   */
+  const QVariantMap installPackage(const QString& package);
+
+  /**
+   * Check whether this package is already installed into system.
+   * @param package
+   * @return boolean
+   */
+  const QVariantMap packageExists(const QString& package);
+
+  const QString packageDesktopPath(const QString& package);
+
+  /**
+   * Check whether a specific package exists in APT store
+   * @param package
+   * @return boolean
+   */
+  const QVariantMap packageInstallable(const QString& package);
+
+  /**
+   * Get deb package size
+   * @param package
+   * @return longlong
+   */
+  const QVariantMap packageDownloadSize(const QString& package);
+
+  const QString prepareDistUpgrade();
   void recordLocaleInfo(const QString& language);
-  void startJob(const QString& job);
-  QString updatePackage(const QString& package);
-  QString updateSource();
-  QString removePackage(const QString& package);
+
+  /**
+   * apt-get upgrade xxx
+   * @param package
+   * @return string, returns job path
+   */
+  const QVariantMap updatePackage(const QString& package);
+
+  const QString updateSource();
+
+  /**
+   * apt-get remove xxx
+   * @param package
+   * @return string, returns job path
+   */
+  const QVariantMap removePackage(const QString& package);
+
   void setAutoClean(bool enabled);
   void setRegion(const QString& region);
 
   // Store Manager properties:
   bool autoClean();
-  QStringList jobList();
-  QStringList systemArchitectures();
-  bool systemOnChanging();
-  QStringList upgradableApps();
 
+  /**
+   * Returns all of jobs existing in backend.
+   * @return stringList
+   */
+  const QVariantMap jobList();
+
+  const QStringList systemArchitectures();
+  bool systemOnChanging();
+  const QStringList upgradableApps();
 
   // Store Updater methods:
   const QVariantList applicationUpdateInfos(const QString& language);
@@ -79,7 +146,7 @@ class StoreDaemonProxy : public QObject {
   // Store Manager properties:
   bool autoCheckUpdates();
   bool autoDownloadUpdates();
-  QString mirrorSource();
+  const QString mirrorSource();
 //  QStringList updatableApps();
 //  QStringList updatablePackages();
 

@@ -17,12 +17,23 @@
 
 #include "ui/channel/store_daemon_proxy.h"
 
+#include <QDBusPendingReply>
+
 #include "dbus/dbus_consts.h"
 #include "dbus/lastore_job_interface.h"
 #include "dbus/lastore_manager_interface.h"
 #include "dbus/lastore_updater_interface.h"
 
 namespace dstore {
+
+namespace {
+
+const char kResultOk[] = "ok";
+const char kResultErrName[] = "errorName";
+const char kResultErrMsg[] = "errorMsg";
+const char kResultValue[] = "value";
+
+}  // namespace
 
 StoreDaemonProxy::StoreDaemonProxy(QObject* parent)
     : QObject(parent),
@@ -49,48 +60,154 @@ bool StoreDaemonProxy::isDBusConnected() const {
   return (manager_->isValid() && updater_->isValid());
 }
 
-QString StoreDaemonProxy::cleanArchives() {
-  const QDBusObjectPath path = manager_->CleanArchives();
-  return path.path();
+const QVariantMap StoreDaemonProxy::cleanArchives() {
+  const QDBusPendingReply<QDBusObjectPath> reply = manager_->CleanArchives();
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, "" },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, reply.value().path() },
+    };
+  }
 }
 
-void StoreDaemonProxy::cleanJob(const QString& job) {
-  manager_->CleanJob(job);
+const QVariantMap StoreDaemonProxy::cleanJob(const QString& job) {
+  const QDBusPendingReply<> reply = manager_->CleanJob(job);
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, QVariant() },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, QVariant() },
+    };
+  }
 }
 
-QString StoreDaemonProxy::distUpgrade() {
+const QString StoreDaemonProxy::distUpgrade() {
   const QDBusObjectPath path = manager_->DistUpgrade();
   return path.path();
 }
 
-QString StoreDaemonProxy::installPackage(const QString& package) {
+const QVariantMap StoreDaemonProxy::installPackage(const QString& package) {
   // NOTE(Shaohua): package name is also set as job_name so that `name`
   // property in JobInfo is referred to package_name.
-  const QDBusObjectPath path = manager_->InstallPackage(package, package);
-  return path.path();
+  const QDBusPendingReply<QDBusObjectPath> reply =
+      manager_->InstallPackage(package, package);
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, "" },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, reply.value().path() },
+    };
+  }
 }
 
-QString StoreDaemonProxy::packageDesktopPath(const QString& package) {
+const QString StoreDaemonProxy::packageDesktopPath(const QString& package) {
   return manager_->PackageDesktopPath(package);
 }
 
-bool StoreDaemonProxy::packageExists(const QString& package) {
-  return manager_->PackageExists(package);
+const QVariantMap StoreDaemonProxy::packageExists(const QString& package) {
+  const QDBusPendingReply<bool> reply = manager_->PackageExists(package);
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, false },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, reply.value() },
+    };
+  }
 }
 
-bool StoreDaemonProxy::packageInstallable(const QString& package) {
-  return manager_->PackageInstallable(package);
+const QVariantMap StoreDaemonProxy::packageInstallable(const QString& package) {
+  const QDBusPendingReply<bool> reply = manager_->PackageInstallable(package);
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, false },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, reply.value() },
+    };
+  }
 }
 
-qlonglong StoreDaemonProxy::packageDownloadSize(const QString& package) {
-  return manager_->PackagesDownloadSize({package});
+const QVariantMap StoreDaemonProxy::packageDownloadSize(
+    const QString& package) {
+  const QDBusPendingReply<bool> reply =
+      manager_->PackagesDownloadSize({package});
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, 0 },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, reply.value() },
+    };
+  }
 }
 
-void StoreDaemonProxy::pauseJob(const QString& job) {
-  manager_->PauseJob(job);
+const QVariantMap StoreDaemonProxy::pauseJob(const QString& job) {
+  const QDBusPendingReply<> reply = manager_->PauseJob(job);
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, QVariant() },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, QVariant() },
+    };
+  }
 }
 
-QString StoreDaemonProxy::prepareDistUpgrade() {
+const QString StoreDaemonProxy::prepareDistUpgrade() {
   const QDBusObjectPath path = manager_->PrepareDistUpgrade();
   return path.path();
 }
@@ -99,23 +216,68 @@ void StoreDaemonProxy::recordLocaleInfo(const QString& language) {
   manager_->RecordLocaleInfo(language);
 }
 
-void StoreDaemonProxy::startJob(const QString& job) {
-  manager_->StartJob(job);
+const QVariantMap StoreDaemonProxy::startJob(const QString& job) {
+  const QDBusPendingReply<> reply = manager_->StartJob(job);
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, QVariant() },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, QVariant() },
+    };
+  }
 }
 
-QString StoreDaemonProxy::updatePackage(const QString& package) {
-  const QDBusObjectPath path = manager_->UpdatePackage(package, package);
-  return path.path();
+const QVariantMap StoreDaemonProxy::updatePackage(const QString& package) {
+  const QDBusPendingReply<QDBusObjectPath> reply =
+      manager_->UpdatePackage(package, package);
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, "" },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, reply.value().path() },
+    };
+  }
 }
 
-QString StoreDaemonProxy::updateSource() {
+const QString StoreDaemonProxy::updateSource() {
   const QDBusObjectPath path = manager_->UpdateSource();
   return path.path();
 }
 
-QString StoreDaemonProxy::removePackage(const QString& package) {
-  const QDBusObjectPath path = manager_->RemovePackage(package, package);
-  return path.path();
+const QVariantMap StoreDaemonProxy::removePackage(const QString& package) {
+  const QDBusPendingReply<QDBusObjectPath> reply =
+      manager_->RemovePackage(package, package);
+  if (reply.isError()) {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResultValue, "" },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, reply.value().path() },
+    };
+  }
 }
 
 void StoreDaemonProxy::setAutoClean(bool enabled) {
@@ -130,16 +292,22 @@ bool StoreDaemonProxy::autoClean() {
   return manager_->autoClean();
 }
 
-QStringList StoreDaemonProxy::jobList() {
+const QVariantMap StoreDaemonProxy::jobList() {
   auto list = manager_->jobList();
   QStringList result;
   for (const QDBusObjectPath& path : list ) {
     result.append(path.path());
   }
-  return result;
+
+  return QVariantMap {
+      { kResultOk, true },
+      { kResultErrName, "" },
+      { kResultErrMsg, "" },
+      { kResultValue, result },
+  };
 }
 
-QStringList StoreDaemonProxy::systemArchitectures() {
+const QStringList StoreDaemonProxy::systemArchitectures() {
   return manager_->systemArchitectures();
 }
 
@@ -147,7 +315,7 @@ bool StoreDaemonProxy::systemOnChanging() {
   return manager_->systemOnChanging();
 }
 
-QStringList StoreDaemonProxy::upgradableApps() {
+const QStringList StoreDaemonProxy::upgradableApps() {
   return manager_->upgradableApps();
 }
 
@@ -183,7 +351,7 @@ bool StoreDaemonProxy::autoDownloadUpdates() {
   return updater_->autoDownloadUpdates();
 }
 
-QString StoreDaemonProxy::mirrorSource() {
+const QString StoreDaemonProxy::mirrorSource() {
   return updater_->mirrorSource();
 }
 
@@ -211,8 +379,20 @@ const QVariantMap StoreDaemonProxy::getJobInfo(const QString& job) {
     result.insert("description", job_interface.description());
     result.insert("packages", job_interface.packages());
     result.insert("cancelable", job_interface.cancelable());
+    return QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResultValue, result },
+    };
+  } else {
+    return QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, job_interface.lastError().name() },
+        { kResultErrMsg, job_interface.lastError().message() },
+        { kResultValue, QVariantMap() },
+    };
   }
-  return result;
 }
 
 }  // namespace dstore
