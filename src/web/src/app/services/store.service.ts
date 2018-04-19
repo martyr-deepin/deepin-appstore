@@ -95,6 +95,14 @@ export class StoreService {
   }
 
   /**
+   * Request to run application in background.
+   * @param {string} appName
+   */
+  openApp(appName: string): void {
+    Channel.exec('storeDaemon.openApp', appName);
+  }
+
+  /**
    * Get all of jobs in backend.
    * @returns {Observable<string[]>}
    */
