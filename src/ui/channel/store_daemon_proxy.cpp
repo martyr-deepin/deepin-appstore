@@ -64,7 +64,9 @@ QString StoreDaemonProxy::distUpgrade() {
 }
 
 QString StoreDaemonProxy::installPackage(const QString& package) {
-  const QDBusObjectPath path = manager_->InstallPackage("", package);
+  // NOTE(Shaohua): package name is also set as job_name so that `name`
+  // property in JobInfo is referred to package_name.
+  const QDBusObjectPath path = manager_->InstallPackage(package, package);
   return path.path();
 }
 
@@ -102,7 +104,7 @@ void StoreDaemonProxy::startJob(const QString& job) {
 }
 
 QString StoreDaemonProxy::updatePackage(const QString& package) {
-  const QDBusObjectPath path = manager_->UpdatePackage("", package);
+  const QDBusObjectPath path = manager_->UpdatePackage(package, package);
   return path.path();
 }
 
@@ -112,7 +114,7 @@ QString StoreDaemonProxy::updateSource() {
 }
 
 QString StoreDaemonProxy::removePackage(const QString& package) {
-  const QDBusObjectPath path = manager_->RemovePackage("", package);
+  const QDBusObjectPath path = manager_->RemovePackage(package, package);
   return path.path();
 }
 
@@ -152,7 +154,6 @@ QStringList StoreDaemonProxy::upgradableApps() {
 const QVariantList StoreDaemonProxy::applicationUpdateInfos(
     const QString& language) {
   const AppUpdateInfoList list = updater_->ApplicationUpdateInfos(language);
-  qDebug() << Q_FUNC_INFO << language << list;
   return AppUpdateInfoListToVariant(list);
 }
 
