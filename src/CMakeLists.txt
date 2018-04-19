@@ -77,6 +77,8 @@ set(BASE_FILES
     base/consts.h
     base/file_util.cpp
     base/file_util.h
+    base/launcher.cpp
+    base/launcher.h
     )
 
 set(DBUS_FILES
@@ -175,6 +177,15 @@ add_executable(deepin-appstore
                ${UI_FILES}
                )
 target_link_libraries(deepin-appstore ${LINK_LIBS})
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+  add_executable(test-launcher
+                 app/test_launcher.cpp
+                 base/launcher.cpp
+                 base/launcher.h
+                 )
+  target_link_libraries(test-launcher ${LINK_LIBS})
+endif()
+
 if (CMAKE_BUILD_TYPE MATCHES Release)
   add_dependencies(deepin-appstore update-qm)
 endif ()

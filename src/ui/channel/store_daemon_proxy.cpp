@@ -23,6 +23,7 @@
 #include "dbus/lastore_job_interface.h"
 #include "dbus/lastore_manager_interface.h"
 #include "dbus/lastore_updater_interface.h"
+#include "base/launcher.h"
 
 namespace dstore {
 
@@ -103,11 +104,11 @@ const QString StoreDaemonProxy::distUpgrade() {
   return path.path();
 }
 
-const QVariantMap StoreDaemonProxy::installPackage(const QString& package) {
+const QVariantMap StoreDaemonProxy::installPackage(const QString& app_name) {
   // NOTE(Shaohua): package name is also set as job_name so that `name`
   // property in JobInfo is referred to package_name.
   const QDBusPendingReply<QDBusObjectPath> reply =
-      manager_->InstallPackage(package, package);
+      manager_->InstallPackage(app_name, app_name);
   if (reply.isError()) {
     return QVariantMap {
         { kResultOk, false },
@@ -125,12 +126,12 @@ const QVariantMap StoreDaemonProxy::installPackage(const QString& package) {
   }
 }
 
-const QString StoreDaemonProxy::packageDesktopPath(const QString& package) {
-  return manager_->PackageDesktopPath(package);
+const QString StoreDaemonProxy::packageDesktopPath(const QString& app_name) {
+  return manager_->PackageDesktopPath(app_name);
 }
 
-const QVariantMap StoreDaemonProxy::packageExists(const QString& package) {
-  const QDBusPendingReply<bool> reply = manager_->PackageExists(package);
+const QVariantMap StoreDaemonProxy::packageExists(const QString& app_name) {
+  const QDBusPendingReply<bool> reply = manager_->PackageExists(app_name);
   if (reply.isError()) {
     return QVariantMap {
         { kResultOk, false },
@@ -148,8 +149,8 @@ const QVariantMap StoreDaemonProxy::packageExists(const QString& package) {
   }
 }
 
-const QVariantMap StoreDaemonProxy::packageInstallable(const QString& package) {
-  const QDBusPendingReply<bool> reply = manager_->PackageInstallable(package);
+const QVariantMap StoreDaemonProxy::packageInstallable(const QString& app_name) {
+  const QDBusPendingReply<bool> reply = manager_->PackageInstallable(app_name);
   if (reply.isError()) {
     return QVariantMap {
         { kResultOk, false },
@@ -168,9 +169,9 @@ const QVariantMap StoreDaemonProxy::packageInstallable(const QString& package) {
 }
 
 const QVariantMap StoreDaemonProxy::packageDownloadSize(
-    const QString& package) {
+    const QString& app_name) {
   const QDBusPendingReply<bool> reply =
-      manager_->PackagesDownloadSize({package});
+      manager_->PackagesDownloadSize({app_name});
   if (reply.isError()) {
     return QVariantMap {
         { kResultOk, false },
@@ -235,9 +236,9 @@ const QVariantMap StoreDaemonProxy::startJob(const QString& job) {
   }
 }
 
-const QVariantMap StoreDaemonProxy::updatePackage(const QString& package) {
+const QVariantMap StoreDaemonProxy::updatePackage(const QString& app_name) {
   const QDBusPendingReply<QDBusObjectPath> reply =
-      manager_->UpdatePackage(package, package);
+      manager_->UpdatePackage(app_name, app_name);
   if (reply.isError()) {
     return QVariantMap {
         { kResultOk, false },
@@ -260,9 +261,9 @@ const QString StoreDaemonProxy::updateSource() {
   return path.path();
 }
 
-const QVariantMap StoreDaemonProxy::removePackage(const QString& package) {
+const QVariantMap StoreDaemonProxy::removePackage(const QString& app_name) {
   const QDBusPendingReply<QDBusObjectPath> reply =
-      manager_->RemovePackage(package, package);
+      manager_->RemovePackage(app_name, app_name);
   if (reply.isError()) {
     return QVariantMap {
         { kResultOk, false },
@@ -393,6 +394,11 @@ const QVariantMap StoreDaemonProxy::getJobInfo(const QString& job) {
         { kResultValue, QVariantMap() },
     };
   }
+}
+
+void StoreDaemonProxy::openApp(const QString& app_name) {
+  const QString desktop_file = manager_->PackageDesktopPath(app_name);
+  ExecuteDesktopFile(desktop_file);
 }
 
 }  // namespace dstore

@@ -73,52 +73,52 @@ class StoreDaemonProxy : public QObject {
 
   /**
    * apt-get install xxx
-   * @param package
+   * @param app_name
    * @return string returns job path
    */
-  const QVariantMap installPackage(const QString& package);
+  const QVariantMap installPackage(const QString& app_name);
 
   /**
    * Check whether this package is already installed into system.
-   * @param package
+   * @param app_name
    * @return boolean
    */
-  const QVariantMap packageExists(const QString& package);
+  const QVariantMap packageExists(const QString& app_name);
 
-  const QString packageDesktopPath(const QString& package);
+  const QString packageDesktopPath(const QString& app_name);
 
   /**
    * Check whether a specific package exists in APT store
-   * @param package
+   * @param app_name
    * @return boolean
    */
-  const QVariantMap packageInstallable(const QString& package);
+  const QVariantMap packageInstallable(const QString& app_name);
 
   /**
    * Get deb package size
-   * @param package
+   * @param app_name
    * @return longlong
    */
-  const QVariantMap packageDownloadSize(const QString& package);
+  const QVariantMap packageDownloadSize(const QString& app_name);
 
   const QString prepareDistUpgrade();
   void recordLocaleInfo(const QString& language);
 
   /**
    * apt-get upgrade xxx
-   * @param package
+   * @param app_name
    * @return string, returns job path
    */
-  const QVariantMap updatePackage(const QString& package);
+  const QVariantMap updatePackage(const QString& app_name);
 
   const QString updateSource();
 
   /**
    * apt-get remove xxx
-   * @param package
+   * @param app_name
    * @return string, returns job path
    */
-  const QVariantMap removePackage(const QString& package);
+  const QVariantMap removePackage(const QString& app_name);
 
   void setAutoClean(bool enabled);
   void setRegion(const QString& region);
@@ -163,7 +163,14 @@ class StoreDaemonProxy : public QObject {
    * * cancelable: boolean
    * * packages: stringList
    */
-   const QVariantMap getJobInfo(const QString& job);
+  const QVariantMap getJobInfo(const QString& job);
+
+  /**
+   * Request to launch application.
+   * @param app_name
+   */
+  void openApp(const QString& app_name);
+
  private:
   LastoreManagerInterface* manager_ = nullptr;
   LastoreUpdaterInterface* updater_ = nullptr;
