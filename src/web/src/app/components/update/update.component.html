@@ -3,15 +3,15 @@
     <span>{{upgradeList.length}}个应用可更新</span>
     <button>全部更新</button>
   </div>
-  <ng-container *ngFor="let upgrade of upgradeList">
-    <div class="upgradeItem" *ngIf="upgrade.app$|async as app">
-      <img [src]="server+'/'+app.icon" class="icon">
-      <div class="content">
-        <div class="info">{{app.name}}</div>
-        <div class="desc">更新日志</div>
-        <div class="size">{{upgrade.downloadSize$|async|sizeHuman}}</div>
-        <div class="button">
-          <button>更新</button>
+  <ng-container *ngFor="let upgrade of upgradeList ">
+    <div class="upgradeItem " *ngIf="upgrade.app$|async as app ">
+      <img [src]="server+ '/'+app.icon " class="icon ">
+      <div class="content ">
+        <div class="info ">{{app.name}}</div>
+        <div class="desc ">更新日志</div>
+        <div class="size ">{{upgrade.downloadSize$|async|sizeHuman}} {{upgrade.job$|async|json}}</div>
+        <div class="button ">
+          <button (click)="update(upgrade.appName)">更新</button>
         </div>
       </div>
     </div>
