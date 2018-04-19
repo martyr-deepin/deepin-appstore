@@ -10,6 +10,14 @@ import { StoreJobInfo } from './store-job-info';
 export class StoreService {
   constructor(private appService: AppService) {}
 
+  /**
+   * Check connectivity to backend lastore daemon.
+   * @returns {Observable<boolean>} If returns false, all methods in this class will not work.
+   */
+  isDBusConnected(): Observable<boolean> {
+    return this.execWithCallback('storeDaemon.isDBusConnected');
+  }
+
   clearJob(job: string): void {
     Channel.exec('storeDaemon.cleanJob', job);
   }
