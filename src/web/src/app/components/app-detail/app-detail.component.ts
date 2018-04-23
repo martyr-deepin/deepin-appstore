@@ -6,17 +6,18 @@ import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 import { App } from '../../dstore/services/app';
 import { AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
+import { CanvasUtil } from '../../utils/canvas-util';
 
 @Component({
   selector: 'app-app-detail',
   templateUrl: './app-detail.component.html',
-  styleUrls: ['./app-detail.component.scss']
+  styleUrls: ['./app-detail.component.scss'],
 })
 export class AppDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private appService: AppService,
-    private baseService: BaseService
+    private baseService: BaseService,
   ) {}
 
   metadataServer: string;
@@ -28,6 +29,7 @@ export class AppDetailComponent implements OnInit {
       return this.appService.getApp(param.get('appName'));
     });
   }
+
   screenshotClick(elID: string) {
     ScrollIntoView(document.getElementById(elID));
     // chrome version 61 support
@@ -37,6 +39,13 @@ export class AppDetailComponent implements OnInit {
     //   block: 'nearest'
     // });
   }
+
+  previewImage(img: HTMLImageElement) {
+    window['dstore'].channel.objects.imageViewer.openBase64(
+      CanvasUtil.getBase64Image(img),
+    );
+  }
+
   log(v) {
     console.log(v);
   }
