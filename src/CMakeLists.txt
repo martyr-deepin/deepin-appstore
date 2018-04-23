@@ -133,6 +133,8 @@ set(UI_FILES
     ui/channel/image_viewer_proxy.h
     ui/channel/log_proxy.cpp
     ui/channel/log_proxy.h
+    ui/channel/menu_proxy.cpp
+    ui/channel/menu_proxy.h
     ui/channel/search_proxy.cpp
     ui/channel/search_proxy.h
     ui/channel/settings_proxy.cpp

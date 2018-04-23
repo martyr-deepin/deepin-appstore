@@ -15,44 +15,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_UI_CHANNEL_SEARCH_PROXY_H
-#define DEEPIN_APPSTORE_UI_CHANNEL_SEARCH_PROXY_H
+#ifndef DEEPIN_APPSTORE_UI_CHANNEL_MENU_PROXY_H
+#define DEEPIN_APPSTORE_UI_CHANNEL_MENU_PROXY_H
 
 #include <QObject>
 
-#include "services/search_result.h"
-
 namespace dstore {
 
-class SearchProxy : public QObject {
+/**
+ * Expose tool menu methods and signals to web page.
+ */
+class MenuProxy : public QObject {
   Q_OBJECT
  public:
-  explicit SearchProxy(QObject* parent = nullptr);
-  ~SearchProxy() override;
+  explicit MenuProxy(QObject* parent = nullptr);
+  ~MenuProxy() override;
 
  signals:
-  void onAppListUpdated(const AppSearchRecordList& record_list);
+  /**
+   * This signal is emitted when Login/Logout menu item is activated.
+   * @param login true if request to login, false for logout.
+   */
+  void loginRequested(bool login);
 
   /**
-   * Request to open app info page
-   * @param name
+   * This signal is emitted when RecommendApp menu item is activated.
    */
-  void openApp(const QString& name);
-
-  /**
-   * Request to open app search result page
-   * @param names
-   */
-  void openAppList(const QStringList& names);
+  void recommendAppRequested();
 
  public slots:
   /**
-   * Update app list used in search service.
-   * @param apps Serialized application info
+   * Update menu item state.
+   * @param login true if user logged-in, false otherwise.
    */
-  void updateAppList(const QString& apps);
+  void setLoginState(bool login);
 };
 
 }  // namespace dstore
 
-#endif  // DEEPIN_APPSTORE_UI_CHANNEL_SEARCH_PROXY_H
+#endif  // DEEPIN_APPSTORE_UI_CHANNEL_MENU_PROXY_H

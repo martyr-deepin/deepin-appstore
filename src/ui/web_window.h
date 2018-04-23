@@ -31,6 +31,7 @@ namespace dstore {
 class ImageViewer;
 class ImageViewerProxy;
 class LogProxy;
+class MenuProxy;
 class RecommendApp;
 class SearchCompletionWindow;
 class SearchManager;
@@ -77,6 +78,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   ImageViewer* image_viewer_ = nullptr;
   ImageViewerProxy* image_viewer_proxy_ = nullptr;
   LogProxy* log_proxy_ = nullptr;
+  MenuProxy* menu_proxy_ = nullptr;
   RecommendApp* recommend_app_ = nullptr;
   SearchCompletionWindow* completion_window_ = nullptr;
   SearchManager* search_manager_ = nullptr;
