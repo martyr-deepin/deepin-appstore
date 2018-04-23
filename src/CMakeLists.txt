@@ -184,6 +184,12 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
                  base/launcher.h
                  )
   target_link_libraries(test-launcher ${LINK_LIBS})
+  add_executable(test-base64-image
+                 app/base64_image.cpp
+                 base/file_util.cpp
+                 base/file_util.h
+                 )
+  target_link_libraries(test-base64-image ${LINK_LIBS})
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Release)
