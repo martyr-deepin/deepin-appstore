@@ -102,6 +102,11 @@ void WebWindow::initConnections() {
   connect(completion_window_, &SearchCompletionWindow::searchButtonClicked,
           this, &WebWindow::onSearchButtonClicked);
 
+  connect(image_viewer_proxy_, &ImageViewerProxy::openImageFileRequested,
+          image_viewer_, &ImageViewer::open);
+  connect(image_viewer_proxy_, &ImageViewerProxy::openPixmapRequested,
+          image_viewer_, &ImageViewer::openPixmap);
+
   connect(search_manager_, &SearchManager::searchAppResult,
           this, &WebWindow::onSearchAppResult);
 
@@ -139,7 +144,7 @@ void WebWindow::initConnections() {
 
 void WebWindow::initProxy() {
   auto web_channel = web_view_->page()->webChannel();
-  image_viewer_proxy_ = new ImageViewerProxy(image_viewer_, this);
+  image_viewer_proxy_ = new ImageViewerProxy(this);
   log_proxy_ = new LogProxy(this);
   menu_proxy_ = new MenuProxy(this);
   search_proxy_ = new SearchProxy(this);

@@ -17,12 +17,14 @@
 
 #include "ui/channel/image_viewer_proxy.h"
 
-#include "ui/widgets/image_viewer.h"
+#include <QDebug>
+#include <QPixmap>
+
+#include "base/file_util.h"
 
 namespace dstore {
 
-ImageViewerProxy::ImageViewerProxy(ImageViewer* viewer, QObject* parent)
-    : QObject(parent), viewer_(viewer) {
+ImageViewerProxy::ImageViewerProxy(QObject* parent) : QObject(parent) {
   this->setObjectName("ImageViewerProxy");
 }
 
@@ -31,7 +33,18 @@ ImageViewerProxy::~ImageViewerProxy() {
 }
 
 void ImageViewerProxy::open(const QString& filepath) {
-  viewer_->open(filepath);
+  emit this->openImageFileRequested(filepath);
+}
+
+void ImageViewerProxy::openBase64(const QString& data) {
+  const QByteArray img_data = QByteArray::fromBase64(data.toLocal8Bit());
+  QPixmap pixmap;
+  const bool status = pixmap.loadFromData(img_data);
+  if (status) {
+    emit this->openPixmapRequested(pixmap);
+  } else {
+    qWarning() << Q_FUNC_INFO << "Failed to load pixmap:" << data;
+  }
 }
 
 }  // namespace dstore

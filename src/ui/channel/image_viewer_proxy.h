@@ -22,22 +22,29 @@
 
 namespace dstore {
 
-class ImageViewer;
-
 class ImageViewerProxy : public QObject {
   Q_OBJECT
  public:
-  explicit ImageViewerProxy(ImageViewer* viewer, QObject* parent = nullptr);
+  explicit ImageViewerProxy(QObject* parent = nullptr);
   ~ImageViewerProxy() override;
 
- public slots: /**
+ signals:
+  void openImageFileRequested(const QString& filepath);
+
+  void openPixmapRequested(const QPixmap& pixmap);
+
+ public slots:
+  /**
    * Open image in viewer window.
    * @param filepath Absolute path to image file.
    */
   void open(const QString& filepath);
 
- private:
-  ImageViewer* viewer_ = nullptr;
+  /**
+   * Open base64-encoded image data.
+   * @param data
+   */
+  void openBase64(const QString& data);
 };
 
 }  // namespace dstore

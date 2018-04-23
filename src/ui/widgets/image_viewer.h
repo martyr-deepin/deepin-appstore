@@ -32,7 +32,18 @@ class ImageViewer : public QDialog {
   ~ImageViewer() override;
 
  public slots:
+  /**
+   * Open a local image file and render in image box.
+   * @param filepath
+   */
   void open(const QString& filepath);
+
+  /**
+   * Open a raw pixmap and render in popup window.
+   * Note that this pixmap object is duplicated and might be scaled if needed.
+   * @param pixmap
+   */
+  void openPixmap(QPixmap pixmap);
 
  protected:
   void mousePressEvent(QMouseEvent* event) override;
