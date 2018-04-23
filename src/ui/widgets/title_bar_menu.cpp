@@ -32,7 +32,7 @@ TitleBarMenu::~TitleBarMenu() {
 
 }
 
-bool TitleBarMenu::isSignedIn() const {
+bool TitleBarMenu::isLoggedIn() const {
   return is_signed_in_;
 }
 
@@ -44,12 +44,12 @@ bool TitleBarMenu::isDarkTheme() const {
   return is_dark_theme_;
 }
 
-void TitleBarMenu::setSignedIn(bool is_signed_in) {
+void TitleBarMenu::setLoginState(bool login) {
   Q_ASSERT(support_sign_in_);
 
-  is_signed_in_ = is_signed_in;
+  is_signed_in_ = login;
   if (support_sign_in_) {
-    if (is_signed_in) {
+    if (login) {
       sign_in_action_->setText(QObject::tr("Sign Out"));
     } else {
       sign_in_action_->setText(QObject::tr("Sign In"));
@@ -108,7 +108,7 @@ void TitleBarMenu::initActions() {
 }
 
 void TitleBarMenu::onSignInActionTriggered() {
-  emit this->signInRequested(!is_signed_in_);
+  emit this->loginRequested(!is_signed_in_);
 }
 
 void TitleBarMenu::onThemeActionTriggered() {

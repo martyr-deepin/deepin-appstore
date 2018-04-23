@@ -38,7 +38,6 @@
 #include "ui/channel/settings_proxy.h"
 #include "ui/channel/store_daemon_proxy.h"
 #include "ui/widgets/image_viewer.h"
-#include "ui/widgets/recommend_app.h"
 #include "ui/widgets/search_completion_window.h"
 #include "ui/widgets/title_bar.h"
 #include "ui/widgets/title_bar_menu.h"
@@ -128,7 +127,11 @@ void WebWindow::initConnections() {
           this, &WebWindow::onSearchEditFocusOut);
 
   connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
-          this, &WebWindow::onRecommendAppActive);
+          menu_proxy_, &MenuProxy::recommendAppRequested);
+  connect(tool_bar_menu_, &TitleBarMenu::loginRequested,
+          menu_proxy_, &MenuProxy::loginRequested);
+  connect(menu_proxy_, &MenuProxy::setLoginState,
+          tool_bar_menu_, &TitleBarMenu::setLoginState);
 
   connect(web_view_->page(), &QCefWebPage::urlChanged,
           this, &WebWindow::onWebViewUrlChanged);
@@ -159,9 +162,6 @@ void WebWindow::initUI() {
 
   completion_window_ = new SearchCompletionWindow();
   completion_window_->hide();
-
-  recommend_app_ = new RecommendApp(this);
-  recommend_app_->hide();
 
   title_bar_ = new TitleBar();
   this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
@@ -208,11 +208,6 @@ bool WebWindow::eventFilter(QObject* watched, QEvent* event) {
 void WebWindow::resizeEvent(QResizeEvent* event) {
   QWidget::resizeEvent(event);
   title_bar_->setFixedWidth(event->size().width());
-}
-
-void WebWindow::onRecommendAppActive() {
-  recommend_app_->clearForm();
-  recommend_app_->show();
 }
 
 void WebWindow::onSearchAppResult(const AppSearchRecordList& result) {

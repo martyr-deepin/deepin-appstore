@@ -24,11 +24,14 @@ namespace dstore {
 
 class TitleBarMenu : public QMenu {
   Q_OBJECT
-  Q_PROPERTY(bool signInState
-                 READ isSignedIn
-                 WRITE setSignedIn
-                 NOTIFY signInRequested)
-  Q_PROPERTY(bool regionChina READ getRegion WRITE setRegion NOTIFY switchRegionRequested)
+  Q_PROPERTY(bool loginState
+                 READ isLoggedIn
+                 WRITE setLoginState
+                 NOTIFY loginRequested)
+  Q_PROPERTY(bool regionChina
+                 READ getRegion
+                 WRITE setRegion
+                 NOTIFY switchRegionRequested)
   Q_PROPERTY(bool darkTheme
                  READ isDarkTheme
                  WRITE setDarkTheme
@@ -38,7 +41,7 @@ class TitleBarMenu : public QMenu {
   explicit TitleBarMenu(bool support_sign_in, QWidget* parent = nullptr);
   ~TitleBarMenu() override;
 
-  bool isSignedIn() const;
+  bool isLoggedIn() const;
 
   /**
    * Get current store region.
@@ -49,14 +52,14 @@ class TitleBarMenu : public QMenu {
   bool isDarkTheme() const;
 
  signals:
-  void signInRequested(bool is_signed_in);
+  void loginRequested(bool login);
   void switchThemeRequested(bool is_dark_theme);
   void recommendAppRequested();
   void switchRegionRequested(bool is_china);
   void clearCacheRequested();
 
  public slots:
-  void setSignedIn(bool is_signed_in);
+  void setLoginState(bool login);
   void setRegion(bool is_china);
   void setDarkTheme(bool is_dark_theme);
 

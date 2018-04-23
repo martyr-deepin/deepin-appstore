@@ -27,8 +27,4 @@ MenuProxy::~MenuProxy() {
 
 }
 
-void MenuProxy::setLoginState(bool login) {
-  Q_UNUSED(login);
-}
-
 }  // namespace dstore

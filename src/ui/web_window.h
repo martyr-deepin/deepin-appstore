@@ -32,7 +32,6 @@ class ImageViewer;
 class ImageViewerProxy;
 class LogProxy;
 class MenuProxy;
-class RecommendApp;
 class SearchCompletionWindow;
 class SearchManager;
 class SearchProxy;
@@ -79,7 +78,6 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   ImageViewerProxy* image_viewer_proxy_ = nullptr;
   LogProxy* log_proxy_ = nullptr;
   MenuProxy* menu_proxy_ = nullptr;
-  RecommendApp* recommend_app_ = nullptr;
   SearchCompletionWindow* completion_window_ = nullptr;
   SearchManager* search_manager_ = nullptr;
   SearchProxy* search_proxy_ = nullptr;
@@ -93,8 +91,6 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   QTimer* search_timer_ = nullptr;
 
  private slots:
-  void onRecommendAppActive();
-
   void onSearchAppResult(const AppSearchRecordList& result);
   void onSearchEditFocusOut();
   void onSearchButtonClicked();

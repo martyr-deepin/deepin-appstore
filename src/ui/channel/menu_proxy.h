@@ -43,7 +43,6 @@ class MenuProxy : public QObject {
    */
   void recommendAppRequested();
 
- public slots:
   /**
    * Update menu item state.
    * @param login true if user logged-in, false otherwise.
