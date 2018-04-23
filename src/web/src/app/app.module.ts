@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { RoutingModule } from './routing/routing.module';
 import { DstoreModule } from './dstore/dstore.module';
 
+import { MyHttpInterceptor } from './services/http-interceptor';
 import { Locale } from './utils/locale';
 
 import { AppService } from './services/app.service';
@@ -15,6 +17,7 @@ import { DownloadService } from './services/download.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CommentService } from './services/comment.service';
+import { BaseService } from './dstore/services/base.service';
 
 import { AppComponent } from './app.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
@@ -56,6 +59,16 @@ import { StoreService } from './services/store.service';
     HttpClientModule,
     DstoreModule,
     RoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () =>
+          sessionStorage.getItem('auth-token') ||
+          localStorage.getItem('auth-token'),
+        headerName: 'Access-Token',
+        authScheme: '',
+        whitelistedDomains: new BaseService().whiteList,
+      },
+    }),
   ],
   providers: [
     AppService,
@@ -70,6 +83,7 @@ import { StoreService } from './services/store.service';
       provide: LOCALE_ID,
       useValue: Locale.getPcp47Locale(),
     },
+    { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

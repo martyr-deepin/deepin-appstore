@@ -15,21 +15,19 @@ export class AppService {
   private server: string;
   private _list: Observable<App[]>;
 
+  list: () => Observable<App[]>;
+
   constructor(
     private http: HttpClient,
     private appService: DstoreAppService,
     private baseService: BaseService,
   ) {
     this.server = this.baseService.serverHosts.operationServer;
-    this._list = this.getList().shareReplay();
-  }
-
-  get list(): Observable<App[]> {
-    return this._list;
+    this.list = _.throttle(this.getList, 5000);
   }
 
   getApp(appName: string): Observable<App> {
-    return this.list
+    return this.list()
       .map(apps => apps.find(app => app.name === appName))
       .do(app => console.log(app));
   }
@@ -61,7 +59,8 @@ export class AppService {
           });
           return apps;
         }),
-      );
+      )
+      .shareReplay();
   }
 }
 

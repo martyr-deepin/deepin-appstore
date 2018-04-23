@@ -43,22 +43,25 @@
   <div class="hr">
   </div>
   <br>
-  <div class="tip">
-    <div class="tipButton">Tip</div>
-    <div>
-      <br>
-      <span class="tipList">
-        <div class="iconList">
-          <img class="icon" [src]="metadataServer+'/'+app.icon">
-          <img class="icon" [src]="metadataServer+'/'+app.icon">
-          <img class="icon" [src]="metadataServer+'/'+app.icon">
-          <img class="icon" [src]="metadataServer+'/'+app.icon">
-        </div>
-        等20人
-      </span>
-      <br>
+
+  <ng-template #tip>
+    <div class="tip">
+      <div class="tipButton">Tip</div>
+      <div>
+        <br>
+        <span class="tipList">
+          <div class="iconList">
+            <img class="icon" [src]="metadataServer+'/'+app.icon">
+            <img class="icon" [src]="metadataServer+'/'+app.icon">
+            <img class="icon" [src]="metadataServer+'/'+app.icon">
+            <img class="icon" [src]="metadataServer+'/'+app.icon">
+          </div>
+          等20人
+        </span>
+        <br>
+      </div>
     </div>
-  </div>
+  </ng-template>
 
   <app-app-comment [appName]="app.name"></app-app-comment>
 </div>

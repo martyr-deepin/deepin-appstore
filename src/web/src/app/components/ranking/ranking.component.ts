@@ -8,7 +8,7 @@ import { App } from '../../dstore/services/app';
 @Component({
   selector: 'app-ranking',
   templateUrl: './ranking.component.html',
-  styleUrls: ['./ranking.component.scss']
+  styleUrls: ['./ranking.component.scss'],
 })
 export class RankingComponent implements OnInit {
   constructor(private appService: AppService) {}
@@ -17,6 +17,6 @@ export class RankingComponent implements OnInit {
   sortBy = SortOrder.Downloads;
 
   ngOnInit() {
-    this.appsObs = this.appService.list;
+    this.appsObs = this.appService.list();
   }
 }

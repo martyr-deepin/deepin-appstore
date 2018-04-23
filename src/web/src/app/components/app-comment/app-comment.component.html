@@ -8,63 +8,55 @@
   </ng-container>
 </dialog>
 
-<br>
-<div class="comment" *ngIf="!isLoggedIn;else comment">
-  <div class="title">
-    <span>请登录后对应用进行评价</span>
-    <a href="">注册</a>
-  </div>
-  <div class="input-box">
-    <div class="loginBtn" (click)="dialog.showModal()" (blur)="log($event)" #btn>登录</div>
-    <textarea class="input" readonly></textarea>
-    <span class="placeholder" hidden>请输入评论内容</span>
-  </div>
-</div>
-<ng-template #comment>
+<ng-container *ngIf="commentListObs|async as cs">
   <div class="comment">
     <div class="title">
-      <span class="star">
+      <ng-container *ngIf="!isLoggedIn">
+        <span>请登录后对应用进行评价</span>
+        <a href="">注册</a>
+      </ng-container>
+      <span [hidden]="!isLoggedIn" class="star">
         <div>您的评分</div>
         <dstore-star #star [readonly]="false"></dstore-star>
         <div>{{star.rateHover||star.rate}}分</div>
       </span>
-      <a href=""></a>
     </div>
-    <div class="input-box" (click)="input.focus()">
-      <textarea class="input" #input (keyup)="null"></textarea>
-      <span class="placeholder" [hidden]="input.value">请输入评论内容</span>
+    <div class="input-box">
+      <textarea class="input" [readonly]="!isLoggedIn || isCommented(cs)" #commentContext (input)="null"></textarea>
+      <div class="loginBtn" (click)="dialog.showModal()" *ngIf="!isLoggedIn;else placeholderTemplate">登录</div>
+      <ng-template #placeholderTemplate>
+        <span class="placeholder" [hidden]="commentContext.value">{{isCommented(cs)?"已经评论过了":"请输入评论内容"}}</span>
+      </ng-template>
+    </div>
+    <button class="submitBtn" *ngIf="isLoggedIn" [disabled]="!commentContext.value || !star.rate" (click)="submitComment(commentContext.value,star.rate*2)">提交评论</button>
+  </div>
+  <div class="paging">
+    <div class="title">
+      用户评价
     </div>
   </div>
-  <button class="submitBtn" [disabled]="!input.value || !star.rate">提交评论</button>
-</ng-template>
-<br>
-<br>
-<div class="paging">
-  <div class="title">
-    用户评价
-  </div>
-</div>
-<div class="commentList" *ngIf="commentListObs|async as cs">
-  <div class="commentItem" *ngIf="cs.length==0">
-    空的列表
-  </div>
-  <div class="commentItem" *ngFor="let c of cs">
-    <div class="head">
-      <img src="http://10.0.12.148:8000/images/rooarr-icon.svg" class="icon">
-      <span>{{c.user.name}}</span>
+  <div class="commentList">
+    <div class="commentItem" *ngIf="cs.length==0">
+      空的列表
     </div>
-    <div class="body">
-      <div class="rate">
-        <dstore-star [rate]="c.rate"></dstore-star>
-        <span>{{c.rate}}分</span>
+    <div class="commentItem" *ngFor="let c of cs">
+      <div class="head">
+        <img src="http://10.0.12.148:8000/images/rooarr-icon.svg" class="icon">
+        <span>{{c.user.name}}</span>
       </div>
-      <span>{{c.content}}</span>
-    </div>
-    <div class="time">
-      {{c.createTime}}
-    </div>
-    <div class="like">
-      ({{c.likeCount}})👍
+      <div class="body">
+        <div class="rate">
+          <dstore-star [rate]="c.rate"></dstore-star>
+          <span>{{c.rate}}分</span>
+        </div>
+        <span>{{c.content}}</span>
+      </div>
+      <div class="time">
+        {{c.createTime}}
+      </div>
+      <div class="like">
+        ({{c.likeCount}})赞
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

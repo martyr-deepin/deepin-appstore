@@ -3,9 +3,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AuthService {
   private tokenStorageKey = 'auth-token';
-  login(token: string) {
-    localStorage.setItem(this.tokenStorageKey, token);
-  }
   get isLoggedIn(): boolean {
     return this.token !== null;
   }
@@ -16,4 +13,16 @@ export class AuthService {
     );
   }
   constructor() {}
+
+  login(token: string) {
+    localStorage.setItem(this.tokenStorageKey, token);
+  }
+
+  logout() {
+    sessionStorage.removeItem(this.tokenStorageKey);
+    localStorage.removeItem(this.tokenStorageKey);
+    location.href = `https://login.deepin.org/oauth2/logout?callback=${
+      location.href
+    }`;
+  }
 }

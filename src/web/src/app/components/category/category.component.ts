@@ -12,13 +12,13 @@ import { SortOrder } from '../app-title/app-title.component';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private categoryService: CategoryService,
-    private appService: AppService
+    private appService: AppService,
   ) {}
 
   categoryObs: Observable<Category>;
@@ -29,11 +29,11 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.categoryObs = this.route.paramMap.mergeMap(param => {
       return this.categoryService.list.map(cs =>
-        _.find(cs, c => c.id === param.get('id'))
+        _.find(cs, c => c.id === param.get('id')),
       );
     });
     this.appsObs = this.categoryObs.mergeMap(c => {
-      return this.appService.list.map(apps => {
+      return this.appService.list().map(apps => {
         if (c.apps && c.apps.length > 0) {
           return apps.filter(app => c.apps.includes(app.name));
         } else {

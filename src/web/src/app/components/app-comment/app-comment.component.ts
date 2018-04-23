@@ -32,9 +32,11 @@ export class AppCommentComponent implements OnInit {
 
   @ViewChild('dialog') dialog: { nativeElement: HTMLDialogElement };
   iframeLoading = true;
+
   ngOnInit() {
     // this.dialogEl = this.dialog.nativeElement;
     this.commentListObs = this.commentService.list(this.appName);
+    // this.commentService.own(this.appName).subscribe(console.log);
   }
 
   iframeLoad(event: Event) {
@@ -44,7 +46,9 @@ export class AppCommentComponent implements OnInit {
       '#close',
     );
     if (cBtn) {
-      cBtn.onclick = () => this.dialog.nativeElement.close();
+      cBtn.addEventListener('click', () =>
+        console.log(this.dialog.nativeElement),
+      );
     }
     const token = iframeEl.contentDocument.cookie
       .split('; ')
@@ -57,11 +61,27 @@ export class AppCommentComponent implements OnInit {
     }
   }
 
-  get isLoggedIn() {
+  get isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
   }
 
+  isCommented(comments: Comment[]): boolean {
+    return comments.map(comment => comment.user.id).includes(this.userID);
+  }
+
+  get userID() {
+    return 39063;
+  }
+
+  submitComment(content: string, rate: number) {
+    this.commentService
+      .create(this.appName, content, rate)
+      .subscribe(null, null, () => {
+        this.commentListObs = this.commentService.list(this.appName);
+      });
+  }
+
   log(any) {
-    console.log(any);
+    console.dir(any);
   }
 }
