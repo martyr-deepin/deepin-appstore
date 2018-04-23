@@ -18,12 +18,11 @@ export class AppCommentComponent implements OnInit {
   commentContext = '';
 
   constructor(
-    private baseService: BaseService,
     private domSanitizer: DomSanitizer,
     private authService: AuthService,
     private commentService: CommentService,
   ) {
-    this.operationServer = this.baseService.serverHosts.operationServer;
+    this.operationServer = BaseService.serverHosts.operationServer;
     this.authUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
       this.operationServer + '/api/oauthLogin/commenceLogin',
     );
@@ -36,7 +35,7 @@ export class AppCommentComponent implements OnInit {
   ngOnInit() {
     // this.dialogEl = this.dialog.nativeElement;
     this.commentListObs = this.commentService.list(this.appName);
-    // this.commentService.own(this.appName).subscribe(console.log);
+    this.commentService.own(this.appName).subscribe(console.log);
   }
 
   iframeLoad(event: Event) {

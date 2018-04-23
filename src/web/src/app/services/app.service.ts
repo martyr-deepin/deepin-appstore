@@ -17,12 +17,8 @@ export class AppService {
 
   list: () => Observable<App[]>;
 
-  constructor(
-    private http: HttpClient,
-    private appService: DstoreAppService,
-    private baseService: BaseService,
-  ) {
-    this.server = this.baseService.serverHosts.operationServer;
+  constructor(private http: HttpClient, private appService: DstoreAppService) {
+    this.server = BaseService.serverHosts.operationServer;
     this.list = _.throttle(this.getList, 5000);
   }
 

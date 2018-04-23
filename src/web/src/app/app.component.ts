@@ -16,13 +16,10 @@ export class AppComponent implements OnInit {
   title = 'app';
   arr = new Array(100);
 
-  constructor(
-    private baseService: BaseService,
-    private appService: AppService,
-  ) {}
+  constructor(private appService: AppService) {}
 
   ngOnInit(): void {
-    if (this.baseService.isNative) {
+    if (BaseService.isNative) {
       this.appService.list().subscribe((apps: App[]) => {
         const appStringList = JSON.stringify(apps);
         Channel.exec('search.updateAppList', appStringList);

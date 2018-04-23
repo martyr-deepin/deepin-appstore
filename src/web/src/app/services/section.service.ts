@@ -7,10 +7,10 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SectionService {
-  constructor(private http: HttpClient, private baseService: BaseService) {}
+  constructor(private http: HttpClient) {}
   getList(): Observable<Section[]> {
     return this.http
-      .get(`${this.baseService.serverHosts.operationServer}/api/blob/section`)
+      .get(`${BaseService.serverHosts.operationServer}/api/blob/section`)
       .map((ss: Section[]) => ss);
   }
 }

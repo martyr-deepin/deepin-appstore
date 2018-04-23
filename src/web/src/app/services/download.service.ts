@@ -12,7 +12,7 @@ import { AppDownloading } from '../dstore/services/downloading.service';
 @Injectable()
 export class DownloadService {
   private _appNameList: Observable<{ [key: string]: number }>;
-  constructor(private baseService: BaseService, private http: HttpClient) {
+  constructor(private http: HttpClient) {
     this._appNameList = this.getList().shareReplay(1);
   }
 
@@ -21,7 +21,7 @@ export class DownloadService {
   }
   getList(): Observable<{ [key: string]: number }> {
     return this.http
-      .get(`${this.baseService.serverHosts.operationServer}/api/downloading`)
+      .get(`${BaseService.serverHosts.operationServer}/api/downloading`)
       .map((result: { apps: { appName: string; count: number }[] }) => {
         return _.chain(result.apps)
           .keyBy('appName')

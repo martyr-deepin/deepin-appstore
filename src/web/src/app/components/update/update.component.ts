@@ -22,9 +22,8 @@ export class UpdateComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private appService: AppService,
-    private baseService: BaseService,
   ) {
-    this.server = baseService.serverHosts.metadataServer;
+    this.server = BaseService.serverHosts.metadataServer;
   }
 
   ngOnInit() {

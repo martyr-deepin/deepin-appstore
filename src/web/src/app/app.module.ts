@@ -66,7 +66,7 @@ import { StoreService } from './services/store.service';
           localStorage.getItem('auth-token'),
         headerName: 'Access-Token',
         authScheme: '',
-        whitelistedDomains: new BaseService().whiteList,
+        whitelistedDomains: BaseService.whiteList,
       },
     }),
   ],

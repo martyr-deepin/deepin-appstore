@@ -10,7 +10,7 @@ import { Category as DstoreCategory } from '../dstore/services/category.service'
 export class CategoryService {
   private _list: Observable<Category[]>;
 
-  constructor(private http: HttpClient, private baseService: BaseService) {
+  constructor(private http: HttpClient) {
     this._list = this.getList().shareReplay();
   }
 
@@ -20,7 +20,7 @@ export class CategoryService {
 
   private getList() {
     return this.http
-      .get(`${this.baseService.serverHosts.operationServer}/api/blob/category`)
+      .get(`${BaseService.serverHosts.operationServer}/api/blob/category`)
       .flatMap((ccs: CustomCategory[]) => {
         if (ccs && ccs.length > 10) {
           return Observable.of(
@@ -28,19 +28,19 @@ export class CategoryService {
               id: index.toString(),
               title: c.name,
               icon: c.icon,
-              apps: c.apps
-            }))
+              apps: c.apps,
+            })),
           );
         } else {
           return this.http
-            .get(`${this.baseService.serverHosts.metadataServer}/api/category`)
+            .get(`${BaseService.serverHosts.metadataServer}/api/category`)
             .map((cs: DstoreCategory[]) => {
               return _.chain(cs)
                 .keyBy('Name')
                 .map((c: DstoreCategory) => ({
                   id: c.Name,
                   title: c.Name,
-                  icon: ''
+                  icon: '',
                 }))
                 .value();
             });

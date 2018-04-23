@@ -5,8 +5,8 @@ import { BaseService } from '../dstore/services/base.service';
 @Injectable()
 export class CommentService {
   private server: string;
-  constructor(private http: HttpClient, private base: BaseService) {
-    this.server = this.base.serverHosts.operationServer;
+  constructor(private http: HttpClient) {
+    this.server = BaseService.serverHosts.operationServer;
   }
 
   list(appName: string) {
@@ -28,9 +28,9 @@ export class CommentService {
     return this.http.post(`${this.server}/api/comment/app/${appName}`, c);
   }
 
-  own(appName) {
-    return this.http.get(`${this.server}/api/comment/${appName}/own`);
-  }
+  // own(appName) {
+  //   return this.http.get(`${this.server}/api/comment/app/${appName}/own`);
+  // }
 }
 
 export interface Comment {

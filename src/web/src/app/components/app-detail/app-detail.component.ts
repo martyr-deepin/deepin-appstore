@@ -14,17 +14,13 @@ import { CanvasUtil } from '../../utils/canvas-util';
   styleUrls: ['./app-detail.component.scss'],
 })
 export class AppDetailComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private appService: AppService,
-    private baseService: BaseService,
-  ) {}
+  constructor(private route: ActivatedRoute, private appService: AppService) {}
 
   metadataServer: string;
   appObs: Observable<App>;
 
   ngOnInit() {
-    this.metadataServer = this.baseService.serverHosts.metadataServer;
+    this.metadataServer = BaseService.serverHosts.metadataServer;
     this.appObs = this.route.paramMap.mergeMap(param => {
       return this.appService.getApp(param.get('appName'));
     });

@@ -8,18 +8,15 @@ import { BaseService } from '../../dstore/services/base.service';
 @Component({
   selector: 'app-download',
   templateUrl: './download.component.html',
-  styleUrls: ['./download.component.scss']
+  styleUrls: ['./download.component.scss'],
 })
 export class DownloadComponent implements OnInit {
   metadataServer: string;
-  constructor(
-    private appService: AppService,
-    private baseService: BaseService
-  ) {}
+  constructor(private appService: AppService) {}
 
   appsObs: Observable<App[]>;
   ngOnInit() {
-    this.metadataServer = this.baseService.serverHosts.metadataServer;
+    this.metadataServer = BaseService.serverHosts.metadataServer;
     this.appsObs = this.getList();
   }
   getList() {
