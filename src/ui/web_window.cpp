@@ -48,6 +48,8 @@ namespace {
 
 const int kSearchDelay = 200;
 
+const int kMaxSearchResult = 10;
+
 }  // namespace
 
 WebWindow::WebWindow(QWidget* parent)
@@ -245,6 +247,9 @@ void WebWindow::onSearchButtonClicked() {
   // Show search page in web.
   QStringList names;
   for (const AppSearchRecord& app : completion_window_->searchResult()) {
+    if (names.length() >= kMaxSearchResult) {
+      break;
+    }
     names.append(app.name);
   }
   qDebug() << Q_FUNC_INFO << names;
