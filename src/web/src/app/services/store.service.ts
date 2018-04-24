@@ -115,7 +115,12 @@ export class StoreService {
       new Promise((resolve, reject) => {
         Channel.execWithCallback(
           (response: any) => {
-            resolve(response);
+            const storeResp: StoreResponse = response as StoreResponse;
+            if (storeResp.ok) {
+              resolve(storeResp.value);
+            } else {
+              reject(storeResp);
+            }
           },
           method,
           ...args,
@@ -123,4 +128,14 @@ export class StoreService {
       }),
     );
   }
+}
+
+/**
+ * Returned value from store daemon proxy dbus interface.
+ */
+class StoreResponse {
+  ok: boolean;
+  errorName: string;
+  errorMsg: string;
+  value: any;
 }
