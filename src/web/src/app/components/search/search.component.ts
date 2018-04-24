@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { App } from '../../services/app.service';
+
+import { App, AppService } from '../../services/app.service';
+import { SortOrder } from '../app-title/app-title.component';
 
 @Component({
   selector: 'app-search',
@@ -9,12 +11,20 @@ import { App } from '../../services/app.service';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private appService: AppService) {}
 
-  apps$: Observable<App>;
+  sortBy = SortOrder.Downloads;
+  apps$: Observable<App[]>;
   ngOnInit() {
-    this.route.paramMap.subscribe(param => {
-      const apps = param.getAll('apps');
+    this.apps$ = this.route.paramMap.mergeMap(param => {
+      // angular bug https://github.com/angular/angular/issues/19179
+      const appNameList = param
+        .getAll('apps')
+        .map(apps => apps.split(','))
+        .reduce((a, b) => [...a, ...b]);
+      return this.appService
+        .list()
+        .map(apps => apps.filter(app => appNameList.includes(app.name)));
     });
   }
 }

@@ -23,15 +23,14 @@ export class StoreService {
       window,
       `dstore.channel.objects.${object}.${signal}`,
     );
-    if (!s) {
-      return Observable.empty();
-    }
-    return Observable.create(obs => {
-      this.zone.run(() => {
-        s.connect(obs.next);
-      });
-      return s.disconnect;
-    });
+    return _.isEmpty(s)
+      ? Observable.empty()
+      : Observable.create(obs => {
+          s.connect(resp => {
+            this.zone.run(obs.next.bind(obs, resp));
+          });
+          return s.disconnect;
+        });
   }
 
   onOpenApp(): Observable<string> {
@@ -143,17 +142,6 @@ export class StoreService {
   }
 
   execWithCallback(method: string, ...args: any[]): Observable<any> {
-    // return Observable.create(obs => {
-    //   Channel.execWithCallback(
-    //     (response: any) => {
-    //       obs.next(response);
-    //       this.zone.run(() => {});
-    //     },
-    //     method,
-    //     ...args,
-    //   );
-    // });
-
     return Observable.create(obs => {
       Channel.execWithCallback(
         (storeResp: StoreResponse) => {

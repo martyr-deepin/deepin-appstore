@@ -1,3 +1,9 @@
-<p>
-  search works!
-</p>
+<ng-container *ngIf="apps$|async as apps; else loading">
+    <app-app-title [title]="'的搜索结果'" [count]="apps.length" [sortBy]="sortBy" (sort)="sortBy=$event"></app-app-title>
+    <app-app-list [apps]="apps" [sortBy]="sortBy">
+    </app-app-list>
+</ng-container>
+
+<ng-template #loading>
+  loading...
+</ng-template>

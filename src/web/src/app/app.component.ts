@@ -35,9 +35,8 @@ export class AppComponent implements OnInit {
       this.router.navigate(['search', appName]);
     });
 
-    this.storeService.onOpenAppList().subscribe(appNameList => {
-      console.log('appNameList', appNameList);
-      this.router.navigate(['search', { apps: ['1', '2'] }]);
+    this.storeService.onOpenAppList().subscribe(apps => {
+      this.router.navigate(['search', { apps }]);
     });
   }
 }
