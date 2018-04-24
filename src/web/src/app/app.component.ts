@@ -5,8 +5,9 @@ import { Observable } from 'rxjs/Observable';
 import { BaseService } from './dstore/services/base.service';
 import { StoreService } from './services/store.service';
 import { AppService } from './services/app.service';
-import { App } from './dstore/services/app';
+import { SearchService, SearchResult } from './services/search.service';
 import { Channel } from './utils/channel';
+import { App } from './dstore/services/app';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private appService: AppService,
-    private storeService: StoreService,
+    private searchService: SearchService,
   ) {}
 
   ngOnInit(): void {
@@ -30,13 +31,17 @@ export class AppComponent implements OnInit {
       });
     }
 
-    this.storeService.onOpenApp().subscribe(appName => {
+    this.searchService.onOpenApp().subscribe(appName => {
       console.log('open app', appName);
       this.router.navigate(['search', appName]);
     });
 
-    this.storeService.onOpenAppList().subscribe(apps => {
-      this.router.navigate(['search', { apps }]);
+    this.searchService.onOpenAppList().subscribe(result => {
+      console.log('open app list', result.appNameList);
+      this.router.navigate([
+        'search',
+        { keyword: result.keyword, apps: result.appNameList },
+      ]);
     });
   }
 }

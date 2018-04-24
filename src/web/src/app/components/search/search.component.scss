@@ -1,0 +1,11 @@
+.searchEmpty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  .title {
+    font-size: 1.2rem;
+    margin: 0.5rem;
+  }
+}

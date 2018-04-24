@@ -18,6 +18,8 @@ import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CommentService } from './services/comment.service';
 import { BaseService } from './dstore/services/base.service';
+import { StoreService } from './services/store.service';
+import { SearchService } from './services/search.service';
 
 import { AppComponent } from './app.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
@@ -31,7 +33,6 @@ import { RankingComponent } from './components/ranking/ranking.component';
 import { AppListComponent } from './components/app-list/app-list.component';
 import { AppTitleComponent } from './components/app-title/app-title.component';
 import { AppCommentComponent } from './components/app-comment/app-comment.component';
-import { StoreService } from './services/store.service';
 import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
@@ -81,6 +82,7 @@ import { SearchComponent } from './components/search/search.component';
     AuthService,
     StoreService,
     CommentService,
+    SearchService,
     {
       provide: LOCALE_ID,
       useValue: Locale.getPcp47Locale(),

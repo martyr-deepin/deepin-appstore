@@ -17,30 +17,6 @@ interface SignalObject {
 @Injectable()
 export class StoreService {
   constructor(private appService: AppService, private zone: NgZone) {}
-
-  private signalToObservable(object: string, signal: string): Observable<any> {
-    const s = <SignalObject>_.get(
-      window,
-      `dstore.channel.objects.${object}.${signal}`,
-    );
-    return _.isEmpty(s)
-      ? Observable.empty()
-      : Observable.create(obs => {
-          s.connect(resp => {
-            this.zone.run(obs.next.bind(obs, resp));
-          });
-          return s.disconnect;
-        });
-  }
-
-  onOpenApp(): Observable<string> {
-    return this.signalToObservable('search', 'openApp');
-  }
-
-  onOpenAppList(): Observable<string[]> {
-    return this.signalToObservable('search', 'openAppList');
-  }
-
   /**
    * Check connectivity to backend lastore daemon.
    * @returns {Observable<boolean>} If returns false, all methods in this class will not work.

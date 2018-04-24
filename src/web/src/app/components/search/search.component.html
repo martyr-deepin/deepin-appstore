@@ -1,7 +1,16 @@
 <ng-container *ngIf="apps$|async as apps; else loading">
-    <app-app-title [title]="'的搜索结果'" [count]="apps.length" [sortBy]="sortBy" (sort)="sortBy=$event"></app-app-title>
+  <ng-container *ngIf="apps.length>0;else searchEmpty">
+    <app-app-title [title]="keyword+'的搜索结果'" [count]="apps.length" [sortBy]="sortBy" (sort)="sortBy=$event"></app-app-title>
     <app-app-list [apps]="apps" [sortBy]="sortBy">
     </app-app-list>
+  </ng-container>
+  <ng-template #searchEmpty>
+    <div class="searchEmpty">
+      <div class="title">抱歉</div>
+      <div>没有关于的搜索结果</div>
+      <div>您可以向我们投递应用</div>
+    </div>
+  </ng-template>
 </ng-container>
 
 <ng-template #loading>

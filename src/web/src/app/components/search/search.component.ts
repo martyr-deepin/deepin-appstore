@@ -14,9 +14,11 @@ export class SearchComponent implements OnInit {
   constructor(private route: ActivatedRoute, private appService: AppService) {}
 
   sortBy = SortOrder.Downloads;
+  keyword: string;
   apps$: Observable<App[]>;
   ngOnInit() {
     this.apps$ = this.route.paramMap.mergeMap(param => {
+      this.keyword = param.get('keyword');
       // angular bug https://github.com/angular/angular/issues/19179
       const appNameList = param
         .getAll('apps')
