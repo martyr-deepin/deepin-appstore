@@ -170,7 +170,7 @@ const QVariantMap StoreDaemonProxy::packageInstallable(const QString& app_name) 
 
 const QVariantMap StoreDaemonProxy::packageDownloadSize(
     const QString& app_name) {
-  const QDBusPendingReply<bool> reply =
+  const QDBusPendingReply<qlonglong> reply =
       manager_->PackagesDownloadSize({app_name});
   if (reply.isError()) {
     return QVariantMap {
