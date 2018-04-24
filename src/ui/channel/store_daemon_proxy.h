@@ -134,7 +134,7 @@ class StoreDaemonProxy : public QObject {
 
   const QStringList systemArchitectures();
   bool systemOnChanging();
-  const QStringList upgradableApps();
+  const QVariantMap upgradableApps();
 
   // Store Updater methods:
   const QVariantList applicationUpdateInfos(const QString& language);

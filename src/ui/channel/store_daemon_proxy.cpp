@@ -316,8 +316,14 @@ bool StoreDaemonProxy::systemOnChanging() {
   return manager_->systemOnChanging();
 }
 
-const QStringList StoreDaemonProxy::upgradableApps() {
-  return manager_->upgradableApps();
+const QVariantMap StoreDaemonProxy::upgradableApps() {
+  const QStringList reply = manager_->upgradableApps();
+  return QVariantMap {
+      { kResultOk, true },
+      { kResultErrName, "" },
+      { kResultErrMsg, "" },
+      { kResultValue, reply },
+  };
 }
 
 const QVariantList StoreDaemonProxy::applicationUpdateInfos(
