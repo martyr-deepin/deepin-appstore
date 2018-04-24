@@ -215,7 +215,8 @@ void WebWindow::resizeEvent(QResizeEvent* event) {
   title_bar_->setFixedWidth(event->size().width());
 }
 
-void WebWindow::onSearchAppResult(const AppSearchRecordList& result) {
+void WebWindow::onSearchAppResult(const QString& keyword,
+                                  const AppSearchRecordList& result) {
   if (result.isEmpty()) {
     // Hide completion window if no anchor entry matches.
     completion_window_->hide();
@@ -229,6 +230,7 @@ void WebWindow::onSearchAppResult(const AppSearchRecordList& result) {
     completion_window_->move(global_point);
     completion_window_->setFocusPolicy(Qt::NoFocus);
     completion_window_->setFocusPolicy(Qt::StrongFocus);
+    completion_window_->setKeyword(keyword);
     completion_window_->setSearchResult(result);
   }
 }
@@ -245,7 +247,8 @@ void WebWindow::onSearchButtonClicked() {
   for (const AppSearchRecord& app : completion_window_->searchResult()) {
     names.append(app.name);
   }
-  emit search_proxy_->openAppList(names);
+  qDebug() << Q_FUNC_INFO << names;
+  emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
 }
 
 void WebWindow::onSearchResultClicked(const AppSearchRecord& result) {

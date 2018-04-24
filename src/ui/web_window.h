@@ -91,7 +91,8 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   QTimer* search_timer_ = nullptr;
 
  private slots:
-  void onSearchAppResult(const AppSearchRecordList& result);
+  void onSearchAppResult(const QString& keyword,
+                         const AppSearchRecordList& result);
   void onSearchEditFocusOut();
   void onSearchButtonClicked();
   void onSearchResultClicked(const AppSearchRecord& result);

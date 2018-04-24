@@ -38,6 +38,8 @@ class SearchCompletionWindow : public QFrame {
   void autoResize();
   const AppSearchRecordList& searchResult() const { return result_; }
 
+  const QString getKeyword() const { return keyword_; }
+
  signals:
   void resultClicked(const AppSearchRecord& result);
   void searchButtonClicked();
@@ -58,6 +60,7 @@ class SearchCompletionWindow : public QFrame {
   QStringListModel* model_ = nullptr;
   SearchButton* search_button_ = nullptr;
   AppSearchRecordList result_;
+  QString keyword_;
 
  private slots:
   void onSearchButtonEntered();

@@ -32,7 +32,8 @@ const int kItemHeight = 25;
 }  // namespace
 
 SearchCompletionWindow::SearchCompletionWindow(QWidget* parent)
-    : QFrame(parent) {
+    : QFrame(parent),
+      keyword_() {
   this->setObjectName("SearchCompletionWindow");
 
   this->initUI();
@@ -107,6 +108,7 @@ void SearchCompletionWindow::onEnterPressed() {
 }
 
 void SearchCompletionWindow::setKeyword(const QString& keyword) {
+  keyword_ = keyword;
   QFontMetrics metrics = search_button_->fontMetrics();
   search_button_->setText(
       metrics.elidedText(

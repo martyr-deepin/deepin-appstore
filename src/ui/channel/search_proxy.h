@@ -41,9 +41,10 @@ class SearchProxy : public QObject {
 
   /**
    * Request to open app search result page
+   * @param keyword search keyword
    * @param names
    */
-  void openAppList(const QStringList& names);
+  void openAppList(const QString& keyword, const QStringList& names);
 
  public slots:
   /**

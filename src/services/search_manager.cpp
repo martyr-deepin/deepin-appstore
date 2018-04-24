@@ -44,7 +44,7 @@ void SearchManager::searchApp(const QString& keyword) {
   }
 
   qDebug() << Q_FUNC_INFO << "search app result: " << result.size();
-  emit this->searchAppResult(result);
+  emit this->searchAppResult(keyword, result);
 }
 
 void SearchManager::updateAppList(const AppSearchRecordList& record_list) {
