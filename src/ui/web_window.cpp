@@ -219,6 +219,8 @@ void WebWindow::resizeEvent(QResizeEvent* event) {
 
 void WebWindow::onSearchAppResult(const QString& keyword,
                                   const AppSearchRecordList& result) {
+  Q_UNUSED(keyword);
+  completion_window_->setSearchResult(result);
   if (result.isEmpty()) {
     // Hide completion window if no anchor entry matches.
     completion_window_->hide();
@@ -232,8 +234,6 @@ void WebWindow::onSearchAppResult(const QString& keyword,
     completion_window_->move(global_point);
     completion_window_->setFocusPolicy(Qt::NoFocus);
     completion_window_->setFocusPolicy(Qt::StrongFocus);
-    completion_window_->setKeyword(keyword);
-    completion_window_->setSearchResult(result);
   }
 }
 
@@ -252,7 +252,7 @@ void WebWindow::onSearchButtonClicked() {
     }
     names.append(app.name);
   }
-  qDebug() << Q_FUNC_INFO << names;
+  qDebug() << Q_FUNC_INFO << names << completion_window_->getKeyword();
   emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
 }
 
