@@ -2,18 +2,25 @@ import {
   HttpHandler,
   HttpRequest,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { MaterializeService } from '../dstore/services/materialize.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class MyHttpInterceptor implements HttpInterceptor {
-  constructor(private materializeService: MaterializeService) {}
+  constructor(
+    private materializeService: MaterializeService,
+    private authService: AuthService,
+  ) {}
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).catch((err: HttpErrorResponse, caught) => {
+      if (err.status === 401) {
+        this.authService.logout();
+      }
       console.log('http interceptor error:', err);
       switch (err.status) {
         case 0:

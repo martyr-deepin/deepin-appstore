@@ -1,14 +1,46 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AppService } from './app.service';
 import { Channel } from '../utils/channel';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/empty';
+import * as _ from 'lodash';
+
 import { StoreJobInfo } from './store-job-info';
+
+interface SignalObject {
+  connect: (any) => {};
+  disconnect: () => {};
+}
 
 @Injectable()
 export class StoreService {
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService, private zone: NgZone) {}
+
+  private signalToObservable(object: string, signal: string): Observable<any> {
+    const s = <SignalObject>_.get(
+      window,
+      `dstore.channel.objects.${object}.${signal}`,
+    );
+    if (!s) {
+      return Observable.empty();
+    }
+    return Observable.create(obs => {
+      this.zone.run(() => {
+        s.connect(obs.next);
+      });
+      return s.disconnect;
+    });
+  }
+
+  onOpenApp(): Observable<string> {
+    return this.signalToObservable('search', 'openApp');
+  }
+
+  onOpenAppList(): Observable<string[]> {
+    return this.signalToObservable('search', 'openAppList');
+  }
 
   /**
    * Check connectivity to backend lastore daemon.
@@ -111,22 +143,30 @@ export class StoreService {
   }
 
   execWithCallback(method: string, ...args: any[]): Observable<any> {
-    return Observable.fromPromise(
-      new Promise((resolve, reject) => {
-        Channel.execWithCallback(
-          (response: any) => {
-            const storeResp: StoreResponse = response as StoreResponse;
-            if (storeResp.ok) {
-              resolve(storeResp.value);
-            } else {
-              reject(storeResp);
-            }
-          },
-          method,
-          ...args,
-        );
-      }),
-    );
+    // return Observable.create(obs => {
+    //   Channel.execWithCallback(
+    //     (response: any) => {
+    //       obs.next(response);
+    //       this.zone.run(() => {});
+    //     },
+    //     method,
+    //     ...args,
+    //   );
+    // });
+
+    return Observable.create(obs => {
+      Channel.execWithCallback(
+        (storeResp: StoreResponse) => {
+          console.log('execWithCallback result: ', storeResp);
+          if (!storeResp.ok) {
+            throw storeResp;
+          }
+          this.zone.run(() => obs.next(storeResp.value));
+        },
+        method,
+        ...args,
+      );
+    });
   }
 }
 

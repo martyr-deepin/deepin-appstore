@@ -22,7 +22,11 @@ export class AppDetailComponent implements OnInit {
   ngOnInit() {
     this.metadataServer = BaseService.serverHosts.metadataServer;
     this.appObs = this.route.paramMap.mergeMap(param => {
-      return this.appService.getApp(param.get('appName'));
+      const appName = param.get('appName');
+      console.log('app name:', appName);
+      return this.appService
+        .getApp(appName)
+        .do(app => console.log('app info:', app));
     });
   }
 

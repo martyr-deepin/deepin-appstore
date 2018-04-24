@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {} from '@';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { BaseService } from './dstore/services/base.service';
+import { StoreService } from './services/store.service';
 import { AppService } from './services/app.service';
 import { App } from './dstore/services/app';
 import { Channel } from './utils/channel';
@@ -14,9 +15,12 @@ import { Channel } from './utils/channel';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  arr = new Array(100);
 
-  constructor(private appService: AppService) {}
+  constructor(
+    private router: Router,
+    private appService: AppService,
+    private storeService: StoreService,
+  ) {}
 
   ngOnInit(): void {
     if (BaseService.isNative) {
@@ -26,10 +30,14 @@ export class AppComponent implements OnInit {
       });
     }
 
-    // Observable.create(obs => {
-    //   window['dstore'].channel.objects.search.openApp.connect((app: string) =>
-    //     obs.next(app),
-    //   );
-    // }).subscribe(appName => console.log(appName));
+    this.storeService.onOpenApp().subscribe(appName => {
+      console.log('open app', appName);
+      this.router.navigate(['search', appName]);
+    });
+
+    this.storeService.onOpenAppList().subscribe(appNameList => {
+      console.log('appNameList', appNameList);
+      this.router.navigate(['search', { apps: ['1', '2'] }]);
+    });
   }
 }

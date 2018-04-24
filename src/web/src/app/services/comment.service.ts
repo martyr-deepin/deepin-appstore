@@ -28,9 +28,9 @@ export class CommentService {
     return this.http.post(`${this.server}/api/comment/app/${appName}`, c);
   }
 
-  // own(appName) {
-  //   return this.http.get(`${this.server}/api/comment/app/${appName}/own`);
-  // }
+  own(appName) {
+    return this.http.get(`${this.server}/api/comment/app/${appName}/own`);
+  }
 }
 
 export interface Comment {

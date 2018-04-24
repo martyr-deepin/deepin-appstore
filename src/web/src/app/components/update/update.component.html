@@ -1,4 +1,5 @@
 <div *ngIf="upgrade$|async as upgradeList">
+  {{upgradeList|json}}
   <div class="title">
     <span>{{upgradeList.length}}个应用可更新</span>
     <button>全部更新</button>

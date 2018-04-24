@@ -17,7 +17,7 @@ import { StoreJobInfo } from '../../services/store-job-info';
 })
 export class UpdateComponent implements OnInit {
   server: string;
-  upgrade$: Observable<UpgradeResult[]>;
+  upgrade$: Observable<any[]>;
   jobs$: Observable<StoreJobInfo>;
   constructor(
     private storeService: StoreService,
@@ -27,27 +27,28 @@ export class UpdateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.upgrade$ = Observable.timer(0, 3000)
-      .mergeMap(() => this.storeService.getUpgradableApps())
-      .map(apps =>
-        apps.map(appName => {
-          return {
-            appName: appName,
-            app$: this.appService.getApp(appName + '40'),
-            downloadSize$: this.storeService.appDownloadSize(appName),
-            job$: this.storeService
-              .getJobList()
-              .do(jobs => console.log('jobs', jobs))
-              .mergeMap(jobs =>
-                Observable.concat(
-                  ...jobs.map(job => this.storeService.getJobInfo(job)),
-                ),
-              )
-              .do(r => console.log('jobInfos', r, r.name, appName))
-              .filter(jobInfo => jobInfo.name === appName),
-          };
-        }),
-      );
+    this.upgrade$ = this.storeService.getUpgradableApps();
+    // this.upgrade$ = Observable.timer(0, 3000)
+    // .mergeMap(() => this.storeService.getUpgradableApps())
+    // .map(apps =>
+    //   apps.map(appName => {
+    //     return {
+    //       appName: appName,
+    //       app$: this.appService.getApp(appName + '40'),
+    //       downloadSize$: this.storeService.appDownloadSize(appName),
+    //       job$: this.storeService
+    //         .getJobList()
+    //         .do(jobs => console.log('jobs', jobs))
+    //         .mergeMap(jobs =>
+    //           Observable.concat(
+    //             ...jobs.map(job => this.storeService.getJobInfo(job)),
+    //           ),
+    //         )
+    //         .do(r => console.log('jobInfos', r, r.name, appName))
+    //         .filter(jobInfo => jobInfo.name === appName),
+    //     };
+    //   }),
+    // );
   }
 
   update(appName: string) {

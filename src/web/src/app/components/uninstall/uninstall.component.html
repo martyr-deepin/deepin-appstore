@@ -1,3 +1,10 @@
-<p>
-  uninstall works!
-</p>
+<div *ngIf="a$|async as list;else p">
+  {{list|json}}
+  <p *ngFor="let app of list">
+    {{app.appName}} <span>{{app.size$|async|sizeHuman}}</span>
+  </p>
+</div>
+
+<ng-template #p>
+    <progress>progress</progress>
+</ng-template>

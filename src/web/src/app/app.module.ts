@@ -32,6 +32,7 @@ import { AppListComponent } from './components/app-list/app-list.component';
 import { AppTitleComponent } from './components/app-title/app-title.component';
 import { AppCommentComponent } from './components/app-comment/app-comment.component';
 import { StoreService } from './services/store.service';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { StoreService } from './services/store.service';
     AppListComponent,
     AppTitleComponent,
     AppCommentComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
