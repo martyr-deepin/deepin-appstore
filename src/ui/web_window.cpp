@@ -135,7 +135,7 @@ void WebWindow::initConnections() {
           menu_proxy_, &MenuProxy::recommendAppRequested);
   connect(tool_bar_menu_, &TitleBarMenu::loginRequested,
           menu_proxy_, &MenuProxy::loginRequested);
-  connect(menu_proxy_, &MenuProxy::setLoginState,
+  connect(menu_proxy_, &MenuProxy::loginStateUpdated,
           tool_bar_menu_, &TitleBarMenu::setLoginState);
 
   connect(web_view_->page(), &QCefWebPage::urlChanged,
