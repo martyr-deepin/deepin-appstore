@@ -21,6 +21,12 @@
 
 namespace dstore {
 
+namespace {
+
+const int kMaxSearchResult = 10;
+
+}  // namespace
+
 SearchManager::SearchManager(QObject* parent)
     : QObject(parent),
       record_list_() {
@@ -31,10 +37,12 @@ SearchManager::~SearchManager() {
 
 }
 
-void SearchManager::searchApp(const QString& keyword) {
-  qDebug() << Q_FUNC_INFO << keyword;
+void SearchManager::searchApp(const QString& keyword, bool entered) {
   AppSearchRecordList result;
   for (const AppSearchRecord& app : record_list_) {
+    if (result.length() >= kMaxSearchResult) {
+      break;
+    }
     if (app.name.contains(keyword, Qt::CaseInsensitive) ||
         app.local_name.contains(keyword, Qt::CaseInsensitive) ||
         app.slogan.contains(keyword, Qt::CaseInsensitive) ||
@@ -43,12 +51,10 @@ void SearchManager::searchApp(const QString& keyword) {
     }
   }
 
-  qDebug() << Q_FUNC_INFO << "search app result: " << result.size();
-  emit this->searchAppResult(keyword, result);
+  emit this->searchAppResult(keyword, entered, result);
 }
 
 void SearchManager::updateAppList(const AppSearchRecordList& record_list) {
-  qDebug() << Q_FUNC_INFO << record_list.size();
   record_list_ = record_list;
 }
 

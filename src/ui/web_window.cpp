@@ -48,8 +48,6 @@ namespace {
 
 const int kSearchDelay = 200;
 
-const int kMaxSearchResult = 10;
-
 }  // namespace
 
 WebWindow::WebWindow(QWidget* parent)
@@ -218,22 +216,34 @@ void WebWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void WebWindow::onSearchAppResult(const QString& keyword,
+                                  bool entered,
                                   const AppSearchRecordList& result) {
   Q_UNUSED(keyword);
   completion_window_->setSearchResult(result);
-  if (result.isEmpty()) {
-    // Hide completion window if no anchor entry matches.
+
+  if (entered) {
+    // Show search page in web.
+    QStringList names;
+    for (const AppSearchRecord& app : completion_window_->searchResult()) {
+      names.append(app.name);
+    }
+    emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
     completion_window_->hide();
   } else {
-    completion_window_->show();
-    completion_window_->raise();
-    completion_window_->autoResize();
-    // Move to below of search edit.
-    const QPoint local_point(this->rect().width() / 2 - 94, 36);
-    const QPoint global_point(this->mapToGlobal(local_point));
-    completion_window_->move(global_point);
-    completion_window_->setFocusPolicy(Qt::NoFocus);
-    completion_window_->setFocusPolicy(Qt::StrongFocus);
+    if (result.isEmpty()) {
+      // Hide completion window if no anchor entry matches.
+      completion_window_->hide();
+    } else {
+      completion_window_->show();
+      completion_window_->raise();
+      completion_window_->autoResize();
+      // Move to below of search edit.
+      const QPoint local_point(this->rect().width() / 2 - 94, 36);
+      const QPoint global_point(this->mapToGlobal(local_point));
+      completion_window_->move(global_point);
+      completion_window_->setFocusPolicy(Qt::NoFocus);
+      completion_window_->setFocusPolicy(Qt::StrongFocus);
+    }
   }
 }
 
@@ -244,16 +254,25 @@ void WebWindow::onSearchEditFocusOut() {
 }
 
 void WebWindow::onSearchButtonClicked() {
-  // Show search page in web.
-  QStringList names;
-  for (const AppSearchRecord& app : completion_window_->searchResult()) {
-    if (names.length() >= kMaxSearchResult) {
-      break;
-    }
-    names.append(app.name);
+  this->prepareSearch(true);
+}
+
+void WebWindow::onSearchTextChangedDelay() {
+  this->prepareSearch(false);
+}
+
+void WebWindow::prepareSearch(bool entered) {
+  const QString text = title_bar_->getSearchText();
+  // Filters special chars.
+  if (text.size() <= 1 ||
+      text.contains(QRegularExpression("[+_-$!@#%^&\\(\\)]"))) {
+    return;
   }
-  qDebug() << Q_FUNC_INFO << names << completion_window_->getKeyword();
-  emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
+
+  completion_window_->setKeyword(text);
+
+  // Do real search.
+  search_manager_->searchApp(text, entered);
 }
 
 void WebWindow::onSearchResultClicked(const AppSearchRecord& result) {
@@ -268,20 +287,6 @@ void WebWindow::onSearchTextChanged(const QString& text) {
   } else {
     this->onSearchEditFocusOut();
   }
-}
-
-void WebWindow::onSearchTextChangedDelay() {
-  const QString text = title_bar_->getSearchText();
-  // Filters special chars.
-  if (text.size() <= 1 ||
-      text.contains(QRegularExpression("[+_-$!@#%^&\\(\\)]"))) {
-    return;
-  }
-
-  completion_window_->setKeyword(text);
-
-  // Do real search.
-  search_manager_->searchApp(text);
 }
 
 void WebWindow::onTitleBarEntered() {

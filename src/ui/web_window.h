@@ -72,6 +72,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   void initUI();
   void initProxy();
   void initServices();
+  void prepareSearch(bool entered);
 
   QCefWebView* web_view_ = nullptr;
   ImageViewer* image_viewer_ = nullptr;
@@ -92,6 +93,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
 
  private slots:
   void onSearchAppResult(const QString& keyword,
+                         bool entered,
                          const AppSearchRecordList& result);
   void onSearchEditFocusOut();
   void onSearchButtonClicked();
