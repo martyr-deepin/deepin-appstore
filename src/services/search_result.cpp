@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2018 Deepin Technology Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,25 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H
-#define DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H
-
-#include <QList>
+#include "services/search_result.h"
 
 namespace dstore {
 
-// App entry used in search service.
-struct AppSearchRecord {
-  QString name;
-  QString local_name;
-  QString slogan;
-  QString description;
-};
-
-bool operator<(const AppSearchRecord& a, const AppSearchRecord& b);
-
-typedef QList<AppSearchRecord> AppSearchRecordList;
+bool operator<(const AppSearchRecord& a, const AppSearchRecord& b) {
+  return a.name < b.name;
+}
 
 }  // namespace dstore
-
-#endif  // DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H

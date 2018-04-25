@@ -118,6 +118,7 @@ set(SERVICES_FILES
     services/rcc_scheme_handler.h
     services/search_manager.cpp
     services/search_manager.h
+    services/search_result.cpp
     services/search_result.h
     services/settings_manager.cpp
     services/settings_manager.h

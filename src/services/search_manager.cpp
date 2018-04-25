@@ -56,6 +56,9 @@ void SearchManager::searchApp(const QString& keyword, bool entered) {
 
 void SearchManager::updateAppList(const AppSearchRecordList& record_list) {
   record_list_ = record_list;
+
+  // Sort application list by appName.
+  std::sort(record_list_.begin(), record_list_.end());
 }
 
 }  // namespace dstore
