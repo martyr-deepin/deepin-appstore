@@ -1,0 +1,10 @@
+
+<dialog #dialog (click)="dialog.close()">
+  <ng-container>
+   <iframe [src]="loginURL" frameBorder="0" (load)="load($event.target)" [hidden]="!loaded"></iframe>
+   <div [hidden]="loaded">
+    <progress></progress>
+    <span>加载中</span>
+   </div>
+  </ng-container>
+</dialog>

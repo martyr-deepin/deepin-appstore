@@ -1,13 +1,3 @@
-<dialog #dialog (click)="dialog.close()" class="loginDialog">
-  <ng-container *ngIf="!isLoggedIn">
-    <iframe [src]="authUrl" frameborder="0" [hidden]="iframeLoading" (load)="iframeLoad($event)"></iframe>
-    <div class="progress" *ngIf="iframeLoading">
-      <progress></progress>
-      <div>登录页面加载中...</div>
-    </div>
-  </ng-container>
-</dialog>
-
 <ng-container *ngIf="commentListObs|async as cs">
   <div class="comment">
     <div class="title">
@@ -22,10 +12,10 @@
       </span>
     </div>
     <div class="input-box">
-      <textarea class="input" [readonly]="!isLoggedIn || isCommented(cs)" #commentContext (input)="null"></textarea>
-      <div class="loginBtn" (click)="dialog.showModal()" *ngIf="!isLoggedIn;else placeholderTemplate">登录</div>
+      <textarea class="input" [readonly]="!isLoggedIn" #commentContext (input)="null"></textarea>
+      <div class="loginBtn" *ngIf="!isLoggedIn;else placeholderTemplate" (click)="login()">登录</div>
       <ng-template #placeholderTemplate>
-        <span class="placeholder" [hidden]="commentContext.value">{{isCommented(cs)?"已经评论过了":"请输入评论内容"}}</span>
+        <span class="placeholder" [hidden]="commentContext.value">请输入评论内容</span>
       </ng-template>
     </div>
     <button class="submitBtn" *ngIf="isLoggedIn" [disabled]="!commentContext.value || !star.rate" (click)="submitComment(commentContext.value,star.rate*2)">提交评论</button>

@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
 
+import { LoginService } from './login.service';
+
 @Injectable()
 export class AuthService {
+  constructor(private loginService: LoginService) {
+    this.loginService.SetLoginStatue(this.isLoggedIn);
+  }
+
   private tokenStorageKey = 'auth-token';
   get isLoggedIn(): boolean {
-    return this.token !== null;
+    const logged = this.token !== null;
+    this.loginService.SetLoginStatue(logged);
+    return logged;
   }
   get token(): string {
     return (
@@ -12,19 +20,20 @@ export class AuthService {
       localStorage.getItem(this.tokenStorageKey)
     );
   }
-  constructor() {}
 
   login(token: string) {
+    this.loginService.SetLoginStatue(true);
     localStorage.setItem(this.tokenStorageKey, token);
   }
 
   logout() {
     if (this.isLoggedIn) {
+      this.loginService.SetLoginStatue(false);
       sessionStorage.removeItem(this.tokenStorageKey);
       localStorage.removeItem(this.tokenStorageKey);
-      location.href = `https://login.deepin.org/oauth2/logout?callback=${
-        location.href
-      }`;
+      location.href =
+        'https://login.deepin.org/oauth2/logout?callback=' +
+        escape(location.href);
     }
   }
 }

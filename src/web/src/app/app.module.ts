@@ -20,6 +20,7 @@ import { CommentService } from './services/comment.service';
 import { BaseService } from './dstore/services/base.service';
 import { StoreService } from './services/store.service';
 import { SearchService } from './services/search.service';
+import { LoginService } from './services/login.service';
 
 import { AppComponent } from './app.component';
 import { AppDetailComponent } from './components/app-detail/app-detail.component';
@@ -34,6 +35,7 @@ import { AppListComponent } from './components/app-list/app-list.component';
 import { AppTitleComponent } from './components/app-title/app-title.component';
 import { AppCommentComponent } from './components/app-comment/app-comment.component';
 import { SearchComponent } from './components/search/search.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { SearchComponent } from './components/search/search.component';
     AppTitleComponent,
     AppCommentComponent,
     SearchComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +86,7 @@ import { SearchComponent } from './components/search/search.component';
     StoreService,
     CommentService,
     SearchService,
+    LoginService,
     {
       provide: LOCALE_ID,
       useValue: Locale.getPcp47Locale(),
