@@ -12,15 +12,10 @@ import { App as DstoreApp } from '../dstore/services/app';
 
 @Injectable()
 export class AppService {
-  private server: string;
-  private _list: Observable<App[]>;
+  private server = BaseService.serverHosts.operationServer;
+  list = _.throttle(this.getList, 5000);
 
-  list: () => Observable<App[]>;
-
-  constructor(private http: HttpClient, private appService: DstoreAppService) {
-    this.server = BaseService.serverHosts.operationServer;
-    this.list = _.throttle(this.getList, 5000);
-  }
+  constructor(private http: HttpClient, private appService: DstoreAppService) {}
 
   getApp(appName: string): Observable<App> {
     return this.list()

@@ -8,44 +8,30 @@ import { Category as DstoreCategory } from '../dstore/services/category.service'
 
 @Injectable()
 export class CategoryService {
-  private _list: Observable<Category[]>;
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-    this._list = this.getList().shareReplay();
-  }
+  list = _.throttle(this.getList, 1000 * 60);
 
-  get list() {
-    return this._list;
-  }
-
-  private getList() {
-    return this.http
-      .get(`${BaseService.serverHosts.operationServer}/api/blob/category`)
-      .flatMap((ccs: CustomCategory[]) => {
-        if (ccs && ccs.length > 10) {
-          return Observable.of(
-            ccs.map((c, index) => ({
-              id: index.toString(),
-              title: c.name,
-              icon: c.icon,
-              apps: c.apps,
-            })),
-          );
-        } else {
-          return this.http
-            .get(`${BaseService.serverHosts.metadataServer}/api/category`)
-            .map((cs: DstoreCategory[]) => {
-              return _.chain(cs)
-                .keyBy('Name')
-                .map((c: DstoreCategory) => ({
-                  id: c.Name,
-                  title: c.Name,
-                  icon: '',
-                }))
-                .value();
-            });
-        }
-      });
+  private getList(): Observable<Category[]> {
+    return Observable.concat(
+      Observable.of(defaultCategory),
+      this.http
+        .get(`${BaseService.serverHosts.operationServer}/api/blob/category`)
+        .map((ccs: CustomCategory[]) => {
+          ccs = ccs.filter(cs => cs.show);
+          if (ccs.length <= 0) {
+            return defaultCategory;
+          }
+          return ccs.map((c, index) => ({
+            id: index.toString(),
+            title: c.name,
+            icon: c.icon,
+            apps: c.apps,
+          }));
+        }),
+    )
+      .do(css => console.log(css))
+      .shareReplay();
   }
 }
 export interface Category {
@@ -60,3 +46,16 @@ interface CustomCategory {
   show: true;
   apps: string[];
 }
+const defaultCategory = [
+  { id: 'internet', title: 'internet', icon: '' },
+  { id: 'office', title: 'office', icon: '' },
+  { id: 'development', title: 'development', icon: '' },
+  { id: 'reading', title: 'reading', icon: '' },
+  { id: 'graphics', title: 'graphics', icon: '' },
+  { id: 'game', title: 'game', icon: '' },
+  { id: 'music', title: 'music', icon: '' },
+  { id: 'system', title: 'system', icon: '' },
+  { id: 'video', title: 'video', icon: '' },
+  { id: 'chat', title: 'chat', icon: '' },
+  { id: 'others', title: 'others', icon: '' },
+];

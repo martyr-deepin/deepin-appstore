@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
+  // 登录框架页面加载
   load(iframe: HTMLIFrameElement) {
     this.loaded = true;
     const closeButton = iframe.contentDocument.getElementById('close');

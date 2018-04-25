@@ -27,11 +27,13 @@ export class CategoryComponent implements OnInit {
   sortBy = SortOrder.Downloads;
 
   ngOnInit() {
-    this.categoryObs = this.route.paramMap.mergeMap(param => {
-      return this.categoryService.list.map(cs =>
-        _.find(cs, c => c.id === param.get('id')),
-      );
-    });
+    this.categoryObs = this.route.paramMap
+      .mergeMap(param => {
+        return this.categoryService
+          .list()
+          .map(cs => _.find(cs, c => c.id === param.get('id')));
+      })
+      .filter(c => c !== undefined);
     this.appsObs = this.categoryObs.mergeMap(c => {
       return this.appService.list().map(apps => {
         if (c.apps && c.apps.length > 0) {
