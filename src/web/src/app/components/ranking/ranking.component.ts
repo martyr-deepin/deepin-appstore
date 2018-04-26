@@ -17,6 +17,6 @@ export class RankingComponent implements OnInit {
   sortBy = SortOrder.Downloads;
 
   ngOnInit() {
-    this.appsObs = this.appService.list();
+    this.appsObs = this.appService.list().map(apps => apps.slice(0, 20));
   }
 }

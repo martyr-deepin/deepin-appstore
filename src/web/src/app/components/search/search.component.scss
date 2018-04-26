@@ -8,4 +8,12 @@
     font-size: 1.2rem;
     margin: 0.5rem;
   }
+  .kw {
+    display: inline-block;
+    vertical-align: bottom;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 8rem;
+  }
 }
