@@ -1,4 +1,4 @@
-<div *ngIf="appObs|async as app">
+<div *ngIf="appObs|async as app;else $loading">
   <div class="appInfo">
     <div class="info-left">
       <img class="icon" [src]="metadataServer+'/'+app.icon">
@@ -66,3 +66,6 @@
 
   <app-app-comment [appName]="app.name"></app-app-comment>
 </div>
+<ng-template #$loading>
+  加载中...
+</ng-template>
