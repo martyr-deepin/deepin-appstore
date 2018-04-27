@@ -82,14 +82,12 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   SearchCompletionWindow* completion_window_ = nullptr;
   SearchManager* search_manager_ = nullptr;
   SearchProxy* search_proxy_ = nullptr;
+  QTimer* search_timer_ = nullptr;
   SettingsProxy* settings_proxy_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
   TitleBar* title_bar_ = nullptr;
   WebEventDelegate* web_event_delegate_ = nullptr;
-
   TitleBarMenu* tool_bar_menu_ = nullptr;
-
-  QTimer* search_timer_ = nullptr;
 
  private slots:
   void onSearchAppResult(const QString& keyword,

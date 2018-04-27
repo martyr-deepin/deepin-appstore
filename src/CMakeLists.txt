@@ -122,6 +122,8 @@ set(SERVICES_FILES
     services/search_result.h
     services/settings_manager.cpp
     services/settings_manager.h
+    services/store_daemon_worker.cpp
+    services/store_daemon_worker.h
     )
 
 set(UI_FILES

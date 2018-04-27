@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/empty';
+import 'rxjs/add/operator/filter';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from './store-job-info';
@@ -118,19 +119,21 @@ export class StoreService {
   }
 
   execWithCallback(method: string, ...args: any[]): Observable<any> {
-    return Observable.create(obs => {
-      Channel.execWithCallback(
+    const obs$ = Observable.create(obs => {
+      return Channel.execWithCallback(
         (storeResp: StoreResponse) => {
-          console.log('execWithCallback result: ', storeResp);
           if (!storeResp.ok) {
             throw storeResp;
           }
-          this.zone.run(() => obs.next(storeResp.value));
+          this.zone.run(() => obs.next(storeResp));
         },
         method,
         ...args,
       );
-    });
+    }) as Observable<StoreResponse>;
+    return obs$
+      .filter(resp => args.length === 0 || args[0] === resp.result.name)
+      .map(resp => resp.result.value);
   }
 }
 
@@ -141,5 +144,5 @@ class StoreResponse {
   ok: boolean;
   errorName: string;
   errorMsg: string;
-  value: any;
+  result: { name: string; value: any };
 }

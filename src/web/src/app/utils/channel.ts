@@ -16,15 +16,26 @@ export class Channel {
     }
   }
 
-  static registerCallback(
-    method: string,
-    callback: (...args: any[]) => void,
-  ): void {
+  static registerCallback(method: string, callback: (...args: any[]) => void): void {
+    // console.log('registerCallback', method);
     if (window['dstore'] && window['dstore']['channel']) {
       const channel = window['dstore']['channel'];
       const [objectName, signalName] = method.split('.');
       try {
         channel['objects'][objectName][signalName].connect(callback);
+      } catch (error) {
+        console.error(method, error);
+      }
+    }
+  }
+
+  static unregisterCallback(method: string, callback: (...args: any[]) => void): void {
+    // console.log('unregisterCallback', method);
+    if (window['dstore'] && window['dstore']['channel']) {
+      const channel = window['dstore']['channel'];
+      const [objectName, signalName] = method.split('.');
+      try {
+        channel['objects'][objectName][signalName].disconnect(callback);
       } catch (error) {
         console.error(method, error);
       }
@@ -41,23 +52,18 @@ export class Channel {
     callback: (resp: any) => void,
     method: string,
     ...args: any[]
-  ) {
-    console.log('execWithCallback(): ', method, ', args: ', ...args);
+  ): () => void {
+    // console.log('execWithCallback(): ', method, ', args: ', ...args);
     if (window['dstore'] && window['dstore']['channel']) {
       const channel = window['dstore']['channel'];
       const [objectName, methodName] = method.split('.');
       try {
-        channel['objects'][objectName][methodName](...args, callback);
+        const signalName = method + 'Reply';
+        Channel.registerCallback(signalName, callback);
+        channel['objects'][objectName][methodName](...args);
+        return Channel.unregisterCallback.bind(Channel, signalName, callback);
       } catch (error) {
-        console.error(
-          callback,
-          'method: ',
-          method,
-          ', args:',
-          args,
-          ', error: ',
-          error,
-        );
+        console.error(callback, 'method: ', method, ', args:', args, ', error: ', error);
       }
     }
   }

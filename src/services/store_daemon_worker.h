@@ -15,28 +15,45 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
-#define DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
+#ifndef DEEPIN_APPSTORE_SERVICES_STORE_DAEMON_WORKER_H
+#define DEEPIN_APPSTORE_SERVICES_STORE_DAEMON_WORKER_H
 
 #include <QObject>
 #include <QVariantMap>
-class QThread;
 
 #include "dbus/dbusvariant/app_update_info.h"
 #include "dbus/dbusvariant/locale_mirror_source.h"
-#include "services/store_daemon_worker.h"
 class LastoreManagerInterface;
 class LastoreUpdaterInterface;
 
 namespace dstore {
 
-class StoreDaemonProxy : public QObject {
+class StoreDaemonWorker : public QObject {
   Q_OBJECT
  public:
-  explicit StoreDaemonProxy(QObject* parent = nullptr);
-  ~StoreDaemonProxy() override;
+  explicit StoreDaemonWorker(QObject* parent = nullptr);
+  ~StoreDaemonWorker() override;
 
  signals:
+  void isDbusConnectedRequest();
+
+  void cleanArchivesRequest();
+  void cleanJobRequest(const QString& job);
+  void pauseJobRequest(const QString& job);
+  void startJobRequest(const QString& job);
+  void installPackageRequest(const QString& app_name);
+  void packageExistsRequest(const QString& app_name);
+  void packageInstallableRequest(const QString& app_name);
+  void packageDownloadSizeRequest(const QString& app_name);
+  void updatePackageRequest(const QString& app_name);
+  void removePackageRequest(const QString& app_name);
+  void jobListRequest();
+  void upgradableAppsRequest();
+
+  void applicationUpdateInfosRequest(const QString& language);
+  void getJobInfoRequest(const QString& job);
+
+
   void isDbusConnectedReply(bool state);
 
   void cleanArchivesReply(const QVariantMap& result);
@@ -55,7 +72,7 @@ class StoreDaemonProxy : public QObject {
   void applicationUpdateInfosReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
- public slots:
+ private slots:
   /**
    * Check connecting to backend app store daemon or not.
    */
@@ -86,6 +103,8 @@ class StoreDaemonProxy : public QObject {
    */
   void startJob(const QString& job);
 
+//  const QString distUpgrade();
+
   /**
    * apt-get install xxx
    * @param app_name
@@ -97,6 +116,8 @@ class StoreDaemonProxy : public QObject {
    * @param app_name
    */
   void packageExists(const QString& app_name);
+
+//  const QString packageDesktopPath(const QString& app_name);
 
   /**
    * Check whether a specific package exists in APT store
@@ -110,11 +131,16 @@ class StoreDaemonProxy : public QObject {
    */
   void packageDownloadSize(const QString& app_name);
 
+//  const QString prepareDistUpgrade();
+//  void recordLocaleInfo(const QString& language);
+
   /**
    * apt-get upgrade xxx
    * @param app_name
    */
   void updatePackage(const QString& app_name);
+
+//  const QString updateSource();
 
   /**
    * apt-get remove xxx
@@ -123,16 +149,36 @@ class StoreDaemonProxy : public QObject {
    */
   void removePackage(const QString& app_name);
 
+//  void setAutoClean(bool enabled);
+//  void setRegion(const QString& region);
+
+  // Store Manager properties:
+//  bool autoClean();
+
   /**
    * Returns all of jobs existing in backend.
    * @return stringList
    */
   void jobList();
 
+//  const QStringList systemArchitectures();
+//  bool systemOnChanging();
+
   void upgradableApps();
 
   // Store Updater methods:
   void applicationUpdateInfos(const QString& language);
+//  const QVariantList listMirrorSources(const QString& language);
+//  void setAutoCheckUpdates(bool check);
+//  void setAutoDownloadUpdates(bool update);
+//  void setMirrorSource(const QString& id);
+
+  // Store Manager properties:
+//  bool autoCheckUpdates();
+//  bool autoDownloadUpdates();
+//  const QString mirrorSource();
+//  QStringList updatableApps();
+//  QStringList updatablePackages();
 
   /**
    * Get temporary job info.
@@ -149,16 +195,19 @@ class StoreDaemonProxy : public QObject {
    */
   void getJobInfo(const QString& job);
 
+  /**
+   * Request to launch application.
+   * @param app_name
+   */
+  void openApp(const QString& app_name);
+
  private:
   void initConnections();
 
   LastoreManagerInterface* manager_ = nullptr;
   LastoreUpdaterInterface* updater_ = nullptr;
-
-  QThread* worker_thread_ = nullptr;
-  StoreDaemonWorker* worker_ = nullptr;
 };
 
 }  // namespace dstore
 
-#endif  // DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
+#endif  // DEEPIN_APPSTORE_SERVICES_STORE_DAEMON_WORKER_H

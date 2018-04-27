@@ -52,7 +52,7 @@ const int kSearchDelay = 200;
 
 WebWindow::WebWindow(QWidget* parent)
     : DMainWindow(parent),
-      search_timer_(new QTimer(this)){
+      search_timer_(new QTimer(this)) {
   this->setObjectName("WebWindow");
 
   search_timer_->setSingleShot(true);
@@ -66,7 +66,6 @@ WebWindow::WebWindow(QWidget* parent)
 }
 
 WebWindow::~WebWindow() {
-
 }
 
 void WebWindow::loadPage() {
