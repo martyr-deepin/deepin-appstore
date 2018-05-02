@@ -7,26 +7,16 @@ import * as _ from 'lodash';
 
 import { BaseService } from '../dstore/services/base.service';
 import { App } from '../dstore/services/app';
-import { AppDownloading } from '../dstore/services/downloading.service';
+import { StoreJobInfo } from './store-job-info';
+import { StoreService } from './store.service';
 
 @Injectable()
 export class DownloadService {
-  private _appNameList: Observable<{ [key: string]: number }>;
-  constructor(private http: HttpClient) {
-    this._appNameList = this.getList().shareReplay(1);
-  }
-
-  get list() {
-    return this._appNameList;
-  }
-  getList(): Observable<{ [key: string]: number }> {
-    return this.http
-      .get(`${BaseService.serverHosts.operationServer}/api/downloading`)
-      .map((result: { apps: { appName: string; count: number }[] }) => {
-        return _.chain(result.apps)
-          .keyBy('appName')
-          .mapValues('count')
-          .value();
-      });
+  constructor(private storeService: StoreService) {
+    this.storeService.getJobList().subscribe(job => console.log('job', job));
+    // this.storeService.installPackage('0ad').subscribe(job => {
+    //   console.log(job);
+    //   this.storeService.pauseJob(job);
+    // })
   }
 }

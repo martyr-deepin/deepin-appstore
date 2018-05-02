@@ -133,7 +133,9 @@ export class StoreService {
     }) as Observable<StoreResponse>;
     return obs$
       .filter(resp => args.length === 0 || args[0] === resp.result.name)
-      .map(resp => resp.result.value);
+      .do(resp => console.log(resp))
+      .map(resp => resp.result.value)
+      .take(1);
   }
 }
 
