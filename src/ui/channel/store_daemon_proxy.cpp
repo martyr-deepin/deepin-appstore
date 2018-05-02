@@ -83,7 +83,7 @@ void StoreDaemonProxy::initConnections() {
   connect(worker_, &StoreDaemonWorker::startJobReply,
           this, &StoreDaemonProxy::startJobReply);
   connect(worker_, &StoreDaemonWorker::installPackagesReply,
-          this, &StoreDaemonProxy::installPackagesReply);
+          this, &StoreDaemonProxy::installPackageReply);
   connect(worker_, &StoreDaemonWorker::packageExistsReply,
           this, &StoreDaemonProxy::packageExistsReply);
   connect(worker_, &StoreDaemonWorker::packageInstallableReply,
@@ -94,13 +94,14 @@ void StoreDaemonProxy::initConnections() {
           this, &StoreDaemonProxy::updatePackageReply);
   connect(worker_, &StoreDaemonWorker::removePackageReply,
           this, &StoreDaemonProxy::removePackageReply);
-  connect(worker_, &StoreDaemonWorker::jobListReply,
-          this, &StoreDaemonProxy::jobListReply);
   connect(worker_, &StoreDaemonWorker::upgradableAppsReply,
           this, &StoreDaemonProxy::upgradableAppsReply);
 
   connect(worker_, &StoreDaemonWorker::applicationUpdateInfosReply,
           this, &StoreDaemonProxy::applicationUpdateInfosReply);
+
+  connect(worker_, &StoreDaemonWorker::jobListReply,
+          this, &StoreDaemonProxy::jobListReply);
   connect(worker_, &StoreDaemonWorker::getJobInfoReply,
           this, &StoreDaemonProxy::getJobInfoReply);
 }
@@ -149,16 +150,16 @@ void StoreDaemonProxy::removePackage(const QString& app_name) {
   emit worker_->removePackageRequest(app_name);
 }
 
-void StoreDaemonProxy::jobList() {
-  emit worker_->jobListRequest();
-}
-
 void StoreDaemonProxy::upgradableApps() {
   emit worker_->upgradableAppsRequest();
 }
 
 void StoreDaemonProxy::applicationUpdateInfos(const QString& language) {
   emit worker_->applicationUpdateInfosRequest(language);
+}
+
+void StoreDaemonProxy::jobList() {
+  emit worker_->jobListRequest();
 }
 
 void StoreDaemonProxy::getJobInfo(const QString& job) {

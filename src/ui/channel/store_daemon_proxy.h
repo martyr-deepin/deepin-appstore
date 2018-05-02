@@ -43,16 +43,17 @@ class StoreDaemonProxy : public QObject {
   void cleanJobReply(const QVariantMap& result);
   void pauseJobReply(const QVariantMap& result);
   void startJobReply(const QVariantMap& result);
-  void installPackagesReply(const QVariantMap& result);
+  void installPackageReply(const QVariantMap& result);
   void packageExistsReply(const QVariantMap& result);
   void packageInstallableReply(const QVariantMap& result);
   void packageDownloadSizeReply(const QVariantMap& result);
   void updatePackageReply(const QVariantMap& result);
   void removePackageReply(const QVariantMap& result);
-  void jobListReply(const QVariantMap& result);
   void upgradableAppsReply(const QVariantMap& result);
 
   void applicationUpdateInfosReply(const QVariantMap& result);
+
+  void jobListReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
  public slots:

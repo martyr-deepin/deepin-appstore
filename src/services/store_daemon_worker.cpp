@@ -84,13 +84,16 @@ void StoreDaemonWorker::initConnections() {
           this, &StoreDaemonWorker::updatePackage);
   connect(this, &StoreDaemonWorker::removePackageRequest,
           this, &StoreDaemonWorker::removePackage);
-  connect(this, &StoreDaemonWorker::jobListRequest,
-          this, &StoreDaemonWorker::jobList);
   connect(this, &StoreDaemonWorker::upgradableAppsRequest,
           this, &StoreDaemonWorker::upgradableApps);
 
   connect(this, &StoreDaemonWorker::applicationUpdateInfosRequest,
           this, &StoreDaemonWorker::applicationUpdateInfos);
+
+  connect(this, &StoreDaemonWorker::jobListRequest,
+          this, &StoreDaemonWorker::jobList);
+  connect(this, &StoreDaemonWorker::getJobInfoRequest,
+          this, &StoreDaemonWorker::getJobInfo);
 }
 
 void StoreDaemonWorker::isDBusConnected() {

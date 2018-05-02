@@ -47,10 +47,11 @@ class StoreDaemonWorker : public QObject {
   void packageDownloadSizeRequest(const QString& app_name);
   void updatePackageRequest(const QString& app_name);
   void removePackageRequest(const QString& app_name);
-  void jobListRequest();
   void upgradableAppsRequest();
 
   void applicationUpdateInfosRequest(const QString& language);
+
+  void jobListRequest();
   void getJobInfoRequest(const QString& job);
 
 
