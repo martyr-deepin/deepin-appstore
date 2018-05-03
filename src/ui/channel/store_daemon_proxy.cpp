@@ -82,7 +82,7 @@ void StoreDaemonProxy::initConnections() {
           this, &StoreDaemonProxy::pauseJobReply);
   connect(worker_, &StoreDaemonWorker::startJobReply,
           this, &StoreDaemonProxy::startJobReply);
-  connect(worker_, &StoreDaemonWorker::installPackagesReply,
+  connect(worker_, &StoreDaemonWorker::installPackageReply,
           this, &StoreDaemonProxy::installPackageReply);
   connect(worker_, &StoreDaemonWorker::packageExistsReply,
           this, &StoreDaemonProxy::packageExistsReply);

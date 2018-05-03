@@ -155,14 +155,14 @@ void StoreDaemonWorker::installPackage(const QString& app_name) {
   const QDBusPendingReply<QDBusObjectPath> reply =
       manager_->InstallPackage(app_name, app_name);
   if (reply.isError()) {
-    emit this->installPackagesReply(QVariantMap {
+    emit this->installPackageReply(QVariantMap {
         { kResultOk, false },
         { kResultErrName, reply.error().name() },
         { kResultErrMsg, reply.error().message() },
         { kResult, QVariant() },
     });
   } else {
-    emit this->installPackagesReply(QVariantMap {
+    emit this->installPackageReply(QVariantMap {
         { kResultOk, true },
         { kResultErrName, "" },
         { kResultErrMsg, "" },
