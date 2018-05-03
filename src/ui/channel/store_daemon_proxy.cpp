@@ -166,4 +166,8 @@ void StoreDaemonProxy::getJobInfo(const QString& job) {
   emit worker_->getJobInfoRequest(job);
 }
 
+void StoreDaemonProxy::openApp(const QString& app_name) {
+  emit worker_->openAppRequest(app_name);
+}
+
 }  // namespace dstore

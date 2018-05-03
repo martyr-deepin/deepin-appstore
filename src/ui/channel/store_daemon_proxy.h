@@ -150,6 +150,12 @@ class StoreDaemonProxy : public QObject {
    */
   void getJobInfo(const QString& job);
 
+  /**
+   * Request to open installed application.
+   * @param app_name
+   */
+  void openApp(const QString& app_name);
+
  private:
   void initConnections();
 

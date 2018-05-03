@@ -17,6 +17,7 @@
 
 #include "services/store_daemon_worker.h"
 
+#include <QDebug>
 #include <QDBusPendingReply>
 
 #include "dbus/dbus_consts.h"
@@ -94,6 +95,9 @@ void StoreDaemonWorker::initConnections() {
           this, &StoreDaemonWorker::jobList);
   connect(this, &StoreDaemonWorker::getJobInfoRequest,
           this, &StoreDaemonWorker::getJobInfo);
+
+  connect(this, &StoreDaemonWorker::openAppRequest,
+          this, &StoreDaemonWorker::openApp);
 }
 
 void StoreDaemonWorker::isDBusConnected() {
@@ -521,7 +525,9 @@ void StoreDaemonWorker::getJobInfo(const QString& job) {
 
 void StoreDaemonWorker::openApp(const QString& app_name) {
   const QString desktop_file = manager_->PackageDesktopPath(app_name);
-  ExecuteDesktopFile(desktop_file);
+  if (!ExecuteDesktopFile(desktop_file)) {
+    qWarning() << Q_FUNC_INFO << "failed to launch:" << app_name;
+  }
 }
 
 }  // namespace dstore

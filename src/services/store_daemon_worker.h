@@ -54,6 +54,8 @@ class StoreDaemonWorker : public QObject {
   void jobListRequest();
   void getJobInfoRequest(const QString& job);
 
+  void openAppRequest(const QString& app_name);
+
 
   void isDbusConnectedReply(bool state);
 
