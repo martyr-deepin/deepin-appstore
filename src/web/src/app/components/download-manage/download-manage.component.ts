@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { memoize } from 'lodash';
+import { memoize, throttle } from 'lodash';
 
 import { App } from '../../dstore/services/app';
 import { AppService } from '../../dstore/services/app.service';
@@ -19,14 +19,12 @@ export class DownloadComponent implements OnInit {
   constructor(private appService: AppService, private storeService: StoreService) {}
 
   jobs$: Observable<JobInfo[]>;
-  getSizeCache = memoize((name: string) => {
-    console.log('getSize');
-    return this.storeService.appDownloadSize(name).shareReplay();
-  });
+  pause = throttle(this.storeService.pauseJob, 1000);
+  cancel = throttle(this.storeService.clearJob, 1000);
+  start = throttle(this.storeService.resumeJob, 1000);
+  getSizeCache = memoize((name: string) => this.storeService.appDownloadSize(name).shareReplay());
   ngOnInit() {
-    console.log(this.metadataServer);
-
-    this.jobs$ = Observable.timer(0, 3000)
+    this.jobs$ = Observable.timer(0, 1000)
       .mergeMap(() => this.storeService.getJobList())
       .mergeMap(jobs => {
         return Observable.forkJoin(...jobs.map(job => this.storeService.getJobInfo(job)));

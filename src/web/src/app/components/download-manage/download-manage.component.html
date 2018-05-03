@@ -1,7 +1,8 @@
 <div class="title">三个任务正在进行</div>
 <div class="list" *ngIf="jobs$|async as $jobs">
   <ng-container *ngFor="let job of $jobs">
-    {{job|json}}
+      {{job|json}}
+      <br>
       <div class="item" *ngIf="job.name|appInfo|async as $app">
         <img class="icon" [src]="metadataServer + '/' + $app.icon">
         <div class="content">
@@ -19,13 +20,20 @@
           <div class="progressInfo">
             <progress [value]="job.progress" max="1"></progress>
             <div class="speed">
-              <span>{{job.speed|sizeHuman}}/{{job.size$|async|sizeHuman}}</span>
-              <span>420kb/S</span>
+              <span *ngIf="job.size$|async as $size">
+                {{($size*job.progress)|sizeHuman}} / {{$size|sizeHuman}} 
+              </span>
+              <span>{{job.speed|sizeHuman}}/S</span>
             </div>
           </div>
           <div class="controlBtn">
-            <button>暂停</button>
-            <button>X</button>
+            <ng-container [ngSwitch]="job.status">
+              <button (click)="pause(job.id)" *ngSwitchCase="'running'">暂停</button>
+              <button (click)="start(job.id)" *ngSwitchCase="'paused'">开始</button>
+              <button (click)="start(job.id)" *ngSwitchCase="'failed'">重试</button>
+              <button disabled *ngSwitchCase="'ready'">...</button>
+            </ng-container>
+            <button [disabled]="!job.cancelable" (click)="cancel(job.id)">取消</button>
           </div>
         </div>
       </div>

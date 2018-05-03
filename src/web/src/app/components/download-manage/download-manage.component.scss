@@ -28,7 +28,7 @@
         color: gray;
       }
       .progressInfo {
-        flex: 2;
+        flex: 3;
         progress {
           width: 100%;
         }
@@ -38,7 +38,8 @@
         }
       }
       .controlBtn {
-        flex: 1;
+        flex: 2;
+        text-align: right;
       }
     }
   }
