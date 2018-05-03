@@ -25,6 +25,7 @@ export class AppDetailComponent implements OnInit {
 
   appStatus = appStatus;
   status$: Observable<appStatus>;
+  size$: Observable<number>;
   metadataServer: string;
   appObs: Observable<App>;
 
@@ -36,9 +37,9 @@ export class AppDetailComponent implements OnInit {
       return this.appService.getApp(appName).do(app => console.log('app info:', app));
     });
 
-    this.status$ = Observable.timer(0, 3000)
-      .mergeMap(() =>
-        this.appObs.mergeMap(app =>
+    this.status$ = this.appObs
+      .mergeMap(app =>
+        Observable.timer(0, 1000).mergeMap(() =>
           this.storeService.appInstalled(app.name).mergeMap(exists => {
             if (exists) {
               return Observable.of(appStatus.finish);
@@ -59,7 +60,8 @@ export class AppDetailComponent implements OnInit {
           }),
         ),
       )
-      .do(status => console.log(status));
+      .shareReplay();
+    this.size$ = this.appObs.mergeMap(app => this.storeService.appDownloadSize(app.name));
   }
 
   install(appName: string) {
@@ -88,6 +90,7 @@ export class AppDetailComponent implements OnInit {
 }
 
 enum appStatus {
+  undefined,
   ready,
   running,
   finish,

@@ -5,7 +5,7 @@
       <br>
       <ng-container [ngSwitch]="status$|async">
         <button *ngSwitchCase="appStatus.ready" (click)="install(app.name)">安装</button>
-        <button *ngSwitchCase="appStatus.running">正在安装...</button>
+        <button *ngSwitchCase="appStatus.running" [routerLink]="['/','download']">正在安装...</button>
         <button *ngSwitchCase="appStatus.finish" (click)="open(app.name)">打开</button>
       </ng-container>
     </div>
@@ -28,7 +28,21 @@
           </div>
           <div>{{app.localCategory}}</div>
           <div></div>
-          <div>&nbsp;</div>
+          <div>
+            <ng-container *ngIf="status$|async as $status">
+              <ng-container *ngIf="$status===appStatus.finish;else $size">
+                  已下载
+              </ng-container>
+              <ng-template #$size>
+                  <ng-container *ngIf="size$|async as $size; else $msg">
+                    {{$size|sizeHuman}}
+                  </ng-container>
+                  <ng-template #$msg>
+                    计算中
+                  </ng-template>
+              </ng-template>
+            </ng-container>
+          </div>
           <div>{{app.updateTime.toLocaleDateString()}}</div>
           <div>{{app.homePage}}</div>
           <div>{{app.localInfo.description.description}}</div>

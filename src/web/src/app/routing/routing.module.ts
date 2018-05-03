@@ -42,6 +42,10 @@ const routes: Routes = [
     component: DownloadComponent,
   },
   {
+    path: 'download/:appName',
+    component: AppDetailComponent,
+  },
+  {
     path: 'search',
     component: SearchComponent,
   },

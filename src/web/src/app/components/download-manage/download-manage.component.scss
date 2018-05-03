@@ -47,12 +47,12 @@
         }
       }
       .controlBtn {
-        flex: 1;
+        flex: 2;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         button {
-          width: 3rem;
-          height: 3rem;
+          width: 2.5rem;
+          height: 2.5rem;
           background-size: 100% 100%;
           background-color: transparent;
         }

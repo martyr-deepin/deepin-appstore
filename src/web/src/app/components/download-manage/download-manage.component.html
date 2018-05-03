@@ -1,12 +1,12 @@
 <div class="title">三个任务正在进行</div>
 <div class="list" *ngIf="jobs$|async as $jobs">
   <ng-container *ngFor="let job of $jobs">
-      <div class="item" *ngIf="job.name|appInfo|async as $app">
+      <div class="item" *ngIf="job.name|appInfo|async as $app" [routerLink]="$app.name">
         <img class="icon" [src]="metadataServer + '/' + $app.icon">
         <div class="content">
           <div class="appInfo">
             <div class="name">
-              {{$app.name}}
+              {{$app.localInfo.description.name}}
             </div>
             <div class="version">
               10.61.1
@@ -14,9 +14,11 @@
           </div>
           <div class="time">
               剩余时间：
-              <span *ngIf="job.size$|async as $size;else $wait">
-                {{job.speed>0 ? ($size*(1-job.progress*2)/job.speed).toFixed(0) : 0}}秒
-              </span>
+              <ng-container *ngIf="job.type=='download' && job.status=='running';else $wait">
+                <span *ngIf="job.size$|async as $size;else $wait">
+                  {{job.speed>0 ? ($size*(1-job.progress*2)/job.speed).toFixed(0) : 0}}秒
+                </span>
+              </ng-container>
               <ng-template #$wait>
                 --
               </ng-template>
@@ -25,7 +27,7 @@
             <progress [value]="job.progress*2" max="1"></progress>
             <div class="speed" *ngIf="job.status=='running' && job.type=='download';else $msg">
               <span *ngIf="job.size$|async as $size">
-                {{($size*job.progress)|sizeHuman}} / {{$size|sizeHuman}} 
+                {{($size*job.progress*2)|sizeHuman}} / {{$size|sizeHuman}} 
               </span>
               <span>{{job.speed|sizeHuman}}/S</span>
             </div>
@@ -37,9 +39,9 @@
           </div>
           <div class="controlBtn">
             <ng-container [ngSwitch]="true">
-              <button class="pauseBtn" (click)="pause(job.id);$event.target.disabled=true" *ngSwitchCase="job.status=='running' || job.status=='ready'" [disabled]="job.status=='install'"></button>
-              <button class="startBtn" (click)="start(job.id);$event.target.disabled=true" *ngSwitchCase="job.status=='paused'" ></button>
-              <button class="restartBtn" (click)="start(job.id)" *ngSwitchCase="job.status=='failed'"></button>
+              <button class="pauseBtn" (click)="pause(job.id);$event.target.disabled=true" *ngSwitchCase="job.status=='running' || job.status=='ready'" [disabled]="!job.cancelable"></button>
+              <button class="startBtn" (click)="start(job.id);$event.target.disabled=true" *ngSwitchCase="job.status=='paused'"  [disabled]="!job.cancelable"></button>
+              <button class="restartBtn" (click)="start(job.id)" *ngSwitchCase="job.status=='failed'" [disabled]="!job.cancelable"></button>
             </ng-container>
             <button class="cancelBtn" [disabled]="!job.cancelable" (click)="cancel(job.id)"></button>
           </div>
