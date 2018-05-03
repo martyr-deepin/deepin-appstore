@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>cancel_press</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#0B8CFF" offset="0%"></stop>
+            <stop stop-color="#0AA1FF" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="14" cy="14" r="14"></circle>
+        <filter x="-25.0%" y="-17.9%" width="150.0%" height="150.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="cancel_press" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3" transform="translate(4.000000, 4.000000)">
+            <g id="Oval-2">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <circle stroke-opacity="0.3" stroke="#1D82FF" stroke-width="1" cx="14" cy="14" r="13.5"></circle>
+            </g>
+            <polygon id="Combined-Shape" fill="#FFFFFF" fill-rule="nonzero" points="14.2426407 14.9497475 11.0606602 18.131728 10.7071068 18.4852814 10 17.7781746 10.3535534 17.4246212 13.5355339 14.2426407 10.3535534 11.0606602 10 10.7071068 10.7071068 10 11.0606602 10.3535534 14.2426407 13.5355339 17.4246212 10.3535534 17.7781746 10 18.4852814 10.7071068 18.131728 11.0606602 14.9497475 14.2426407 18.131728 17.4246212 18.4852814 17.7781746 17.7781746 18.4852814 17.4246212 18.131728"></polygon>
+        </g>
+    </g>
+</svg>

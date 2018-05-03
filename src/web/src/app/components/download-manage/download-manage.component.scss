@@ -35,11 +35,39 @@
         .speed {
           display: flex;
           justify-content: space-between;
+          padding-top: 0.5rem;
+        }
+        .message {
+          display: flex;
+          justify-content: center;
+          padding-top: 0.5rem;
+        }
+        .failed {
+          color: red;
         }
       }
       .controlBtn {
-        flex: 2;
-        text-align: right;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        button {
+          width: 3rem;
+          height: 3rem;
+          background-size: 100% 100%;
+          background-color: transparent;
+        }
+
+        @each $ctl in ('pause', 'start', 'restart', 'cancel') {
+          .#{$ctl}Btn {
+            background-image: url('assets/icons/#{$ctl}_normal.svg');
+            &:hover {
+              background-image: url('assets/icons/#{$ctl}_hover.svg');
+            }
+            &:disabled {
+              background-image: url('assets/icons/#{$ctl}_insensitive.svg');
+            }
+          }
+        }
       }
     }
   }

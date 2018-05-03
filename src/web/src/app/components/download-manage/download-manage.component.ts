@@ -19,6 +19,7 @@ export class DownloadComponent implements OnInit {
   constructor(private appService: AppService, private storeService: StoreService) {}
 
   jobs$: Observable<JobInfo[]>;
+  progressMessage = progressMessage;
   pause = throttle(this.storeService.pauseJob, 1000);
   cancel = throttle(this.storeService.clearJob, 1000);
   start = throttle(this.storeService.resumeJob, 1000);
@@ -40,3 +41,16 @@ export class DownloadComponent implements OnInit {
 class JobInfo extends StoreJobInfo {
   size$: Observable<number>;
 }
+const progressMessage = {
+  download: {
+    paused: '已暂停',
+    running: '正在下载',
+    ready: '等待下载',
+    failed: '下载失败',
+  },
+  install: {
+    running: '正在安装',
+    ready: '等待安装',
+    failed: '安装失败',
+  },
+};
