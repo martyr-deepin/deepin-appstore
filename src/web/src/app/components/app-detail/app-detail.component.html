@@ -3,7 +3,11 @@
     <div class="info-left">
       <img class="icon" [src]="metadataServer+'/'+app.icon">
       <br>
-      <div class="controlBtn">安装</div>
+      <ng-container [ngSwitch]="status$|async">
+        <button *ngSwitchCase="appStatus.ready" (click)="install(app.name)">安装</button>
+        <button *ngSwitchCase="appStatus.running">正在安装...</button>
+        <button *ngSwitchCase="appStatus.finish" (click)="open(app.name)">打开</button>
+      </ng-container>
     </div>
     <div class="info-right">
       <div class="title">{{app.localInfo.description.name}}</div>

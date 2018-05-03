@@ -22,9 +22,27 @@ body {
   height: 48px;
   margin: 0 1rem;
 }
+
 [hidden] {
   display: none !important;
 }
 [tabindex] {
   outline: none;
+}
+button {
+  color: white;
+  border-radius: 3px;
+  outline: none;
+  user-select: none;
+  box-shadow: none;
+  border: none;
+  font-size: 0.5rem;
+  padding: 0.1rem;
+  background-image: linear-gradient(to bottom, #8ccfff, #4bb8ff);
+  &:hover {
+    background-image: linear-gradient(to bottom, #4bb8ff, #0aa1ff);
+  }
+  &:active {
+    background-image: linear-gradient(to bottom, #0b8cff, #0aa1ff);
+  }
 }
