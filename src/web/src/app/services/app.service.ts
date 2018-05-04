@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
@@ -40,11 +37,7 @@ export class AppService {
           const downloadsDict = _.keyBy(stat.downloadCount, 'appName');
           const rateDict = _.keyBy(stat.rate, 'appName');
           apps.forEach(app => {
-            app.downloads = _.get(
-              downloadsDict,
-              [app.name, 'count'],
-              0,
-            ) as number;
+            app.downloads = _.get(downloadsDict, [app.name, 'count'], 0) as number;
             app.rate = (_.get(rateDict, [app.name, 'rate'], 0) as number) / 2;
             app.ratings = _.get(rateDict, [app.name, 'count'], 0) as number;
           });

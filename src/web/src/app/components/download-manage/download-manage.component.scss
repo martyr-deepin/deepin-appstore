@@ -67,12 +67,12 @@
 
         @each $ctl in ('pause', 'start', 'restart', 'cancel') {
           .#{$ctl}Btn {
-            background-image: url('assets/icons/#{$ctl}_normal.svg');
+            background-image: url('/assets/icons/#{$ctl}_normal.svg');
             &:hover {
-              background-image: url('assets/icons/#{$ctl}_hover.svg');
+              background-image: url('/assets/icons/#{$ctl}_hover.svg');
             }
             &:disabled {
-              background-image: url('assets/icons/#{$ctl}_insensitive.svg');
+              background-image: url('/assets/icons/#{$ctl}_insensitive.svg');
             }
           }
         }

@@ -1,11 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AppService } from './app.service';
 import { Channel } from '../utils/channel';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/observable/empty';
-import 'rxjs/add/operator/filter';
+import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from './store-job-info';
@@ -119,7 +115,7 @@ export class StoreService {
   }
 
   execWithCallback(method: string, ...args: any[]): Observable<any> {
-    const obs$ = Observable.create(obs => {
+    const obs$ = new Observable<any>(obs => {
       return Channel.execWithCallback(
         (storeResp: StoreResponse) => {
           if (!storeResp.ok) {
@@ -133,7 +129,6 @@ export class StoreService {
     }) as Observable<StoreResponse>;
     return obs$
       .filter(resp => args.length === 0 || args[0] === resp.result.name)
-      .do(resp => console.log(resp))
       .map(resp => resp.result.value)
       .take(1);
   }

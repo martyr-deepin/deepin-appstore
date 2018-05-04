@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { Channel } from '../utils/channel';
 @Injectable()
@@ -16,12 +16,9 @@ export class SearchService {
 
   onOpenAppList(): Observable<SearchResult> {
     return Observable.create(obs => {
-      Channel.registerCallback(
-        'search.openAppList',
-        (keyword: string, appNameList: string[]) => {
-          this.zone.run(obs.next.bind(obs, { keyword, appNameList }));
-        },
-      );
+      Channel.registerCallback('search.openAppList', (keyword: string, appNameList: string[]) => {
+        this.zone.run(obs.next.bind(obs, { keyword, appNameList }));
+      });
     });
   }
 }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { BaseService } from '../dstore/services/base.service';
 import { Section } from '../dstore/services/section';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class SectionService {
