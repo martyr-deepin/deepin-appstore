@@ -1,14 +1,18 @@
+:host {
+  display: block;
+  padding: 1rem 2rem;
+}
 .title {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   padding: 10px 0;
 }
 .list {
   .item {
-    margin: 1rem 0;
+    margin: 0.8rem 0;
     display: flex;
     .content {
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       width: 100%;
       display: flex;
       align-items: center;
@@ -17,15 +21,16 @@
         display: flex;
         flex-direction: column;
         height: 48px;
-        justify-content: space-between;
+        justify-content: space-around;
         .version {
           color: gray;
-          font-size: 14px;
+          font-size: 0.8rem;
         }
       }
       .time {
         flex: 2;
         color: gray;
+        font-size: 0.6rem;
       }
       .progressInfo {
         flex: 3;
@@ -36,11 +41,14 @@
           display: flex;
           justify-content: space-between;
           padding-top: 0.5rem;
+          color: gray;
         }
         .message {
           display: flex;
           justify-content: center;
           padding-top: 0.5rem;
+          font-size: 0.6rem;
+          color: gray;
         }
         .failed {
           color: red;

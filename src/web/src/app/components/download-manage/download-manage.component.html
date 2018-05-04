@@ -1,15 +1,15 @@
 <div class="title">三个任务正在进行</div>
 <div class="list" *ngIf="jobs$|async as $jobs">
   <ng-container *ngFor="let job of $jobs">
-      <div class="item" *ngIf="job.name|appInfo|async as $app" [routerLink]="$app.name">
-        <img class="icon" [src]="metadataServer + '/' + $app.icon">
+      <div class="item" *ngIf="job.name|appInfo|async as $app">
+        <img class="icon" [src]="metadataServer + '/' + $app.icon" [routerLink]="$app.name">
         <div class="content">
-          <div class="appInfo">
+          <div class="appInfo" [routerLink]="$app.name">
             <div class="name">
               {{$app.localInfo.description.name}}
             </div>
             <div class="version">
-              10.61.1
+              版本：10.61.1
             </div>
           </div>
           <div class="time">
@@ -20,7 +20,7 @@
                 </span>
               </ng-container>
               <ng-template #$wait>
-                --
+                — —
               </ng-template>
           </div>
           <div class="progressInfo">
@@ -49,26 +49,3 @@
       </div>
   </ng-container>
 </div>
-<!-- <div class="list" *ngIf="appsObs|async as apps">
-  <div class="item" *ngFor="let app of apps">
-    <img class="icon" [src]="metadataServer+'/'+app.icon">
-    <div class="content">
-      <div class="appInfo">
-        <span class="name">火狐浏览器</span>
-        <span class="version">版本:10.1</span>
-      </div>
-      <div class="time">剩余时间：56秒</div>
-      <div class="progressInfo">
-        <progress value="5" max="100"></progress>
-        <div class="speed">
-          <span>4.2/50.2MB</span>
-          <span>420kb/S</span>
-        </div>
-      </div>
-      <div class="btnGroup">
-        <div class="control"></div>
-        <span class="close">X</span>
-      </div>
-    </div>
-  </div>
-</div> -->
