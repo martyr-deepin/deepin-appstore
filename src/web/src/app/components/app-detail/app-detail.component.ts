@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 
 import { App } from '../../dstore/services/app';
@@ -8,6 +8,7 @@ import { AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { CanvasUtil } from '../../utils/canvas-util';
 import { StoreService } from '../../services/store.service';
+import { AppJobStatus } from '../../services/store-job-info';
 
 @Component({
   selector: 'app-app-detail',
@@ -23,8 +24,8 @@ export class AppDetailComponent implements OnInit {
 
   open = this.storeService.openApp;
 
-  appStatus = appStatus;
-  status$: Observable<appStatus>;
+  AppJobStatus = AppJobStatus;
+  status$: Observable<AppJobStatus>;
   size$: Observable<number>;
   metadataServer: string;
   appObs: Observable<App>;
@@ -42,20 +43,11 @@ export class AppDetailComponent implements OnInit {
         Observable.timer(0, 1000).mergeMap(() =>
           this.storeService.appInstalled(app.name).mergeMap(exists => {
             if (exists) {
-              return Observable.of(appStatus.finish);
+              return Observable.of(AppJobStatus.finish);
             } else {
               return this.storeService
-                .getJobList()
-                .mergeMap(jobs =>
-                  Observable.forkJoin(...jobs.map(job => this.storeService.getJobInfo(job))),
-                )
-                .map(jobInfoList => {
-                  if (jobInfoList.map(jobInfo => jobInfo.name).includes(app.name)) {
-                    return appStatus.running;
-                  } else {
-                    return appStatus.ready;
-                  }
-                });
+                .getJobByName(app.name)
+                .map(info => (info ? AppJobStatus.running : AppJobStatus.ready));
             }
           }),
         ),
@@ -87,11 +79,4 @@ export class AppDetailComponent implements OnInit {
   log(v) {
     console.log(v);
   }
-}
-
-enum appStatus {
-  undefined,
-  ready,
-  running,
-  finish,
 }

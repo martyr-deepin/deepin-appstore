@@ -20,10 +20,13 @@ export class DownloadComponent implements OnInit {
 
   jobs$: Observable<JobInfo[]>;
   progressMessage = progressMessage;
+  getSizeCache = memoize((name: string) => this.storeService.appDownloadSize(name).shareReplay());
+
+  // 下载任务控制
+  start = throttle(this.storeService.resumeJob, 1000);
   pause = throttle(this.storeService.pauseJob, 1000);
   cancel = throttle(this.storeService.clearJob, 1000);
-  start = throttle(this.storeService.resumeJob, 1000);
-  getSizeCache = memoize((name: string) => this.storeService.appDownloadSize(name).shareReplay());
+
   ngOnInit() {
     this.jobs$ = Observable.timer(0, 1000)
       .mergeMap(() => this.storeService.getJobList())

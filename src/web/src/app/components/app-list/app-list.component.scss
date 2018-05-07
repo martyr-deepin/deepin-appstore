@@ -6,36 +6,31 @@
     width: 228px;
     margin: 1rem 0;
     outline: none;
-    .name {
-      color: black;
-    }
     .cover {
       border-radius: 5px;
     }
-    .info {
+    .content {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      .category {
-        color: gray;
+      align-items: center;
+      .control {
+        display: flex;
+        button {
+          padding: 0.2rem 0.8rem;
+          text-align: center;
+        }
       }
-      .score {
-        position: relative;
-        font-size: 0.8rem;
-        div {
-          position: absolute;
-          overflow: hidden;
-          &::before {
-            content: '★★★★★';
-            color: darkgoldenrod;
-            font-weight: bold;
-          }
+      .info {
+        display: flex;
+        flex-direction: column;
+        color: black;
+        white-space: nowrap;
+        .category {
+          color: gray;
         }
-        &::after {
-          content: '★★★★★';
-          color: lightgray;
-          font-weight: bold;
-        }
+      }
+      .star {
+        align-self: flex-end;
       }
     }
   }

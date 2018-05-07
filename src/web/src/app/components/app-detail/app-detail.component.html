@@ -4,9 +4,9 @@
       <img class="icon" [src]="metadataServer+'/'+app.icon">
       <br>
       <ng-container [ngSwitch]="status$|async">
-        <button *ngSwitchCase="appStatus.ready" (click)="install(app.name)">安装</button>
-        <button *ngSwitchCase="appStatus.running" [routerLink]="['/','download']">正在安装...</button>
-        <button *ngSwitchCase="appStatus.finish" (click)="open(app.name)">打开</button>
+        <button *ngSwitchCase="AppJobStatus.ready" (click)="install(app.name)">安装</button>
+        <button *ngSwitchCase="AppJobStatus.running" [routerLink]="['/','download']">正在安装...</button>
+        <button *ngSwitchCase="AppJobStatus.finish" (click)="open(app.name)">打开</button>
       </ng-container>
     </div>
     <div class="info-right">

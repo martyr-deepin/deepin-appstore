@@ -9,3 +9,14 @@ export class StoreJobInfo {
   packages: string[] = [];
   cancelable = false;
 }
+
+export enum AppJobStatus {
+  undefined,
+  ready,
+  running,
+  finish,
+}
+export interface AppJobInfo {
+  status: AppJobStatus;
+  jobInfo: StoreJobInfo;
+}

@@ -98,6 +98,17 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.getJobInfo', jobPath);
   }
 
+  getJobByName(name: string): Observable<StoreJobInfo> {
+    return this.getJobList()
+      .mergeMap(
+        jobs =>
+          jobs.length > 0
+            ? Observable.forkJoin(jobs.map(job => this.getJobInfo(job)))
+            : Observable.of([]),
+      )
+      .map((jobInfoList: StoreJobInfo[]) => jobInfoList.find(info => info.name === name));
+  }
+
   /**
    * Request to run application in background.
    * @param {string} appName
