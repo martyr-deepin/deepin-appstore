@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import * as _ from 'lodash';
 
@@ -29,9 +29,7 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.categoryObs = this.route.paramMap
       .mergeMap(param => {
-        return this.categoryService
-          .list()
-          .map(cs => _.find(cs, c => c.id === param.get('id')));
+        return this.categoryService.list().map(cs => _.find(cs, c => c.id === param.get('id')));
       })
       .filter(c => c !== undefined);
     this.appsObs = this.categoryObs.mergeMap(c => {

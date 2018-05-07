@@ -1,5 +1,5 @@
 <div class="sectionList">
-  <ng-container *ngFor="let section of sectionList">
+  <ng-container *ngFor="let section of sectionList;index as $index">
     <div [style.gridColumnEnd]='"span "+section.colSpan' [style.gridRowEnd]='"span "+section.rowSpan' [style.overflow]="'hidden'"
       [ngSwitch]="section.type">
       <ng-container *ngIf="section.show">
@@ -7,7 +7,7 @@
       <dstore-cover *ngSwitchCase="SectionType.Cover" [title]="section.title" [apps]="section.items"></dstore-cover>
       <dstore-phrase *ngSwitchCase="SectionType.Phrase" [phraseList]="section.items" [title]="section.title"></dstore-phrase>
       <dstore-ranking *ngSwitchCase="SectionType.Ranking" [title]="section.title" [category]="section.ranking.category" [count]="section.ranking.count"></dstore-ranking>
-      <dstore-topic *ngSwitchCase="SectionType.Topic" [section]="section"></dstore-topic>
+      <dstore-topic *ngSwitchCase="SectionType.Topic" [section]="section" [sectionIndex]="$index"></dstore-topic>
       <dstore-icon *ngSwitchCase="SectionType.Icon" [title]="section.title" [apps]="section.items"></dstore-icon>
       <dstore-assemble *ngSwitchCase="SectionType.Assemble" [title]="section.title" [assembleList]="section.items"></dstore-assemble>
       </ng-container>

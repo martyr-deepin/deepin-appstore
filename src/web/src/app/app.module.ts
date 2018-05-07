@@ -36,6 +36,7 @@ import { AppTitleComponent } from './components/app-title/app-title.component';
 import { AppCommentComponent } from './components/app-comment/app-comment.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login.component';
+import { TopicComponent } from './components/topic/topic.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { LoginComponent } from './components/login/login.component';
     AppCommentComponent,
     SearchComponent,
     LoginComponent,
+    TopicComponent,
   ],
   imports: [
     BrowserModule,

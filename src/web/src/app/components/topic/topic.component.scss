@@ -1,0 +1,17 @@
+:host {
+  margin: 0 -1.5rem;
+  display: block;
+  height: 100vh;
+}
+.main {
+  height: 100vh;
+}
+.bgImg {
+  width: 100%;
+  mask-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0));
+}
+
+.apps {
+  display: block;
+  margin: 0 2rem;
+}
