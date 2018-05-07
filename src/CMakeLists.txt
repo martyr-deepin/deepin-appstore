@@ -82,6 +82,8 @@ set(BASE_FILES
     )
 
 set(DBUS_FILES
+    dbus/dbusvariant/app_metadata.cpp
+    dbus/dbusvariant/app_metadata.h
     dbus/dbusvariant/app_update_info.cpp
     dbus/dbusvariant/app_update_info.h
     dbus/dbusvariant/locale_mirror_source.cpp

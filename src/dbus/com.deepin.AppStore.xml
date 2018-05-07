@@ -5,4 +5,9 @@
     <method name="OpenApp">
         <arg direction="in" type="s"/>
     </method>
+
+    <method name="ShowAppDetail">
+        <arg direction="in" type="s"/>
+    </method>
+
 </interface>

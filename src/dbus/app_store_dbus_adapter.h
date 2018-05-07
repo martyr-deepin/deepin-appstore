@@ -36,6 +36,9 @@ class AppStoreDBusAdapter: public QDBusAbstractAdaptor
 "    <method name=\"OpenApp\">\n"
 "      <arg direction=\"in\" type=\"s\"/>\n"
 "    </method>\n"
+"    <method name=\"ShowAppDetail\">\n"
+"      <arg direction=\"in\" type=\"s\"/>\n"
+"    </method>\n"
 "  </interface>\n"
         "")
 public:
@@ -46,6 +49,7 @@ public: // PROPERTIES
 public Q_SLOTS: // METHODS
     void OpenApp(const QString &in0);
     void Raise();
+    void ShowAppDetail(const QString &in0);
 Q_SIGNALS: // SIGNALS
 };
 

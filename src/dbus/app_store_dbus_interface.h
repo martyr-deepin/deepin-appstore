@@ -49,6 +49,13 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("Raise"), argumentList);
     }
 
+    inline QDBusPendingReply<> ShowAppDetail(const QString &in0)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(in0);
+        return asyncCallWithArgumentList(QStringLiteral("ShowAppDetail"), argumentList);
+    }
+
 Q_SIGNALS: // SIGNALS
 };
 

@@ -45,3 +45,9 @@ void AppStoreDBusAdapter::Raise()
     QMetaObject::invokeMethod(parent(), "Raise");
 }
 
+void AppStoreDBusAdapter::ShowAppDetail(const QString &in0)
+{
+    // handle method call com.deepin.AppStore.ShowAppDetail
+    QMetaObject::invokeMethod(parent(), "ShowAppDetail", Q_ARG(QString, in0));
+}
+
