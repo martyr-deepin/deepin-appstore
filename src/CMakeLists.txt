@@ -1,5 +1,7 @@
 
-if (CMAKE_BUILD_TYPE MATCHES Release)
+option(USE_SYSTEM_RESOURCES "Use web resources in source tree or in system" OFF)
+
+if (USE_SYSTEM_RESOURCES)
   add_definitions(-DDSTORE_WEB_DIR="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/web_dist")
   add_definitions(-DSETTINGS_FILE="${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/settings.ini")
 else()
