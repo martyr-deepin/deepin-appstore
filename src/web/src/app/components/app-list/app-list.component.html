@@ -1,5 +1,5 @@
 <div class="appList">
-  <div class="app" *ngFor="let app of appList" [routerLink]="app.name">
+  <div class="app" *ngFor="let app of appList|slice:0:count" [routerLink]="app.name">
     <img class="cover" [src]="server+'/images/apps.com.qq.im_cover_zh-CN_863672f3.jpeg'">
     <div class="name">
       {{app.localInfo.description.name}}

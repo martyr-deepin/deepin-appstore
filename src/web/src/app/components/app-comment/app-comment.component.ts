@@ -29,48 +29,19 @@ export class AppCommentComponent implements OnInit {
 
   ngOnInit() {
     this.commentListObs = this.commentService.list(this.appName);
-    this.commentService.own(this.appName).subscribe(console.log);
   }
 
   login() {
     this.loginService.OpenLogin();
   }
 
-  // iframeLoad(event: Event) {
-  //   console.log('iframeLoad');
-  //   const iframeEl = <HTMLIFrameElement>event.target;
-  //   const cBtn = <HTMLButtonElement>iframeEl.contentDocument.querySelector(
-  //     '#close',
-  //   );
-  //   if (cBtn) {
-  //     cBtn.addEventListener('click', () =>
-  //       console.log(this.dialog.nativeElement),
-  //     );
-  //   }
-  //   const token = iframeEl.contentDocument.cookie
-  //     .split('; ')
-  //     .map(c => c.split('='))
-  //     .find(([key, value]) => key === 'auth-token');
-  //   this.iframeLoading = false;
-  //   if (token && token.length === 2) {
-  //     this.dialog.nativeElement.close();
-  //     this.authService.login(token[1]);
-  //   }
-  // }
-
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
   }
 
   submitComment(content: string, rate: number) {
-    this.commentService
-      .create(this.appName, content, rate)
-      .subscribe(null, null, () => {
-        this.commentListObs = this.commentService.list(this.appName);
-      });
-  }
-
-  log(any) {
-    console.dir(any);
+    this.commentService.create(this.appName, content, rate).subscribe(null, null, () => {
+      this.commentListObs = this.commentService.list(this.appName);
+    });
   }
 }

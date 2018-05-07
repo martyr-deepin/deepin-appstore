@@ -15,6 +15,7 @@ export class AppListComponent {
   server = BaseService.serverHosts.metadataServer;
   @Input() apps: App[] = [];
   @Input() sortBy: SortOrder;
+  @Input() count: number;
 
   constructor() {}
 
