@@ -30,7 +30,7 @@
           <div></div>
           <div>
             <ng-container *ngIf="status$|async as $status">
-              <ng-container *ngIf="$status===appStatus.finish;else $size">
+              <ng-container *ngIf="$status===AppJobStatus.finish;else $size">
                   已下载
               </ng-container>
               <ng-template #$size>

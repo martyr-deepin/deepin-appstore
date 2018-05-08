@@ -1,0 +1,63 @@
+dialog {
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+div {
+  margin: 1.5rem 3rem;
+}
+span {
+  vertical-align: top;
+}
+input,
+textarea {
+  padding: 6px;
+  width: 20rem;
+  border-radius: 3px;
+  border: solid 1px rgba(0, 0, 0, 0.08);
+  &:focus {
+    background-color: rgba(36, 46, 77, 0.05);
+    border: solid 1px rgba(43, 167, 248, 0.3);
+  }
+}
+textarea {
+  height: 3rem;
+  resize: none;
+}
+select {
+  font-size: 12px;
+  padding: 6px;
+  width: 21rem;
+  border-radius: 3px;
+  border: solid 1px rgba(0, 0, 0, 0.08);
+  background-color: white;
+  &:focus {
+    background-color: rgba(36, 46, 77, 0.05);
+    border: solid 1px rgba(43, 167, 248, 0.3);
+  }
+}
+button {
+  width: 100%;
+  background: none;
+  color: #4bb8ff;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding: 0.3rem;
+  border: 1px solid #4bb8ff;
+  &:disabled {
+    opacity: 0.3;
+  }
+}
+.title {
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+.close {
+  padding: 0;
+  margin: 0;
+  text-align: right;
+  font-family: 'monospace';
+  font-size: 13px;
+  cursor: pointer;
+}

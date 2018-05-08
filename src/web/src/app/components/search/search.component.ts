@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { App, AppService } from '../../services/app.service';
 import { SortOrder } from '../app-title/app-title.component';
+import { RecommendService } from '../../services/recommend.service';
 
 @Component({
   selector: 'app-search',
@@ -11,7 +12,11 @@ import { SortOrder } from '../app-title/app-title.component';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private appService: AppService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private appService: AppService,
+    private recommendService: RecommendService,
+  ) {}
 
   sortBy = SortOrder.Downloads;
   keyword: string;
@@ -24,9 +29,10 @@ export class SearchComponent implements OnInit {
         .getAll('apps')
         .map(apps => apps.split(','))
         .reduce((a, b) => [...a, ...b]);
-      return this.appService
-        .list()
-        .map(apps => apps.filter(app => appNameList.includes(app.name)));
+      return this.appService.list().map(apps => apps.filter(app => appNameList.includes(app.name)));
     });
+  }
+  recommend() {
+    this.recommendService.openRecommend();
   }
 }
