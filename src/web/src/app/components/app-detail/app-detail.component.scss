@@ -86,3 +86,20 @@
     }
   }
 }
+.dropOff {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  span {
+    color: gray;
+  }
+  a {
+    text-decoration: none;
+  }
+  * {
+    margin: 0.5rem 0;
+  }
+}

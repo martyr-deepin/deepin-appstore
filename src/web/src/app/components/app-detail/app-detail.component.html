@@ -1,89 +1,139 @@
 <div *ngIf="appObs|async as app;else $loading">
-  <div class="appInfo">
-    <div class="info-left">
-      <img class="icon" [src]="metadataServer+'/'+app.icon">
-      <br>
-      <ng-container [ngSwitch]="status$|async">
-        <button *ngSwitchCase="AppJobStatus.ready" (click)="install(app.name)">安装</button>
-        <button *ngSwitchCase="AppJobStatus.running" [routerLink]="['/','download']">正在安装...</button>
-        <button *ngSwitchCase="AppJobStatus.finish" (click)="open(app.name)">打开</button>
-      </ng-container>
-    </div>
-    <div class="info-right">
-      <div class="title">{{app.localInfo.description.name}}</div>
-      <div class="content">
-        <div class="desc">
-          <div>Rate</div>
-          <div>Category</div>
-          <div>Version</div>
-          <div>Size</div>
-          <div>Update Date</div>
-          <div>Official Website</div>
-          <div>Introduction</div>
-        </div>
-        <div class="info">
-          <div class="rate">
-            <dstore-star [rate]="app.rate"></dstore-star>
-            <span class="details">{{app.rate.toFixed(1)}}分 {{app.downloads}}人下载 {{app.ratings}}人评分</span>
-          </div>
-          <div>{{app.localCategory}}</div>
-          <div></div>
-          <div>
-            <ng-container *ngIf="status$|async as $status">
-              <ng-container *ngIf="$status===AppJobStatus.finish;else $size">
-                  已下载
-              </ng-container>
-              <ng-template #$size>
-                  <ng-container *ngIf="size$|async as $size; else $msg">
-                    {{$size|sizeHuman}}
-                  </ng-container>
-                  <ng-template #$msg>
-                    计算中
-                  </ng-template>
-              </ng-template>
+    <div class="appInfo">
+        <div class="info-left">
+            <img
+                class="icon"
+                [src]="metadataServer+'/'+app.icon"
+            >
+            <br>
+            <ng-container [ngSwitch]="status$|async">
+                <button
+                    *ngSwitchCase="AppJobStatus.ready"
+                    (click)="install(app.name)"
+                >
+                    安装
+                </button>
+                <button
+                    *ngSwitchCase="AppJobStatus.running"
+                    [routerLink]="['/','download']"
+                >
+                    正在安装...
+                </button>
+                <button
+                    *ngSwitchCase="AppJobStatus.finish"
+                    (click)="open(app.name)"
+                >
+                    打开
+                </button>
             </ng-container>
-          </div>
-          <div>{{app.updateTime.toLocaleDateString()}}</div>
-          <div>{{app.homePage}}</div>
-          <div>{{app.localInfo.description.description}}</div>
         </div>
-      </div>
+        <div class="info-right">
+            <div class="title">{{app.localInfo.description.name}}</div>
+            <div class="content">
+                <div class="desc">
+                    <div>Rate</div>
+                    <div>Category</div>
+                    <div>Version</div>
+                    <div>Size</div>
+                    <div>Update Date</div>
+                    <div>Official Website</div>
+                    <div>Introduction</div>
+                </div>
+                <div class="info">
+                    <div class="rate">
+                        <dstore-star [rate]="app.rate"></dstore-star>
+                        <span class="details">
+                            {{app.rate.toFixed(1)}}分 {{app.downloads}}人下载 {{app.ratings}}人评分
+                        </span>
+                    </div>
+                    <div>{{app.localCategory}}</div>
+                    <div></div>
+                    <div>
+                        <ng-container *ngIf="status$|async as $status">
+                            <ng-container *ngIf="$status===AppJobStatus.finish;else $size">已下载</ng-container>
+                            <ng-template #$size>
+                                <ng-container *ngIf="size$|async as $size; else $msg">{{$size|sizeHuman}}</ng-container>
+                                <ng-template #$msg>计算中</ng-template>
+                            </ng-template>
+                        </ng-container>
+                    </div>
+                    <div>{{app.updateTime.toLocaleDateString()}}</div>
+                    <div>{{app.homePage}}</div>
+                    <div>
+                        {{app.localInfo.description.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <br>
-  <br>
-  <div class="screenshots">
-    <!-- [about crossOrigin attribute]https://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror/27260385#27260385 -->
-    <img *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index" [id]="'screenshot-'+$index" [src]="metadataServer+'/'+screenshot"
-      (click)="screenshotClick('screenshot-'+$index); indication.selectIndex=$index" crossOrigin="anonymous" (dblclick)="previewImage($event.target)">
-  </div>
-  <dstore-indication [count]="app.localInfo.images.screenshot.length" #indication (change)="screenshotClick('screenshot-'+$event)"></dstore-indication>
-
-  <div class="hr">
-  </div>
-  <br>
-
-  <ng-template #tip>
-    <div class="tip">
-      <div class="tipButton">Tip</div>
-      <div>
-        <br>
-        <span class="tipList">
-          <div class="iconList">
-            <img class="icon" [src]="metadataServer+'/'+app.icon">
-            <img class="icon" [src]="metadataServer+'/'+app.icon">
-            <img class="icon" [src]="metadataServer+'/'+app.icon">
-            <img class="icon" [src]="metadataServer+'/'+app.icon">
-          </div>
-          等20人
-        </span>
-        <br>
-      </div>
+    <br>
+    <br>
+    <div class="screenshots">
+        <!-- [about crossOrigin attribute]https://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror/27260385#27260385 -->
+        <img
+            *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index"
+            [id]="'screenshot-'+$index"
+            [src]="metadataServer+'/'+screenshot"
+            (click)="screenshotClick('screenshot-'+$index); indication.selectIndex=$index"
+            crossOrigin="anonymous"
+            (dblclick)="previewImage($event.target)"
+        >
     </div>
-  </ng-template>
+    <dstore-indication
+        [count]="app.localInfo.images.screenshot.length"
+        #indication
+        (change)="screenshotClick('screenshot-'+$event)"
+    ></dstore-indication>
 
-  <app-app-comment [appName]="app.name"></app-app-comment>
+    <div class="hr"></div>
+    <br>
+
+    <ng-template #tip>
+        <div class="tip">
+            <div class="tipButton">Tip</div>
+            <div>
+                <br>
+                <span class="tipList">
+                    <div class="iconList">
+                        <img
+                            class="icon"
+                            [src]="metadataServer+'/'+app.icon"
+                        >
+                        <img
+                            class="icon"
+                            [src]="metadataServer+'/'+app.icon"
+                        >
+                        <img
+                            class="icon"
+                            [src]="metadataServer+'/'+app.icon"
+                        >
+                        <img
+                            class="icon"
+                            [src]="metadataServer+'/'+app.icon"
+                        >
+                    </div>
+                    等20人
+                </span>
+                <br>
+            </div>
+        </div>
+    </ng-template>
+
+    <app-app-comment [appName]="app.name"></app-app-comment>
 </div>
-<ng-template #$loading>
-  加载中...
+<ng-template
+    #$loading
+    let-$app
+>
+    <app-wait *ngIf="$app===null;else $DropOff"></app-wait>
+    <ng-template #$DropOff>
+        <div class="dropOff">
+            <img
+                class="tips_bg"
+                src="/assets/tips_bg.svg"
+            >
+            <span>这款应用正在调整中，您可以返回</span>
+            <a href="javascript:history.go(-1)">上一级</a>
+        </div>
+    </ng-template>
 </ng-template>

@@ -39,6 +39,7 @@ import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
+import { WaitComponent } from './components/wait/wait.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { RecommendComponent } from './components/recommend/recommend.component';
     LoginComponent,
     TopicComponent,
     RecommendComponent,
+    WaitComponent,
   ],
   imports: [
     BrowserModule,
