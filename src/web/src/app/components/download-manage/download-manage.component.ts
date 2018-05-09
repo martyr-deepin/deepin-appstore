@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of, forkJoin, timer, iif } from 'rxjs';
+import { flatMap, defaultIfEmpty, map, tap } from 'rxjs/operators';
 
 import { memoize, throttle } from 'lodash';
 
@@ -18,7 +19,6 @@ export class DownloadComponent implements OnInit {
   metadataServer = BaseService.serverHosts.metadataServer;
   constructor(private appService: AppService, private storeService: StoreService) {}
 
-  jobs$: Observable<JobInfo[]>;
   progressMessage = progressMessage;
   getSizeCache = memoize((name: string) => this.storeService.appDownloadSize(name).shareReplay());
 
@@ -27,17 +27,23 @@ export class DownloadComponent implements OnInit {
   pause = throttle(this.storeService.pauseJob, 1000);
   cancel = throttle(this.storeService.clearJob, 1000);
 
+  jobs$: Observable<JobInfo[]>;
   ngOnInit() {
-    this.jobs$ = Observable.timer(0, 1000)
-      .mergeMap(() => this.storeService.getJobList())
-      .mergeMap(jobs => {
-        return Observable.forkJoin(...jobs.map(job => this.storeService.getJobInfo(job)));
-      })
-      .map((jobInfoList: JobInfo[]) => {
-        console.log(jobInfoList);
+    this.jobs$ = timer(0, 1000).pipe(
+      flatMap(() => this.storeService.getJobList()),
+      flatMap(jobs =>
+        iif(
+          () => jobs.length === 0,
+          of([]),
+          forkJoin(jobs.map(job => this.storeService.getJobInfo(job))),
+        ),
+      ),
+      map((jobInfoList: JobInfo[]) => {
         jobInfoList.forEach(job => (job.size$ = this.getSizeCache(job.name)));
         return jobInfoList;
-      });
+      }),
+      tap(console.log),
+    );
   }
 }
 
