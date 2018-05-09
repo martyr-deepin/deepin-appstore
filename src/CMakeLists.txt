@@ -94,8 +94,6 @@ set(DBUS_FILES
     dbus/app_store_dbus_adapter.h
     dbus/app_store_dbus_interface.cpp
     dbus/app_store_dbus_interface.h
-    dbus/app_store_dbus_proxy.cpp
-    dbus/app_store_dbus_proxy.h
     dbus/lastore_deb_interface.cpp
     dbus/lastore_deb_interface.h
     dbus/dbus_consts.cpp

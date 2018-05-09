@@ -23,7 +23,6 @@
 
 #include "dbus/app_store_dbus_adapter.h"
 #include "dbus/app_store_dbus_interface.h"
-#include "dbus/app_store_dbus_proxy.h"
 #include "dbus/dbus_consts.h"
 
 namespace dstore {
@@ -47,17 +46,12 @@ bool ArgsParser::parseArguments() {
 
   // Register dbus service.
   QDBusConnection session_bus = QDBusConnection::sessionBus();
-  AppStoreDbusProxy* proxy = new AppStoreDbusProxy(this);
-  connect(proxy, &AppStoreDbusProxy::raiseRequested,
-          this, &ArgsParser::raiseRequested);
-  connect(proxy, &AppStoreDbusProxy::openAppRequested,
-          this, &ArgsParser::openAppRequested);
 
-  AppStoreDBusAdapter* adapter = new AppStoreDBusAdapter(proxy);
+  AppStoreDBusAdapter* adapter = new AppStoreDBusAdapter(this);
   Q_UNUSED(adapter);
 
   if (!session_bus.registerService(kAppStoreDbusService) ||
-      !session_bus.registerObject(kAppStoreDbusPath, proxy)) {
+      !session_bus.registerObject(kAppStoreDbusPath, this)) {
     qWarning() << Q_FUNC_INFO << "Failed to register dbus service";
 
     // Failed to register dbus service.
@@ -73,7 +67,7 @@ bool ArgsParser::parseArguments() {
 
       if (interface->isValid()) {
         // Only pass the first positional argument.
-        interface->OpenApp(args.first());
+        interface->ShowAppDetail(args.first());
         return true;
       } else {
         app_name_ = args.first();
@@ -97,6 +91,18 @@ void ArgsParser::openAppDelay() {
   if (!app_name_.isEmpty()) {
     emit this->openAppRequested(app_name_);
   }
+}
+
+void ArgsParser::OpenApp(const QString& app_name) {
+  emit this->openAppRequested(app_name);
+}
+
+void ArgsParser::Raise() {
+  emit this->raiseRequested();
+}
+
+void ArgsParser::ShowDetail(const QString& app_name) {
+  emit this->showDetailRequested(app_name);
 }
 
 }  // namespace dstore

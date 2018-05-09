@@ -33,8 +33,15 @@ class ArgsParser : public QObject {
   void openAppDelay();
 
  signals:
-  void openAppRequested(const QString& app);
+  void openAppRequested(const QString& app_name);
   void raiseRequested();
+  void showDetailRequested(const QString& app_name);
+
+ public slots:
+  // Implement AppStore dbus service.
+  void OpenApp(const QString& app_name);
+  void Raise();
+  void ShowDetail(const QString& app_name);
 
  private:
   QString app_name_;
