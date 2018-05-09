@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
+import { BaseService } from '../../dstore/services/base.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-side-nav',
@@ -10,9 +12,9 @@ import { Category } from '../../services/category.service';
 })
 export class SideNavComponent implements OnInit {
   constructor(private categoryService: CategoryService) {}
-
-  cs: Category[];
+  native = BaseService.isNative;
+  cs$: Observable<Category[]>;
   ngOnInit() {
-    this.categoryService.list().subscribe(cs => (this.cs = cs));
+    this.cs$ = this.categoryService.list();
   }
 }
