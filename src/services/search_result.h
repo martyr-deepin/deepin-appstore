@@ -19,6 +19,7 @@
 #define DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H
 
 #include <QList>
+#include <QHash>
 
 namespace dstore {
 
@@ -34,6 +35,8 @@ struct AppSearchRecord {
 bool operator<(const AppSearchRecord& a, const AppSearchRecord& b);
 
 typedef QList<AppSearchRecord> AppSearchRecordList;
+
+typedef QHash<QString, AppSearchRecord> AppSearchRecordMap;
 
 }  // namespace dstore
 

@@ -20,6 +20,8 @@
 
 #include <QObject>
 
+#include "services/search_result.h"
+
 namespace dstore {
 
 class StoreDaemonManager : QObject {
@@ -27,6 +29,12 @@ class StoreDaemonManager : QObject {
  public:
   explicit StoreDaemonManager(QObject* parent = nullptr);
   ~StoreDaemonManager() override;
+
+ public slots:
+  void updateAppList(const AppSearchRecordList& app_list);
+
+ private:
+  AppSearchRecordMap apps_;
 };
 
 }  // namespace dstore

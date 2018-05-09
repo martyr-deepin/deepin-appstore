@@ -19,12 +19,21 @@
 
 namespace dstore {
 
-StoreDaemonManager::StoreDaemonManager(QObject* parent) : QObject(parent) {
+StoreDaemonManager::StoreDaemonManager(QObject* parent)
+    : QObject(parent),
+      apps_() {
   this->setObjectName("StoreDaemonManager");
 }
 
 StoreDaemonManager::~StoreDaemonManager() {
 
+}
+
+void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
+  apps_.clear();
+  for (const AppSearchRecord& app : app_list) {
+    apps_.insert(app.name, app);
+  }
 }
 
 }  // namespace dstore

@@ -171,17 +171,6 @@ class StoreDaemonWorker : public QObject {
 
   // Store Updater methods:
   void applicationUpdateInfos(const QString& language);
-//  const QVariantList listMirrorSources(const QString& language);
-//  void setAutoCheckUpdates(bool check);
-//  void setAutoDownloadUpdates(bool update);
-//  void setMirrorSource(const QString& id);
-
-  // Store Manager properties:
-//  bool autoCheckUpdates();
-//  bool autoDownloadUpdates();
-//  const QString mirrorSource();
-//  QStringList updatableApps();
-//  QStringList updatablePackages();
 
   /**
    * Get temporary job info.
