@@ -28,6 +28,7 @@ struct AppSearchRecord {
   QString local_name;
   QString slogan;
   QString description;
+  QStringList package_uris;
 };
 
 bool operator<(const AppSearchRecord& a, const AppSearchRecord& b);

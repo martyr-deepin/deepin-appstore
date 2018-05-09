@@ -55,11 +55,17 @@ void SearchProxy::updateAppList(const QString& apps) {
     const QString local_name = description.value("name").toString();
     const QString slogan = description.value("slogan").toString();
     const QString local_desc = description.value("description").toString();
+    const QJsonArray package_uri_arr = app.value("packageURI").toArray();
+    QStringList package_uris;
+    for (const QVariant& item : package_uri_arr.toVariantList()) {
+      package_uris.append(item.toString());
+    }
     record_list.append(AppSearchRecord {
       name,
       local_name,
       slogan,
-      local_desc
+      local_desc,
+      package_uris,
     });
   }
 
