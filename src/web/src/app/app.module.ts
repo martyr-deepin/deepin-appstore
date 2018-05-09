@@ -1,14 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LOCALE_ID, NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtModule } from '@auth0/angular-jwt';
+import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { RoutingModule } from './routing/routing.module';
 import { DstoreModule } from './dstore/dstore.module';
 
 import { MyHttpInterceptor } from './services/http-interceptor';
-import { Locale } from './utils/locale';
 
 import { AppService } from './services/app.service';
 import { CategoryService } from './services/category.service';
@@ -72,15 +70,6 @@ import { WaitComponent } from './components/wait/wait.component';
     HttpClientModule,
     DstoreModule,
     RoutingModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () =>
-          sessionStorage.getItem('auth-token') || localStorage.getItem('auth-token'),
-        headerName: 'Access-Token',
-        authScheme: '',
-        whitelistedDomains: BaseService.whiteList,
-      },
-    }),
   ],
   providers: [
     AppService,
@@ -94,10 +83,6 @@ import { WaitComponent } from './components/wait/wait.component';
     SearchService,
     LoginService,
     RecommendService,
-    {
-      provide: LOCALE_ID,
-      useValue: Locale.getPcp47Locale(),
-    },
     { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

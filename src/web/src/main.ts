@@ -1,14 +1,8 @@
-import {
-  enableProdMode,
-  MissingTranslationStrategy,
-  TRANSLATIONS,
-  TRANSLATIONS_FORMAT
-} from '@angular/core';
+import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { Locale } from './app/utils/locale';
 
 if (environment.production) {
   enableProdMode();
@@ -17,29 +11,8 @@ if (environment.production) {
 declare const require;
 
 const bootstrap = () => {
-  const bootstrapModuleAlias = platformBrowserDynamic().bootstrapModule;
-  let compilerOptions: object[];
-  if (Locale.localeFileExists()) {
-    const translations = Locale.getUnixLocaleFileContent();
-    const compilerOption = {
-      missingTranslation: MissingTranslationStrategy.Ignore,
-      providers: [
-        {
-          provide: TRANSLATIONS,
-          useValue: translations
-        },
-        {
-          provide: TRANSLATIONS_FORMAT,
-          useValue: 'xlf'
-        }
-      ]
-    };
-    compilerOptions = [compilerOption];
-  } else {
-    compilerOptions = [];
-  }
   platformBrowserDynamic()
-    .bootstrapModule(AppModule, ...compilerOptions)
+    .bootstrapModule(AppModule)
     .catch(err => console.log(err));
 };
 
