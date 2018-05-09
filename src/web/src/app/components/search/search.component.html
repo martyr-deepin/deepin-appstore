@@ -1,18 +1,45 @@
-<ng-container *ngIf="apps$|async as apps; else loading">
-  <ng-container *ngIf="apps.length>0;else searchEmpty">
-    <app-app-title [title]="keyword+'的搜索结果'" [count]="apps.length" [sortBy]="sortBy" (sort)="sortBy=$event"></app-app-title>
-    <app-app-list [apps]="apps" [sortBy]="sortBy">
-    </app-app-list>
-  </ng-container>
-  <ng-template #searchEmpty>
-    <div class="searchEmpty">
-      <img src="/assets/tips_bg.svg" class="tips_bg">
-      <div class="gray-text">没有关于"<div class="kw" [title]="keyword">{{keyword}}</div>"的搜索结果</div>
-      <div class="gray-text">您可以向我们<a class="recommend" (click)="recommend()">投递</a>应用</div>
-    </div>
-  </ng-template>
+<ng-container *ngIf="apps$|async as $apps">
+    <ng-container *ngIf="$apps.length>0;else searchEmpty">
+        <app-app-title
+            title="{{title}}的搜索结果"
+            [count]="$apps.length"
+            [sortBy]="sortBy"
+            (sort)="sortBy=$event"
+        >
+            {{$apps|json}}
+        </app-app-title>
+        <app-app-list
+            [apps]="$apps"
+            [sortBy]="sortBy"
+        >
+        </app-app-list>
+    </ng-container>
+    <ng-template #searchEmpty>
+        <div class="searchEmpty">
+            <img
+                src="/assets/tips_bg.svg"
+                class="tips_bg"
+            >
+            <div class="gray-text">
+                没有关于"
+                <div
+                    class="kw"
+                    [title]="keyword"
+                >
+                    {{keyword}}
+                </div>
+                "的搜索结果
+            </div>
+            <div class="gray-text">
+                您可以向我们
+                <a
+                    class="recommend"
+                    (click)="recommend()"
+                >
+                    投递
+                </a>
+                应用
+            </div>
+        </div>
+    </ng-template>
 </ng-container>
-
-<ng-template #loading>
-  loading...
-</ng-template>
