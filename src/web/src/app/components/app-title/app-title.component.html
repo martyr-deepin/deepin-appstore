@@ -1,31 +1,31 @@
 <div class="title">
-    <div i18n>
-        {{title}}
-        <span
-            class="count"
-            *ngIf="count"
-        >
-            共{{count}}个
-        </span>
-    </div>
-    <div
-        class="dropdown"
-        (click)="dropMenu.hidden=false;dropMenu.focus()"
+  <div i18n>
+    {{title}}
+    <span
+      class="count"
+      *ngIf="count"
     >
-        {{sortBy}}↓
-    </div>
-    <ul
-        class="dropdown-menu"
-        tabIndex="-1"
-        hidden
-        #dropMenu
-        (blur)="dropMenu.hidden=true"
+      共{{count}}个
+    </span>
+  </div>
+  <div
+    class="dropdown"
+    (click)="dropMenu.hidden=false;dropMenu.focus()"
+  >
+    {{sortBy}}↓
+  </div>
+  <ul
+    class="dropdown-menu"
+    tabIndex="-1"
+    hidden
+    #dropMenu
+    (blur)="dropMenu.hidden=true"
+  >
+    <li
+      *ngFor="let s of sortOrderList"
+      (click)="sortBy=s;dropMenu.hidden=true;"
     >
-        <li
-            *ngFor="let s of sortOrderList"
-            (click)="sort.emit(s);dropMenu.hidden=true;"
-        >
-            {{s}}
-        </li>
-    </ul>
+      {{s}}
+    </li>
+  </ul>
 </div>

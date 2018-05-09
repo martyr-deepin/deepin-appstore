@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { get } from 'lodash';
-import { Observable } from 'rxjs';
+import { get, parseInt } from 'lodash';
+import { Observable, forkJoin, iif, of } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
 
 import { SectionTopic } from '../../dstore/services/section';
 import { SectionService } from '../../services/section.service';
@@ -18,30 +19,35 @@ import { SortOrder } from '../app-title/app-title.component';
   styleUrls: ['./topic.component.scss'],
 })
 export class TopicComponent implements OnInit {
-  server = BaseService.serverHosts.operationServer;
   constructor(
     private route: ActivatedRoute,
     private appService: AppService,
     private sectionService: SectionService,
   ) {}
 
-  sortBy = SortOrder.Downloads;
+  server = BaseService.serverHosts.operationServer;
   topic$: Observable<SectionTopic>;
   apps$: Observable<App[]>;
+
   ngOnInit() {
-    this.topic$ = this.route.paramMap
-      .mergeMap(param => {
+    this.topic$ = this.route.paramMap.pipe(
+      flatMap(param => {
         const sectionIndex = parseInt(param.get('section'), 10);
         const topicIndex = parseInt(param.get('topic'), 10);
         return this.sectionService
           .getList()
-          .map(sectionList => sectionList[sectionIndex].items[topicIndex]);
-      })
-      .do(t => console.log('topic', t));
-
-    this.apps$ = this.topic$.mergeMap(topic => {
-      const appNameList = topic.apps.map(app => app.name);
-      return this.appService.list().map(apps => apps.filter(app => appNameList.includes(app.name)));
-    });
+          .map(sectionList => get(sectionList, [sectionIndex, 'items', topicIndex]));
+      }),
+    );
+    this.apps$ = this.topic$.pipe(
+      flatMap(topic => {
+        const appNameList = topic.apps.filter(app => app.show).map(app => app.name);
+        return iif(
+          () => appNameList.length === 0,
+          of([]),
+          forkJoin(appNameList.map(appName => this.appService.getApp(appName))),
+        );
+      }),
+    );
   }
 }

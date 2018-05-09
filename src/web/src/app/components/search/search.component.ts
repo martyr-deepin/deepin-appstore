@@ -20,22 +20,26 @@ export class SearchComponent implements OnInit {
   ) {}
 
   sortBy = SortOrder.Downloads;
-  keyword: string;
+  keyword$: Observable<string>;
+  title$: Observable<string>;
   apps$: Observable<App[]>;
 
   ngOnInit() {
-    this.apps$ = this.route.paramMap.mergeMap(param => {
-      this.keyword = param.get('keyword');
-      // angular 'getAll' bug https://github.com/angular/angular/issues/19179
-      const appNameList = param
-        .getAll('apps')
-        .map(apps => apps.split(','))
-        .reduce((a, b) => [...a, ...b]);
-      return this.appService.list().map(apps => apps.filter(app => appNameList.includes(app.name)));
-    });
-  }
-  get title(): string {
-    return `"${truncate(this.keyword, { length: 16 })}"`;
+    this.keyword$ = this.route.paramMap.map(param => param.get('keyword'));
+    this.title$ = this.keyword$.map(keyword => `"${truncate(keyword, { length: 16 })}"`);
+
+    this.apps$ = this.route.paramMap
+      .mergeMap(param => {
+        // angular 'getAll' bug https://github.com/angular/angular/issues/19179
+        const appNameList = param
+          .getAll('apps')
+          .map(apps => apps.split(','))
+          .reduce((a, b) => [...a, ...b]);
+        return this.appService
+          .list()
+          .map(apps => apps.filter(app => appNameList.includes(app.name)));
+      })
+      .do(console.log);
   }
 
   recommend() {

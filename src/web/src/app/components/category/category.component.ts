@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { flatMap, tap, map } from 'rxjs/operators';
 
-import * as _ from 'lodash';
+import { find } from 'lodash';
 
 import { AppService } from '../../services/app.service';
 import { App } from '../../dstore/services/app';
@@ -21,25 +22,28 @@ export class CategoryComponent implements OnInit {
     private appService: AppService,
   ) {}
 
-  categoryObs: Observable<Category>;
-  appsObs: Observable<App[]>;
-
-  sortBy = SortOrder.Downloads;
+  title$: Observable<string>;
+  apps$: Observable<App[]>;
 
   ngOnInit() {
-    this.categoryObs = this.route.paramMap
-      .mergeMap(param => {
-        return this.categoryService.list().map(cs => _.find(cs, c => c.id === param.get('id')));
-      })
-      .filter(c => c !== undefined);
-    this.appsObs = this.categoryObs.mergeMap(c => {
-      return this.appService.list().map(apps => {
-        if (c.apps && c.apps.length > 0) {
-          return apps.filter(app => c.apps.includes(app.name));
-        } else {
-          return apps.filter(app => app.category === c.id);
-        }
-      });
-    });
+    this.title$ = this.route.paramMap.pipe(
+      flatMap(param => {
+        const id = param.get('id');
+        return this.categoryService.list().map(cs => find(cs, { id }));
+      }),
+      tap(category => {
+        this.apps$ = this.appService
+          .list()
+          .pipe(
+            map(
+              apps =>
+                category.apps
+                  ? apps.filter(app => category.apps.includes(app.name))
+                  : apps.filter(app => app.category === category.id),
+            ),
+          );
+      }),
+      map(category => category.title),
+    );
   }
 }

@@ -3,25 +3,19 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-app-title',
   templateUrl: './app-title.component.html',
-  styleUrls: ['./app-title.component.scss']
+  styleUrls: ['./app-title.component.scss'],
 })
 export class AppTitleComponent implements OnInit {
+  constructor() {}
+  sortOrderList = Object.values(SortOrder);
   @Input() title = '';
   @Input() count: number;
-  @Input() sortBy: SortOrder;
-
-  @Output() sort = new EventEmitter<SortOrder>();
-
-  constructor() {}
+  @Input() sortBy = SortOrder.Downloads;
 
   ngOnInit() {}
-
-  get sortOrderList() {
-    return Object.values(SortOrder);
-  }
 }
 
 export enum SortOrder {
   Downloads = 'Downloads',
-  Score = 'Score'
+  Score = 'Score',
 }

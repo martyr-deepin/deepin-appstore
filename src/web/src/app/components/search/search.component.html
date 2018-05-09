@@ -1,45 +1,37 @@
-<ng-container *ngIf="apps$|async as $apps">
-    <ng-container *ngIf="$apps.length>0;else searchEmpty">
-        <app-app-title
-            title="{{title}}的搜索结果"
-            [count]="$apps.length"
-            [sortBy]="sortBy"
-            (sort)="sortBy=$event"
-        >
-            {{$apps|json}}
-        </app-app-title>
-        <app-app-list
-            [apps]="$apps"
-            [sortBy]="sortBy"
-        >
-        </app-app-list>
-    </ng-container>
-    <ng-template #searchEmpty>
-        <div class="searchEmpty">
-            <img
-                src="/assets/tips_bg.svg"
-                class="tips_bg"
-            >
-            <div class="gray-text">
-                没有关于"
-                <div
-                    class="kw"
-                    [title]="keyword"
-                >
-                    {{keyword}}
-                </div>
-                "的搜索结果
-            </div>
-            <div class="gray-text">
-                您可以向我们
-                <a
-                    class="recommend"
-                    (click)="recommend()"
-                >
-                    投递
-                </a>
-                应用
-            </div>
-        </div>
-    </ng-template>
+<app-app-title
+  #$title
+  title="{{title$|async}}的搜索结果"
+  [count]="$list.appListLength"
+  [hidden]="$list.appListLength===0"
+>
+</app-app-title>
+<app-app-list
+  #$list
+  [apps$]="apps$"
+  [sortBy]="$title.sortBy"
+  [hidden]="$list.appListLength===0"
+></app-app-list>
+
+<ng-container *ngIf="$list.appListLength===0">
+  <div class="searchEmpty">
+    <img
+      src="/assets/tips_bg.svg"
+      class="tips_bg"
+    >
+    <div class="gray-text">
+      没有关于"
+      <div class="kw">{{keyword$|async}}</div>
+      "的搜索结果
+    </div>
+    <div class="gray-text">
+      您可以向我们
+      <a
+        class="recommend"
+        (click)="recommend()"
+      >
+        投递
+      </a>
+      应用
+    </div>
+  </div>
 </ng-container>
