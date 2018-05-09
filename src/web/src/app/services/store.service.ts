@@ -1,7 +1,8 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AppService } from './app.service';
 import { Channel } from '../utils/channel';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from './store-job-info';
@@ -99,14 +100,10 @@ export class StoreService {
   }
 
   getJobByName(name: string): Observable<StoreJobInfo> {
-    return this.getJobList()
-      .mergeMap(
-        jobs =>
-          jobs.length > 0
-            ? Observable.forkJoin(jobs.map(job => this.getJobInfo(job)))
-            : Observable.of([]),
-      )
-      .map((jobInfoList: StoreJobInfo[]) => jobInfoList.find(info => info.name === name));
+    return this.getJobList().pipe(
+      flatMap(jobs => (jobs.length > 0 ? forkJoin(jobs.map(job => this.getJobInfo(job))) : of([]))),
+      map((jobInfoList: StoreJobInfo[]) => jobInfoList.find(info => info.name === name)),
+    );
   }
 
   /**
@@ -126,7 +123,7 @@ export class StoreService {
   }
 
   execWithCallback(method: string, ...args: any[]): Observable<any> {
-    const obs$ = new Observable<any>(obs => {
+    const obs$ = new Observable<StoreResponse>(obs => {
       return Channel.execWithCallback(
         (storeResp: StoreResponse) => {
           if (!storeResp.ok) {
@@ -137,7 +134,7 @@ export class StoreService {
         method,
         ...args,
       );
-    }) as Observable<StoreResponse>;
+    });
     return obs$
       .filter(resp => args.length === 0 || args[0] === resp.result.name)
       .map(resp => resp.result.value)

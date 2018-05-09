@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of, forkJoin, timer, iif } from 'rxjs';
-import { flatMap, defaultIfEmpty, map, tap } from 'rxjs/operators';
+import { flatMap, defaultIfEmpty, map, tap, shareReplay } from 'rxjs/operators';
 
 import { memoize, throttle } from 'lodash';
 
@@ -20,7 +20,9 @@ export class DownloadComponent implements OnInit {
   constructor(private appService: AppService, private storeService: StoreService) {}
 
   progressMessage = progressMessage;
-  getSizeCache = memoize((name: string) => this.storeService.appDownloadSize(name).shareReplay());
+  getSizeCache = memoize((name: string) =>
+    this.storeService.appDownloadSize(name).pipe(shareReplay()),
+  );
 
   // 下载任务控制
   start = throttle(this.storeService.resumeJob, 1000);

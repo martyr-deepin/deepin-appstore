@@ -2,17 +2,18 @@
   #$title
   title="{{title$|async}}的搜索结果"
   [count]="$list.appListLength"
-  [hidden]="$list.appListLength===0"
+  [hidden]="$title.count===0"
 >
 </app-app-title>
 <app-app-list
   #$list
   [apps$]="apps$"
   [sortBy]="$title.sortBy"
-  [hidden]="$list.appListLength===0"
+  [hidden]="$title.count===0"
+  (appListLength)="$title.count=$event"
 ></app-app-list>
 
-<ng-container *ngIf="$list.appListLength===0">
+<ng-container *ngIf="$title.count===0">
   <div class="searchEmpty">
     <img
       src="/assets/tips_bg.svg"

@@ -1,11 +1,10 @@
 <app-app-title
   #$title
-  [title]="'Rankings'"
-  [count]="$list.appListLength"
+  [title]="'排行榜'"
 ></app-app-title>
 <app-app-list
-  #$list
   [apps$]="appsObs"
   [sortBy]="$title.sortBy"
   [maxCount]="20"
+  (appListLength)="$title.count=$event"
 ></app-app-list>

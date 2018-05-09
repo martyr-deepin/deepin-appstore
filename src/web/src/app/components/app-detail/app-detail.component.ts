@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, timer, of, iif } from 'rxjs';
+import { flatMap, map, tap, share } from 'rxjs/operators';
 import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 
 import { App } from '../../dstore/services/app';
@@ -22,38 +23,42 @@ export class AppDetailComponent implements OnInit {
     private storeService: StoreService,
   ) {}
 
+  metadataServer = BaseService.serverHosts.metadataServer;
   open = this.storeService.openApp;
 
   AppJobStatus = AppJobStatus;
   status$: Observable<AppJobStatus>;
   size$: Observable<number>;
-  metadataServer: string;
   appObs: Observable<App>;
 
   ngOnInit() {
-    this.metadataServer = BaseService.serverHosts.metadataServer;
-    this.appObs = this.route.paramMap.mergeMap(param => {
-      const appName = param.get('appName');
-      console.log('app name:', appName);
-      return this.appService.getApp(appName).do(app => console.log('app info:', app));
-    });
+    this.appObs = this.route.paramMap.pipe(
+      flatMap(param => {
+        const appName = param.get('appName');
+        return this.appService.getApp(appName);
+      }),
+    );
 
-    this.status$ = this.appObs
-      .mergeMap(app =>
-        Observable.timer(0, 1000).mergeMap(() =>
-          this.storeService.appInstalled(app.name).mergeMap(exists => {
-            if (exists) {
-              return Observable.of(AppJobStatus.finish);
-            } else {
-              return this.storeService
-                .getJobByName(app.name)
-                .map(info => (info ? AppJobStatus.running : AppJobStatus.ready));
-            }
-          }),
-        ),
-      )
-      .shareReplay();
-    this.size$ = this.appObs.mergeMap(app => this.storeService.appDownloadSize(app.name));
+    this.status$ = timer(0, 1000).pipe(
+      flatMap(app => this.appObs),
+      flatMap(app =>
+        this.storeService
+          .appInstalled(app.name)
+          .pipe(
+            flatMap(installed =>
+              iif(
+                () => installed,
+                of(AppJobStatus.finish),
+                this.storeService
+                  .getJobByName(app.name)
+                  .pipe(map(info => (info ? AppJobStatus.running : AppJobStatus.ready))),
+              ),
+            ),
+          ),
+      ),
+      share(),
+    );
+    this.size$ = this.appObs.pipe(flatMap(app => this.storeService.appDownloadSize(app.name)));
   }
 
   install(appName: string) {

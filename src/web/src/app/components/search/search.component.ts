@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map, flatMap } from 'rxjs/operators';
 import { truncate } from 'lodash';
 
 import { App, AppService } from '../../services/app.service';
@@ -28,8 +29,8 @@ export class SearchComponent implements OnInit {
     this.keyword$ = this.route.paramMap.map(param => param.get('keyword'));
     this.title$ = this.keyword$.map(keyword => `"${truncate(keyword, { length: 16 })}"`);
 
-    this.apps$ = this.route.paramMap
-      .mergeMap(param => {
+    this.apps$ = this.route.paramMap.pipe(
+      flatMap(param => {
         // angular 'getAll' bug https://github.com/angular/angular/issues/19179
         const appNameList = param
           .getAll('apps')
@@ -37,9 +38,9 @@ export class SearchComponent implements OnInit {
           .reduce((a, b) => [...a, ...b]);
         return this.appService
           .list()
-          .map(apps => apps.filter(app => appNameList.includes(app.name)));
-      })
-      .do(console.log);
+          .pipe(map(apps => apps.filter(app => appNameList.includes(app.name))));
+      }),
+    );
   }
 
   recommend() {

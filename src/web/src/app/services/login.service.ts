@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable, merge } from 'rxjs';
 
 import { Channel } from '../utils/channel';
 import { Subject } from 'rxjs';
@@ -11,7 +11,7 @@ export class LoginService {
   private obs = new Subject<boolean>();
 
   onOpenLogin(): Observable<boolean> {
-    return Observable.merge(
+    return merge(
       this.obs,
       Observable.create(obs => {
         Channel.registerCallback('menu.loginRequested', isLogin => {

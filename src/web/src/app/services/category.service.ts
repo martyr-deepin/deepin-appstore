@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import * as _ from 'lodash';
+import { Observable, of, concat } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { throttle } from 'lodash';
 
 import { BaseService } from '../dstore/services/base.service';
 import { Category as DstoreCategory } from '../dstore/services/category.service';
@@ -10,28 +11,28 @@ import { Category as DstoreCategory } from '../dstore/services/category.service'
 export class CategoryService {
   constructor(private http: HttpClient) {}
 
-  list = _.throttle(this.getList, 1000 * 60);
+  list = throttle(this.getList, 1000 * 60);
 
   private getList(): Observable<Category[]> {
-    return Observable.concat(
-      Observable.of(defaultCategory),
+    return concat<Category[]>(
+      of(defaultCategory),
       this.http
-        .get(`${BaseService.serverHosts.operationServer}/api/blob/category`)
-        .map((ccs: CustomCategory[]) => {
-          ccs = ccs.filter(cs => cs.show);
-          if (ccs.length <= 0) {
-            return defaultCategory;
-          }
-          return ccs.map((c, index) => ({
-            id: index.toString(),
-            title: c.name,
-            icon: c.icon,
-            apps: c.apps,
-          }));
-        }),
-    )
-      .do(css => console.log(css))
-      .shareReplay();
+        .get<CustomCategory[]>(`${BaseService.serverHosts.operationServer}/api/blob/category`)
+        .pipe(
+          map(ccs => {
+            ccs = ccs.filter(cs => cs.show);
+            if (ccs.length === 0) {
+              return defaultCategory;
+            }
+            return ccs.map((c, index) => ({
+              id: index.toString(),
+              title: c.name,
+              icon: c.icon,
+              apps: c.apps,
+            }));
+          }),
+        ),
+    );
   }
 }
 export interface Category {
@@ -40,12 +41,14 @@ export interface Category {
   icon?: string;
   apps?: string[];
 }
+
 interface CustomCategory {
   name: '';
   icon: '';
   show: true;
   apps: string[];
 }
+
 const defaultCategory = [
   { id: 'internet', title: 'internet', icon: '' },
   { id: 'office', title: 'office', icon: '' },

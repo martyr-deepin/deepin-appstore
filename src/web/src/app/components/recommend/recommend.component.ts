@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { RecommendService, Recommend, RecommendType } from '../../services/recommend.service';
 
@@ -16,7 +17,7 @@ export class RecommendComponent implements OnInit {
   recommendTypeArray = Object.entries(this.recommendType);
   openDialog$: Observable<void>;
   ngOnInit() {
-    this.openDialog$ = this.recommendService.onOpenRecommend().do(() => this.open());
+    this.openDialog$ = this.recommendService.onOpenRecommend().pipe(map(() => this.open()));
   }
   open() {
     if (!this.dialogRef.nativeElement.open) {

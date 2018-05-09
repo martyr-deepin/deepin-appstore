@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, merge, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Channel } from '../utils/channel';
 import { HttpClient } from '@angular/common/http';
@@ -17,12 +18,12 @@ export class RecommendService {
   onOpenRecommend(): Observable<void> {
     return merge(
       this.obs,
-      Observable.create(obs => {
+      new Observable<void>(obs => {
         Channel.registerCallback('menu.recommendAppRequested', () => {
           this.zone.run(obs.next.bind(obs));
         });
       }),
-    );
+    ).pipe(tap(() => console.log('OpenRecommend')));
   }
 
   openRecommend() {

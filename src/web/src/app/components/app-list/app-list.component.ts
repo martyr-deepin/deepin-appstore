@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Observable, timer } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Observable, timer, of } from 'rxjs';
+import { map, tap, flatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
 
@@ -23,30 +23,32 @@ export class AppListComponent implements OnInit, OnChanges {
   @Input() apps$: Observable<App[]>;
   @Input() sortBy: SortOrder;
   @Input() maxCount: number;
+  @Output() appListLength = new EventEmitter<number>(true);
   appList$: Observable<App[]>;
-  appListLength: number;
   // 下载任务控制
   start = _.throttle(this.storeService.resumeJob, 1000);
   pause = _.throttle(this.storeService.pauseJob, 1000);
   cancel = _.throttle(this.storeService.clearJob, 1000);
 
   getAppJob = _.memoize((appName: string): Observable<JobAndStatus> => {
-    return Observable.timer(0, 1000)
-      .mergeMap(() => this.storeService.appInstalled(appName))
-      .mergeMap(
+    return timer(0, 1000).pipe(
+      flatMap(() => this.storeService.appInstalled(appName)),
+      flatMap(
         exists =>
           exists
-            ? Observable.of({ status: AppJobStatus.finish })
+            ? of({ status: AppJobStatus.finish })
             : this.storeService
                 .getJobByName(appName)
-                .map(
-                  info =>
-                    info
-                      ? { status: AppJobStatus.running, job: info }
-                      : { status: AppJobStatus.ready },
+                .pipe(
+                  map(
+                    info =>
+                      info
+                        ? { status: AppJobStatus.running, job: info }
+                        : { status: AppJobStatus.ready },
+                  ),
                 ),
-      )
-      .do(info => console.log(info));
+      ),
+    );
   });
 
   openApp = this.storeService.openApp;
@@ -67,9 +69,9 @@ export class AppListComponent implements OnInit, OnChanges {
         if (this.maxCount !== null) {
           apps = apps.slice(0, this.maxCount);
         }
+        this.appListLength.emit(apps.length);
         return apps;
       }),
-      tap(apps => (this.appListLength = apps.length)),
     );
   }
 }
