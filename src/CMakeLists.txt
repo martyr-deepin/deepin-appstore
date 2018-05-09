@@ -84,12 +84,11 @@ set(BASE_FILES
     )
 
 set(DBUS_FILES
-    dbus/dbusvariant/app_metadata.cpp
-    dbus/dbusvariant/app_metadata.h
-    dbus/dbusvariant/app_update_info.cpp
-    dbus/dbusvariant/app_update_info.h
-    dbus/dbusvariant/locale_mirror_source.cpp
-    dbus/dbusvariant/locale_mirror_source.h
+    dbus/dbusvariant/app_version.cpp
+    dbus/dbusvariant/app_version.h
+    dbus/dbusvariant/app_version.h
+    dbus/dbusvariant/installed_app_info.cpp
+    dbus/dbusvariant/installed_app_info.h
 
     dbus/app_store_dbus_adapter.cpp
     dbus/app_store_dbus_adapter.h
@@ -99,12 +98,6 @@ set(DBUS_FILES
     dbus/app_store_dbus_proxy.h
     dbus/dbus_consts.cpp
     dbus/dbus_consts.h
-    dbus/lastore_job_interface.cpp
-    dbus/lastore_job_interface.h
-    dbus/lastore_manager_interface.cpp
-    dbus/lastore_manager_interface.h
-    dbus/lastore_updater_interface.cpp
-    dbus/lastore_updater_interface.h
     )
 
 set(RESOURCES_FILES
@@ -130,8 +123,6 @@ set(SERVICES_FILES
     services/store_daemon_deb.h
     services/store_daemon_manager.cpp
     services/store_daemon_manager.h
-    services/store_daemon_worker.cpp
-    services/store_daemon_worker.h
     )
 
 set(UI_FILES

@@ -6,6 +6,8 @@
     </method>
     <method name="ListInstalled">
         <arg name="installedInfoList" type="a(ss)" direction="out"></arg>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.Out0"
+                    value="InstalledAppInfoList"/>
     </method>
     <method name="QueryDownloadSize">
         <arg name="id" type="s" direction="in"></arg>
@@ -14,6 +16,8 @@
     <method name="QueryVersion">
         <arg name="idList" type="as" direction="in"></arg>
         <arg name="versionInfoList" type="a(sssb)" direction="out"></arg>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.Out0"
+                    value="AppVersionList"/>
     </method>
     <method name="Remove">
         <arg name="jobName" type="s" direction="in"></arg>

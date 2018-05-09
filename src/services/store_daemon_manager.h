@@ -24,11 +24,52 @@
 
 namespace dstore {
 
-class StoreDaemonManager : QObject {
+class StoreDaemonManager : public QObject {
   Q_OBJECT
  public:
   explicit StoreDaemonManager(QObject* parent = nullptr);
   ~StoreDaemonManager() override;
+
+ signals:
+  void isDbusConnectedRequest();
+
+  void cleanArchivesRequest();
+  void cleanJobRequest(const QString& job);
+  void pauseJobRequest(const QString& job);
+  void startJobRequest(const QString& job);
+  void installPackageRequest(const QString& app_name);
+  void packageExistsRequest(const QString& app_name);
+  void packageInstallableRequest(const QString& app_name);
+  void packageDownloadSizeRequest(const QString& app_name);
+  void updatePackageRequest(const QString& app_name);
+  void removePackageRequest(const QString& app_name);
+  void upgradableAppsRequest();
+
+  void applicationUpdateInfosRequest(const QString& language);
+
+  void jobListRequest();
+  void getJobInfoRequest(const QString& job);
+
+  void openAppRequest(const QString& app_name);
+
+
+  void isDbusConnectedReply(bool state);
+
+  void cleanArchivesReply(const QVariantMap& result);
+  void cleanJobReply(const QVariantMap& result);
+  void pauseJobReply(const QVariantMap& result);
+  void startJobReply(const QVariantMap& result);
+  void installPackageReply(const QVariantMap& result);
+  void packageExistsReply(const QVariantMap& result);
+  void packageInstallableReply(const QVariantMap& result);
+  void packageDownloadSizeReply(const QVariantMap& result);
+  void updatePackageReply(const QVariantMap& result);
+  void removePackageReply(const QVariantMap& result);
+  void jobListReply(const QVariantMap& result);
+  void upgradableAppsReply(const QVariantMap& result);
+
+  void applicationUpdateInfosReply(const QVariantMap& result);
+  void getJobInfoReply(const QVariantMap& result);
 
  public slots:
   void updateAppList(const AppSearchRecordList& app_list);

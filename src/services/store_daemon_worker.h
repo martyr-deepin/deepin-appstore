@@ -21,11 +21,6 @@
 #include <QObject>
 #include <QVariantMap>
 
-#include "dbus/dbusvariant/app_update_info.h"
-#include "dbus/dbusvariant/locale_mirror_source.h"
-class LastoreManagerInterface;
-class LastoreUpdaterInterface;
-
 namespace dstore {
 
 class StoreDaemonWorker : public QObject {

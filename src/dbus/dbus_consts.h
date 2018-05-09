@@ -23,14 +23,6 @@ namespace dstore {
 extern const char kAppStoreDbusPath[];
 extern const char kAppStoreDbusService[];
 
-extern const char kLastoreManagerPath[];
-extern const char kLastoreManagerService[];
-
-extern const char kLastoreUpdaterPath[];
-extern const char kLastoreUpdaterService[];
-
-extern const char kLastoreJobService[];
-
 }  // namespace dstore
 
 #endif  // DEEPIN_APPSTORE_DBUS_DBUS_CONSTS_H

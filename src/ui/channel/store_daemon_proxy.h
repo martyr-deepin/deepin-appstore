@@ -19,14 +19,10 @@
 #define DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
 
 #include <QObject>
+#include <QThread>
 #include <QVariantMap>
-class QThread;
 
-#include "dbus/dbusvariant/app_update_info.h"
-#include "dbus/dbusvariant/locale_mirror_source.h"
-#include "services/store_daemon_worker.h"
-class LastoreManagerInterface;
-class LastoreUpdaterInterface;
+#include "services/store_daemon_manager.h"
 
 namespace dstore {
 
@@ -159,11 +155,8 @@ class StoreDaemonProxy : public QObject {
  private:
   void initConnections();
 
-  LastoreManagerInterface* manager_ = nullptr;
-  LastoreUpdaterInterface* updater_ = nullptr;
-
-  QThread* worker_thread_ = nullptr;
-  StoreDaemonWorker* worker_ = nullptr;
+  QThread* manager_thread_ = nullptr;
+  StoreDaemonManager* manager_ = nullptr;
 };
 
 }  // namespace dstore

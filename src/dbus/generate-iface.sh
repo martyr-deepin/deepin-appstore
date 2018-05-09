@@ -8,17 +8,12 @@ qdbusxml2cpp com.deepin.AppStore.xml \
   -p app_store_dbus_interface \
   -c AppStoreDBusInterface
 
-qdbusxml2cpp com.deepin.lastore.manager.xml \
-  -p lastore_manager_interface \
-  -i dbus/dbusvariant/app_update_info.h \
-  -c LastoreManagerInterface
+qdbusxml2cpp com.deepin.AppStore.Backend.Deb.xml \
+  -p lastore_deb_interface \
+  -i dbus/dbusvariant/app_version.h \
+  -i dbus/dbusvariant/installed_app_info.h \
+  -c LastoreDebInterface
 
-qdbusxml2cpp com.deepin.lastore.updater.xml \
-  -p lastore_updater_interface \
-  -i dbus/dbusvariant/app_update_info.h \
-  -i dbus/dbusvariant/locale_mirror_source.h \
-  -c LastoreUpdaterInterface
-
-qdbusxml2cpp com.deepin.lastore.job.xml \
+qdbusxml2cpp com.deepin.AppStore.Backend.Job.xml \
   -p lastore_job_interface \
   -c LastoreJobInterface
