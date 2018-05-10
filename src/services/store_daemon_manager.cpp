@@ -93,6 +93,9 @@ void StoreDaemonManager::initConnections() {
   connect(this, &StoreDaemonManager::packageInstallableRequest,
           this, &StoreDaemonManager::packageInstallable);
 
+  connect(this, &StoreDaemonManager::packageDownloadSizeRequest,
+          this, &StoreDaemonManager::packageDownloadSize);
+
   connect(this, &StoreDaemonManager::getJobInfoRequest,
           this, &StoreDaemonManager::getJobInfo);
 }
@@ -132,7 +135,9 @@ void StoreDaemonManager::installPackage(const QString& app_name) {
         { kResultOk, false },
         { kResultErrName, reply.error().name() },
         { kResultErrMsg, reply.error().message() },
-        { kResult, QVariant() },
+        { kResult, QVariantMap {
+            { kResultName, app_name },
+        }},
     });
   } else {
     emit this->installPackageReply(QVariantMap {
@@ -142,14 +147,12 @@ void StoreDaemonManager::installPackage(const QString& app_name) {
         { kResult, QVariantMap {
             { kResultName, app_name },
             { kResultValue, reply.value().path() },
-        },
-        },
+        }},
     });
   }
 }
 
 void StoreDaemonManager::packageExists(const QString& app_name) {
-  qDebug() << Q_FUNC_INFO << app_name;
   const QDBusPendingReply<AppVersionList> reply =
       deb_interface_->QueryVersion({app_name});
   if (reply.isError()) {
@@ -166,7 +169,9 @@ void StoreDaemonManager::packageExists(const QString& app_name) {
           { kResultOk, false },
           { kResultErrName, app_name },
           { kResultErrMsg, "Package not found" },
-          { kResult, QVariant() },
+          { kResult, QVariantMap {
+              { kResultName, app_name },
+          }},
       });
     } else {
       const bool installed = (!list.first().installed_version.isEmpty());
@@ -177,15 +182,13 @@ void StoreDaemonManager::packageExists(const QString& app_name) {
         { kResult, QVariantMap {
           { kResultName, app_name },
           { kResultValue, installed },
-          },
-        }
+        }}
       });
     }
   }
 }
 
 void StoreDaemonManager::packageInstallable(const QString& app_name) {
-  qDebug() << Q_FUNC_INFO << app_name;
   const QDBusPendingReply<AppVersionList> reply =
       deb_interface_->QueryVersion({app_name});
   if (reply.isError()) {
@@ -193,7 +196,9 @@ void StoreDaemonManager::packageInstallable(const QString& app_name) {
         { kResultOk, false },
         { kResultErrName, reply.error().name() },
         { kResultErrMsg, reply.error().message() },
-        { kResult, QVariant() },
+        { kResult, QVariantMap {
+            { kResultName, app_name },
+        }},
     });
   } else {
     const AppVersionList list = reply.value();
@@ -202,7 +207,9 @@ void StoreDaemonManager::packageInstallable(const QString& app_name) {
           { kResultOk, false },
           { kResultErrName, app_name },
           { kResultErrMsg, "Package not found" },
-          { kResult, QVariant() },
+          { kResult, QVariantMap {
+              { kResultName, app_name },
+          }},
       });
     } else {
       const bool exists = (!list.first().remote_version.isEmpty());
@@ -213,15 +220,36 @@ void StoreDaemonManager::packageInstallable(const QString& app_name) {
           { kResult, QVariantMap {
               { kResultName, app_name },
               { kResultValue, exists },
-          },
-          }
+          }}
       });
     }
   }
 }
 
 void StoreDaemonManager::packageDownloadSize(const QString& app_name) {
-  Q_UNUSED(app_name);
+  const QDBusPendingReply<qlonglong> reply =
+      deb_interface_->QueryDownloadSize(app_name);
+  if (reply.isError()) {
+    emit this->packageDownloadSizeReply(QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResult, QVariantMap {
+            { kResultName, app_name },
+        }},
+    });
+  } else {
+    const qlonglong size = reply.value();
+    emit this->packageDownloadSizeReply(QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResult, QVariantMap {
+            { kResultName, app_name },
+            { kResultValue, size },
+        }},
+    });
+  }
 }
 
 void StoreDaemonManager::updatePackage(const QString& app_name) {
@@ -236,7 +264,9 @@ void StoreDaemonManager::removePackage(const QString& app_name) {
         { kResultOk, false },
         { kResultErrName, reply.error().name() },
         { kResultErrMsg, reply.error().message() },
-        { kResult, QVariant() },
+        { kResult, QVariantMap {
+            { kResultName, app_name },
+        }},
     });
   } else {
     emit this->removePackageReply(QVariantMap {
@@ -246,8 +276,7 @@ void StoreDaemonManager::removePackage(const QString& app_name) {
         { kResult, QVariantMap {
             { kResultName, app_name },
             { kResultValue, reply.value().path() },
-        }
-        },
+        }},
     });
   }
 }
@@ -288,15 +317,16 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
         { kResult, QVariantMap {
             { kResultName, job },
             { kResultValue, result },
-        }
-        },
+        }},
     });
   } else {
     emit this->getJobInfoReply(QVariantMap {
         { kResultOk, false },
         { kResultErrName, job_interface.lastError().name() },
         { kResultErrMsg, job_interface.lastError().message() },
-        { kResult, QVariantMap() },
+        { kResult, QVariantMap {
+            { kResultName, job },
+        }},
     });
   }
 }
