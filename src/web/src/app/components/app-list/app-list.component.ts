@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
-import { Observable, timer, of } from 'rxjs';
+import { Observable, timer, of, empty, forkJoin } from 'rxjs';
 import { map, tap, flatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
@@ -32,22 +32,18 @@ export class AppListComponent implements OnInit, OnChanges {
 
   getAppJob = _.memoize((appName: string): Observable<JobAndStatus> => {
     return timer(0, 1000).pipe(
-      flatMap(() => this.storeService.appInstalled(appName)),
-      flatMap(
-        exists =>
-          exists
-            ? of({ status: AppJobStatus.finish })
-            : this.storeService
-                .getJobByName(appName)
-                .pipe(
-                  map(
-                    info =>
-                      info
-                        ? { status: AppJobStatus.running, job: info }
-                        : { status: AppJobStatus.ready },
-                  ),
-                ),
+      flatMap(() =>
+        forkJoin(this.storeService.appInstalled(appName), this.storeService.getJobByName(appName)),
       ),
+      map(([exists, job]) => {
+        if (exists) {
+          return { status: this.appJobStatus.finish };
+        }
+        if (job) {
+          return { status: AppJobStatus.running, job };
+        }
+        return { status: AppJobStatus.ready };
+      }),
     );
   });
 
@@ -57,6 +53,9 @@ export class AppListComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges() {
+    if (!this.apps$) {
+      return;
+    }
     this.appList$ = this.apps$.pipe(
       map(apps => {
         apps = apps.filter(app => app);
@@ -66,11 +65,13 @@ export class AppListComponent implements OnInit, OnChanges {
             'name',
           ]).reverse();
         }
-        if (this.maxCount !== null) {
+        if (this.maxCount) {
           apps = apps.slice(0, this.maxCount);
         }
-        this.appListLength.emit(apps.length);
         return apps;
+      }),
+      tap(apps => {
+        this.appListLength.emit(apps.length);
       }),
     );
   }

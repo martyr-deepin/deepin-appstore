@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { AppService } from './app.service';
 import { Channel } from '../utils/channel';
 import { Observable, forkJoin, of } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, filter, take } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from './store-job-info';
@@ -135,10 +135,11 @@ export class StoreService {
         ...args,
       );
     });
-    return obs$
-      .filter(resp => args.length === 0 || args[0] === resp.result.name)
-      .map(resp => resp.result.value)
-      .take(1);
+    return obs$.pipe(
+      filter(resp => args.length === 0 || args[0] === resp.result.name),
+      map(resp => resp.result.value),
+      take(1),
+    );
   }
 }
 

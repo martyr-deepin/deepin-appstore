@@ -26,8 +26,8 @@ export class SearchComponent implements OnInit {
   apps$: Observable<App[]>;
 
   ngOnInit() {
-    this.keyword$ = this.route.paramMap.map(param => param.get('keyword'));
-    this.title$ = this.keyword$.map(keyword => `"${truncate(keyword, { length: 16 })}"`);
+    this.keyword$ = this.route.paramMap.pipe(map(param => param.get('keyword')));
+    this.title$ = this.keyword$.pipe(map(keyword => `"${truncate(keyword, { length: 16 })}"`));
 
     this.apps$ = this.route.paramMap.pipe(
       flatMap(param => {

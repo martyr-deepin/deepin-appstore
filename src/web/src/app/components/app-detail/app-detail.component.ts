@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, timer, of, iif } from 'rxjs';
-import { flatMap, map, tap, share } from 'rxjs/operators';
+import { Observable, timer, of, iif, forkJoin } from 'rxjs';
+import { flatMap, map, tap, share, shareReplay } from 'rxjs/operators';
 import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 
 import { App } from '../../dstore/services/app';
@@ -42,21 +42,21 @@ export class AppDetailComponent implements OnInit {
     this.status$ = timer(0, 1000).pipe(
       flatMap(app => this.appObs),
       flatMap(app =>
-        this.storeService
-          .appInstalled(app.name)
-          .pipe(
-            flatMap(installed =>
-              iif(
-                () => installed,
-                of(AppJobStatus.finish),
-                this.storeService
-                  .getJobByName(app.name)
-                  .pipe(map(info => (info ? AppJobStatus.running : AppJobStatus.ready))),
-              ),
-            ),
-          ),
+        forkJoin(
+          this.storeService.appInstallable(app.name),
+          this.storeService.getJobByName(app.name),
+        ),
       ),
-      share(),
+      map(([exists, job]) => {
+        if (exists) {
+          return AppJobStatus.finish;
+        }
+        if (job) {
+          return AppJobStatus.running;
+        }
+        return AppJobStatus.ready;
+      }),
+      shareReplay(),
     );
     this.size$ = this.appObs.pipe(flatMap(app => this.storeService.appDownloadSize(app.name)));
   }
