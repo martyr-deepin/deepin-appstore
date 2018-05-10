@@ -62,6 +62,9 @@ void StoreDaemonProxy::initConnections() {
           this, &StoreDaemonProxy::packageExistsReply);
   connect(manager_, &StoreDaemonManager::packageInstallableReply,
           this, &StoreDaemonProxy::packageInstallableReply);
+  connect(manager_, &StoreDaemonManager::packageInstallableReply, [](const QVariantMap& result) {
+    qDebug() << "Response result:" << result;
+  });
   connect(manager_, &StoreDaemonManager::packageDownloadSizeReply,
           this, &StoreDaemonProxy::packageDownloadSizeReply);
   connect(manager_, &StoreDaemonManager::updatePackageReply,
@@ -97,10 +100,12 @@ void StoreDaemonProxy::installPackage(const QString& app_name) {
 }
 
 void StoreDaemonProxy::packageExists(const QString& app_name) {
+  qDebug() << Q_FUNC_INFO << app_name;
   emit manager_->packageExistsRequest(app_name);
 }
 
 void StoreDaemonProxy::packageInstallable(const QString& app_name) {
+  qDebug() << Q_FUNC_INFO << app_name;
   emit manager_->packageInstallableRequest(app_name);
 }
 
