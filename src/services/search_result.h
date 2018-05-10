@@ -20,6 +20,7 @@
 
 #include <QList>
 #include <QHash>
+#include <QtCore/QMetaType>
 
 namespace dstore {
 
@@ -32,6 +33,8 @@ struct AppSearchRecord {
   QStringList package_uris;
 };
 
+void RegisterAppSearchRecordMetaType();
+
 bool operator<(const AppSearchRecord& a, const AppSearchRecord& b);
 
 typedef QList<AppSearchRecord> AppSearchRecordList;
@@ -39,5 +42,8 @@ typedef QList<AppSearchRecord> AppSearchRecordList;
 typedef QHash<QString, AppSearchRecord> AppSearchRecordMap;
 
 }  // namespace dstore
+
+Q_DECLARE_METATYPE(dstore::AppSearchRecord);
+Q_DECLARE_METATYPE(dstore::AppSearchRecordList);
 
 #endif  // DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H

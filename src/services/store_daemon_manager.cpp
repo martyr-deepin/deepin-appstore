@@ -96,6 +96,9 @@ void StoreDaemonManager::initConnections() {
   connect(this, &StoreDaemonManager::packageDownloadSizeRequest,
           this, &StoreDaemonManager::packageDownloadSize);
 
+  connect(this, &StoreDaemonManager::installedPackagesRequest,
+          this, &StoreDaemonManager::installedPackages);
+
   connect(this, &StoreDaemonManager::jobListRequest,
           this, &StoreDaemonManager::jobList);
   connect(this, &StoreDaemonManager::getJobInfoRequest,
@@ -149,6 +152,40 @@ void StoreDaemonManager::installPackage(const QString& app_name) {
         { kResult, QVariantMap {
             { kResultName, app_name },
             { kResultValue, reply.value().path() },
+        }},
+    });
+  }
+}
+
+void StoreDaemonManager::installedPackages() {
+  const QDBusPendingReply<InstalledAppInfoList> reply =
+      deb_interface_->ListInstalled();
+  if (reply.isError()) {
+    emit this->installedPackagesReply(QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResult, QVariantMap {
+            { kResultName, "" },
+        }},
+    });
+  } else {
+    const InstalledAppInfoList list = reply.value();
+    QVariantList result;
+    for (const InstalledAppInfo& info : list) {
+      qDebug() << "pkg name:" << info.pkg_name << apps_.contains(info.pkg_name);
+      if (apps_.contains(info.pkg_name)) {
+        result.append(info.toVariantMap());
+      }
+    }
+
+    emit this->installedPackagesReply(QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResult, QVariantMap {
+            { kResultName, "" },
+            { kResultValue, result },
         }},
     });
   }

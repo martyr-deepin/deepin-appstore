@@ -34,6 +34,13 @@ void InstalledAppInfo::registerMetaType() {
   qDBusRegisterMetaType<InstalledAppInfoList>();
 }
 
+const QVariantMap InstalledAppInfo::toVariantMap() const {
+  return QVariantMap {
+      { "pkgName", this->pkg_name },
+      { "version", this->version },
+  };
+}
+
 QDebug operator<<(QDebug debug, const InstalledAppInfo& info) {
   debug << info.pkg_name
         << info.version;

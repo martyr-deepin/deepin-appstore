@@ -35,6 +35,8 @@ struct InstalledAppInfo {
     return this->pkg_name == other.pkg_name;
   }
 
+  const QVariantMap toVariantMap() const;
+
   friend QDebug operator<<(QDebug debug, const InstalledAppInfo& info);
   friend QDBusArgument& operator<<(QDBusArgument& argument,
                                    const InstalledAppInfo& info);

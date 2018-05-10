@@ -22,6 +22,7 @@
 #include <QThread>
 #include <QVariantMap>
 
+#include "services/search_result.h"
 #include "services/store_daemon_manager.h"
 
 namespace dstore {
@@ -46,10 +47,13 @@ class StoreDaemonProxy : public QObject {
   void removePackageReply(const QVariantMap& result);
   void upgradableAppsReply(const QVariantMap& result);
 
+  void installedPackagesReply(const QVariantMap& result);
   void applicationUpdateInfosReply(const QVariantMap& result);
 
   void jobListReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
+
+  void updateAppList(const AppSearchRecordList& record_list);
 
  public slots:
   /**
@@ -87,6 +91,11 @@ class StoreDaemonProxy : public QObject {
    * @param app_name
    */
   void installPackage(const QString& app_name);
+
+  /**
+   * Get a list of installed packages.
+   */
+  void installedPackages();
 
   /**
    * Check whether this package is already installed into system.

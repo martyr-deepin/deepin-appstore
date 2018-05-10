@@ -51,6 +51,7 @@ class StoreDaemonManager : public QObject {
   void removePackageRequest(const QString& app_name);
   void upgradableAppsRequest();
 
+  void installedPackagesRequest();
   void applicationUpdateInfosRequest(const QString& language);
 
   void jobListRequest();
@@ -73,6 +74,7 @@ class StoreDaemonManager : public QObject {
   void jobListReply(const QVariantMap& result);
   void upgradableAppsReply(const QVariantMap& result);
 
+  void installedPackagesReply(const QVariantMap& result);
   void applicationUpdateInfosReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
@@ -116,6 +118,8 @@ class StoreDaemonManager : public QObject {
    * @param app_name
    */
   void installPackage(const QString& app_name);
+
+  void installedPackages();
 
   /**
    * Check whether this package is already installed into system.

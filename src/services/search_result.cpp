@@ -17,10 +17,17 @@
 
 #include "services/search_result.h"
 
+#include <QtCore/QMetaType>
+
 namespace dstore {
 
 bool operator<(const AppSearchRecord& a, const AppSearchRecord& b) {
   return a.name < b.name;
+}
+
+void RegisterAppSearchRecordMetaType() {
+  qRegisterMetaType<AppSearchRecord>("AppSearchRecord");
+  qRegisterMetaType<AppSearchRecordList>("AppSearchRecordList");
 }
 
 }  // namespace dstore

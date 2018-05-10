@@ -32,6 +32,8 @@ StoreDaemonProxy::StoreDaemonProxy(QObject* parent)
 
   this->setObjectName("StoreDaemonProxy");
 
+  RegisterAppSearchRecordMetaType();
+
   this->initConnections();
 
   manager_thread_->start();
@@ -71,6 +73,9 @@ void StoreDaemonProxy::initConnections() {
   connect(manager_, &StoreDaemonManager::upgradableAppsReply,
           this, &StoreDaemonProxy::upgradableAppsReply);
 
+
+  connect(manager_, &StoreDaemonManager::installedPackagesReply,
+          this, &StoreDaemonProxy::installedPackagesReply);
   connect(manager_, &StoreDaemonManager::applicationUpdateInfosReply,
           this, &StoreDaemonProxy::applicationUpdateInfosReply);
 
@@ -78,6 +83,9 @@ void StoreDaemonProxy::initConnections() {
           this, &StoreDaemonProxy::jobListReply);
   connect(manager_, &StoreDaemonManager::getJobInfoReply,
           this, &StoreDaemonProxy::getJobInfoReply);
+
+  connect(this, &StoreDaemonProxy::updateAppList,
+          manager_, &StoreDaemonManager::updateAppList);
 }
 
 void StoreDaemonProxy::isDBusConnected() {
@@ -94,6 +102,10 @@ void StoreDaemonProxy::cleanJob(const QString& job) {
 
 void StoreDaemonProxy::installPackage(const QString& app_name) {
   emit manager_->installPackageRequest(app_name);
+}
+
+void StoreDaemonProxy::installedPackages() {
+  emit manager_->installedPackagesRequest();
 }
 
 void StoreDaemonProxy::packageExists(const QString& app_name) {
