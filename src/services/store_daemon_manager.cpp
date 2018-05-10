@@ -96,6 +96,8 @@ void StoreDaemonManager::initConnections() {
   connect(this, &StoreDaemonManager::packageDownloadSizeRequest,
           this, &StoreDaemonManager::packageDownloadSize);
 
+  connect(this, &StoreDaemonManager::jobListRequest,
+          this, &StoreDaemonManager::jobList);
   connect(this, &StoreDaemonManager::getJobInfoRequest,
           this, &StoreDaemonManager::getJobInfo);
 }
@@ -282,7 +284,20 @@ void StoreDaemonManager::removePackage(const QString& app_name) {
 }
 
 void StoreDaemonManager::jobList() {
-
+  const QList<QDBusObjectPath> jobs = deb_interface_->jobList();
+  QStringList paths;
+  for (const QDBusObjectPath& job : jobs) {
+    paths.append(job.path());
+  }
+  emit this->jobListReply(QVariantMap {
+      { kResultOk, true },
+      { kResultErrName, "" },
+      { kResultErrMsg, "" },
+      { kResult, QVariantMap {
+          { kResultName, "", },
+          { kResultValue, paths },
+      }}
+  });
 }
 
 void StoreDaemonManager::upgradableApps() {
