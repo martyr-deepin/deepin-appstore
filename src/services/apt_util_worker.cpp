@@ -15,4 +15,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "store_daemon_deb.h"
+#include "services/apt_util_worker.h"
+
+namespace dstore {
+
+AptUtilWorker::AptUtilWorker(QObject* parent) : QObject(parent) {
+  this->setObjectName("AptUtilWorker");
+  this->initConnections();
+}
+
+AptUtilWorker::~AptUtilWorker() {
+
+}
+
+void AptUtilWorker::initConnections() {
+  connect(this, &AptUtilWorker::openAppRequest,
+          this, &AptUtilWorker::openApp);
+  connect(this, &AptUtilWorker::cleanArchivesRequest,
+          this, &AptUtilWorker::cleanArchives);
+}
+
+void AptUtilWorker::openApp(const QString& app_name) {
+  Q_UNUSED(app_name);
+}
+
+void AptUtilWorker::cleanArchives() {
+
+}
+
+}  // namespace dstore

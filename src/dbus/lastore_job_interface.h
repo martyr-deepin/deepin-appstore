@@ -101,13 +101,4 @@ public Q_SLOTS: // METHODS
 Q_SIGNALS: // SIGNALS
 };
 
-namespace com {
-  namespace deepin {
-    namespace AppStore {
-      namespace Backend {
-        typedef ::LastoreJobInterface Job;
-      }
-    }
-  }
-}
 #endif

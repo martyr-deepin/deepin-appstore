@@ -50,8 +50,6 @@ void StoreDaemonProxy::initConnections() {
   connect(manager_, &StoreDaemonManager::isDbusConnectedReply,
           this, &StoreDaemonProxy::isDbusConnectedReply);
 
-  connect(manager_, &StoreDaemonManager::cleanArchivesReply,
-          this, &StoreDaemonProxy::cleanArchivesReply);
   connect(manager_, &StoreDaemonManager::cleanJobReply,
           this, &StoreDaemonProxy::cleanJobReply);
   connect(manager_, &StoreDaemonManager::pauseJobReply,
@@ -87,7 +85,7 @@ void StoreDaemonProxy::isDBusConnected() {
 }
 
 void StoreDaemonProxy::cleanArchives() {
-  manager_->cleanArchivesRequest();
+  emit manager_->cleanArchivesRequest();
 }
 
 void StoreDaemonProxy::cleanJob(const QString& job) {

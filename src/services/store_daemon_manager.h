@@ -22,7 +22,13 @@
 
 #include "services/search_result.h"
 
+class QThread;
+
+class LastoreDebInterface;
+
 namespace dstore {
+
+class AptUtilWorker;
 
 class StoreDaemonManager : public QObject {
   Q_OBJECT
@@ -55,7 +61,6 @@ class StoreDaemonManager : public QObject {
 
   void isDbusConnectedReply(bool state);
 
-  void cleanArchivesReply(const QVariantMap& result);
   void cleanJobReply(const QVariantMap& result);
   void pauseJobReply(const QVariantMap& result);
   void startJobReply(const QVariantMap& result);
@@ -75,7 +80,101 @@ class StoreDaemonManager : public QObject {
   void updateAppList(const AppSearchRecordList& app_list);
 
  private:
+  void initConnections();
+
   AppSearchRecordMap apps_;
+  AptUtilWorker* apt_worker_ = nullptr;
+  QThread* apt_worker_thread_ = nullptr;
+  LastoreDebInterface* deb_interface_ = nullptr;
+
+ private slots:
+  /**
+   * Check connecting to backend app store daemon or not.
+   */
+  void isDBusConnected();
+
+  // Store Manager methods:
+
+  /**
+   * Clean up a specific job.
+   * @param job
+   */
+  void cleanJob(const QString& job);
+
+  /**
+   * Pause a running job
+   * @param job
+   */
+  void pauseJob(const QString& job);
+
+  /**
+   * Resume a paused job
+   * @param job
+   */
+  void startJob(const QString& job);
+
+  /**
+   * apt-get install xxx
+   * @param app_name
+   */
+  void installPackage(const QString& app_name);
+
+  /**
+   * Check whether this package is already installed into system.
+   * @param app_name
+   */
+  void packageExists(const QString& app_name);
+
+  /**
+   * Check whether a specific package exists in APT store
+   * @param app_name
+   */
+  void packageInstallable(const QString& app_name);
+
+  /**
+   * Get deb package size
+   * @param app_name
+   */
+  void packageDownloadSize(const QString& app_name);
+
+  /**
+   * apt-get upgrade xxx
+   * @param app_name
+   */
+  void updatePackage(const QString& app_name);
+
+  /**
+   * apt-get remove xxx
+   * @param app_name
+   * @return string, returns job path
+   */
+  void removePackage(const QString& app_name);
+
+  /**
+   * Returns all of jobs existing in backend.
+   * @return stringList
+   */
+  void jobList();
+
+  void upgradableApps();
+
+  // Store Updater methods:
+  void applicationUpdateInfos(const QString& language);
+
+  /**
+   * Get temporary job info.
+   * * valid: bool, false if this job is invalid.
+   * * id: string
+   * * name: string
+   * * status: string
+   * * type: string
+   * * speed: int64
+   * * progress: double
+   * * description: string
+   * * cancelable: boolean
+   * * packages: stringList
+   */
+  void getJobInfo(const QString& job);
 };
 
 }  // namespace dstore

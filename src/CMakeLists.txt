@@ -96,6 +96,8 @@ set(DBUS_FILES
     dbus/app_store_dbus_interface.h
     dbus/lastore_deb_interface.cpp
     dbus/lastore_deb_interface.h
+    dbus/lastore_job_interface.cpp
+    dbus/lastore_job_interface.h
     dbus/dbus_consts.cpp
     dbus/dbus_consts.h
     )
@@ -107,6 +109,8 @@ set(RESOURCES_FILES
     )
 
 set(SERVICES_FILES
+    services/apt_util_worker.cpp
+    services/apt_util_worker.h
     services/args_parser.cpp
     services/args_parser.h
     services/dpk_link_validation.cpp
@@ -119,8 +123,6 @@ set(SERVICES_FILES
     services/search_result.h
     services/settings_manager.cpp
     services/settings_manager.h
-    services/store_daemon_deb.cpp
-    services/store_daemon_deb.h
     services/store_daemon_manager.cpp
     services/store_daemon_manager.h
     )

@@ -35,7 +35,6 @@ class StoreDaemonProxy : public QObject {
  signals:
   void isDbusConnectedReply(bool state);
 
-  void cleanArchivesReply(const QVariantMap& result);
   void cleanJobReply(const QVariantMap& result);
   void pauseJobReply(const QVariantMap& result);
   void startJobReply(const QVariantMap& result);
@@ -84,7 +83,7 @@ class StoreDaemonProxy : public QObject {
   void startJob(const QString& job);
 
   /**
-   * apt-get install xxx
+   * apt-get install xxx, to install or upgrade a program.
    * @param app_name
    */
   void installPackage(const QString& app_name);
@@ -126,6 +125,10 @@ class StoreDaemonProxy : public QObject {
    */
   void jobList();
 
+  /**
+   * Get a list of upgradable applications.
+   * @return stringList
+   */
   void upgradableApps();
 
   // Store Updater methods:

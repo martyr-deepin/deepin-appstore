@@ -15,13 +15,36 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_STORE_DAEMON_DEB_H
-#define DEEPIN_APPSTORE_STORE_DAEMON_DEB_H
+#ifndef DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
+#define DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
 
+#include <QObject>
 
-class store_daemon_deb {
+namespace dstore {
 
+class AptUtilWorker : public QObject {
+  Q_OBJECT
+ public:
+  explicit AptUtilWorker(QObject* parent = nullptr);
+  ~AptUtilWorker() override;
+
+ signals:
+  void openAppRequest(const QString& app_name);
+  void cleanArchivesRequest();
+
+ private:
+  void initConnections();
+
+ private slots:
+  /**
+  * Request to launch application.
+  * @param app_name
+  */
+  void openApp(const QString& app_name);
+
+  void cleanArchives();
 };
 
+}  // namespace dstore
 
-#endif //DEEPIN_APPSTORE_STORE_DAEMON_DEB_H
+#endif  // DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
