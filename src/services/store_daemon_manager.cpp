@@ -118,15 +118,117 @@ void StoreDaemonManager::isDBusConnected() {
 }
 
 void StoreDaemonManager::cleanJob(const QString& job) {
-  Q_UNUSED(job);
+  LastoreJobInterface job_interface(kLastoreJobService,
+                                    job,
+                                    QDBusConnection::sessionBus(),
+                                    this);
+  if (job_interface.isValid()) {
+    const QDBusPendingReply<> reply = job_interface.Clean();
+    if (reply.isError()) {
+      emit this->cleanJobReply(QVariantMap {
+          { kResultOk, false },
+          { kResultErrName, reply.error().name() },
+          { kResultErrMsg, reply.error().message() },
+          { kResult, QVariantMap {
+              { kResultName, job },
+          }}
+      });
+    } else {
+      emit this->cleanJobReply(QVariantMap {
+          { kResultOk, true },
+          { kResultErrName, "" },
+          { kResultErrMsg, "" },
+          { kResult, QVariantMap {
+              { kResultName, job },
+          }}
+      });
+    }
+  } else {
+    emit this->cleanJobReply(QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, job_interface.lastError().name() },
+        { kResultErrMsg, job_interface.lastError().message() },
+        { kResult, QVariantMap {
+            { kResultName, job },
+        }}
+    });
+  }
 }
 
 void StoreDaemonManager::pauseJob(const QString& job) {
-  Q_UNUSED(job);
+  LastoreJobInterface job_interface(kLastoreJobService,
+                                    job,
+                                    QDBusConnection::sessionBus(),
+                                    this);
+  if (job_interface.isValid()) {
+    const QDBusPendingReply<> reply = job_interface.Pause();
+    if (reply.isError()) {
+      emit this->pauseJobReply(QVariantMap {
+          { kResultOk, false },
+          { kResultErrName, reply.error().name() },
+          { kResultErrMsg, reply.error().message() },
+          { kResult, QVariantMap {
+              { kResultName, job },
+          }}
+      });
+    } else {
+      emit this->pauseJobReply(QVariantMap {
+          { kResultOk, true },
+          { kResultErrName, "" },
+          { kResultErrMsg, "" },
+          { kResult, QVariantMap {
+              { kResultName, job },
+          }}
+      });
+    }
+  } else {
+    emit this->pauseJobReply(QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, job_interface.lastError().name() },
+        { kResultErrMsg, job_interface.lastError().message() },
+        { kResult, QVariantMap {
+            { kResultName, job },
+        }}
+    });
+  }
 }
 
 void StoreDaemonManager::startJob(const QString& job) {
-  Q_UNUSED(job);
+  LastoreJobInterface job_interface(kLastoreJobService,
+                                    job,
+                                    QDBusConnection::sessionBus(),
+                                    this);
+  if (job_interface.isValid()) {
+    const QDBusPendingReply<> reply = job_interface.Start();
+    if (reply.isError()) {
+      emit this->startJobReply(QVariantMap {
+          { kResultOk, false },
+          { kResultErrName, reply.error().name() },
+          { kResultErrMsg, reply.error().message() },
+          { kResult, QVariantMap {
+              { kResultName, job },
+          }}
+      });
+    } else {
+      emit this->startJobReply(QVariantMap {
+          { kResultOk, true },
+          { kResultErrName, "" },
+          { kResultErrMsg, "" },
+          { kResult, QVariantMap {
+              { kResultName, job },
+          }}
+      });
+    }
+  } else {
+    emit this->startJobReply(QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, job_interface.lastError().name() },
+        { kResultErrMsg, job_interface.lastError().message() },
+        { kResult, QVariantMap {
+            { kResultName, job },
+        }}
+    });
+  }
 }
 
 void StoreDaemonManager::installPackage(const QString& app_name) {
