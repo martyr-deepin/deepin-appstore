@@ -93,8 +93,6 @@ class StoreDaemonManager : public QObject {
    */
   void isDBusConnected();
 
-  // Store Manager methods:
-
   /**
    * Clean up a specific job.
    * @param job
@@ -158,7 +156,6 @@ class StoreDaemonManager : public QObject {
 
   void upgradableApps();
 
-  // Store Updater methods:
   void applicationUpdateInfos(const QString& language);
 
   /**

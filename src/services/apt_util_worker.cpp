@@ -17,6 +17,11 @@
 
 #include "services/apt_util_worker.h"
 
+#include <QDebug>
+
+#include "base/command.h"
+#include "base/launcher.h"
+
 namespace dstore {
 
 AptUtilWorker::AptUtilWorker(QObject* parent) : QObject(parent) {
@@ -36,11 +41,17 @@ void AptUtilWorker::initConnections() {
 }
 
 void AptUtilWorker::openApp(const QString& app_name) {
-  Q_UNUSED(app_name);
+  QString output;
+  if (SpawnCmd("lastore-tools", {"querydesktop", app_name}, output)) {
+    const QString desktop_file = output.trimmed();
+    if (!ExecuteDesktopFile(desktop_file)) {
+      qWarning() << Q_FUNC_INFO << "failed to launch:" << app_name;
+    }
+  }
 }
 
 void AptUtilWorker::cleanArchives() {
-
+  // FIXME(Shaohua): Current process has no permission to call `apt clean`.
 }
 
 }  // namespace dstore
