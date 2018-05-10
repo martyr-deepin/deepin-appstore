@@ -35,6 +35,8 @@ struct AppVersion {
     return this->pkg_name == other.pkg_name;
   }
 
+  const QVariantMap toVariantMap() const;
+
   friend QDebug operator<<(QDebug debug, const AppVersion& info);
   friend QDBusArgument& operator<<(QDBusArgument& argument,
                                    const AppVersion& info);

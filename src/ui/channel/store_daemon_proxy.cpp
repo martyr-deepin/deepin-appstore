@@ -76,8 +76,6 @@ void StoreDaemonProxy::initConnections() {
 
   connect(manager_, &StoreDaemonManager::installedPackagesReply,
           this, &StoreDaemonProxy::installedPackagesReply);
-  connect(manager_, &StoreDaemonManager::applicationUpdateInfosReply,
-          this, &StoreDaemonProxy::applicationUpdateInfosReply);
 
   connect(manager_, &StoreDaemonManager::jobListReply,
           this, &StoreDaemonProxy::jobListReply);
@@ -138,10 +136,6 @@ void StoreDaemonProxy::removePackage(const QString& app_name) {
 
 void StoreDaemonProxy::upgradableApps() {
   emit manager_->upgradableAppsRequest();
-}
-
-void StoreDaemonProxy::applicationUpdateInfos(const QString& language) {
-  emit manager_->applicationUpdateInfosRequest(language);
 }
 
 void StoreDaemonProxy::jobList() {

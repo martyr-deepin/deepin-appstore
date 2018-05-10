@@ -99,6 +99,9 @@ void StoreDaemonManager::initConnections() {
   connect(this, &StoreDaemonManager::installedPackagesRequest,
           this, &StoreDaemonManager::installedPackages);
 
+  connect(this, &StoreDaemonManager::upgradableAppsRequest,
+          this, &StoreDaemonManager::upgradableApps);
+
   connect(this, &StoreDaemonManager::jobListRequest,
           this, &StoreDaemonManager::jobList);
   connect(this, &StoreDaemonManager::getJobInfoRequest,
@@ -275,7 +278,6 @@ void StoreDaemonManager::installedPackages() {
     const InstalledAppInfoList list = reply.value();
     QVariantList result;
     for (const InstalledAppInfo& info : list) {
-      qDebug() << "pkg name:" << info.pkg_name << apps_.contains(info.pkg_name);
       if (apps_.contains(info.pkg_name)) {
         result.append(info.toVariantMap());
       }
@@ -440,11 +442,60 @@ void StoreDaemonManager::jobList() {
 }
 
 void StoreDaemonManager::upgradableApps() {
+  const QDBusPendingReply<InstalledAppInfoList> reply =
+      deb_interface_->ListInstalled();
+  if (reply.isError()) {
+    emit this->upgradableAppsReply(QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, reply.error().name() },
+        { kResultErrMsg, reply.error().message() },
+        { kResult, QVariantMap {
+            { kResultName, "" },
+        }},
+    });
+  } else {
+    const InstalledAppInfoList list = reply.value();
+    // First filter app names.
+    QStringList app_names;
+    for (const InstalledAppInfo& info : list) {
+      if (apps_.contains(info.pkg_name)) {
+        app_names.append(info.pkg_name);
+      }
+    }
 
-}
+    // Then query app version.
+    const QDBusPendingReply<AppVersionList> version_reply =
+        deb_interface_->QueryVersion(app_names);
 
-void StoreDaemonManager::applicationUpdateInfos(const QString& language) {
-  Q_UNUSED(language);
+    if (version_reply.isError()) {
+      emit this->upgradableAppsReply(QVariantMap {
+          { kResultOk, false },
+          { kResultErrName, version_reply.error().name() },
+          { kResultErrMsg, version_reply.error().message() },
+          { kResult, QVariantMap {
+              { kResultName, "" },
+          }},
+      });
+    } else {
+      const AppVersionList version_list = version_reply.value();
+      QVariantList version_vars;
+      for (const AppVersion& version : version_list) {
+        if (version.upgradable) {
+          version_vars.append(version.toVariantMap());
+        }
+      }
+
+      emit this->upgradableAppsReply(QVariantMap {
+          { kResultOk, true },
+          { kResultErrName, "" },
+          { kResultErrMsg, "" },
+          { kResult, QVariantMap {
+              { kResultName, "" },
+              { kResultValue, version_vars },
+          }},
+      });
+    }
+  }
 }
 
 void StoreDaemonManager::getJobInfo(const QString& job) {

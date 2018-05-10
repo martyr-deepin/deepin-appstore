@@ -48,7 +48,6 @@ class StoreDaemonProxy : public QObject {
   void upgradableAppsReply(const QVariantMap& result);
 
   void installedPackagesReply(const QVariantMap& result);
-  void applicationUpdateInfosReply(const QVariantMap& result);
 
   void jobListReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
@@ -139,9 +138,6 @@ class StoreDaemonProxy : public QObject {
    * @return stringList
    */
   void upgradableApps();
-
-  // Store Updater methods:
-  void applicationUpdateInfos(const QString& language);
 
   /**
    * Get temporary job info.

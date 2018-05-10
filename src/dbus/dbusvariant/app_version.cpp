@@ -34,6 +34,15 @@ void AppVersion::registerMetaType() {
   qDBusRegisterMetaType<AppVersionList>();
 }
 
+const QVariantMap AppVersion::toVariantMap() const {
+  return QVariantMap {
+      { "pkgName", this->pkg_name },
+      { "installedVersion", this->installed_version },
+      { "remoteVersion", this->remote_version },
+      { "upgradable", this->upgradable },
+  };
+}
+
 QDebug operator<<(QDebug debug, const AppVersion& info) {
   debug << info.pkg_name
         << info.installed_version

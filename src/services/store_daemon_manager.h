@@ -50,9 +50,7 @@ class StoreDaemonManager : public QObject {
   void updatePackageRequest(const QString& app_name);
   void removePackageRequest(const QString& app_name);
   void upgradableAppsRequest();
-
   void installedPackagesRequest();
-  void applicationUpdateInfosRequest(const QString& language);
 
   void jobListRequest();
   void getJobInfoRequest(const QString& job);
@@ -73,9 +71,7 @@ class StoreDaemonManager : public QObject {
   void removePackageReply(const QVariantMap& result);
   void jobListReply(const QVariantMap& result);
   void upgradableAppsReply(const QVariantMap& result);
-
   void installedPackagesReply(const QVariantMap& result);
-  void applicationUpdateInfosReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
  public slots:
@@ -159,8 +155,6 @@ class StoreDaemonManager : public QObject {
   void jobList();
 
   void upgradableApps();
-
-  void applicationUpdateInfos(const QString& language);
 
   /**
    * Get temporary job info.
