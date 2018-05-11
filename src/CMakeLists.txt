@@ -84,11 +84,13 @@ set(BASE_FILES
     )
 
 set(DBUS_FILES
-    dbus/dbusvariant/app_version.cpp
-    dbus/dbusvariant/app_version.h
-    dbus/dbusvariant/app_version.h
-    dbus/dbusvariant/installed_app_info.cpp
-    dbus/dbusvariant/installed_app_info.h
+    dbus/dbus_variant/app_metadata.cpp
+    dbus/dbus_variant/app_metadata.h
+    dbus/dbus_variant/app_version.cpp
+    dbus/dbus_variant/app_version.h
+    dbus/dbus_variant/app_version.h
+    dbus/dbus_variant/installed_app_info.cpp
+    dbus/dbus_variant/installed_app_info.h
 
     dbus/app_store_dbus_adapter.cpp
     dbus/app_store_dbus_adapter.h
@@ -111,8 +113,8 @@ set(RESOURCES_FILES
 set(SERVICES_FILES
     services/apt_util_worker.cpp
     services/apt_util_worker.h
-    services/args_parser.cpp
-    services/args_parser.h
+    services/dbus_manager.cpp
+    services/dbus_manager.h
     services/dpk_link_validation.cpp
     services/dpk_link_validation.h
     services/rcc_scheme_handler.cpp

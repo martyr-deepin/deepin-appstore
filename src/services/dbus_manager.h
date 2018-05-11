@@ -20,13 +20,15 @@
 
 #include <QObject>
 
+#include "dbus/dbus_variant/app_metadata.h"
+
 namespace dstore {
 
-class ArgsParser : public QObject {
+class DBusManager : public QObject {
   Q_OBJECT
  public:
-  explicit ArgsParser(QObject* parent = nullptr);
-  ~ArgsParser() override;
+  explicit DBusManager(QObject* parent = nullptr);
+  ~DBusManager() override;
 
   bool parseArguments();
 
@@ -42,6 +44,9 @@ class ArgsParser : public QObject {
   void OpenApp(const QString& app_name);
   void Raise();
   void ShowDetail(const QString& app_name);
+
+  AppMetadata GetAppMetadata(const QString& app_name);
+  QString GetAppIcon(const QString& app_name);
 
  private:
   QString app_name_;

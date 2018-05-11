@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "services/args_parser.h"
+#include "services/dbus_manager.h"
 
 #include <QCommandLineParser>
 #include <QDebug>
@@ -27,15 +27,15 @@
 
 namespace dstore {
 
-ArgsParser::ArgsParser(QObject* parent) : QObject(parent) {
+DBusManager::DBusManager(QObject* parent) : QObject(parent) {
 
 }
 
-ArgsParser::~ArgsParser() {
+DBusManager::~DBusManager() {
 
 }
 
-bool ArgsParser::parseArguments() {
+bool DBusManager::parseArguments() {
   QCommandLineParser parser;
   parser.addHelpOption();
   parser.addVersionOption();
@@ -87,22 +87,32 @@ bool ArgsParser::parseArguments() {
   return false;
 }
 
-void ArgsParser::openAppDelay() {
+void DBusManager::openAppDelay() {
   if (!app_name_.isEmpty()) {
     emit this->openAppRequested(app_name_);
   }
 }
 
-void ArgsParser::OpenApp(const QString& app_name) {
+void DBusManager::OpenApp(const QString& app_name) {
   emit this->openAppRequested(app_name);
 }
 
-void ArgsParser::Raise() {
+void DBusManager::Raise() {
   emit this->raiseRequested();
 }
 
-void ArgsParser::ShowDetail(const QString& app_name) {
+void DBusManager::ShowDetail(const QString& app_name) {
   emit this->showDetailRequested(app_name);
+}
+
+AppMetadata DBusManager::GetAppMetadata(const QString& app_name) {
+  Q_UNUSED(app_name);
+  return AppMetadata();
+}
+
+QString DBusManager::GetAppIcon(const QString& app_name) {
+  qDebug() << Q_FUNC_INFO << app_name;
+  return QString();
 }
 
 }  // namespace dstore

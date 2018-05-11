@@ -20,8 +20,8 @@
 #include <QThread>
 
 #include "dbus/dbus_consts.h"
-#include "dbus/dbusvariant/app_version.h"
-#include "dbus/dbusvariant/installed_app_info.h"
+#include "dbus/dbus_variant/app_version.h"
+#include "dbus/dbus_variant/installed_app_info.h"
 #include "dbus/lastore_deb_interface.h"
 #include "dbus/lastore_job_interface.h"
 #include "services/apt_util_worker.h"

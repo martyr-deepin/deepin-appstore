@@ -15,67 +15,57 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dbus/dbusvariant/app_version.h"
+#include "dbus/dbus_variant/installed_app_info.h"
 
 #include <QtDBus/QtDBus>
 
-AppVersion::AppVersion() {
+InstalledAppInfo::InstalledAppInfo() {
 
 }
 
-AppVersion::~AppVersion() {
+InstalledAppInfo::~InstalledAppInfo() {
 
 }
 
-void AppVersion::registerMetaType() {
-  qRegisterMetaType<AppVersion>("AppVersion");
-  qDBusRegisterMetaType<AppVersion>();
-  qRegisterMetaType<AppVersionList>("AppVersionList");
-  qDBusRegisterMetaType<AppVersionList>();
+void InstalledAppInfo::registerMetaType() {
+  qRegisterMetaType<InstalledAppInfo>("InstalledAppInfo");
+  qDBusRegisterMetaType<InstalledAppInfo>();
+  qRegisterMetaType<InstalledAppInfoList>("InstalledAppInfoList");
+  qDBusRegisterMetaType<InstalledAppInfoList>();
 }
 
-QDebug operator<<(QDebug debug, const AppVersion& info) {
+QDebug operator<<(QDebug debug, const InstalledAppInfo& info) {
   debug << info.pkg_name
-        << info.installed_version
-        << info.remote_version
-        << info.upgradable;
+        << info.version;
   return debug;
 }
 
 QDBusArgument& operator<<(QDBusArgument& argument,
-                          const AppVersion& info) {
+                          const InstalledAppInfo& info) {
   argument.beginStructure();
   argument << info.pkg_name
-           << info.installed_version
-           << info.remote_version
-           << info.upgradable;
+           << info.version;
   argument.endStructure();
   return argument;
 }
 
-QDataStream& operator<<(QDataStream& stream, const AppVersion& info) {
+QDataStream& operator<<(QDataStream& stream, const InstalledAppInfo& info) {
   stream << info.pkg_name
-         << info.installed_version
-         << info.remote_version
-         << info.upgradable;
+         << info.version;
   return stream;
 }
 
 const QDBusArgument& operator>>(const QDBusArgument& argument,
-                                AppVersion& info) {
+                                InstalledAppInfo& info) {
   argument.beginStructure();
   argument >> info.pkg_name
-           >> info.installed_version
-           >> info.remote_version
-           >> info.upgradable;
+           >> info.version;
   argument.endStructure();
   return argument;
 }
 
-const QDataStream& operator>>(QDataStream& stream, AppVersion& info) {
+const QDataStream& operator>>(QDataStream& stream, InstalledAppInfo& info) {
   stream >> info.pkg_name
-         >> info.installed_version
-         >> info.remote_version
-         >> info.upgradable;
+         >> info.version;
   return stream;
 }

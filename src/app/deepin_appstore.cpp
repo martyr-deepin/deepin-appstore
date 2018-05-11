@@ -24,7 +24,7 @@
 
 #include "base/consts.h"
 #include "resources/images.h"
-#include "services/args_parser.h"
+#include "services/dbus_manager.h"
 #include "services/rcc_scheme_handler.h"
 #include "ui/web_window.h"
 
@@ -85,8 +85,8 @@ int main(int argc, char** argv) {
   Dtk::Core::DLogManager::registerConsoleAppender();
   Dtk::Core::DLogManager::registerFileAppender();
 
-  dstore::ArgsParser parser;
-  if (parser.parseArguments()) {
+  dstore::DBusManager dbus_manager;
+  if (dbus_manager.parseArguments()) {
     // Exit process after 1000ms.
     QTimer::singleShot(1000, [&]() {
       app.quit();
@@ -96,16 +96,16 @@ int main(int argc, char** argv) {
     QCefBindApp(&app);
 
     dstore::WebWindow window;
-    QObject::connect(&parser, &dstore::ArgsParser::openAppRequested,
+    QObject::connect(&dbus_manager, &dstore::DBusManager::openAppRequested,
                      &window, &dstore::WebWindow::openApp);
-    QObject::connect(&parser, &dstore::ArgsParser::raiseRequested,
+    QObject::connect(&dbus_manager, &dstore::DBusManager::raiseRequested,
                      &window, &dstore::WebWindow::raiseWindow);
-    QObject::connect(&parser, &dstore::ArgsParser::showDetailRequested,
+    QObject::connect(&dbus_manager, &dstore::DBusManager::showDetailRequested,
                      &window, &dstore::WebWindow::showAppDetail);
 
     window.loadPage();
     window.showWindow();
-    parser.openAppDelay();
+    dbus_manager.openAppDelay();
 
     return app.exec();
   }
