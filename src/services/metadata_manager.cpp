@@ -39,7 +39,7 @@ MetadataManager::MetadataManager(QObject* parent)
       cache_dir_(GetCacheDir()) {
   this->setObjectName("MetadataManager");
 
-  CreateParentDirs(cache_dir_.absolutePath());
+  cache_dir_.mkpath(".");
 
   this->initConnections();
 }

@@ -17,9 +17,18 @@
 
 #include "services/backend/metadata_cache_worker.h"
 
+#include <QEventLoop>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+
+#include "base/file_util.h"
+
 namespace dstore {
 
-MetadataCacheWorker::MetadataCacheWorker(QObject* parent) : QObject(parent) {
+MetadataCacheWorker::MetadataCacheWorker(QObject* parent)
+    : QObject(parent),
+      network_manager_(new QNetworkAccessManager(this)) {
   this->setObjectName("MetadataCacheWorker");
 }
 
@@ -31,7 +40,19 @@ bool MetadataCacheWorker::downloadIcon(const QString& url,
                                        const QString& filepath) {
   Q_UNUSED(url);
   Q_UNUSED(filepath);
-  return false;
+
+  QEventLoop loop;
+  QNetworkRequest request;
+  request.setUrl(QUrl(url));
+  connect(network_manager_, &QNetworkAccessManager::finished,
+          &loop, &QEventLoop::quit);
+  QNetworkReply* reply = network_manager_->get(request);
+
+  loop.exec();
+
+  const QByteArray data = reply->readAll();
+
+  return WriteRawFile(filepath, data);
 }
 
 bool MetadataCacheWorker::downloadAppList(const QString& url,

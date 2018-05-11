@@ -20,6 +20,8 @@
 
 #include <QObject>
 
+class QNetworkAccessManager;
+
 namespace dstore {
 
 class MetadataCacheWorker : public QObject {
@@ -31,6 +33,9 @@ class MetadataCacheWorker : public QObject {
  public slots:
   bool downloadIcon(const QString& url, const QString& filepath);
   bool downloadAppList(const QString& url, const QString& filepath);
+
+ private:
+  QNetworkAccessManager* network_manager_ = nullptr;
 };
 
 }  // namespace dstore

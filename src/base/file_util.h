@@ -79,6 +79,8 @@ bool ReadTextFile(const QString& path, QString& content);
 // Write content to file, returns true if succeeded, or false otherwise.
 bool WriteTextFile(const QString& path, const QString& content);
 
+bool WriteRawFile(const QString& path, const QByteArray& content);
+
 }  // namespace dstore
 
 #endif  // DEEPIN_APPSTORE_BASE_FILE_UTIL_H
