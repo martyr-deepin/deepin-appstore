@@ -42,6 +42,14 @@ void AptUtilWorker::initConnections() {
 
 void AptUtilWorker::openApp(const QString& app_name) {
   // TODO(Shaohua): Convert app_name to debPackageName.
+  OpenApp(app_name);
+}
+
+void AptUtilWorker::cleanArchives() {
+  // FIXME(Shaohua): Current process has no permission to call `apt clean`.
+}
+
+void OpenApp(const QString& app_name) {
   QString output;
   if (SpawnCmd("lastore-tools", {"querydesktop", app_name}, output)) {
     const QString desktop_file = output.trimmed();
@@ -49,10 +57,6 @@ void AptUtilWorker::openApp(const QString& app_name) {
       qWarning() << Q_FUNC_INFO << "failed to launch:" << app_name;
     }
   }
-}
-
-void AptUtilWorker::cleanArchives() {
-  // FIXME(Shaohua): Current process has no permission to call `apt clean`.
 }
 
 }  // namespace dstore

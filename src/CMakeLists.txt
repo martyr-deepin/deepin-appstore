@@ -61,12 +61,16 @@ pkg_search_module(LibQCef REQUIRED libqcef)
 include_directories(${DtkWidget_INCLUDE_DIRS})
 include_directories(${LibQCef_INCLUDE_DIRS})
 
-set(LINK_LIBS
+set(Qt_LIBS
     Qt5::Core
     Qt5::DBus
     Qt5::Sql
     Qt5::Widgets
     Qt5::WebChannel
+    )
+
+set(LINK_LIBS
+    ${Qt_LIBS}
 
     ${DtkWidget_LDFLAGS}
     ${LibQCef_LDFLAGS}
@@ -96,6 +100,10 @@ set(DBUS_FILES
     dbus/app_store_dbus_adapter.h
     dbus/app_store_dbus_interface.cpp
     dbus/app_store_dbus_interface.h
+    dbus/app_store_metadata_dbus_adapter.cpp
+    dbus/app_store_metadata_dbus_adapter.h
+    dbus/app_store_metadata_dbus_proxy.cpp
+    dbus/app_store_metadata_dbus_proxy.h
     dbus/lastore_deb_interface.cpp
     dbus/lastore_deb_interface.h
     dbus/lastore_job_interface.cpp
@@ -129,6 +137,9 @@ set(SERVICES_FILES
     services/settings_manager.h
     services/store_daemon_manager.cpp
     services/store_daemon_manager.h
+
+    services/backend/metadata_cache_worker.cpp
+    services/backend/metadata_cache_worker.h
     )
 
 set(UI_FILES
@@ -204,8 +215,21 @@ if (CMAKE_BUILD_TYPE MATCHES Release)
   add_dependencies(deepin-appstore update-qm)
 endif ()
 
-install(TARGETS deepin-appstore
+add_executable(deepin-appstore-metadata
+
+               app/deepin_appstore_metadata.cpp
+
+               ${BASE_FILES}
+               ${DBUS_FILES}
+               ${SERVICES_FILES}
+               )
+target_link_libraries(deepin-appstore-metadata ${Qt_LIBS})
+
+install(TARGETS
+        deepin-appstore
+        deepin-appstore-metadata
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist
         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/)

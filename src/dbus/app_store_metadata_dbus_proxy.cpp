@@ -15,38 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
-#define DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
+#include "dbus/app_store_metadata_dbus_proxy.h"
 
-#include <QObject>
+#include "services/apt_util_worker.h"
 
 namespace dstore {
 
-class AptUtilWorker : public QObject {
-  Q_OBJECT
- public:
-  explicit AptUtilWorker(QObject* parent = nullptr);
-  ~AptUtilWorker() override;
+AppStoreMetadataDbusProxy::AppStoreMetadataDbusProxy(QObject* parent)
+    : QObject(parent) {
+  this->setObjectName("AppStoreMetadataDbusProxy");
+}
 
- signals:
-  void openAppRequest(const QString& app_name);
-  void cleanArchivesRequest();
+AppStoreMetadataDbusProxy::~AppStoreMetadataDbusProxy() {
 
- private:
-  void initConnections();
+}
 
- private slots:
-  /**
-  * Request to launch application.
-  * @param app_name
-  */
-  void openApp(const QString& app_name);
+QString AppStoreMetadataDbusProxy::GetAppIcon(const QString& app_name) {
+  Q_UNUSED(app_name);
+  return QString();
+}
 
-  void cleanArchives();
-};
+AppMetadata AppStoreMetadataDbusProxy::GetAppMetadata(const QString& app_name) {
+  Q_UNUSED(app_name);
+  return AppMetadata();
+}
 
-void OpenApp(const QString& app_name);
+void AppStoreMetadataDbusProxy::OpenApp(const QString& app_name) {
+  dstore::OpenApp(app_name);
+}
 
 }  // namespace dstore
-
-#endif  // DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H

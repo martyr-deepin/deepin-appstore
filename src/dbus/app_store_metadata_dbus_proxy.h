@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2018 Deepin Technology Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,22 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_DBUS_DBUS_CONSTS_H
-#define DEEPIN_APPSTORE_DBUS_DBUS_CONSTS_H
+#ifndef DEEPIN_APPSTORE_DBUS_APP_STORE_METADATA_DBUS_PROXY_H
+#define DEEPIN_APPSTORE_DBUS_APP_STORE_METADATA_DBUS_PROXY_H
+
+#include <QObject>
+
+#include "dbus/dbus_variant/app_metadata.h"
 
 namespace dstore {
 
-extern const char kAppStoreDbusPath[];
-extern const char kAppStoreDbusService[];
+class AppStoreMetadataDbusProxy : public QObject {
+  Q_OBJECT
+ public:
+  explicit AppStoreMetadataDbusProxy(QObject* parent = nullptr);
+  ~AppStoreMetadataDbusProxy() override;
 
-extern const char kAppStoreMetadataDbusPath[];
-extern const char kAppStoreMetadataDbusService[];
-
-extern const char kLastoreDebDbusPath[];
-extern const char kLastoreDebDbusService[];
-
-extern const char kLastoreJobService[];
+ public slots:
+  QString GetAppIcon(const QString& app_name);
+  AppMetadata GetAppMetadata(const QString& app_name);
+  void OpenApp(const QString& app_name);
+};
 
 }  // namespace dstore
 
-#endif  // DEEPIN_APPSTORE_DBUS_DBUS_CONSTS_H
+#endif  // DEEPIN_APPSTORE_DBUS_APP_STORE_METADATA_DBUS_PROXY_H

@@ -15,38 +15,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
-#define DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
+#include "services/metadata_manager.h"
 
-#include <QObject>
+#include <QThread>
+
+#include "services/backend/metadata_cache_worker.h"
 
 namespace dstore {
 
-class AptUtilWorker : public QObject {
-  Q_OBJECT
- public:
-  explicit AptUtilWorker(QObject* parent = nullptr);
-  ~AptUtilWorker() override;
+MetadataManager::MetadataManager(QObject* parent)
+    : QObject(parent),
+      cache_worker_(new MetadataCacheWorker),
+      cache_thread_(new QThread(this)) {
+  this->setObjectName("MetadataManager");
 
- signals:
-  void openAppRequest(const QString& app_name);
-  void cleanArchivesRequest();
+  cache_thread_->start();
 
- private:
-  void initConnections();
+  cache_worker_->moveToThread(cache_thread_);
 
- private slots:
-  /**
-  * Request to launch application.
-  * @param app_name
-  */
-  void openApp(const QString& app_name);
+  this->initConnections();
+}
 
-  void cleanArchives();
-};
+MetadataManager::~MetadataManager() {
+  cache_thread_->quit();
+  cache_thread_->wait(3);
+}
 
-void OpenApp(const QString& app_name);
+void MetadataManager::initConnections() {
+  connect(cache_thread_, &QThread::finished,
+          cache_worker_, &MetadataCacheWorker::deleteLater);
+}
 
 }  // namespace dstore
-
-#endif  // DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H

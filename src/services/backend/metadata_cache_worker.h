@@ -15,38 +15,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
-#define DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
+#ifndef DEEPIN_APPSTORE_SERVICES_BACKEND_METADATA_CACHE_WORKER_H
+#define DEEPIN_APPSTORE_SERVICES_BACKEND_METADATA_CACHE_WORKER_H
 
 #include <QObject>
 
 namespace dstore {
 
-class AptUtilWorker : public QObject {
+class MetadataCacheWorker : public QObject {
   Q_OBJECT
  public:
-  explicit AptUtilWorker(QObject* parent = nullptr);
-  ~AptUtilWorker() override;
+  explicit MetadataCacheWorker(QObject* parent = nullptr);
+  ~MetadataCacheWorker() override;
 
  signals:
-  void openAppRequest(const QString& app_name);
-  void cleanArchivesRequest();
+  void downloadIconRequest(const QString& url, const QString& filepath);
+  void downloadIconResponse(const QString& url, const QString& filepath);
+
+  void downloadAppListRequest(const QString& url, const QString& filepath);
+  void downloadAppListResponse(const QString& url, const QString& filepath);
 
  private:
   void initConnections();
 
  private slots:
-  /**
-  * Request to launch application.
-  * @param app_name
-  */
-  void openApp(const QString& app_name);
+  void downloadIcon(const QString& url, const QString& filepath);
 
-  void cleanArchives();
+  void downloadAppList(const QString& url, const QString& filepath);
 };
-
-void OpenApp(const QString& app_name);
 
 }  // namespace dstore
 
-#endif  // DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
+#endif  // DEEPIN_APPSTORE_SERVICES_BACKEND_METADATA_CACHE_WORKER_H

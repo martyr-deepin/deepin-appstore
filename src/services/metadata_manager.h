@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2018 Deepin Technology Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,22 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_DBUS_DBUS_CONSTS_H
-#define DEEPIN_APPSTORE_DBUS_DBUS_CONSTS_H
+#ifndef DEEPIN_APPSTORE_SERVICES_METADATA_MANAGER_H
+#define DEEPIN_APPSTORE_SERVICES_METADATA_MANAGER_H
+
+#include <QObject>
+class QThread;
 
 namespace dstore {
 
-extern const char kAppStoreDbusPath[];
-extern const char kAppStoreDbusService[];
+class MetadataCacheWorker;
 
-extern const char kAppStoreMetadataDbusPath[];
-extern const char kAppStoreMetadataDbusService[];
+// MetadataManager manages app metadata cache and app icon cache.
+// Itself works in foreground thread, any http requests are sent in background.
+class MetadataManager : public QObject {
+  Q_OBJECT
+ public:
+  explicit MetadataManager(QObject* parent = nullptr);
+  ~MetadataManager() override;
 
-extern const char kLastoreDebDbusPath[];
-extern const char kLastoreDebDbusService[];
+ private:
+  void initConnections();
 
-extern const char kLastoreJobService[];
+  MetadataCacheWorker* cache_worker_ = nullptr;
+  QThread* cache_thread_ = nullptr;
+};
 
 }  // namespace dstore
 
-#endif  // DEEPIN_APPSTORE_DBUS_DBUS_CONSTS_H
+#endif  // DEEPIN_APPSTORE_SERVICES_METADATA_MANAGER_H

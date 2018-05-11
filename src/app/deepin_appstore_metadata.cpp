@@ -15,38 +15,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
-#define DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
+#include <QCoreApplication>
+#include <QDBusConnection>
+#include <QDebug>
 
-#include <QObject>
+#include "dbus/dbus_consts.h"
+#include "dbus/app_store_metadata_dbus_adapter.h"
+#include "dbus/app_store_metadata_dbus_proxy.h"
 
-namespace dstore {
+int main(int argc, char** argv) {
+  QCoreApplication app(argc, argv);
 
-class AptUtilWorker : public QObject {
-  Q_OBJECT
- public:
-  explicit AptUtilWorker(QObject* parent = nullptr);
-  ~AptUtilWorker() override;
+  dstore::AppStoreMetadataDbusProxy proxy;
+  AppStoreMetadataDBusAdapter adapter(&proxy);
 
- signals:
-  void openAppRequest(const QString& app_name);
-  void cleanArchivesRequest();
+  QDBusConnection conn = QDBusConnection::sessionBus();
+  if (!conn.registerService(dstore::kAppStoreMetadataDbusService) ||
+      !conn.registerObject(dstore::kAppStoreMetadataDbusPath, &proxy)) {
+    qCritical() << "Failed to register dbus service";
+    return 1;
+  }
 
- private:
-  void initConnections();
-
- private slots:
-  /**
-  * Request to launch application.
-  * @param app_name
-  */
-  void openApp(const QString& app_name);
-
-  void cleanArchives();
-};
-
-void OpenApp(const QString& app_name);
-
-}  // namespace dstore
-
-#endif  // DEEPIN_APPSTORE_SERVICES_APT_UTIL_WORKER_H
+  return app.exec();
+}
