@@ -1,46 +1,66 @@
 <div class="nav">
-    <div
-        class="navItem"
-        routerLinkActive="active"
-        [routerLink]="['index']"
+  <div
+    class="navItem"
+    routerLinkActive="active"
+    [routerLink]="['index']"
+  >
+    <img
+      class="categoryIcon"
+      [attr.style]="getStyle('homepage')"
     >
-        Home
-    </div>
-    <div
-        class="navItem"
-        routerLinkActive="active"
-        [routerLink]="['ranking']"
+    Home
+  </div>
+  <div
+    class="navItem"
+    routerLinkActive="active"
+    [routerLink]="['ranking']"
+  >
+    <img
+      class="categoryIcon"
+      [attr.style]="getStyle('ranking')"
     >
-        Rankings
-    </div>
-    <div
-        class="navItem"
-        [routerLink]="['category',c.id]"
-        routerLinkActive="active"
-        *ngFor="let c of cs$|async"
+    Rankings
+  </div>
+  <div
+    class="navItem"
+    [routerLink]="['category',c.id]"
+    routerLinkActive="active"
+    *ngFor="let c of cs$|async"
+  >
+    <img
+      class="categoryIcon"
+      [attr.style]="getStyle(c.id)"
     >
-        {{c.title}}
+    {{c.title}}
+  </div>
+  <ng-container *ngIf="native">
+    <div class="hr"></div>
+    <div
+      i18n
+      class="navItem"
+      routerLinkActive="active"
+      [routerLink]="['download']"
+    >
+      <img
+        class="categoryIcon"
+        [attr.style]="getStyle('downloads')"
+      >
+      Download
     </div>
-    <ng-container *ngIf="native">
-        <div class="hr"></div>
-        <div
-            i18n
-            class="navItem"
-            routerLinkActive="active"
-            [routerLink]="['download']"
-        >
-            Download
-        </div>
-        <!-- <div i18n class="navItem" routerLinkActive="active" [routerLink]="['update']">
+    <!-- <div i18n class="navItem" routerLinkActive="active" [routerLink]="['update']">
       Update
     </div> -->
-        <div
-            i18n
-            class="navItem"
-            routerLinkActive="active"
-            [routerLink]="['uninstall']"
-        >
-            Uninstall
-        </div>
-    </ng-container>
+    <div
+      i18n
+      class="navItem"
+      routerLinkActive="active"
+      [routerLink]="['uninstall']"
+    >
+      <img
+        class="categoryIcon"
+        [attr.style]="getStyle('uninstall')"
+      >
+      Uninstall
+    </div>
+  </ng-container>
 </div>

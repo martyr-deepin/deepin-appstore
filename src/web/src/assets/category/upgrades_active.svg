@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>upgrades_active</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="upgrades_active" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M17.037,14.041 L13.037,18.01 C12.891,18.155 12.7,18.228 12.509,18.228 C12.317,18.228 12.126,18.154 11.979,18.009 L7.995,14.04 C7.702,13.748 7.701,13.273 7.993,12.979 C8.285,12.686 8.76,12.686 9.054,12.978 L12.009,15.921 L12.009,5.978 C12.009,5.701 12.232,5.478 12.509,5.478 C12.785,5.478 13.009,5.701 13.009,5.978 L13.009,15.925 L15.98,12.977 C16.275,12.684 16.749,12.687 17.041,12.98 C17.333,13.274 17.331,13.749 17.037,14.041 M12.5,2.5 C7.262,2.5 3,6.762 3,12 C3,17.238 7.262,21.501 12.5,21.501 C17.738,21.501 22,17.238 22,12 C22,6.762 17.738,2.5 12.5,2.5" id="Fill-85" fill="#2CA7F8" transform="translate(12.500000, 12.000500) scale(1, -1) translate(-12.500000, -12.000500) "></path>
+    </g>
+</svg>

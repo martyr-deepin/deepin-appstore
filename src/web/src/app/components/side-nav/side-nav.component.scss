@@ -3,19 +3,33 @@
   min-width: 130px;
   text-align: center;
   .navItem {
+    display: flex;
+    align-items: center;
+    padding-left: 1%;
     font-size: 14px;
     padding: 6px 0;
     margin-bottom: 6px;
     outline: none;
     cursor: pointer;
     border-right: 3px solid transparent;
+    .categoryIcon {
+      margin: 0 1rem;
+      height: 2rem;
+      content: var(--src);
+    }
     &.active {
       border-right: 3px solid #2ca7f8;
       background-color: #d6eefe;
       color: #2ca7f8;
+      .categoryIcon {
+        content: var(--active);
+      }
     }
     &:not(.active):hover {
       background-color: rgba(0, 0, 0, 0.1);
+      .categoryIcon {
+        filter: brightness(3) contrast(110%);
+      }
     }
   }
   .hr {
