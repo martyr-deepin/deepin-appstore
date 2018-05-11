@@ -128,7 +128,7 @@ void StoreDaemonManager::isDBusConnected() {
 }
 
 void StoreDaemonManager::cleanJob(const QString& job) {
-  LastoreJobInterface job_interface(kLastoreJobService,
+  LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
                                     QDBusConnection::sessionBus(),
                                     this);
@@ -166,7 +166,7 @@ void StoreDaemonManager::cleanJob(const QString& job) {
 }
 
 void StoreDaemonManager::pauseJob(const QString& job) {
-  LastoreJobInterface job_interface(kLastoreJobService,
+  LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
                                     QDBusConnection::sessionBus(),
                                     this);
@@ -204,7 +204,7 @@ void StoreDaemonManager::pauseJob(const QString& job) {
 }
 
 void StoreDaemonManager::startJob(const QString& job) {
-  LastoreJobInterface job_interface(kLastoreJobService,
+  LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
                                     QDBusConnection::sessionBus(),
                                     this);
@@ -490,8 +490,9 @@ void StoreDaemonManager::queryVersions(const QString& task_id,
 }
 
 void StoreDaemonManager::getJobInfo(const QString& job) {
+  qDebug() << Q_FUNC_INFO << job;
   QVariantMap result;
-  LastoreJobInterface job_interface(kLastoreJobService,
+  LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
                                     QDBusConnection::sessionBus(),
                                     this);
@@ -518,7 +519,7 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
   } else {
     emit this->getJobInfoReply(QVariantMap {
         { kResultOk, false },
-        { kResultErrName, job_interface.lastError().name() },
+        { kResultErrName, "Invalid job interface" },
         { kResultErrMsg, job_interface.lastError().message() },
         { kResult, QVariantMap {
             { kResultName, job },

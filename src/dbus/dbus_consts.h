@@ -29,7 +29,7 @@ extern const char kAppStoreMetadataDbusService[];
 extern const char kLastoreDebDbusPath[];
 extern const char kLastoreDebDbusService[];
 
-extern const char kLastoreJobService[];
+extern const char kLastoreDebJobService[];
 
 }  // namespace dstore
 

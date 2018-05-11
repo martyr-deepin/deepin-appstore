@@ -29,6 +29,6 @@ extern const char kAppStoreMetadataDbusService[] =
 const char kLastoreDebDbusPath[] = "/com/deepin/AppStore/Backend";
 const char kLastoreDebDbusService[] = "com.deepin.AppStore.Backend.Deb";
 
-const char kLastoreJobService[] = "com.deepin.AppStore.Job";
+const char kLastoreDebJobService[] = "com.deepin.AppStore.Backend.Deb";
 
 }  // namespace dstore
