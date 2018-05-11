@@ -31,6 +31,12 @@ struct AppSearchRecord {
   QString slogan;
   QString description;
   QStringList package_uris;
+
+  // Package name used in deb format.
+  QString deb;
+
+  // Package name used in flatpak format.
+  QString flatpak;
 };
 
 void RegisterAppSearchRecordMetaType();

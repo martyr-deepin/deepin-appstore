@@ -33,6 +33,9 @@ enum class DpkLinkValidationResult {
 
 DpkLinkValidationResult IsValidDpkLink(const QString& uri);
 
+QString GetDebName(const QStringList& uris);
+QString GetFlatpakName(const QStringList& uris);
+
 }  // namespace dstore
 
 #endif  // DEEPIN_APPSTORE_SERVICES_DPK_LINK_VALIDATION_H

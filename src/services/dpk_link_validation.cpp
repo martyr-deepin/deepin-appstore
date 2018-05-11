@@ -23,7 +23,7 @@ namespace dstore {
 
 namespace {
 
-const int kAppnameMaxLen = 64;
+const int kAppNameMaxLen = 64;
 
 const char kPkgDeb[] = "deb";
 const char kPkgFlatPak[] = "flatpak";
@@ -49,7 +49,7 @@ DpkLinkValidationResult IsValidDpkLink(const QString& uri) {
     return DpkLinkValidationResult::InvalidPkgType;
   }
 
-  if (parts.at(3).length() > kAppnameMaxLen) {
+  if (parts.at(3).length() > kAppNameMaxLen) {
     return DpkLinkValidationResult::AppNameTooLong;
   }
   if (parts.at(3).isEmpty()) {
@@ -57,6 +57,28 @@ DpkLinkValidationResult IsValidDpkLink(const QString& uri) {
   }
 
   return DpkLinkValidationResult::Ok;
+}
+
+QString GetDebName(const QStringList& uris) {
+  for (const QString& uri : uris) {
+    const QStringList parts = uri.split('/');
+    if (parts.length() == 4 && parts.at(2) == kPkgDeb) {
+      return parts.at(3);
+    }
+  }
+
+  return QString();
+}
+
+QString GetFlatpakName(const QStringList& uris) {
+  for (const QString& uri : uris) {
+    const QStringList parts = uri.split('/');
+    if (parts.length() == 4 && parts.at(2) == kPkgFlatPak) {
+      return parts.at(3);
+    }
+  }
+
+  return QString();
 }
 
 }  // namespace dstore

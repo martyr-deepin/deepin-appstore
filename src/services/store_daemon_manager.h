@@ -77,7 +77,18 @@ class StoreDaemonManager : public QObject {
  private:
   void initConnections();
 
+  bool hasDebPkg(const QString& app_name) const;
+  bool hasFlatPak(const QString& app_name) const;
+
+  // Maps between appName and its metadata.
   AppSearchRecordMap apps_;
+
+  // Maps between debPkgName and appName.
+  QHash<QString, QString> deb_names_;
+
+  // Maps between flatpakName and appName.
+  QHash<QString, QString> flatpak_names_;
+
   AptUtilWorker* apt_worker_ = nullptr;
   QThread* apt_worker_thread_ = nullptr;
   LastoreDebInterface* deb_interface_ = nullptr;

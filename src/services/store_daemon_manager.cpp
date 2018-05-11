@@ -25,6 +25,7 @@
 #include "dbus/lastore_deb_interface.h"
 #include "dbus/lastore_job_interface.h"
 #include "services/apt_util_worker.h"
+#include "services/dpk_link_validation.h"
 
 namespace dstore {
 
@@ -42,6 +43,8 @@ const char kResultValue[] = "value";
 StoreDaemonManager::StoreDaemonManager(QObject* parent)
     : QObject(parent),
       apps_(),
+      deb_names_(),
+      flatpak_names_(),
       apt_worker_(new AptUtilWorker()),
       apt_worker_thread_(new QThread(this)),
       deb_interface_(new LastoreDebInterface(
@@ -104,8 +107,18 @@ void StoreDaemonManager::initConnections() {
 
 void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
   apps_.clear();
+  deb_names_.clear();
+  flatpak_names_.clear();
   for (const AppSearchRecord& app : app_list) {
-    apps_.insert(app.name, app);
+    const QString& app_name = app.name;
+    apps_.insert(app_name, app);
+    const QString deb_name = GetDebName(app.package_uris);
+    const QString flatpak_name = GetFlatpakName(app.package_uris);
+    apps_[app_name].deb = deb_name;
+    apps_[app_name].flatpak = flatpak_name;
+
+    deb_names_.insert(deb_name, app_name);
+    flatpak_names_.insert(flatpak_name, app_name);
   }
 }
 
@@ -229,34 +242,56 @@ void StoreDaemonManager::startJob(const QString& job) {
 }
 
 void StoreDaemonManager::installPackage(const QString& app_name) {
-  deb_interface_->Install(app_name, app_name);
   // NOTE(Shaohua): package name is also set as job_name so that `name`
   // property in JobInfo is referred to package_name.
-  const QDBusPendingReply<QDBusObjectPath> reply =
-      deb_interface_->Install(app_name, app_name);
-  if (reply.isError()) {
+
+  if (this->hasFlatPak(app_name)) {
     emit this->installPackageReply(QVariantMap {
         { kResultOk, false },
-        { kResultErrName, reply.error().name() },
-        { kResultErrMsg, reply.error().message() },
+        { kResultErrName, "flatpak not supported" },
+        { kResultErrMsg, "flatpak not supported" },
         { kResult, QVariantMap {
             { kResultName, app_name },
         }},
     });
+  } else if (this->hasDebPkg(app_name)) {
+    const QDBusPendingReply<QDBusObjectPath> reply =
+        deb_interface_->Install(app_name, app_name);
+    if (reply.isError()) {
+      emit this->installPackageReply(QVariantMap {
+          { kResultOk, false },
+          { kResultErrName, reply.error().name() },
+          { kResultErrMsg, reply.error().message() },
+          { kResult, QVariantMap {
+              { kResultName, app_name },
+          }},
+      });
+    } else {
+      emit this->installPackageReply(QVariantMap {
+          { kResultOk, true },
+          { kResultErrName, "" },
+          { kResultErrMsg, "" },
+          { kResult, QVariantMap {
+              { kResultName, app_name },
+              { kResultValue, reply.value().path() },
+          }},
+      });
+    }
   } else {
+    qCritical() << Q_FUNC_INFO << "Invalid app: " << app_name;
     emit this->installPackageReply(QVariantMap {
-        { kResultOk, true },
-        { kResultErrName, "" },
-        { kResultErrMsg, "" },
+        { kResultOk, false },
+        { kResultErrName, "Invalid app" },
+        { kResultErrMsg, "Invalid app" },
         { kResult, QVariantMap {
             { kResultName, app_name },
-            { kResultValue, reply.value().path() },
         }},
     });
   }
 }
 
 void StoreDaemonManager::installedPackages() {
+  // TODO(Shaohua): List flatpak packages.
   const QDBusPendingReply<InstalledAppInfoList> reply =
       deb_interface_->ListInstalled();
   if (reply.isError()) {
@@ -272,8 +307,13 @@ void StoreDaemonManager::installedPackages() {
     const InstalledAppInfoList list = reply.value();
     QVariantList result;
     for (const InstalledAppInfo& info : list) {
-      if (apps_.contains(info.pkg_name)) {
-        result.append(info.toVariantMap());
+      if (deb_names_.contains(info.pkg_name)) {
+        // Convert deb package name to appName.
+        const QString& app_name = deb_names_.value(info.pkg_name);
+        result.append(QVariantMap {
+            { "name", app_name },
+            { "version", info.version },
+        });
       }
     }
 
@@ -290,26 +330,48 @@ void StoreDaemonManager::installedPackages() {
 }
 
 void StoreDaemonManager::packageDownloadSize(const QString& app_name) {
-  const QDBusPendingReply<qlonglong> reply =
-      deb_interface_->QueryDownloadSize(app_name);
-  if (reply.isError()) {
+
+  if (this->hasFlatPak(app_name)) {
     emit this->packageDownloadSizeReply(QVariantMap {
         { kResultOk, false },
-        { kResultErrName, reply.error().name() },
-        { kResultErrMsg, reply.error().message() },
+        { kResultErrName, "flatpak not supported" },
+        { kResultErrMsg, "flatpak not supported" },
         { kResult, QVariantMap {
             { kResultName, app_name },
         }},
     });
+  } else if (this->hasDebPkg(app_name)) {
+    const QDBusPendingReply<qlonglong> reply =
+        deb_interface_->QueryDownloadSize(app_name);
+    if (reply.isError()) {
+      emit this->packageDownloadSizeReply(QVariantMap {
+          { kResultOk, false },
+          { kResultErrName, reply.error().name() },
+          { kResultErrMsg, reply.error().message() },
+          { kResult, QVariantMap {
+              { kResultName, app_name },
+          }},
+      });
+    } else {
+      const qlonglong size = reply.value();
+      emit this->packageDownloadSizeReply(QVariantMap {
+          { kResultOk, true },
+          { kResultErrName, reply.error().name() },
+          { kResultErrMsg, reply.error().message() },
+          { kResult, QVariantMap {
+              { kResultName, app_name },
+              { kResultValue, size },
+          }},
+      });
+    }
   } else {
-    const qlonglong size = reply.value();
+    qCritical() << Q_FUNC_INFO << "Invalid app: " << app_name;
     emit this->packageDownloadSizeReply(QVariantMap {
-        { kResultOk, true },
-        { kResultErrName, reply.error().name() },
-        { kResultErrMsg, reply.error().message() },
+        { kResultOk, false },
+        { kResultErrName, "Invalid app" },
+        { kResultErrMsg, "Invalid app" },
         { kResult, QVariantMap {
             { kResultName, app_name },
-            { kResultValue, size },
         }},
     });
   }
@@ -320,31 +382,54 @@ void StoreDaemonManager::updatePackage(const QString& app_name) {
 }
 
 void StoreDaemonManager::removePackage(const QString& app_name) {
-  const QDBusPendingReply<QDBusObjectPath> reply =
-      deb_interface_->Remove(app_name, app_name);
-  if (reply.isError()) {
+  if (this->hasFlatPak(app_name)) {
     emit this->removePackageReply(QVariantMap {
         { kResultOk, false },
-        { kResultErrName, reply.error().name() },
-        { kResultErrMsg, reply.error().message() },
+        { kResultErrName, "flatpak not supported" },
+        { kResultErrMsg, "flatpak not supported" },
         { kResult, QVariantMap {
             { kResultName, app_name },
         }},
     });
+  } else if (this->hasDebPkg(app_name)) {
+    const QDBusPendingReply<QDBusObjectPath> reply =
+        deb_interface_->Remove(app_name, app_name);
+    if (reply.isError()) {
+      emit this->removePackageReply(QVariantMap {
+          { kResultOk, false },
+          { kResultErrName, reply.error().name() },
+          { kResultErrMsg, reply.error().message() },
+          { kResult, QVariantMap {
+              { kResultName, app_name },
+          }},
+      });
+    } else {
+      emit this->removePackageReply(QVariantMap {
+          { kResultOk, true },
+          { kResultErrName, "" },
+          { kResultErrMsg, "" },
+          { kResult, QVariantMap {
+              { kResultName, app_name },
+              { kResultValue, reply.value().path() },
+          }},
+      });
+    }
   } else {
+    qCritical() << Q_FUNC_INFO << "Invalid app: " << app_name;
     emit this->removePackageReply(QVariantMap {
-        { kResultOk, true },
-        { kResultErrName, "" },
-        { kResultErrMsg, "" },
+        { kResultOk, false },
+        { kResultErrName, "Invalid app_name" },
+        { kResultErrMsg, "Invalid app_name" },
         { kResult, QVariantMap {
             { kResultName, app_name },
-            { kResultValue, reply.value().path() },
         }},
     });
   }
 }
 
 void StoreDaemonManager::jobList() {
+  // TODO(Shaohua): List flatpak jobs.
+
   const QList<QDBusObjectPath> jobs = deb_interface_->jobList();
   QStringList paths;
   for (const QDBusObjectPath& job : jobs) {
@@ -363,8 +448,8 @@ void StoreDaemonManager::jobList() {
 
 void StoreDaemonManager::queryVersions(const QString& task_id,
                                        const QStringList& apps) {
-  // TODO(Shaohua): Remap app name to package name.
-  // Then query app version.
+  // TODO(Shaohua): remap app name.
+
   const QDBusPendingReply<AppVersionList> version_reply =
       deb_interface_->QueryVersion(apps);
 
@@ -381,7 +466,15 @@ void StoreDaemonManager::queryVersions(const QString& task_id,
     const AppVersionList version_list = version_reply.value();
     QVariantList version_vars;
     for (const AppVersion& version : version_list) {
-      version_vars.append(version.toVariantMap());
+      if (deb_names_.contains(version.pkg_name)) {
+        const QString& app_name = deb_names_.value(version.pkg_name);
+        version_vars.append(QVariantMap {
+            { "name", app_name },
+            { "localVersion", version.installed_version },
+            { "remoteVersion", version.remote_version },
+            { "upgradable", version.upgradable },
+        });
+      }
     }
 
     emit this->queryVersionsReply(QVariantMap {
@@ -432,6 +525,14 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
         }},
     });
   }
+}
+
+bool StoreDaemonManager::hasDebPkg(const QString& app_name) const {
+  return (apps_.contains(app_name) && !apps_.value(app_name).deb.isEmpty());
+}
+
+bool StoreDaemonManager::hasFlatPak(const QString& app_name) const {
+  return (apps_.contains(app_name) && !apps_.value(app_name).flatpak.isEmpty());
 }
 
 }  // namespace dstore
