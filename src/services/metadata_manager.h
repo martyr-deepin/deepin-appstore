@@ -40,7 +40,8 @@ class MetadataManager : public QObject {
 
  private:
   void initConnections();
-  void parseMetadata(const QString& index_file, const QString& metadata_file);
+  bool downloadMetadata();
+  bool parseMetadata(const QString& index_file, const QString& metadata_file);
   bool findMetadata(const QString& app_name, AppMetadata& metadata);
 
   MetadataCacheWorker* cache_worker_ = nullptr;

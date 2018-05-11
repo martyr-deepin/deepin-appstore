@@ -66,8 +66,21 @@ QString MetadataManager::getAppIcon(const QString& app_name) {
     return filepath;
   }
 
-  const QString url = "http://server-13:8000/images/vivaldi-stable-icon.svg";
-  if (cache_worker_->downloadFile(url, filepath)) {
+  if (apps_.isEmpty()) {
+    if (!this->downloadMetadata()) {
+      qCritical() << Q_FUNC_INFO << "Failed to download metadata";
+      return QString();
+    }
+  }
+
+  QString url;
+  for (const AppMetadata& app : apps_) {
+    if (app.name == app_name) {
+      url = metadata_server_ + "/" + app.icon;
+      break;
+    }
+  }
+  if (!url.isEmpty() && cache_worker_->downloadFile(url, filepath)) {
     return filepath;
   }
 
@@ -76,11 +89,17 @@ QString MetadataManager::getAppIcon(const QString& app_name) {
 
 bool MetadataManager::getAppMetadata(const QString& app_name,
                                      AppMetadata& metadata) {
-  qDebug() << Q_FUNC_INFO << app_name << metadata;
-
   if (!apps_.isEmpty()) {
     return this->findMetadata(app_name, metadata);
   }
+
+  if (this->downloadMetadata()) {
+    return this->findMetadata(app_name, metadata);
+  }
+  return false;
+}
+
+bool MetadataManager::downloadMetadata() {
 
   const QString index_file = cache_dir_.absoluteFilePath("index.json");
   QString index_url = operation_server_ + kOperationAppList;
@@ -102,25 +121,23 @@ bool MetadataManager::getAppMetadata(const QString& app_name,
   }
 
   // Now parse app index file and metadata file.
-  this->parseMetadata(index_file, metadata_file);
-  return this->findMetadata(app_name, metadata);
+  return this->parseMetadata(index_file, metadata_file);
 }
 
-void MetadataManager::parseMetadata(const QString& index_file,
+bool MetadataManager::parseMetadata(const QString& index_file,
                                     const QString& metadata_file) {
-  qDebug() << Q_FUNC_INFO << index_file << metadata_file;
   apps_.clear();
 
   QByteArray index_content;
   if (!ReadRawFile(index_file, index_content)) {
     qCritical() << Q_FUNC_INFO << "failed to read index content";
-    return;
+    return false;
   }
 
   QByteArray metadata_content;
   if (!ReadRawFile(metadata_file, metadata_content)) {
     qCritical() << Q_FUNC_INFO << "failed to read metadata content";
-    return;
+    return false;
   }
 
   QStringList index_list;
@@ -132,6 +149,8 @@ void MetadataManager::parseMetadata(const QString& index_file,
     for (const QJsonValue& app : apps_arr) {
       index_list.append(app.toString());
     }
+  } else {
+    return false;
   }
 
   QJsonDocument metadata_doc(QJsonDocument::fromJson(metadata_content));
@@ -152,18 +171,18 @@ void MetadataManager::parseMetadata(const QString& index_file,
       apps_.append(AppMetadata{name, icon, category});
     }
   } else {
-    qWarning() << "metadata doc is not an object";
+    return false;
   }
+
+  return true;
 }
 
 bool MetadataManager::findMetadata(const QString& app_name,
                                    AppMetadata& metadata) {
-  qDebug() << Q_FUNC_INFO << app_name;
   for (const AppMetadata& app : apps_) {
     // FIXME(Shaohua): Convert package name
     if (app.name == app_name) {
       metadata = app;
-      qDebug() << "app: " << app;
       return true;
     }
   }
