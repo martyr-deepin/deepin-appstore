@@ -88,20 +88,14 @@ void StoreDaemonManager::initConnections() {
   connect(this, &StoreDaemonManager::updatePackageRequest,
           this, &StoreDaemonManager::updatePackage);
 
-  connect(this, &StoreDaemonManager::packageExistsRequest,
-          this, &StoreDaemonManager::packageExists);
-  connect(this, &StoreDaemonManager::packageInstallableRequest,
-          this, &StoreDaemonManager::packageInstallable);
-
   connect(this, &StoreDaemonManager::packageDownloadSizeRequest,
           this, &StoreDaemonManager::packageDownloadSize);
 
   connect(this, &StoreDaemonManager::installedPackagesRequest,
           this, &StoreDaemonManager::installedPackages);
 
-  connect(this, &StoreDaemonManager::upgradableAppsRequest,
-          this, &StoreDaemonManager::upgradableApps);
-
+  connect(this, &StoreDaemonManager::queryVersionsRequest,
+          this, &StoreDaemonManager::queryVersions);
   connect(this, &StoreDaemonManager::jobListRequest,
           this, &StoreDaemonManager::jobList);
   connect(this, &StoreDaemonManager::getJobInfoRequest,
@@ -295,80 +289,6 @@ void StoreDaemonManager::installedPackages() {
   }
 }
 
-void StoreDaemonManager::packageExists(const QString& app_name) {
-  const QDBusPendingReply<AppVersionList> reply =
-      deb_interface_->QueryVersion({app_name});
-  if (reply.isError()) {
-    emit this->packageExistsReply(QVariantMap {
-        { kResultOk, false },
-        { kResultErrName, reply.error().name() },
-        { kResultErrMsg, reply.error().message() },
-        { kResult, QVariant() },
-    });
-  } else {
-    const AppVersionList list = reply.value();
-    if (list.size() != 1 || list.first().pkg_name != app_name) {
-      emit this->packageExistsReply(QVariantMap {
-          { kResultOk, false },
-          { kResultErrName, app_name },
-          { kResultErrMsg, "Package not found" },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-          }},
-      });
-    } else {
-      const bool installed = (!list.first().installed_version.isEmpty());
-      emit this->packageExistsReply(QVariantMap {
-        { kResultOk, true },
-        { kResultErrName, "" },
-        { kResultErrMsg, "" },
-        { kResult, QVariantMap {
-          { kResultName, app_name },
-          { kResultValue, installed },
-        }}
-      });
-    }
-  }
-}
-
-void StoreDaemonManager::packageInstallable(const QString& app_name) {
-  const QDBusPendingReply<AppVersionList> reply =
-      deb_interface_->QueryVersion({app_name});
-  if (reply.isError()) {
-    emit this->packageInstallableReply(QVariantMap {
-        { kResultOk, false },
-        { kResultErrName, reply.error().name() },
-        { kResultErrMsg, reply.error().message() },
-        { kResult, QVariantMap {
-            { kResultName, app_name },
-        }},
-    });
-  } else {
-    const AppVersionList list = reply.value();
-    if (list.size() != 1 || list.first().pkg_name != app_name) {
-      emit this->packageInstallableReply(QVariantMap {
-          { kResultOk, false },
-          { kResultErrName, app_name },
-          { kResultErrMsg, "Package not found" },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-          }},
-      });
-    } else {
-      const bool exists = (!list.first().remote_version.isEmpty());
-      emit this->packageInstallableReply(QVariantMap {
-          { kResultOk, true },
-          { kResultErrName, "" },
-          { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-              { kResultValue, exists },
-          }}
-      });
-    }
-  }
-}
-
 void StoreDaemonManager::packageDownloadSize(const QString& app_name) {
   const QDBusPendingReply<qlonglong> reply =
       deb_interface_->QueryDownloadSize(app_name);
@@ -441,60 +361,38 @@ void StoreDaemonManager::jobList() {
   });
 }
 
-void StoreDaemonManager::upgradableApps() {
-  const QDBusPendingReply<InstalledAppInfoList> reply =
-      deb_interface_->ListInstalled();
-  if (reply.isError()) {
-    emit this->upgradableAppsReply(QVariantMap {
+void StoreDaemonManager::queryVersions(const QString& task_id,
+                                       const QStringList& apps) {
+  // TODO(Shaohua): Remap app name to package name.
+  // Then query app version.
+  const QDBusPendingReply<AppVersionList> version_reply =
+      deb_interface_->QueryVersion(apps);
+
+  if (version_reply.isError()) {
+    emit this->queryVersionsReply(QVariantMap {
         { kResultOk, false },
-        { kResultErrName, reply.error().name() },
-        { kResultErrMsg, reply.error().message() },
+        { kResultErrName, version_reply.error().name() },
+        { kResultErrMsg, version_reply.error().message() },
         { kResult, QVariantMap {
-            { kResultName, "" },
+            { kResultName, task_id },
         }},
     });
   } else {
-    const InstalledAppInfoList list = reply.value();
-    // First filter app names.
-    QStringList app_names;
-    for (const InstalledAppInfo& info : list) {
-      if (apps_.contains(info.pkg_name)) {
-        app_names.append(info.pkg_name);
-      }
+    const AppVersionList version_list = version_reply.value();
+    QVariantList version_vars;
+    for (const AppVersion& version : version_list) {
+      version_vars.append(version.toVariantMap());
     }
 
-    // Then query app version.
-    const QDBusPendingReply<AppVersionList> version_reply =
-        deb_interface_->QueryVersion(app_names);
-
-    if (version_reply.isError()) {
-      emit this->upgradableAppsReply(QVariantMap {
-          { kResultOk, false },
-          { kResultErrName, version_reply.error().name() },
-          { kResultErrMsg, version_reply.error().message() },
-          { kResult, QVariantMap {
-              { kResultName, "" },
-          }},
-      });
-    } else {
-      const AppVersionList version_list = version_reply.value();
-      QVariantList version_vars;
-      for (const AppVersion& version : version_list) {
-        if (version.upgradable) {
-          version_vars.append(version.toVariantMap());
-        }
-      }
-
-      emit this->upgradableAppsReply(QVariantMap {
-          { kResultOk, true },
-          { kResultErrName, "" },
-          { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, "" },
-              { kResultValue, version_vars },
-          }},
-      });
-    }
+    emit this->queryVersionsReply(QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResult, QVariantMap {
+            { kResultName, task_id },
+            { kResultValue, version_vars },
+        }},
+    });
   }
 }
 

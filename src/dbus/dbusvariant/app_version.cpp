@@ -36,7 +36,7 @@ void AppVersion::registerMetaType() {
 
 const QVariantMap AppVersion::toVariantMap() const {
   return QVariantMap {
-      { "pkgName", this->pkg_name },
+      { "name", this->pkg_name },
       { "installedVersion", this->installed_version },
       { "remoteVersion", this->remote_version },
       { "upgradable", this->upgradable },

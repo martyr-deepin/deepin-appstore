@@ -60,18 +60,14 @@ void StoreDaemonProxy::initConnections() {
           this, &StoreDaemonProxy::startJobReply);
   connect(manager_, &StoreDaemonManager::installPackageReply,
           this, &StoreDaemonProxy::installPackageReply);
-  connect(manager_, &StoreDaemonManager::packageExistsReply,
-          this, &StoreDaemonProxy::packageExistsReply);
-  connect(manager_, &StoreDaemonManager::packageInstallableReply,
-          this, &StoreDaemonProxy::packageInstallableReply);
   connect(manager_, &StoreDaemonManager::packageDownloadSizeReply,
           this, &StoreDaemonProxy::packageDownloadSizeReply);
   connect(manager_, &StoreDaemonManager::updatePackageReply,
           this, &StoreDaemonProxy::updatePackageReply);
   connect(manager_, &StoreDaemonManager::removePackageReply,
           this, &StoreDaemonProxy::removePackageReply);
-  connect(manager_, &StoreDaemonManager::upgradableAppsReply,
-          this, &StoreDaemonProxy::upgradableAppsReply);
+  connect(manager_, &StoreDaemonManager::queryVersionsReply,
+          this, &StoreDaemonProxy::queryVersionsReply);
 
 
   connect(manager_, &StoreDaemonManager::installedPackagesReply,
@@ -106,14 +102,6 @@ void StoreDaemonProxy::installedPackages() {
   emit manager_->installedPackagesRequest();
 }
 
-void StoreDaemonProxy::packageExists(const QString& app_name) {
-  emit manager_->packageExistsRequest(app_name);
-}
-
-void StoreDaemonProxy::packageInstallable(const QString& app_name) {
-  emit manager_->packageInstallableRequest(app_name);
-}
-
 void StoreDaemonProxy::packageDownloadSize(const QString& app_name) {
   emit manager_->packageDownloadSizeRequest(app_name);
 }
@@ -134,8 +122,9 @@ void StoreDaemonProxy::removePackage(const QString& app_name) {
   emit manager_->removePackageRequest(app_name);
 }
 
-void StoreDaemonProxy::upgradableApps() {
-  emit manager_->upgradableAppsRequest();
+void StoreDaemonProxy::queryVersions(const QString& task_id,
+                                     const QStringList& apps) {
+  emit manager_->queryVersionsRequest(task_id, apps);
 }
 
 void StoreDaemonProxy::jobList() {

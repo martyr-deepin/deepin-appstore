@@ -44,14 +44,12 @@ class StoreDaemonManager : public QObject {
   void pauseJobRequest(const QString& job);
   void startJobRequest(const QString& job);
   void installPackageRequest(const QString& app_name);
-  void packageExistsRequest(const QString& app_name);
-  void packageInstallableRequest(const QString& app_name);
   void packageDownloadSizeRequest(const QString& app_name);
   void updatePackageRequest(const QString& app_name);
   void removePackageRequest(const QString& app_name);
-  void upgradableAppsRequest();
   void installedPackagesRequest();
 
+  void queryVersionsRequest(const QString& task_id, const QStringList& apps);
   void jobListRequest();
   void getJobInfoRequest(const QString& job);
 
@@ -64,13 +62,12 @@ class StoreDaemonManager : public QObject {
   void pauseJobReply(const QVariantMap& result);
   void startJobReply(const QVariantMap& result);
   void installPackageReply(const QVariantMap& result);
-  void packageExistsReply(const QVariantMap& result);
-  void packageInstallableReply(const QVariantMap& result);
   void packageDownloadSizeReply(const QVariantMap& result);
   void updatePackageReply(const QVariantMap& result);
   void removePackageReply(const QVariantMap& result);
+
+  void queryVersionsReply(const QVariantMap& result);
   void jobListReply(const QVariantMap& result);
-  void upgradableAppsReply(const QVariantMap& result);
   void installedPackagesReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
@@ -118,18 +115,6 @@ class StoreDaemonManager : public QObject {
   void installedPackages();
 
   /**
-   * Check whether this package is already installed into system.
-   * @param app_name
-   */
-  void packageExists(const QString& app_name);
-
-  /**
-   * Check whether a specific package exists in APT store
-   * @param app_name
-   */
-  void packageInstallable(const QString& app_name);
-
-  /**
    * Get deb package size
    * @param app_name
    */
@@ -148,13 +133,13 @@ class StoreDaemonManager : public QObject {
    */
   void removePackage(const QString& app_name);
 
+  void queryVersions(const QString& task_id, const QStringList& apps);
+
   /**
    * Returns all of jobs existing in backend.
    * @return stringList
    */
   void jobList();
-
-  void upgradableApps();
 
   /**
    * Get temporary job info.

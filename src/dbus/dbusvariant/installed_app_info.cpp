@@ -36,7 +36,7 @@ void InstalledAppInfo::registerMetaType() {
 
 const QVariantMap InstalledAppInfo::toVariantMap() const {
   return QVariantMap {
-      { "pkgName", this->pkg_name },
+      { "name", this->pkg_name },
       { "version", this->version },
   };
 }

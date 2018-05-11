@@ -40,8 +40,6 @@ class StoreDaemonProxy : public QObject {
   void pauseJobReply(const QVariantMap& result);
   void startJobReply(const QVariantMap& result);
   void installPackageReply(const QVariantMap& result);
-  void packageExistsReply(const QVariantMap& result);
-  void packageInstallableReply(const QVariantMap& result);
   void packageDownloadSizeReply(const QVariantMap& result);
   void updatePackageReply(const QVariantMap& result);
   void removePackageReply(const QVariantMap& result);
@@ -49,6 +47,7 @@ class StoreDaemonProxy : public QObject {
 
   void installedPackagesReply(const QVariantMap& result);
 
+  void queryVersionsReply(const QVariantMap& result);
   void jobListReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
@@ -97,18 +96,6 @@ class StoreDaemonProxy : public QObject {
   void installedPackages();
 
   /**
-   * Check whether this package is already installed into system.
-   * @param app_name
-   */
-  void packageExists(const QString& app_name);
-
-  /**
-   * Check whether a specific package exists in APT store
-   * @param app_name
-   */
-  void packageInstallable(const QString& app_name);
-
-  /**
    * Get deb package size
    * @param app_name
    */
@@ -128,16 +115,16 @@ class StoreDaemonProxy : public QObject {
   void removePackage(const QString& app_name);
 
   /**
+   * Query application version information.
+   * @param apps
+   */
+  void queryVersions(const QString& task_id, const QStringList& apps);
+
+  /**
    * Returns all of jobs existing in backend.
    * @return stringList
    */
   void jobList();
-
-  /**
-   * Get a list of upgradable applications.
-   * @return stringList
-   */
-  void upgradableApps();
 
   /**
    * Get temporary job info.
