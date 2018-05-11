@@ -36,11 +36,8 @@ MetadataCacheWorker::~MetadataCacheWorker() {
 
 }
 
-bool MetadataCacheWorker::downloadIcon(const QString& url,
+bool MetadataCacheWorker::downloadFile(const QString& url,
                                        const QString& filepath) {
-  Q_UNUSED(url);
-  Q_UNUSED(filepath);
-
   QEventLoop loop;
   QNetworkRequest request;
   request.setUrl(QUrl(url));
@@ -53,13 +50,6 @@ bool MetadataCacheWorker::downloadIcon(const QString& url,
   const QByteArray data = reply->readAll();
 
   return WriteRawFile(filepath, data);
-}
-
-bool MetadataCacheWorker::downloadAppList(const QString& url,
-                                          const QString& filepath) {
-  Q_UNUSED(url);
-  Q_UNUSED(filepath);
-  return false;
 }
 
 }  // namespace dstore

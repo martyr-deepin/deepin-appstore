@@ -27,7 +27,7 @@ AppStoreMetadataDbusProxy::AppStoreMetadataDbusProxy(QObject* parent)
       manager_(new MetadataManager(this)) {
   this->setObjectName("AppStoreMetadataDbusProxy");
 
-  this->initConnections();
+  AppMetadata::registerMetaType();
 }
 
 AppStoreMetadataDbusProxy::~AppStoreMetadataDbusProxy() {
@@ -38,15 +38,13 @@ QString AppStoreMetadataDbusProxy::GetAppIcon(const QString& app_name) {
 }
 
 AppMetadata AppStoreMetadataDbusProxy::GetAppMetadata(const QString& app_name) {
-  Q_UNUSED(app_name);
-  return AppMetadata();
+  AppMetadata metadata;
+  manager_->getAppMetadata(app_name, metadata);
+  return metadata;
 }
 
 void AppStoreMetadataDbusProxy::OpenApp(const QString& app_name) {
   dstore::OpenApp(app_name);
-}
-
-void AppStoreMetadataDbusProxy::initConnections() {
 }
 
 }  // namespace dstore

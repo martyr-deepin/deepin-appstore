@@ -32,28 +32,49 @@ void AppMetadata::registerMetaType() {
   qDBusRegisterMetaType<AppMetadata>();
 }
 
+AppMetadata& AppMetadata::operator=(const AppMetadata& other) {
+  this->name = other.name;
+  this->icon = other.icon;
+  this->category = other.category;
+  return *this;
+}
+
 QDebug operator<<(QDebug debug, const AppMetadata& info) {
-  debug << info.name;
+  debug << info.name
+        << info.icon
+        << info.category;
   return debug;
 }
 
 QDBusArgument& operator<<(QDBusArgument& argument, const AppMetadata& info) {
-  argument << info.name;
+  argument.beginStructure();
+  argument << info.name
+           << info.icon
+           << info.category;
+  argument.endStructure();
   return argument;
 }
 
 QDataStream& operator<<(QDataStream& stream, const AppMetadata& info) {
-  stream << info.name;
+  stream << info.name
+         << info.icon
+         << info.category;
   return stream;
 }
 
 const QDBusArgument& operator>>(const QDBusArgument& argument,
                                 AppMetadata& info) {
-  argument >> info.name;
+  argument.beginStructure();
+  argument >> info.name
+           >> info.icon
+           >> info.category;
+  argument.endStructure();
   return argument;
 }
 
 const QDataStream& operator>>(QDataStream& stream, AppMetadata& info) {
-  stream >> info.name;
+  stream >> info.name
+         >> info.icon
+         >> info.category;
   return stream;
 }

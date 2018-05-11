@@ -27,6 +27,12 @@
 struct AppMetadata {
  public:
   AppMetadata();
+  AppMetadata(const QString& name_,
+              const QString& icon_,
+              const QString& category_)
+      : name(name_),
+        icon(icon_),
+        category(category_) { };
   ~AppMetadata();
 
   static void registerMetaType();
@@ -34,6 +40,8 @@ struct AppMetadata {
   inline bool operator==(const AppMetadata& other) const {
     return this->name == other.name;
   }
+
+  AppMetadata& operator=(const AppMetadata& other);
 
   friend QDebug operator<<(QDebug debug, const AppMetadata& info);
   friend QDBusArgument& operator<<(QDBusArgument& argument,
@@ -46,6 +54,8 @@ struct AppMetadata {
                                        AppMetadata& info);
 
   QString name;
+  QString icon;
+  QString category;
 };
 
 Q_DECLARE_METATYPE(AppMetadata);

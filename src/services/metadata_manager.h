@@ -21,6 +21,8 @@
 #include <QDir>
 #include <QObject>
 
+#include "dbus/dbus_variant/app_metadata.h"
+
 namespace dstore {
 
 class MetadataCacheWorker;
@@ -34,12 +36,19 @@ class MetadataManager : public QObject {
   ~MetadataManager() override;
 
   QString getAppIcon(const QString& app_name);
+  bool getAppMetadata(const QString& app_name, AppMetadata& metadata);
 
  private:
   void initConnections();
+  void parseMetadata(const QString& index_file, const QString& metadata_file);
+  bool findMetadata(const QString& app_name, AppMetadata& metadata);
 
   MetadataCacheWorker* cache_worker_ = nullptr;
   QDir cache_dir_;
+  QString metadata_server_;
+  QString operation_server_;
+
+  QList<AppMetadata> apps_;
 };
 
 }  // namespace dstore

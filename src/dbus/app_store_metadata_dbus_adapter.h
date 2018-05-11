@@ -38,7 +38,7 @@ class AppStoreMetadataDBusAdapter: public QDBusAbstractAdaptor
 "    </method>\n"
 "    <method name=\"GetAppMetadata\">\n"
 "      <arg direction=\"in\" type=\"s\"/>\n"
-"      <arg direction=\"out\" type=\"a(ssss)\"/>\n"
+"      <arg direction=\"out\" type=\"a(sss)\"/>\n"
 "      <annotation value=\"AppMetadata\" name=\"org.qtproject.QtDBus.QtTypeName.Out0\"/>\n"
 "    </method>\n"
 "    <method name=\"GetAppIcon\">\n"

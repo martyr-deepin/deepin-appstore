@@ -38,8 +38,6 @@ class AppStoreMetadataDbusProxy : public QObject {
   void OpenApp(const QString& app_name);
 
  private:
-  void initConnections();
-
   MetadataManager* manager_ = nullptr;
 };
 

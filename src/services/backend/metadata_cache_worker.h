@@ -31,8 +31,7 @@ class MetadataCacheWorker : public QObject {
   ~MetadataCacheWorker() override;
 
  public slots:
-  bool downloadIcon(const QString& url, const QString& filepath);
-  bool downloadAppList(const QString& url, const QString& filepath);
+  bool downloadFile(const QString& url, const QString& filepath);
 
  private:
   QNetworkAccessManager* network_manager_ = nullptr;

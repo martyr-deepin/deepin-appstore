@@ -5,7 +5,7 @@
 
     <method name="GetAppMetadata">
         <arg direction="in" type="s"/>
-        <arg direction="out" type="a(ssss)"/>
+        <arg direction="out" type="a(sss)"/>
         <annotation name="org.qtproject.QtDBus.QtTypeName.Out0"
                     value="AppMetadata"/>
     </method>
