@@ -36,9 +36,7 @@ export class SearchComponent implements OnInit {
           .getAll('apps')
           .map(apps => apps.split(','))
           .reduce((a, b) => [...a, ...b]);
-        return this.appService
-          .list()
-          .pipe(map(apps => apps.filter(app => appNameList.includes(app.name))));
+        return this.appService.getApps(appNameList);
       }),
     );
   }

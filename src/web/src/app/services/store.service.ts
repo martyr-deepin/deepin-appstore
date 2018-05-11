@@ -1,11 +1,11 @@
-import { Injectable, NgZone } from '@angular/core';
-import { AppService } from './app.service';
+import { Injectable, NgZone, Version } from '@angular/core';
 import { Channel } from '../utils/channel';
 import { Observable, forkJoin, of } from 'rxjs';
 import { flatMap, map, filter, take } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from './store-job-info';
+import { AppVersion } from './app-version';
 
 interface SignalObject {
   connect: (any) => {};
@@ -14,7 +14,7 @@ interface SignalObject {
 
 @Injectable()
 export class StoreService {
-  constructor(private appService: AppService, private zone: NgZone) {}
+  constructor(private zone: NgZone) {}
   /**
    * Check connectivity to backend lastore daemon.
    * @returns {Observable<boolean>} If returns false, all methods in this class will not work.
@@ -95,6 +95,10 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.upgradableApps');
   }
 
+  getVersion(appNameList: string[]): Observable<AppVersion[]> {
+    return this.execWithCallback('storeDaemon.queryVersions', appNameList.toString(), appNameList);
+  }
+
   getJobInfo(jobPath: string): Observable<StoreJobInfo> {
     return this.execWithCallback('storeDaemon.getJobInfo', jobPath);
   }
@@ -127,7 +131,9 @@ export class StoreService {
       return Channel.execWithCallback(
         (storeResp: StoreResponse) => {
           if (!storeResp.ok) {
-            throw storeResp;
+            console.error('store error', storeResp);
+          } else {
+            console.warn('store resp', storeResp);
           }
           this.zone.run(() => obs.next(storeResp));
         },

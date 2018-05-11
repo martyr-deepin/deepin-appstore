@@ -36,16 +36,11 @@ export class CategoryComponent implements OnInit {
       tap(category => {
         console.log('category', category);
         // 切换分类重赋值apps，以展现加载动画
-        this.apps$ = this.appService
-          .list()
-          .pipe(
-            map(
-              apps =>
-                category.apps
-                  ? apps.filter(app => category.apps.includes(app.name))
-                  : apps.filter(app => app.category === category.id),
-            ),
-          );
+        if (category.apps) {
+          this.apps$ = this.appService.getApps(category.apps);
+        } else {
+          this.apps$ = this.appService.getAppListByCategory(category.id);
+        }
       }),
       map(category => category.title),
     );

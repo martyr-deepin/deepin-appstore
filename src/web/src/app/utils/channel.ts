@@ -59,6 +59,7 @@ export class Channel {
       const [objectName, methodName] = method.split('.');
       try {
         const signalName = method + 'Reply';
+        console.log('method', method, 'signal', signalName);
         Channel.registerCallback(signalName, callback);
         channel['objects'][objectName][methodName](...args);
         return Channel.unregisterCallback.bind(Channel, signalName, callback);

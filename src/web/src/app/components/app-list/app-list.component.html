@@ -34,24 +34,27 @@
         <dstore-star [rate]="$app.rate"></dstore-star>
       </div>
       <ng-template #$appControl>
-        <div
-          class="control"
-          *ngIf="getAppJob($app.name)|async as $job"
-        >
-          <ng-container [ngSwitch]="$job.status">
+        <div class="control">
+          <ng-container *ngIf="$app.version.remoteVersion">
             <button
-              *ngSwitchCase="appJobStatus.ready"
+              *ngIf="!$app.version.localVersion"
               (click)="installApp($app.name)"
             >
               安装
             </button>
             <button
-              *ngSwitchCase="appJobStatus.finish"
+              *ngIf="$app.version.localVersion && !$app.version.upgradable"
               (click)="openApp($app.name)"
             >
               打开
             </button>
-            <ng-container *ngSwitchCase="appJobStatus.running">
+            <!-- <button
+              *ngIf="$app.version.localVersion && $app.version.upgradable"
+              (click)="openApp($app.name)"
+            >
+              更新
+            </button> -->
+            <!-- <ng-container *ngSwitchCase="appJobStatus.running">
               <svg width="2rem" height="2rem">
                 <ng-container *ngIf="$job.job.type=='download'" [ngSwitch]="true">
                   <image xlink:href="/assets/icons/pause_normal.svg" width="100%" height="100%"
@@ -66,7 +69,7 @@
                     [style.transform-origin]="'center'" [style.transform]="'rotate(-90deg)'"
                     attr.stroke-dasharray="calc( 2rem*3.14*{{$job.job.progress*2}} ) calc( 2rem * 3.14 * 2 )"></circle>
               </svg>
-            </ng-container>
+            </ng-container> -->
           </ng-container>
         </div>
       </ng-template>

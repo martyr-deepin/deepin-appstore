@@ -9,7 +9,7 @@ import { AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { CanvasUtil } from '../../utils/canvas-util';
 import { StoreService } from '../../services/store.service';
-import { AppJobStatus } from '../../services/store-job-info';
+import { AppJobStatus, StoreJobInfo } from '../../services/store-job-info';
 
 @Component({
   selector: 'app-app-detail',
@@ -27,38 +27,19 @@ export class AppDetailComponent implements OnInit {
   open = this.storeService.openApp;
 
   AppJobStatus = AppJobStatus;
-  status$: Observable<AppJobStatus>;
+  job$: Observable<StoreJobInfo>;
   size$: Observable<number>;
-  appObs: Observable<App>;
+  app$: Observable<App>;
 
   ngOnInit() {
-    this.appObs = this.route.paramMap.pipe(
+    this.app$ = this.route.paramMap.pipe(
       flatMap(param => {
         const appName = param.get('appName');
         return this.appService.getApp(appName);
       }),
     );
-
-    this.status$ = timer(0, 1000).pipe(
-      flatMap(app => this.appObs),
-      flatMap(app =>
-        forkJoin(
-          this.storeService.appInstallable(app.name),
-          this.storeService.getJobByName(app.name),
-        ),
-      ),
-      map(([exists, job]) => {
-        if (exists) {
-          return AppJobStatus.finish;
-        }
-        if (job) {
-          return AppJobStatus.running;
-        }
-        return AppJobStatus.ready;
-      }),
-      shareReplay(),
-    );
-    this.size$ = this.appObs.pipe(flatMap(app => this.storeService.appDownloadSize(app.name)));
+    this.job$ = this.app$.pipe(flatMap(app => this.storeService.getJobByName(app.name)));
+    this.size$ = this.app$.pipe(flatMap(app => this.storeService.appDownloadSize(app.name)));
   }
 
   install(appName: string) {
