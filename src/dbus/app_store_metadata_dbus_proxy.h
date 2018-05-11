@@ -24,6 +24,8 @@
 
 namespace dstore {
 
+class MetadataManager;
+
 class AppStoreMetadataDbusProxy : public QObject {
   Q_OBJECT
  public:
@@ -34,6 +36,11 @@ class AppStoreMetadataDbusProxy : public QObject {
   QString GetAppIcon(const QString& app_name);
   AppMetadata GetAppMetadata(const QString& app_name);
   void OpenApp(const QString& app_name);
+
+ private:
+  void initConnections();
+
+  MetadataManager* manager_ = nullptr;
 };
 
 }  // namespace dstore

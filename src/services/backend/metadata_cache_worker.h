@@ -28,20 +28,9 @@ class MetadataCacheWorker : public QObject {
   explicit MetadataCacheWorker(QObject* parent = nullptr);
   ~MetadataCacheWorker() override;
 
- signals:
-  void downloadIconRequest(const QString& url, const QString& filepath);
-  void downloadIconResponse(const QString& url, const QString& filepath);
-
-  void downloadAppListRequest(const QString& url, const QString& filepath);
-  void downloadAppListResponse(const QString& url, const QString& filepath);
-
- private:
-  void initConnections();
-
- private slots:
-  void downloadIcon(const QString& url, const QString& filepath);
-
-  void downloadAppList(const QString& url, const QString& filepath);
+ public slots:
+  bool downloadIcon(const QString& url, const QString& filepath);
+  bool downloadAppList(const QString& url, const QString& filepath);
 };
 
 }  // namespace dstore

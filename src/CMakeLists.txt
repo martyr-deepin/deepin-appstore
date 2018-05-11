@@ -125,6 +125,8 @@ set(SERVICES_FILES
     services/dbus_manager.h
     services/dpk_link_validation.cpp
     services/dpk_link_validation.h
+    services/metadata_manager.cpp
+    services/metadata_manager.h
     services/rcc_scheme_handler.cpp
     services/rcc_scheme_handler.h
     services/search_manager.cpp

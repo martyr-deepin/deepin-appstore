@@ -21,30 +21,24 @@ namespace dstore {
 
 MetadataCacheWorker::MetadataCacheWorker(QObject* parent) : QObject(parent) {
   this->setObjectName("MetadataCacheWorker");
-  this->initConnections();
 }
 
 MetadataCacheWorker::~MetadataCacheWorker() {
 
 }
 
-void MetadataCacheWorker::initConnections() {
-  connect(this, &MetadataCacheWorker::downloadIconRequest,
-          this, &MetadataCacheWorker::downloadIcon);
-  connect(this, &MetadataCacheWorker::downloadAppListRequest,
-          this, &MetadataCacheWorker::downloadAppList);
-}
-
-void MetadataCacheWorker::downloadIcon(const QString& url,
+bool MetadataCacheWorker::downloadIcon(const QString& url,
                                        const QString& filepath) {
   Q_UNUSED(url);
   Q_UNUSED(filepath);
+  return false;
 }
 
-void MetadataCacheWorker::downloadAppList(const QString& url,
+bool MetadataCacheWorker::downloadAppList(const QString& url,
                                           const QString& filepath) {
   Q_UNUSED(url);
   Q_UNUSED(filepath);
+  return false;
 }
 
 }  // namespace dstore

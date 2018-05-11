@@ -17,33 +17,51 @@
 
 #include "services/metadata_manager.h"
 
-#include <QThread>
+#include <QDebug>
 
+#include "base/file_util.h"
 #include "services/backend/metadata_cache_worker.h"
 
 namespace dstore {
 
+namespace {
+
+QString GetCacheDir() {
+  const char kAppCacheDir[] = ".cache/deepin/deepin-appstore-metadata";
+  return QDir::home().absoluteFilePath(kAppCacheDir);
+}
+
+}  // namespace
+
 MetadataManager::MetadataManager(QObject* parent)
     : QObject(parent),
-      cache_worker_(new MetadataCacheWorker),
-      cache_thread_(new QThread(this)) {
+      cache_worker_(new MetadataCacheWorker(this)),
+      cache_dir_(GetCacheDir()) {
   this->setObjectName("MetadataManager");
 
-  cache_thread_->start();
-
-  cache_worker_->moveToThread(cache_thread_);
+  CreateParentDirs(cache_dir_.absolutePath());
 
   this->initConnections();
 }
 
 MetadataManager::~MetadataManager() {
-  cache_thread_->quit();
-  cache_thread_->wait(3);
 }
 
 void MetadataManager::initConnections() {
-  connect(cache_thread_, &QThread::finished,
-          cache_worker_, &MetadataCacheWorker::deleteLater);
+}
+
+QString MetadataManager::getAppIcon(const QString& app_name) {
+  const QString filepath = cache_dir_.absoluteFilePath(app_name);
+  if (QFileInfo::exists(filepath)) {
+    return filepath;
+  }
+
+  const QString url = "http://server-13:8000/images/vivaldi-stable-icon.svg";
+  if (cache_worker_->downloadIcon(url, filepath)) {
+    return filepath;
+  }
+
+  return QString();
 }
 
 }  // namespace dstore

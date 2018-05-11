@@ -18,8 +18,8 @@
 #ifndef DEEPIN_APPSTORE_SERVICES_METADATA_MANAGER_H
 #define DEEPIN_APPSTORE_SERVICES_METADATA_MANAGER_H
 
+#include <QDir>
 #include <QObject>
-class QThread;
 
 namespace dstore {
 
@@ -33,11 +33,13 @@ class MetadataManager : public QObject {
   explicit MetadataManager(QObject* parent = nullptr);
   ~MetadataManager() override;
 
+  QString getAppIcon(const QString& app_name);
+
  private:
   void initConnections();
 
   MetadataCacheWorker* cache_worker_ = nullptr;
-  QThread* cache_thread_ = nullptr;
+  QDir cache_dir_;
 };
 
 }  // namespace dstore

@@ -18,21 +18,23 @@
 #include "dbus/app_store_metadata_dbus_proxy.h"
 
 #include "services/apt_util_worker.h"
+#include "services/metadata_manager.h"
 
 namespace dstore {
 
 AppStoreMetadataDbusProxy::AppStoreMetadataDbusProxy(QObject* parent)
-    : QObject(parent) {
+    : QObject(parent),
+      manager_(new MetadataManager(this)) {
   this->setObjectName("AppStoreMetadataDbusProxy");
+
+  this->initConnections();
 }
 
 AppStoreMetadataDbusProxy::~AppStoreMetadataDbusProxy() {
-
 }
 
 QString AppStoreMetadataDbusProxy::GetAppIcon(const QString& app_name) {
-  Q_UNUSED(app_name);
-  return QString();
+  return manager_->getAppIcon(app_name);
 }
 
 AppMetadata AppStoreMetadataDbusProxy::GetAppMetadata(const QString& app_name) {
@@ -42,6 +44,9 @@ AppMetadata AppStoreMetadataDbusProxy::GetAppMetadata(const QString& app_name) {
 
 void AppStoreMetadataDbusProxy::OpenApp(const QString& app_name) {
   dstore::OpenApp(app_name);
+}
+
+void AppStoreMetadataDbusProxy::initConnections() {
 }
 
 }  // namespace dstore
