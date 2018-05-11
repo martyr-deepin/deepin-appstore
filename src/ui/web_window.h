@@ -60,7 +60,6 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   bool eventFilter(QObject* watched, QEvent* event) override;
 
  public slots:
-  void openApp(const QString& app_name);
   void raiseWindow();
   void showAppDetail(const QString& app_name);
 

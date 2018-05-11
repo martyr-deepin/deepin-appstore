@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=com.deepin.AppStore.Metadata
+Exec=/usr/bin/deepin-appstore-metadata

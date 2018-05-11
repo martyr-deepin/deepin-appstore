@@ -87,32 +87,12 @@ bool DBusManager::parseArguments() {
   return false;
 }
 
-void DBusManager::openAppDelay() {
-  if (!app_name_.isEmpty()) {
-    emit this->openAppRequested(app_name_);
-  }
-}
-
-void DBusManager::OpenApp(const QString& app_name) {
-  emit this->openAppRequested(app_name);
-}
-
 void DBusManager::Raise() {
   emit this->raiseRequested();
 }
 
 void DBusManager::ShowDetail(const QString& app_name) {
   emit this->showDetailRequested(app_name);
-}
-
-AppMetadata DBusManager::GetAppMetadata(const QString& app_name) {
-  Q_UNUSED(app_name);
-  return AppMetadata();
-}
-
-QString DBusManager::GetAppIcon(const QString& app_name) {
-  qDebug() << Q_FUNC_INFO << app_name;
-  return QString();
 }
 
 }  // namespace dstore

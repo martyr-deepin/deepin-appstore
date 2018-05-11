@@ -123,6 +123,8 @@ set(SERVICES_FILES
     services/search_manager.h
     services/search_result.cpp
     services/search_result.h
+    services/session_manager.cpp
+    services/session_manager.h
     services/settings_manager.cpp
     services/settings_manager.h
     services/store_daemon_manager.cpp

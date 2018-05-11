@@ -41,6 +41,7 @@ void AptUtilWorker::initConnections() {
 }
 
 void AptUtilWorker::openApp(const QString& app_name) {
+  // TODO(Shaohua): Convert app_name to debPackageName.
   QString output;
   if (SpawnCmd("lastore-tools", {"querydesktop", app_name}, output)) {
     const QString desktop_file = output.trimmed();

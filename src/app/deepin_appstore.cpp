@@ -96,8 +96,6 @@ int main(int argc, char** argv) {
     QCefBindApp(&app);
 
     dstore::WebWindow window;
-    QObject::connect(&dbus_manager, &dstore::DBusManager::openAppRequested,
-                     &window, &dstore::WebWindow::openApp);
     QObject::connect(&dbus_manager, &dstore::DBusManager::raiseRequested,
                      &window, &dstore::WebWindow::raiseWindow);
     QObject::connect(&dbus_manager, &dstore::DBusManager::showDetailRequested,
@@ -105,7 +103,6 @@ int main(int argc, char** argv) {
 
     window.loadPage();
     window.showWindow();
-    dbus_manager.openAppDelay();
 
     return app.exec();
   }

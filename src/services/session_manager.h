@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2018 Deepin Technology Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,38 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_SERVICES_ARGS_PARSER_H
-#define DEEPIN_APPSTORE_SERVICES_ARGS_PARSER_H
+#ifndef DEEPIN_APPSTORE_SERVICES_SESSION_MANAGER_H
+#define DEEPIN_APPSTORE_SERVICES_SESSION_MANAGER_H
 
 #include <QObject>
 
-#include "dbus/dbus_variant/app_metadata.h"
-
 namespace dstore {
 
-// DBusManager implements AppStoreDBusInterface.
-// Works in background thread.
-class DBusManager : public QObject {
+// SessionManager schedule dbus tasks, parse command line arguments and
+// controls when to show main web window.
+class SessionManager : public QObject {
   Q_OBJECT
  public:
-  explicit DBusManager(QObject* parent = nullptr);
-  ~DBusManager() override;
-
-  bool parseArguments();
-
- signals:
-  void raiseRequested();
-  void showDetailRequested(const QString& app_name);
-
- public slots:
-  // Implement AppStore dbus service.
-  void Raise();
-  void ShowDetail(const QString& app_name);
-
- private:
-  QString app_name_;
+  explicit SessionManager(QObject* parent = nullptr);
+  ~SessionManager() override;
 };
 
 }  // namespace dstore
 
-#endif  // DEEPIN_APPSTORE_SERVICES_ARGS_PARSER_H
+#endif  // DEEPIN_APPSTORE_SERVICES_SESSION_MANAGER_H
