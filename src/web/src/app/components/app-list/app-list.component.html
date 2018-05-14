@@ -29,7 +29,7 @@
       </div>
       <div
         class="star"
-        *ngIf="!$appContent.Hover;else $appControl"
+        *ngIf="!$appContent.Hover || !$app.version;else $appControl"
       >
         <dstore-star [rate]="$app.rate"></dstore-star>
       </div>

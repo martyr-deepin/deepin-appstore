@@ -16,7 +16,9 @@ import { AuthService } from '../services/auth.service';
 export class MyHttpInterceptor implements HttpInterceptor {
   constructor(private materializeService: MaterializeService, private authService: AuthService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    req = req.clone({ setHeaders: { 'Access-Token': this.authService.token } });
+    if (this.authService.isLoggedIn) {
+      req = req.clone({ setHeaders: { 'Access-Token': this.authService.token } });
+    }
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse, caught) => {
         // if (err.status === 401) {

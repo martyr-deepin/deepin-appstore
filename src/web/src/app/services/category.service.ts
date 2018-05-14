@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, concat } from 'rxjs';
-import { map, share, retry, tap, shareReplay } from 'rxjs/operators';
+import { map, share, retry, tap, shareReplay, catchError } from 'rxjs/operators';
 import { throttle } from 'lodash';
 
 import { BaseService } from '../dstore/services/base.service';
@@ -14,21 +14,23 @@ export class CategoryService {
 
   list = throttle(this.getList, 1000 * 60);
   private getList(): Observable<Category[]> {
-    return concat<Category[]>(
-      this.http.get<CustomCategory[]>(`${this.server}/api/blob/category`).pipe(
-        retry(3),
-        map(ccs =>
-          ccs.filter(c => c.show).map((c, index) => ({
-            id: index.toString(),
-            title: c.name,
-            icon: c.icon.map(i => this.server + '/images/' + i),
-            apps: c.apps,
-          })),
-        ),
-      ),
-    ).pipe(
-      map(cs => (cs.length === 0 ? makeDefaultCategory() : cs)),
-      tap(() => console.log('ok')),
+    return this.http.get<CustomCategory[]>(`${this.server}/api/blob/category`).pipe(
+      retry(3),
+      map(ccs => {
+        if (ccs.length === 0) {
+          return makeDefaultCategory();
+        }
+        return ccs.filter(c => c.show).map((c, index) => ({
+          id: index.toString(),
+          title: c.name,
+          icon: c.icon.map(i => this.server + '/images/' + i),
+          apps: c.apps,
+        }));
+      }),
+      catchError(() => {
+        console.log('getList err');
+        return of(makeDefaultCategory());
+      }),
       shareReplay(),
     );
   }

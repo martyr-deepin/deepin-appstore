@@ -30,6 +30,9 @@ export class AppService {
     return this.getAppMap().pipe(map(appMap => Array.from(appMap.values())));
   }
   private getAppMap(): Observable<Map<string, App>> {
+    if (!BaseService.isNative) {
+      return this.getAppMapNoVersion();
+    }
     return this.getAppMapNoVersion().pipe(
       flatMap(appMap => {
         return this.storeService.getVersion(Array.from(appMap.keys())).pipe(
