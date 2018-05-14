@@ -38,7 +38,10 @@ export class AppDetailComponent implements OnInit {
         return this.appService.getApp(appName);
       }),
     );
-    this.job$ = this.app$.pipe(flatMap(app => this.storeService.getJobByName(app.name)));
+    this.job$ = timer(0, 1000).pipe(
+      flatMap(() => this.app$),
+      flatMap(app => this.storeService.getJobByName(app.name)),
+    );
     this.size$ = this.app$.pipe(flatMap(app => this.storeService.appDownloadSize(app.name)));
   }
 

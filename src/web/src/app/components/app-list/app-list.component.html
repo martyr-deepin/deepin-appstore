@@ -54,7 +54,10 @@
             </svg>
           </ng-container>
           <ng-template #ctlBtn>
-            <ng-container *ngIf="getAppVersion($app.name)|async as $version">
+            <ng-template
+              #$btnGroup
+              let-$version="version"
+            >
               <button
                 *ngIf="!$version.localVersion && $version.remoteVersion"
                 (click)="installApp($app.name)"
@@ -73,7 +76,13 @@
               >
                 更新
               </button>
+            </ng-template>
+            <ng-container *ngIf="getAppVersion($app.name)|async as $version;else $defaultVersion">
+              <ng-container *ngTemplateOutlet="$btnGroup; context:{version:$version}"></ng-container>
             </ng-container>
+            <ng-template #$defaultVersion>
+              <ng-container *ngTemplateOutlet="$btnGroup; context:{version:$app.version}"></ng-container>
+            </ng-template>
           </ng-template>
         </div>
       </ng-template>

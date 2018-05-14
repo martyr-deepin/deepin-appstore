@@ -31,7 +31,7 @@ export class AppService {
   }
   private getAppMap(): Observable<Map<string, App>> {
     if (!BaseService.isNative) {
-      return this.getAppMapNoVersion();
+      return this.getAppMapNoVersion().pipe(shareReplay());
     }
     return this.getAppMapNoVersion().pipe(
       flatMap(appMap => {
@@ -49,6 +49,7 @@ export class AppService {
           }),
         );
       }),
+      shareReplay(),
     );
   }
   private getAppMapNoVersion(): Observable<Map<string, App>> {
@@ -75,7 +76,6 @@ export class AppService {
         });
         return appMap;
       }),
-      shareReplay(),
     );
   }
 

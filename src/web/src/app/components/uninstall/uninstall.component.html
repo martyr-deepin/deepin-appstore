@@ -10,23 +10,27 @@
     >
     <div class="content">
       <div class="name">{{$app.localInfo.description.name}}</div>
-      <div class="time">
-        更新日期：{{$app.updateTime.toLocaleDateString()}}
-      </div>
-      <div class="version">版本：{{$app.version.localVersion}}</div>
+      <ng-container *ngIf="!$uninstall.hidden || !$progress.hidden;else $warn">
+        <div class="time">
+          更新日期：{{$app.updateTime.toLocaleDateString()}}
+        </div>
+        <div class="version">版本：{{$app.version.localVersion}}</div>
+      </ng-container>
       <div
         class="uninstall"
         #$uninstall
       >
         <button (click)="$uninstall.hidden=true">卸载</button>
       </div>
-      <div
-        class="uninstall"
-        [hidden]="!$uninstall.hidden || !$progress.hidden"
-      >
-        <button (click)="$uninstall.hidden=false">取消</button>
-        <button (click)="uninstall($app.name);$progress.hidden=false">确认</button>
-      </div>
+
+      <ng-template #$warn>
+        <div class="warn">您确定要卸载此应用吗？</div>
+        <div class="uninstall">
+          <button (click)="$uninstall.hidden=false">取消</button>
+          <button (click)="uninstall($app.name);$progress.hidden=false">确认</button>
+        </div>
+      </ng-template>
+
       <div
         class="uninstall"
         hidden

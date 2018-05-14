@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
-import { Observable, timer, of, empty, forkJoin } from 'rxjs';
+import { Observable, timer, of, empty, forkJoin, merge } from 'rxjs';
 import { map, tap, flatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
@@ -35,9 +35,11 @@ export class AppListComponent implements OnInit, OnChanges {
     return timer(0, 1000).pipe(flatMap(() => this.storeService.getJobByName(appName)));
   });
   getAppVersion = _.memoize((appName: string): Observable<AppVersion> => {
-    return timer(0, 1000)
-      .pipe(flatMap(() => this.storeService.getVersion([appName])))
-      .map(versions => versions[0]);
+    // return this.storeService.getVersion([appName]).pipe(map(vs => vs[0]));
+    return timer(0, 1000).pipe(
+      flatMap(() => this.storeService.getVersion([appName])),
+      map(vs => vs[0]),
+    );
   });
 
   openApp = this.storeService.openApp;

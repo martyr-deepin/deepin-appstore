@@ -110,8 +110,14 @@ export class StoreService {
 
   getJobByName(name: string): Observable<StoreJobInfo> {
     return this.getJobList().pipe(
-      flatMap(jobs => (jobs.length > 0 ? forkJoin(jobs.map(job => this.getJobInfo(job))) : of([]))),
-      map((jobInfoList: StoreJobInfo[]) => jobInfoList.find(info => info.name === name)),
+      flatMap(
+        jobs =>
+          jobs.length === 0
+            ? of(undefined)
+            : forkJoin(jobs.map(job => this.getJobInfo(job))).pipe(
+                map((jobInfoList: StoreJobInfo[]) => jobInfoList.find(info => info.name === name)),
+              ),
+      ),
     );
   }
 

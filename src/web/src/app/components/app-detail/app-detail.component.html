@@ -7,31 +7,27 @@
       >
       <br>
       <ng-container *ngIf="app.version">
-        <button
-          *ngIf="!app.version.localVersion;else $open"
-          (click)="install(app.name)"
-        >
-          安装
-        </button>
-        <ng-template #$open>
-          <!-- <button
-            *ngIf="app."
-            [routerLink]="['/','download']"
-          >
-            正在安装...
-          </button> -->
+        <ng-container *ngIf="job$|async as $job;else $ctlBtn">
+          <button>正在下载</button>
+        </ng-container>
+        <ng-template #$ctlBtn>
           <button
-            *ngIf="!app.version.upgradable;else $update"
-            (click)="open(app.name)"
+            *ngIf="!app.version.localVersion;else $open"
+            (click)="install(app.name)"
           >
-            打开
+            安装
           </button>
-        </ng-template>
-        <ng-template #$update>
-          <ng-container *ngIf="job$|async as $job;else $updateBtn">{{$job|json}}</ng-container>
-        </ng-template>
-        <ng-template #$updateBtn>
-          <button>更新</button>
+          <ng-template #$open>
+            <button
+              *ngIf="!app.version.upgradable;else $update"
+              (click)="open(app.name)"
+            >
+              打开
+            </button>
+          </ng-template>
+          <ng-template #$update>
+            <button>更新</button>
+          </ng-template>
         </ng-template>
       </ng-container>
     </div>
