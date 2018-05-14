@@ -9,6 +9,7 @@ import { SortOrder } from '../app-title/app-title.component';
 import { BaseService } from '../../dstore/services/base.service';
 import { StoreService } from '../../services/store.service';
 import { StoreJobInfo, AppJobInfo, AppJobStatus } from '../../services/store-job-info';
+import { AppVersion } from '../../services/app-version';
 
 @Component({
   selector: 'app-app-list',
@@ -30,25 +31,18 @@ export class AppListComponent implements OnInit, OnChanges {
   pause = _.throttle(this.storeService.pauseJob, 1000);
   cancel = _.throttle(this.storeService.clearJob, 1000);
 
-  getAppJob = _.memoize((appName: string): Observable<JobAndStatus> => {
-    return timer(0, 1000).pipe(
-      flatMap(() =>
-        forkJoin(this.storeService.appInstalled(appName), this.storeService.getJobByName(appName)),
-      ),
-      map(([exists, job]) => {
-        if (exists) {
-          return { status: this.appJobStatus.finish };
-        }
-        if (job) {
-          return { status: AppJobStatus.running, job };
-        }
-        return { status: AppJobStatus.ready };
-      }),
-    );
+  getAppJob = _.memoize((appName: string): Observable<StoreJobInfo> => {
+    return timer(0, 1000).pipe(flatMap(() => this.storeService.getJobByName(appName)));
+  });
+  getAppVersion = _.memoize((appName: string): Observable<AppVersion> => {
+    return timer(0, 1000)
+      .pipe(flatMap(() => this.storeService.getVersion([appName])))
+      .map(versions => versions[0]);
   });
 
   openApp = this.storeService.openApp;
   installApp = (appName: string) => this.storeService.installPackage(appName).subscribe();
+  updateApp = (appName: string) => this.storeService.updatePackage(appName).subscribe();
 
   ngOnInit() {}
 
@@ -75,9 +69,4 @@ export class AppListComponent implements OnInit, OnChanges {
       }),
     );
   }
-}
-
-interface JobAndStatus {
-  status: AppJobStatus;
-  jobInfo?: StoreJobInfo;
 }

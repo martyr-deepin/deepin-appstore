@@ -6,7 +6,7 @@
         [src]="metadataServer+'/'+app.icon"
       >
       <br>
-      <ng-container *ngIf="app.version?.remoteVersion">
+      <ng-container *ngIf="app.version">
         <button
           *ngIf="!app.version.localVersion;else $open"
           (click)="install(app.name)"
@@ -41,8 +41,10 @@
         <div class="desc">
           <div>Rate</div>
           <div>Category</div>
-          <div>Version</div>
-          <div>Size</div>
+          <ng-container *ngIf="app.version">
+            <div>Version</div>
+            <div>Size</div>
+          </ng-container>
           <div>Update Date</div>
           <div>Official Website</div>
           <div>Introduction</div>
@@ -55,21 +57,23 @@
             </span>
           </div>
           <div>{{app.localCategory}}</div>
-          <div>{{app.version.remoteVersion}}</div>
-          <div>
-            <ng-container>
-              <ng-container *ngIf="app.version.localVersion && !app.version.upgradable;else $size">已下载</ng-container>
-              <ng-template #$size>
-                <ng-container *ngIf="size$|async as $size; else $msg">{{$size|sizeHuman}}</ng-container>
-                <ng-template
-                  #$msg
-                  let-$size
-                >
-                  {{$size===0?'已下载':'计算中'}}
+          <ng-container *ngIf="app.version">
+            <div>{{app.version.remoteVersion}}</div>
+            <div>
+              <ng-container>
+                <ng-container *ngIf="app.version.localVersion && !app.version.upgradable;else $size">已下载</ng-container>
+                <ng-template #$size>
+                  <ng-container *ngIf="size$|async as $size; else $msg">{{$size|sizeHuman}}</ng-container>
+                  <ng-template
+                    #$msg
+                    let-$size
+                  >
+                    {{$size===0?'已下载':'计算中'}}
+                  </ng-template>
                 </ng-template>
-              </ng-template>
-            </ng-container>
-          </div>
+              </ng-container>
+            </div>
+          </ng-container>
           <div>{{app.updateTime.toLocaleDateString()}}</div>
           <div>{{app.homePage}}</div>
           <div>
@@ -97,56 +101,57 @@
     #indication
     (change)="screenshotClick('screenshot-'+$event)"
   ></dstore-indication>
+  <ng-container *ngIf="app.version">
+    <div class="hr"></div>
+    <br>
 
-  <div class="hr"></div>
-  <br>
-
-  <ng-template #tip>
-    <div class="tip">
-      <div class="tipButton">Tip</div>
-      <div>
-        <br>
-        <span class="tipList">
-          <div class="iconList">
-            <img
-              class="icon"
-              [src]="metadataServer+'/'+app.icon"
-            >
-            <img
-              class="icon"
-              [src]="metadataServer+'/'+app.icon"
-            >
-            <img
-              class="icon"
-              [src]="metadataServer+'/'+app.icon"
-            >
-            <img
-              class="icon"
-              [src]="metadataServer+'/'+app.icon"
-            >
-          </div>
-          等20人
-        </span>
-        <br>
+    <ng-template #tip>
+      <div class="tip">
+        <div class="tipButton">Tip</div>
+        <div>
+          <br>
+          <span class="tipList">
+            <div class="iconList">
+              <img
+                class="icon"
+                [src]="metadataServer+'/'+app.icon"
+              >
+              <img
+                class="icon"
+                [src]="metadataServer+'/'+app.icon"
+              >
+              <img
+                class="icon"
+                [src]="metadataServer+'/'+app.icon"
+              >
+              <img
+                class="icon"
+                [src]="metadataServer+'/'+app.icon"
+              >
+            </div>
+            等20人
+          </span>
+          <br>
+        </div>
       </div>
-    </div>
-  </ng-template>
+    </ng-template>
 
-  <app-app-comment [appName]="app.name"></app-app-comment>
+    <app-app-comment [appName]="app.name"></app-app-comment>
+    <ng-template
+      #$loading
+      let-$app
+    >
+      <app-wait *ngIf="$app===null;else $DropOff"></app-wait>
+      <ng-template #$DropOff>
+        <div class="dropOff">
+          <img
+            class="tips_bg"
+            src="/assets/tips_bg.svg"
+          >
+          <span>这款应用正在调整中，您可以返回</span>
+          <a href="javascript:history.go(-1)">上一级</a>
+        </div>
+      </ng-template>
+    </ng-template>
+  </ng-container>
 </div>
-<ng-template
-  #$loading
-  let-$app
->
-  <app-wait *ngIf="$app===null;else $DropOff"></app-wait>
-  <ng-template #$DropOff>
-    <div class="dropOff">
-      <img
-        class="tips_bg"
-        src="/assets/tips_bg.svg"
-      >
-      <span>这款应用正在调整中，您可以返回</span>
-      <a href="javascript:history.go(-1)">上一级</a>
-    </div>
-  </ng-template>
-</ng-template>

@@ -1,6 +1,6 @@
 export interface AppVersion {
   name: string;
-  installedVersion: string;
+  localVersion: string;
   remoteVersion: string;
   upgradable: boolean;
 }

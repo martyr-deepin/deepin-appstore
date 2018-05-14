@@ -86,7 +86,7 @@ export class AppService {
     return this.appMap().pipe(map(m => appNameList.filter(m.has.bind(m)).map(m.get.bind(m))));
   }
   getApp(appName: string): Observable<App> {
-    return this.appMap().pipe(map(m => m.get(appName)));
+    return this.appMap().pipe(map(m => m.get(appName)), tap(app => console.log('getApp', app)));
   }
 }
 

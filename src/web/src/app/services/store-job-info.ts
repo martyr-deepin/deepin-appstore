@@ -6,6 +6,7 @@ export class StoreJobInfo {
   speed = 0;
   progress = 0.0;
   description = '';
+  downloadSize = 0;
   packages: string[] = [];
   cancelable = false;
 }
