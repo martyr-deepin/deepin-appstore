@@ -31,7 +31,7 @@ export class CategoryComponent implements OnInit {
         const id = param.get('id');
         return this.categoryService
           .list()
-          .pipe(map(cs => find(cs, { id })), map(category => category || { id, title: id }));
+          .pipe(map(cs => find(cs, { id })), map(category => category));
       }),
       tap(category => {
         console.log('category', category);

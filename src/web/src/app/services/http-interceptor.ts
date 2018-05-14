@@ -16,11 +16,12 @@ import { AuthService } from '../services/auth.service';
 export class MyHttpInterceptor implements HttpInterceptor {
   constructor(private materializeService: MaterializeService, private authService: AuthService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    req = req.clone({ setHeaders: { 'Access-Token': this.authService.token } });
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse, caught) => {
-        if (err.status === 401) {
-          this.authService.logout();
-        }
+        // if (err.status === 401) {
+        //   this.authService.logout();
+        // }
         console.log('http interceptor error:', err);
         switch (err.status) {
           case 0:

@@ -31,21 +31,16 @@ export class RecommendService {
   }
 
   recommendSubmit(r: Recommend) {
-    return this.http.post(this.server + '/api/recommend', r).subscribe(resp => console.log(resp));
+    return this.http.post(this.server + '/api/recommend', r);
   }
 }
 
 export class Recommend {
   name = '';
-  type = 'linux';
+  type = 1;
   authorization = '';
   homePage = '';
   downloadURL = '';
   extraInfo = '';
 }
-export enum RecommendType {
-  linux = 'linux应用',
-  windows = 'windows应用',
-  webApp = 'WebApp',
-  android = 'android应用',
-}
+export const RecommendType = ['linux应用', 'windows应用', 'WebApp', 'android应用'];

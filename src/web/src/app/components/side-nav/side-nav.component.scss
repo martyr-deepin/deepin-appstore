@@ -5,15 +5,15 @@
   .navItem {
     display: flex;
     align-items: center;
-    padding-left: 1%;
-    font-size: 14px;
-    padding: 6px 0;
-    margin-bottom: 6px;
+    font-size: 12px;
+    padding: 0 1rem;
+    height: 30px;
+    margin-bottom: 10px;
     outline: none;
     cursor: pointer;
     border-right: 3px solid transparent;
     .categoryIcon {
-      margin: 0 1rem;
+      margin-right: 1rem;
       height: 2rem;
       content: var(--src);
     }
@@ -26,10 +26,7 @@
       }
     }
     &:not(.active):hover {
-      background-color: rgba(0, 0, 0, 0.1);
-      .categoryIcon {
-        filter: brightness(3) contrast(110%);
-      }
+      background-color: rgba(0, 0, 0, 0.05);
     }
   }
   .hr {

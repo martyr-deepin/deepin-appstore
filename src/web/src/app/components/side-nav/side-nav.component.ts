@@ -3,7 +3,7 @@ import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { memoize } from 'lodash';
 
-import { CategoryService } from '../../services/category.service';
+import { CategoryService, makeDefaultCategory } from '../../services/category.service';
 import { Category } from '../../services/category.service';
 import { BaseService } from '../../dstore/services/base.service';
 
@@ -15,9 +15,16 @@ import { BaseService } from '../../dstore/services/base.service';
 export class SideNavComponent implements OnInit {
   constructor(private categoryService: CategoryService, private sanitizer: DomSanitizer) {}
   native = BaseService.isNative;
+  default = makeDefaultCategory();
   cs$: Observable<Category[]>;
 
-  getStyle = memoize((id: string) => {
+  getStyle = memoize((icon: string[]) => {
+    return this.sanitizer.bypassSecurityTrustStyle(
+      `--src: url(${icon[0]});
+       --active: url(${icon[1]})`,
+    );
+  });
+  getStyleByID = memoize((id: string) => {
     return this.sanitizer.bypassSecurityTrustStyle(
       `--src: url("/assets/category/${id}.svg");
        --active: url("/assets/category/${id}_active.svg")`,

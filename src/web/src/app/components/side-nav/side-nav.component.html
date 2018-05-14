@@ -6,7 +6,7 @@
   >
     <img
       class="categoryIcon"
-      [attr.style]="getStyle('homepage')"
+      [attr.style]="getStyleByID('homepage')"
     >
     Home
   </div>
@@ -17,22 +17,38 @@
   >
     <img
       class="categoryIcon"
-      [attr.style]="getStyle('ranking')"
+      [attr.style]="getStyleByID('ranking')"
     >
     Rankings
   </div>
-  <div
-    class="navItem"
-    [routerLink]="['category',c.id]"
-    routerLinkActive="active"
-    *ngFor="let c of cs$|async"
-  >
-    <img
-      class="categoryIcon"
-      [attr.style]="getStyle(c.id)"
+  <ng-container *ngIf="cs$|async as $cs;else $default">
+    <div
+      class="navItem"
+      routerLinkActive="active"
+      *ngFor="let c of $cs"
+      [routerLink]="['category',c.id]"
     >
-    {{c.title}}
-  </div>
+      <img
+        class="categoryIcon"
+        [attr.style]="getStyle(c.icon)"
+      >
+      {{c.title}}
+    </div>
+  </ng-container>
+  <ng-template #default>
+    <div
+      *ngFor="let c of default"
+      class="navItem"
+      [routerLink]="['category',c.id]"
+      routerLinkActive="active"
+    >
+      <img
+        class="categoryIcon"
+        [attr.style]="getStyle(c.icon)"
+      >
+      {{c.title}}
+    </div>
+  </ng-template>
   <ng-container *ngIf="native">
     <div class="hr"></div>
     <div
@@ -43,7 +59,7 @@
     >
       <img
         class="categoryIcon"
-        [attr.style]="getStyle('downloads')"
+        [attr.style]="getStyleByID('downloads')"
       >
       Download
     </div>
@@ -58,7 +74,7 @@
     >
       <img
         class="categoryIcon"
-        [attr.style]="getStyle('uninstall')"
+        [attr.style]="getStyleByID('uninstall')"
       >
       Uninstall
     </div>

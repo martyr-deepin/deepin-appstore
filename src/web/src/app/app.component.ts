@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if (BaseService.isNative) {
-      this.appService.list().subscribe((apps: App[]) => {
+      this.appService.listNoVersion().subscribe((apps: App[]) => {
         const appStringList = JSON.stringify(apps);
         Channel.exec('search.updateAppList', appStringList);
       });
@@ -38,10 +38,7 @@ export class AppComponent implements OnInit {
 
     this.searchService.onOpenAppList().subscribe(result => {
       console.log('open app list', result.appNameList);
-      this.router.navigate([
-        'search',
-        { keyword: result.keyword, apps: result.appNameList },
-      ]);
+      this.router.navigate(['search', { keyword: result.keyword, apps: result.appNameList }]);
     });
   }
 }

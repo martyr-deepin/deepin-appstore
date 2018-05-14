@@ -23,11 +23,32 @@ export class AppService {
 
   list = _.throttle(this.getAppList, 1000 * 10);
   appMap = _.throttle(this.getAppMap, 1000 * 10);
-
-  private getAppList() {
+  listNoVersion(): Observable<App[]> {
+    return this.getAppMapNoVersion().pipe(map(appMap => Array.from(appMap.values())));
+  }
+  private getAppList(): Observable<App[]> {
     return this.getAppMap().pipe(map(appMap => Array.from(appMap.values())));
   }
-  private getAppMap() {
+  private getAppMap(): Observable<Map<string, App>> {
+    return this.getAppMapNoVersion().pipe(
+      flatMap(appMap => {
+        return this.storeService.getVersion(Array.from(appMap.keys())).pipe(
+          map(versionList => {
+            const versionMap = _.keyBy(versionList, 'name');
+            appMap.forEach(app => {
+              if (versionMap[app.name]) {
+                app.version = versionMap[app.name];
+              } else {
+                appMap.delete(app.name);
+              }
+            });
+            return appMap;
+          }),
+        );
+      }),
+    );
+  }
+  private getAppMapNoVersion(): Observable<Map<string, App>> {
     console.log('getList');
     interface AppStat {
       downloadCount: { appName: string; count: number }[];
@@ -37,23 +58,17 @@ export class AppService {
       flatMap(resp =>
         forkJoin(
           this.appService.getAppMapByNames(resp.apps),
-          this.storeService.getVersion(resp.apps),
           this.http.get<AppStat>(`${this.server}/api/appstat`),
         ),
       ),
-      map(([DstoreAppMap, versionList, stat]) => {
+      map(([DstoreAppMap, stat]) => {
         const downloadMap = _.keyBy(stat.downloadCount, 'appName');
         const rateMap = _.keyBy(stat.rate, 'appName');
-        const versionMap = _.keyBy(versionList, 'name');
         const appMap = DstoreAppMap as Map<string, App>;
         appMap.forEach(app => {
           app.downloads = _.get(downloadMap, [app.name, 'count'], 0);
           app.rate = _.get(rateMap, [app.name, 'rate']) / 2 || 0;
           app.ratings = _.get(rateMap, [app.name, 'count'], 0);
-          app.version = _.get(versionMap, app.name);
-          if (!app.version) {
-            appMap.delete(app.name);
-          }
         });
         return appMap;
       }),
@@ -64,10 +79,10 @@ export class AppService {
   getAppListByCategory(category: string): Observable<App[]> {
     return this.list().pipe(map(apps => apps.filter(app => app.category === category)));
   }
-  getApps(appNameList: string[]) {
-    return this.appMap().pipe(map(m => appNameList.filter(appName => m.has(appName)).map(m.get)));
+  getApps(appNameList: string[]): Observable<App[]> {
+    return this.appMap().pipe(map(m => appNameList.filter(m.has.bind(m)).map(m.get.bind(m))));
   }
-  getApp(appName: string) {
+  getApp(appName: string): Observable<App> {
     return this.appMap().pipe(map(m => m.get(appName)));
   }
 }

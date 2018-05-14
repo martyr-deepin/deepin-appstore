@@ -8,7 +8,7 @@ export class AuthService {
     this.loginService.SetLoginStatue(this.isLoggedIn);
   }
 
-  private tokenStorageKey = 'auth-token';
+  tokenStorageKey = 'auth-token';
   get isLoggedIn(): boolean {
     const logged = this.token !== null;
     this.loginService.SetLoginStatue(logged);
@@ -16,8 +16,7 @@ export class AuthService {
   }
   get token(): string {
     return (
-      sessionStorage.getItem(this.tokenStorageKey) ||
-      localStorage.getItem(this.tokenStorageKey)
+      sessionStorage.getItem(this.tokenStorageKey) || localStorage.getItem(this.tokenStorageKey)
     );
   }
 
