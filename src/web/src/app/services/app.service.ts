@@ -75,6 +75,7 @@ export class AppService {
         });
         return appMap;
       }),
+      shareReplay(),
     );
   }
 
