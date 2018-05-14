@@ -137,21 +137,22 @@
     </ng-template>
 
     <app-app-comment [appName]="app.name"></app-app-comment>
-    <ng-template
-      #$loading
-      let-$app
-    >
-      <app-wait *ngIf="$app===null;else $DropOff"></app-wait>
-      <ng-template #$DropOff>
-        <div class="dropOff">
-          <img
-            class="tips_bg"
-            src="/assets/tips_bg.svg"
-          >
-          <span>这款应用正在调整中，您可以返回</span>
-          <a href="javascript:history.go(-1)">上一级</a>
-        </div>
-      </ng-template>
-    </ng-template>
+
   </ng-container>
 </div>
+<ng-template
+  #$loading
+  let-$app
+>
+  <app-wait *ngIf="$app===null;else $DropOff"></app-wait>
+  <ng-template #$DropOff>
+    <div class="dropOff">
+      <img
+        class="tips_bg"
+        src="/assets/tips_bg.svg"
+      >
+      <span>这款应用正在调整中，您可以返回</span>
+      <a href="javascript:history.go(-1)">上一级</a>
+    </div>
+  </ng-template>
+</ng-template>
