@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  padding: 1rem 2rem;
+}
+.title {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.appItem {
+  display: flex;
+  align-items: center;
+  .content {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    .name {
+      flex: 3;
+    }
+    .time {
+      flex: 2;
+      color: gray;
+    }
+    .version {
+      flex: 2;
+      color: gray;
+    }
+    .uninstall {
+      flex: 2;
+      text-align: right;
+      justify-content: space-between;
+      button {
+        width: 5rem;
+        padding: 0.5rem 0;
+        margin: 0 0.5rem;
+      }
+    }
+  }
+}

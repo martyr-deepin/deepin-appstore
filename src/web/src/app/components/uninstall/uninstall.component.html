@@ -1,10 +1,39 @@
-<div *ngIf="a$|async as list;else p">
-  {{list|json}}
-  <p *ngFor="let app of list">
-    {{app.appName}} <span>{{app.size$|async|sizeHuman}}</span>
-  </p>
+<div *ngIf="uninstallApps$|async as $apps">
+  <div class="title">已安装{{$apps.length}}个应用</div>
+  <div
+    class="appItem"
+    *ngFor="let $app of $apps"
+  >
+    <img
+      class="icon"
+      [src]="metadataServer + '/' + $app.icon"
+    >
+    <div class="content">
+      <div class="name">{{$app.localInfo.description.name}}</div>
+      <div class="time">
+        更新日期：{{$app.updateTime.toLocaleDateString()}}
+      </div>
+      <div class="version">版本：{{$app.version.localVersion}}</div>
+      <div
+        class="uninstall"
+        #$uninstall
+      >
+        <button (click)="$uninstall.hidden=true">卸载</button>
+      </div>
+      <div
+        class="uninstall"
+        [hidden]="!$uninstall.hidden || !$progress.hidden"
+      >
+        <button (click)="$uninstall.hidden=false">取消</button>
+        <button (click)="uninstall($app.name);$progress.hidden=false">确认</button>
+      </div>
+      <div
+        class="uninstall"
+        hidden
+        #$progress
+      >
+        <button disabled>处理中</button>
+      </div>
+    </div>
+  </div>
 </div>
-
-<ng-template #p>
-    <progress>progress</progress>
-</ng-template>

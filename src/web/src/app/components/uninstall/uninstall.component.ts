@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { StoreService } from '../../services/store.service';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+
 import { StoreJobInfo } from '../../services/store-job-info';
+import { AppService, App } from '../../services/app.service';
+import { BaseService } from '../../dstore/services/base.service';
+import { timer } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-uninstall',
@@ -10,16 +16,19 @@ import { StoreJobInfo } from '../../services/store-job-info';
   styleUrls: ['./uninstall.component.scss'],
 })
 export class UninstallComponent implements OnInit {
-  constructor(private storeService: StoreService) {}
-
-  a$: Observable<any[]>;
-  j$: Observable<StoreJobInfo>;
+  constructor(private storeService: StoreService, private appService: AppService) {}
+  metadataServer = BaseService.serverHosts.metadataServer;
+  uninstallApps$: Observable<App[]>;
   ngOnInit() {
-    this.a$ = this.storeService.getUpgradableApps().map(apps => {
-      return apps.map(appName => ({
-        appName,
-        size$: this.storeService.appDownloadSize(appName),
-      }));
-    });
+    this.uninstallApps$ = timer(0, 1000).pipe(
+      flatMap(() =>
+        this.appService.list().pipe(map(apps => apps.filter(app => app.version.localVersion))),
+      ),
+    );
+  }
+  uninstall(appName: string) {
+    this.storeService
+      .removePackage(appName)
+      .subscribe(() => console.log('卸载成功'), () => console.log('卸载失败'));
   }
 }
