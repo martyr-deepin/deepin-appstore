@@ -25,10 +25,10 @@ export class AppCommentComponent implements OnInit {
   ) {
     this.operationServer = BaseService.serverHosts.operationServer;
   }
-  commentListObs: Observable<Comment[]>;
+  commentList$: Observable<Comment[]>;
 
   ngOnInit() {
-    this.commentListObs = this.commentService.list(this.appName);
+    this.commentList$ = this.commentService.list(this.appName);
   }
 
   login() {
@@ -41,7 +41,7 @@ export class AppCommentComponent implements OnInit {
 
   submitComment(content: string, rate: number) {
     this.commentService.create(this.appName, content, rate).subscribe(null, null, () => {
-      this.commentListObs = this.commentService.list(this.appName);
+      this.commentList$ = this.commentService.list(this.appName);
     });
   }
 }

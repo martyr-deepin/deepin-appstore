@@ -136,6 +136,13 @@ export class StoreService {
   getJobList(): Observable<string[]> {
     return this.execWithCallback('storeDaemon.jobList');
   }
+  getJobListInfo(): Observable<StoreJobInfo[]> {
+    return this.getJobList().pipe(
+      flatMap(
+        jobs => (jobs.length === 0 ? of([]) : forkJoin(jobs.map(job => this.getJobInfo(job)))),
+      ),
+    );
+  }
 
   execWithCallback(method: string, ...args: any[]): Observable<any> {
     const obs$ = new Observable<StoreResponse>(obs => {

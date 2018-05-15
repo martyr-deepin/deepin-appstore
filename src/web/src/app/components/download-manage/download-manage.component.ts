@@ -35,10 +35,11 @@ export class DownloadComponent implements OnInit {
       flatMap(jobs =>
         iif(
           () => jobs.length === 0,
-          of([]),
+          of([] as StoreJobInfo[]),
           forkJoin(jobs.map(job => this.storeService.getJobInfo(job))),
         ),
       ),
+      map(jobs => jobs.filter(job => job.type !== 'remove')),
       tap(console.log),
     );
   }

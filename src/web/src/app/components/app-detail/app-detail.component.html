@@ -8,7 +8,9 @@
       <br>
       <ng-container *ngIf="app.version">
         <ng-container *ngIf="job$|async as $job;else $ctlBtn">
-          <button>正在下载</button>
+          <button>
+            {{$job.type==='download'?'正在下载':'正在安装'}}
+          </button>
         </ng-container>
         <ng-template #$ctlBtn>
           <button

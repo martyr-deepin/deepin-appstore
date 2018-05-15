@@ -1,37 +1,55 @@
-<ng-container *ngIf="commentListObs|async as cs">
+<ng-container *ngIf="commentList$|async as cs">
   <div class="comment">
     <div class="title">
       <ng-container *ngIf="!isLoggedIn">
         <span>请登录后对应用进行评价</span>
-        <a href="">注册</a>
+        <a href>注册</a>
       </ng-container>
-      <span [hidden]="!isLoggedIn" class="star">
+      <span [hidden]="!isLoggedIn"
+            class="star">
         <div>您的评分</div>
-        <dstore-star #star [readonly]="false"></dstore-star>
+        <dstore-star #star
+                     [readonly]="false"></dstore-star>
         <div>{{star.rateHover||star.rate}}分</div>
       </span>
     </div>
     <div class="input-box">
-      <textarea class="input" [readonly]="!isLoggedIn" #commentContext (input)="null"></textarea>
-      <div class="loginBtn" *ngIf="!isLoggedIn;else placeholderTemplate" (click)="login()">登录</div>
+      <textarea class="input"
+                [readonly]="!isLoggedIn"
+                #commentContext
+                (input)="null"></textarea>
+      <div class="loginBtn"
+           *ngIf="!isLoggedIn;else placeholderTemplate"
+           (click)="login()">
+        登录
+      </div>
       <ng-template #placeholderTemplate>
-        <span class="placeholder" [hidden]="commentContext.value">请输入评论内容</span>
+        <span class="placeholder"
+              [hidden]="commentContext.value">
+          请输入评论内容
+        </span>
       </ng-template>
     </div>
-    <button class="submitBtn" *ngIf="isLoggedIn" [disabled]="!commentContext.value || !star.rate" (click)="submitComment(commentContext.value,star.rate*2)">提交评论</button>
+    <button class="submitBtn"
+            *ngIf="isLoggedIn"
+            [disabled]="!commentContext.value || !star.rate"
+            (click)="submitComment(commentContext.value,star.rate*2)">
+      提交评论
+    </button>
   </div>
   <div class="paging">
-    <div class="title">
-      用户评价
-    </div>
+    <div class="title">用户评价</div>
   </div>
   <div class="commentList">
-    <div class="commentItem" *ngIf="cs.length==0">
+    <div class="commentItem"
+         *ngIf="cs.length==0">
       空的列表
     </div>
-    <div class="commentItem" *ngFor="let c of cs">
+    <div class="commentItem"
+         *ngFor="let c of cs">
       <div class="head">
-        <img src="http://10.0.12.148:8000/images/rooarr-icon.svg" class="icon">
+        <img src="http://10.0.12.148:8000/images/rooarr-icon.svg"
+             class="icon">
         <span>{{c.user.name}}</span>
       </div>
       <div class="body">
@@ -41,12 +59,8 @@
         </div>
         <span>{{c.content}}</span>
       </div>
-      <div class="time">
-        {{c.createTime}}
-      </div>
-      <div class="like">
-        ({{c.likeCount}})赞
-      </div>
+      <div class="time">{{c.createTime}}</div>
+      <div class="like">({{c.likeCount}})赞</div>
     </div>
   </div>
 </ng-container>

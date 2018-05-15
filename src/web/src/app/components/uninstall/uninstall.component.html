@@ -1,43 +1,42 @@
-<div *ngIf="uninstallApps$|async as $apps">
-  <div class="title">已安装{{$apps.length}}个应用</div>
-  <div
-    class="appItem"
-    *ngFor="let $app of $apps"
-  >
-    <img
-      class="icon"
-      [src]="metadataServer + '/' + $app.icon"
-    >
-    <div class="content">
-      <div class="name">{{$app.localInfo.description.name}}</div>
-      <ng-container *ngIf="!$uninstall.hidden || !$progress.hidden;else $warn">
-        <div class="time">
-          更新日期：{{$app.updateTime.toLocaleDateString()}}
-        </div>
-        <div class="version">版本：{{$app.version.localVersion}}</div>
-      </ng-container>
-      <div
-        class="uninstall"
-        #$uninstall
-      >
-        <button (click)="$uninstall.hidden=true">卸载</button>
-      </div>
+<ng-container *ngIf="uninstallJobMap$|async as $jobMap">
+  <div *ngIf="uninstallApps$|async as $apps">
+    <div class="title">已安装{{$apps.length}}个应用</div>
+    <div class="appItem"
+         *ngFor="let $app of $apps">
+      <img class="icon"
+           [src]="metadataServer + '/' + $app.icon">
+      <div class="content">
+        <div class="name">{{$app.localInfo.description.name}}</div>
 
-      <ng-template #$warn>
-        <div class="warn">您确定要卸载此应用吗？</div>
-        <div class="uninstall">
-          <button (click)="$uninstall.hidden=false">取消</button>
-          <button (click)="uninstall($app.name);$progress.hidden=false">确认</button>
-        </div>
-      </ng-template>
+        <ng-template #$info>
+          <div class="time">
+            更新日期：{{$app.updateTime.toLocaleDateString()}}
+          </div>
+          <div class="version">版本：{{$app.version.localVersion}}</div>
+        </ng-template>
 
-      <div
-        class="uninstall"
-        hidden
-        #$progress
-      >
-        <button disabled>处理中</button>
+        <ng-container *ngIf="$jobMap.has($app.name);else $ctlBtn">
+          <ng-container *ngTemplateOutlet="$info"></ng-container>
+          <div class="uninstall">
+            <button disabled>处理中</button>
+          </div>
+        </ng-container>
+
+        <ng-template #$ctlBtn>
+          <ng-container *ngIf="$uninstall.hidden;else $info">
+            <div class="warn">您确定要卸载此应用吗？</div>
+            <div class="uninstall">
+              <button (click)="$uninstall.hidden=false">取消</button>
+              <button (click)="uninstall($app.name)">确认</button>
+            </div>
+          </ng-container>
+
+          <div class="uninstall"
+               #$uninstall>
+            <button (click)="$uninstall.hidden=true">卸载</button>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
