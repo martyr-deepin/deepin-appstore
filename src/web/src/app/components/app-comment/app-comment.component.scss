@@ -1,9 +1,11 @@
 .comment {
   font-size: 12px;
   border-radius: 4px;
+  height: 10rem;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0 1rem;
+  position: relative;
   .title {
     padding: 0.5rem 0;
     display: flex;
@@ -14,47 +16,72 @@
       align-items: baseline;
     }
   }
-  .input-box {
-    position: relative;
-    .input {
-      border: 0px;
-      outline: 0px;
-      margin: 0px;
-      height: 8em;
-      width: 100%;
-      resize: none;
-    }
-    .placeholder {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      color: gray;
-    }
-    .loginBtn {
-      position: absolute;
-      padding: 0.5rem 1.5rem;
-      border-radius: 5px;
-      top: 40%;
-      left: 50%;
-      box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-    }
+  .loginBtn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: black;
+    padding: 0.5rem 1rem;
+    background: white;
+  }
+  .input {
+    border: 0px;
+    outline: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 7rem;
+    resize: none;
+  }
+  .placeholder {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translateX(-50%) translateY(-50%);
+    color: gray;
   }
 }
-.submitBtn {
-  margin: 0.5rem 0;
-  padding: 0.2rem 1rem;
-  float: right;
-  border-radius: 3px;
-  background: white;
-  font-size: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+.submit {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  .submitBtn {
+    margin: 0.5rem 0;
+    padding: 0.2rem 1rem;
+  }
+  .submitError {
+    color: red;
+  }
 }
 
 .paging {
+  display: flex;
+  align-items: center;
   margin-top: 1rem;
   .title {
     font-size: 1.2rem;
+  }
+  .versionBtn {
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 0.3rem 0.5rem;
+    &.currentBtn {
+      border-right: none;
+    }
+    &.historyBtn {
+      border-left: none;
+    }
+    &.active {
+      background: linear-gradient(to bottom, #8ccfff, #4bb8ff);
+    }
+  }
+  .pagingBtn {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    .versionBtn {
+      margin-left: 0.5rem;
+    }
   }
 }
 .commentList {
@@ -64,8 +91,13 @@
     display: flex;
     border-radius: 3px;
     padding: 1rem;
+    height: 5rem;
     &:not(:first-child) {
       border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    &.empty {
+      justify-content: center;
+      align-items: center;
     }
     .head {
       display: flex;
@@ -77,9 +109,13 @@
       padding: 0.5rem;
       .rate {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         span {
           margin-left: 1rem;
+        }
+        .hot {
+          margin-left: 1rem;
+          content: url('/assets/comment/hot.svg');
         }
       }
     }
@@ -93,5 +129,14 @@
       color: gray;
       text-align: right;
     }
+  }
+}
+.thumbUp {
+  content: url('/assets/comment/thumbup_normal.svg');
+  &.active {
+    content: url('/assets/comment/thumbup_press.svg');
+  }
+  &:hover:not(.active) {
+    content: url('/assets/comment/thumbup_hover.svg');
   }
 }

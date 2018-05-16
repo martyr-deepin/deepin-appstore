@@ -19,30 +19,32 @@ export class MyHttpInterceptor implements HttpInterceptor {
     if (this.authService.isLoggedIn) {
       req = req.clone({ setHeaders: { 'Access-Token': this.authService.token } });
     }
-    return next.handle(req).pipe(
-      catchError((err: HttpErrorResponse, caught) => {
-        // if (err.status === 401) {
-        //   this.authService.logout();
-        // }
-        console.log('http interceptor error:', err);
-        switch (err.status) {
-          case 0:
-            this.materializeService.toastError('网络错误，请检查网络');
-            break;
-          case 401:
-            this.materializeService.toastError('登录失效，请重新登录');
-            break;
-          case 429:
-            this.materializeService.toastError('访问过于频繁，请稍后重试');
-            break;
-          case 500:
-            this.materializeService.toastError('服务器错误，请稍后重试');
-            break;
-          default:
-            throw err.error.error;
-        }
-        return of(null);
-      }),
-    );
+    return next
+      .handle(req)
+      .pipe
+      // catchError((err: HttpErrorResponse, caught) => {
+      //   // if (err.status === 401) {
+      //   //   this.authService.logout();
+      //   // }
+      //   console.log('http interceptor error:', err);
+      //   switch (err.status) {
+      //     case 0:
+      //       this.materializeService.toastError('网络错误，请检查网络');
+      //       break;
+      //     case 401:
+      //       this.materializeService.toastError('登录失效，请重新登录');
+      //       break;
+      //     case 429:
+      //       this.materializeService.toastError('访问过于频繁，请稍后重试');
+      //       break;
+      //     case 500:
+      //       this.materializeService.toastError('服务器错误，请稍后重试');
+      //       break;
+      //     default:
+      //       throw err.error.error;
+      //   }
+      //   return of(null);
+      // }),
+      ();
   }
 }

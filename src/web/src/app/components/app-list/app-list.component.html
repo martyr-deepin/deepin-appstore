@@ -1,96 +1,89 @@
-<ng-template
-  #$progress
-  let-apps
->
+<ng-template #$progress
+             let-apps>
   <app-wait *ngIf="apps===null"></app-wait>
 </ng-template>
-<div
-  class="appList"
-  *ngIf="appList$|async as $apps;else $progress"
->
-  <div
-    class="app"
-    *ngFor="let $app of $apps"
-    appHover
-    #$appContent="appHover"
-  >
-    <img
-      class="cover"
-      [src]="server+'/images/apps.com.qq.im_cover_zh-CN_863672f3.jpeg'"
-      [routerLink]="$app.name"
-    >
+<div class="appList"
+     *ngIf="appList$|async as $apps;else $progress">
+  <div class="app"
+       *ngFor="let $app of $apps"
+       appHover
+       #$appContent="appHover">
+    <img class="cover"
+         [src]="server+'/images/apps.com.qq.im_cover_zh-CN_863672f3.jpeg'"
+         [routerLink]="$app.name">
     <div class="content">
-      <div
-        class="info"
-        [routerLink]="$app.name"
-      >
+      <div class="info"
+           [routerLink]="$app.name">
         {{$app.localInfo.description.name}}
         <span class="category">{{$app.localCategory}}</span>
       </div>
-      <div
-        class="star"
-        *ngIf="!$appContent.Hover || !$app.version;else $appControl"
-      >
+      <div class="star"
+           *ngIf="!$appContent.Hover || !$app.version;else $appControl">
         <dstore-star [rate]="$app.rate"></dstore-star>
       </div>
       <ng-template #$appControl>
         <div class="control">
-          <ng-container *ngIf="getAppJob($app.name)|async as $job;else ctlBtn">
-            <svg width="2rem" height="2rem">
-              <ng-container *ngIf="$job.type=='download'" [ngSwitch]="true">
-                <image [attr.xlink:href]="'/assets/icons/pause_'+($job.cancelable?'normal':'insensitive')+'.svg'"
-                      width="100%" height="100%"
-                      *ngSwitchCase="$job.status=='running' || $job.status=='ready'" 
-                      (click)="pause($job.id)"></image>
-                <image [attr.xlink:href]="'/assets/icons/start_'+($job.cancelable?'normal':'insensitive')+'.svg'"
-                    width="100%" height="100%"  
-                    *ngSwitchCase="$job.status=='paused'" 
-                      (click)="start($job.id)"></image>
+
+          <ng-template #ctlBtn
+                       let-$job>
+            <ng-container *ngIf="getAppVersion($app.name)|async as $version">
+              <ng-container #$btnGroup
+                            *ngIf="$job!==null">
+                <button *ngIf="!$version.localVersion && $version.remoteVersion"
+                        (click)="installApp($app.name)">
+                  安装
+                </button>
+                <button *ngIf="$version.localVersion && !$version.upgradable"
+                        (click)="openApp($app.name)">
+                  打开
+                </button>
+                <button *ngIf="$version.upgradable"
+                        (click)="updateApp($app.name)">
+                  更新
+                </button>
               </ng-container>
-              <circle cx="50%" cy="50%" r="45%" stroke="black" stroke-opacity="0.05" stroke-width="3" fill="none"/>
-              <circle cx="50%" cy="50%" r="45%" stroke="#378cfa" stroke-width="3" fill="none"
-                      [style.transform-origin]="'center'" [style.transform]="'rotate(-90deg)'"
+            </ng-container>
+          </ng-template>
+
+          <ng-container *ngIf="getAppJob($app.name)|async as $job;else ctlBtn">
+            <svg width="2rem"
+                 height="2rem">
+              <ng-container *ngIf="$job.type=='download'"
+                            [ngSwitch]="true">
+                <image [attr.xlink:href]="'/assets/icons/pause_'+($job.cancelable?'normal':'insensitive')+'.svg'"
+                       width="100%"
+                       height="100%"
+                       *ngSwitchCase="$job.status=='running' || $job.status=='ready'"
+                       (click)="pause($job.id)"></image>
+                <image [attr.xlink:href]="'/assets/icons/start_'+($job.cancelable?'normal':'insensitive')+'.svg'"
+                       width="100%"
+                       height="100%"
+                       *ngSwitchCase="$job.status=='paused'"
+                       (click)="start($job.id)"></image>
+              </ng-container>
+              <circle cx="50%"
+                      cy="50%"
+                      r="45%"
+                      stroke="black"
+                      stroke-opacity="0.05"
+                      stroke-width="3"
+                      fill="none" />
+              <circle cx="50%"
+                      cy="50%"
+                      r="45%"
+                      stroke="#378cfa"
+                      stroke-width="3"
+                      fill="none"
+                      [style.transform-origin]="'center'"
+                      [style.transform]="'rotate(-90deg)'"
                       attr.stroke-dasharray="calc( 2rem*3.14*{{$job.progress*2}} ) calc( 2rem * 3.14 * 2 )"></circle>
             </svg>
           </ng-container>
-          <ng-template #ctlBtn>
-            <ng-template
-              #$btnGroup
-              let-$version="version"
-            >
-              <button
-                *ngIf="!$version.localVersion && $version.remoteVersion"
-                (click)="installApp($app.name)"
-              >
-                安装
-              </button>
-              <button
-                *ngIf="$version.localVersion && !$version.upgradable"
-                (click)="openApp($app.name)"
-              >
-                打开
-              </button>
-              <button
-                *ngIf="$version.upgradable"
-                (click)="updateApp($app.name)"
-              >
-                更新
-              </button>
-            </ng-template>
-            <ng-container *ngIf="getAppVersion($app.name)|async as $version;else $defaultVersion">
-              <ng-container *ngTemplateOutlet="$btnGroup; context:{version:$version}"></ng-container>
-            </ng-container>
-            <ng-template #$defaultVersion>
-              <ng-container *ngTemplateOutlet="$btnGroup; context:{version:$app.version}"></ng-container>
-            </ng-template>
-          </ng-template>
         </div>
       </ng-template>
     </div>
   </div>
-  <div
-    class="app"
-    [style.height]="0"
-    *ngFor="let a of [1,2,3,4,5,6]"
-  ></div>
+  <div class="app"
+       [style.height]="0"
+       *ngFor="let a of [1,2,3,4,5,6]"></div>
 </div>

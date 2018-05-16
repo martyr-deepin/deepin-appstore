@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -38,6 +39,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
 import { WaitComponent } from './components/wait/wait.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -62,9 +64,11 @@ import { WaitComponent } from './components/wait/wait.component';
     TopicComponent,
     RecommendComponent,
     WaitComponent,
+    PaginatorComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

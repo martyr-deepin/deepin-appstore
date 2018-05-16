@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+import * as _ from 'lodash';
+
 import { BaseService } from '../dstore/services/base.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CommentService {
@@ -9,38 +13,63 @@ export class CommentService {
     this.server = BaseService.serverHosts.operationServer;
   }
 
-  list(appName: string) {
-    return this.http
-      .get(`${this.server}/api/comment/app/${appName}`)
-      .map((resp: { comments: Comment[] }) => {
+  list(appName: string, query?: { [key: string]: string }) {
+    const params = Object.entries(query)
+      .map(a => `${a[0]}=${encodeURIComponent(a[1])}`)
+      .join('&');
+    return this.http.get(`${this.server}/api/comment/app/${appName}?` + params).pipe(
+      map((resp: { comments: Comment[] }) => {
         resp.comments.map(comment => (comment.rate /= 2));
-        return resp.comments;
-      });
+        resp.comments = _.sortBy(resp.comments, 'likeCount').reverse();
+        const hot = resp.comments.slice(0, 3);
+        hot.forEach(c => (c.hot = true));
+        resp.comments = _.sortBy(resp.comments.slice(3), 'createTime').reverse();
+        return [...hot, ...resp.comments];
+      }),
+    );
   }
 
-  create(appName: string, content: string, rate: number) {
+  create(appName: string, content: string, rate: number, version: string) {
     const c: Comment = {
       appName,
       content,
       rate,
-      version: '1.0',
+      version,
     };
     return this.http.post(`${this.server}/api/comment/app/${appName}`, c);
   }
 
-  own(appName) {
-    return this.http.get(`${this.server}/api/comment/app/${appName}/own`);
+  own(appName: string, version: string) {
+    return this.http
+      .get<{ comment: Comment }>(
+        `${this.server}/api/comment/app/${appName}/own?version=${encodeURIComponent(version)}`,
+      )
+      .pipe(
+        map(resp => {
+          resp.comment.rate /= 2;
+          return resp.comment;
+        }),
+      );
+  }
+  like(cid: number) {
+    return this.http.post(`${this.server}/api/comment/like/${cid}`, null);
+  }
+  dislike(cid: number) {
+    return this.http.post(`${this.server}/api/comment/dislike/${cid}`, null);
   }
 }
 
 export interface Comment {
+  id?: number;
   appName: string;
   createTime?: string;
   content: string;
   rate: number;
   version: string;
-  user?: User;
+  userID?: number;
   likeCount?: number;
+  likeByMe?: boolean;
+  hot?: boolean;
 }
 
 interface User {

@@ -1,66 +1,103 @@
-<ng-container *ngIf="commentList$|async as cs">
-  <div class="comment">
+<div class="comment">
+  <ng-container *ngIf="!isLoggedIn;else $editComment">
     <div class="title">
-      <ng-container *ngIf="!isLoggedIn">
-        <span>请登录后对应用进行评价</span>
-        <a href>注册</a>
-      </ng-container>
-      <span [hidden]="!isLoggedIn"
-            class="star">
-        <div>您的评分</div>
-        <dstore-star #star
-                     [readonly]="false"></dstore-star>
-        <div>{{star.rateHover||star.rate}}分</div>
-      </span>
+      <span>请登录后对应用进行评价</span>
+      <a href>注册</a>
     </div>
-    <div class="input-box">
-      <textarea class="input"
-                [readonly]="!isLoggedIn"
-                #commentContext
-                (input)="null"></textarea>
-      <div class="loginBtn"
-           *ngIf="!isLoggedIn;else placeholderTemplate"
-           (click)="login()">
-        登录
-      </div>
-      <ng-template #placeholderTemplate>
-        <span class="placeholder"
-              [hidden]="commentContext.value">
-          请输入评论内容
-        </span>
-      </ng-template>
-    </div>
-    <button class="submitBtn"
-            *ngIf="isLoggedIn"
-            [disabled]="!commentContext.value || !star.rate"
-            (click)="submitComment(commentContext.value,star.rate*2)">
-      提交评论
+    <button class="loginBtn"
+            (click)="login()">
+      登录
     </button>
-  </div>
+  </ng-container>
+  <ng-template #$editComment>
+    <ng-container *ngIf="own$|async as $own;else $edit">
+      <div class="title">
+        <span class="star">
+          <div>您的评分</div>
+          <dstore-star [rate]="$own.rate"></dstore-star>
+          <div>{{$own.rate}}分</div>
+        </span>
+      </div>
+      <div class="placeholder">你已发表了评价</div>
+    </ng-container>
+    <ng-template #$edit>
+      <div class="title">
+        <span class="star">
+          <div>您的评分</div>
+          <dstore-star [(rate)]="rate"
+                       #$star
+                       [readonly]="false"></dstore-star>
+          <div>{{$star.rateHover||$star.rate}}分</div>
+        </span>
+      </div>
+      <textarea class="input"
+                [(ngModel)]="content"></textarea>
+      <div class="placeholder"
+           [hidden]="content">请输入评价内容</div>
+    </ng-template>
+  </ng-template>
+</div>
+
+<div class="submit"
+     *ngIf="isLoggedIn">
+  <span class="submitError"
+        *ngIf="submitError">{{submitError}}</span>
+  <button class="submitBtn"
+          (click)="submitComment()"
+          [disabled]="own$|async"
+          #$submitBtn>
+    提交评论
+  </button>
+</div>
+<br>
+
+<ng-container *ngIf="currentList|chunk:5 as $css">
   <div class="paging">
     <div class="title">用户评价</div>
+    <div class="versionBtn currentBtn"
+         (click)="select='current'"
+         [class.active]="select==='current'">当前版本({{commentList?.length}})</div>
+    <div class="versionBtn historyBtn"
+         (click)="select='history'"
+         [class.active]="select==='history'">历史版本({{historyList?.length}})</div>
+    <div class="pagingBtn"
+         [hidden]="$css.length<=1">
+      <app-paginator [count]="$css.length"
+                     #$paginator></app-paginator>
+    </div>
   </div>
+  <br>
   <div class="commentList">
-    <div class="commentItem"
-         *ngIf="cs.length==0">
+    <div class="commentItem empty"
+         *ngIf="$css.length==0">
       空的列表
     </div>
     <div class="commentItem"
-         *ngFor="let c of cs">
-      <div class="head">
-        <img src="http://10.0.12.148:8000/images/rooarr-icon.svg"
-             class="icon">
-        <span>{{c.user.name}}</span>
-      </div>
-      <div class="body">
-        <div class="rate">
-          <dstore-star [rate]="c.rate"></dstore-star>
-          <span>{{c.rate}}分</span>
+         *ngFor="let c of $css[$paginator.pageIndex]">
+      <ng-container *ngIf="getUserInfo(c.userID)|async as $userInfo">
+        <div class="head">
+          <img [src]="$userInfo.profile_image"
+               class="icon">
+          <span>{{$userInfo.username}}</span>
         </div>
-        <span>{{c.content}}</span>
-      </div>
-      <div class="time">{{c.createTime}}</div>
-      <div class="like">({{c.likeCount}})赞</div>
+        <div class="body">
+          <div class="rate">
+            <dstore-star [rate]="c.rate"></dstore-star>
+            <span>{{c.rate}}分</span>
+            <img class="hot"
+                 *ngIf="c.hot">
+          </div>
+          <span>{{c.content}}</span>
+        </div>
+        <div class="time">{{c.createTime}}</div>
+        <div class="like">
+          <span *ngIf="c.likeCount">({{c.likeCount}})</span>
+          <img class="thumbUp"
+               [class.active]="c.likeByMe"
+               (click)="thumbUpClick(c)"
+               *ngIf="$userInfo.username!=name">
+        </div>
+      </ng-container>
     </div>
   </div>
 </ng-container>

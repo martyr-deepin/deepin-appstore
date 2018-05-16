@@ -1,10 +1,8 @@
 <div *ngIf="app$|async as app;else $loading">
   <div class="appInfo">
     <div class="info-left">
-      <img
-        class="icon"
-        [src]="metadataServer+'/'+app.icon"
-      >
+      <img class="icon"
+           [src]="metadataServer+'/'+app.icon">
       <br>
       <ng-container *ngIf="app.version">
         <ng-container *ngIf="job$|async as $job;else $ctlBtn">
@@ -13,17 +11,13 @@
           </button>
         </ng-container>
         <ng-template #$ctlBtn>
-          <button
-            *ngIf="!app.version.localVersion;else $open"
-            (click)="install(app.name)"
-          >
+          <button *ngIf="!app.version.localVersion;else $open"
+                  (click)="install(app.name)">
             安装
           </button>
           <ng-template #$open>
-            <button
-              *ngIf="!app.version.upgradable;else $update"
-              (click)="open(app.name)"
-            >
+            <button *ngIf="!app.version.upgradable;else $update"
+                    (click)="open(app.name)">
               打开
             </button>
           </ng-template>
@@ -56,16 +50,14 @@
           </div>
           <div>{{app.localCategory}}</div>
           <ng-container *ngIf="app.version">
-            <div>{{app.version.remoteVersion}}</div>
+            <div>{{app.version.remoteVersion || app.version.localVersion}}</div>
             <div>
               <ng-container>
                 <ng-container *ngIf="app.version.localVersion && !app.version.upgradable;else $size">已下载</ng-container>
                 <ng-template #$size>
                   <ng-container *ngIf="size$|async as $size; else $msg">{{$size|sizeHuman}}</ng-container>
-                  <ng-template
-                    #$msg
-                    let-$size
-                  >
+                  <ng-template #$msg
+                               let-$size>
                     {{$size===0?'已下载':'计算中'}}
                   </ng-template>
                 </ng-template>
@@ -85,20 +77,16 @@
   <br>
   <div class="screenshots">
     <!-- [about crossOrigin attribute]https://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror/27260385#27260385 -->
-    <img
-      *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index"
-      [id]="'screenshot-'+$index"
-      [src]="metadataServer+'/'+screenshot"
-      (click)="screenshotClick('screenshot-'+$index); indication.selectIndex=$index"
-      crossOrigin="anonymous"
-      (dblclick)="previewImage($event.target)"
-    >
+    <img *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index"
+         [id]="'screenshot-'+$index"
+         [src]="metadataServer+'/'+screenshot"
+         (click)="screenshotClick('screenshot-'+$index); indication.selectIndex=$index"
+         crossOrigin="anonymous"
+         (dblclick)="previewImage($event.target)">
   </div>
-  <dstore-indication
-    [count]="app.localInfo.images.screenshot.length"
-    #indication
-    (change)="screenshotClick('screenshot-'+$event)"
-  ></dstore-indication>
+  <dstore-indication [count]="app.localInfo.images.screenshot.length"
+                     #indication
+                     (change)="screenshotClick('screenshot-'+$event)"></dstore-indication>
   <ng-container *ngIf="app.version">
     <div class="hr"></div>
     <br>
@@ -110,22 +98,14 @@
           <br>
           <span class="tipList">
             <div class="iconList">
-              <img
-                class="icon"
-                [src]="metadataServer+'/'+app.icon"
-              >
-              <img
-                class="icon"
-                [src]="metadataServer+'/'+app.icon"
-              >
-              <img
-                class="icon"
-                [src]="metadataServer+'/'+app.icon"
-              >
-              <img
-                class="icon"
-                [src]="metadataServer+'/'+app.icon"
-              >
+              <img class="icon"
+                   [src]="metadataServer+'/'+app.icon">
+              <img class="icon"
+                   [src]="metadataServer+'/'+app.icon">
+              <img class="icon"
+                   [src]="metadataServer+'/'+app.icon">
+              <img class="icon"
+                   [src]="metadataServer+'/'+app.icon">
             </div>
             等20人
           </span>
@@ -134,21 +114,18 @@
       </div>
     </ng-template>
 
-    <app-app-comment [appName]="app.name"></app-app-comment>
+    <app-app-comment [appName]="app.name"
+                     [version]="app.version.remoteVersion || app.version.localVersion"></app-app-comment>
 
   </ng-container>
 </div>
-<ng-template
-  #$loading
-  let-$app
->
+<ng-template #$loading
+             let-$app>
   <app-wait *ngIf="$app===null;else $DropOff"></app-wait>
   <ng-template #$DropOff>
     <div class="dropOff">
-      <img
-        class="tips_bg"
-        src="/assets/tips_bg.svg"
-      >
+      <img class="tips_bg"
+           src="/assets/tips_bg.svg">
       <span>这款应用正在调整中，您可以返回</span>
       <a href="javascript:history.go(-1)">上一级</a>
     </div>
