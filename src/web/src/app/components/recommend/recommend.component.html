@@ -1,82 +1,57 @@
 <dialog #myDialog>
   <form #myForm="ngForm">
-    <div
-      class="close"
-      (click)="close()"
-    >
-      X
-    </div>
-    <div class="title">投递应用</div>
-    <div>
-      应用名称：
-      <input
-        type="text"
-        name="appName"
-        [(ngModel)]="recommend.name"
-        placeholder="必填"
-        required
-      >
-    </div>
-    <div>
-      应用类型：
-      <select
-        name="appType"
-        [(ngModel)]="recommend.type"
-      >
-        <option
-          *ngFor="let r of recommendType;index as $index"
-          [value]="$index+1"
-        >
-          {{r}}
-        </option>
+    <div class="close"
+         (click)="close()">X</div>
+    <div class="title"
+         i18n>Recommend App</div>
+    <div class="grid">
+      <span required>Name:</span>
+      <input type="text"
+             name="appName"
+             [(ngModel)]="recommend.name"
+             required>
+
+      <span required
+            i18n>Type:</span>
+      <select name="appType"
+              [(ngModel)]="recommend.type">
+        <option value="1"
+                i18n>Linux App</option>
+        <option value="2"
+                i18n>Windows App</option>
+        <option value="3"
+                i18n>WebApp</option>
+        <option value="4"
+                i18n>Android App</option>
       </select>
+
+      <span required>License:</span>
+      <input type="text"
+             name="authorization"
+             [(ngModel)]="recommend.authorization"
+             required>
+
+      <span required>Homepage:</span>
+      <input type="url"
+             name="homePage"
+             [(ngModel)]="recommend.homePage"
+             required>
+
+      <span required>Download Site:</span>
+      <input type="url"
+             name="downloadURL"
+             [(ngModel)]="recommend.downloadURL"
+             required>
+
+
+      <span i18n>Others:</span>
+      <textarea name="extra"
+                [(ngModel)]="recommend.extraInfo"></textarea>
     </div>
-    <div>
-      授权情况：
-      <input
-        type="text"
-        name="authorization"
-        [(ngModel)]="recommend.authorization"
-        placeholder="必填"
-        required
-      >
-    </div>
-    <div>
-      应用主页：
-      <input
-        type="text"
-        name="homePage"
-        [(ngModel)]="recommend.homePage"
-        placeholder="必填"
-        required
-      >
-    </div>
-    <div>
-      下载地址：
-      <input
-        type="text"
-        name="downloadURL"
-        [(ngModel)]="recommend.downloadURL"
-        placeholder="必填"
-        required
-      >
-    </div>
-    <div>
-      <span>其他信息：</span>
-      <textarea
-        name="extra"
-        [(ngModel)]="recommend.extraInfo"
-        placeholder="选填"
-      ></textarea>
-    </div>
-    <div>
-      <button
-        [disabled]="!myForm.form.valid"
-        (click)="submit()"
-      >
-        投递
-      </button>
-    </div>
+    <button [disabled]="!myForm.form.valid"
+            (click)="submit()"
+            i18n>Submit</button>
+
   </form>
 </dialog>
 {{openDialog$|async}}

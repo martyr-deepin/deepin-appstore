@@ -46,6 +46,9 @@ export class CommentService {
       )
       .pipe(
         map(resp => {
+          if (!resp.comment) {
+            return undefined;
+          }
           resp.comment.rate /= 2;
           return resp.comment;
         }),

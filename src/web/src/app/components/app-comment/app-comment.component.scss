@@ -1,5 +1,4 @@
 .comment {
-  font-size: 12px;
   border-radius: 4px;
   height: 10rem;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
@@ -59,12 +58,14 @@
   align-items: center;
   margin-top: 1rem;
   .title {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin-right: 1rem;
   }
   .versionBtn {
+    font-size: 10px;
     border-radius: 2px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    padding: 0.3rem 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.3rem 1rem;
     &.currentBtn {
       border-right: none;
     }

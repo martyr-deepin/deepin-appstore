@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
 import { memoize } from 'lodash';
 
 import { CategoryService, makeDefaultCategory } from '../../services/category.service';
@@ -20,13 +22,13 @@ export class SideNavComponent implements OnInit {
 
   getStyle = memoize((icon: string[]) => {
     return this.sanitizer.bypassSecurityTrustStyle(
-      `--src: url(${icon[0]});
+      `content: url(${icon[0]});
        --active: url(${icon[1]})`,
     );
   });
   getStyleByID = memoize((id: string) => {
     return this.sanitizer.bypassSecurityTrustStyle(
-      `--src: url("/assets/category/${id}.svg");
+      `content: url("/assets/category/${id}.svg");
        --active: url("/assets/category/${id}_active.svg")`,
     );
   });

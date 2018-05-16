@@ -30,9 +30,10 @@ export class AppCommentComponent implements OnInit {
   @Input() version: string;
   operationServer = BaseService.serverHosts.operationServer;
   commentContext = '';
-  submitError: string;
+  submitError: CommentError;
   content = '';
   rate = 0;
+  CommentError = CommentError;
 
   commentList: Comment[];
   historyList: Comment[];
@@ -66,6 +67,9 @@ export class AppCommentComponent implements OnInit {
   ngOnInit() {
     this.getList();
     this.getHistoryList();
+    this.getOwn();
+  }
+  getOwn() {
     this.own$ = this.commentService.own(this.appName, this.version).pipe(shareReplay());
   }
   getList() {
@@ -92,22 +96,27 @@ export class AppCommentComponent implements OnInit {
   }
 
   submitComment() {
+    if (!this.content && this.rate === 0) {
+      this.submitError = CommentError.AllInvalid;
+      return;
+    }
     if (!this.content) {
-      this.submitError = '请填写评论内容';
+      this.submitError = CommentError.CommentInvalid;
       return;
     }
     if (this.rate === 0) {
-      this.submitError = '请选择评分';
+      this.submitError = CommentError.RateInvalid;
       return;
     }
     this.commentService.create(this.appName, this.content, this.rate * 2, this.version).subscribe(
       () => {
         this.submitError = null;
         this.getList();
+        this.getOwn();
         this.select = 'current';
       },
       err => {
-        this.submitError = '评论失败';
+        this.submitError = CommentError.Failed;
       },
     );
   }
@@ -124,4 +133,12 @@ export class AppCommentComponent implements OnInit {
       });
     }
   }
+}
+
+enum CommentError {
+  Unknown,
+  RateInvalid,
+  CommentInvalid,
+  AllInvalid,
+  Failed,
 }

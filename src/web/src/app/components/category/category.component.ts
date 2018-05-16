@@ -25,27 +25,23 @@ export class CategoryComponent implements OnInit {
   title$: Observable<string>;
   apps$: Observable<App[]>;
 
+  list$: Observable<{ title: string; apps$: Observable<App[]> }>;
+
   ngOnInit() {
-    this.title$ = this.route.paramMap.pipe(
+    this.list$ = this.route.paramMap.pipe(
       flatMap(param => {
         const id = param.get('id');
-        return this.categoryService
-          .list()
-          .pipe(map(cs => find(cs, { id })), map(category => category));
+        return this.categoryService.list().pipe(
+          map(cs => {
+            const c = find(cs, { id });
+            if (c) {
+              return { title: c.title, apps$: this.appService.getApps(c.apps) };
+            } else {
+              return { title: id, apps$: this.appService.getAppListByCategory(id) };
+            }
+          }),
+        );
       }),
-      tap(category => {
-        console.log('category', category);
-        // 切换分类,重赋值apps，以展现加载动画
-        if (!category) {
-          this.apps$ = of([]);
-        }
-        if (category.apps) {
-          this.apps$ = this.appService.getApps(category.apps);
-        } else {
-          this.apps$ = this.appService.getAppListByCategory(category.id);
-        }
-      }),
-      map(category => category.title),
     );
   }
 }

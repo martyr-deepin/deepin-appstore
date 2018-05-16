@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class AppTitleComponent implements OnInit {
   constructor() {}
-  sortOrderList = Object.values(SortOrder);
+  SortOrder = SortOrder;
   @Input() title = '';
   @Input() count: number;
   @Input() sortBy = SortOrder.Downloads;
@@ -16,6 +16,6 @@ export class AppTitleComponent implements OnInit {
 }
 
 export enum SortOrder {
-  Downloads = 'Downloads',
-  Score = 'Score',
+  Downloads = 'Download',
+  Score = 'Rate',
 }

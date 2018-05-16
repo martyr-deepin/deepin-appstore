@@ -30,17 +30,14 @@
               <ng-container #$btnGroup
                             *ngIf="$job!==null">
                 <button *ngIf="!$version.localVersion && $version.remoteVersion"
-                        (click)="installApp($app.name)">
-                  安装
-                </button>
+                        (click)="installApp($app.name)"
+                        i18n>Install</button>
                 <button *ngIf="$version.localVersion && !$version.upgradable"
-                        (click)="openApp($app.name)">
-                  打开
-                </button>
+                        (click)="openApp($app.name)"
+                        i18n>Open</button>
                 <button *ngIf="$version.upgradable"
-                        (click)="updateApp($app.name)">
-                  更新
-                </button>
+                        (click)="updateApp($app.name)"
+                        i18n>Update</button>
               </ng-container>
             </ng-container>
           </ng-template>

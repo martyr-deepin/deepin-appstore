@@ -1,65 +1,81 @@
 <div class="comment">
   <ng-container *ngIf="!isLoggedIn;else $editComment">
     <div class="title">
-      <span>请登录后对应用进行评价</span>
-      <a href>注册</a>
+      <span i18n>Please post a comment after signed in</span>
+      <a href
+         i18n>Sign Up</a>
     </div>
     <button class="loginBtn"
-            (click)="login()">
-      登录
-    </button>
+            (click)="login()"
+            i18n>Sign In</button>
   </ng-container>
   <ng-template #$editComment>
     <ng-container *ngIf="own$|async as $own;else $edit">
       <div class="title">
         <span class="star">
-          <div>您的评分</div>
+          <div>rate</div>
           <dstore-star [rate]="$own.rate"></dstore-star>
-          <div>{{$own.rate}}分</div>
+          <div>{{$own.rate}}</div>
         </span>
       </div>
-      <div class="placeholder">你已发表了评价</div>
+      <div class="placeholder"
+           i18n>You have posted a comment</div>
     </ng-container>
     <ng-template #$edit>
       <div class="title">
         <span class="star">
-          <div>您的评分</div>
+          <div i18n>rate</div>
           <dstore-star [(rate)]="rate"
                        #$star
                        [readonly]="false"></dstore-star>
-          <div>{{$star.rateHover||$star.rate}}分</div>
+          <div>{{$star.rateHover||$star.rate}}</div>
         </span>
       </div>
       <textarea class="input"
                 [(ngModel)]="content"></textarea>
       <div class="placeholder"
-           [hidden]="content">请输入评价内容</div>
+           [hidden]="content"
+           i18n>Please input a comment</div>
     </ng-template>
   </ng-template>
 </div>
 
 <div class="submit"
      *ngIf="isLoggedIn">
-  <span class="submitError"
-        *ngIf="submitError">{{submitError}}</span>
+  <ng-container [ngSwitch]="submitError">
+    <span class="submitError"
+          *ngSwitchCase="CommentError.AllInvalid"
+          i18n>Please rate and input your comment</span>
+    <span class="submitError"
+          *ngSwitchCase="CommentError.CommentInvalid"
+          i18n>Please input your comment</span>
+    <span class="submitError"
+          *ngSwitchCase="CommentError.RateInvalid"
+          i18n>Please rate</span>
+    <span class="submitError"
+          *ngSwitchCase="CommentError.Failed"
+          i18n>Failed to submit</span>
+  </ng-container>
   <button class="submitBtn"
           (click)="submitComment()"
           [disabled]="own$|async"
-          #$submitBtn>
-    提交评论
-  </button>
+          #$submitBtn
+          i18n>Submit</button>
 </div>
 <br>
 
 <ng-container *ngIf="currentList|chunk:5 as $css">
   <div class="paging">
-    <div class="title">用户评价</div>
+    <div class="title"
+         i18n>User Comments</div>
     <div class="versionBtn currentBtn"
          (click)="select='current'"
-         [class.active]="select==='current'">当前版本({{commentList?.length}})</div>
+         [class.active]="select==='current'"
+         i18n>Current Version ({{commentList?.length}})</div>
     <div class="versionBtn historyBtn"
          (click)="select='history'"
-         [class.active]="select==='history'">历史版本({{historyList?.length}})</div>
+         [class.active]="select==='history'"
+         i18n>History Versions ({{historyList?.length}})</div>
     <div class="pagingBtn"
          [hidden]="$css.length<=1">
       <app-paginator [count]="$css.length"
@@ -69,9 +85,8 @@
   <br>
   <div class="commentList">
     <div class="commentItem empty"
-         *ngIf="$css.length==0">
-      空的列表
-    </div>
+         *ngIf="$css.length===0"
+         i18n>There are not any user comments</div>
     <div class="commentItem"
          *ngFor="let c of $css[$paginator.pageIndex]">
       <ng-container *ngIf="getUserInfo(c.userID)|async as $userInfo">
@@ -83,7 +98,7 @@
         <div class="body">
           <div class="rate">
             <dstore-star [rate]="c.rate"></dstore-star>
-            <span>{{c.rate}}分</span>
+            <span>{{c.rate}}</span>
             <img class="hot"
                  *ngIf="c.hot">
           </div>

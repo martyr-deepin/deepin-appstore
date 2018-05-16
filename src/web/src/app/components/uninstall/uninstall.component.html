@@ -1,6 +1,7 @@
 <ng-container *ngIf="uninstallJobMap$|async as $jobMap">
   <div *ngIf="uninstallApps$|async as $apps">
-    <div class="title">已安装{{$apps.length}}个应用</div>
+    <div class="title"
+         i18n>{{$apps.length}} {$apps.length,plural, =0 {application} =1 {application} other {applications} } installed</div>
     <div class="appItem"
          *ngFor="let $app of $apps">
       <img class="icon"
@@ -9,31 +10,36 @@
         <div class="name">{{$app.localInfo.description.name}}</div>
 
         <ng-template #$info>
-          <div class="time">
-            更新日期：{{$app.updateTime.toLocaleDateString()}}
-          </div>
-          <div class="version">版本：{{$app.version.localVersion}}</div>
+          <div class="time"
+               i18n>Date installed: {{true?'Unknown':$app.updateTime|date:'shortDate'}}</div>
+          <div class="version"
+               i18n>Version: {{$app.version.localVersion}}</div>
         </ng-template>
 
         <ng-container *ngIf="$jobMap.has($app.name);else $ctlBtn">
           <ng-container *ngTemplateOutlet="$info"></ng-container>
           <div class="uninstall">
-            <button disabled>处理中</button>
+            <button disabled
+                    i18n>Uninstalling</button>
           </div>
         </ng-container>
 
         <ng-template #$ctlBtn>
           <ng-container *ngIf="$uninstall.hidden;else $info">
-            <div class="warn">您确定要卸载此应用吗？</div>
+            <div class="warn"
+                 i18n>Are you sure to uninstall this application?</div>
             <div class="uninstall">
-              <button (click)="$uninstall.hidden=false">取消</button>
-              <button (click)="uninstall($app.name)">确认</button>
+              <button (click)="$uninstall.hidden=false"
+                      i18n>Cancel</button>
+              <button (click)="uninstall($app.name)"
+                      i18n>Confirm</button>
             </div>
           </ng-container>
 
           <div class="uninstall"
                #$uninstall>
-            <button (click)="$uninstall.hidden=true">卸载</button>
+            <button (click)="$uninstall.hidden=true"
+                    i18n>Uninstall</button>
           </div>
         </ng-template>
       </div>

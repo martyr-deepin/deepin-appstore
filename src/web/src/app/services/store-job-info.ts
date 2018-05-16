@@ -10,7 +10,17 @@ export class StoreJobInfo {
   packages: string[] = [];
   cancelable = false;
 }
-
+export enum StoreJobType {
+  download = 'download',
+  install = 'install',
+  uninstall = 'remove',
+}
+export enum StoreJobStatus {
+  paused = 'paused',
+  running = 'running',
+  ready = 'ready',
+  failed = 'failed',
+}
 export enum AppJobStatus {
   undefined,
   ready,

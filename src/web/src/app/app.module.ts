@@ -27,7 +27,6 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { CategoryComponent } from './components/category/category.component';
 import { IndexComponent } from './components/index/index.component';
 import { DownloadComponent } from './components/download-manage/download-manage.component';
-import { UpdateComponent } from './components/update/update.component';
 import { UninstallComponent } from './components/uninstall/uninstall.component';
 import { RankingComponent } from './components/ranking/ranking.component';
 import { AppListComponent } from './components/app-list/app-list.component';
@@ -40,6 +39,8 @@ import { RecommendComponent } from './components/recommend/recommend.component';
 import { WaitComponent } from './components/wait/wait.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 
+import { LodashPipe } from './pipes/lodash.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,12 +48,10 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     CategoryComponent,
     DownloadComponent,
     UninstallComponent,
-    UpdateComponent,
     SideNavComponent,
     CategoryComponent,
     IndexComponent,
     DownloadComponent,
-    UpdateComponent,
     UninstallComponent,
     RankingComponent,
     AppListComponent,
@@ -64,6 +63,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     RecommendComponent,
     WaitComponent,
     PaginatorComponent,
+    LodashPipe,
   ],
   imports: [
     BrowserModule,

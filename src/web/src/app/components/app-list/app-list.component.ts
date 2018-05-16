@@ -26,7 +26,7 @@ export class AppListComponent implements OnInit, OnChanges {
   @Input() maxCount: number;
   @Output() appListLength = new EventEmitter<number>(true);
   appList$: Observable<App[]>;
-  // 下载任务控制
+  // job control
   start = _.throttle(this.storeService.resumeJob, 1000);
   pause = _.throttle(this.storeService.pauseJob, 1000);
   cancel = _.throttle(this.storeService.clearJob, 1000);

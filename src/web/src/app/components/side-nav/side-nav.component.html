@@ -1,83 +1,120 @@
 <div class="nav">
-  <div
-    class="navItem"
-    routerLinkActive="active"
-    [routerLink]="['index']"
-  >
-    <img
-      class="categoryIcon"
-      [attr.style]="getStyleByID('homepage')"
-    >
-    Home
-  </div>
-  <div
-    class="navItem"
-    routerLinkActive="active"
-    [routerLink]="['ranking']"
-  >
-    <img
-      class="categoryIcon"
-      [attr.style]="getStyleByID('ranking')"
-    >
-    Rankings
-  </div>
+  <div i18n
+       class="navItem"
+       routerLinkActive="active"
+       [routerLink]="['index']">
+    <img class="categoryIcon"
+         [attr.style]="getStyleByID('homepage')">home</div>
+  <div i18n
+       class="navItem"
+       routerLinkActive="active"
+       [routerLink]="['ranking']">
+    <img class="categoryIcon"
+         [attr.style]="getStyleByID('ranking')">rankings</div>
   <ng-container *ngIf="cs$|async as $cs;else $default">
-    <div
-      class="navItem"
-      routerLinkActive="active"
-      *ngFor="let c of $cs"
-      [routerLink]="['category',c.id]"
-    >
-      <img
-        class="categoryIcon"
-        [attr.style]="getStyle(c.icon)"
-      >
-      {{c.title}}
-    </div>
+    <ng-container *ngIf="$cs.length>0;else $default">
+      <div class="navItem"
+           routerLinkActive="active"
+           *ngFor="let c of $cs"
+           [routerLink]="['category',c.id]">
+        <img class="categoryIcon"
+             [attr.style]="getStyle(c.icon)">{{c.title}}</div>
+    </ng-container>
   </ng-container>
 
   <ng-template #$default>
-    <div
-      *ngFor="let c of default"
-      class="navItem"
-      [routerLink]="['category',c.id]"
-      routerLinkActive="active"
-    >
-      <img
-        class="categoryIcon"
-        [attr.style]="getStyle(c.icon)"
-      >
-      {{c.title}}
-    </div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','internet']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('internet')">internet</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','office']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('office')">office</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','development']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('development')">development</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','reading']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('reading')">reading</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','graphics']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('graphics')">graphics</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','game']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('game')">game</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','music']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('music')">music</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','system']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('system')">system</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','video']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('video')">video</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','chat']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('chat')">chat</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         tabIndex="0"
+         [routerLink]="['category','others']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('others')">others</div>
   </ng-template>
+
   <ng-container *ngIf="native">
     <div class="hr"></div>
-    <div
-      i18n
-      class="navItem"
-      routerLinkActive="active"
-      [routerLink]="['download']"
-    >
-      <img
-        class="categoryIcon"
-        [attr.style]="getStyleByID('downloads')"
-      >
-      Download
-    </div>
-    <!-- <div i18n class="navItem" routerLinkActive="active" [routerLink]="['update']">
-      Update
-    </div> -->
-    <div
-      i18n
-      class="navItem"
-      routerLinkActive="active"
-      [routerLink]="['uninstall']"
-    >
-      <img
-        class="categoryIcon"
-        [attr.style]="getStyleByID('uninstall')"
-      >
-      Uninstall
-    </div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         [routerLink]="['download']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('downloads')">download</div>
+    <div i18n
+         class="navItem"
+         routerLinkActive="active"
+         [routerLink]="['uninstall']">
+      <img class="categoryIcon"
+           [attr.style]="getStyleByID('uninstall')">uninstall</div>
   </ng-container>
 </div>

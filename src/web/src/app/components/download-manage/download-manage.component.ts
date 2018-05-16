@@ -8,7 +8,7 @@ import { App } from '../../dstore/services/app';
 import { AppService } from '../../dstore/services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { StoreService } from '../../services/store.service';
-import { StoreJobInfo } from '../../services/store-job-info';
+import { StoreJobInfo, StoreJobType, StoreJobStatus } from '../../services/store-job-info';
 import { AppVersion } from '../../services/app-version';
 
 @Component({
@@ -20,7 +20,8 @@ export class DownloadComponent implements OnInit {
   metadataServer = BaseService.serverHosts.metadataServer;
   constructor(private appService: AppService, private storeService: StoreService) {}
 
-  progressMessage = progressMessage;
+  StoreJobType = StoreJobType;
+  StoreJobStatus = StoreJobStatus;
 
   // 下载任务控制
   start = throttle(this.storeService.resumeJob, 1000);
@@ -40,7 +41,6 @@ export class DownloadComponent implements OnInit {
         ),
       ),
       map(jobs => jobs.filter(job => job.type !== 'remove')),
-      tap(console.log),
     );
   }
 }

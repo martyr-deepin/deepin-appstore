@@ -1,38 +1,24 @@
-<app-app-title
-  #$title
-  title="{{title$|async}}的搜索结果"
-  [count]="$list.appListLength"
-  [hidden]="$title.count===0"
->
+<app-app-title #$title
+               [count]="$list.appListLength"
+               [hidden]="$title.count===0"
+               i18n>Searching results of {{title$|async}}
 </app-app-title>
-<app-app-list
-  #$list
-  [apps$]="apps$"
-  [sortBy]="$title.sortBy"
-  [hidden]="$title.count===0"
-  (appListLength)="$title.count=$event"
-></app-app-list>
+<app-app-list #$list
+              [apps$]="apps$"
+              [sortBy]="$title.sortBy"
+              [hidden]="$title.count===0"
+              (appListLength)="$title.count=$event"></app-app-list>
 
 <ng-container *ngIf="$title.count===0">
   <div class="searchEmpty">
-    <img
-      src="/assets/tips_bg.svg"
-      class="tips_bg"
-    >
-    <div class="gray-text">
-      没有关于"
-      <div class="kw">{{keyword$|async}}</div>
-      "的搜索结果
-    </div>
-    <div class="gray-text">
-      您可以向我们
-      <a
-        class="recommend"
-        (click)="recommend()"
-      >
-        投递
-      </a>
-      应用
-    </div>
+    <img src="/assets/tips_bg.svg"
+         class="tips_bg">
+    <div class="gray-text"
+         i18n>No search results found</div>
+
+    <div class="gray-text"
+         i18n>welcome to
+      <a class="recommend"
+         (click)="recommend()">recommend</a> this application</div>
   </div>
 </ng-container>

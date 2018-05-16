@@ -14,15 +14,15 @@
     border-right: 3px solid transparent;
     .categoryIcon {
       margin-right: 1rem;
+      width: 2rem;
       height: 2rem;
-      content: var(--src);
     }
     &.active {
       border-right: 3px solid #2ca7f8;
       background-color: #d6eefe;
       color: #2ca7f8;
       .categoryIcon {
-        content: var(--active);
+        content: var(--active) !important;
       }
     }
     &:not(.active):hover {

@@ -1,31 +1,19 @@
 <div class="title">
-  <div i18n>
-    {{title}}
-    <span
-      class="count"
-      *ngIf="count"
-    >
-      共{{count}}个
-    </span>
+  <div>
+    <ng-content></ng-content>
+    <span class="count"
+          *ngIf="count"
+          i18n>Totally {count,plural,=1 {is} other {are}} {{count}}</span>
   </div>
-  <div
-    class="dropdown"
-    (click)="dropMenu.hidden=false;dropMenu.focus()"
-  >
-    {{sortBy}}↓
-  </div>
-  <ul
-    class="dropdown-menu"
-    tabIndex="-1"
-    hidden
-    #dropMenu
-    (blur)="dropMenu.hidden=true"
-  >
-    <li
-      *ngFor="let s of sortOrderList"
-      (click)="sortBy=s;dropMenu.hidden=true;"
-    >
-      {{s}}
-    </li>
+  <div class="dropdown"
+       (click)="dropMenu.hidden=false;dropMenu.focus()"
+       i18n>{{sortBy}} {sortBy, select, SortOrder.Downloads {Download} SortOrder.Score {Rate}}</div>
+  <ul class="dropdown-menu"
+      tabIndex="-1"
+      hidden
+      #dropMenu
+      (blur)="dropMenu.hidden=true">
+    <li (click)="sortBy=SortOrder.Downloads;dropMenu.hidden=true;">Download</li>
+    <li (click)="sortBy=SortOrder.Score;dropMenu.hidden=true;">Rate</li>
   </ul>
 </div>

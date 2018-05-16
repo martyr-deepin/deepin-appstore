@@ -1,8 +1,5 @@
-<app-app-title
-  #$title
-  [title]="title$|async"
-></app-app-title>
-<app-app-list
-  [apps$]="apps$"
-  [sortBy]="$title.sortBy"
-></app-app-list>
+<ng-container *ngIf="list$|async as $list">
+    <app-app-title #$title>{{$list.title}}</app-app-title>
+    <app-app-list [apps$]="$list.apps$"
+                  [sortBy]="$title.sortBy"></app-app-list>
+</ng-container>

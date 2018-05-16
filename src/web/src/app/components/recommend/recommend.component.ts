@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { RecommendService, Recommend, RecommendType } from '../../services/recommend.service';
+import { RecommendService, Recommend } from '../../services/recommend.service';
 import { MaterializeService } from '../../dstore/services/materialize.service';
 
 @Component({
@@ -17,7 +17,6 @@ export class RecommendComponent implements OnInit {
   ) {}
   @ViewChild('myDialog') dialogRef: { nativeElement: HTMLDialogElement };
   recommend = new Recommend();
-  recommendType = RecommendType;
   openDialog$: Observable<void>;
   ngOnInit() {
     this.openDialog$ = this.recommendService.onOpenRecommend().pipe(map(() => this.open()));
@@ -33,13 +32,10 @@ export class RecommendComponent implements OnInit {
   submit() {
     this.recommendService.recommendSubmit(this.recommend).subscribe(
       () => {
-        this.materializeService.toastSuccess('投递成功');
         this.dialogRef.nativeElement.close();
         this.recommend = new Recommend();
       },
-      () => {
-        this.materializeService.toastSuccess('投递失败');
-      },
+      () => {},
     );
   }
 }

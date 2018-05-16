@@ -37,8 +37,6 @@ export class UninstallComponent implements OnInit {
     );
   }
   uninstall(appName: string) {
-    this.storeService
-      .removePackage(appName)
-      .subscribe(() => console.log('卸载成功'), () => console.log('卸载失败'));
+    this.storeService.removePackage(appName).subscribe();
   }
 }

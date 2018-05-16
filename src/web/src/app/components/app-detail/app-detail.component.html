@@ -6,23 +6,19 @@
       <br>
       <ng-container *ngIf="app.version">
         <ng-container *ngIf="job$|async as $job;else $ctlBtn">
-          <button>
-            {{$job.type==='download'?'正在下载':'正在安装'}}
-          </button>
+          <button i18n>{ $job.type, select, download {Downloading} install {Installing} remove {Uninstalling} }</button>
         </ng-container>
         <ng-template #$ctlBtn>
           <button *ngIf="!app.version.localVersion;else $open"
-                  (click)="install(app.name)">
-            安装
-          </button>
+                  (click)="install(app.name)"
+                  i18n>Install</button>
           <ng-template #$open>
             <button *ngIf="!app.version.upgradable;else $update"
-                    (click)="open(app.name)">
-              打开
-            </button>
+                    (click)="open(app.name)"
+                    i18n>Open</button>
           </ng-template>
           <ng-template #$update>
-            <button>更新</button>
+            <button i18n>Update</button>
           </ng-template>
         </ng-template>
       </ng-container>
@@ -44,22 +40,21 @@
         <div class="info">
           <div class="rate">
             <dstore-star [rate]="app.rate"></dstore-star>
-            <span class="details">
-              {{app.rate.toFixed(1)}}分 {{app.downloads}}人下载 {{app.ratings}}人评分
-            </span>
+            <span class="details"
+                  i18n>{{app.rate.toFixed(1)}} {{app.downloads}} downloads {{app.ratings}} ratings</span>
           </div>
           <div>{{app.localCategory}}</div>
           <ng-container *ngIf="app.version">
             <div>{{app.version.remoteVersion || app.version.localVersion}}</div>
             <div>
               <ng-container>
-                <ng-container *ngIf="app.version.localVersion && !app.version.upgradable;else $size">已下载</ng-container>
+                <ng-container *ngIf="app.version.localVersion && !app.version.upgradable;else $size"
+                              i18n>Downloaded</ng-container>
                 <ng-template #$size>
                   <ng-container *ngIf="size$|async as $size; else $msg">{{$size|sizeHuman}}</ng-container>
                   <ng-template #$msg
-                               let-$size>
-                    {{$size===0?'已下载':'计算中'}}
-                  </ng-template>
+                               let-$size
+                               i18n>{size, select, =0 {Downloaded} other {Calculating} }</ng-template>
                 </ng-template>
               </ng-container>
             </div>
@@ -68,7 +63,7 @@
             <span class="toRight">></span>
             <button class="reminder"
                     (click)="reminder(app.name)"
-                    i18n>reminder</button>
+                    i18n>Ask for update</button>
           </div>
           <div>{{app.homePage}}</div>
           <div>
@@ -95,30 +90,6 @@
   <ng-container *ngIf="app.version">
     <div class="hr"></div>
     <br>
-
-    <ng-template #tip>
-      <div class="tip">
-        <div class="tipButton">Tip</div>
-        <div>
-          <br>
-          <span class="tipList">
-            <div class="iconList">
-              <img class="icon"
-                   [src]="metadataServer+'/'+app.icon">
-              <img class="icon"
-                   [src]="metadataServer+'/'+app.icon">
-              <img class="icon"
-                   [src]="metadataServer+'/'+app.icon">
-              <img class="icon"
-                   [src]="metadataServer+'/'+app.icon">
-            </div>
-            等20人
-          </span>
-          <br>
-        </div>
-      </div>
-    </ng-template>
-
     <app-app-comment [appName]="app.name"
                      [version]="app.version.remoteVersion || app.version.localVersion"></app-app-comment>
 
@@ -131,8 +102,9 @@
     <div class="dropOff">
       <img class="tips_bg"
            src="/assets/tips_bg.svg">
-      <span>这款应用正在调整中，您可以返回</span>
-      <a href="javascript:history.go(-1)">上一级</a>
+      <span i18n>It's in adjustment, you can return to</span>
+      <a href="javascript:history.go(-1)"
+         i18n>Previous</a>
     </div>
   </ng-template>
 </ng-template>

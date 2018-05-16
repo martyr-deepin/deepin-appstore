@@ -43,4 +43,3 @@ export class Recommend {
   downloadURL = '';
   extraInfo = '';
 }
-export const RecommendType = ['linux应用', 'windows应用', 'WebApp', 'android应用'];
