@@ -19,6 +19,12 @@
         <annotation name="org.qtproject.QtDBus.QtTypeName.Out0"
                     value="AppVersionList"/>
     </method>
+    <method name="QueryInstallationTime">
+        <arg name="idList" type="as" direction="in"></arg>
+        <arg name="installationTimeList" type="a(sx)" direction="out"></arg>
+        <annotation name="org.qtproject.QtDBus.QtTypeName.Out0"
+                    value="InstalledAppTimestamp"/>
+    </method>
     <method name="Remove">
         <arg name="jobName" type="s" direction="in"></arg>
         <arg name="id" type="s" direction="in"></arg>

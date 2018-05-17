@@ -95,6 +95,8 @@ set(DBUS_FILES
     dbus/dbus_variant/app_version.h
     dbus/dbus_variant/installed_app_info.cpp
     dbus/dbus_variant/installed_app_info.h
+    dbus/dbus_variant/installed_app_timestamp.cpp
+    dbus/dbus_variant/installed_app_timestamp.h
 
     dbus/app_store_dbus_adapter.cpp
     dbus/app_store_dbus_adapter.h
