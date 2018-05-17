@@ -12,7 +12,6 @@ import { MyHttpInterceptor } from './services/http-interceptor';
 import { AppService } from './services/app.service';
 import { CategoryService } from './services/category.service';
 import { SectionService } from './services/section.service';
-import { DownloadService } from './services/download.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CommentService } from './services/comment.service';
@@ -79,7 +78,6 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     AppService,
     CategoryService,
     SectionService,
-    DownloadService,
     AuthGuardService,
     AuthService,
     StoreService,

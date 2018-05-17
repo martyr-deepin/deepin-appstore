@@ -4,12 +4,13 @@ import { Observable, timer, of, iif, forkJoin } from 'rxjs';
 import { flatMap, map, tap, share, shareReplay } from 'rxjs/operators';
 import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 
-import { App } from '../../dstore/services/app';
-import { AppService } from '../../services/app.service';
+import { App, AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { CanvasUtil } from '../../utils/canvas-util';
 import { StoreService } from '../../services/store.service';
 import { AppJobStatus, StoreJobInfo } from '../../services/store-job-info';
+import { ReminderService } from '../../services/reminder.service';
+import { DownloadService } from '../../services/download.service';
 
 @Component({
   selector: 'app-app-detail',
@@ -21,6 +22,8 @@ export class AppDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private appService: AppService,
     private storeService: StoreService,
+    private reminderService: ReminderService,
+    private downloadService: DownloadService,
   ) {}
 
   metadataServer = BaseService.serverHosts.metadataServer;
@@ -46,7 +49,10 @@ export class AppDetailComponent implements OnInit {
   }
 
   install(appName: string) {
-    this.storeService.installPackage(appName).subscribe();
+    this.storeService
+      .installPackage(appName)
+      .pipe(flatMap(() => this.downloadService.record(appName)))
+      .subscribe();
   }
 
   screenshotClick(elID: string) {
@@ -65,7 +71,16 @@ export class AppDetailComponent implements OnInit {
     window['dstore'].channel.objects.imageViewer.openBase64(CanvasUtil.getBase64Image(img));
   }
 
-  log(v) {
-    console.log(v);
+  reminder() {
+    this.app$
+      .pipe(flatMap(app => this.reminderService.reminder(app.name, app.version.remoteVersion)))
+      .subscribe(
+        () => {
+          console.log('催更成功');
+        },
+        () => {
+          console.log('催更失败');
+        },
+      );
   }
 }

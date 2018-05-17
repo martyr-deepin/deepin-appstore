@@ -64,7 +64,12 @@
               </ng-container>
             </div>
           </ng-container>
-          <div>{{app.updateTime.toLocaleDateString()}}</div>
+          <div>{{app.updateTime|date:'longDate'}}
+            <span class="toRight">></span>
+            <button class="reminder"
+                    (click)="reminder(app.name)"
+                    i18n>reminder</button>
+          </div>
           <div>{{app.homePage}}</div>
           <div>
             {{app.localInfo.description.description}}
