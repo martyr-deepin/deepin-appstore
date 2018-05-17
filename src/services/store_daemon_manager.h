@@ -50,6 +50,8 @@ class StoreDaemonManager : public QObject {
   void installedPackagesRequest();
 
   void queryVersionsRequest(const QString& task_id, const QStringList& apps);
+  void queryInstalledTimeRequest(const QString& task_id,
+                                 const QStringList& apps);
   void jobListRequest();
   void getJobInfoRequest(const QString& job);
 
@@ -67,6 +69,7 @@ class StoreDaemonManager : public QObject {
   void removePackageReply(const QVariantMap& result);
 
   void queryVersionsReply(const QVariantMap& result);
+  void queryInstalledTimeReply(const QVariantMap& result);
   void jobListReply(const QVariantMap& result);
   void installedPackagesReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
@@ -145,6 +148,8 @@ class StoreDaemonManager : public QObject {
   void removePackage(const QString& app_name);
 
   void queryVersions(const QString& task_id, const QStringList& apps);
+
+  void queryInstalledTime(const QString& task_id, const QStringList& apps);
 
   /**
    * Returns all of jobs existing in backend.

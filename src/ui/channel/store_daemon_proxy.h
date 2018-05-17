@@ -48,6 +48,7 @@ class StoreDaemonProxy : public QObject {
   void installedPackagesReply(const QVariantMap& result);
 
   void queryVersionsReply(const QVariantMap& result);
+  void queryInstalledTimeReply(const QVariantMap& result);
   void jobListReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
@@ -119,6 +120,13 @@ class StoreDaemonProxy : public QObject {
    * @param apps
    */
   void queryVersions(const QString& task_id, const QStringList& apps);
+
+  /**
+   * Query installed timestamp of apps.
+   * @param task_id
+   * @param apps
+   */
+  void queryInstalledTime(const QString& task_id, const QStringList& apps);
 
   /**
    * Returns all of jobs existing in backend.

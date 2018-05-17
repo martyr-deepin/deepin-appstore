@@ -22,6 +22,7 @@
 #include "dbus/dbus_consts.h"
 #include "dbus/dbus_variant/app_version.h"
 #include "dbus/dbus_variant/installed_app_info.h"
+#include "dbus/dbus_variant/installed_app_timestamp.h"
 #include "dbus/lastore_deb_interface.h"
 #include "dbus/lastore_job_interface.h"
 #include "services/apt_util_worker.h"
@@ -56,6 +57,7 @@ StoreDaemonManager::StoreDaemonManager(QObject* parent)
 
   AppVersion::registerMetaType();
   InstalledAppInfo::registerMetaType();
+  InstalledAppTimestamp::registerMetaType();
 
   apt_worker_thread_->start();
   apt_worker_->moveToThread(apt_worker_thread_);
@@ -99,6 +101,9 @@ void StoreDaemonManager::initConnections() {
 
   connect(this, &StoreDaemonManager::queryVersionsRequest,
           this, &StoreDaemonManager::queryVersions);
+  connect(this, &StoreDaemonManager::queryInstalledTimeRequest,
+          this, &StoreDaemonManager::queryInstalledTime);
+
   connect(this, &StoreDaemonManager::jobListRequest,
           this, &StoreDaemonManager::jobList);
   connect(this, &StoreDaemonManager::getJobInfoRequest,
@@ -484,6 +489,47 @@ void StoreDaemonManager::queryVersions(const QString& task_id,
         { kResult, QVariantMap {
             { kResultName, task_id },
             { kResultValue, version_vars },
+        }},
+    });
+  }
+}
+
+void StoreDaemonManager::queryInstalledTime(const QString& task_id,
+                                            const QStringList& apps) {
+  // TODO(Shaohua): remap app name.
+
+  const QDBusPendingReply<InstalledAppTimestampList> timestamp_reply =
+      deb_interface_->QueryInstallationTime(apps);
+
+  if (timestamp_reply.isError()) {
+    emit this->queryInstalledTimeReply(QVariantMap {
+        { kResultOk, false },
+        { kResultErrName, timestamp_reply.error().name() },
+        { kResultErrMsg, timestamp_reply.error().message() },
+        { kResult, QVariantMap {
+            { kResultName, task_id },
+        }},
+    });
+  } else {
+    const InstalledAppTimestampList timestamp_list = timestamp_reply.value();
+    QVariantList result;
+    for (const InstalledAppTimestamp& timestamp : timestamp_list) {
+      if (deb_names_.contains(timestamp.pkg_name)) {
+        const QString& app_name = deb_names_.value(timestamp.pkg_name);
+        result.append(QVariantMap {
+            { "app", app_name },
+            { "time", timestamp.timestamp },
+        });
+      }
+    }
+
+    emit this->queryInstalledTimeReply(QVariantMap {
+        { kResultOk, true },
+        { kResultErrName, "" },
+        { kResultErrMsg, "" },
+        { kResult, QVariantMap {
+            { kResultName, task_id },
+            { kResultValue, result },
         }},
     });
   }

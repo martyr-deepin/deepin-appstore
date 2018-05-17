@@ -66,9 +66,11 @@ void StoreDaemonProxy::initConnections() {
           this, &StoreDaemonProxy::updatePackageReply);
   connect(manager_, &StoreDaemonManager::removePackageReply,
           this, &StoreDaemonProxy::removePackageReply);
+
   connect(manager_, &StoreDaemonManager::queryVersionsReply,
           this, &StoreDaemonProxy::queryVersionsReply);
-
+  connect(manager_, &StoreDaemonManager::queryInstalledTimeReply,
+          this, &StoreDaemonProxy::queryInstalledTimeReply);
 
   connect(manager_, &StoreDaemonManager::installedPackagesReply,
           this, &StoreDaemonProxy::installedPackagesReply);
@@ -125,6 +127,11 @@ void StoreDaemonProxy::removePackage(const QString& app_name) {
 void StoreDaemonProxy::queryVersions(const QString& task_id,
                                      const QStringList& apps) {
   emit manager_->queryVersionsRequest(task_id, apps);
+}
+
+void StoreDaemonProxy::queryInstalledTime(const QString& task_id,
+                                          const QStringList& apps) {
+  emit manager_->queryInstalledTimeRequest(task_id, apps);
 }
 
 void StoreDaemonProxy::jobList() {
