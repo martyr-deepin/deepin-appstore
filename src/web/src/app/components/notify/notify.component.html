@@ -1,0 +1,7 @@
+<div class="notify"
+     *ngIf="notify$|async as $notify">
+    <div [innerHTML]="$notify.content"></div>
+    <img class="close"
+         *ngIf="!$notify.delay"
+         (click)="close()">
+</div>

@@ -16,6 +16,7 @@
       margin-right: 1rem;
       width: 2rem;
       height: 2rem;
+      content: var(--src);
     }
     &.active {
       border-right: 3px solid #2ca7f8;

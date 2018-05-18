@@ -38,6 +38,7 @@ import { TopicComponent } from './components/topic/topic.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
 import { WaitComponent } from './components/wait/wait.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { NotifyComponent } from './components/notify/notify.component';
 
 import { LodashPipe } from './pipes/lodash.pipe';
 
@@ -64,6 +65,7 @@ import { LodashPipe } from './pipes/lodash.pipe';
     WaitComponent,
     PaginatorComponent,
     LodashPipe,
+    NotifyComponent,
   ],
   imports: [
     BrowserModule,

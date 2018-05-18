@@ -116,7 +116,7 @@
         }
         .hot {
           margin-left: 1rem;
-          content: url('/assets/comment/hot.svg');
+          content: url('/assets/icons/hot.svg');
         }
       }
     }
@@ -133,11 +133,11 @@
   }
 }
 .thumbUp {
-  content: url('/assets/comment/thumbup_normal.svg');
+  content: url('/assets/buttons/thumbup_normal.svg');
   &.active {
-    content: url('/assets/comment/thumbup_press.svg');
+    content: url('/assets/buttons/thumbup_press.svg');
   }
   &:hover:not(.active) {
-    content: url('/assets/comment/thumbup_hover.svg');
+    content: url('/assets/buttons/thumbup_hover.svg');
   }
 }

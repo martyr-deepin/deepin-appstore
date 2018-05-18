@@ -64,7 +64,7 @@ export function makeDefaultCategory(): Category[] {
   ].map(c => ({
     id: c,
     title: c,
-    icon: [`/assets/category/${c}.svg`, `/assets/category/${c}_active.svg`],
+    icon: [`/assets/icons/${c}.svg`, `/assets/icons/${c}_active.svg`],
   }));
 }
 const defaultCategory = [];

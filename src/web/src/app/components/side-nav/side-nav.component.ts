@@ -28,8 +28,8 @@ export class SideNavComponent implements OnInit {
   });
   getStyleByID = memoize((id: string) => {
     return this.sanitizer.bypassSecurityTrustStyle(
-      `content: url("/assets/category/${id}.svg");
-       --active: url("/assets/category/${id}_active.svg")`,
+      `content: url("/assets/icons/${id}.svg");
+       --active: url("/assets/icons/${id}_active.svg")`,
     );
   });
   ngOnInit() {
