@@ -32,3 +32,13 @@
     }
   }
 }
+.down {
+  $url: '/assets/buttons/down';
+  content: url($url+'_normal.svg');
+  &:hover {
+    content: url($url+'_hover.svg');
+  }
+  &:active {
+    content: url($url+'_press.svg');
+  }
+}

@@ -7,7 +7,9 @@
   </div>
   <div class="dropdown"
        (click)="dropMenu.hidden=false;dropMenu.focus()"
-       i18n>{{sortBy}} {sortBy, select, SortOrder.Downloads {Download} SortOrder.Score {Rate}}</div>
+       i18n>{{sortBy}} {sortBy, select, SortOrder.Downloads {Download} SortOrder.Score {Rate}}
+    <img class="down">
+  </div>
   <ul class="dropdown-menu"
       tabIndex="-1"
       hidden
