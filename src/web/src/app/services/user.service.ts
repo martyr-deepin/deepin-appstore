@@ -23,6 +23,9 @@ export class UserService {
     return this.userInfo(this.myName());
   }
   myName(): string {
+    if (!this.auth.isLoggedIn) {
+      return 'undefined';
+    }
     const { username } = this.jwtService.decodeToken(this.auth.token);
     return username;
   }
