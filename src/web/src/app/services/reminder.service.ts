@@ -11,6 +11,6 @@ export class ReminderService {
   constructor(private http: HttpClient) {}
   server = BaseService.serverHosts.operationServer;
   reminder(appName: string, version: string): Observable<void> {
-    return this.http.post<void>(`${this.server}/api/updating`, { appName, version });
+    return this.http.post<void>(`${this.server}/api/updating/${appName}`, { appName, version });
   }
 }

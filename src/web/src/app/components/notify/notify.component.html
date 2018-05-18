@@ -1,7 +1,27 @@
 <div class="notify"
      *ngIf="notify$|async as $notify">
-    <div [innerHTML]="$notify.content"></div>
+    <div *ngIf="$notify.type===NotifyType.Notice;else $others">公告：{{$notify.content}}</div>
+    <ng-template #$others>
+        <ng-container [ngSwitch]="$notify.status">
+            <ng-container *ngSwitchCase="NotifyStatus.Success">
+                <img src="/assets/icons/ok.svg">
+                <ng-container [ngSwitch]="$notify.type">
+                    <span class="succeed"
+                          *ngSwitchCase="NotifyType.Reminder"
+                          i18n>Succeeded</span>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="NotifyStatus.Error">
+                <img src="/assets/icons/failed.svg">
+                <ng-container [ngSwitch]="$notify.type">
+                    <span class="failed"
+                          *ngSwitchCase="NotifyType.Reminder"
+                          i18n>Failed</span>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </ng-template>
     <img class="close"
-         *ngIf="!$notify.delay"
-         (click)="close()">
+         (click)="close()"
+         *ngIf="!$notify.delay">
 </div>

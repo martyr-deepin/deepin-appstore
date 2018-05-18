@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NotifyService, Notify } from '../../services/notify.service';
+import { NotifyService } from '../../services/notify.service';
+import { Notify, NotifyType, NotifyStatus } from '../../services/notify.model';
 import { Observable, of, merge, Subject } from 'rxjs';
 import { switchMap, delay } from 'rxjs/operators';
 
@@ -10,6 +11,8 @@ import { switchMap, delay } from 'rxjs/operators';
 })
 export class NotifyComponent implements OnInit {
   constructor(private notifyService: NotifyService) {}
+  NotifyType = NotifyType;
+  NotifyStatus = NotifyStatus;
 
   notify$: Observable<Notify>;
   close$ = new Subject<void>();

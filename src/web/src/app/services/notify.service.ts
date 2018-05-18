@@ -3,49 +3,27 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { Subject } from 'rxjs';
 
+import { Notify, NotifyType, NotifyStatus } from './notify.model';
+
 @Injectable({
   providedIn: 'root',
 })
 export class NotifyService {
   private notify$ = new Subject<Notify>();
-  constructor(private sanitized: DomSanitizer) {
-    setTimeout(() => {
-      this.notice('公告：这是一个测试这是一个测试这是一个测试');
-    }, 3000);
-  }
+  constructor(private sanitized: DomSanitizer) {}
 
-  success(msg: string) {
-    this.notify$.next({
-      content: this.sanitized.bypassSecurityTrustHtml(
-        `<img src="/assets/icons/ok.svg"><span style="color: green">${msg}</span>`,
-      ),
-      delay: 2000,
-    });
+  notify(n: Notify) {
+    console.log('notify', n);
+    this.notify$.next(n);
   }
-
-  error(err: string) {
-    this.notify$.next({
-      content: this.sanitized.bypassSecurityTrustHtml(
-        `<img src="/assets/icons/failed.svg"><span style="color: red">${err}</span>`,
-      ),
-      delay: 3000,
-    });
+  success(t: NotifyType) {
+    return this.notify({ status: NotifyStatus.Success, type: t, delay: 2000 });
   }
-
-  notice(notice: string) {
-    this.notify$.next({
-      content: this.sanitized.bypassSecurityTrustHtml(
-        `<span style='color: green'>${notice}</span>`,
-      ),
-    });
+  error(t: NotifyType) {
+    return this.notify({ status: NotifyStatus.Error, type: t, delay: 3000 });
   }
 
   obs() {
     return this.notify$.asObservable();
   }
-}
-
-export interface Notify {
-  content: SafeHtml;
-  delay?: number;
 }

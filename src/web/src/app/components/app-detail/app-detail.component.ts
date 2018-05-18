@@ -11,6 +11,8 @@ import { StoreService } from '../../services/store.service';
 import { AppJobStatus, StoreJobInfo } from '../../services/store-job-info';
 import { ReminderService } from '../../services/reminder.service';
 import { DownloadService } from '../../services/download.service';
+import { NotifyService } from '../../services/notify.service';
+import { NotifyType, NotifyStatus } from '../../services/notify.model';
 
 @Component({
   selector: 'app-app-detail',
@@ -24,6 +26,7 @@ export class AppDetailComponent implements OnInit {
     private storeService: StoreService,
     private reminderService: ReminderService,
     private downloadService: DownloadService,
+    private notifyService: NotifyService,
   ) {}
 
   metadataServer = BaseService.serverHosts.metadataServer;
@@ -76,10 +79,10 @@ export class AppDetailComponent implements OnInit {
       .pipe(flatMap(app => this.reminderService.reminder(app.name, app.version.remoteVersion)))
       .subscribe(
         () => {
-          console.log('催更成功');
+          this.notifyService.success(NotifyType.Reminder);
         },
         () => {
-          console.log('催更失败');
+          this.notifyService.error(NotifyType.Reminder);
         },
       );
   }
