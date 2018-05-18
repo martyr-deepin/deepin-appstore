@@ -99,6 +99,14 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.queryVersions', appNameList.toString(), appNameList);
   }
 
+  getInstalledTime(appName: string): Observable<number> {
+    return this.execWithCallback('storeDaemon.queryInstalledTime', appName, [appName]).pipe(
+      map((result: { app: string; time: number }[]) => {
+        return _.get(_.find(result, { app: appName }), 'time');
+      }),
+    );
+  }
+
   getJobInfo(jobPath: string): Observable<StoreJobInfo> {
     return this.execWithCallback('storeDaemon.getJobInfo', jobPath).pipe(
       map((jobInfo: StoreJobInfo) => {
@@ -149,9 +157,9 @@ export class StoreService {
       return Channel.execWithCallback(
         (storeResp: StoreResponse) => {
           if (!storeResp.ok) {
-            console.error('store error', storeResp);
+            console.error(method, 'store error', storeResp);
           } else {
-            console.warn('store resp', storeResp);
+            console.warn(method, 'store resp', storeResp);
           }
           this.zone.run(() => obs.next(storeResp));
         },

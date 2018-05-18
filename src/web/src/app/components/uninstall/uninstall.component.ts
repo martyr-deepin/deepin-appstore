@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { StoreService } from '../../services/store.service';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { Observable, timer, forkJoin } from 'rxjs';
+import { map, flatMap, switchMap } from 'rxjs/operators';
 
+import * as _ from 'lodash';
+
+import { StoreService } from '../../services/store.service';
 import { StoreJobInfo } from '../../services/store-job-info';
 import { AppService, App } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
-import { timer, forkJoin } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-uninstall',
@@ -20,6 +20,8 @@ export class UninstallComponent implements OnInit {
   metadataServer = BaseService.serverHosts.metadataServer;
   uninstallApps$: Observable<App[]>;
   uninstallJobMap$: Observable<Map<string, StoreJobInfo>>;
+  getInstalledTime = _.memoize(appName => this.storeService.getInstalledTime(appName));
+
   ngOnInit() {
     this.uninstallApps$ = timer(0, 1000).pipe(
       flatMap(() => this.appService.list()),

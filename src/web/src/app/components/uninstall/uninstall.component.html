@@ -11,7 +11,9 @@
 
         <ng-template #$info>
           <div class="time"
-               i18n>Date installed: {{true?'Unknown':$app.updateTime|date:'shortDate'}}</div>
+               i18n>Date installed:
+            <span *ngIf="getInstalledTime($app.name)|async as $installedTime">{{$installedTime*1000|date}}</span>
+          </div>
           <div class="version"
                i18n>Version: {{$app.version.localVersion}}</div>
         </ng-template>
