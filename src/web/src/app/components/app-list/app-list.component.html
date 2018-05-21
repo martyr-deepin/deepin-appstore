@@ -47,12 +47,12 @@
                  height="2rem">
               <ng-container *ngIf="$job.type=='download'"
                             [ngSwitch]="true">
-                <image [attr.xlink:href]="'/assets/icons/pause_'+($job.cancelable?'normal':'insensitive')+'.svg'"
+                <image [attr.xlink:href]="'/assets/buttons/pause_'+($job.cancelable?'normal':'insensitive')+'.svg'"
                        width="100%"
                        height="100%"
                        *ngSwitchCase="$job.status=='running' || $job.status=='ready'"
                        (click)="pause($job.id)"></image>
-                <image [attr.xlink:href]="'/assets/icons/start_'+($job.cancelable?'normal':'insensitive')+'.svg'"
+                <image [attr.xlink:href]="'/assets/buttons/start_'+($job.cancelable?'normal':'insensitive')+'.svg'"
                        width="100%"
                        height="100%"
                        *ngSwitchCase="$job.status=='paused'"

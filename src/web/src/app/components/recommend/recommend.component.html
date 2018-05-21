@@ -1,57 +1,71 @@
 <dialog #myDialog>
-  <form #myForm="ngForm">
-    <img class="close"
-         (click)="close()">
-    <div class="title"
-         i18n>Recommend App</div>
-    <div class="grid">
-      <span required>Name:</span>
-      <input type="text"
-             name="appName"
-             [(ngModel)]="recommend.name"
-             required>
+    <form #myForm="ngForm">
+        <img class="close"
+             (click)="close()">
+        <div class="title"
+             i18n>Recommend App</div>
+        <div class="grid">
+            <span required
+                  i18n>Name:</span>
+            <input type="text"
+                   name="appName"
+                   [(ngModel)]="recommend.name"
+                   required
+                   i18n-placeholder
+                   placeholder="Official name">
 
-      <span required
-            i18n>Type:</span>
-      <select name="appType"
-              [(ngModel)]="recommend.type">
-        <option value="1"
-                i18n>Linux App</option>
-        <option value="2"
-                i18n>Windows App</option>
-        <option value="3"
-                i18n>WebApp</option>
-        <option value="4"
-                i18n>Android App</option>
-      </select>
+            <span required
+                  i18n>Type:</span>
+            <select name="appType"
+                    [(ngModel)]="recommend.type">
+                <option value="1"
+                        i18n>Linux App</option>
+                <option value="2"
+                        i18n>Windows App</option>
+                <option value="3"
+                        i18n>WebApp</option>
+                <option value="4"
+                        i18n>Android App</option>
+            </select>
 
-      <span required>License:</span>
-      <input type="text"
-             name="authorization"
-             [(ngModel)]="recommend.authorization"
-             required>
+            <span required
+                  i18n>License:</span>
+            <input type="text"
+                   name="authorization"
+                   [(ngModel)]="recommend.authorization"
+                   required
+                   i18n-placeholder
+                   placeholder="Input No if no license is required">
 
-      <span required>Homepage:</span>
-      <input type="url"
-             name="homePage"
-             [(ngModel)]="recommend.homePage"
-             required>
+            <span required
+                  i18n>Homepage:</span>
+            <input type="url"
+                   name="homePage"
+                   [(ngModel)]="recommend.homePage"
+                   required
+                   i18n-placeholder
+                   placeholder="Official website">
 
-      <span required>Download Site:</span>
-      <input type="url"
-             name="downloadURL"
-             [(ngModel)]="recommend.downloadURL"
-             required>
+            <span required
+                  i18n>Download Site:</span>
+            <input type="url"
+                   name="downloadURL"
+                   [(ngModel)]="recommend.downloadURL"
+                   required
+                   i18n-placeholder
+                   placeholder="Official download address">
 
 
-      <span i18n>Others:</span>
-      <textarea name="extra"
-                [(ngModel)]="recommend.extraInfo"></textarea>
-    </div>
-    <button [disabled]="!myForm.form.valid"
-            (click)="submit()"
-            i18n>Submit</button>
+            <span i18n>Others:</span>
+            <textarea name="extra"
+                      [(ngModel)]="recommend.extraInfo"
+                      i18n-placeholder
+                      placeholder="Introduction or other info"></textarea>
+        </div>
+        <button [disabled]="!myForm.form.valid"
+                (click)="submit()"
+                i18n>Submit</button>
 
-  </form>
+    </form>
 </dialog>
 {{openDialog$|async}}

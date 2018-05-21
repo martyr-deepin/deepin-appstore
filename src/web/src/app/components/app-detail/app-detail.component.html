@@ -27,21 +27,24 @@
       <div class="title">{{app.localInfo.description.name}}</div>
       <div class="content">
         <div class="desc">
-          <div>Rate</div>
-          <div>Category</div>
+          <div i18n>Rating:</div>
+          <div i18n>Category:</div>
           <ng-container *ngIf="app.version">
-            <div>Version</div>
-            <div>Size</div>
+            <div i18n>Version:</div>
+            <div i18n>Size:</div>
           </ng-container>
-          <div>Update Date</div>
-          <div>Official Website</div>
-          <div>Introduction</div>
+          <div i18n>Update Date:</div>
+          <div i18n>Website:</div>
+          <div i18n>Description:</div>
         </div>
         <div class="info">
           <div class="rate">
             <dstore-star [rate]="app.rate"></dstore-star>
+            <span class="details">{{app.rate.toFixed(1)}}</span>
             <span class="details"
-                  i18n>{{app.rate.toFixed(1)}} {{app.downloads}} downloads {{app.ratings}} ratings</span>
+                  i18n>{{app.downloads}} downloads</span>
+            <span class="details"
+                  i18n>{{app.ratings}} ratings</span>
           </div>
           <div>{{app.localCategory}}</div>
           <ng-container *ngIf="app.version">
@@ -102,9 +105,24 @@
     <div class="dropOff">
       <img class="tips_bg"
            src="/assets/icons/tips_bg.svg">
+      <span i18n>Sorry</span>
       <span i18n>It's in adjustment, you can return to</span>
       <a href="javascript:history.go(-1)"
          i18n>Previous</a>
+    </div>
+  </ng-template>
+
+  <ng-template>
+    <div>
+      <span i18n>Sorry</span>
+      <span i18n>Connection failed, please check your network and refresh</span>
+    </div>
+  </ng-template>
+
+  <ng-template>
+    <div>
+      <span i18n>Sorry</span>
+      <span i18n>Something goes wrong.</span>
     </div>
   </ng-template>
 </ng-template>

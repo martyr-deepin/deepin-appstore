@@ -13,7 +13,7 @@
     <ng-container *ngIf="own$|async as $own;else $edit">
       <div class="title">
         <span class="star">
-          <div>rate</div>
+          <div i18n>Please rate</div>
           <dstore-star [rate]="$own.rate"></dstore-star>
           <div>{{$own.rate}}</div>
         </span>
@@ -24,7 +24,7 @@
     <ng-template #$edit>
       <div class="title">
         <span class="star">
-          <div i18n>rate</div>
+          <div i18n>Please rate</div>
           <dstore-star [(rate)]="rate"
                        #$star
                        [readonly]="false"></dstore-star>
@@ -63,7 +63,6 @@
           i18n>Submit</button>
 </div>
 <br>
-
 <ng-container *ngIf="currentList|chunk:5 as $css">
   <div class="paging">
     <div class="title"
@@ -84,9 +83,15 @@
   </div>
   <br>
   <div class="commentList">
-    <div class="commentItem empty"
-         *ngIf="$css.length===0"
-         i18n>There are not any user comments</div>
+    <ng-container *ngIf="$css.length===0">
+      <div class="commentItem empty error"
+           *ngIf="getListError;else $empty"
+           i18n>Failed to load comments</div>
+      <ng-template #$empty>
+        <div class="commentItem empty"
+             i18n>There are not any user comments</div>
+      </ng-template>
+    </ng-container>
     <div class="commentItem"
          *ngFor="let c of $css[$paginator.pageIndex]">
       <ng-container *ngIf="getUserInfo(c.userID)|async as $userInfo">

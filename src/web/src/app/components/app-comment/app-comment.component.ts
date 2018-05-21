@@ -35,9 +35,14 @@ export class AppCommentComponent implements OnInit {
   rate = 0;
   CommentError = CommentError;
 
+  getListError: null;
   commentList: Comment[];
   historyList: Comment[];
   get currentList() {
+    console.log(this.getListError);
+    if (this.getListError) {
+      return undefined;
+    }
     if (this.select === 'current') {
       return this.commentList;
     } else {
@@ -77,14 +82,14 @@ export class AppCommentComponent implements OnInit {
       .list(this.appName, {
         version: this.version,
       })
-      .subscribe(commentList => (this.commentList = commentList));
+      .subscribe(commentList => (this.commentList = commentList), err => (this.getListError = err));
   }
   getHistoryList() {
     this.commentService
       .list(this.appName, {
         excludeVersion: this.version,
       })
-      .subscribe(commentList => (this.historyList = commentList));
+      .subscribe(commentList => (this.historyList = commentList), err => (this.getListError = err));
   }
 
   login() {

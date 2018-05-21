@@ -11,7 +11,8 @@
         <div class="appInfo"
              [routerLink]="$app.name">
           <div class="name">{{$app.localInfo.description.name}}</div>
-          <div class="version">version: 10.61.1</div>
+          <div class="version"
+               i18n>Version:{{$app.version.remoteVersion}}</div>
         </div>
         <div class="time">
           <span i18n>Time left: </span>

@@ -4,13 +4,13 @@
        routerLinkActive="active"
        [routerLink]="['index']">
     <img class="categoryIcon"
-         [attr.style]="getStyleByID('homepage')">home</div>
+         [attr.style]="getStyleByID('homepage')">Home</div>
   <div i18n
        class="navItem"
        routerLinkActive="active"
        [routerLink]="['ranking']">
     <img class="categoryIcon"
-         [attr.style]="getStyleByID('ranking')">rankings</div>
+         [attr.style]="getStyleByID('ranking')">Rankings</div>
   <ng-container *ngIf="cs$|async as $cs;else $default">
     <ng-container *ngIf="$cs.length>0;else $default">
       <div class="navItem"
@@ -29,77 +29,77 @@
          tabIndex="0"
          [routerLink]="['category','internet']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('internet')">internet</div>
+           [attr.style]="getStyleByID('internet')">Internet</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','office']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('office')">office</div>
+           [attr.style]="getStyleByID('office')">Office</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','development']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('development')">development</div>
+           [attr.style]="getStyleByID('development')">Development</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','reading']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('reading')">reading</div>
+           [attr.style]="getStyleByID('reading')">Reading</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','graphics']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('graphics')">graphics</div>
+           [attr.style]="getStyleByID('graphics')">Graphics</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','game']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('game')">game</div>
+           [attr.style]="getStyleByID('game')">Game</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','music']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('music')">music</div>
+           [attr.style]="getStyleByID('music')">Music</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','system']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('system')">system</div>
+           [attr.style]="getStyleByID('system')">System</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','video']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('video')">video</div>
+           [attr.style]="getStyleByID('video')">Video</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','chat']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('chat')">chat</div>
+           [attr.style]="getStyleByID('chat')">Chat</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','others']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('others')">others</div>
+           [attr.style]="getStyleByID('others')">Others</div>
   </ng-template>
 
   <ng-container *ngIf="native">
@@ -109,12 +109,12 @@
          routerLinkActive="active"
          [routerLink]="['download']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('downloads')">download</div>
+           [attr.style]="getStyleByID('downloads')">Download</div>
     <div i18n
          class="navItem"
          routerLinkActive="active"
          [routerLink]="['uninstall']">
       <img class="categoryIcon"
-           [attr.style]="getStyleByID('uninstall')">uninstall</div>
+           [attr.style]="getStyleByID('uninstall')">Uninstall</div>
   </ng-container>
 </div>

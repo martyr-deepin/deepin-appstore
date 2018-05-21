@@ -77,9 +77,9 @@ int main(int argc, char** argv) {
   app.setApplicationDisplayName(QObject::tr("Deepin App Store"));
   app.setApplicationDescription(QObject::tr(
       "Deepin Store is an Appstore with quality and rich applications. "
-          "Hot recommendation, new arrivals and topic introduction "
-          "are available. It supports one click to download, install, "
-          "update, uninstall and so on."));
+      "Popular recommendation, new updated apps and hot topics are available. "
+      "It supports one click to download, install, update, "
+      "uninstall and so on."));
   app.setApplicationAcknowledgementPage(
       "https://www.deepin.org/acknowledgments/deepin-appstore/");
 
