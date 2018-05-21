@@ -4,22 +4,23 @@
 <context>
     <name>QObject</name>
     <message>
+        <location filename="../src/app/deepin_appstore.cpp" line="77"/>
         <source>Deepin App Store</source>
-        <translation type="vanished">Deepin App Store</translation>
+        <translation>Deepin App Store</translation>
     </message>
     <message>
+        <location filename="../src/app/deepin_appstore.cpp" line="78"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Hot recommendation, new arrivals and topic introduction are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation type="vanished">Deepin Store is an Appstore with quality and rich applications. Hot recommendation, new arrivals and topic introduction are available. It supports one click to download, install, update, uninstall and so on.</translation>
+        <translation>Deepin Store is an Appstore with quality and rich applications. Hot recommendation, new arrivals and topic introduction are available. It supports one click to download, install, update, uninstall and so on.</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="76"/>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="83"/>
         <source>Recommend App</source>
         <translation>Recommend App</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/search_completion_window.cpp" line="113"/>
-        <location filename="../src/ui/widgets/search_completion_window.cpp" line="162"/>
+        <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
+        <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in the full text</source>
         <translation>Search &quot;%1&quot; in the full text</translation>
     </message>
@@ -40,15 +41,12 @@
         <translation>Sign In</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="71"/>
         <source>Light Theme</source>
-        <translation>Light Theme</translation>
+        <translation type="vanished">Light Theme</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="73"/>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
         <source>Dark Theme</source>
-        <translation>Dark Theme</translation>
+        <translation type="vanished">Dark Theme</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="87"/>
@@ -74,54 +72,44 @@
 <context>
     <name>RecommendApp</name>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="48"/>
         <source>Linux App</source>
-        <translation>Linux App</translation>
+        <translation type="vanished">Linux App</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="49"/>
         <source>Windows App</source>
-        <translation>Windows App</translation>
+        <translation type="vanished">Windows App</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="50"/>
         <source>Web App</source>
-        <translation>Web App</translation>
+        <translation type="vanished">Web App</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="51"/>
         <source>Android App</source>
-        <translation>Android App</translation>
+        <translation type="vanished">Android App</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="58"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation type="vanished">Name</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="60"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation type="vanished">Type</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="62"/>
         <source>Homepage</source>
-        <translation>Homepage</translation>
+        <translation type="vanished">Homepage</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="64"/>
         <source>Download Add.</source>
-        <translation>Download Add.</translation>
+        <translation type="vanished">Download Add.</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="66"/>
         <source>Others</source>
-        <translation>Others</translation>
+        <translation type="vanished">Others</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/recommend_app.cpp" line="69"/>
         <source>Submit</source>
-        <translation>Submit</translation>
+        <translation type="vanished">Submit</translation>
     </message>
 </context>
 </TS>

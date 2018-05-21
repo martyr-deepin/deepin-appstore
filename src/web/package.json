@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "i18n": "ng xi18n -p src/tsconfig.json --outputPath src/locale"
+    "i18n": "ng xi18n --outputPath locale"
   },
   "private": true,
   "dependencies": {

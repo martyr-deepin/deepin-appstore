@@ -2,32 +2,594 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="dc75033a5238fdc4f462212c847a45ba8018a3fd" datatype="html">
-        <source>Download</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/nav-bar/nav-bar.component.ts</context>
-          <context context-type="linenumber">4</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="047f50bc5b5d17b5bec0196355953e1a5c590ddb" datatype="html">
-        <source>Update</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/nav-bar/nav-bar.component.ts</context>
-          <context context-type="linenumber">8</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="1dfba504a0d0bf41da961d89d402dedecde5e30d" datatype="html">
-        <source>Uninstall</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/nav-bar/nav-bar.component.ts</context>
-          <context context-type="linenumber">12</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="ac0f81713a84217c9bd1d9bb460245d8190b073f" datatype="html">
         <source>More</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dstore/components/title/title.component.ts</context>
           <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f9aeb5510e2317352b20f4c1dc6864577054c200" datatype="html">
+        <source>{VAR_SELECT, select, download {Downloading} install {Installing} remove {Uninstalling} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dee8c41edf822a0124c80cc1e44643f947b3bc5c" datatype="html">
+        <source>Install</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c9039b1b13b3ef165b66b3c5d79f810ab1ebb050" datatype="html">
+        <source>Open</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="047f50bc5b5d17b5bec0196355953e1a5c590ddb" datatype="html">
+        <source>Update</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fb1215b2b78f7a921724ab750f4f792b1e793d34" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{app.rate.toFixed(1)}}"/> <x id="INTERPOLATION_1" equiv-text="{{app.downloads}}"/> downloads <x id="INTERPOLATION_2" equiv-text="{{app.ratings}}"/> ratings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e8c021c9d36ccd882cb337c19cbca3067c249d41" datatype="html">
+        <source>Downloaded</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="da1ab67875e0350860dceb411678b00d41200a3c" datatype="html">
+        <source>{VAR_SELECT, select, =0 {Downloaded} other {Calculating} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="535ed5b1faa4fb391623e885e7b752bb90b1c473" datatype="html">
+        <source>Ask for update</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0166106da9d18911cf205d22548b9f4d21008f3f" datatype="html">
+        <source>It&apos;s in adjustment, you can return to</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="680d5c75b7fd8d37961083608b9fcdc4167b4c43" datatype="html">
+        <source>Previous</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6b4c85efc982c9dcc3f2bb503a8fbf60088ef603" datatype="html">
+        <source>Totally <x id="ICU" equiv-text="{count, plural, =1 {...} other {...}}"/> <x id="INTERPOLATION" equiv-text="{{count}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e4edfe2cea162cad77ab8c3a392ff7e7b4d987f0" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {is} other {are} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="804ea8515ba1f6474f0593557f5407b261322f06" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{sortBy}}"/> <x id="ICU" equiv-text="{sortBy, select, SortOrder.Downloads {...} SortOrder.Score {...}}"/>
+    <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="de6a0c34a4065cb79af37ba7b9c27a4876d1db03" datatype="html">
+        <source>{VAR_SELECT, select, SortOrder.Downloads {Download} SortOrder.Score {Rate} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7ebcb099ec39a931331060f46e3a61e4e71524b4" datatype="html">
+        <source>Time left: </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="598380196988008da21aa2130f174f3992dfce05" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{$m}}"/> <x id="ICU" equiv-text="{$m, plural, =1 {...} other {...}}"/> and </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5df07d2e974291e32eb5f7cb0b02f703a1a35cfe" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {minute} other {minutes} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e90d8fdf607c63f1b03799a92a029ce75e365da2" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{$s}}"/> <x id="ICU" equiv-text="{$s, plural, =1 {...} other {...}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0a01b84605f4903e6751be11a29dd344beab9e18" datatype="html">
+        <source>{VAR_PLURAL, plural, =1 {second} other {seconds} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc" datatype="html">
+        <source>Paused</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c7b205a4b365871a982ad7e25f423432d47aee93" datatype="html">
+        <source>Waiting to download</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dff88e15f286eb39b6645e8372de971632f684cb" datatype="html">
+        <source>Download failed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b1f8e8e44e54f1c5b03d57215e323265a73a8976" datatype="html">
+        <source>Installing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="81cd72e5c2a49c4e6b823b367ba9dc4f3103faf9" datatype="html">
+        <source>Waiting to install</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="922e72c7e493011a0f95b0318e0386e051aa97f2" datatype="html">
+        <source>Installation failed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edb04a940ecca42098ef66e36412758fb3d082df" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{$apps.length}}"/> <x id="ICU" equiv-text="{$apps.length, plural, =0 {...} =1 {...} other {...}}"/> installed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8a3d30f5119073e041a813f1a5f0ae1ab1fd1812" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {application} =1 {application} other {applications} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cda5250c23a08399fce08271fbde02f41c960926" datatype="html">
+        <source>Date installed:
+            <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/><x id="INTERPOLATION" equiv-text="{{$installedTime*1000|date}}"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>
+          </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b3dbdf46e8e66e30cc972de83314972794b1f6ae" datatype="html">
+        <source>Version: <x id="INTERPOLATION" equiv-text="{{$app.version.localVersion}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="04b741bf33a6b8359849d6085278e54b35acd0b9" datatype="html">
+        <source>Uninstalling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fdda54eda63b0d772c8639f52897d2bb1714b735" datatype="html">
+        <source>Are you sure to uninstall this application?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="68e710782ccb5398b3acb8844caf0b199da2c3da" datatype="html">
+        <source>Confirm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1dfba504a0d0bf41da961d89d402dedecde5e30d" datatype="html">
+        <source>Uninstall</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="db9b972fed98a24a93ee3a00496e86d64dff24fa" datatype="html">
+        <source>
+    <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="65ad0380156f4e654eb0fac2d78c20d569621a29" datatype="html">
+        <source>
+    <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>rankings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="78ed694ba2b288948e79f86f9d20f65df349bc08" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>internet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c9a82bd9806a1d2c1dc985ca47169458a722714c" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>office</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c77aef756dccd1b16f33b9256f6b3009e5abff1d" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>development</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ccfdbebcb6ca3fbb7af28976d10eb98c102535bb" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>reading</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="52d178853e1b6f52243065c24b476db0de394dac" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>graphics</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d20929a19c4c5bee87168e6740e86bb3a40187da" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>game</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="085955a3baddff0504ee8c333fca78e32255d076" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>music</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a294723eca387314fc0bf9df00771629cf2d6858" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>system</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4ac4090d043777e768547ed089b7e420ab6f4f89" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8832e7810126c4a4e107fa49022eb4f03261cf21" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>chat</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d209c41dff43a357ac0481edb7b92a9a61c47773" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>others</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="965621f427e8d513d13c87034e5e5e5e9cd9d7b8" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>download</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="44b27078a79864bbb8690a04b3587de2432cd276" datatype="html">
+        <source>
+      <x id="TAG_IMG" ctype="image" equiv-text="&lt;img/&gt;"/>uninstall</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="09f95c504e95b6bc717d1f628280e1e434e6654b" datatype="html">
+        <source>rankings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/ranking/ranking.component.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="980bde1b7ff971daf68b8bf06d947e09c062ad86" datatype="html">
+        <source>Please post a comment after signed in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="28629af803ab8b5f6e995b17d486e6a1527e2a96" datatype="html">
+        <source>Sign Up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ba4f24bf9bf3dc4db3d6bc1b8b63339295f0b806" datatype="html">
+        <source>Sign In</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b2125f73794002b8bd9ab6720ef9e42ac0bb11e0" datatype="html">
+        <source>You have posted a comment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1e51121772073c07ea3d89602735ab98cd6f4e7a" datatype="html">
+        <source>rate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8f32c151d28bb66bae4e4f6a248bdeb8a2b27cf1" datatype="html">
+        <source>Please input a comment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3b49b13d9f6506617da72137d77aaf34a8527940" datatype="html">
+        <source>Please rate and input your comment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="eafc7cb251d676d25843aeff194c97097f8fa894" datatype="html">
+        <source>Please input your comment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aa20f809feb37966ee4cad2afcf71dcd37cad1a2" datatype="html">
+        <source>Please rate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7af947253f8e439064c440c7e8b65b79f1697ee8" datatype="html">
+        <source>Failed to submit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="71c77bb8cecdf11ec3eead24dd1ba506573fa9cd" datatype="html">
+        <source>Submit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="46105913be7e18027fbaf57f72c41147c49fc8e0" datatype="html">
+        <source>User Comments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ceee1ca7ace7a9956c2fbd7c2d18c39fb60e84cd" datatype="html">
+        <source>Current Version (<x id="INTERPOLATION" equiv-text="{{commentList?.length}}"/>)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fd3f325c8b85fe64eb7b4ba794f8ada417edf4fa" datatype="html">
+        <source>History Versions (<x id="INTERPOLATION" equiv-text="{{historyList?.length}}"/>)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b0b8edf5739046d6481de3de28d9e8bfbcee3757" datatype="html">
+        <source>There are not any user comments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3e035353247be060414664dc794af0aee1af6a48" datatype="html">
+        <source>Searching results of <x id="INTERPOLATION" equiv-text="{{title$|async}}"/>
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/search/search.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a2c86e43bad2e779a341feec8f1246fdf048d3a" datatype="html">
+        <source>No search results found</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/search/search.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="caf3d898806a1d470a5dc43fff3f3140ebca1644" datatype="html">
+        <source>welcome to
+      <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>recommend<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> this application</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/search/search.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8c9b06e0d7654df958e18a0ccf70b47edfb8ed62" datatype="html">
+        <source>Recommend App</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e78c0d60ac39787f62c9159646fe0b3c1ed55a1d" datatype="html">
+        <source>Type:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0929aa173c4ff5d837db1cc6fd247b6a11f7a40b" datatype="html">
+        <source>Linux App</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="13c03bfe1512730c5ae1012a3ede14296bf114f7" datatype="html">
+        <source>Windows App</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ee3a17a01c62e00072f26177e74be6a67df7d78d" datatype="html">
+        <source>WebApp</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1240f1305d48cd560f85da4a4df976e616e39cdf" datatype="html">
+        <source>Android App</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="00138eb76d88382673aa4416d47f9cae64b370bf" datatype="html">
+        <source>Others:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="94516fa213706c67ce5a5b5765681d7fb032033a" datatype="html">
+        <source>Loading...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/wait/wait.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5be78978b1c8277fda3bc75d8c3c28a0913c8795" datatype="html">
+        <source>Succeeded</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="64b582e0d8e3a28331a14d2a1017fa5d6ffb8d93" datatype="html">
+        <source>Failed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
     </body>
