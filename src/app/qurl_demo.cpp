@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 ~ 2018 Deepin Technology Co., Ltd.
+ * Copyright (C) 2018 Deepin Technology Co., Ltd.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,17 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "services/rcc_scheme_handler.h"
-
 #include <QDebug>
+#include <QUrl>
 
-namespace dstore {
-
-QString RccSchemeHandler(const QUrl& url) {
-  const QString filepath = QString("%1/%2")
-      .arg(DSTORE_WEB_DIR)
-      .arg(url.path());
-  return filepath;
+int main(void) {
+  const QUrl url("rcc://web/assets/icons/homepage.svg");
+  qDebug() << url.path();
+  return 0;
 }
-
-}  // namespace dstore

@@ -213,6 +213,9 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
                  base/file_util.h
                  )
   target_link_libraries(test-base64-image ${LINK_LIBS})
+
+  add_executable(qurl-demo app/qurl_demo.cpp)
+  target_link_libraries(qurl-demo ${LINK_LIBS})
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Release)
