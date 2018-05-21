@@ -67,11 +67,11 @@ void TitleBarMenu::setRegion(bool is_china) {
 
 void TitleBarMenu::setDarkTheme(bool is_dark_theme) {
   is_dark_theme_ = is_dark_theme;
-  if (is_dark_theme) {
-    switch_theme_action_->setText(QObject::tr("Light Theme"));
-  } else {
-    switch_theme_action_->setText(QObject::tr("Dark Theme"));
-  }
+//  if (is_dark_theme) {
+//    switch_theme_action_->setText(QObject::tr("Light Theme"));
+//  } else {
+//    switch_theme_action_->setText(QObject::tr("Dark Theme"));
+//  }
 }
 
 void TitleBarMenu::initActions() {
@@ -100,9 +100,9 @@ void TitleBarMenu::initActions() {
   this->addAction(QObject::tr("Clear Cache"),
                   this, &TitleBarMenu::clearCacheRequested);
 
-  switch_theme_action_ = this->addAction(QObject::tr("Dark Theme"));
-  connect(switch_theme_action_, &QAction::triggered,
-          this, &TitleBarMenu::onThemeActionTriggered);
+//  switch_theme_action_ = this->addAction(QObject::tr("Dark Theme"));
+//  connect(switch_theme_action_, &QAction::triggered,
+//          this, &TitleBarMenu::onThemeActionTriggered);
 
   this->addSeparator();
 }
