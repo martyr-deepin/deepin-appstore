@@ -1,8 +1,7 @@
-.sectionList {
-  width: 978px;
+:host {
+  width: 934px;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(5rem, auto);
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: 3rem;
 }

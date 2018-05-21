@@ -1,16 +1,43 @@
-<div class="sectionList">
-  <ng-container *ngFor="let section of sectionList;index as $index">
-    <div [style.gridColumnEnd]='"span "+section.colSpan' [style.gridRowEnd]='"span "+section.rowSpan' [style.overflow]="'hidden'"
-      [ngSwitch]="section.type">
-      <ng-container *ngIf="section.show">
-      <dstore-carousel *ngSwitchCase="SectionType.Carousel" [carouselList]="section.items"></dstore-carousel>
-      <dstore-cover *ngSwitchCase="SectionType.Cover" [title]="section.title" [apps]="section.items"></dstore-cover>
-      <dstore-phrase *ngSwitchCase="SectionType.Phrase" [phraseList]="section.items" [title]="section.title"></dstore-phrase>
-      <dstore-ranking *ngSwitchCase="SectionType.Ranking" [title]="section.title" [category]="section.ranking.category" [count]="section.ranking.count"></dstore-ranking>
-      <dstore-topic *ngSwitchCase="SectionType.Topic" [section]="section" [sectionIndex]="$index"></dstore-topic>
-      <dstore-icon *ngSwitchCase="SectionType.Icon" [title]="section.title" [apps]="section.items"></dstore-icon>
-      <dstore-assemble *ngSwitchCase="SectionType.Assemble" [title]="section.title" [assembleList]="section.items"></dstore-assemble>
-      </ng-container>
-    </div>
-  </ng-container>
-</div>
+<ng-container *ngFor="let section of sectionList$|async;index as $index"
+              [ngSwitch]="section.type">
+
+  <dstore-carousel *ngSwitchCase="SectionType.Carousel"
+                   [style.gridColumnEnd]='"span "+section.colSpan'
+                   [style.gridRowEnd]='"span 1"'
+                   [carouselList]="section.items"></dstore-carousel>
+
+  <dstore-cover *ngSwitchCase="SectionType.Cover"
+                [style.gridColumnEnd]='"span "+section.colSpan'
+                [style.gridRowEnd]='"span "+section.rowSpan*2'
+                [section]="section"
+                [apps]="section.items"></dstore-cover>
+
+  <dstore-ranking *ngSwitchCase="SectionType.Ranking"
+                  [style.gridColumnEnd]='"span "+section.colSpan'
+                  [style.gridRowEnd]='"span "+section.ranking.count'
+                  [section]="section"></dstore-ranking>
+
+  <dstore-phrase *ngSwitchCase="SectionType.Phrase"
+                 [style.gridColumnEnd]='"span "+section.colSpan'
+                 [style.gridRowEnd]='"span "+section.rowSpan'
+                 [phraseList]="section.items"
+                 [section]="section"></dstore-phrase>
+
+  <dstore-icon *ngSwitchCase="SectionType.Icon"
+               [style.gridColumnEnd]='"span "+section.colSpan'
+               [style.gridRowEnd]='"span "+section.rowSpan'
+               [section]="section"
+               [apps]="section.items"></dstore-icon>
+
+  <dstore-topic *ngSwitchCase="SectionType.Topic"
+                [style.gridColumnEnd]='"span "+section.colSpan'
+                [style.gridRowEnd]='"span "+section.rowSpan'
+                [section]="section"
+                [topicList]="section.items"></dstore-topic>
+
+  <dstore-assemble *ngSwitchCase="SectionType.Assemble"
+                   [style.gridColumnEnd]='"span "+section.colSpan'
+                   [style.gridRowEnd]='"span "+section.rowSpan'
+                   [section]="section"
+                   [assembleList]="section.items"></dstore-assemble>
+</ng-container>
