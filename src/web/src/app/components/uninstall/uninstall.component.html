@@ -10,10 +10,8 @@
         <div class="name">{{$app.localInfo.description.name}}</div>
 
         <ng-template #$info>
-          <div class="time"
-               i18n>Date installed:
+          <div class="time"><span i18n>Date installed:</span>
             <span *ngIf="getInstalledTime($app.name)|async as $installedTime;else $unknownTime">{{$installedTime*1000|date}}</span>
-            <!-- 安装时间未知 -->
             <ng-template #$unknownTime>
               <span i18n>Unknown</span>
             </ng-template>
