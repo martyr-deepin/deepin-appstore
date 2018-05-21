@@ -9,7 +9,7 @@
        appHover
        #$appContent="appHover">
     <img class="cover"
-         [src]="server+'/images/apps.com.qq.im_cover_zh-CN_863672f3.jpeg'"
+         [src]="server+'/'+([$app.localInfo.images.cover,$app.localInfo.images.coverHD]|fitImage)"
          [routerLink]="$app.name">
     <div class="content">
       <div class="info"

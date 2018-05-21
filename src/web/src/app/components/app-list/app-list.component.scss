@@ -8,7 +8,15 @@
     outline: none;
     .cover {
       border-radius: 5px;
+      width: 226px;
+      height: 140px;
+      position: relative;
+      &::before {
+        content: url('/assets/images/default_cover.png');
+        position: absolute;
+      }
     }
+
     .content {
       display: flex;
       justify-content: space-between;

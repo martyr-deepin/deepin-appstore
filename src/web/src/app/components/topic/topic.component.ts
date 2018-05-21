@@ -36,7 +36,7 @@ export class TopicComponent implements OnInit {
         const topicIndex = parseInt(param.get('topic'), 10);
         return this.sectionService
           .getList()
-          .map(sectionList => get(sectionList, [sectionIndex, 'items', topicIndex]));
+          .pipe(map(sectionList => get(sectionList, [sectionIndex, 'items', topicIndex])));
       }),
     );
     this.apps$ = this.topic$.pipe(

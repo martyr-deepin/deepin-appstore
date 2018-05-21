@@ -1,43 +1,50 @@
 <ng-container *ngFor="let section of sectionList$|async;index as $index"
               [ngSwitch]="section.type">
 
-  <dstore-carousel *ngSwitchCase="SectionType.Carousel"
-                   [style.gridColumnEnd]='"span "+section.colSpan'
-                   [style.gridRowEnd]='"span 1"'
-                   [carouselList]="section.items"></dstore-carousel>
+    <dstore-carousel *ngSwitchCase="SectionType.Carousel"
+                     [style.gridColumnEnd]='"span "+section.colSpan'
+                     [style.gridRowEnd]='"span 1"'
+                     [appFilter]="appFilter"
+                     [carouselList]="section.items"></dstore-carousel>
 
-  <dstore-cover *ngSwitchCase="SectionType.Cover"
-                [style.gridColumnEnd]='"span "+section.colSpan'
-                [style.gridRowEnd]='"span "+section.rowSpan*2'
-                [section]="section"
-                [apps]="section.items"></dstore-cover>
-
-  <dstore-ranking *ngSwitchCase="SectionType.Ranking"
+    <dstore-cover *ngSwitchCase="SectionType.Cover"
                   [style.gridColumnEnd]='"span "+section.colSpan'
-                  [style.gridRowEnd]='"span "+section.ranking.count'
-                  [section]="section"></dstore-ranking>
+                  [style.gridRowEnd]='"span "+section.rowSpan*2'
+                  [appFilter]="appFilter"
+                  [section]="section"
+                  [apps]="section.items"></dstore-cover>
 
-  <dstore-phrase *ngSwitchCase="SectionType.Phrase"
-                 [style.gridColumnEnd]='"span "+section.colSpan'
-                 [style.gridRowEnd]='"span "+section.rowSpan'
-                 [phraseList]="section.items"
-                 [section]="section"></dstore-phrase>
+    <dstore-ranking *ngSwitchCase="SectionType.Ranking"
+                    [style.gridColumnEnd]='"span "+section.colSpan'
+                    [style.gridRowEnd]='"span "+section.ranking.count'
+                    [appFilter]="appFilter"
+                    [section]="section"></dstore-ranking>
 
-  <dstore-icon *ngSwitchCase="SectionType.Icon"
-               [style.gridColumnEnd]='"span "+section.colSpan'
-               [style.gridRowEnd]='"span "+section.rowSpan'
-               [section]="section"
-               [apps]="section.items"></dstore-icon>
-
-  <dstore-topic *ngSwitchCase="SectionType.Topic"
-                [style.gridColumnEnd]='"span "+section.colSpan'
-                [style.gridRowEnd]='"span "+section.rowSpan'
-                [section]="section"
-                [topicList]="section.items"></dstore-topic>
-
-  <dstore-assemble *ngSwitchCase="SectionType.Assemble"
+    <dstore-phrase *ngSwitchCase="SectionType.Phrase"
                    [style.gridColumnEnd]='"span "+section.colSpan'
                    [style.gridRowEnd]='"span "+section.rowSpan'
-                   [section]="section"
-                   [assembleList]="section.items"></dstore-assemble>
+                   [phraseList]="section.items"
+                   [appFilter]="appFilter"
+                   [section]="section"></dstore-phrase>
+
+    <dstore-icon *ngSwitchCase="SectionType.Icon"
+                 [style.gridColumnEnd]='"span "+section.colSpan'
+                 [style.gridRowEnd]='"span "+section.rowSpan'
+                 [section]="section"
+                 [appFilter]="appFilter"
+                 [apps]="section.items"></dstore-icon>
+
+    <dstore-topic *ngSwitchCase="SectionType.Topic"
+                  [style.gridColumnEnd]='"span "+section.colSpan'
+                  [style.gridRowEnd]='"span "+section.rowSpan'
+                  [section]="section"
+                  [sectionIndex]="$index"
+                  [topicList]="section.items"></dstore-topic>
+
+    <dstore-assemble *ngSwitchCase="SectionType.Assemble"
+                     [style.gridColumnEnd]='"span "+section.colSpan'
+                     [style.gridRowEnd]='"span "+section.rowSpan'
+                     [section]="section"
+                     [appFilter]="appFilter"
+                     [assembleList]="section.items"></dstore-assemble>
 </ng-container>

@@ -41,6 +41,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { NotifyComponent } from './components/notify/notify.component';
 
 import { LodashPipe } from './pipes/lodash.pipe';
+import { MoreComponent } from './components/more/more.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { LodashPipe } from './pipes/lodash.pipe';
     PaginatorComponent,
     LodashPipe,
     NotifyComponent,
+    MoreComponent,
   ],
   imports: [
     BrowserModule,

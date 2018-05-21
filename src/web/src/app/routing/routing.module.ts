@@ -9,6 +9,7 @@ import { UninstallComponent } from '../components/uninstall/uninstall.component'
 import { AppDetailComponent } from '../components/app-detail/app-detail.component';
 import { SearchComponent } from '../components/search/search.component';
 import { TopicComponent } from '../components/topic/topic.component';
+import { MoreComponent } from '../components/more/more.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,8 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'index', component: IndexComponent },
+  { path: 'index/apps', component: MoreComponent },
+  { path: 'index/apps/:appName', component: AppDetailComponent },
   { path: 'index/:appName', component: AppDetailComponent },
   {
     path: 'category/:id',
