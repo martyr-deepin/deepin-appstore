@@ -161,7 +161,7 @@ void SearchCompletionWindow::initUI() {
   search_button_->setObjectName("SearchButton");
   search_button_->setCheckable(true);
   search_button_->setFixedHeight(25);
-  search_button_->setText(QObject::tr("Search \"%1\" in the full text"));
+  search_button_->setText(QObject::tr("Search \"%1\" in Deepin Store"));
 
   QVBoxLayout* main_layout = new QVBoxLayout();
   main_layout->setContentsMargins(0, 4, 0, 3);

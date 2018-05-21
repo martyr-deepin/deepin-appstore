@@ -15,12 +15,8 @@
     </message>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
-        <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
-        <source>Search &quot;%1&quot; in the full text</source>
+        <source>Search &quot;%1&quot; in Deepin Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
