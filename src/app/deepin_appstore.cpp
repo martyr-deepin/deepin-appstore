@@ -39,7 +39,8 @@ int main(int argc, char** argv) {
   // Open http://localhost:9222 in chromium browser to see dev tools.
   settings.setRemoteDebug(true);
 #else
-  settings.setRemoteDebug(false);
+  //settings.setRemoteDebug(false);
+  settings.setRemoteDebug(true);
 #endif
   settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
 
