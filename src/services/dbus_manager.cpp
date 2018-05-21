@@ -52,7 +52,9 @@ bool DBusManager::parseArguments() {
 
   if (!session_bus.registerService(kAppStoreDbusService) ||
       !session_bus.registerObject(kAppStoreDbusPath, this)) {
-    qWarning() << Q_FUNC_INFO << "Failed to register dbus service";
+    qWarning() << Q_FUNC_INFO
+               << "Failed to register dbus service"
+               << session_bus.lastError();
 
     // Failed to register dbus service.
     // Open app with dbus interface.
@@ -74,7 +76,7 @@ bool DBusManager::parseArguments() {
         return false;
       }
     } else {
-      return true;
+      return false;
     }
   } else {
     qDebug() << "Register dbus service successfully.";
