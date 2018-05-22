@@ -13,7 +13,7 @@
     <ng-container *ngIf="own$|async as $own;else $edit">
       <div class="title">
         <span class="star">
-          <div i18n>Please rate</div>
+          <div i18n>Your Rating:</div>
           <dstore-star [rate]="$own.rate"></dstore-star>
           <div>{{$own.rate}}</div>
         </span>
@@ -24,7 +24,7 @@
     <ng-template #$edit>
       <div class="title">
         <span class="star">
-          <div i18n>Please rate</div>
+          <div i18n>Please rate:</div>
           <dstore-star [(rate)]="rate"
                        #$star
                        [readonly]="false"></dstore-star>
@@ -63,7 +63,7 @@
           i18n>Submit</button>
 </div>
 <br>
-<ng-container *ngIf="currentList|chunk:5 as $css">
+<ng-container *ngIf="currentList|chunk:20 as $css">
   <div class="paging">
     <div class="title"
          i18n>User Comments</div>
@@ -119,5 +119,12 @@
         </div>
       </ng-container>
     </div>
+  </div>
+  <div class="bottom">
+    <span (click)="scrollToTop()"
+          i18n>Back to top</span>
+    <app-paginator *ngIf="$css.length>1"
+                   [count]="$css.length"
+                   (pageIndexChange)="$paginator.pageIndex=$event"></app-paginator>
   </div>
 </ng-container>

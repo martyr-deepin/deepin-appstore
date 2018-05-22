@@ -1,6 +1,7 @@
 <div class="list"
      *ngIf="jobs$|async as $jobs">
-  <div class="title">Processing {{$jobs.length}} {$jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
+  <div class="title"
+       i18n>Processing {{$jobs.length}} {$jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
   <ng-container *ngFor="let job of $jobs">
     <div class="item"
          *ngIf="job.name|appInfo|async as $app">
@@ -18,13 +19,16 @@
           <span i18n>Time left: </span>
           <ng-container *ngIf="job.type=='download' && job.status=='running';else $wait">
             <span *ngIf="(job.downloadSize*(1-job.progress*2)/job.speed).toFixed(0) as $d;else $wait">
+
+
               <ng-container *ngIf="$d>=60">
                 <ng-container *ngIf="($d/60|lodash).floor() as $m"
-                              i18n>{{$m}} {$m, plural, =1 {minute} other {minutes}} and </ng-container>
+                              i18n>{{$m}} min</ng-container>
               </ng-container>
+              &nbsp;
               <ng-container *ngIf="$d>0;else $wait">
                 <ng-container *ngIf="($d%60|lodash).floor() as $s"
-                              i18n>{{$s}} {$s, plural, =1 {second} other {seconds}}</ng-container>
+                              i18n>{{$s}} sec</ng-container>
               </ng-container>
             </span>
           </ng-container>

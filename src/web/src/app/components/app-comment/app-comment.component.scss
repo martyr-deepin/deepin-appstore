@@ -88,7 +88,6 @@
 .commentList {
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
   .commentItem {
     display: flex;
     border-radius: 3px;
@@ -135,6 +134,16 @@
       text-align: right;
     }
   }
+}
+.bottom {
+  margin: 1rem 0;
+  display: flex;
+  span {
+    color: blue;
+    cursor: pointer;
+  }
+  justify-content: space-between;
+  align-items: center;
 }
 .thumbUp {
   content: url('/assets/buttons/thumbup_normal.svg');

@@ -3,11 +3,11 @@
     <ng-content></ng-content>
     <span class="count"
           *ngIf="count"
-          i18n>Totally {count,plural,=1 {is} other {are}} {{count}}</span>
+          i18n>Top {{count}}</span>
   </div>
   <div class="dropdown"
        (click)="dropMenu.hidden=false;dropMenu.focus()"
-       i18n>{{sortBy}} {sortBy, select, SortOrder.Downloads {Download} SortOrder.Score {Rate}}
+       i18n>{{sortBy}} {sortBy, select, SortOrder.Downloads {Downloads} SortOrder.Score {Rating}}
     <img class="down">
   </div>
   <ul class="dropdown-menu"
@@ -15,7 +15,7 @@
       hidden
       #dropMenu
       (blur)="dropMenu.hidden=true">
-    <li (click)="sortBy=SortOrder.Downloads;dropMenu.hidden=true;">Download</li>
-    <li (click)="sortBy=SortOrder.Score;dropMenu.hidden=true;">Rate</li>
+    <li (click)="sortBy=SortOrder.Downloads;dropMenu.hidden=true;">Downloads</li>
+    <li (click)="sortBy=SortOrder.Score;dropMenu.hidden=true;">Rating</li>
   </ul>
 </div>

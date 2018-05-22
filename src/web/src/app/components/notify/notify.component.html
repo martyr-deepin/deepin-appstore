@@ -1,6 +1,7 @@
 <div class="notify"
      *ngIf="notify$|async as $notify">
-    <div *ngIf="$notify.type===NotifyType.Notice;else $others" i18n>Announcement：{{$notify.content}}</div>
+    <div *ngIf="$notify.type===NotifyType.Notice;else $others"
+         i18n>Announcement：{{$notify.content}}</div>
     <ng-template #$others>
         <ng-container [ngSwitch]="$notify.status">
             <ng-container *ngSwitchCase="NotifyStatus.Success">
@@ -8,7 +9,7 @@
                 <ng-container [ngSwitch]="$notify.type">
                     <span class="succeed"
                           *ngSwitchCase="NotifyType.Reminder"
-                          i18n>Succeeded</span>
+                          i18n>Urge successfully</span>
                 </ng-container>
             </ng-container>
             <ng-container *ngSwitchCase="NotifyStatus.Error">
@@ -16,7 +17,7 @@
                 <ng-container [ngSwitch]="$notify.type">
                     <span class="failed"
                           *ngSwitchCase="NotifyType.Reminder"
-                          i18n>Failed</span>
+                          i18n>Urge failed</span>
                 </ng-container>
             </ng-container>
         </ng-container>

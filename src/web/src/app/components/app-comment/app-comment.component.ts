@@ -139,6 +139,9 @@ export class AppCommentComponent implements OnInit {
       });
     }
   }
+  scrollToTop() {
+    document.querySelector('.app>.context').scrollTop = 0;
+  }
 }
 
 enum CommentError {
