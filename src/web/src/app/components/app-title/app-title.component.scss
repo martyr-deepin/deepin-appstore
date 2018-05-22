@@ -16,6 +16,7 @@
   .dropdown-menu {
     cursor: pointer;
     position: absolute;
+    z-index: 1;
     list-style: none;
     top: 1rem;
     right: 1rem;

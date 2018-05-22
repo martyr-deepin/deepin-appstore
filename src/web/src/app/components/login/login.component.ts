@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
     this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl('');
     this.loginService.onOpenLogin().subscribe(isLogin => {
       if (!isLogin) {
+        this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
+          'https://login.deepin.org/oauth2/logout',
+        );
         this.authService.logout();
         return;
       }
