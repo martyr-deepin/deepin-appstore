@@ -4,6 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
+import { registerLocaleData } from '@angular/common';
+import localeZH from '@angular/common/locales/zh-Hans';
+registerLocaleData(localeZH, 'zh-Hans');
+
 import { RoutingModule } from './routing/routing.module';
 import { DstoreModule } from './dstore/dstore.module';
 

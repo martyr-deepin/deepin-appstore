@@ -109,7 +109,7 @@
           </div>
           <span>{{c.content}}</span>
         </div>
-        <div class="time">{{c.createTime}}</div>
+        <div class="time">{{c.createTime|date:'medium'}}</div>
         <div class="like">
           <span *ngIf="c.likeCount">({{c.likeCount}})</span>
           <img class="thumbUp"
