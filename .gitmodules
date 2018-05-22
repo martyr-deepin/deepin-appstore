@@ -5,3 +5,7 @@
 [submodule "src/web/src/app/dstore"]
 	path = src/web/src/app/dstore
 	url = https://cr.deepin.io/dstore-web-components
+[submodule "src/web/src/app/dstore-client.module"]
+	path = src/web/src/app/dstore-client.module
+	url = https://cr.deepin.io/dstore-web-components
+	branch = client

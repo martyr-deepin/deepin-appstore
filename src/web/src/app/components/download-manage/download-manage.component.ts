@@ -7,9 +7,13 @@ import { memoize, throttle } from 'lodash';
 import { App } from '../../dstore/services/app';
 import { AppService } from '../../dstore/services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
-import { StoreService } from '../../services/store.service';
-import { StoreJobInfo, StoreJobType, StoreJobStatus } from '../../services/store-job-info';
-import { AppVersion } from '../../services/app-version';
+import { StoreService } from '../../dstore-client.module/services/store.service';
+import {
+  StoreJobInfo,
+  StoreJobType,
+  StoreJobStatus,
+} from '../../dstore-client.module/models/store-job-info';
+import { AppVersion } from '../../dstore-client.module/models/app-version';
 
 @Component({
   selector: 'app-download',

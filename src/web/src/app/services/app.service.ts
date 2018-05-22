@@ -7,8 +7,8 @@ import { map, flatMap, tap, share, shareReplay, retry, filter } from 'rxjs/opera
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
 import { App as DstoreApp } from '../dstore/services/app';
-import { StoreService } from './store.service';
-import { AppVersion } from './app-version';
+import { StoreService } from '../dstore-client.module/services/store.service';
+import { AppVersion } from '../dstore-client.module/models/app-version';
 import { version } from 'punycode';
 
 @Injectable()

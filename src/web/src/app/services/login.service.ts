@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, merge } from 'rxjs';
 
-import { Channel } from '../utils/channel';
+import { Channel } from '../dstore-client.module/utils/channel';
 import { Subject } from 'rxjs';
 
 @Injectable()

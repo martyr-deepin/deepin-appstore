@@ -7,9 +7,13 @@ import { sortBy } from 'lodash';
 import { App } from '../../services/app.service';
 import { SortOrder } from '../app-title/app-title.component';
 import { BaseService } from '../../dstore/services/base.service';
-import { StoreService } from '../../services/store.service';
-import { StoreJobInfo, AppJobInfo, AppJobStatus } from '../../services/store-job-info';
-import { AppVersion } from '../../services/app-version';
+import { StoreService } from '../../dstore-client.module/services/store.service';
+import {
+  StoreJobInfo,
+  AppJobInfo,
+  AppJobStatus,
+} from '../../dstore-client.module/models/store-job-info';
+import { AppVersion } from '../../dstore-client.module/models/app-version';
 
 @Component({
   selector: 'app-app-list',

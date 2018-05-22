@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { BaseService } from './dstore/services/base.service';
-import { StoreService } from './services/store.service';
+import { StoreService } from './dstore-client.module/services/store.service';
 import { AppService } from './services/app.service';
 import { SearchService, SearchResult } from './services/search.service';
-import { Channel } from './utils/channel';
+import { Channel } from './dstore-client.module/utils/channel';
 import { App } from './dstore/services/app';
 
 @Component({

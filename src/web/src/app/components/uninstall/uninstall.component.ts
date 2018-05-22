@@ -5,8 +5,8 @@ import { map, flatMap, switchMap } from 'rxjs/operators';
 
 import * as _ from 'lodash';
 
-import { StoreService } from '../../services/store.service';
-import { StoreJobInfo } from '../../services/store-job-info';
+import { StoreService } from '../../dstore-client.module/services/store.service';
+import { StoreJobInfo } from '../../dstore-client.module/models/store-job-info';
 import { AppService, App } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
 

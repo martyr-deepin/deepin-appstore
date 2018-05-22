@@ -16,7 +16,7 @@ import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CommentService } from './services/comment.service';
 import { BaseService } from './dstore/services/base.service';
-import { StoreService } from './services/store.service';
+import { StoreService } from './dstore-client.module/services/store.service';
 import { SearchService } from './services/search.service';
 import { LoginService } from './services/login.service';
 import { RecommendService } from './services/recommend.service';
