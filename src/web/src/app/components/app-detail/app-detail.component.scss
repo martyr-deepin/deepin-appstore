@@ -25,9 +25,7 @@
           color: gray;
           text-align: right;
           white-space: nowrap;
-          &::after {
-            content: ':';
-          }
+          margin-right: 0.5rem;
         }
       }
       .info {
