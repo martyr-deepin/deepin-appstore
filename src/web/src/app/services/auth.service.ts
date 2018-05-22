@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { DstoreObject } from '../dstore-client.module/utils/dstore-objects';
 import { LoginService } from './login.service';
 
 @Injectable()
@@ -33,5 +34,9 @@ export class AuthService {
       // location.href = ('https://login.deepin.org/oauth2/logout?callback=' +
       //   window['escape'](location.href)) as string;
     }
+  }
+
+  register() {
+    DstoreObject.openURL(`https://account.deepin.org/register`);
   }
 }

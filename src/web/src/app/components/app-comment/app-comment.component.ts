@@ -68,6 +68,7 @@ export class AppCommentComponent implements OnInit {
   page = 0;
   own$: Observable<Comment>;
   getUserInfo = _.memoize(userName => this.userService.userInfo(userName));
+  register = this.authService.register;
 
   ngOnInit() {
     this.getList();

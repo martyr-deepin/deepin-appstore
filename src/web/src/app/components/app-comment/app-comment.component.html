@@ -2,8 +2,8 @@
   <ng-container *ngIf="!isLoggedIn;else $editComment">
     <div class="title">
       <span i18n>Please post a comment after signed in</span>
-      <a href
-         i18n>Sign Up</a>
+      <span (click)="register()"
+            i18n>Sign Up</span>
     </div>
     <button class="loginBtn"
             (click)="login()"
