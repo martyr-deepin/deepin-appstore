@@ -37,6 +37,12 @@ class SettingsProxy : public QObject {
   const QString getOperationServer();
 
   /**
+   * Request to open url in external web browser.
+   * @param url
+   */
+  void openUrl(const QString& url);
+
+  /**
    * Returns metadata server and operation server address.
    * @return
    */

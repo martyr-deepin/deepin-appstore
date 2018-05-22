@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QtGui/QDesktopServices>
+#include <QUrl>
 #include "ui/channel/settings_proxy.h"
 
 #include "services/settings_manager.h"
@@ -35,6 +37,10 @@ const QString SettingsProxy::getMetadataServer() {
 
 const QString SettingsProxy::getOperationServer() {
   return GetOperationServer();
+}
+
+void SettingsProxy::openUrl(const QString& url) {
+  QDesktopServices::openUrl(QUrl(url));
 }
 
 const QVariantMap SettingsProxy::getServers() {
