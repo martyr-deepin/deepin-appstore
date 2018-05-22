@@ -12,9 +12,9 @@
          [src]="server+'/'+([$app.localInfo.images.cover,$app.localInfo.images.coverHD]|fitImage)"
          [routerLink]="$app.name">
     <div class="content">
-      <div class="info"
-           [routerLink]="$app.name">
-        {{$app.localInfo.description.name}}
+      <div class="info ellipsis"
+           [routerLink]="$app.name"
+           [title]="$app.localInfo.description.name">
         <span class="category">{{$app.localCategory}}</span>
       </div>
       <div class="star"
