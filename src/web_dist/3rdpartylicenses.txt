@@ -371,3 +371,7 @@ SOFTWARE.
 querystring@0.2.0
 MIT
 MIT
+
+@angular/common@6.0.0
+MIT
+MIT

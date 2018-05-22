@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
+import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
 import { BaseService } from '../../dstore/services/base.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginService } from '../../services/login.service';
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.loginService.onOpenLogin().subscribe(isLogin => {
       if (!isLogin) {
         this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-          'https://login.deepin.org/oauth2/logout',
+          'https://login.deepin.org/oauth2/logout?lang=' + navigator.language.split('-')[0],
         );
         this.authService.logout();
         return;
@@ -45,11 +46,22 @@ export class LoginComponent implements OnInit {
   // login iframe loading
   load(iframe: HTMLIFrameElement) {
     this.loaded = true;
+
     const closeButton = iframe.contentDocument.getElementById('close');
     if (closeButton) {
       closeButton.addEventListener('click', () => {
         this.dialogRef.nativeElement.close();
       });
+    }
+    for (const id of ['signup', 'forget']) {
+      const link = iframe.contentDocument.getElementById(id) as HTMLLinkElement;
+      if (link) {
+        console.log(link);
+        link.addEventListener('click', (e: MouseEvent) => {
+          e.preventDefault();
+          DstoreObject.openURL(link.href);
+        });
+      }
     }
     const [, token] = iframe.contentDocument.cookie
       .split('; ')
