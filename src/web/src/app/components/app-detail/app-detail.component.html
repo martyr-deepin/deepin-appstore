@@ -6,7 +6,15 @@
       <br>
       <ng-container *ngIf="app.version">
         <ng-container *ngIf="job$|async as $job;else $ctlBtn">
-          <button i18n>{ $job.type, select, download {Downloading} install {Installing} remove {Uninstalling} }</button>
+          <ng-container [ngSwitch]="$job.type">
+            <button *ngSwitchCase="StoreJobType.download"
+                    i18n>Downloading</button>
+            <button *ngSwitchCase="StoreJobType.install"
+                    i18n>Installing</button>
+            <button *ngSwitchCase="StoreJobType.uninstall"
+                    i18n>Uninstalling</button>
+          </ng-container>
+
         </ng-container>
         <ng-template #$ctlBtn>
           <button *ngIf="!app.version.localVersion;else $open"
@@ -56,8 +64,12 @@
                 <ng-template #$size>
                   <ng-container *ngIf="size$|async as $size; else $msg">{{$size|sizeHuman}}</ng-container>
                   <ng-template #$msg
-                               let-$size
-                               i18n>{size, select, =0 {Downloaded} other {Calculating} }</ng-template>
+                               let-$size>
+                    <ng-container *ngIf="$size===0;else $calc"
+                                  i18n>Downloaded</ng-container>
+                    <ng-template #$calc
+                                 i18n>Calculating</ng-template>
+                  </ng-template>
                 </ng-template>
               </ng-container>
             </div>

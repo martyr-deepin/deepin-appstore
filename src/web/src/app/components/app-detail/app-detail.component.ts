@@ -8,7 +8,11 @@ import { App, AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { CanvasUtil } from '../../utils/canvas-util';
 import { StoreService } from '../../dstore-client.module/services/store.service';
-import { AppJobStatus, StoreJobInfo } from '../../dstore-client.module/models/store-job-info';
+import {
+  AppJobStatus,
+  StoreJobInfo,
+  StoreJobType,
+} from '../../dstore-client.module/models/store-job-info';
 import { ReminderService } from '../../services/reminder.service';
 import { DownloadService } from '../../services/download.service';
 import { NotifyService } from '../../services/notify.service';
@@ -33,6 +37,7 @@ export class AppDetailComponent implements OnInit {
   open = this.storeService.openApp;
 
   AppJobStatus = AppJobStatus;
+  StoreJobType = StoreJobType;
   job$: Observable<StoreJobInfo>;
   size$: Observable<number>;
   app$: Observable<App>;
