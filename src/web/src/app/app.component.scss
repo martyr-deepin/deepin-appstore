@@ -1,16 +1,15 @@
 .app {
   display: flex;
   .nav {
-    flex: 1;
-    // border-right: 1px solid rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.3);
+    height: 100vh;
+    overflow-y: auto;
   }
   .context {
-    flex: 9;
+    flex: 1;
     height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
     margin-bottom: 1rem;
     position: relative;
   }

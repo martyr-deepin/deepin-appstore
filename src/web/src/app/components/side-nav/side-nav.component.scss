@@ -1,12 +1,13 @@
 .nav {
   user-select: none;
-  min-width: 130px;
   text-align: center;
+  height: 100%;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
   .navItem {
     display: flex;
     align-items: center;
     font-size: 12px;
-    padding: 0 1rem;
+    padding: 0 2vw;
     height: 30px;
     margin-bottom: 10px;
     outline: none;

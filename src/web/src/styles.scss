@@ -10,14 +10,26 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 2px;
+  background-clip: content-box;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-left: 2px solid rgba(0, 0, 0, 0);
+  border-right: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  $color: rgba(0, 0, 0, 0.7);
+  background-color: $color;
+  border-left: 2px solid $color;
+  border-right: 2px solid $color;
+}
+::-webkit-scrollbar-thumb:active {
+  $color: rgba(0, 0, 0, 0.8);
+  background-color: $color;
+  border-left: 2px solid $color;
+  border-right: 2px solid $color;
 }
 .icon {
   width: 48px;
