@@ -17,7 +17,7 @@
       display: flex;
       align-items: center;
       .appInfo {
-        flex: 4;
+        flex: 3;
         display: flex;
         flex-direction: column;
         height: 48px;
@@ -34,6 +34,7 @@
       }
       .progressInfo {
         flex: 3;
+        flex-shrink: 0;
         progress {
           width: 100%;
         }
@@ -42,6 +43,9 @@
           justify-content: space-between;
           padding-top: 0.5rem;
           color: gray;
+          .size {
+            white-space: nowrap;
+          }
         }
         .message {
           display: flex;

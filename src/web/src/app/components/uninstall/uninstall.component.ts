@@ -32,7 +32,7 @@ export class UninstallComponent implements OnInit {
       map(jobs => {
         return new Map(
           jobs
-            .filter(job => job.type === 'remove')
+            .filter(job => job.type === 'remove' && job.status === 'running')
             .map(job => [job.name, job] as [string, StoreJobInfo]),
         );
       }),

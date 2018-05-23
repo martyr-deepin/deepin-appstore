@@ -39,7 +39,8 @@
                     max="1"></progress>
           <div class="speed"
                *ngIf="job.type===StoreJobType.download&&job.status===StoreJobStatus.running;else $msg">
-            <span *ngIf="job.downloadSize">
+            <span *ngIf="job.downloadSize"
+                  class="size">
               {{(job.downloadSize*job.progress*2)|sizeHuman}} / {{job.downloadSize|sizeHuman}}
             </span>
             <span>{{job.speed|sizeHuman}}/S</span>
