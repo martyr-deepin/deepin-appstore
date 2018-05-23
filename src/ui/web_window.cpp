@@ -142,6 +142,9 @@ void WebWindow::initConnections() {
 
   connect(web_view_->page(), &QCefWebPage::urlChanged,
           this, &WebWindow::onWebViewUrlChanged);
+
+  connect(web_view_->page(), &QCefWebPage::loadingStateChanged,
+          this, &WebWindow::onLoadingStateChanged);
 }
 
 void WebWindow::initProxy() {
@@ -300,9 +303,13 @@ void WebWindow::onTitleBarEntered() {
 
 void WebWindow::onWebViewUrlChanged(const QUrl& url) {
   Q_UNUSED(url);
-  auto page = web_view_->page();
-  title_bar_->setBackwardButtonActive(page->canGoBack());
-  title_bar_->setForwardButtonActive(page->canGoForward());
+}
+
+void WebWindow::onLoadingStateChanged(bool,
+                             bool can_go_back,
+                             bool can_go_forward){
+  title_bar_->setBackwardButtonActive(can_go_back);
+  title_bar_->setForwardButtonActive(can_go_forward);
 }
 
 void WebWindow::webViewGoBack() {

@@ -101,6 +101,10 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   void onTitleBarEntered();
 
   void onWebViewUrlChanged(const QUrl& url);
+  
+  void onLoadingStateChanged(bool is_loading,
+                             bool can_go_back,
+                             bool can_go_forward);
 
   void webViewGoBack();
   void webViewGoForward();
