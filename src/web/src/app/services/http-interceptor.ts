@@ -37,7 +37,7 @@ export class MyHttpInterceptor implements HttpInterceptor {
             } else {
               this.loginService.OpenLogin();
             }
-            break;
+            return of(null);
           case 429:
             this.materializeService.toastError('访问过于频繁，请稍后重试');
             break;
