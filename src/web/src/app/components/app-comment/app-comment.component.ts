@@ -140,7 +140,7 @@ export class AppCommentComponent implements OnInit {
     }
   }
   scrollToTop() {
-    document.querySelector('.app>.context').scrollTop = 0;
+    window.scrollTo(0, 0);
   }
 }
 
