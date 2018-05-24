@@ -15,7 +15,8 @@
       <div class="info ellipsis"
            [routerLink]="$app.name"
            [title]="$app.localInfo.description.name">
-        <span class="category">{{$app.localCategory}}</span>
+        <span class="category"
+              [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
       </div>
       <div class="star"
            *ngIf="!$appContent.Hover || !$app.version;else $appControl">
