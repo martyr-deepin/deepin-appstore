@@ -21,8 +21,8 @@ export class AppService {
 
   private server = BaseService.serverHosts.operationServer;
 
-  list = _.throttle(this.getAppList, 1000 * 10);
-  appMap = _.throttle(this.getAppMap, 1000 * 10);
+  list = _.throttle(this.getAppList, 1000 * 30);
+  appMap = _.throttle(this.getAppMap, 1000 * 30);
   listNoVersion(): Observable<App[]> {
     return this.getAppMapNoVersion().pipe(map(appMap => Array.from(appMap.values())));
   }

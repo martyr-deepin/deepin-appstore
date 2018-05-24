@@ -2,13 +2,12 @@
   display: flex;
   .nav {
     height: 100vh;
-    overflow-y: auto;
+    position: sticky;
+    top: 0;
   }
   .context {
     flex: 1;
-    height: 100vh;
     overflow-x: hidden;
-    overflow-y: scroll;
     padding: 0 1rem;
     margin-bottom: 1rem;
     position: relative;

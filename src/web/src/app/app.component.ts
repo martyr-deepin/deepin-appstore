@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Router, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { filter, pairwise } from 'rxjs/operators';
 
 import { BaseService } from './dstore/services/base.service';
 import { StoreService } from './dstore-client.module/services/store.service';
@@ -8,7 +9,6 @@ import { AppService } from './services/app.service';
 import { SearchService, SearchResult } from './services/search.service';
 import { Channel } from './dstore-client.module/utils/channel';
 import { App } from './dstore/services/app';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -24,18 +24,33 @@ export class AppComponent implements OnInit {
   @ViewChild('$context') contentRef: ElementRef<HTMLDivElement>;
 
   ngOnInit(): void {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      console.log('router');
-      this.contentRef.nativeElement.scrollTop = 0;
-    });
+    this.scrollHistory();
+    this.searchIndex();
+    this.searchListen();
+  }
 
+  scrollHistory() {
+    const offsetMap = new Map<string, number>();
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationStart), pairwise())
+      .subscribe(([oldEvent, event]: [NavigationStart, NavigationStart]) => {
+        console.log(oldEvent, event);
+        offsetMap.set(oldEvent.url, window.pageYOffset);
+        if (oldEvent.url === '/') {
+          offsetMap.set('/index', window.pageYOffset);
+        }
+        setTimeout(() => window.scrollTo(0, offsetMap.get(event.url) || 0), 100);
+      });
+  }
+  searchIndex() {
     if (BaseService.isNative) {
       this.appService.listNoVersion().subscribe((apps: App[]) => {
         const appStringList = JSON.stringify(apps);
         Channel.exec('search.updateAppList', appStringList);
       });
     }
-
+  }
+  searchListen() {
     this.searchService.onOpenApp().subscribe(appName => {
       console.log('open app', appName);
       this.router.navigate(['search', appName]);
