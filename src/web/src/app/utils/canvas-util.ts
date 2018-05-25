@@ -7,8 +7,8 @@ export class CanvasUtil {
    */
   static getBase64Image(img: HTMLImageElement, format = 'image/jpg'): string {
     const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
 
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0);
