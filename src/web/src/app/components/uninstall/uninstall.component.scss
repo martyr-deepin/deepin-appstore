@@ -16,21 +16,21 @@
     padding: 1rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     .name {
-      flex: 3;
+      flex: 1;
     }
     .time {
-      flex: 3;
+      flex: 1;
       color: gray;
     }
     .version {
-      flex: 3;
+      flex: 1;
       color: gray;
     }
     .warn {
-      flex: 4;
+      flex: 2;
     }
     .uninstall {
-      flex: 2;
+      flex: 1;
       text-align: right;
       justify-content: space-between;
       button {
@@ -40,4 +40,8 @@
       }
     }
   }
+}
+
+.wait {
+  height: 90vh;
 }
