@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { get, parseInt } from 'lodash';
 import { Observable, forkJoin, iif, of } from 'rxjs';
-import { map, flatMap } from 'rxjs/operators';
+import { map, flatMap, tap } from 'rxjs/operators';
 
 import { SectionTopic } from '../../dstore/services/section';
 import { SectionService } from '../../services/section.service';
@@ -29,14 +29,22 @@ export class TopicComponent implements OnInit {
   topic$: Observable<SectionTopic>;
   apps$: Observable<App[]>;
 
+  @HostBinding('style.backgroundImage') bgImg;
+
   ngOnInit() {
     this.topic$ = this.route.paramMap.pipe(
       flatMap(param => {
         const sectionIndex = parseInt(param.get('section'), 10);
         const topicIndex = parseInt(param.get('topic'), 10);
-        return this.sectionService
-          .getList()
-          .pipe(map(sectionList => get(sectionList, [sectionIndex, 'items', topicIndex])));
+        return this.sectionService.getList().pipe(
+          map(sectionList => get(sectionList, [sectionIndex, 'items'])),
+          map((topicList: SectionTopic[]) => topicList.filter(t => t.show)[topicIndex]),
+          tap(topic => {
+            if (topic && topic.backgroundColor) {
+              this.bgImg = `linear-gradient(to bottom, transparent,${topic.backgroundColor})`;
+            }
+          }),
+        );
       }),
     );
     this.apps$ = this.topic$.pipe(

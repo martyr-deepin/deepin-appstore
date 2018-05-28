@@ -1,14 +1,7 @@
-<div
-  class="main"
-  *ngIf="topic$|async as $topic"
-  [style.backgroundImage]="'linear-gradient(to bottom, transparent, '+$topic.backgroundColor+')'"
->
-  <img
-    class="bgImg"
-    [src]="server+'/images/'+ $topic.backgroundImage"
-  >
-  <app-app-list
-    class="apps"
-    [apps$]="apps$"
-  ></app-app-list>
-</div>
+<ng-container class="main"
+              *ngIf="topic$|async as $topic">
+  <img class="bgImg"
+       [src]="server+'/images/'+ ([$topic.backgroundImage,$topic.backgroundImageHD]|fitImage)">
+  <app-app-list class="apps"
+                [apps$]="apps$"></app-app-list>
+</ng-container>
