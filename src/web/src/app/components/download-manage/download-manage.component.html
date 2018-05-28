@@ -60,6 +60,8 @@
               </ng-container>
               <ng-container *ngIf="job.type===StoreJobType.install"
                             [ngSwitch]="job.status">
+                <ng-container *ngSwitchCase="StoreJobStatus.paused"
+                              i18n>Paused</ng-container>
                 <ng-container *ngSwitchCase="StoreJobStatus.running"
                               i18n>Installing</ng-container>
                 <ng-container *ngSwitchCase="StoreJobStatus.ready"

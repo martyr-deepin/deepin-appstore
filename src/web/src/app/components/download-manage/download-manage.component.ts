@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of, forkJoin, timer, iif } from 'rxjs';
 import { flatMap, defaultIfEmpty, map, tap, shareReplay } from 'rxjs/operators';
 
-import { memoize, throttle } from 'lodash';
+import { memoize, throttle, sortBy } from 'lodash';
 
 import { App } from '../../dstore/services/app';
 import { AppService } from '../../dstore/services/app.service';
@@ -44,7 +44,7 @@ export class DownloadComponent implements OnInit {
           forkJoin(jobs.map(job => this.storeService.getJobInfo(job))),
         ),
       ),
-      map(jobs => jobs.filter(job => job.type !== 'remove')),
+      map(jobs => sortBy(jobs.filter(job => job.type !== 'remove'), 'name')),
     );
   }
 }
