@@ -103,7 +103,13 @@
   <dstore-indication [count]="app.localInfo.images.screenshot.length"
                      #indication
                      (change)="screenshotClick('screenshot-'+$event)"></dstore-indication>
+
+
   <ng-container *ngIf="app.version">
+    <div class="donateBtn">
+      <button i18n
+              (click)="donateOpen()">Donate</button>
+    </div>
     <div class="hr"></div>
     <br>
     <app-app-comment [appName]="app.name"
@@ -139,3 +145,10 @@
     </div>
   </ng-template>
 </ng-template>
+
+<dialog #$donate
+        (click)="dialogClick($event.target)">
+  <app-donate [appName]="appName"
+              *ngIf="$donate.open"
+              (close)="$donate.close()"></app-donate>
+</dialog>

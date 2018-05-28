@@ -105,3 +105,11 @@
   color: black;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
+
+.donateBtn {
+  text-align: center;
+  margin-bottom: 1rem;
+  button {
+    padding: 0.5rem 1rem;
+  }
+}

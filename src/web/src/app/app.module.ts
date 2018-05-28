@@ -46,6 +46,7 @@ import { NotifyComponent } from './components/notify/notify.component';
 
 import { LodashPipe } from './pipes/lodash.pipe';
 import { MoreComponent } from './components/more/more.component';
+import { DonateComponent } from './components/donate/donate.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { MoreComponent } from './components/more/more.component';
     LodashPipe,
     NotifyComponent,
     MoreComponent,
+    DonateComponent,
   ],
   imports: [
     BrowserModule,

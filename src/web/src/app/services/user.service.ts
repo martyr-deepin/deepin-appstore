@@ -6,17 +6,19 @@ import { map, shareReplay } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { AuthService } from './auth.service';
+import { BaseService } from '../dstore/services/base.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   constructor(private http: HttpClient, private auth: AuthService) {}
+  server = BaseService.serverHosts.operationServer;
   jwtService = new JwtHelperService();
   userInfo(userName: string): Observable<UserInfo> {
     console.log(userName);
     return this.http
-      .get<{ user: UserInfo }>('http://server-13:8100/api/deepin_id/' + userName)
+      .get<{ user: UserInfo }>(this.server + '/api/deepin_id/' + userName)
       .pipe(map(resp => resp.user), shareReplay());
   }
   myInfo(): Observable<UserInfo> {

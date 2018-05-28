@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
 import { flatMap, map, tap, concat, switchMap, publishReplay, refCount } from 'rxjs/operators';
@@ -33,7 +33,7 @@ export class AppDetailComponent implements OnInit {
     private downloadService: DownloadService,
     private notifyService: NotifyService,
   ) {}
-
+  appName: string;
   metadataServer = BaseService.serverHosts.metadataServer;
   open = this.storeService.openApp;
 
@@ -43,6 +43,7 @@ export class AppDetailComponent implements OnInit {
   size$: Observable<number>;
   app$: Observable<App>;
   version$: Observable<AppVersion>;
+  @ViewChild('$donate') donate: ElementRef<HTMLDialogElement>;
 
   ngOnInit() {
     this.app$ = this.route.paramMap.pipe(
@@ -68,9 +69,10 @@ export class AppDetailComponent implements OnInit {
       flatMap(app =>
         merge(
           of(app.version),
-          this.storeService
-            .jobListChange()
-            .pipe(switchMap(() => this.storeService.getVersion([app.name])), map(v => v[0])),
+          this.storeService.jobListChange().pipe(
+            switchMap(() => this.storeService.getVersion([app.name])),
+            map(v => v[0]),
+          ),
         ),
       ),
     );
@@ -114,5 +116,13 @@ export class AppDetailComponent implements OnInit {
           this.notifyService.error(NotifyType.Recommend);
         },
       );
+  }
+  donateOpen() {
+    this.donate.nativeElement.showModal();
+  }
+  dialogClick(el: HTMLElement) {
+    if (el.nodeName === 'DIALOG') {
+      this.donate.nativeElement.close();
+    }
   }
 }
