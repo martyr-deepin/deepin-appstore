@@ -25,6 +25,10 @@ bool operator<(const AppSearchRecord& a, const AppSearchRecord& b) {
   return a.name < b.name;
 }
 
+bool operator==(const AppSearchRecord& a, const AppSearchRecord& b) {
+return a.name == b.name;
+}
+
 void RegisterAppSearchRecordMetaType() {
   qRegisterMetaType<AppSearchRecord>("AppSearchRecord");
   qRegisterMetaType<AppSearchRecordList>("AppSearchRecordList");

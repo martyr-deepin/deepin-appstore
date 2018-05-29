@@ -17,6 +17,7 @@
 
 #include "services/search_manager.h"
 
+#include <algorithm>
 #include <QDebug>
 
 namespace dstore {
@@ -24,6 +25,29 @@ namespace dstore {
 namespace {
 
 const int kMaxSearchResult = 10;
+
+AppSearchRecordList SearchApp(const QString& keyword,
+                              const AppSearchRecordList& apps) {
+  AppSearchRecordList result;
+  for (const AppSearchRecord& app : apps) {
+    if (app.name.contains(keyword, Qt::CaseInsensitive) ||
+        app.local_name.contains(keyword, Qt::CaseInsensitive)) {
+      result.append(app);
+    }
+  }
+
+  for (const AppSearchRecord& app : apps) {
+    if (app.description.contains(keyword, Qt::CaseInsensitive) ||
+        app.slogan.contains(keyword, Qt::CaseInsensitive)) {
+      result.append(app);
+    }
+  }
+
+  auto last = std::unique(result.begin(), result.end());
+  result.erase(last, result.end());
+
+  return result;
+}
 
 }  // namespace
 
@@ -38,33 +62,13 @@ SearchManager::~SearchManager() {
 }
 
 void SearchManager::searchApp(const QString& keyword) {
-  AppSearchRecordList result;
-  for (const AppSearchRecord& app : record_list_) {
-    if (result.length() >= kMaxSearchResult) {
-      break;
-    }
-    if (app.name.contains(keyword, Qt::CaseInsensitive) ||
-        app.local_name.contains(keyword, Qt::CaseInsensitive) ||
-        app.slogan.contains(keyword, Qt::CaseInsensitive) ||
-        app.description.contains(keyword, Qt::CaseInsensitive)) {
-      result.append(app);
-    }
-  }
-
+  AppSearchRecordList result = SearchApp(keyword, record_list_);
+  result = result.mid(0, kMaxSearchResult);
   emit this->searchAppResult(keyword, result);
 }
 
 void SearchManager::completeSearchApp(const QString& keyword) {
-  AppSearchRecordList result;
-  for (const AppSearchRecord& app : record_list_) {
-    if (app.name.contains(keyword, Qt::CaseInsensitive) ||
-        app.local_name.contains(keyword, Qt::CaseInsensitive) ||
-        app.slogan.contains(keyword, Qt::CaseInsensitive) ||
-        app.description.contains(keyword, Qt::CaseInsensitive)) {
-      result.append(app);
-    }
-  }
-
+  AppSearchRecordList result = SearchApp(keyword, record_list_);
   emit this->completeSearchAppResult(keyword, result);
 }
 

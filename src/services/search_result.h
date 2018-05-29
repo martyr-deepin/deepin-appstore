@@ -39,6 +39,8 @@ struct AppSearchRecord {
   QString flatpak;
 };
 
+bool operator==(const AppSearchRecord& a, const AppSearchRecord& b);
+
 void RegisterAppSearchRecordMetaType();
 
 bool operator<(const AppSearchRecord& a, const AppSearchRecord& b);
