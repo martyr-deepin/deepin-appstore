@@ -54,6 +54,8 @@ class StoreDaemonProxy : public QObject {
 
   void updateAppList(const AppSearchRecordList& record_list);
 
+  void onAppListUpdated(const AppSearchRecordList& app_list);
+
  public slots:
   /**
    * Check connecting to backend app store daemon or not.

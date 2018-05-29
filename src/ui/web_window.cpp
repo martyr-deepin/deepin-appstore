@@ -111,9 +111,9 @@ void WebWindow::initConnections() {
           this, &WebWindow::onSearchAppResult);
 
   connect(search_proxy_, &SearchProxy::onAppListUpdated,
-          search_manager_, &SearchManager::updateAppList);
-  connect(search_proxy_, &SearchProxy::onAppListUpdated,
           store_daemon_proxy_, &StoreDaemonProxy::updateAppList);
+  connect(store_daemon_proxy_, &StoreDaemonProxy::onAppListUpdated,
+          search_manager_, &SearchManager::updateAppList);
 
   connect(search_timer_, &QTimer::timeout,
           this, &WebWindow::onSearchTextChangedDelay);

@@ -114,6 +114,9 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
   apps_.clear();
   deb_names_.clear();
   flatpak_names_.clear();
+
+  QStringList deb_app_names;
+
   for (const AppSearchRecord& app : app_list) {
     const QString& app_name = app.name;
     apps_.insert(app_name, app);
@@ -122,8 +125,28 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
     apps_[app_name].deb = deb_name;
     apps_[app_name].flatpak = flatpak_name;
 
+    deb_app_names.append(deb_name);
+
     deb_names_.insert(deb_name, app_name);
     flatpak_names_.insert(flatpak_name, app_name);
+  }
+
+  const QDBusPendingReply<AppVersionList> version_reply =
+      deb_interface_->QueryVersion(deb_app_names);
+  if (version_reply.isError()) {
+    qCritical() << Q_FUNC_INFO << version_reply.error();
+  } else {
+    AppSearchRecordList existed_app_list;
+
+    const AppVersionList version_list = version_reply.value();
+    for (const AppVersion& version : version_list) {
+      if (deb_names_.contains(version.pkg_name)) {
+        const QString& app_name = deb_names_[version.pkg_name];
+        const AppSearchRecord& app = apps_[app_name];
+        existed_app_list.append(app);
+      }
+    }
+    emit this->onAppListUpdated(existed_app_list);
   }
 }
 

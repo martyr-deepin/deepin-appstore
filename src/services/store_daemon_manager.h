@@ -74,6 +74,8 @@ class StoreDaemonManager : public QObject {
   void installedPackagesReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
+  void onAppListUpdated(const AppSearchRecordList& app_list);
+
  public slots:
   void updateAppList(const AppSearchRecordList& app_list);
 
