@@ -37,15 +37,18 @@ class SearchManager : public QObject {
   /**
    * Emitted after searchApp() is successfully handled.
    * @param keyword
-   * @param entered unused
    * @param record_list matched apps, might be empty.
    */
   void searchAppResult(const QString& keyword,
-                       bool entered,
                        const AppSearchRecordList& record_list);
 
+  void completeSearchAppResult(const QString& keyword,
+                               const AppSearchRecordList& record_list);
+
  public slots:
-  void searchApp(const QString& keyword, bool entered);
+  void searchApp(const QString& keyword);
+
+  void completeSearchApp(const QString& keyword);
 
   void updateAppList(const AppSearchRecordList& record_list);
 

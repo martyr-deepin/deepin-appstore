@@ -37,7 +37,7 @@ SearchManager::~SearchManager() {
 
 }
 
-void SearchManager::searchApp(const QString& keyword, bool entered) {
+void SearchManager::searchApp(const QString& keyword) {
   AppSearchRecordList result;
   for (const AppSearchRecord& app : record_list_) {
     if (result.length() >= kMaxSearchResult) {
@@ -51,7 +51,21 @@ void SearchManager::searchApp(const QString& keyword, bool entered) {
     }
   }
 
-  emit this->searchAppResult(keyword, entered, result);
+  emit this->searchAppResult(keyword, result);
+}
+
+void SearchManager::completeSearchApp(const QString& keyword) {
+  AppSearchRecordList result;
+  for (const AppSearchRecord& app : record_list_) {
+    if (app.name.contains(keyword, Qt::CaseInsensitive) ||
+        app.local_name.contains(keyword, Qt::CaseInsensitive) ||
+        app.slogan.contains(keyword, Qt::CaseInsensitive) ||
+        app.description.contains(keyword, Qt::CaseInsensitive)) {
+      result.append(app);
+    }
+  }
+
+  emit this->completeSearchAppResult(keyword, result);
 }
 
 void SearchManager::updateAppList(const AppSearchRecordList& record_list) {

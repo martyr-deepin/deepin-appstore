@@ -109,6 +109,8 @@ void WebWindow::initConnections() {
 
   connect(search_manager_, &SearchManager::searchAppResult,
           this, &WebWindow::onSearchAppResult);
+  connect(search_manager_, &SearchManager::completeSearchAppResult,
+          this, &WebWindow::onCompleteSearchAppResult);
 
   connect(search_proxy_, &SearchProxy::onAppListUpdated,
           store_daemon_proxy_, &StoreDaemonProxy::updateAppList);
@@ -221,35 +223,35 @@ void WebWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void WebWindow::onSearchAppResult(const QString& keyword,
-                                  bool entered,
                                   const AppSearchRecordList& result) {
   Q_UNUSED(keyword);
   completion_window_->setSearchResult(result);
 
-  if (entered) {
-    // Show search page in web.
-    QStringList names;
-    for (const AppSearchRecord& app : completion_window_->searchResult()) {
-      names.append(app.name);
-    }
-    emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
+  if (result.isEmpty()) {
+    // Hide completion window if no anchor entry matches.
     completion_window_->hide();
   } else {
-    if (result.isEmpty()) {
-      // Hide completion window if no anchor entry matches.
-      completion_window_->hide();
-    } else {
-      completion_window_->show();
-      completion_window_->raise();
-      completion_window_->autoResize();
-      // Move to below of search edit.
-      const QPoint local_point(this->rect().width() / 2 - 94, 36);
-      const QPoint global_point(this->mapToGlobal(local_point));
-      completion_window_->move(global_point);
-      completion_window_->setFocusPolicy(Qt::NoFocus);
-      completion_window_->setFocusPolicy(Qt::StrongFocus);
-    }
+    completion_window_->show();
+    completion_window_->raise();
+    completion_window_->autoResize();
+    // Move to below of search edit.
+    const QPoint local_point(this->rect().width() / 2 - 94, 36);
+    const QPoint global_point(this->mapToGlobal(local_point));
+    completion_window_->move(global_point);
+    completion_window_->setFocusPolicy(Qt::NoFocus);
+    completion_window_->setFocusPolicy(Qt::StrongFocus);
   }
+}
+
+void WebWindow::onCompleteSearchAppResult(const QString& keyword,
+                                          const AppSearchRecordList& result) {
+  // Show search page in web.
+  QStringList names;
+  for (const AppSearchRecord& app : result) {
+    names.append(app.name);
+  }
+  emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
+  completion_window_->hide();
 }
 
 void WebWindow::onSearchEditFocusOut() {
@@ -271,13 +273,18 @@ void WebWindow::prepareSearch(bool entered) {
   // Filters special chars.
   if (text.size() <= 1 ||
       text.contains(QRegularExpression("[+_-$!@#%^&\\(\\)]"))) {
+    qCritical() << "Invalid regexp:" << text;
     return;
   }
 
   completion_window_->setKeyword(text);
 
   // Do real search.
-  search_manager_->searchApp(text, entered);
+  if (entered) {
+    search_manager_->completeSearchApp(text);
+  } else {
+    search_manager_->searchApp(text);
+  }
 }
 
 void WebWindow::onSearchResultClicked(const AppSearchRecord& result) {
@@ -306,8 +313,8 @@ void WebWindow::onWebViewUrlChanged(const QUrl& url) {
 }
 
 void WebWindow::onLoadingStateChanged(bool,
-                             bool can_go_back,
-                             bool can_go_forward){
+                                      bool can_go_back,
+                                      bool can_go_forward) {
   title_bar_->setBackwardButtonActive(can_go_back);
   title_bar_->setForwardButtonActive(can_go_forward);
 }

@@ -91,8 +91,9 @@ class WebWindow : public Dtk::Widget::DMainWindow {
 
  private slots:
   void onSearchAppResult(const QString& keyword,
-                         bool entered,
                          const AppSearchRecordList& result);
+  void onCompleteSearchAppResult(const QString& keyword,
+                                 const AppSearchRecordList& result);
   void onSearchEditFocusOut();
   void onSearchButtonClicked();
   void onSearchResultClicked(const AppSearchRecord& result);
