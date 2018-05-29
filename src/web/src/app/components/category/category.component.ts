@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of, forkJoin } from 'rxjs';
-import { flatMap, tap, map, defaultIfEmpty, share } from 'rxjs/operators';
+import { Observable, of, forkJoin, Subject } from 'rxjs';
+import { flatMap, tap, map, defaultIfEmpty, share, distinctUntilChanged } from 'rxjs/operators';
 
 import { find, defaults } from 'lodash';
 
@@ -21,8 +21,7 @@ export class CategoryComponent implements OnInit {
     private categoryService: CategoryService,
     private appService: AppService,
   ) {}
-
-  title$: Observable<string>;
+  title: string;
   apps$: Observable<App[]>;
 
   list$: Observable<{ title: string; apps$: Observable<App[]> }>;
@@ -30,6 +29,10 @@ export class CategoryComponent implements OnInit {
   ngOnInit() {
     this.list$ = this.route.paramMap.pipe(
       flatMap(param => {
+        setTimeout(() => {
+          this.title = document.querySelector('.navItem.active').textContent;
+        }, 0);
+
         const id = param.get('id');
         return this.categoryService.list().pipe(
           map(cs => {

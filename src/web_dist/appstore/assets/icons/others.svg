@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>others</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="others" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M12.000446,3 C7.03745085,3 3,7.03650641 3,11.9995015 C3,16.9624967 7.03745085,20.9990031 12.000446,20.9990031 C16.9624967,20.9990031 20.9999475,16.9624967 20.9999475,11.9995015 C20.9999475,7.03650641 16.9624967,3 12.000446,3" id="Fill-84" stroke="#303030" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M16.5,13.5 C15.671,13.5 15,12.828 15,12 C15,11.171 15.671,10.5 16.5,10.5 C17.329,10.5 18,11.171 18,12 C18,12.828 17.329,13.5 16.5,13.5" id="Path" fill="#303030"></path>
+        <path d="M12,13.5 C11.172,13.5 10.5,12.828 10.5,12 C10.5,11.171 11.172,10.5 12,10.5 C12.829,10.5 13.5,11.171 13.5,12 C13.5,12.828 12.829,13.5 12,13.5" id="Path" fill="#303030"></path>
+        <path d="M7.5,13.5 C6.672,13.5 6,12.828 6,12 C6,11.171 6.672,10.5 7.5,10.5 C8.329,10.5 9,11.171 9,12 C9,12.828 8.329,13.5 7.5,13.5" id="Path" fill="#303030"></path>
+    </g>
+</svg>

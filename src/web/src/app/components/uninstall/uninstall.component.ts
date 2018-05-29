@@ -24,10 +24,6 @@ export class UninstallComponent implements OnInit {
   constructor(private storeService: StoreService, private appService: AppService) {}
   metadataServer = BaseService.serverHosts.metadataServer;
 
-  // uninstallApps$: Observable<App[]>;
-  // uninstallJobMap$: Observable<Map<string, StoreJobInfo>>;
-  // getInstalledTime = _.memoize(appName => this.storeService.getInstalledTime(appName));
-
   uninstallApps$: Observable<UninstallApp[]>;
   ngOnInit() {
     this.uninstallApps$ = timer(0, 1000).pipe(
@@ -65,7 +61,7 @@ export class UninstallComponent implements OnInit {
             app.installedTime = timeMap.get(app.name);
             return app;
           });
-          return _.sortBy(apps, 'installedTime').reverse();
+          return _.sortBy(apps, ['installedTime', 'name']).reverse();
         },
       ),
     );

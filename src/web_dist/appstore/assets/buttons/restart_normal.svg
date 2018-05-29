@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>restart_normal</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="96.8191964%" id="linearGradient-1">
+            <stop stop-color="#8CCFFF" offset="0%"></stop>
+            <stop stop-color="#4BB8FF" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="14" cy="14" r="14"></circle>
+        <filter x="-25.0%" y="-17.9%" width="150.0%" height="150.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="restart_normal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-4" transform="translate(4.000000, 4.000000)">
+            <g id="Oval-2">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <circle stroke-opacity="0.2" stroke="#0076F3" stroke-width="1" cx="14" cy="14" r="13.5"></circle>
+            </g>
+            <path d="M15.9471081,10.0528919 C15.3504086,9.75794746 14.6876969,9.6 14,9.6 C11.5699471,9.6 9.6,11.5699471 9.6,14 C9.6,16.4300529 11.5699471,18.4 14,18.4 C16.4300529,18.4 18.4,16.4300529 18.4,14 L19.6,14 C19.6,17.0927946 17.0927946,19.6 14,19.6 C10.9072054,19.6 8.4,17.0927946 8.4,14 C8.4,10.9072054 10.9072054,8.4 14,8.4 C15.012562,8.4 15.984549,8.67005397 16.8321199,9.16788011 L19,7 L19,12 L14,12 L15.9471081,10.0528919 Z" id="Combined-Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>
