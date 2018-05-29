@@ -238,3 +238,9 @@ install(TARGETS
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist
         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/)
+
+install(
+    DIRECTORY ${CMAKE_BINARY_DIR}/translations
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/
+    FILES_MATCHING PATTERN "*"
+)
