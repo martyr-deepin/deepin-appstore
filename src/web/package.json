@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "i18n": "ng xi18n --outputPath locale"
+    "i18n": "ng xi18n --outputPath locale",
+    "fix-i18n": "find src/locale -type f | xargs sed -i -e '/target/s/&lt;/</g' -e '/target/s/&gt;/>/g' -e '/target/s/&quot;/\"/g'"
   },
   "private": true,
   "dependencies": {
