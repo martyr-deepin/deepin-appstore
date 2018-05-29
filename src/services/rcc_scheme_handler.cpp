@@ -18,13 +18,21 @@
 #include "services/rcc_scheme_handler.h"
 
 #include <QDebug>
+#include <QFileInfo>
+#include <QLocale>
 
 namespace dstore {
 
 QString RccSchemeHandler(const QUrl& url) {
-  const QString filepath = QString("%1/%2")
+  const char kAppDefaultLocalDir[] = DSTORE_WEB_DIR "/appstore";
+  QString app_local_dir = QString("%1/appstore-%2")
       .arg(DSTORE_WEB_DIR)
-      .arg(url.path());
+      .arg(QLocale().name());
+  if (!QFileInfo::exists(app_local_dir)) {
+    app_local_dir = kAppDefaultLocalDir;
+  }
+
+  const QString filepath = QString("%1/%2").arg(app_local_dir).arg(url.path());
   return filepath;
 }
 
