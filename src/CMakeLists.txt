@@ -218,9 +218,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
   target_link_libraries(qurl-demo ${LINK_LIBS})
 endif()
 
-if (CMAKE_BUILD_TYPE MATCHES Release)
-  add_dependencies(deepin-appstore update-qm)
-endif ()
+add_dependencies(deepin-appstore update-qm)
 
 add_executable(deepin-appstore-metadata
 

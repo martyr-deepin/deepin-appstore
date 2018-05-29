@@ -4,7 +4,7 @@ minimum_perc = 80
 mode = developer
 
 [deepin-store-5.deepin-appstore]
-file_filter = translations/deepin-appstore<lang>.ts
+file_filter = translations/deepin-appstore-<lang>.ts
 source_file = translations/deepin-appstore.ts
 source_lang = en
 type = QT
