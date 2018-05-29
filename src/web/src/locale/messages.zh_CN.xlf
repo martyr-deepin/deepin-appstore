@@ -661,7 +661,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="71c77bb8cecdf11ec3eead24dd1ba506573fa9cd">
         <source>Submit</source>
-        <target>提交评论</target>
+        <target>提交</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">63</context>
@@ -681,7 +681,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="ceee1ca7ace7a9956c2fbd7c2d18c39fb60e84cd">
         <source>Current Version (<x equiv-text="{{commentList?.length}}" id="INTERPOLATION"/>)</source>
-        <target>当前版本（<x equiv-text="{{commentList?.length}}" id="INTERPOLATION"/>）</target>
+        <target>当前版本(<x equiv-text="{{commentList?.length}}" id="INTERPOLATION"/>)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">73</context>
@@ -689,7 +689,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fd3f325c8b85fe64eb7b4ba794f8ada417edf4fa">
         <source>History Versions (<x equiv-text="{{historyList?.length}}" id="INTERPOLATION"/>)</source>
-        <target>历史版本（<x equiv-text="{{historyList?.length}}" id="INTERPOLATION"/>）</target>
+        <target>历史版本(<x equiv-text="{{historyList?.length}}" id="INTERPOLATION"/>)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">77</context>
