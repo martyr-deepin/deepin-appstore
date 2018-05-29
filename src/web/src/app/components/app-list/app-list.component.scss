@@ -1,10 +1,10 @@
 .appList {
   display: flex;
   flex-flow: wrap;
-  justify-content: space-between;
+  justify-content: center;
   .app {
     width: 228px;
-    margin: 1rem 0.5rem;
+    margin: 1rem 5px;
     outline: none;
     .cover {
       border-radius: 5px;

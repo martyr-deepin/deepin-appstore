@@ -48,6 +48,7 @@ body {
 }
 button {
   color: white;
+  cursor: pointer;
   border-radius: 3px;
   outline: none;
   user-select: none;
@@ -65,4 +66,10 @@ button {
   &:disabled {
     background-image: none;
   }
+}
+*[ng-reflect-router-link] {
+  cursor: pointer;
+}
+img {
+  cursor: pointer;
 }
