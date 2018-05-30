@@ -245,6 +245,8 @@ void WebWindow::onSearchAppResult(const QString& keyword,
 
 void WebWindow::onCompleteSearchAppResult(const QString& keyword,
                                           const AppSearchRecordList& result) {
+  Q_UNUSED(keyword);
+
   // Show search page in web.
   QStringList names;
   for (const AppSearchRecord& app : result) {
