@@ -1,3 +1,12 @@
-<div class="water"></div>
-<div class="title"
-     i18n>Loading...</div>
+<ng-container *ngIf="online;else $offline">
+    <div class="water"></div>
+    <div class="title"
+         i18n>Loading...</div>
+</ng-container>
+<ng-template #$offline>
+    <img src="/assets/icons/tips_bg.svg"
+         class="tips_bg">
+    <div i18n>Sorry, connection failed, please check your network and refresh</div>
+    <a (click)="refresh()"
+       i18n>Refresh</a>
+</ng-template>
