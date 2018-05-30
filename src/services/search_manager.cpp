@@ -17,7 +17,6 @@
 
 #include "services/search_manager.h"
 
-#include <algorithm>
 #include <QDebug>
 #include <QtCore/QRegularExpression>
 
@@ -33,29 +32,34 @@ AppSearchRecordList SearchApp(const QString& keyword,
                               const AppSearchRecordList& apps,
                               const QStringList& app_names_pinyin) {
   AppSearchRecordList result;
+  QSet<QString> app_names;
 
   for (int i = 0; i < app_names_pinyin.length(); i++) {
     if (app_names_pinyin.at(i).contains(keyword, Qt::CaseInsensitive)) {
       result.append(apps.at(i));
+      app_names.insert(apps.at(i).name);
     }
   }
 
   for (const AppSearchRecord& app : apps) {
     if (app.name.contains(keyword, Qt::CaseInsensitive) ||
         app.local_name.contains(keyword, Qt::CaseInsensitive)) {
-      result.append(app);
+      if (!app_names.contains(app.name)) {
+        result.append(app);
+        app_names.insert(app.name);
+      }
     }
   }
 
   for (const AppSearchRecord& app : apps) {
     if (app.description.contains(keyword, Qt::CaseInsensitive) ||
         app.slogan.contains(keyword, Qt::CaseInsensitive)) {
-      result.append(app);
+      if (!app_names.contains(app.name)) {
+        result.append(app);
+        app_names.insert(app.name);
+      }
     }
   }
-
-  auto last = std::unique(result.begin(), result.end());
-  result.erase(last, result.end());
 
   return result;
 }
