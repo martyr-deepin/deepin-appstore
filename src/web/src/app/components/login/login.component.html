@@ -1,14 +1,10 @@
-<dialog
-    #dialog
-    (click)="dialog.close()"
->
+<dialog #dialog
+        (click)="dialog.close()">
     <ng-container>
-        <iframe
-            [src]="loginURL"
-            frameBorder="0"
-            (load)="load($event.target)"
-            [hidden]="!loaded"
-        ></iframe>
+        <iframe [src]="loginURL"
+                frameBorder="0"
+                (load)="load($event.target)"
+                [hidden]="!loaded"></iframe>
         <div [hidden]="loaded">
             <app-wait></app-wait>
         </div>
