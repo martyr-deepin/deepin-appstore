@@ -22,7 +22,7 @@
     position: absolute;
     z-index: 1;
     list-style: none;
-    top: 1rem;
+    top: 2rem;
     right: 1rem;
     border-radius: 5px;
     padding: 5px 0;
@@ -30,7 +30,8 @@
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
     outline: none;
     li {
-      padding: 0 2rem;
+      padding: 2px 2rem;
+      margin: 3px 0;
       &:hover {
         background-color: #26a2f1;
       }
@@ -38,7 +39,7 @@
   }
 }
 .down {
-  margin: 0 0.5rem;
+  margin-left: 0.5rem;
   $url: '/assets/buttons/down';
   content: url($url+'_normal.svg');
   &:hover {

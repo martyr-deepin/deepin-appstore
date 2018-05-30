@@ -22,7 +22,9 @@
       hidden
       #dropMenu
       (blur)="dropMenu.hidden=true">
-    <li (click)="sortBy=SortOrder.Downloads;dropMenu.hidden=true;">Downloads</li>
-    <li (click)="sortBy=SortOrder.Score;dropMenu.hidden=true;">Rating</li>
+    <li (click)="sortBy=SortOrder.Downloads;dropMenu.hidden=true;"
+        i18n>Downloads</li>
+    <li (click)="sortBy=SortOrder.Score;dropMenu.hidden=true;"
+        i18n>Rating</li>
   </ul>
 </div>
