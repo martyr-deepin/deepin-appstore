@@ -40,6 +40,11 @@ body {
   width: 8rem;
 }
 
+a {
+  text-decoration: none;
+  color: unset;
+  cursor: pointer;
+}
 [hidden] {
   display: none !important;
 }

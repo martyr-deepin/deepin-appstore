@@ -24,6 +24,9 @@ export class LoginService {
   OpenLogin() {
     this.obs.next(true);
   }
+  OpenLogout() {
+    this.obs.next(false);
+  }
 
   SetLoginStatue(logged: boolean) {
     Channel.exec('menu.setLoginState', logged);

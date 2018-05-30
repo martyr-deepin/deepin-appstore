@@ -39,7 +39,6 @@ export class AppCommentComponent implements OnInit {
   commentList: Comment[];
   historyList: Comment[];
   get currentList() {
-    console.log(this.getListError);
     if (this.getListError) {
       return undefined;
     }
@@ -67,6 +66,7 @@ export class AppCommentComponent implements OnInit {
   }
   page = 0;
   own$: Observable<Comment>;
+  myUserInfo = this.userService.myInfo();
   getUserInfo = _.memoize(userName => this.userService.userInfo(userName));
   register = this.authService.register;
 
@@ -95,6 +95,9 @@ export class AppCommentComponent implements OnInit {
 
   login() {
     this.loginService.OpenLogin();
+  }
+  logout() {
+    this.loginService.OpenLogout();
   }
 
   get isLoggedIn(): boolean {

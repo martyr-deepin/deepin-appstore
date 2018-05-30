@@ -17,7 +17,24 @@
           <dstore-star [rate]="$own.rate"></dstore-star>
           <div>{{$own.rate}}</div>
         </span>
+        <span class="myInfo"
+              *ngIf="myUserInfo|async as info">
+          {{info.username}}
+          <img class="down"
+               (click)="$dropMenu.hidden=false;$dropMenu.focus()">
+          <div class="dropdown-menu"
+               tabIndex="-1"
+               #$dropMenu
+               hidden
+               (blur)="$dropMenu.hidden=true">
+            <a (click)="logout()"
+               i18n>Logout</a>
+          </div>
+          <img [src]="info.profile_image"
+               class="profile min">
+        </span>
       </div>
+
       <div class="placeholder"
            i18n>You have posted a comment</div>
     </ng-container>
@@ -28,7 +45,23 @@
           <dstore-star [(rate)]="rate"
                        #$star
                        [readonly]="false"></dstore-star>
-          <div>{{$star.rateHover||$star.rate}}</div>
+          <div>{{$star.rateHover}}</div>
+        </span>
+        <span class="myInfo"
+              *ngIf="myUserInfo|async as info">
+          {{info.username}}
+          <img class="down"
+               (click)="$dropMenu.hidden=false;$dropMenu.focus()">
+          <div class="dropdown-menu"
+               tabIndex="-1"
+               #$dropMenu
+               hidden
+               (blur)="$dropMenu.hidden=true">
+            <a (click)="logout()"
+               i18n>Logout</a>
+          </div>
+          <img [src]="info.profile_image"
+               class="profile min">
         </span>
       </div>
       <textarea class="input"
@@ -97,7 +130,7 @@
       <ng-container *ngIf="getUserInfo(c.userID)|async as $userInfo">
         <div class="head">
           <img [src]="$userInfo.profile_image"
-               class="icon">
+               class="profile">
           <span>{{$userInfo.username}}</span>
         </div>
         <div class="body">

@@ -20,9 +20,12 @@ export class UserService {
       .pipe(map(resp => resp.user), shareReplay());
   }
   myInfo(): Observable<UserInfo> {
-    return this.userInfo(this.myName());
+    return new Observable<UserInfo>(sub => {
+      this.userInfo(this.myName()).subscribe(info => sub.next(info));
+    });
   }
   myName(): string {
+    console.log('myName', this.auth.isLoggedIn, this.jwtService.decodeToken(this.auth.token));
     if (!this.auth.isLoggedIn) {
       return 'undefined';
     }
