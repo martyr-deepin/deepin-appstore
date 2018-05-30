@@ -54,6 +54,8 @@ class SearchManager : public QObject {
 
  private:
   AppSearchRecordList record_list_;
+
+  QStringList app_names_pinyin_;
 };
 
 }  // namespace dstore

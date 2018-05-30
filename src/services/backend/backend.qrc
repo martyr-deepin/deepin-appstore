@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/services/backend">
+    <file>pinyin.dict</file>
+  </qresource>
+</RCC>

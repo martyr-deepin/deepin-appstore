@@ -142,8 +142,12 @@ set(SERVICES_FILES
     services/store_daemon_manager.cpp
     services/store_daemon_manager.h
 
+    services/backend/chinese2pinyin.cpp
+    services/backend/chinese2pinyin.h
     services/backend/metadata_cache_worker.cpp
     services/backend/metadata_cache_worker.h
+
+    services/backend/backend.qrc
     )
 
 set(UI_FILES

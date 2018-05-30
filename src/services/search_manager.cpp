@@ -19,6 +19,9 @@
 
 #include <algorithm>
 #include <QDebug>
+#include <QtCore/QRegularExpression>
+
+#include "services/backend/chinese2pinyin.h"
 
 namespace dstore {
 
@@ -27,8 +30,16 @@ namespace {
 const int kMaxSearchResult = 10;
 
 AppSearchRecordList SearchApp(const QString& keyword,
-                              const AppSearchRecordList& apps) {
+                              const AppSearchRecordList& apps,
+                              const QStringList& app_names_pinyin) {
   AppSearchRecordList result;
+
+  for (int i = 0; i < app_names_pinyin.length(); i++) {
+    if (app_names_pinyin.at(i).contains(keyword, Qt::CaseInsensitive)) {
+      result.append(apps.at(i));
+    }
+  }
+
   for (const AppSearchRecord& app : apps) {
     if (app.name.contains(keyword, Qt::CaseInsensitive) ||
         app.local_name.contains(keyword, Qt::CaseInsensitive)) {
@@ -53,7 +64,8 @@ AppSearchRecordList SearchApp(const QString& keyword,
 
 SearchManager::SearchManager(QObject* parent)
     : QObject(parent),
-      record_list_() {
+      record_list_(),
+      app_names_pinyin_() {
   this->setObjectName("SearchManager");
 }
 
@@ -62,21 +74,30 @@ SearchManager::~SearchManager() {
 }
 
 void SearchManager::searchApp(const QString& keyword) {
-  AppSearchRecordList result = SearchApp(keyword, record_list_);
+  AppSearchRecordList result = SearchApp(keyword, record_list_, app_names_pinyin_);
   result = result.mid(0, kMaxSearchResult);
   emit this->searchAppResult(keyword, result);
 }
 
 void SearchManager::completeSearchApp(const QString& keyword) {
-  AppSearchRecordList result = SearchApp(keyword, record_list_);
+  AppSearchRecordList result = SearchApp(keyword, record_list_, app_names_pinyin_);
   emit this->completeSearchAppResult(keyword, result);
 }
 
 void SearchManager::updateAppList(const AppSearchRecordList& record_list) {
   record_list_ = record_list;
+  app_names_pinyin_.clear();
 
   // Sort application list by appName.
   std::sort(record_list_.begin(), record_list_.end());
+
+  // Save app name pinyin.
+  QRegularExpression num_reg("\\d");
+  for (const AppSearchRecord& app : record_list_) {
+    QString pinyin = Chinese2Pinyin(app.local_name);
+    pinyin.remove(num_reg);
+    app_names_pinyin_.append(pinyin);
+  }
 }
 
 }  // namespace dstore
