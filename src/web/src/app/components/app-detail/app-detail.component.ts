@@ -17,6 +17,7 @@ import { ReminderService } from '../../services/reminder.service';
 import { DownloadService } from '../../services/download.service';
 import { NotifyService } from '../../services/notify.service';
 import { NotifyType, NotifyStatus } from '../../services/notify.model';
+import { AppVersion } from '../../dstore-client.module/models/app-version';
 
 @Component({
   selector: 'app-app-detail',
@@ -41,6 +42,7 @@ export class AppDetailComponent implements OnInit {
   job$: Observable<StoreJobInfo>;
   size$: Observable<number>;
   app$: Observable<App>;
+  version$: Observable<AppVersion>;
 
   ngOnInit() {
     this.app$ = this.route.paramMap.pipe(
@@ -52,6 +54,11 @@ export class AppDetailComponent implements OnInit {
     this.job$ = timer(0, 1000).pipe(
       flatMap(() => this.app$),
       flatMap(app => this.storeService.getJobByName(app.name)),
+    );
+    this.version$ = timer(0, 1000).pipe(
+      flatMap(() => this.app$),
+      flatMap(app => this.storeService.getVersion([app.name])),
+      map(versions => versions[0]),
     );
     this.size$ = this.app$.pipe(flatMap(app => this.storeService.appDownloadSize(app.name)));
   }

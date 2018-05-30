@@ -4,7 +4,7 @@
       <img class="icon"
            [src]="metadataServer+'/'+app.icon">
       <br>
-      <ng-container *ngIf="app.version">
+      <ng-container *ngIf="version$|async as $version">
         <ng-container *ngIf="job$|async as $job;else $ctlBtn">
           <ng-container [ngSwitch]="$job.type">
             <button *ngSwitchCase="StoreJobType.download"
@@ -17,11 +17,11 @@
 
         </ng-container>
         <ng-template #$ctlBtn>
-          <button *ngIf="!app.version.localVersion;else $open"
+          <button *ngIf="!$version.localVersion;else $open"
                   (click)="install(app.name)"
                   i18n>Install</button>
           <ng-template #$open>
-            <button *ngIf="!app.version.upgradable;else $update"
+            <button *ngIf="!$version.upgradable;else $update"
                     (click)="open(app.name)"
                     i18n>Open</button>
           </ng-template>
