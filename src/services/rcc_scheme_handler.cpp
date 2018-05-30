@@ -32,7 +32,10 @@ QString RccSchemeHandler(const QUrl& url) {
     app_local_dir = kAppDefaultLocalDir;
   }
 
-  const QString filepath = QString("%1/%2").arg(app_local_dir).arg(url.path());
+  QString filepath = QString("%1/%2").arg(app_local_dir).arg(url.path());
+  if (!QFileInfo::exists(filepath)) {
+    filepath = QString("%1/%2").arg(app_local_dir).arg("index.html");
+  }
   return filepath;
 }
 
