@@ -101,11 +101,11 @@
     <div class="title"
          i18n>User Comments</div>
     <div class="versionBtn currentBtn"
-         (click)="select='current'"
+         (click)="select='current';$paginator.pageIndex=0"
          [class.active]="select==='current'"
          i18n>Current Version ({{commentList?.length}})</div>
     <div class="versionBtn historyBtn"
-         (click)="select='history'"
+         (click)="select='history';$paginator.pageIndex=0"
          [class.active]="select==='history'"
          i18n>History Versions ({{historyList?.length}})</div>
     <div class="pagingBtn"
@@ -147,8 +147,7 @@
           <span *ngIf="c.likeCount">({{c.likeCount}})</span>
           <img class="thumbUp"
                [class.active]="c.likeByMe"
-               (click)="thumbUpClick(c)"
-               *ngIf="$userInfo.username!=name">
+               (click)="thumbUpClick(c)">
         </div>
       </ng-container>
     </div>
@@ -157,6 +156,7 @@
     <span (click)="scrollToTop()"
           i18n>Back to top</span>
     <app-paginator *ngIf="$css.length>1"
+                   [pageIndex]="$paginator.pageIndex"
                    [count]="$css.length"
                    (pageIndexChange)="$paginator.pageIndex=$event"></app-paginator>
   </div>
