@@ -26,7 +26,8 @@
                     i18n>Open</button>
           </ng-template>
           <ng-template #$update>
-            <button i18n>Update</button>
+            <button (click)="install(app.name)"
+                    i18n>Update</button>
           </ng-template>
         </ng-template>
       </ng-container>

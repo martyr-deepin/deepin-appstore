@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, timer, of, iif, forkJoin } from 'rxjs';
+import { Observable, timer, of, iif, forkJoin, merge } from 'rxjs';
 import { flatMap, map, tap, share, shareReplay } from 'rxjs/operators';
 import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 
@@ -55,10 +55,13 @@ export class AppDetailComponent implements OnInit {
       flatMap(() => this.app$),
       flatMap(app => this.storeService.getJobByName(app.name)),
     );
-    this.version$ = timer(0, 1000).pipe(
-      flatMap(() => this.app$),
-      flatMap(app => this.storeService.getVersion([app.name])),
-      map(versions => versions[0]),
+    this.version$ = merge(
+      this.app$.pipe(map(app => app.version)),
+      timer(0, 1000).pipe(
+        flatMap(() => this.app$),
+        flatMap(app => this.storeService.getVersion([app.name])),
+        map(versions => versions[0]),
+      ),
     );
     this.size$ = this.app$.pipe(flatMap(app => this.storeService.appDownloadSize(app.name)));
   }
