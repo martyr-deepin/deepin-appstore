@@ -36,3 +36,14 @@
     margin-bottom: 6px;
   }
 }
+.downloadCount {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 1.2rem;
+  height: 1.2rem;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+  align-items: center;
+  margin-left: 0.5rem;
+  color: #2ca7f8;
+}
