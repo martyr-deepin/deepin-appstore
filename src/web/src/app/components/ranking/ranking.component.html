@@ -3,4 +3,4 @@
 <app-app-list [apps$]="appsObs"
               [sortBy]="$title.sortBy"
               [maxCount]="20"
-              (appListLength)="$title.count=$event"></app-app-list>
+              (appListLength)="$title.top=$event"></app-app-list>

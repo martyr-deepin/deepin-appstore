@@ -9,6 +9,7 @@ export class AppTitleComponent implements OnInit {
   constructor() {}
   SortOrder = SortOrder;
   @Input() title = '';
+  @Input() top: number;
   @Input() count: number;
   @Input() sortBy = SortOrder.Downloads;
 

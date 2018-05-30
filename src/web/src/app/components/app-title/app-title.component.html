@@ -1,9 +1,12 @@
 <div class="titleGroup">
   <div class="title">
     <ng-content></ng-content>
-    <span class="count"
+    <span class="number"
           *ngIf="count"
-          i18n>Top {{count}}</span>
+          i18n>Count {{count}}</span>
+    <span class="number"
+          *ngIf="top"
+          i18n>Top {{top}}</span>
   </div>
   <div class="dropdown"
        (click)="dropMenu.hidden=false;dropMenu.focus()">
