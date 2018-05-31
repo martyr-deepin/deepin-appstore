@@ -30,8 +30,8 @@ import { AppDetailComponent } from './components/app-detail/app-detail.component
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { CategoryComponent } from './components/category/category.component';
 import { IndexComponent } from './components/index/index.component';
-import { DownloadComponent } from './components/download-manage/download-manage.component';
-import { UninstallComponent } from './components/uninstall/uninstall.component';
+import { DownloadComponent } from './components/app-manage/download/download.component';
+import { UninstallComponent } from './components//app-manage/uninstall/uninstall.component';
 import { RankingComponent } from './components/ranking/ranking.component';
 import { AppListComponent } from './components/app-list/app-list.component';
 import { AppTitleComponent } from './components/app-title/app-title.component';

@@ -4,21 +4,21 @@ import { flatMap, defaultIfEmpty, map, tap, shareReplay } from 'rxjs/operators';
 
 import { memoize, throttle, sortBy } from 'lodash';
 
-import { App } from '../../dstore/services/app';
-import { AppService } from '../../dstore/services/app.service';
-import { BaseService } from '../../dstore/services/base.service';
-import { StoreService } from '../../dstore-client.module/services/store.service';
+import { App } from '../../../dstore/services/app';
+import { AppService } from '../../../dstore/services/app.service';
+import { BaseService } from '../../../dstore/services/base.service';
+import { StoreService } from '../../../dstore-client.module/services/store.service';
 import {
   StoreJobInfo,
   StoreJobType,
   StoreJobStatus,
-} from '../../dstore-client.module/models/store-job-info';
-import { AppVersion } from '../../dstore-client.module/models/app-version';
+} from '../../../dstore-client.module/models/store-job-info';
+import { AppVersion } from '../../../dstore-client.module/models/app-version';
 
 @Component({
   selector: 'app-download',
-  templateUrl: './download-manage.component.html',
-  styleUrls: ['./download-manage.component.scss'],
+  templateUrl: './download.component.html',
+  styleUrls: ['./download.component.scss'],
 })
 export class DownloadComponent implements OnInit {
   metadataServer = BaseService.serverHosts.metadataServer;

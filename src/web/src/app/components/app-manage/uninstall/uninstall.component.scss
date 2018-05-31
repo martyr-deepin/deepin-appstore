@@ -12,7 +12,7 @@
   .content {
     display: flex;
     align-items: center;
-    width: 100%;
+    flex-grow: 1;
     padding: 1rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     .name {

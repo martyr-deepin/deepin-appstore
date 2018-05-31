@@ -96,8 +96,8 @@ export class AppDetailComponent implements OnInit {
         () => {
           this.notifyService.success(NotifyType.Reminder);
         },
-        () => {
-          this.notifyService.success(NotifyType.Reminder);
+        err => {
+          console.log('error', err);
         },
       );
   }

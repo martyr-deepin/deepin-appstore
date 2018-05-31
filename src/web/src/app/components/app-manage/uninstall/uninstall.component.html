@@ -1,0 +1,56 @@
+<ng-container *ngIf="uninstallingApps$|async as $uninstallingApps;else $wait">
+  <div *ngIf="installedApps$|async as $installedApps">
+    <div class="title"
+         i18n>{{$installedApps.length}} {$installedApps.length,plural, =0 {application} =1 {application} other {applications} } installed
+    </div>
+    <div class="appItem"
+         *ngFor="let $installedApp of $installedApps">
+      <ng-container *ngIf="$installedApp.name|appInfo|async as $app">
+        <img class="icon"
+             [src]="metadataServer + '/' + $app.icon">
+        <div class="content"
+             #$content>
+          <div class="name">{{$app.localInfo.description.name}}</div>
+          <ng-container>
+            <div class="time">
+              <span i18n>Date installed:</span>
+              <span *ngIf="$installedApp.time as $t;else $unknownTime">{{$t*1000|date}}</span>
+              <ng-template #$unknownTime>
+                <span i18n>Unknown</span>
+              </ng-template>
+            </div>
+            <div class="version"
+                 i18n>Version: {{$installedApp.version}}</div>
+            <div class="uninstall">
+              <button *ngIf="!$uninstallingApps.includes($installedApp.name);else $ing"
+                      (click)="$content.hidden=true">Uninstall</button>
+              <ng-template #$ing>
+                <button i18n
+                        disabled>Uninstalling</button>
+              </ng-template>
+            </div>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="$content.hidden">
+          <div class="content">
+            <div class="name">{{$app.localInfo.description.name}}</div>
+            <div class="warn"
+                 i18n>Are you sure to uninstall this application?</div>
+            <div class="uninstall">
+              <button (click)="$content.hidden=false"
+                      i18n>Cancel</button>
+              <button (click)="uninstall($installedApp.name);$content.hidden=false"
+                      i18n>Confirm</button>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #$wait>
+  <div class="wait">
+    <app-wait></app-wait>
+  </div>
+</ng-template>
