@@ -20,11 +20,29 @@
 #include <QDebug>
 #include <QSettings>
 
+#include "base/file_util.h"
+
 namespace dstore {
 
 namespace {
 
-QVariant GetSettingsValue(const QString& key) {
+const char kSupportSigninName[] = "supportSignIn";
+const char kMetaServerName[] = "metadataServer";
+const char kChinaServerName[] = "chinaOperationServer";
+const char kIntlServerName[] = "internationalOperationServer";
+const char kDefaultRegionName[] = "defaultOperationServer";
+const char kRegionName[] = "currentRegion";
+
+QString GetSessionSettingsFile() {
+  QDir dir = QDir::home().absoluteFilePath(
+      ".config/deepin/deepin-appstore");
+  if (!dir.mkpath(".")) {
+    qCritical() << Q_FUNC_INFO << "Failed to create settings folder";
+  }
+  return dir.filePath("settings.ini");
+}
+
+QVariant GetSystemSettingsValue(const QString& key) {
   QSettings settings(SETTINGS_FILE, QSettings::IniFormat);
   return settings.value(key);
 }
@@ -32,15 +50,31 @@ QVariant GetSettingsValue(const QString& key) {
 }  // namespace
 
 bool IsSignInSupported() {
-  return GetSettingsValue("supportSignIn").toBool();
+  return GetSystemSettingsValue(kSupportSigninName).toBool();
 }
 
 QString GetMetadataServer() {
-  return GetSettingsValue("metadataServer").toString();
+  return GetSystemSettingsValue(kMetaServerName).toString();
 }
 
 QString GetOperationServer() {
-  return GetSettingsValue("operationServer").toString();
+  if (GetRegion() == RegionChina) {
+    return GetSystemSettingsValue(kChinaServerName).toString();
+  } else {
+    return GetSystemSettingsValue(kIntlServerName).toString();
+  }
+}
+
+void SetRegion(OperationServerRegion region) {
+  QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+  settings.setValue(kRegionName, static_cast<int>(region));
+}
+
+OperationServerRegion GetRegion() {
+  const int default_region = GetSystemSettingsValue(kDefaultRegionName).toInt();
+  QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+  const int region = settings.value(kRegionName, default_region).toInt();
+  return static_cast<OperationServerRegion>(region);
 }
 
 }  // namespace dstore

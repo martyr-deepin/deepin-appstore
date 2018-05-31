@@ -28,6 +28,19 @@ QString GetMetadataServer();
 
 QString GetOperationServer();
 
+enum OperationServerRegion {
+  RegionChina = 0,
+  RegionInternational = 1,
+};
+
+/**
+ * Set operation server address.
+ * @param region
+ */
+void SetRegion(OperationServerRegion region);
+
+OperationServerRegion GetRegion();
+
 }  // namespace dstore
 
 #endif  // DEEPIN_APPSTORE_SERVICES_SETTINGS_MANAGER_H

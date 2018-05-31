@@ -28,10 +28,6 @@ class TitleBarMenu : public QMenu {
                  READ isLoggedIn
                  WRITE setLoginState
                  NOTIFY loginRequested)
-  Q_PROPERTY(bool regionChina
-                 READ getRegion
-                 WRITE setRegion
-                 NOTIFY switchRegionRequested)
   Q_PROPERTY(bool darkTheme
                  READ isDarkTheme
                  WRITE setDarkTheme
@@ -43,19 +39,13 @@ class TitleBarMenu : public QMenu {
 
   bool isLoggedIn() const;
 
-  /**
-   * Get current store region.
-   * @return true if China is selected, else false.
-   */
-  bool getRegion() const;
-
   bool isDarkTheme() const;
 
  signals:
   void loginRequested(bool login);
   void switchThemeRequested(bool is_dark_theme);
   void recommendAppRequested();
-  void switchRegionRequested(bool is_china);
+  void regionChanged();
   void clearCacheRequested();
 
  public slots:

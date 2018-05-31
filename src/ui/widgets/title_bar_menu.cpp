@@ -19,6 +19,8 @@
 
 #include <QDebug>
 
+#include "services/settings_manager.h"
+
 namespace dstore {
 
 TitleBarMenu::TitleBarMenu(bool support_sign_in, QWidget* parent)
@@ -34,10 +36,6 @@ TitleBarMenu::~TitleBarMenu() {
 
 bool TitleBarMenu::isLoggedIn() const {
   return is_signed_in_;
-}
-
-bool TitleBarMenu::getRegion() const {
-  return region_group_->checkedAction() == region_china_;
 }
 
 bool TitleBarMenu::isDarkTheme() const {
@@ -86,6 +84,7 @@ void TitleBarMenu::initActions() {
 
   auto region_menu = this->addMenu(QObject::tr("Select Region"));
   region_china_ = region_menu->addAction(QObject::tr("China"));
+
   region_china_->setCheckable(true);
   region_international_ = region_menu->addAction(QObject::tr("International"));
   region_international_->setCheckable(true);
@@ -93,7 +92,14 @@ void TitleBarMenu::initActions() {
   region_group_->setExclusive(true);
   region_group_->addAction(region_china_);
   region_group_->addAction(region_international_);
-  region_china_->setChecked(true);
+
+  const OperationServerRegion curr_region = GetRegion();
+  if (curr_region == RegionChina) {
+    region_china_->setChecked(true);
+  } else {
+    region_international_->setChecked(true);
+  }
+
   connect(region_group_, &QActionGroup::triggered,
           this, &TitleBarMenu::onRegionGroupTriggered);
 
@@ -116,7 +122,13 @@ void TitleBarMenu::onThemeActionTriggered() {
 }
 
 void TitleBarMenu::onRegionGroupTriggered(QAction* action) {
-  emit this->switchRegionRequested(action == region_china_);
+  OperationServerRegion region = RegionInternational;
+  if (action == region_china_) {
+    region = RegionChina;
+  }
+  SetRegion(region);
+
+  emit this->regionChanged();
 }
 
 }  // namespace dstore
