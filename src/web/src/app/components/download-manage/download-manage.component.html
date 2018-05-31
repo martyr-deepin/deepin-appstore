@@ -17,7 +17,7 @@
         </div>
         <div class="time">
           <span i18n>Time left: </span>
-          <ng-container *ngIf="job.type=='download' && job.status=='running';else $wait">
+          <ng-container *ngIf="job.type=='download' && job.status=='running' && job.speed;else $wait">
             <span *ngIf="(job.downloadSize*(1-job.progress*2)/job.speed).toFixed(0) as $d;else $wait">
               <ng-container *ngIf="$d>=60">
                 <ng-container *ngIf="($d/60|lodash).floor() as $m"
