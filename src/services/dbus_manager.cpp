@@ -76,7 +76,7 @@ bool DBusManager::parseArguments() {
         return false;
       }
     } else {
-      return false;
+      return true;
     }
   } else {
     qDebug() << "Register dbus service successfully.";
