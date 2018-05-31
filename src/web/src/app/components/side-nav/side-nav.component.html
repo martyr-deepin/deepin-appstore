@@ -123,7 +123,9 @@
       <img class="categoryIcon"
            [attr.style]="getStyleByID('downloads')">
       <ng-container i18n>Download</ng-container>
-      <div class="downloadCount">{{dc$|async}}</div>
+      <div class="downloadCount"
+           [@dlcIn]
+           *ngIf="dc$|async as $c">{{$c}}</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"

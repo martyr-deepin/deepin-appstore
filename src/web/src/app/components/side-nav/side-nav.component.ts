@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Observable, timer } from 'rxjs';
 import { tap, flatMap, map } from 'rxjs/operators';
 
@@ -14,6 +15,12 @@ import { StoreService } from '../../dstore-client.module/services/store.service'
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss'],
+  animations: [
+    trigger('dlcIn', [
+      transition(':enter', [style({ transform: 'translateX(-100%)' }), animate(100)]),
+      transition(':leave', [animate(100, style({ transform: 'translateX(-50%)' }))]),
+    ]),
+  ],
 })
 export class SideNavComponent implements OnInit {
   constructor(
