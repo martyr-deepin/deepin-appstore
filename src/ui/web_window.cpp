@@ -74,15 +74,16 @@ void WebWindow::loadPage() {
 }
 
 void WebWindow::showWindow() {
-  this->setMinimumSize(872, 548);
-  const QRect geometry = qApp->desktop()->availableGeometry(this);
-  if (geometry.width() >= 1920) {
-    this->resize(1208, 778);
-  } else if (geometry.width() >= 1366) {
-    this->resize(1108, 668);
-  } else {
-    this->resize(872, 548);
-  }
+//  this->setMinimumSize(872, 548);
+//  const QRect geometry = qApp->desktop()->availableGeometry(this);
+//  if (geometry.width() >= 1920) {
+//    this->resize(1208, 778);
+//  } else if (geometry.width() >= 1366) {
+//    this->resize(1108, 668);
+//  } else {
+//    this->resize(872, 548);
+//  }
+  this->setMinimumSize(1208, 778);
   this->show();
 }
 
