@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, forkJoin, timer, iif } from 'rxjs';
-import { flatMap, defaultIfEmpty, map, tap, shareReplay } from 'rxjs/operators';
+import { Observable, of, forkJoin, timer, iif, merge } from 'rxjs';
+import {
+  flatMap,
+  defaultIfEmpty,
+  map,
+  tap,
+  publishReplay,
+  refCount,
+  switchMap,
+  distinctUntilChanged,
+} from 'rxjs/operators';
 
 import { memoize, throttle, sortBy } from 'lodash';
 
@@ -28,37 +37,55 @@ export class DownloadComponent implements OnInit {
   StoreJobStatus = StoreJobStatus;
 
   // 下载任务控制
-  start = throttle(this.storeService.resumeJob, 1000);
-  pause = throttle(this.storeService.pauseJob, 1000);
-  cancel = throttle(this.storeService.clearJob, 1000);
+  start = this.storeService.resumeJob;
+  pause = this.storeService.pauseJob;
+  cancel = this.storeService.clearJob;
 
-  jobs$: Observable<StoreJobInfo[]>;
-  version$: Observable<AppVersion>;
+  jobs$: Observable<JonInfoRx[]>;
   ngOnInit() {
-    this.jobs$ = timer(0, 1000).pipe(
-      flatMap(() => this.storeService.getJobList()),
-      flatMap(jobs =>
-        iif(
-          () => jobs.length === 0,
-          of([] as StoreJobInfo[]),
-          forkJoin(jobs.map(job => this.storeService.getJobInfo(job))),
-        ),
-      ),
-      map(jobs => sortBy(jobs.filter(job => job.type !== 'remove'), 'name')),
+    this.jobs$ = merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
+      map(jobs => jobs.filter(job => job.includes('install'))),
+      map(jobs => {
+        return jobs.map(job => {
+          const job$ = timer(0, 1000).pipe(
+            flatMap(() => this.storeService.getJobInfo(job)),
+            tap(jobInfo => console.log('jobInfo', jobInfo)),
+            publishReplay(),
+            refCount(),
+          );
+          return {
+            id: job,
+            name: job$.pipe(map(j => j.name), distinctUntilChanged()),
+            type: job$.pipe(map(j => j.type), distinctUntilChanged()),
+            status: job$.pipe(map(j => j.status), distinctUntilChanged()),
+            speed: job$.pipe(map(j => j.speed), distinctUntilChanged()),
+            progress: job$.pipe(map(j => j.progress), distinctUntilChanged()),
+            cancelable: job$.pipe(
+              map(j => ({
+                cancelable: j.cancelable,
+              })),
+              distinctUntilChanged(),
+            ),
+            downloadSize: job$.pipe(
+              map(j => ({
+                size: j.downloadSize,
+              })),
+              distinctUntilChanged(),
+            ),
+          };
+        });
+      }),
     );
   }
 }
 
-const progressMessage = {
-  download: {
-    paused: '已暂停',
-    running: '正在下载',
-    ready: '等待下载',
-    failed: '下载失败',
-  },
-  install: {
-    running: '正在安装',
-    ready: '等待安装',
-    failed: '安装失败',
-  },
-};
+interface JonInfoRx {
+  id: string;
+  name: Observable<string>;
+  type: Observable<StoreJobType>;
+  status: Observable<StoreJobStatus>;
+  speed: Observable<number>;
+  progress: Observable<number>;
+  cancelable: Observable<{ cancelable: boolean }>;
+  downloadSize: Observable<{ size: number }>;
+}

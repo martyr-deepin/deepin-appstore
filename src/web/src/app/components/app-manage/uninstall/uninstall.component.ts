@@ -21,13 +21,6 @@ import { InstalledApp } from '../../../dstore-client.module/models/installed';
   selector: 'app-uninstall',
   templateUrl: './uninstall.component.html',
   styleUrls: ['./uninstall.component.scss'],
-  animations: [
-    trigger('flyInOut', [
-      state('in', style({ transform: 'translateX(0)' })),
-      transition(':enter', [style({ transform: 'translateX(-100%)' }), animate(300)]),
-      transition(':leave', [animate(300, style({ transform: 'translateX(100%)' }))]),
-    ]),
-  ],
 })
 export class UninstallComponent implements OnInit {
   constructor(private storeService: StoreService, private appService: AppService) {}

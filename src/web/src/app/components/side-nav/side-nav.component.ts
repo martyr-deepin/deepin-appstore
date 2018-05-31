@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Observable, timer } from 'rxjs';
+import { Observable, timer, merge } from 'rxjs';
 import { tap, flatMap, map } from 'rxjs/operators';
 
 import { memoize } from 'lodash';
@@ -48,8 +48,7 @@ export class SideNavComponent implements OnInit {
   });
   ngOnInit() {
     this.cs$ = this.categoryService.list();
-    this.dc$ = timer(0, 1000).pipe(
-      flatMap(() => this.storeService.getJobList()),
+    this.dc$ = merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
       map(jobs => jobs.filter(job => job.includes('install')).length),
     );
   }

@@ -13,8 +13,8 @@
     .content {
       padding-bottom: 1rem;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      width: 100%;
       display: flex;
+      flex-grow: 1;
       align-items: center;
       .appInfo {
         flex: 3;
@@ -67,8 +67,14 @@
           height: 2.5rem;
           background-size: 100% 100%;
           background-color: transparent;
+          background-repeat: no-repeat;
         }
-
+        .readyBtn {
+          width: 28px;
+          height: 28px;
+          border: 1px solid;
+          border-radius: 50%;
+        }
         @each $ctl in ('pause', 'start', 'restart', 'cancel') {
           .#{$ctl}Btn {
             background-image: url('/assets/buttons/#{$ctl}_normal.svg');
