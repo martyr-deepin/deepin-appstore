@@ -47,6 +47,7 @@ struct InstalledAppInfo {
 
   QString pkg_name;
   QString version;
+  qint64 size;
 };
 
 typedef QList<InstalledAppInfo> InstalledAppInfoList;

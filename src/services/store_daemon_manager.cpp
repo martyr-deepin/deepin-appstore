@@ -341,6 +341,7 @@ void StoreDaemonManager::installedPackages() {
         result.append(QVariantMap {
             { "name", app_name },
             { "version", info.version },
+            { "size", info.size },
         });
       }
     }
