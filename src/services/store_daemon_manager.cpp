@@ -108,6 +108,10 @@ void StoreDaemonManager::initConnections() {
           this, &StoreDaemonManager::jobList);
   connect(this, &StoreDaemonManager::getJobInfoRequest,
           this, &StoreDaemonManager::getJobInfo);
+
+
+  connect(deb_interface_, &LastoreDebInterface::jobListChanged,
+          this, &StoreDaemonManager::onJobListChanged);
 }
 
 void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
@@ -560,7 +564,6 @@ void StoreDaemonManager::queryInstalledTime(const QString& task_id,
 }
 
 void StoreDaemonManager::getJobInfo(const QString& job) {
-  qDebug() << Q_FUNC_INFO << job;
   QVariantMap result;
   LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
@@ -604,6 +607,15 @@ bool StoreDaemonManager::hasDebPkg(const QString& app_name) const {
 
 bool StoreDaemonManager::hasFlatPak(const QString& app_name) const {
   return (apps_.contains(app_name) && !apps_.value(app_name).flatpak.isEmpty());
+}
+
+void StoreDaemonManager::onJobListChanged() {
+  const QList<QDBusObjectPath> jobs = deb_interface_->jobList();
+  QStringList paths;
+  for (const QDBusObjectPath& job : jobs) {
+    paths.append(job.path());
+  }
+  emit this->jobListChanged(paths);
 }
 
 }  // namespace dstore

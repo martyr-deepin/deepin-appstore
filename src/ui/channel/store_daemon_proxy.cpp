@@ -84,6 +84,9 @@ void StoreDaemonProxy::initConnections() {
           manager_, &StoreDaemonManager::updateAppList);
   connect(manager_, &StoreDaemonManager::onAppListUpdated,
           this, &StoreDaemonProxy::onAppListUpdated);
+
+  connect(manager_, &StoreDaemonManager::jobListChanged,
+          this, &StoreDaemonProxy::jobListChanged);
 }
 
 void StoreDaemonProxy::isDBusConnected() {

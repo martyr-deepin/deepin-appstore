@@ -6,7 +6,8 @@ qdbusxml2cpp com.deepin.AppStore.xml \
 
 qdbusxml2cpp com.deepin.AppStore.xml \
   -p app_store_dbus_interface \
-  -c AppStoreDBusInterface
+  -c AppStoreDBusInterface \
+  -N
 
 qdbusxml2cpp com.deepin.AppStore.Metadata.xml \
   -a app_store_metadata_dbus_adapter \
@@ -18,8 +19,12 @@ qdbusxml2cpp com.deepin.AppStore.Backend.Deb.xml \
   -i dbus/dbus_variant/app_version.h \
   -i dbus/dbus_variant/installed_app_info.h \
   -i dbus/dbus_variant/installed_app_timestamp.h \
-  -c LastoreDebInterface
+  -i dbus/dbus_extended_abstract_interface.h \
+  -c LastoreDebInterface \
+  -l DbusExtendedAbstractInterface \
+  -N
 
 qdbusxml2cpp com.deepin.AppStore.Backend.Job.xml \
   -p lastore_job_interface \
-  -c LastoreJobInterface
+  -c LastoreJobInterface \
+  -N

@@ -74,6 +74,12 @@ class StoreDaemonManager : public QObject {
   void installedPackagesReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
 
+  /**
+   * Emitted when JobList property changed.
+   * @param jobs
+   */
+  void jobListChanged(const QStringList& jobs);
+
   void onAppListUpdated(const AppSearchRecordList& app_list);
 
  public slots:
@@ -173,6 +179,8 @@ class StoreDaemonManager : public QObject {
    * * packages: stringList
    */
   void getJobInfo(const QString& job);
+
+  void onJobListChanged();
 };
 
 }  // namespace dstore

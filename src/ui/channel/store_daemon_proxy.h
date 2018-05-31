@@ -54,6 +54,12 @@ class StoreDaemonProxy : public QObject {
 
   void updateAppList(const AppSearchRecordList& record_list);
 
+  /**
+ * Emitted when JobList property changed.
+ * @param jobs
+ */
+  void jobListChanged(const QStringList& jobs);
+
   void onAppListUpdated(const AppSearchRecordList& app_list);
 
  public slots:

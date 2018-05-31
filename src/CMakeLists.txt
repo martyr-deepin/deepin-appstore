@@ -106,12 +106,14 @@ set(DBUS_FILES
     dbus/app_store_metadata_dbus_adapter.h
     dbus/app_store_metadata_dbus_proxy.cpp
     dbus/app_store_metadata_dbus_proxy.h
+    dbus/dbus_consts.cpp
+    dbus/dbus_consts.h
+    dbus/dbus_extended_abstract_interface.cpp
+    dbus/dbus_extended_abstract_interface.h
     dbus/lastore_deb_interface.cpp
     dbus/lastore_deb_interface.h
     dbus/lastore_job_interface.cpp
     dbus/lastore_job_interface.h
-    dbus/dbus_consts.cpp
-    dbus/dbus_consts.h
     )
 
 set(RESOURCES_FILES
