@@ -107,6 +107,11 @@ class WebWindow : public Dtk::Widget::DMainWindow {
                              bool can_go_back,
                              bool can_go_forward);
 
+  /**
+   * Redirect to home page when operation server region is changed.
+   */
+  void onRegionChanged();
+
   void webViewGoBack();
   void webViewGoForward();
 };

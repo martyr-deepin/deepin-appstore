@@ -139,6 +139,8 @@ void WebWindow::initConnections() {
           menu_proxy_, &MenuProxy::recommendAppRequested);
   connect(tool_bar_menu_, &TitleBarMenu::loginRequested,
           menu_proxy_, &MenuProxy::loginRequested);
+  connect(tool_bar_menu_, &TitleBarMenu::regionChanged,
+          this, &WebWindow::onRegionChanged);
   connect(menu_proxy_, &MenuProxy::loginStateUpdated,
           tool_bar_menu_, &TitleBarMenu::setLoginState);
 
@@ -319,6 +321,10 @@ void WebWindow::onLoadingStateChanged(bool,
                                       bool can_go_forward) {
   title_bar_->setBackwardButtonActive(can_go_back);
   title_bar_->setForwardButtonActive(can_go_forward);
+}
+
+void WebWindow::onRegionChanged() {
+  this->loadPage();
 }
 
 void WebWindow::webViewGoBack() {
