@@ -580,6 +580,7 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
     result.insert("packages", job_interface.packages());
     result.insert("cancelable", job_interface.cancelable());
     result.insert("downloadSize", job_interface.downloadSize());
+    result.insert("createTime", job_interface.createTime());
     emit this->getJobInfoReply(QVariantMap {
         { kResultOk, true },
         { kResultErrName, "" },
