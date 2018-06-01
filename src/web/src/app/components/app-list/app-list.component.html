@@ -5,7 +5,9 @@
 <div class="appList"
      *ngIf="appList$|async as $apps;else $progress">
   <div class="app"
-       *ngFor="let $app of $apps"
+       [attr.index]="$index+1"
+       [class.index]="rankIndex"
+       *ngFor="let $app of $apps;index as $index"
        appHover
        #$appContent="appHover">
     <img class="cover"
@@ -14,6 +16,7 @@
     <div class="content">
       <div class="info ellipsis"
            [routerLink]="$app.name"
+           [attr.index]="rankIndex?$index+1+'.':''"
            [title]="$app.localInfo.description.name">
         <span class="category"
               [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>

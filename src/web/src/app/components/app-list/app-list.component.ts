@@ -28,6 +28,7 @@ export class AppListComponent implements OnInit, OnChanges {
   @Input() apps$: Observable<App[]>;
   @Input() sortBy: SortOrder;
   @Input() maxCount: number;
+  @Input() rankIndex: boolean;
   @Output() appListLength = new EventEmitter<number>(true);
   appList$: Observable<App[]>;
   // job control
