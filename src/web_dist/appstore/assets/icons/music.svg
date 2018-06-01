@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
     <title>music</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="music" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="Group-2" transform="translate(3.000000, 2.000000)" stroke="#303030">
-            <polyline id="Stroke-49" points="5.5 12.4839 5.5 0.4839 17.5 3.4989 17.5 16.4839"></polyline>
-            <path d="M5.3125,11.9507 C5.8425,12.9397 5.2445,14.2917 3.9775,14.9717 C2.7095,15.6497 1.2525,15.3987 0.7235,14.4107 C0.1925,13.4217 0.7915,12.0687 2.0585,11.3897 C3.3255,10.7107 4.7825,10.9627 5.3125,11.9507 Z" id="Stroke-50"></path>
-            <path d="M17.3125,15.9507 C17.8425,16.9397 17.2445,18.2917 15.9775,18.9717 C14.7095,19.6497 13.2525,19.3987 12.7235,18.4107 C12.1925,17.4217 12.7915,16.0687 14.0585,15.3897 C15.3255,14.7107 16.7825,14.9627 17.3125,15.9507 Z" id="Stroke-51"></path>
-            <path d="M5.5,4.4996 L17.506,7.4836" id="Stroke-52"></path>
+        <g id="音乐" transform="translate(0.000000, 1.000000)" stroke="#303030">
+            <ellipse id="Oval-3" cx="11.5417074" cy="11.0883302" rx="2" ry="1.5"></ellipse>
+            <ellipse id="Oval-3" cx="2.54262276" cy="12.088155" rx="2" ry="1.5"></ellipse>
+            <path d="M13.5,10.5 L13.5,2.5" id="Line"></path>
+            <path d="M4.5,11.5 L4.5,3.5" id="Line"></path>
+            <polygon id="Rectangle-30" transform="translate(9.000000, 2.250000) scale(-1, 1) translate(-9.000000, -2.250000) " points="4.5 0.5 13.5 1.5 13.5 4 4.5 3"></polygon>
         </g>
     </g>
 </svg>
