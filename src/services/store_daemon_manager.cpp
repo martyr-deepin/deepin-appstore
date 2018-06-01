@@ -571,6 +571,7 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
                                     this);
   if (job_interface.isValid()) {
     result.insert("id", job_interface.id());
+    result.insert("job", job);
     result.insert("name", job_interface.name());
     result.insert("status", job_interface.status());
     result.insert("type", job_interface.type());
