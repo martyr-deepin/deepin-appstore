@@ -79,6 +79,8 @@ void StoreDaemonProxy::initConnections() {
           this, &StoreDaemonProxy::jobListReply);
   connect(manager_, &StoreDaemonManager::getJobInfoReply,
           this, &StoreDaemonProxy::getJobInfoReply);
+  connect(manager_, &StoreDaemonManager::getJobsInfoReply,
+          this, &StoreDaemonProxy::getJobsInfoReply);
 
   connect(this, &StoreDaemonProxy::updateAppList,
           manager_, &StoreDaemonManager::updateAppList);
@@ -145,6 +147,11 @@ void StoreDaemonProxy::jobList() {
 
 void StoreDaemonProxy::getJobInfo(const QString& job) {
   emit manager_->getJobInfoRequest(job);
+}
+
+void StoreDaemonProxy::getJobsInfo(const QString& task_id,
+                                   const QStringList& jobs) {
+  emit manager_->getJobsInfoRequest(task_id, jobs);
 }
 
 void StoreDaemonProxy::openApp(const QString& app_name) {

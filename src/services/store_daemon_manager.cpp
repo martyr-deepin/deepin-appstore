@@ -108,6 +108,8 @@ void StoreDaemonManager::initConnections() {
           this, &StoreDaemonManager::jobList);
   connect(this, &StoreDaemonManager::getJobInfoRequest,
           this, &StoreDaemonManager::getJobInfo);
+  connect(this, &StoreDaemonManager::getJobsInfoRequest,
+          this, &StoreDaemonManager::getJobsInfo);
 
 
   connect(deb_interface_, &LastoreDebInterface::jobListChanged,
@@ -609,6 +611,43 @@ bool StoreDaemonManager::hasDebPkg(const QString& app_name) const {
 
 bool StoreDaemonManager::hasFlatPak(const QString& app_name) const {
   return (apps_.contains(app_name) && !apps_.value(app_name).flatpak.isEmpty());
+}
+
+void StoreDaemonManager::getJobsInfo(const QString& task_id,
+                                     const QStringList& jobs) {
+  QVariantList jobs_info;
+  for (const QString& job : jobs) {
+    QVariantMap job_info;
+    LastoreJobInterface job_interface(kLastoreDebJobService,
+                                      job,
+                                      QDBusConnection::sessionBus(),
+                                      this);
+    if (job_interface.isValid()) {
+      job_info.insert("id", job_interface.id());
+      job_info.insert("job", job);
+      job_info.insert("name", job_interface.name());
+      job_info.insert("status", job_interface.status());
+      job_info.insert("type", job_interface.type());
+      job_info.insert("speed", job_interface.speed());
+      job_info.insert("progress", job_interface.progress());
+      job_info.insert("description", job_interface.description());
+      job_info.insert("packages", job_interface.packages());
+      job_info.insert("cancelable", job_interface.cancelable());
+      job_info.insert("downloadSize", job_interface.downloadSize());
+      job_info.insert("createTime", job_interface.createTime());
+
+      jobs_info.append(job_info);
+    }
+  }
+  emit this->getJobInfoReply(QVariantMap {
+      { kResultOk, true },
+      { kResultErrName, "" },
+      { kResultErrMsg, "" },
+      { kResult, QVariantMap {
+          { kResultName, task_id },
+          { kResultValue, jobs_info },
+      }},
+  });
 }
 
 void StoreDaemonManager::onJobListChanged() {

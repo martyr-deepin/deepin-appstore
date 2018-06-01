@@ -54,6 +54,7 @@ class StoreDaemonManager : public QObject {
                                  const QStringList& apps);
   void jobListRequest();
   void getJobInfoRequest(const QString& job);
+  void getJobsInfoRequest(const QString& task_id, const QStringList& jobs);
 
   void openAppRequest(const QString& app_name);
 
@@ -73,6 +74,7 @@ class StoreDaemonManager : public QObject {
   void jobListReply(const QVariantMap& result);
   void installedPackagesReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
+  void getJobsInfoReply(const QVariantMap& result);
 
   /**
    * Emitted when JobList property changed.
@@ -179,6 +181,8 @@ class StoreDaemonManager : public QObject {
    * * packages: stringList
    */
   void getJobInfo(const QString& job);
+
+  void getJobsInfo(const QString& task_id, const QStringList& jobs);
 
   void onJobListChanged();
 };

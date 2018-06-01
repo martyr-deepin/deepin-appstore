@@ -51,6 +51,7 @@ class StoreDaemonProxy : public QObject {
   void queryInstalledTimeReply(const QVariantMap& result);
   void jobListReply(const QVariantMap& result);
   void getJobInfoReply(const QVariantMap& result);
+  void getJobsInfoReply(const QVariantMap& result);
 
   void updateAppList(const AppSearchRecordList& record_list);
 
@@ -156,6 +157,8 @@ class StoreDaemonProxy : public QObject {
    * * packages: stringList
    */
   void getJobInfo(const QString& job);
+
+  void getJobsInfo(const QString& task_id, const QStringList& jobs);
 
   /**
    * Request to open installed application.
