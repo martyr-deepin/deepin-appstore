@@ -10,7 +10,10 @@
              [src]="metadataServer + '/' + $app.icon">
         <div class="content"
              #$content>
-          <div class="name">{{$app.localInfo.description.name}}</div>
+          <div class="base">
+            <span>{{$app.localInfo.description.name}}</span>
+            <span class="size">{{$installedApp.size|sizeHuman}}</span>
+          </div>
           <ng-container>
             <div class="time">
               <span i18n>Date installed:</span>

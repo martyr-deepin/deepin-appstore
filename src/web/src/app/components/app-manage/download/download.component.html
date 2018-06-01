@@ -4,9 +4,8 @@
        i18n>Processing {{$jobs.length}} {$jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
   <ng-container *ngFor="let job of $jobs">
     <div class="item"
-         *ngIf="job.name|async|appInfo|async as $app">
+         *ngIf="job.app|async as $app">
       <ng-container>
-
       </ng-container>
       <img class="icon"
            [src]="metadataServer + '/' + $app.icon"
@@ -16,7 +15,7 @@
              [routerLink]="$app.name">
           <div class="name">{{$app.localInfo.description.name}}</div>
           <div class="version"
-               i18n>Version:{{$app.version?.remoteVersion}}</div>
+               i18n>Version: {{$app.version?.remoteVersion}}</div>
         </div>
 
 

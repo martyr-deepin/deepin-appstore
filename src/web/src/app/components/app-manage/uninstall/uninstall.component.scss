@@ -15,8 +15,13 @@
     flex-grow: 1;
     padding: 1rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    .name {
+    .base {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      .size {
+        color: gray;
+      }
     }
     .time {
       flex: 1;

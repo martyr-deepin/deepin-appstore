@@ -14,7 +14,7 @@ import {
 import { memoize, throttle, sortBy } from 'lodash';
 
 import { App } from '../../../dstore/services/app';
-import { AppService } from '../../../dstore/services/app.service';
+import { AppService } from '../../../services/app.service';
 import { BaseService } from '../../../dstore/services/base.service';
 import { StoreService } from '../../../dstore-client.module/services/store.service';
 import {
@@ -22,7 +22,6 @@ import {
   StoreJobType,
   StoreJobStatus,
 } from '../../../dstore-client.module/models/store-job-info';
-import { AppVersion } from '../../../dstore-client.module/models/app-version';
 
 @Component({
   selector: 'app-download',
@@ -56,6 +55,11 @@ export class DownloadComponent implements OnInit {
           return {
             id: job,
             name: job$.pipe(map(j => j.name), distinctUntilChanged()),
+            app: job$.pipe(
+              map(j => j.name),
+              distinctUntilChanged(),
+              flatMap(name => this.appService.getApp(name)),
+            ),
             type: job$.pipe(map(j => j.type), distinctUntilChanged()),
             status: job$.pipe(map(j => j.status), distinctUntilChanged()),
             speed: job$.pipe(map(j => j.speed), distinctUntilChanged()),
