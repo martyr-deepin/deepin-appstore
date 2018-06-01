@@ -2,9 +2,10 @@
      *ngIf="jobs$|async as $jobs">
   <div class="title"
        i18n>Processing {{$jobs.length}} {$jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
-  <ng-container *ngFor="let job of $jobs">
+  <ng-container *ngFor="let job of $jobs; index as idx">
     <div class="item"
          *ngIf="job.name|async|appInfo|async as $app">
+      <span class="jobIndex">{{idx + 1}}</span>
       <ng-container>
 
       </ng-container>
