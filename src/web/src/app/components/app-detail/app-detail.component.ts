@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, timer, of, iif, forkJoin, merge } from 'rxjs';
-import { flatMap, map, tap, share, shareReplay } from 'rxjs/operators';
+import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
+import { flatMap, map, tap, concat, switchMap, publishReplay, refCount } from 'rxjs/operators';
 import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 
 import { App, AppService } from '../../services/app.service';
@@ -46,24 +46,38 @@ export class AppDetailComponent implements OnInit {
 
   ngOnInit() {
     this.app$ = this.route.paramMap.pipe(
-      flatMap(param => {
-        const appName = param.get('appName');
-        return this.appService.getApp(appName);
-      }),
+      flatMap(param => this.appService.getApp(param.get('appName'))),
+      publishReplay(),
+      refCount(),
     );
-    this.job$ = timer(0, 1000).pipe(
-      flatMap(() => this.app$),
-      flatMap(app => this.storeService.getJobByName(app.name)),
-    );
-    this.version$ = merge(
-      this.app$.pipe(map(app => app.version)),
-      timer(0, 1000).pipe(
-        flatMap(() => this.app$),
-        flatMap(app => this.storeService.getVersion([app.name])),
-        map(versions => versions[0]),
+    this.job$ = this.app$.pipe(
+      flatMap(
+        app =>
+          merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
+            flatMap(
+              jobs =>
+                jobs.length === 0
+                  ? of([] as StoreJobInfo[])
+                  : forkJoin(jobs.map(job => this.storeService.getJobInfo(job))),
+            ),
+          ),
+        (app, jobs) => jobs.find(job => job.name === app.name),
       ),
     );
-    this.size$ = this.app$.pipe(flatMap(app => this.storeService.appDownloadSize(app.name)));
+    this.version$ = this.app$.pipe(
+      flatMap(app =>
+        merge(
+          of(app.version),
+          this.storeService
+            .jobListChange()
+            .pipe(switchMap(() => this.storeService.getVersion([app.name])), map(v => v[0])),
+        ),
+      ),
+    );
+    this.size$ = merge(of(null), this.storeService.jobListChange()).pipe(
+      switchMap(() => this.app$),
+      switchMap(app => this.storeService.appDownloadSize(app.name)),
+    );
   }
 
   install(appName: string) {
@@ -97,7 +111,7 @@ export class AppDetailComponent implements OnInit {
           this.notifyService.success(NotifyType.Reminder);
         },
         err => {
-          console.log('error', err);
+          this.notifyService.error(NotifyType.Recommend);
         },
       );
   }

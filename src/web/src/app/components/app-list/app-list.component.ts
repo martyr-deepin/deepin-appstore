@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { Observable, timer, of, empty, forkJoin, merge } from 'rxjs';
-import { map, tap, flatMap, shareReplay } from 'rxjs/operators';
+import { map, tap, flatMap, shareReplay, switchMap, concat, concatMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
 
@@ -31,16 +31,36 @@ export class AppListComponent implements OnInit, OnChanges {
   @Output() appListLength = new EventEmitter<number>(true);
   appList$: Observable<App[]>;
   // job control
-  start = _.throttle(this.storeService.resumeJob, 1000);
-  pause = _.throttle(this.storeService.pauseJob, 1000);
-  cancel = _.throttle(this.storeService.clearJob, 1000);
+  start = this.storeService.resumeJob;
+  pause = this.storeService.pauseJob;
+  cancel = this.storeService.clearJob;
 
   getAppJob = _.memoize((appName: string): Observable<StoreJobInfo> => {
-    return timer(0, 1000).pipe(flatMap(() => this.storeService.getJobByName(appName)));
+    return merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
+      switchMap(
+        jobs =>
+          jobs.length === 0
+            ? of([] as StoreJobInfo[])
+            : forkJoin(jobs.map(job => this.storeService.getJobInfo(job))),
+      ),
+      switchMap(jobs => {
+        const jobInfo = jobs.find(job => job.name === appName);
+        console.log(jobInfo);
+        if (!jobInfo) {
+          return of(undefined);
+        } else {
+          return merge(
+            of(jobInfo),
+            timer(1000, 1000).pipe(switchMap(() => this.storeService.getJobInfo(jobInfo.id))),
+          );
+        }
+      }),
+    );
   });
+
   getAppVersion = _.memoize((appName: string): Observable<AppVersion> => {
-    return timer(0, 1000).pipe(
-      flatMap(() => this.storeService.getVersion([appName])),
+    return merge(of(null), this.storeService.jobListChange()).pipe(
+      switchMap(() => this.storeService.getVersion([appName])),
       map(vs => vs[0]),
     );
   });
