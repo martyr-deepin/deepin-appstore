@@ -186,6 +186,7 @@ void WebWindow::initUI() {
 
   // Disable web security.
   auto settings = web_view_->page()->settings();
+  settings->setMinimumFontSize(8);
   settings->setWebSecurity(QCefWebSettings::StateDisabled);
 
   web_event_delegate_ = new WebEventDelegate(this);
