@@ -1,6 +1,15 @@
 import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { Observable, timer, of, empty, forkJoin, merge } from 'rxjs';
-import { map, tap, flatMap, shareReplay, switchMap, concat, concatMap } from 'rxjs/operators';
+import {
+  map,
+  tap,
+  flatMap,
+  shareReplay,
+  switchMap,
+  debounceTime,
+  concat,
+  concatMap,
+} from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
 
@@ -14,6 +23,8 @@ import {
   AppJobStatus,
 } from '../../dstore-client.module/models/store-job-info';
 import { AppVersion } from '../../dstore-client.module/models/app-version';
+import { AppService } from '../../services/app.service';
+import { version } from 'punycode';
 
 @Component({
   selector: 'app-app-list',
@@ -21,7 +32,7 @@ import { AppVersion } from '../../dstore-client.module/models/app-version';
   styleUrls: ['./app-list.component.scss'],
 })
 export class AppListComponent implements OnInit, OnChanges {
-  constructor(private storeService: StoreService) {}
+  constructor(private appService: AppService, private storeService: StoreService) {}
   server = BaseService.serverHosts.metadataServer;
   appJobStatus = AppJobStatus;
 
@@ -34,7 +45,6 @@ export class AppListComponent implements OnInit, OnChanges {
   // job control
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
-  cancel = this.storeService.clearJob;
 
   getAppJob = _.memoize((appName: string): Observable<StoreJobInfo> => {
     return merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
@@ -52,7 +62,7 @@ export class AppListComponent implements OnInit, OnChanges {
         } else {
           return merge(
             of(jobInfo),
-            timer(1000, 1000).pipe(switchMap(() => this.storeService.getJobInfo(jobInfo.id))),
+            timer(1000, 1000).pipe(switchMap(() => this.storeService.getJobInfo(jobInfo.job))),
           );
         }
       }),
@@ -60,10 +70,18 @@ export class AppListComponent implements OnInit, OnChanges {
   });
 
   getAppVersion = _.memoize((appName: string): Observable<AppVersion> => {
-    return merge(of(null), this.storeService.jobListChange()).pipe(
-      switchMap(() => this.storeService.getVersion([appName])),
-      map(vs => vs[0]),
-    );
+    return merge(
+      this.appService.getApp(appName).pipe(map(app => app.version)),
+      this.storeService.getVersion([appName]).pipe(map(vs => vs[0])),
+      this.storeService
+        .jobListChange()
+        .pipe(
+          debounceTime(1000),
+          flatMap(() => this.storeService.getVersion([appName])),
+          tap(vs => console.log(vs)),
+          map(vs => vs[0]),
+        ),
+    ).pipe(tap(v => console.log('get app version', v)));
   });
 
   openApp = this.storeService.openApp;

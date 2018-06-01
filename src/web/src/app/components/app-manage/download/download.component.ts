@@ -64,6 +64,10 @@ export class DownloadComponent implements OnInit {
             status: job$.pipe(map(j => j.status), distinctUntilChanged()),
             speed: job$.pipe(map(j => j.speed), distinctUntilChanged()),
             progress: job$.pipe(map(j => j.progress), distinctUntilChanged()),
+            createTime: job$.pipe(
+              map(j => parseInt((j.createTime / 1e10).toFixed(0), 10)),
+              distinctUntilChanged(),
+            ),
             cancelable: job$.pipe(
               map(j => ({
                 cancelable: j.cancelable,
@@ -92,4 +96,5 @@ interface JonInfoRx {
   progress: Observable<number>;
   cancelable: Observable<{ cancelable: boolean }>;
   downloadSize: Observable<{ size: number }>;
+  createTime: Observable<number>;
 }

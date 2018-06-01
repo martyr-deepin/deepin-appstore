@@ -4,7 +4,8 @@
        i18n>Processing {{$jobs.length}} {$jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
   <ng-container *ngFor="let job of $jobs">
     <div class="item"
-         *ngIf="job.app|async as $app">
+         *ngIf="job.name|async|appInfo|async as $app"
+         [style.order]="job.createTime|async">
       <ng-container>
       </ng-container>
       <img class="icon"
@@ -13,7 +14,7 @@
       <div class="content">
         <div class="appInfo"
              [routerLink]="$app.name">
-          <div class="name">{{$app.localInfo.description.name}}</div>
+          <div class="name">{{$app.localInfo.description.name}}{{job.createTime|async}}</div>
           <div class="version"
                i18n>Version: {{$app.version?.remoteVersion}}</div>
         </div>
@@ -96,18 +97,16 @@
                 <ng-container [ngSwitch]="true">
                   <button class="pauseBtn"
                           (click)="pause(job.id);$event.target.disabled=true"
-                          *ngSwitchCase="status==='running' || job.status==='ready'"
+                          *ngSwitchCase="status===StoreJobStatus.running || status===StoreJobStatus.ready"
                           [disabled]="!cancelable.cancelable"></button>
                   <button class="startBtn"
                           (click)="start(job.id);$event.target.disabled=true"
-                          *ngSwitchCase="status==='paused'"
+                          *ngSwitchCase="status===StoreJobStatus.paused"
                           [disabled]="!cancelable.cancelable"></button>
                   <button class="restartBtn"
                           (click)="start(job.id)"
-                          *ngSwitchCase="status==='failed'"
+                          *ngSwitchCase="status===StoreJobStatus.failed"
                           [disabled]="!cancelable.cancelable"></button>
-                  <button class="readyBtn"
-                          *ngSwitchDefault>{{status}}</button>
                 </ng-container>
                 <button class="cancelBtn"
                         [disabled]="!cancelable.cancelable"

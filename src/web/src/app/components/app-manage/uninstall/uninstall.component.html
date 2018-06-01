@@ -36,7 +36,10 @@
         </div>
         <ng-container *ngIf="$content.hidden">
           <div class="content">
-            <div class="name">{{$app.localInfo.description.name}}</div>
+            <div class="base">
+              <span>{{$app.localInfo.description.name}}</span>
+              <span class="size">{{$installedApp.size|sizeHuman}}</span>
+            </div>
             <div class="warn"
                  i18n>Are you sure to uninstall this application?</div>
             <div class="uninstall">
