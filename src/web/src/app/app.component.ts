@@ -34,10 +34,12 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter(event => event instanceof NavigationStart), pairwise())
       .subscribe(([oldEvent, event]: [NavigationStart, NavigationStart]) => {
-        console.log(oldEvent, event);
-        offsetMap.set(oldEvent.url, window.pageYOffset);
-        if (oldEvent.url === '/') {
-          offsetMap.set('/index', window.pageYOffset);
+        console.log('router event:', oldEvent, window.pageYOffset, event, offsetMap);
+        if (!event.restoredState) {
+          offsetMap.set(oldEvent.url, window.pageYOffset);
+          if (oldEvent.url === '/') {
+            offsetMap.set('/index', window.pageYOffset);
+          }
         }
         setTimeout(() => window.scrollTo(0, offsetMap.get(event.url) || 0), 100);
       });
