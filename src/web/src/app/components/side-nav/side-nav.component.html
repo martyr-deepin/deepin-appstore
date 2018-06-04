@@ -1,4 +1,6 @@
-<div class="nav">
+<div class="nav"
+     #nav
+     (mousewheel)="mousewheel($event)">
   <div class="navItem"
        routerLinkActive="active"
        [routerLink]="['index']">

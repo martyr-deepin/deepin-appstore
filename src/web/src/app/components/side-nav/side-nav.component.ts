@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Observable, timer, merge } from 'rxjs';
@@ -30,6 +30,8 @@ export class SideNavComponent implements OnInit {
   ) {}
   native = BaseService.isNative;
   default = makeDefaultCategory();
+  @ViewChild('nav') nav: ElementRef<HTMLDivElement>;
+  // category list
   cs$: Observable<Category[]>;
   // download count
   dc$: Observable<number>;
@@ -51,5 +53,17 @@ export class SideNavComponent implements OnInit {
     this.dc$ = merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
       map(jobs => jobs.filter(job => job.includes('install')).length),
     );
+  }
+  mousewheel(event: WheelEvent) {
+    const nav = this.nav.nativeElement;
+    if (event.wheelDeltaY > 0) {
+      if (nav.scrollTop === 0) {
+        event.preventDefault();
+      }
+    } else {
+      if (nav.scrollTop + nav.clientHeight === nav.scrollHeight) {
+        event.preventDefault();
+      }
+    }
   }
 }
