@@ -39,7 +39,7 @@ class StoreDaemonManager : public QObject {
  signals:
   void isDbusConnectedRequest();
 
-  void cleanArchivesRequest();
+  void clearArchivesRequest();
   void cleanJobRequest(const QString& job);
   void pauseJobRequest(const QString& job);
   void startJobRequest(const QString& job);

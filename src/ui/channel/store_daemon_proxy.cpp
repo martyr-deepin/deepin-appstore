@@ -89,6 +89,9 @@ void StoreDaemonProxy::initConnections() {
 
   connect(manager_, &StoreDaemonManager::jobListChanged,
           this, &StoreDaemonProxy::jobListChanged);
+
+  connect(this, &StoreDaemonProxy::clearArchives,
+          manager_, &StoreDaemonManager::clearArchivesRequest);
 }
 
 void StoreDaemonProxy::isDBusConnected() {
@@ -96,7 +99,7 @@ void StoreDaemonProxy::isDBusConnected() {
 }
 
 void StoreDaemonProxy::cleanArchives() {
-  emit manager_->cleanArchivesRequest();
+  emit manager_->clearArchivesRequest();
 }
 
 void StoreDaemonProxy::cleanJob(const QString& job) {

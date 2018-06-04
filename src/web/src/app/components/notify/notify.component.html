@@ -7,19 +7,23 @@
         <ng-container [ngSwitch]="$notify.status">
             <ng-container *ngSwitchCase="NotifyStatus.Success">
                 <img src="/assets/icons/ok.svg">
-                <ng-container [ngSwitch]="$notify.type">
-                    <span class="succeed"
-                          *ngSwitchCase="NotifyType.Reminder"
-                          i18n>Urge successfully</span>
-                </ng-container>
+                <span class="succeed"
+                      [ngSwitch]="$notify.type">
+                    <ng-container *ngSwitchCase="NotifyType.Reminder"
+                                  i18n>Urge successfully</ng-container>
+                    <ng-container *ngSwitchCase="NotifyType.Clear"
+                                  i18n>Clear successfully</ng-container>
+                </span>
             </ng-container>
             <ng-container *ngSwitchCase="NotifyStatus.Error">
                 <img src="/assets/icons/failed.svg">
-                <ng-container [ngSwitch]="$notify.type">
-                    <span class="failed"
-                          *ngSwitchCase="NotifyType.Reminder"
-                          i18n>Urge failed</span>
-                </ng-container>
+                <span class="failed"
+                      [ngSwitch]="$notify.type">
+                    <ng-container *ngSwitchCase="NotifyType.Reminder"
+                                  i18n>Urge failed</ng-container>
+                    <ng-container *ngSwitchCase="NotifyType.Clear"
+                                  i18n>Clear failed</ng-container>
+                </span>
             </ng-container>
         </ng-container>
     </ng-template>

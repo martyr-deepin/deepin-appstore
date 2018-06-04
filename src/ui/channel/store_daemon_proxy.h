@@ -36,6 +36,11 @@ class StoreDaemonProxy : public QObject {
  signals:
   void isDbusConnectedReply(bool state);
 
+  /**
+   * Emitted when apt-get clean is called.
+   */
+  void clearArchives();
+
   void cleanJobReply(const QVariantMap& result);
   void pauseJobReply(const QVariantMap& result);
   void startJobReply(const QVariantMap& result);

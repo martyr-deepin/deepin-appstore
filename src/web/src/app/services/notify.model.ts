@@ -8,6 +8,7 @@ export enum NotifyType {
   Bulletin = 1,
   Reminder,
   Recommend,
+  Clear,
 }
 export enum NotifyStatus {
   Unknown,

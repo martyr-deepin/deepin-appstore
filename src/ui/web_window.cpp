@@ -142,6 +142,9 @@ void WebWindow::initConnections() {
           menu_proxy_, &MenuProxy::loginRequested);
   connect(tool_bar_menu_, &TitleBarMenu::regionChanged,
           this, &WebWindow::onRegionChanged);
+  connect(tool_bar_menu_, &TitleBarMenu::clearCacheRequested,
+          store_daemon_proxy_, &StoreDaemonProxy::clearArchives);
+
   connect(menu_proxy_, &MenuProxy::loginStateUpdated,
           tool_bar_menu_, &TitleBarMenu::setLoginState);
 

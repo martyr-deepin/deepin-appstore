@@ -1,18 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 import { Subject } from 'rxjs';
 
+import { DstoreObject } from '../dstore-client.module/utils/dstore-objects';
 import { Notify, NotifyType, NotifyStatus } from './notify.model';
-import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../dstore/services/base.service';
+import { StoreService } from '../dstore-client.module/services/store.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotifyService {
   private notify$ = new Subject<Notify>();
-  constructor(private sanitized: DomSanitizer, private http: HttpClient) {
+  constructor(
+    private sanitized: DomSanitizer,
+    private http: HttpClient,
+    private zone: NgZone,
+    private storeService: StoreService,
+  ) {
     this.http
       .get(BaseService.serverHosts.operationServer + '/api/bulletin', { responseType: 'text' })
       .subscribe(body => {
@@ -29,6 +36,12 @@ export class NotifyService {
           });
         }
       });
+    DstoreObject.clearArchives().subscribe(() => {
+      this.zone.run(() => {
+        this.success(NotifyType.Clear);
+        this.storeService.appDownloadSize('gedit').subscribe();
+      });
+    });
   }
 
   notify(n: Notify) {

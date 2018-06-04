@@ -71,7 +71,7 @@ StoreDaemonManager::~StoreDaemonManager() {
 }
 
 void StoreDaemonManager::initConnections() {
-  connect(this, &StoreDaemonManager::cleanArchivesRequest,
+  connect(this, &StoreDaemonManager::clearArchivesRequest,
           this, &StoreDaemonManager::clearArchives);
   connect(this, &StoreDaemonManager::openAppRequest,
           apt_worker_, &AptUtilWorker::openAppRequest);

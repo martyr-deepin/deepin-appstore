@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NotifyService } from '../../services/notify.service';
 import { Notify, NotifyType, NotifyStatus } from '../../services/notify.model';
-import { Observable, of, merge, Subject } from 'rxjs';
-import { switchMap, delay } from 'rxjs/operators';
+import { Observable, of, merge, Subject, concat } from 'rxjs';
+import { switchMap, delay, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notify',
@@ -19,10 +19,11 @@ export class NotifyComponent implements OnInit {
   ngOnInit() {
     this.notify$ = this.notifyService.obs().pipe(
       switchMap(n => {
+        console.log(n);
         if (!n.delay) {
-          return merge(of(n), this.close$);
+          return concat(of(n), this.close$);
         } else {
-          return merge(of(n), of(undefined).pipe(delay(n.delay)));
+          return concat(of(n), of(undefined).pipe(delay(n.delay)));
         }
       }),
     );
