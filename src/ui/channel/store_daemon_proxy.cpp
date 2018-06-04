@@ -98,10 +98,6 @@ void StoreDaemonProxy::isDBusConnected() {
   emit manager_->isDbusConnectedRequest();
 }
 
-void StoreDaemonProxy::cleanArchives() {
-  emit manager_->clearArchivesRequest();
-}
-
 void StoreDaemonProxy::cleanJob(const QString& job) {
   emit manager_->cleanJobRequest(job);
 }

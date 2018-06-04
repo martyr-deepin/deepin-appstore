@@ -75,11 +75,6 @@ class StoreDaemonProxy : public QObject {
   void isDBusConnected();
 
   // Store Manager methods:
-  /**
-   * apt-get clean
-   * @return string, returns job path
-   */
-  void cleanArchives();
 
   /**
    * Clean up a specific job.
