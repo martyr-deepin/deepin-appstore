@@ -94,6 +94,7 @@ export class AppListComponent implements OnInit, OnChanges {
     if (!this.apps$) {
       return;
     }
+    this.storeService.appDownloadSize('gedit').subscribe();
     this.appList$ = this.apps$.pipe(
       map(apps => {
         apps = apps.filter(app => app);
