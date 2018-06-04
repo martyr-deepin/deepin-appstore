@@ -17,8 +17,8 @@ import { StoreService } from '../../dstore-client.module/services/store.service'
   styleUrls: ['./side-nav.component.scss'],
   animations: [
     trigger('dlcIn', [
-      transition(':enter', [style({ transform: 'translateX(-100%)' }), animate(100)]),
-      transition(':leave', [animate(100, style({ transform: 'translateX(-50%)' }))]),
+      transition(':enter', [style({ width: 0 }), animate(100)]),
+      transition(':leave', [animate(100, style({ width: 0 }))]),
     ]),
   ],
 })
