@@ -18,7 +18,6 @@ export class AppService {
     private appService: DstoreAppService,
     private storeService: StoreService,
   ) {}
-
   private server = BaseService.serverHosts.operationServer;
 
   list = _.throttle(this.getAppList, 1000 * 30);

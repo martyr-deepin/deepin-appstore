@@ -1,7 +1,8 @@
 <div class="notify"
      *ngIf="notify$|async as $notify">
-    <div *ngIf="$notify.type===NotifyType.Notice;else $others"
-         i18n>Announcement：{{$notify.content}}</div>
+    <span class="succeed"
+          *ngIf="$notify.type===NotifyType.Bulletin;else $others"
+          i18n>Announcement：{{$notify.content}}</span>
     <ng-template #$others>
         <ng-container [ngSwitch]="$notify.status">
             <ng-container *ngSwitchCase="NotifyStatus.Success">

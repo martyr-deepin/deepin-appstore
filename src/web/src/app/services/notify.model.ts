@@ -4,12 +4,10 @@ export interface Notify {
   content?: string;
   delay?: number;
 }
-
 export enum NotifyType {
-  Unknown,
+  Bulletin = 1,
   Reminder,
   Recommend,
-  Notice,
 }
 export enum NotifyStatus {
   Unknown,
