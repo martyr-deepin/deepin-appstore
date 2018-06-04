@@ -30,7 +30,6 @@ class AptUtilWorker : public QObject {
 
  signals:
   void openAppRequest(const QString& app_name);
-  void cleanArchivesRequest();
 
  private:
   void initConnections();
@@ -41,8 +40,6 @@ class AptUtilWorker : public QObject {
   * @param app_name
   */
   void openApp(const QString& app_name);
-
-  void cleanArchives();
 };
 
 void OpenApp(const QString& app_name);

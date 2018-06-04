@@ -44,6 +44,12 @@ public:
     { return qvariant_cast< QList<QDBusObjectPath> >(property("JobList")); }
 
 public Q_SLOTS: // METHODS
+    inline QDBusPendingReply<> ClearArchives()
+    {
+        QList<QVariant> argumentList;
+        return asyncCallWithArgumentList(QStringLiteral("ClearArchives"), argumentList);
+    }
+
     inline QDBusPendingReply<QDBusObjectPath> Install(const QString &jobName, const QString &id)
     {
         QList<QVariant> argumentList;

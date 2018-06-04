@@ -1,4 +1,6 @@
 <interface name="com.deepin.AppStore.Backend">
+    <method name="ClearArchives">
+    </method>
     <method name="Install">
         <arg name="jobName" type="s" direction="in"></arg>
         <arg name="id" type="s" direction="in"></arg>

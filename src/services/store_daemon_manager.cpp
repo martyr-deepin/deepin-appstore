@@ -72,7 +72,7 @@ StoreDaemonManager::~StoreDaemonManager() {
 
 void StoreDaemonManager::initConnections() {
   connect(this, &StoreDaemonManager::cleanArchivesRequest,
-          apt_worker_, &AptUtilWorker::cleanArchivesRequest);
+          this, &StoreDaemonManager::clearArchives);
   connect(this, &StoreDaemonManager::openAppRequest,
           apt_worker_, &AptUtilWorker::openAppRequest);
 
@@ -154,6 +154,10 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
     }
     emit this->onAppListUpdated(existed_app_list);
   }
+}
+
+void StoreDaemonManager::clearArchives() {
+  deb_interface_->ClearArchives();
 }
 
 void StoreDaemonManager::isDBusConnected() {

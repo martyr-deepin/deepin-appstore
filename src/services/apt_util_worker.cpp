@@ -36,17 +36,11 @@ AptUtilWorker::~AptUtilWorker() {
 void AptUtilWorker::initConnections() {
   connect(this, &AptUtilWorker::openAppRequest,
           this, &AptUtilWorker::openApp);
-  connect(this, &AptUtilWorker::cleanArchivesRequest,
-          this, &AptUtilWorker::cleanArchives);
 }
 
 void AptUtilWorker::openApp(const QString& app_name) {
   // TODO(Shaohua): Convert app_name to debPackageName.
   OpenApp(app_name);
-}
-
-void AptUtilWorker::cleanArchives() {
-  // FIXME(Shaohua): Current process has no permission to call `apt clean`.
 }
 
 void OpenApp(const QString& app_name) {

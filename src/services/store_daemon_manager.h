@@ -107,6 +107,8 @@ class StoreDaemonManager : public QObject {
   LastoreDebInterface* deb_interface_ = nullptr;
 
  private slots:
+  void clearArchives();
+
   /**
    * Check connecting to backend app store daemon or not.
    */
