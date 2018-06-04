@@ -1,5 +1,6 @@
 .notify {
   position: fixed;
+  z-index: 9999;
   left: 50%;
   bottom: 50px;
   transform: translateX(-50%);

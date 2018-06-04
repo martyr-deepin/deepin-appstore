@@ -1,7 +1,6 @@
-<ng-container class="main"
-              *ngIf="topic$|async as $topic">
-  <img class="bgImg"
-       [src]="server+'/images/'+ ([$topic.backgroundImage,$topic.backgroundImageHD]|fitImage)">
-  <app-app-list class="apps"
-                [apps$]="apps$"></app-app-list>
+<ng-container *ngIf="topic$|async as $topic">
+    <img class="bgImg"
+         [src]="server+'/images/'+ ([$topic.backgroundImage,$topic.backgroundImageHD]|fitImage)">
+    <app-app-list class="apps"
+                  [apps$]="apps$"></app-app-list>
 </ng-container>

@@ -9,6 +9,7 @@
     outline: none;
     position: relative;
     overflow: hidden;
+    z-index: 1;
     &.index {
       &:nth-child(-n + 10)::after {
         position: absolute;
