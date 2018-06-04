@@ -1,67 +1,67 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ms" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="lt" version="2.1">
 <context>
     <name>QObject</name>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="77"/>
         <source>Deepin App Store</source>
-        <translation>Kedai Apl Deepin</translation>
+        <translation>Deepin programų parduotuvė</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="78"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Kedai Deepin ialah Kedai Apl yang mengandungi banyak aplikasi yang berkualiti. Saranan terkenal, apl baharu dikemaskini dan topik panas yang tersedia. Ia juga menyokong sekali klik untuk muat turun, pasang, kemaskini, nyahpasang dan seterusnya.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>Gelintar &quot;%1&quot; dalam Kedai Deepin</translation>
+        <translation>Ieškoti &quot;%1&quot; Deepin programų parduotuvėje</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
         <source>Search</source>
-        <translation>Gelintar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="51"/>
         <source>Sign Out</source>
-        <translation>Daftar Keluar</translation>
+        <translation>Atsijungti</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="77"/>
         <source>Sign In</source>
-        <translation>Daftar Masuk</translation>
+        <translation>Prisijungti</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
         <source>Recommend App</source>
-        <translation>Apl Cadangan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
         <source>Select Region</source>
-        <translation>Pilih Kawasan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="86"/>
         <source>China</source>
-        <translation>China</translation>
+        <translation>Kinija</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="89"/>
         <source>International</source>
-        <translation>Antarabangsa</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="106"/>
         <source>Clear Cache</source>
-        <translation>Kosongkan Cache</translation>
+        <translation>Išvalyti podėlį</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="74"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Atšaukti</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="79"/>
@@ -71,22 +71,22 @@
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="85"/>
         <source>Cut</source>
-        <translation type="unfinished"/>
+        <translation>Iškirpti</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="90"/>
         <source>Copy</source>
-        <translation type="unfinished"/>
+        <translation>Kopijuoti</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="95"/>
         <source>Paste</source>
-        <translation type="unfinished"/>
+        <translation>Įdėti</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="100"/>
         <source>Delete</source>
-        <translation type="unfinished"/>
+        <translation>Ištrinti</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="106"/>

@@ -23,40 +23,75 @@
         <translation>Rechercher</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="51"/>
         <source>Sign Out</source>
         <translation>Déconnexion</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="79"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="77"/>
         <source>Sign In</source>
         <translation>Connexion</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="83"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
         <source>Recommend App</source>
         <translation>Applications recommandés</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="87"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
         <source>Select Region</source>
         <translation>Sélectionner la région</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="86"/>
         <source>China</source>
         <translation>Chine</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="90"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="89"/>
         <source>International</source>
         <translation>International</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="100"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="106"/>
         <source>Clear Cache</source>
         <translation>Vider le cache</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="74"/>
+        <source>Undo</source>
+        <translation>Défaire</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="79"/>
+        <source>Redo</source>
+        <translation>Refaire</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="85"/>
+        <source>Cut</source>
+        <translation>Couper</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="90"/>
+        <source>Copy</source>
+        <translation>Copier</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="95"/>
+        <source>Paste</source>
+        <translation>Coller</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="100"/>
+        <source>Delete</source>
+        <translation>Effacer</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="106"/>
+        <source>Select all</source>
+        <translation>Sélectionner tout</translation>
     </message>
 </context>
 </TS>

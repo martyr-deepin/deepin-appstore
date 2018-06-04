@@ -23,40 +23,75 @@
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="51"/>
         <source>Sign Out</source>
         <translation>退出登录</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="79"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="77"/>
         <source>Sign In</source>
         <translation>登录</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="83"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
         <source>Recommend App</source>
         <translation>推荐应用</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="87"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
         <source>Select Region</source>
         <translation>选择地区</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="86"/>
         <source>China</source>
         <translation>中国区</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="90"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="89"/>
         <source>International</source>
         <translation>国际区</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="100"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="106"/>
         <source>Clear Cache</source>
         <translation>清除缓存</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="74"/>
+        <source>Undo</source>
+        <translation>撤销</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="79"/>
+        <source>Redo</source>
+        <translation>重做</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="85"/>
+        <source>Cut</source>
+        <translation>剪切</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="90"/>
+        <source>Copy</source>
+        <translation>复制</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="95"/>
+        <source>Paste</source>
+        <translation>粘贴</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="100"/>
+        <source>Delete</source>
+        <translation>刪除</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/web_event_delegate.cpp" line="106"/>
+        <source>Select all</source>
+        <translation>全选</translation>
     </message>
 </context>
 </TS>
