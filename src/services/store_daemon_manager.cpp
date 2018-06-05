@@ -643,7 +643,7 @@ void StoreDaemonManager::getJobsInfo(const QString& task_id,
       jobs_info.append(job_info);
     }
   }
-  emit this->getJobInfoReply(QVariantMap {
+  emit this->getJobsInfoReply(QVariantMap {
       { kResultOk, true },
       { kResultErrName, "" },
       { kResultErrMsg, "" },

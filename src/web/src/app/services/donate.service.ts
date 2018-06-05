@@ -10,6 +10,7 @@ export class DonateService {
   server = BaseService.serverHosts.metadataServer;
   constructor(private http: HttpClient) {}
   donate(payment: Payment, req: PayReq) {
+    console.log('donate', payment, req);
     switch (payment) {
       case Payment.WeiChatPay:
         return this.http.post<PayResp>(this.server + '/api/donate/wechatpay', req);

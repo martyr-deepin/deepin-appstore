@@ -47,7 +47,8 @@ export class AppDetailComponent implements OnInit {
 
   ngOnInit() {
     this.app$ = this.route.paramMap.pipe(
-      flatMap(param => this.appService.getApp(param.get('appName'))),
+      map(param => (this.appName = param.get('appName'))),
+      flatMap(appName => this.appService.getApp(appName)),
       publishReplay(),
       refCount(),
     );

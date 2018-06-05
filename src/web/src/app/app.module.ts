@@ -45,6 +45,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { NotifyComponent } from './components/notify/notify.component';
 
 import { LodashPipe } from './pipes/lodash.pipe';
+import { AppInfoPipe } from './pipes/app-info';
 import { MoreComponent } from './components/more/more.component';
 import { DonateComponent } from './components/donate/donate.component';
 
@@ -70,10 +71,11 @@ import { DonateComponent } from './components/donate/donate.component';
     RecommendComponent,
     WaitComponent,
     PaginatorComponent,
-    LodashPipe,
     NotifyComponent,
     MoreComponent,
     DonateComponent,
+    LodashPipe,
+    AppInfoPipe,
   ],
   imports: [
     BrowserModule,
