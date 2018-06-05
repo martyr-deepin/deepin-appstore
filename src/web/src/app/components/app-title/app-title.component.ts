@@ -11,9 +11,12 @@ export class AppTitleComponent implements OnInit {
   @Input() title = '';
   @Input() top: number;
   @Input() count: number;
-  @Input() sortBy = SortOrder.Downloads;
-
+  @Input() sortBy = sessionStorage.getItem('sortBy') || SortOrder.Downloads;
   ngOnInit() {}
+  change(order: SortOrder) {
+    sessionStorage.setItem('sortBy', order);
+    this.sortBy = order;
+  }
 }
 
 export enum SortOrder {

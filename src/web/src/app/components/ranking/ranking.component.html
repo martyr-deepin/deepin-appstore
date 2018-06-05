@@ -2,6 +2,6 @@
                i18n>Rankings</app-app-title>
 <app-app-list [apps$]="appsObs"
               [sortBy]="$title.sortBy"
-              [maxCount]="20"
+              [maxCount]="100"
               [rankIndex]="true"
               (appListLength)="$title.top=$event"></app-app-list>
