@@ -30,7 +30,7 @@
     "core-js": "^2.5.6",
     "jquery": "^3.3.1",
     "materialize-css": "^0.100.2",
-    "node": "^10.3.0",
+    "node": "^9.9.0",
     "node-sass": "^4.9.0",
     "npm": "^6.1.0",
     "qrcode": "^1.2.0",
@@ -57,7 +57,7 @@
     "karma-coverage-istanbul-reporter": "^1.4.2",
     "karma-jasmine": "^1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.1.2",
+    "protractor": "^5.3.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "2.7.2"
