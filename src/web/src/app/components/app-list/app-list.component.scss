@@ -32,6 +32,7 @@
       height: 140px;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
       img {
         position: absolute;
@@ -75,15 +76,17 @@
         color: black;
         min-width: 0;
         &.ellipsis::before {
-          content: attr(index) attr(title);
+          content: attr(index) attr(data-title);
           display: block;
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
+          cursor: pointer;
         }
         .category {
           color: gray;
           font-size: 10px;
+          cursor: pointer;
         }
       }
       .star {

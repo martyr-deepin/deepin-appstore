@@ -7,6 +7,7 @@
   .navItem {
     display: flex;
     align-items: center;
+    position: relative;
     font-size: 12px;
     padding: 0 2vw;
     height: 30px;
@@ -38,6 +39,10 @@
   }
 }
 .downloadCount {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
   border: 1px solid rgba(0, 0, 0, 0.2);
   width: 1.2rem;
   height: 1.2rem;
