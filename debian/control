@@ -5,6 +5,7 @@ Priority: optional
 Build-Depends:
  cmake,
  debhelper (>= 9),
+ git,
  libdtkwidget-dev,
  libqcef-dev,
  libqt5webchannel5-dev,

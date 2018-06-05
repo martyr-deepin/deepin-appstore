@@ -197,6 +197,15 @@ set_source_files_properties(${DMAN_TRANSLATION_TS}
 qt5_add_translation(DMAN_TRANSLATION_QM ${DMAN_TRANSLATION_TS})
 add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 
+# Update angular dist/. Works on x86 based platforms.
+add_custom_command(OUTPUT npm-update-web-dist
+                   COMMAND ./node_modules/.bin/npm run build
+                   COMMAND ./node_modules/.bin/npm run build-zh-hans
+                   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
+                   VERBATIM
+                   )
+add_custom_target(update-web-dist DEPENDS npm-update-web-dist)
+
 add_executable(deepin-appstore
                app/deepin_appstore.cpp
                ${BASE_FILES}
@@ -206,6 +215,10 @@ add_executable(deepin-appstore
                ${UI_FILES}
                )
 target_link_libraries(deepin-appstore ${LINK_LIBS})
+add_dependencies(deepin-appstore
+                 update-qm
+                 update-web-dist)
+
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(test-launcher
                  app/test_launcher.cpp
@@ -223,8 +236,6 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(qurl-demo app/qurl_demo.cpp)
   target_link_libraries(qurl-demo ${LINK_LIBS})
 endif()
-
-add_dependencies(deepin-appstore update-qm)
 
 add_executable(deepin-appstore-metadata
 

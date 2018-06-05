@@ -8,3 +8,18 @@ export QT_SELECT=qt5
 
 override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON
+
+override_dh_auto_build:
+ifneq (,$(wildcard .git/config))
+	git submodule update --init --recursive
+	git submodule update --remote
+else
+	rm -rf src/web/node_modules
+	git clone -b deepin-appstore https://cr.deepin.io/vendor-deps src/web/node_modules
+
+	rm -rf src/web/src/app/dstore
+	git clone https://cr.deepin.io/dstore-web-components src/web/src/app/dstore
+
+	rm -rf src/web/src/app/dstore-client.module
+	git clone -b client https://cr.deepin.io/dstore-web-components src/web/src/app/dstore-client.modules
+endif
