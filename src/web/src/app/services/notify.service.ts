@@ -29,10 +29,22 @@ export class NotifyService {
         );
         const t = new Date();
         if (bulletin.startTime <= t && bulletin.endTime > t) {
+          let content: string;
+          if (navigator.language === "zh-CN") {
+            content = bulletin.contentZh;
+            if (bulletin.contentZh.length === 0) {
+              content = bulletin.contentEn;
+            }
+          } else {
+            content = bulletin.contentEn;
+            if (bulletin.contentEn.length === 0) {
+              content = bulletin.contentZh;
+            }
+          }
           this.notify({
             type: NotifyType.Bulletin,
             status: NotifyStatus.Success,
-            content: bulletin.content,
+            content: content,
           });
         }
       });
@@ -60,8 +72,10 @@ export class NotifyService {
   }
 }
 interface Bulletin {
-  topic: string;
-  content: string;
+  topicZh: string;
+  topicEn: string;
+  contentZh: string;
+  contentEn: string;
   startTime: Date;
   endTime: Date;
 }
