@@ -30,11 +30,15 @@ export class LoginComponent implements OnInit {
         return;
       }
       if (!this.dialogRef.nativeElement.open) {
-        this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-          `${BaseService.serverHosts.operationServer}/api/oauthLogin/commenceLogin?lang=${
-            navigator.language.split('-')[0]
-          }&rand=${Math.random()}`,
-        );
+        if (navigator.onLine) {
+          this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
+            `${BaseService.serverHosts.operationServer}/api/oauthLogin/commenceLogin?lang=${
+              navigator.language.split('-')[0]
+            }&rand=${Math.random()}`,
+          );
+        } else {
+          this.loginURL = '';
+        }
         this.loaded = false;
         this.dialogRef.nativeElement.showModal();
       }
@@ -42,6 +46,7 @@ export class LoginComponent implements OnInit {
   }
   // login iframe loading
   load(iframe: HTMLIFrameElement) {
+    console.dir(iframe);
     this.loaded = true;
 
     const closeButton = iframe.contentDocument.getElementById('close');

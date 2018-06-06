@@ -7,7 +7,9 @@
                 (load)="load($event.target)"
                 [hidden]="!loaded"></iframe>
     </ng-container>
-    <div *ngIf="!loaded">
-        <app-wait></app-wait>
-    </div>
+    <ng-container *ngIf="!loaded">
+        <div>
+            <app-wait [checkNet]="false"></app-wait>
+        </div>
+    </ng-container>
 </dialog>
