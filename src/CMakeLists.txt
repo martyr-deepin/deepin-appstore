@@ -199,8 +199,8 @@ add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 
 # Update angular dist/. Works on x86 based platforms.
 add_custom_command(OUTPUT npm-update-web-dist
-                   COMMAND ./node_modules/.bin/npm run build
-                   COMMAND ./node_modules/.bin/npm run build-zh-hans
+                   COMMAND sh -c "PATH=./node_modules/.bin:$PATH npm run build"
+                   COMMAND sh -c "PATH=./node_modules/.bin:$PATH npm run build-zh-hans"
                    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
                    VERBATIM
                    )
