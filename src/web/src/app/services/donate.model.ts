@@ -1,7 +1,7 @@
 import { Error } from '../dstore/services/errno';
 
 export enum Payment {
-  WeiChatPay = 1,
+  WeChat = 1,
   AliPay,
   PayPal,
 }

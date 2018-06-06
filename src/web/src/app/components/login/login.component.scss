@@ -4,7 +4,6 @@ dialog {
   height: 350px;
   border: none;
   padding: 0;
-  background-color: transparent;
   iframe {
     width: 100%;
     height: 100%;
@@ -16,5 +15,10 @@ dialog {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+  }
+  &.loaded {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
   }
 }

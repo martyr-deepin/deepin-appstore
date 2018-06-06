@@ -146,7 +146,8 @@
   </ng-template>
 </ng-template>
 
-<dialog #$donate
+<dialog class="donateDialog"
+        #$donate
         (click)="dialogClick($event.target)">
   <app-donate [appName]="appName"
               *ngIf="$donate.open"

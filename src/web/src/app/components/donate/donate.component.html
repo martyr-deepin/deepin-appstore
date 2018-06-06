@@ -1,58 +1,68 @@
+<img class="close">
 <ng-template #$payForm>
+  <div class="title">
+    <h2 i18n>Donate</h2>
+  </div>
   <div class="gird">
-    <label>打赏金额:</label>
+    <label i18n>Amount:</label>
     <div class="amount">
       <input type="number"
              step="0.01"
-             [value]="amount|number:'.2-2'"
-             (change)="amount=$event.target.value">
+             [value]="amount"
+             (input)="inputChange($event.target)">
       <div class="rand"
-           (click)="rand()">随机金额</div>
+           (click)="rand()"
+           i18n>Random</div>
     </div>
-    <label>选择支付方式:</label>
-    <div>
+    <label i18n>Payment:</label>
+    <div class="payment">
       <label>
         <input type="radio"
                name="payment"
                [(ngModel)]="payment"
-               [value]="Payment.AliPay">支付宝
+               [value]="Payment.WeChat">
+        <img src="/assets/icons/wechat.svg">
       </label>
       <label>
         <input type="radio"
                name="payment"
                [(ngModel)]="payment"
-               [value]="Payment.WeiChatPay">微信
+               [value]="Payment.AliPay">
+        <img src="/assets/icons/alipay.svg">
       </label>
       <br>
       <label>
         <input type="radio"
                name="payment"
                [(ngModel)]="payment"
-               [value]="Payment.PayPal">PayPal
+               [value]="Payment.PayPal">
+        <img src="/assets/icons/paypal.svg">
       </label>
     </div>
     <button class="btn"
-            (click)="pay();$event.target.disabled=true">立即支付</button>
+            (click)="pay();$event.target.disabled=true"
+            i18n>Pay Now</button>
   </div>
 </ng-template>
 <div class="waitPay"
      *ngIf="waitPay$|async as check;else $payForm">
 
   <ng-container *ngIf="check.isExist;else $wait">
-    <div>支付完成</div>
-    <div>谢谢您的支持</div>
+    <img class="icon"
+         src="/assets/icons/ok.svg">
+    <br>
+    <div>Payment Succeeded!</div>
   </ng-container>
   <ng-template #$wait>
     <ng-container *ngIf="qrImg;else $msg">
       <img [src]="qrImg">
-      <div>请扫描二维码支付</div>
-      <div>等待支付...</div>
+      <img class="wait">
+      <div>Paying, please wait...</div>
     </ng-container>
     <ng-template #$msg>
-      <div class="msg">
-        请在新打开的浏览器窗口支付
-      </div>
-      <div>等待支付...</div>
+      <img class="wait"
+           [style.width.rem]="4">
+      <div>Paying, please wait...</div>
     </ng-template>
   </ng-template>
 </div>

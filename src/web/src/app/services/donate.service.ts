@@ -12,7 +12,7 @@ export class DonateService {
   donate(payment: Payment, req: PayReq) {
     console.log('donate', payment, req);
     switch (payment) {
-      case Payment.WeiChatPay:
+      case Payment.WeChat:
         return this.http.post<PayResp>(this.server + '/api/donate/wechatpay', req);
       case Payment.AliPay:
         return this.http.post<PayResp>(this.server + '/api/donate/alipay', req);

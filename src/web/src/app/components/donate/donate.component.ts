@@ -28,8 +28,8 @@ export class DonateComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   amount = 2;
   Payment = Payment;
-  payment: Payment = Payment.WeiChatPay;
-  randAmount = [1.47, 2.58, 3.69, 5.2, 5.21];
+  payment: Payment = Payment.WeChat;
+  randAmount = [2.0, 5.2, 8.88, 6.66, 18.0, 12.0, 66.0, 25.5, 9.99, 15.2];
   qrImg: SafeResourceUrl;
   waitPay$: Observable<PayCheck>;
   ngOnInit() {}
@@ -59,7 +59,7 @@ export class DonateComponent implements OnInit {
     )
       .pipe(switchMap(req => this.donateService.donate(this.payment, req)))
       .subscribe(resp => {
-        if (this.payment === Payment.WeiChatPay) {
+        if (this.payment === Payment.WeChat) {
           QRCode.toDataURL(resp.url).then(
             url => (this.qrImg = this.sanitizer.bypassSecurityTrustResourceUrl(url)),
           );
@@ -70,10 +70,14 @@ export class DonateComponent implements OnInit {
           switchMap(() => this.donateService.check(resp.tradeID)),
           tap(c => {
             if (c.isExist) {
-              this.close.emit();
+              // this.close.emit();
             }
           }),
         );
       });
+  }
+  inputChange(el: HTMLInputElement) {
+    this.amount = Math.floor(parseFloat(el.value) * 100) / 100;
+    el.value = this.amount.toString();
   }
 }

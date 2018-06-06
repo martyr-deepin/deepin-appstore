@@ -1,5 +1,6 @@
 <dialog #dialog
-        (click)="dialog.close()">
+        (click)="dialog.close()"
+        [class.loaded]="loaded">
     <ng-container>
         <iframe [src]="loginURL"
                 frameBorder="0"

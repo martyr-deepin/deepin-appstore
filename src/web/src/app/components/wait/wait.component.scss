@@ -15,8 +15,8 @@
   height: 3rem;
   border-radius: 50%;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
-  background: url('/assets/icons/water_front.svg') repeat-x,
-    url('/assets/icons/water_back.svg') repeat-x, rgba(43, 169, 243, 0.15);
+  background: url('/assets/images/water_front.svg') repeat-x,
+    url('/assets/images/water_back.svg') repeat-x, rgba(43, 169, 243, 0.15);
   background-size: 200%;
   background-position: left bottom;
   animation: flow 2s infinite linear;
