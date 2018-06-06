@@ -24,6 +24,7 @@ export class AuthService {
   login(token: string) {
     this.loginService.SetLoginStatue(true);
     localStorage.setItem(this.tokenStorageKey, token);
+    location.reload();
   }
 
   logout() {
@@ -31,8 +32,9 @@ export class AuthService {
       this.loginService.SetLoginStatue(false);
       sessionStorage.removeItem(this.tokenStorageKey);
       localStorage.removeItem(this.tokenStorageKey);
-      // location.href = ('https://login.deepin.org/oauth2/logout?callback=' +
-      //   window['escape'](location.href)) as string;
+      // location.reload();
+      location.href = ('https://login.deepin.org/oauth2/logout?callback=' +
+        window['escape'](location.href)) as string;
     }
   }
 

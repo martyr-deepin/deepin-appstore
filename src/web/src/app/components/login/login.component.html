@@ -6,8 +6,8 @@
                 frameBorder="0"
                 (load)="load($event.target)"
                 [hidden]="!loaded"></iframe>
-        <div [hidden]="loaded">
-            <app-wait></app-wait>
-        </div>
     </ng-container>
+    <div *ngIf="!loaded">
+        <app-wait></app-wait>
+    </div>
 </dialog>

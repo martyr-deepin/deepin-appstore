@@ -1,7 +1,15 @@
 <ng-container *ngIf="online;else $offline">
-    <div class="water"></div>
-    <div class="title"
-         i18n>Loading...</div>
+    <ng-container *ngIf="timeout$|async;else water">
+        <img class="failed"
+             src="/assets/icons/failed.svg">
+        <span class="timeout"
+              i18n>Network timeout</span>
+    </ng-container>
+    <ng-template #water>
+        <div class="water"></div>
+        <div class="title"
+             i18n>Loading...</div>
+    </ng-template>
 </ng-container>
 <ng-template #$offline>
     <img src="/assets/icons/tips_bg.svg"

@@ -26,17 +26,14 @@ export class LoginComponent implements OnInit {
     this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl('');
     this.loginService.onOpenLogin().subscribe(isLogin => {
       if (!isLogin) {
-        this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-          'https://login.deepin.org/oauth2/logout?lang=' + navigator.language.split('-')[0],
-        );
         this.authService.logout();
         return;
       }
       if (!this.dialogRef.nativeElement.open) {
         this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-          BaseService.serverHosts.operationServer +
-            '/api/oauthLogin/commenceLogin?' +
-            Math.random(),
+          `${BaseService.serverHosts.operationServer}/api/oauthLogin/commenceLogin?lang=${
+            navigator.language.split('-')[0]
+          }&rand=${Math.random()}`,
         );
         this.loaded = false;
         this.dialogRef.nativeElement.showModal();
