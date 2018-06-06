@@ -3,6 +3,7 @@ Maintainer: Xu Shaohua <xushaohua@deepin.com>
 Section: admin
 Priority: optional
 Build-Depends:
+ ca-certificates,
  cmake,
  debhelper (>= 9),
  git,
