@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
-import { Observable, timer, of, empty, forkJoin, merge } from 'rxjs';
+import { Observable, timer, of, empty, forkJoin, merge, combineLatest, from } from 'rxjs';
 import {
   map,
   tap,
@@ -9,6 +9,8 @@ import {
   debounceTime,
   concat,
   concatMap,
+  startWith,
+  scan,
 } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
@@ -24,7 +26,6 @@ import {
 } from '../../dstore-client.module/models/store-job-info';
 import { AppVersion } from '../../dstore-client.module/models/app-version';
 import { AppService } from '../../services/app.service';
-import { version } from 'punycode';
 
 @Component({
   selector: 'app-app-list',
@@ -42,47 +43,11 @@ export class AppListComponent implements OnInit, OnChanges {
   @Input() rankIndex: boolean;
   @Output() appListLength = new EventEmitter<number>(true);
   appList$: Observable<App[]>;
+  appJobMap$: Observable<{ [key: string]: Observable<StoreJobInfo> }>;
+  appVersionMap$: Observable<{ [key: string]: AppVersion }>;
   // job control
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
-
-  getAppJob = _.memoize((appName: string): Observable<StoreJobInfo> => {
-    return merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
-      switchMap(
-        jobs =>
-          jobs.length === 0
-            ? of([] as StoreJobInfo[])
-            : forkJoin(jobs.map(job => this.storeService.getJobInfo(job))),
-      ),
-      switchMap(jobs => {
-        const jobInfo = jobs.find(job => job.name === appName);
-        console.log(jobInfo);
-        if (!jobInfo) {
-          return of(undefined);
-        } else {
-          return merge(
-            of(jobInfo),
-            timer(1000, 1000).pipe(switchMap(() => this.storeService.getJobInfo(jobInfo.job))),
-          );
-        }
-      }),
-    );
-  });
-
-  getAppVersion = _.memoize((appName: string): Observable<AppVersion> => {
-    return merge(
-      this.appService.getApp(appName).pipe(map(app => app.version)),
-      this.storeService.getVersion([appName]).pipe(map(vs => vs[0])),
-      this.storeService
-        .jobListChange()
-        .pipe(
-          debounceTime(1000),
-          flatMap(() => this.storeService.getVersion([appName])),
-          tap(vs => console.log(vs)),
-          map(vs => vs[0]),
-        ),
-    ).pipe(tap(v => console.log('get app version', v)));
-  });
 
   openApp = this.storeService.openApp;
   installApp = (appName: string) => this.storeService.installPackage(appName).subscribe();
@@ -111,6 +76,33 @@ export class AppListComponent implements OnInit, OnChanges {
       }),
       tap(apps => {
         this.appListLength.emit(apps.length);
+      }),
+    );
+    this.appJobMap$ = merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
+      switchMap(jobs => this.storeService.getJobsInfo(jobs)),
+      map(jobs => {
+        return jobs.reduce<{ [key: string]: Observable<StoreJobInfo> }>(
+          (obj, job) =>
+            Object.assign(obj, {
+              [job.name]: timer(0, 1000).pipe(
+                switchMap(() => this.storeService.getJobInfo(job.job)),
+              ),
+            }),
+          {},
+        );
+      }),
+    );
+    this.appVersionMap$ = combineLatest(
+      this.storeService.jobListChange().pipe(startWith([])),
+      this.appList$,
+      (job, apps) => apps,
+    ).pipe(
+      switchMap(apps => this.storeService.getVersion(apps.map(app => app.name))),
+      map(versionList => {
+        return versionList.reduce<{ [key: string]: AppVersion }>(
+          (obj, v) => Object.assign(obj, { [v.name]: v }),
+          {},
+        );
       }),
     );
   }
