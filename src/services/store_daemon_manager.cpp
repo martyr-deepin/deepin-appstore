@@ -157,7 +157,7 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
 }
 
 void StoreDaemonManager::clearArchives() {
-  deb_interface_->ClearArchives();
+  deb_interface_->CleanArchives();
 }
 
 void StoreDaemonManager::isDBusConnected() {
