@@ -6,7 +6,7 @@ import { tap, flatMap, map } from 'rxjs/operators';
 
 import { memoize } from 'lodash';
 
-import { CategoryService, makeDefaultCategory } from '../../services/category.service';
+import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { StoreService } from '../../dstore-client.module/services/store.service';
@@ -29,7 +29,6 @@ export class SideNavComponent implements OnInit {
     private storeService: StoreService,
   ) {}
   native = BaseService.isNative;
-  default = makeDefaultCategory();
   @ViewChild('nav') nav: ElementRef<HTMLDivElement>;
   // category list
   cs$: Observable<Category[]>;

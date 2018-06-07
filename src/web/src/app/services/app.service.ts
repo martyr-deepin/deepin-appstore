@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 import { Observable, forkJoin, of } from 'rxjs';
-import { map, flatMap, tap, share, shareReplay, retry, filter } from 'rxjs/operators';
+import { map, flatMap, tap, share, shareReplay, retry, filter, catchError } from 'rxjs/operators';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
@@ -52,7 +52,6 @@ export class AppService {
     );
   }
   private getAppMapNoVersion(): Observable<Map<string, App>> {
-    console.log('getList');
     interface AppStat {
       downloadCount: { appName: string; count: number }[];
       rate: { appName: string; rate: number; count: number }[];
@@ -73,7 +72,15 @@ export class AppService {
           app.rate = _.get(rateMap, [app.name, 'rate']) / 2 || 0;
           app.ratings = _.get(rateMap, [app.name, 'count'], 0);
         });
+        if (!sessionStorage.getItem('apps')) {
+          localStorage.setItem('apps', JSON.stringify(Array.from(appMap.entries())));
+          sessionStorage.setItem('apps', 'ok');
+        }
         return appMap;
+      }),
+      catchError(() => {
+        const appMap = new Map(JSON.parse(localStorage.getItem('apps')) as [string, App][]);
+        return of(appMap);
       }),
     );
   }
@@ -86,7 +93,10 @@ export class AppService {
     return this.appMap().pipe(map(m => appNameList.filter(m.has.bind(m)).map(m.get.bind(m))));
   }
   getApp(appName: string): Observable<App> {
-    return this.appMap().pipe(map(m => m.get(appName)), tap(app => console.log('getApp', app)));
+    return this.appMap().pipe(
+      map(m => m.get(appName)),
+      tap(app => console.log('getApp', app)),
+    );
   }
 }
 

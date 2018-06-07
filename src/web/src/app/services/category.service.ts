@@ -17,19 +17,12 @@ export class CategoryService {
     return this.http.get<CustomCategory[]>(`${this.server}/api/blob/category`).pipe(
       retry(3),
       map(ccs => {
-        if (ccs.length === 0) {
-          return makeDefaultCategory();
-        }
         return ccs.filter(c => c.show).map((c, index) => ({
           id: index.toString(),
           title: c.name,
           icon: c.icon.map(i => this.server + '/images/' + i),
           apps: c.apps,
         }));
-      }),
-      catchError(() => {
-        console.log('getList err');
-        return of(makeDefaultCategory());
       }),
       shareReplay(),
     );
@@ -48,23 +41,3 @@ interface CustomCategory {
   show: boolean;
   apps: string[];
 }
-export function makeDefaultCategory(): Category[] {
-  return [
-    'internet',
-    'office',
-    'development',
-    'reading',
-    'graphics',
-    'game',
-    'music',
-    'system',
-    'video',
-    'chat',
-    'others',
-  ].map(c => ({
-    id: c,
-    title: c,
-    icon: [`/assets/icons/${c}.svg`, `/assets/icons/${c}_active.svg`],
-  }));
-}
-const defaultCategory = [];
