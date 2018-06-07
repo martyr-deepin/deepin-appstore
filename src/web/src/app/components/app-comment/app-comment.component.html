@@ -65,6 +65,7 @@
         </span>
       </div>
       <textarea class="input"
+                (keypress)="inputComment($event)"
                 [(ngModel)]="content"></textarea>
       <div class="placeholder"
            [hidden]="content"

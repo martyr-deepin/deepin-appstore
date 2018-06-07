@@ -96,12 +96,20 @@ export class AppCommentComponent implements OnInit {
   login() {
     this.loginService.OpenLogin();
   }
+
   logout() {
     this.loginService.OpenLogout();
   }
 
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn;
+  }
+
+  inputComment($event: KeyboardEvent) {
+    console.log($event);
+    if ($event.ctrlKey && $event.key === 'Enter') {
+      this.submitComment();
+    }
   }
 
   submitComment() {
@@ -129,6 +137,7 @@ export class AppCommentComponent implements OnInit {
       },
     );
   }
+
   thumbUpClick(c: Comment) {
     if (c.likeByMe) {
       this.commentService.dislike(c.id).subscribe(() => {
