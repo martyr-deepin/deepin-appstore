@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable, timer } from 'rxjs';
+import { Observable, timer, fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,6 +13,7 @@ export class WaitComponent implements OnInit {
   @Input() checkNet = true;
   @Input() timeout = 10;
   timeout$: Observable<string>;
+  waitOnline$: Observable<void>;
   online: boolean;
   ngOnInit() {
     if (this.checkNet) {
@@ -21,6 +22,11 @@ export class WaitComponent implements OnInit {
       this.online = true;
     }
     this.timeout$ = timer(navigator.onLine ? this.timeout * 1000 : 0).pipe(map(() => 'timeout'));
+    this.waitOnline$ = fromEvent(window, 'online').pipe(
+      map(() => {
+        this.refresh();
+      }),
+    );
   }
   refresh() {
     location.reload();
