@@ -26,6 +26,8 @@ import {
 } from '../../dstore-client.module/models/store-job-info';
 import { AppVersion } from '../../dstore-client.module/models/app-version';
 import { AppService } from '../../services/app.service';
+import { OffsetService } from '../../services/offset.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-app-list',
@@ -33,7 +35,12 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./app-list.component.scss'],
 })
 export class AppListComponent implements OnInit, OnChanges {
-  constructor(private appService: AppService, private storeService: StoreService) {}
+  constructor(
+    private appService: AppService,
+    private storeService: StoreService,
+    private offsetService: OffsetService,
+    private router: Router,
+  ) {}
   server = BaseService.serverHosts.metadataServer;
   appJobStatus = AppJobStatus;
 
@@ -46,6 +53,7 @@ export class AppListComponent implements OnInit, OnChanges {
   appList$: Observable<App[]>;
   appJobMap$: Observable<{ [key: string]: Observable<StoreJobInfo> }>;
   appVersionMap$: Observable<{ [key: string]: AppVersion }>;
+  offset$: Observable<void>;
   // job control
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
@@ -54,13 +62,21 @@ export class AppListComponent implements OnInit, OnChanges {
   installApp = (appName: string) => this.storeService.installPackage(appName).subscribe();
   updateApp = (appName: string) => this.storeService.updatePackage(appName).subscribe();
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.offset$ = timer(100).pipe(
+      map(() => {
+        setTimeout(
+          () => window.scrollTo(0, this.offsetService.getOffset(this.router.url) || 0),
+          100,
+        );
+      }),
+    );
+  }
 
   ngOnChanges() {
     if (!this.apps$) {
       return;
     }
-    this.storeService.appDownloadSize('gedit').subscribe();
     this.appList$ = this.apps$.pipe(
       map(apps => {
         apps = apps.filter(app => app);
@@ -79,32 +95,41 @@ export class AppListComponent implements OnInit, OnChanges {
         this.appListLength.emit(apps.length);
       }),
     );
-    this.appJobMap$ = merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
-      switchMap(jobs => this.storeService.getJobsInfo(jobs)),
-      map(jobs => {
-        return jobs.reduce<{ [key: string]: Observable<StoreJobInfo> }>(
-          (obj, job) =>
-            Object.assign(obj, {
-              [job.name]: timer(0, 1000).pipe(
-                switchMap(() => this.storeService.getJobInfo(job.job)),
-              ),
-            }),
-          {},
-        );
-      }),
-    );
-    this.appVersionMap$ = combineLatest(
-      this.storeService.jobListChange().pipe(startWith([])),
-      this.appList$,
-      (job, apps) => apps,
-    ).pipe(
-      switchMap(apps => this.storeService.getVersion(apps.map(app => app.name))),
-      map(versionList => {
-        return versionList.reduce<{ [key: string]: AppVersion }>(
-          (obj, v) => Object.assign(obj, { [v.name]: v }),
-          {},
-        );
-      }),
-    );
+    if (BaseService.isNative) {
+      this.appJobMap$ = merge(
+        this.storeService.getJobList(),
+        this.storeService.jobListChange(),
+      ).pipe(
+        switchMap(jobs => this.storeService.getJobsInfo(jobs)),
+        map(jobs => {
+          return jobs.reduce<{ [key: string]: Observable<StoreJobInfo> }>(
+            (obj, job) =>
+              Object.assign(obj, {
+                [job.name]: timer(0, 1000).pipe(
+                  switchMap(() => this.storeService.getJobInfo(job.job)),
+                ),
+              }),
+            {},
+          );
+        }),
+      );
+
+      this.appVersionMap$ = combineLatest(
+        this.storeService.jobListChange().pipe(startWith([])),
+        this.appList$,
+        (job, apps) => apps,
+      ).pipe(
+        switchMap(apps => this.storeService.getVersion(apps.map(app => app.name))),
+        map(versionList => {
+          return versionList.reduce<{ [key: string]: AppVersion }>(
+            (obj, v) => Object.assign(obj, { [v.name]: v }),
+            {},
+          );
+        }),
+      );
+    } else {
+      this.appJobMap$ = of({});
+      this.appVersionMap$ = of({});
+    }
   }
 }

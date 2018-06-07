@@ -9,6 +9,7 @@ import { AppService } from './services/app.service';
 import { SearchService, SearchResult } from './services/search.service';
 import { Channel } from './dstore-client.module/utils/channel';
 import { App } from './dstore/services/app';
+import { OffsetService } from './services/offset.service';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private appService: AppService,
     private searchService: SearchService,
+    private offsetService: OffsetService,
   ) {}
   @ViewChild('$context') contentRef: ElementRef<HTMLDivElement>;
 
@@ -32,11 +34,15 @@ export class AppComponent implements OnInit {
   scrollHistory() {
     const offsetMap = new Map<string, number>();
     this.router.events
-      .pipe(filter(event => event instanceof NavigationStart), pairwise())
+      .pipe(
+        filter(event => event instanceof NavigationStart),
+        pairwise(),
+      )
       .subscribe(([oldEvent, event]: [NavigationStart, NavigationStart]) => {
         console.log('router event:', oldEvent, window.pageYOffset, event, offsetMap);
         if (!event.restoredState) {
           offsetMap.set(oldEvent.url, window.pageYOffset);
+          this.offsetService.saveOffset(oldEvent.url, window.pageYOffset);
           if (oldEvent.url === '/') {
             offsetMap.set('/index', window.pageYOffset);
           }
