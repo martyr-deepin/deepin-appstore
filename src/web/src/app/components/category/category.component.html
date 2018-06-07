@@ -1,5 +1,6 @@
 <ng-container *ngIf="list$|async as $list">
     <app-app-title #$title>{{title}}</app-app-title>
     <app-app-list [apps$]="$list.apps$"
-                  [sortBy]="$title.sortBy"></app-app-list>
+                  [sortBy]="$title.sortBy"
+                  [subtitle]="'slogan'"></app-app-list>
 </ng-container>

@@ -70,6 +70,32 @@
           text-align: center;
         }
       }
+      .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .name {
+          @extend .ellipsis;
+          cursor: pointer;
+        }
+        .subtitle {
+          display: flex;
+          justify-content: space-between;
+          color: gray;
+          font-size: 10px;
+          span {
+            @extend .ellipsis;
+          }
+          .category {
+            cursor: pointer;
+          }
+        }
+      }
       .info {
         display: flex;
         flex-direction: column;
@@ -83,10 +109,13 @@
           overflow: hidden;
           cursor: pointer;
         }
-        .category {
+        .subtitle {
           color: gray;
           font-size: 10px;
           cursor: pointer;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
       .star {

@@ -18,20 +18,52 @@
           <img [src]="server+'/'+([$app.localInfo.images.cover,$app.localInfo.images.coverHD]|fitImage)">
         </div>
         <div class="content">
-          <div class="info ellipsis"
+          <div class="info"
+               *ngIf="!$appContent.Hover || !$app.version;else $appControl">
+            <div class="name">{{$app.localInfo.description.name}}</div>
+            <div class="subtitle"
+                 [ngSwitch]="subtitle">
+              <span *ngSwitchCase="'category'"
+                    class="category"
+                    [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
+              <span *ngSwitchCase="'slogan'">
+                {{$app.localInfo.description.slogan}} &nbsp;
+              </span>
+              <dstore-star [rate]="$app.rate"></dstore-star>
+            </div>
+          </div>
+          <!-- <div class="info ellipsis"
                [routerLink]="$app.name"
                [attr.index]="rankIndex?$index+1+'.':''"
                [attr.data-title]="$app.localInfo.description.name">
-            <div>
-              <span class="category"
+            <div [ngSwitch]="subtitle"
+                 class="subtitle">
+              <span *ngSwitchCase="'category'"
                     [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
+              <span *ngSwitchCase="'slogan'">
+                {{$app.localInfo.description.slogan}} &nbsp;
+              </span>
             </div>
-          </div>
-          <div class="star"
+          </div> -->
+          <!-- <div class="star"
                *ngIf="!$appContent.Hover || !$app.version;else $appControl">
             <dstore-star [rate]="$app.rate"></dstore-star>
-          </div>
+          </div> -->
           <ng-template #$appControl>
+
+            <div class="info">
+              <div class="name">{{$app.localInfo.description.name}}</div>
+              <div class="subtitle"
+                   [ngSwitch]="subtitle">
+                <span *ngSwitchCase="'category'"
+                      class="category"
+                      [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
+                <span *ngSwitchCase="'slogan'">
+                  {{$app.localInfo.description.slogan}} &nbsp;
+                </span>
+              </div>
+            </div>
+
             <div class="control">
 
               <ng-template #ctlBtn
