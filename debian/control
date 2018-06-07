@@ -11,6 +11,7 @@ Build-Depends:
  libqcef-dev,
  libqt5webchannel5-dev,
  libsass0,
+ pkg-config,
  qttools5-dev-tools,
 Standards-Version: 3.9.5
 Homepage: https://deepin.org
