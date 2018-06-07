@@ -215,9 +215,11 @@ add_executable(deepin-appstore
                ${UI_FILES}
                )
 target_link_libraries(deepin-appstore ${LINK_LIBS})
-add_dependencies(deepin-appstore
-                 update-qm
-                 update-web-dist)
+if (CMAKE_BUILD_TYPE MATCHES Release)
+  add_dependencies(deepin-appstore
+                   update-qm
+                   update-web-dist)
+endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(test-launcher
