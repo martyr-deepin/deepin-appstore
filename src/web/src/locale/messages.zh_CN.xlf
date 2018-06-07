@@ -135,7 +135,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="87b37a0f6e615a458d400a7e7f4e5d2a236738a2">
         <source><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> downloads</source>
-        <target><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> 次下载</target>
+        <target>&lt;x equiv-text=&quot;{{app.downloads}}&quot; id=&quot;INTERPOLATION&quot;/&gt; 次下载</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">54</context>
@@ -143,7 +143,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0a9b80ad236842efdae45b225724cfa85f9ef066">
         <source><x equiv-text="{{app.ratings}}" id="INTERPOLATION"/> ratings</source>
-        <target><x equiv-text="{{app.ratings}}" id="INTERPOLATION"/>次评分</target>
+        <target>&lt;x equiv-text=&quot;{{app.ratings}}&quot; id=&quot;INTERPOLATION&quot;/&gt;次评分</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">56</context>
@@ -231,7 +231,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="299e6603e5dafea1c29c20493f2b3aabaca8bc96">
         <source><x equiv-text="{{count}}" id="INTERPOLATION"/> applications</source>
-        <target>共<x equiv-text="{{count}}" id="INTERPOLATION"/>个 </target>
+        <target>共&lt;x equiv-text=&quot;{{count}}&quot; id=&quot;INTERPOLATION&quot;/&gt;个 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -239,7 +239,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c5fa28eef4963d7813b35fc31c729401f6378c76">
         <source>Top <x equiv-text="{{top}}" id="INTERPOLATION"/></source>
-        <target>前<x equiv-text="{{top}}" id="INTERPOLATION"/>个</target>
+        <target>前&lt;x equiv-text=&quot;{{top}}&quot; id=&quot;INTERPOLATION&quot;/&gt;个</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -271,7 +271,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e6b5212e3eeb4262659c26884030866a14c2f0b5">
         <source>Processing <x equiv-text="{{$jobs.length}}" id="INTERPOLATION"/> <x equiv-text="{$jobs.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/></source>
-        <target><x equiv-text="{{$jobs.length}}" id="INTERPOLATION"/>个<x equiv-text="{$jobs.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/>正在进行</target>
+        <target>&lt;x equiv-text=&quot;{{$jobs.length}}&quot; id=&quot;INTERPOLATION&quot;/&gt;个&lt;x equiv-text=&quot;{$jobs.length, plural, =0 {...} =1 {...} other {...}}&quot; id=&quot;ICU&quot;/&gt;正在进行</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -303,7 +303,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="19b8abc7295c02c42ca64ce3cac1112a95fc1936">
         <source><x equiv-text="{{$m}}" id="INTERPOLATION"/> min</source>
-        <target><x equiv-text="{{$m}}" id="INTERPOLATION"/>分</target>
+        <target>&lt;x equiv-text=&quot;{{$m}}&quot; id=&quot;INTERPOLATION&quot;/&gt;分</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -311,7 +311,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1d6e35c41ebf2987da0468d55073712041356849">
         <source><x equiv-text="{{$s}}" id="INTERPOLATION"/> sec</source>
-        <target><x equiv-text="{{$s}}" id="INTERPOLATION"/>秒</target>
+        <target>&lt;x equiv-text=&quot;{{$s}}&quot; id=&quot;INTERPOLATION&quot;/&gt;秒</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/download-manage/download-manage.component.ts</context>
           <context context-type="linenumber">29</context>
@@ -363,7 +363,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="edb04a940ecca42098ef66e36412758fb3d082df">
         <source><x equiv-text="{{$apps.length}}" id="INTERPOLATION"/> <x equiv-text="{$apps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed</source>
-        <target>已安装<x equiv-text="{{$apps.length}}" id="INTERPOLATION"/>个<x equiv-text="{$apps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/></target>
+        <target>已安装&lt;x equiv-text=&quot;{{$apps.length}}&quot; id=&quot;INTERPOLATION&quot;/&gt;个&lt;x equiv-text=&quot;{$apps.length, plural, =0 {...} =1 {...} other {...}}&quot; id=&quot;ICU&quot;/&gt;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -639,7 +639,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="aa20f809feb37966ee4cad2afcf71dcd37cad1a2">
         <source>Please rate</source>
-        <target>请评分</target>
+        <target>请输入您的评分</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">87</context>
@@ -675,7 +675,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="ceee1ca7ace7a9956c2fbd7c2d18c39fb60e84cd">
         <source>Current Version (<x equiv-text="{{commentList?.length}}" id="INTERPOLATION"/>)</source>
-        <target>当前版本(<x equiv-text="{{commentList?.length}}" id="INTERPOLATION"/>)</target>
+        <target>当前版本(&lt;x equiv-text=&quot;{{commentList?.length}}&quot; id=&quot;INTERPOLATION&quot;/&gt;)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">106</context>
@@ -683,7 +683,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fd3f325c8b85fe64eb7b4ba794f8ada417edf4fa">
         <source>History Versions (<x equiv-text="{{historyList?.length}}" id="INTERPOLATION"/>)</source>
-        <target>历史版本(<x equiv-text="{{historyList?.length}}" id="INTERPOLATION"/>)</target>
+        <target>历史版本(&lt;x equiv-text=&quot;{{historyList?.length}}&quot; id=&quot;INTERPOLATION&quot;/&gt;)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">110</context>
@@ -716,7 +716,7 @@
       <trans-unit datatype="html" id="5e10bfec657136150ed6007533cc9574c66268ba">
         <source>Searching results for <x equiv-text="{{title$|async}}" id="INTERPOLATION"/>
 </source>
-        <target><x equiv-text="{{title$|async}}" id="INTERPOLATION"/>的搜索结果
+        <target>&lt;x equiv-text=&quot;{{title$|async}}&quot; id=&quot;INTERPOLATION&quot;/&gt;的搜索结果
 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
@@ -734,7 +734,7 @@
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
       <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
-        <target>您可以向我们<x ctype="x-a" equiv-text="&amp;lt;a&amp;gt;" id="START_LINK"/>推荐<x ctype="x-a" equiv-text="&amp;lt;/a&amp;gt;" id="CLOSE_LINK"/>此应用</target>
+        <target>您可以向我们&lt;x ctype=&quot;x-a&quot; equiv-text=&quot;&amp;lt;a&amp;gt;&quot; id=&quot;START_LINK&quot;/&gt;推荐&lt;x ctype=&quot;x-a&quot; equiv-text=&quot;&amp;lt;/a&amp;gt;&quot; id=&quot;CLOSE_LINK&quot;/&gt;此应用</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -894,7 +894,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="248ac7083d6aeaba08df615c1af40aedb6df794a">
         <source>Announcement：<x equiv-text="{{$notify.content}}" id="INTERPOLATION"/></source>
-        <target>公告：<x equiv-text="{{$notify.content}}" id="INTERPOLATION"/></target>
+        <target>公告：&lt;x equiv-text=&quot;{{$notify.content}}&quot; id=&quot;INTERPOLATION&quot;/&gt;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">4</context>
