@@ -6,14 +6,16 @@
        [routerLink]="['index']">
     <img class="categoryIcon"
          [attr.style]="getStyleByID('homepage')">
-    <ng-container i18n>Home</ng-container>
+    <div class="title"
+         i18n>Home</div>
   </div>
   <div class="navItem"
        routerLinkActive="active"
        [routerLink]="['ranking']">
     <img class="categoryIcon"
          [attr.style]="getStyleByID('ranking')">
-    <ng-container i18n>Rankings</ng-container>
+    <div class="title"
+         i18n>Rankings</div>
   </div>
   <ng-container *ngIf="cs$|async as $cs;else $default">
     <ng-container *ngIf="$cs.length>0;else $default">
@@ -33,7 +35,8 @@
          [routerLink]="['category','internet']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('internet')">
-      <ng-container i18n>Internet</ng-container>
+      <div class="title"
+           i18n>Internet</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -41,7 +44,8 @@
          [routerLink]="['category','chat']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('chat')">
-      <ng-container i18n>Chat</ng-container>
+      <div class="title"
+           i18n>Chat</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -49,7 +53,8 @@
          [routerLink]="['category','music']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('music')">
-      <ng-container i18n>Music</ng-container>
+      <div class="title"
+           i18n>Music</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -57,7 +62,8 @@
          [routerLink]="['category','video']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('video')">
-      <ng-container i18n>Video</ng-container>
+      <div class="title"
+           i18n>Video</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -65,7 +71,8 @@
          [routerLink]="['category','graphics']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('graphics')">
-      <ng-container i18n>Graphics</ng-container>
+      <div class="title"
+           i18n>Graphics</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -73,7 +80,8 @@
          [routerLink]="['category','game']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('game')">
-      <ng-container i18n>Game</ng-container>
+      <div class="title"
+           i18n>Game</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -81,7 +89,8 @@
          [routerLink]="['category','office']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('office')">
-      <ng-container i18n>Office</ng-container>
+      <div class="title"
+           i18n>Office</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -89,7 +98,8 @@
          [routerLink]="['category','reading']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('reading')">
-      <ng-container i18n>Reading</ng-container>
+      <div class="title"
+           i18n>Reading</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -97,7 +107,8 @@
          [routerLink]="['category','development']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('development')">
-      <ng-container i18n>Development</ng-container>
+      <div class="title"
+           i18n>Development</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -105,7 +116,8 @@
          [routerLink]="['category','system']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('system')">
-      <ng-container i18n>System</ng-container>
+      <div class="title"
+           i18n>System</div>
     </div>
     <div class="navItem"
          routerLinkActive="active"
@@ -113,7 +125,8 @@
          [routerLink]="['category','others']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('others')">
-      <ng-container i18n>Others</ng-container>
+      <div class="title"
+           i18n>Others</div>
     </div>
   </ng-template>
 
@@ -124,7 +137,8 @@
          [routerLink]="['download']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('downloads')">
-      <ng-container i18n>Download</ng-container>
+      <div class="title"
+           i18n>Download</div>
       <div class="downloadCount"
            [@dlcIn]
            *ngIf="dc$|async as $c">{{$c}}</div>
@@ -134,7 +148,8 @@
          [routerLink]="['uninstall']">
       <img class="categoryIcon"
            [attr.style]="getStyleByID('uninstall')">
-      <ng-container i18n>Uninstall</ng-container>
+      <div class="title"
+           i18n>Uninstall</div>
     </div>
   </ng-container>
 </div>

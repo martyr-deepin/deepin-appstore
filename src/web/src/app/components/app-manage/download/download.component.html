@@ -18,7 +18,7 @@
           <div class="version"
                i18n>Version: {{$app.version?.remoteVersion}}</div>
         </div>
-        <div class="time">
+        <div class="time co-star">
           <span i18n>Time left: </span>
           <ng-container *ngIf="job.status===StoreJobStatus.running && job.speed;else $wait">
             <span *ngIf="(job.downloadSize*(1-job.progress*2)/job.speed).toFixed(0) as $d;else $wait">
@@ -36,7 +36,7 @@
           <ng-template #$wait> - - </ng-template>
         </div>
 
-        <div class="progressInfo">
+        <div class="progressInfo co-star">
           <progress [value]="job.progress"
                     max="1"></progress>
           <ng-container *ngIf="job.speed as speed;else $msg">

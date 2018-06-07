@@ -34,6 +34,7 @@ body {
 .icon {
   width: 48px;
   height: 48px;
+  min-width: 48px;
 }
 
 .tips_bg {
@@ -82,4 +83,10 @@ dialog {
 }
 img {
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .co-star {
+    display: none;
+  }
 }

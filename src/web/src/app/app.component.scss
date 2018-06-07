@@ -8,7 +8,9 @@
   .context {
     flex: 1;
     overflow-x: hidden;
-    padding: 0 1rem;
+    @media (min-width: 600px) {
+      padding: 0 1rem;
+    }
     position: relative;
   }
 }

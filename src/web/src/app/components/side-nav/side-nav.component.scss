@@ -2,22 +2,25 @@
   user-select: none;
   text-align: center;
   height: 100%;
+  width: 12vw;
   overflow-y: auto;
+  overflow-x: hidden;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   .navItem {
     display: flex;
     align-items: center;
     position: relative;
     font-size: 12px;
-    padding: 0 2vw;
+    padding-left: 1rem;
     height: 30px;
     margin-bottom: 10px;
     outline: none;
     cursor: pointer;
     border-right: 3px solid transparent;
     .categoryIcon {
-      margin-right: 1rem;
+      margin-right: 0.5rem;
       width: 16px;
+      min-width: 16px;
       height: 16px;
       content: var(--src);
     }
@@ -32,6 +35,13 @@
     &:not(.active):hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
+    .title {
+      text-align: left;
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
   .hr {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -39,17 +49,14 @@
   }
 }
 .downloadCount {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
   border: 1px solid rgba(0, 0, 0, 0.2);
   width: 1.2rem;
+  min-width: 1.2rem;
   height: 1.2rem;
   display: flex;
   justify-content: center;
   border-radius: 50%;
   align-items: center;
-  margin-left: 0.5rem;
+  margin: 0 0.5rem;
   color: #2ca7f8;
 }
