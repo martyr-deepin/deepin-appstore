@@ -21,5 +21,5 @@ else
 	git clone https://cr.deepin.io/dstore-web-components src/web/src/app/dstore
 
 	rm -rf src/web/src/app/dstore-client.module
-	git clone -b client https://cr.deepin.io/dstore-web-components src/web/src/app/dstore-client.modules
+	git clone -b client https://cr.deepin.io/dstore-web-components src/web/src/app/dstore-client.module
 endif
