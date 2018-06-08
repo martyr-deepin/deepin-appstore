@@ -16,6 +16,7 @@ import {
 import { AppService, App } from '../../../services/app.service';
 import { BaseService } from '../../../dstore/services/base.service';
 import { InstalledApp } from '../../../dstore-client.module/models/installed';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-uninstall',
@@ -23,7 +24,11 @@ import { InstalledApp } from '../../../dstore-client.module/models/installed';
   styleUrls: ['./uninstall.component.scss'],
 })
 export class UninstallComponent implements OnInit {
-  constructor(private storeService: StoreService, private appService: AppService) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private storeService: StoreService,
+    private appService: AppService,
+  ) {}
   metadataServer = BaseService.serverHosts.metadataServer;
 
   installedApps$: Observable<InstalledApp[]>;
@@ -56,5 +61,12 @@ export class UninstallComponent implements OnInit {
 
   uninstall(appName: string) {
     this.storeService.removePackage(appName).subscribe();
+  }
+
+  getUrl(app: App) {
+    if (navigator.onLine) {
+      return this.metadataServer + '/' + app.icon;
+    }
+    return this.sanitizer.bypassSecurityTrustUrl('rcc://icon/' + app.name);
   }
 }
