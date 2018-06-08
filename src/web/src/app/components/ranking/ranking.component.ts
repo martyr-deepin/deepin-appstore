@@ -13,9 +13,11 @@ import { App } from '../../dstore/services/app';
 export class RankingComponent implements OnInit {
   constructor(private appService: AppService) {}
 
-  appsObs: Observable<App[]>;
+  apps$: Observable<App[]>;
 
   ngOnInit() {
-    this.appsObs = this.appService.list();
+    if (navigator.onLine) {
+      this.apps$ = this.appService.list();
+    }
   }
 }
