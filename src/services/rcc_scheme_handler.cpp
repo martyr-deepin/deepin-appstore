@@ -21,22 +21,46 @@
 #include <QFileInfo>
 #include <QLocale>
 
+#include "services/metadata_manager.h"
+
 namespace dstore {
 
-QString RccSchemeHandler(const QUrl& url) {
-  const char kAppDefaultLocalDir[] = DSTORE_WEB_DIR "/appstore";
-  QString app_local_dir = QString("%1/appstore-%2")
-      .arg(DSTORE_WEB_DIR)
-      .arg(QLocale().name());
-  if (!QFileInfo::exists(app_local_dir)) {
-    app_local_dir = kAppDefaultLocalDir;
-  }
+namespace {
 
-  QString filepath = QString("%1/%2").arg(app_local_dir).arg(url.path());
-  if (!QFileInfo::exists(filepath)) {
-    filepath = QString("%1/%2").arg(app_local_dir).arg("index.html");
+MetadataManager* g_metadata_manager = nullptr;
+
+}  // namespace
+
+QString RccSchemeHandler(const QUrl& url) {
+  qCritical() << Q_FUNC_INFO << url;
+  const QString host = url.host();
+  if (host == "web") {
+    const char kAppDefaultLocalDir[] = DSTORE_WEB_DIR "/appstore";
+    QString app_local_dir = QString("%1/appstore-%2")
+        .arg(DSTORE_WEB_DIR)
+        .arg(QLocale().name());
+    if (!QFileInfo::exists(app_local_dir)) {
+      app_local_dir = kAppDefaultLocalDir;
+    }
+
+    QString filepath = QString("%1/%2").arg(app_local_dir).arg(url.path());
+    if (!QFileInfo::exists(filepath)) {
+      filepath = QString("%1/%2").arg(app_local_dir).arg("index.html");
+    }
+    return filepath;
+  } else if (host == "icon") {
+    if (g_metadata_manager == nullptr) {
+      g_metadata_manager = new MetadataManager();
+    }
+
+    const QString app_name = url.fileName();
+    const QString icon_path = g_metadata_manager->getAppIcon(app_name);
+    qDebug() << "icon for app:" << app_name << "is :" << icon_path;
+    return icon_path;
+  } else {
+    // 404 not found.
+    return "";
   }
-  return filepath;
 }
 
 }  // namespace dstore

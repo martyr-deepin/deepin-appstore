@@ -79,7 +79,6 @@ bool DBusManager::parseArguments() {
       return true;
     }
   } else {
-    qDebug() << "Register dbus service successfully.";
     const QStringList args = parser.positionalArguments();
     if (!args.isEmpty()) {
       app_name_ = args.first();

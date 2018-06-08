@@ -54,6 +54,7 @@ int main(int argc, char** argv) {
 
   settings.setCustomSchemeHandler(dstore::RccSchemeHandler);
   settings.addCustomScheme(QUrl("rcc://web"));
+  settings.addCustomScheme(QUrl("rcc://icon"));
 
   if (QCefInit(argc, argv, settings) >= 0) {
     return 0;

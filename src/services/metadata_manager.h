@@ -35,7 +35,19 @@ class MetadataManager : public QObject {
   explicit MetadataManager(QObject* parent = nullptr);
   ~MetadataManager() override;
 
+  /**
+   * Get application icon file of specific app.
+   * @param app_name
+   * @return Absolute path to app icon file.
+   */
   QString getAppIcon(const QString& app_name);
+
+  /**
+   * Get application metadata
+   * @param app_name
+   * @param metadata
+   * @return false if not found.
+   */
   bool getAppMetadata(const QString& app_name, AppMetadata& metadata);
 
  private:

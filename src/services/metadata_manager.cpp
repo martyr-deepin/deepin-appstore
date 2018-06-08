@@ -80,6 +80,7 @@ QString MetadataManager::getAppIcon(const QString& app_name) {
       break;
     }
   }
+
   if (!url.isEmpty() && cache_worker_->downloadFile(url, filepath)) {
     return filepath;
   }
