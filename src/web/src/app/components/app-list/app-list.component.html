@@ -23,12 +23,13 @@
             <div class="name">{{$app.localInfo.description.name}}</div>
             <div class="subtitle"
                  [ngSwitch]="subtitle">
-              <span *ngSwitchCase="'category'"
-                    class="category"
-                    [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
-              <span *ngSwitchCase="'slogan'">
-                {{$app.localInfo.description.slogan}} &nbsp;
-              </span>
+              <div>
+                <span *ngSwitchCase="'category'"
+                      class="category">{{$app.localCategory}}</span>
+                <span *ngSwitchCase="'slogan'">
+                  {{$app.localInfo.description.slogan}} &nbsp;
+                </span>
+              </div>
               <dstore-star [rate]="$app.rate"></dstore-star>
             </div>
           </div>
@@ -50,22 +51,26 @@
             <dstore-star [rate]="$app.rate"></dstore-star>
           </div> -->
           <ng-template #$appControl>
-
             <div class="info">
-              <div class="name">{{$app.localInfo.description.name}}</div>
+              <div class="title">
+                <span class="name"
+                      [routerLink]="$app.name">{{$app.localInfo.description.name}}</span>
+              </div>
               <div class="subtitle"
                    [ngSwitch]="subtitle">
-                <span *ngSwitchCase="'category'"
-                      class="category"
-                      [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
-                <span *ngSwitchCase="'slogan'">
-                  {{$app.localInfo.description.slogan}} &nbsp;
-                </span>
+                <div>
+                  <span *ngSwitchCase="'category'"
+                        class="category"
+                        [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
+                  <span *ngSwitchCase="'slogan'"
+                        [routerLink]="$app.name">
+                    {{$app.localInfo.description.slogan}} &nbsp;
+                  </span>
+                </div>
               </div>
             </div>
 
             <div class="control">
-
               <ng-template #ctlBtn
                            let-$job>
                 <ng-container *ngIf="versionMap[$app.name] as $version">

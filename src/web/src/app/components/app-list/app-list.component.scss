@@ -58,8 +58,9 @@
 
     .content {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      width: 100%;
+
       .control {
         display: flex;
         justify-content: flex-end;
@@ -70,57 +71,60 @@
           text-align: center;
         }
       }
-      .ellipsis {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
       .info {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        .name {
-          @extend .ellipsis;
-          cursor: pointer;
+        flex-grow: 1;
+        min-width: 0;
+        .ellipsis {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
-        .subtitle {
-          display: flex;
-          justify-content: space-between;
-          color: gray;
-          font-size: 10px;
+        .title {
+          @extend .ellipsis;
           span {
-            @extend .ellipsis;
-          }
-          .category {
             cursor: pointer;
           }
         }
-      }
-      .info {
-        display: flex;
-        flex-direction: column;
-        color: black;
-        min-width: 0;
-        &.ellipsis::before {
-          content: attr(index) attr(data-title);
-          display: block;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
-          cursor: pointer;
-        }
         .subtitle {
+          @extend .ellipsis;
           color: gray;
           font-size: 10px;
-          cursor: pointer;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          display: flex;
+          justify-content: space-between;
+          div {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+          }
         }
       }
       .star {
         align-self: flex-end;
       }
+      // .info {
+      //   display: flex;
+      //   flex-direction: column;
+      //   width: 100%;
+      //   .title {
+      //     display: flex;
+      //     flex-grow: 0;
+      //     .name {
+      //       @extend .ellipsis;
+      //       cursor: pointer;
+      //     }
+      //   }
+      //   .subtitle {
+      //     display: flex;
+      //     justify-content: space-between;
+      //     color: gray;
+      //     font-size: 10px;
+      //     span {
+      //       @extend .ellipsis;
+      //       cursor: pointer;
+      //     }
+      //   }
+      // }
     }
   }
 }
