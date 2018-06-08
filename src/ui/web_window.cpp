@@ -83,8 +83,8 @@ void WebWindow::showWindow() {
 //  } else {
 //    this->resize(872, 548);
 //  }
-//this->setMinimumSize(1208, 778);
-    this->resize(1208,778);
+    this->setMinimumSize(1208, 778);
+    // this->resize(1208,778);
     this->show();
 }
 
