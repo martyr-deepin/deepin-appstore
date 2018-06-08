@@ -236,9 +236,7 @@ bool WriteTextFile(const QString& path, const QString& content) {
 bool WriteRawFile(const QString& path, const QByteArray& content) {
   QFile file(path);
   if (file.open(QIODevice::WriteOnly)) {
-    QTextStream text_stream(&file);
-    text_stream << content;
-    text_stream.flush();
+    file.write(content);
     file.close();
     return true;
   }else {
