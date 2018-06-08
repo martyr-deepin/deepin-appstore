@@ -22,8 +22,8 @@
                 <span i18n>Unknown</span>
               </ng-template>
             </div>
-            <div class="version co-star"
-                 i18n>Version: {{$installedApp.version}}</div>
+            <div class="version co-star">
+              <ng-container i18n>Version:</ng-container>{{$installedApp.version}}</div>
             <div class="uninstall">
               <button *ngIf="!$uninstallingApps.includes($installedApp.name);else $ing"
                       (click)="$content.hidden=true">Uninstall</button>

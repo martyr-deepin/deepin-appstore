@@ -15,8 +15,8 @@
         <div class="appInfo"
              [routerLink]="$app.name">
           <div class="name">{{$app.localInfo.description.name}}</div>
-          <div class="version"
-               i18n>Version: {{$app.version?.remoteVersion}}</div>
+          <div class="version">
+            <ng-container i18n>Version:</ng-container>{{$app.version?.remoteVersion}}</div>
         </div>
         <div class="time co-star">
           <span i18n>Time left: </span>
