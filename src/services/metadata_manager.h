@@ -50,14 +50,19 @@ class MetadataManager : public QObject {
    */
   bool getAppMetadata(const QString& app_name, AppMetadata& metadata);
 
+  /**
+   * Notify manager to download all of application icons.
+   */
+  void downloadAppIcons();
+
  private:
-  void initConnections();
   bool downloadMetadata();
   bool parseMetadata(const QString& index_file, const QString& metadata_file);
   bool findMetadata(const QString& app_name, AppMetadata& metadata);
 
   MetadataCacheWorker* cache_worker_ = nullptr;
   QDir cache_dir_;
+  QDir icon_dir_;
   QString metadata_server_;
   QString operation_server_;
 

@@ -32,7 +32,13 @@ MetadataManager* g_metadata_manager = nullptr;
 }  // namespace
 
 QString RccSchemeHandler(const QUrl& url) {
-  qCritical() << Q_FUNC_INFO << url;
+  qDebug() << Q_FUNC_INFO << url;
+
+  if (g_metadata_manager == nullptr) {
+    g_metadata_manager = new MetadataManager();
+    g_metadata_manager->downloadAppIcons();
+  }
+
   const QString host = url.host();
   if (host == "web") {
     const char kAppDefaultLocalDir[] = DSTORE_WEB_DIR "/appstore";
@@ -49,10 +55,6 @@ QString RccSchemeHandler(const QUrl& url) {
     }
     return filepath;
   } else if (host == "icon") {
-    if (g_metadata_manager == nullptr) {
-      g_metadata_manager = new MetadataManager();
-    }
-
     const QString app_name = url.fileName();
     const QString icon_path = g_metadata_manager->getAppIcon(app_name);
     qDebug() << "icon for app:" << app_name << "is :" << icon_path;

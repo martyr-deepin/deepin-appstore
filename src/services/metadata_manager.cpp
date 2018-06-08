@@ -50,18 +50,15 @@ MetadataManager::MetadataManager(QObject* parent)
   this->setObjectName("MetadataManager");
 
   cache_dir_.mkpath(".");
-
-  this->initConnections();
+  icon_dir_ = cache_dir_.absoluteFilePath("icons");
+  icon_dir_.mkpath(".");
 }
 
 MetadataManager::~MetadataManager() {
 }
 
-void MetadataManager::initConnections() {
-}
-
 QString MetadataManager::getAppIcon(const QString& app_name) {
-  const QString filepath = cache_dir_.absoluteFilePath(app_name);
+  const QString filepath = icon_dir_.absoluteFilePath(app_name);
   if (QFileInfo::exists(filepath)) {
     return filepath;
   }
@@ -188,6 +185,25 @@ bool MetadataManager::findMetadata(const QString& app_name,
     }
   }
   return false;
+}
+
+void MetadataManager::downloadAppIcons() {
+  qDebug() << Q_FUNC_INFO;
+  if (apps_.isEmpty()) {
+    if (!this->downloadMetadata()) {
+      qCritical() << Q_FUNC_INFO << "Failed to download metadata";
+      return;
+    }
+  }
+
+  for (const AppMetadata& app : apps_) {
+    const QString url = metadata_server_ + "/" + app.icon;
+    const QString filepath = icon_dir_.absoluteFilePath(app.name);
+    qDebug() << "url:" << url << ", filepath:" << filepath;
+    if (!QFileInfo::exists(filepath) && !url.isEmpty()) {
+      cache_worker_->downloadFile(url, filepath);
+    }
+  }
 }
 
 }  // namespace dstore
