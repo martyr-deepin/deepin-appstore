@@ -22,7 +22,7 @@ export class CommentService {
         resp.comments.map(comment => (comment.rate /= 2));
         const hot = resp.comments
           .filter(c => c.likeCount > 0)
-          .sort((c1, c2) => c1.likeCount - c2.likeCount)
+          .sort((c1, c2) => c2.likeCount - c1.likeCount)
           .slice(0, 3)
           .map(c => ((c.hot = true), c));
         resp.comments = resp.comments

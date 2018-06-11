@@ -113,6 +113,7 @@ export class AppCommentComponent implements OnInit {
   }
 
   submitComment() {
+    this.content = this.content.trim();
     if (!this.content && this.rate === 0) {
       this.submitError = CommentError.AllInvalid;
       return;
