@@ -21,8 +21,8 @@ import { BaseService } from '../../dstore/services/base.service';
 import { StoreService } from '../../dstore-client.module/services/store.service';
 import {
   StoreJobInfo,
-  AppJobInfo,
-  AppJobStatus,
+  StoreJobType,
+  StoreJobStatus,
 } from '../../dstore-client.module/models/store-job-info';
 import { AppVersion } from '../../dstore-client.module/models/app-version';
 import { AppService } from '../../services/app.service';
@@ -41,23 +41,31 @@ export class AppListComponent implements OnInit, OnChanges {
     private offsetService: OffsetService,
     private router: Router,
   ) {}
+  // const
   server = BaseService.serverHosts.metadataServer;
-  appJobStatus = AppJobStatus;
+  StoreJobStatus = StoreJobStatus;
+  StoreJobType = StoreJobType;
 
+  // input and output
   @Input() apps$: Observable<App[]>;
   @Input() sortBy: SortOrder;
   @Input() maxCount: number;
   @Input() rankIndex: boolean;
   @Input() subtitle = 'category';
   @Output() appListLength = new EventEmitter<number>(true);
+
+  // data observable
   appList$: Observable<App[]>;
   appJobMap$: Observable<{ [key: string]: Observable<StoreJobInfo> }>;
   appVersionMap$: Observable<{ [key: string]: AppVersion }>;
   offset$: Observable<void>;
+
+  // template var
+  hoverApp = '';
+
   // job control
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
-
   openApp = this.storeService.openApp;
   installApp = (appName: string) => this.storeService.installPackage(appName).subscribe();
   updateApp = (appName: string) => this.storeService.updatePackage(appName).subscribe();

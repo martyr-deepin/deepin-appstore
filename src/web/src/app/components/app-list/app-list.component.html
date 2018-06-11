@@ -11,15 +11,14 @@
            [attr.index]="$index+1"
            [class.index]="rankIndex"
            *ngFor="let $app of $apps;index as $index"
-           appHover
-           #$appContent="appHover">
+           (mouseover)="hoverApp=$app.name">
         <div class="cover"
              [routerLink]="$app.name">
           <img [src]="server+'/'+([$app.localInfo.images.cover,$app.localInfo.images.coverHD]|fitImage)">
         </div>
         <div class="content">
           <div class="info"
-               *ngIf="!$appContent.Hover || !$app.version;else $appControl">
+               *ngIf="hoverApp!==$app.name || !$app.version;else $appControl">
             <div class="name"
                  [attr.index]="$index+1">{{$app.localInfo.description.name}}</div>
             <div class="subtitle"
