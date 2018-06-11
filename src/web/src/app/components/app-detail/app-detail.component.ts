@@ -83,11 +83,15 @@ export class AppDetailComponent implements OnInit {
     );
   }
 
-  install(appName: string) {
+  install(app: App) {
     this.storeService
-      .installPackage(appName)
-      .pipe(flatMap(() => this.downloadService.record(appName)))
-      .subscribe();
+      .installPackage(app.name)
+      .pipe(flatMap(() => this.downloadService.record(app.name)))
+      .subscribe({
+        complete: () => {
+          app.downloads++;
+        },
+      });
   }
 
   screenshotClick(elID: string) {
