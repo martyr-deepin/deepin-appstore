@@ -20,10 +20,14 @@ export class CommentService {
     return this.http.get(`${this.server}/api/comment/app/${appName}?` + params).pipe(
       map((resp: { comments: Comment[] }) => {
         resp.comments.map(comment => (comment.rate /= 2));
-        resp.comments = _.sortBy(resp.comments, 'likeCount').reverse();
-        const hot = resp.comments.slice(0, 3);
-        hot.forEach(c => (c.hot = true));
-        resp.comments = _.sortBy(resp.comments.slice(3), 'createTime').reverse();
+        const hot = resp.comments
+          .filter(c => c.likeCount > 0)
+          .sort((c1, c2) => c1.likeCount - c2.likeCount)
+          .slice(0, 3)
+          .map(c => ((c.hot = true), c));
+        resp.comments = resp.comments
+          .filter(c => !hot.includes(c))
+          .sort((c1, c2) => c2.createTime.localeCompare(c1.createTime));
         return [...hot, ...resp.comments];
       }),
     );
