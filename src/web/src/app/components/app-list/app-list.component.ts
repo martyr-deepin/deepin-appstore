@@ -60,9 +60,6 @@ export class AppListComponent implements OnInit, OnChanges {
   appVersionMap$: Observable<{ [key: string]: AppVersion }>;
   offset$: Observable<void>;
 
-  // template var
-  hoverApp = '';
-
   // job control
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;

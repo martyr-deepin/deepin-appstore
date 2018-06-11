@@ -59,11 +59,21 @@
       }
     }
 
+    &:not(:hover) {
+      .hover {
+        display: none !important;
+      }
+    }
+    &:hover {
+      .leave {
+        display: none !important;
+      }
+    }
+
     .content {
       display: flex;
       align-items: center;
       width: 100%;
-
       .control {
         display: flex;
         justify-content: flex-end;

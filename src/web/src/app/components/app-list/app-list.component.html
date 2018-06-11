@@ -17,8 +17,9 @@
           <img [src]="server+'/'+([$app.localInfo.images.cover,$app.localInfo.images.coverHD]|fitImage)">
         </div>
         <div class="content">
+
           <div class="info"
-               *ngIf="hoverApp!==$app.name || !$app.version;else $appControl">
+               [class.leave]="$app.version">
             <div class="name"
                  [attr.index]="$index+1">{{$app.localInfo.description.name}}</div>
             <div class="subtitle"
@@ -33,84 +34,84 @@
               <dstore-star [rate]="$app.rate"></dstore-star>
             </div>
           </div>
-          <ng-template #$appControl>
-            <div class="info">
-              <div class="title">
-                <span class="name"
-                      [attr.index]="$index+1"
-                      [routerLink]="$app.name">{{$app.localInfo.description.name}}</span>
-              </div>
-              <div class="subtitle"
-                   [ngSwitch]="subtitle">
-                <div>
-                  <span *ngSwitchCase="'category'"
-                        class="category"
-                        [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
-                  <span *ngSwitchCase="'slogan'"
-                        [routerLink]="$app.name">
-                    {{$app.localInfo.description.slogan}} &nbsp;
-                  </span>
-                </div>
+
+          <div class="info hover">
+            <div class="title">
+              <span class="name"
+                    [attr.index]="$index+1"
+                    [routerLink]="$app.name">{{$app.localInfo.description.name}}</span>
+            </div>
+            <div class="subtitle"
+                 [ngSwitch]="subtitle">
+              <div>
+                <span *ngSwitchCase="'category'"
+                      class="category"
+                      [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
+                <span *ngSwitchCase="'slogan'"
+                      [routerLink]="$app.name">
+                  {{$app.localInfo.description.slogan}} &nbsp;
+                </span>
               </div>
             </div>
+          </div>
 
-            <div class="control">
-              <ng-template #ctlBtn
-                           let-$job>
-                <ng-container *ngIf="versionMap[$app.name] as $version">
-                  <ng-container #$btnGroup
-                                *ngIf="$job!==null">
-                    <button *ngIf="!$version.localVersion && $version.remoteVersion"
-                            (click)="installApp($app.name)"
-                            i18n>Install</button>
-                    <button *ngIf="$version.localVersion && !$version.upgradable"
-                            (click)="openApp($app.name)"
-                            i18n>Open</button>
-                    <button *ngIf="$version.upgradable"
-                            (click)="updateApp($app.name)"
-                            i18n>Update</button>
-                  </ng-container>
+          <div class="control hover">
+            <ng-template #ctlBtn
+                         let-$job>
+              <ng-container *ngIf="versionMap[$app.name] as $version">
+                <ng-container #$btnGroup
+                              *ngIf="$job!==null">
+                  <button *ngIf="!$version.localVersion && $version.remoteVersion"
+                          (click)="installApp($app.name)"
+                          i18n>Install</button>
+                  <button *ngIf="$version.localVersion && !$version.upgradable"
+                          (click)="openApp($app.name)"
+                          i18n>Open</button>
+                  <button *ngIf="$version.upgradable"
+                          (click)="updateApp($app.name)"
+                          i18n>Update</button>
                 </ng-container>
-              </ng-template>
-
-              <ng-container *ngIf="appJobMap[$app.name];else ctlBtn">
-                <svg width="2rem"
-                     height="2rem"
-                     class="controlBtn"
-                     *ngIf="appJobMap[$app.name]|async as $job">
-                  <ng-container *ngIf="$job.type=='download'"
-                                [ngSwitch]="true">
-                    <image [attr.xlink:href]="'/assets/buttons/pause_'+($job.cancelable?'normal':'insensitive')+'.svg'"
-                           width="100%"
-                           height="100%"
-                           *ngSwitchCase="$job.status=='running' || $job.status=='ready'"
-                           (click)="pause($job.job)"></image>
-                    <image [attr.xlink:href]="'/assets/buttons/start_'+($job.cancelable?'normal':'insensitive')+'.svg'"
-                           width="100%"
-                           height="100%"
-                           *ngSwitchCase="$job.status=='paused'"
-                           (click)="start($job.job)"></image>
-                  </ng-container>
-                  <circle cx="50%"
-                          cy="50%"
-                          r="45%"
-                          stroke="black"
-                          stroke-opacity="0.05"
-                          stroke-width="3"
-                          fill="none" />
-                  <circle cx="50%"
-                          cy="50%"
-                          r="45%"
-                          stroke="#378cfa"
-                          stroke-width="3"
-                          fill="none"
-                          [style.transform-origin]="'center'"
-                          [style.transform]="'rotate(-90deg)'"
-                          attr.stroke-dasharray="calc( 2rem*3.14*{{$job.progress*2}} ) calc( 2rem * 3.14 * 2 )"></circle>
-                </svg>
               </ng-container>
-            </div>
-          </ng-template>
+            </ng-template>
+
+            <ng-container *ngIf="appJobMap[$app.name];else ctlBtn">
+              <svg width="2rem"
+                   height="2rem"
+                   class="controlBtn"
+                   *ngIf="appJobMap[$app.name]|async as $job">
+                <ng-container *ngIf="$job.type=='download'"
+                              [ngSwitch]="true">
+                  <image [attr.xlink:href]="'/assets/buttons/pause_'+($job.cancelable?'normal':'insensitive')+'.svg'"
+                         width="100%"
+                         height="100%"
+                         *ngSwitchCase="$job.status=='running' || $job.status=='ready'"
+                         (click)="pause($job.job)"></image>
+                  <image [attr.xlink:href]="'/assets/buttons/start_'+($job.cancelable?'normal':'insensitive')+'.svg'"
+                         width="100%"
+                         height="100%"
+                         *ngSwitchCase="$job.status=='paused'"
+                         (click)="start($job.job)"></image>
+                </ng-container>
+                <circle cx="50%"
+                        cy="50%"
+                        r="45%"
+                        stroke="black"
+                        stroke-opacity="0.05"
+                        stroke-width="3"
+                        fill="none" />
+                <circle cx="50%"
+                        cy="50%"
+                        r="45%"
+                        stroke="#378cfa"
+                        stroke-width="3"
+                        fill="none"
+                        [style.transform-origin]="'center'"
+                        [style.transform]="'rotate(-90deg)'"
+                        attr.stroke-dasharray="calc( 2rem*3.14*{{$job.progress*2}} ) calc( 2rem * 3.14 * 2 )"></circle>
+              </svg>
+            </ng-container>
+          </div>
+
         </div>
       </div>
       <div class="app"
