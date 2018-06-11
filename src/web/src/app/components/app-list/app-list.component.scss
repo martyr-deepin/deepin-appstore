@@ -24,6 +24,9 @@
         transform: rotateZ(-45deg) translateX(-25%) translateY(-40%);
         content: attr(index);
       }
+      .name::before {
+        content: attr(index) '.';
+      }
     }
     .cover {
       border-radius: 4px;
@@ -102,29 +105,6 @@
       .star {
         align-self: flex-end;
       }
-      // .info {
-      //   display: flex;
-      //   flex-direction: column;
-      //   width: 100%;
-      //   .title {
-      //     display: flex;
-      //     flex-grow: 0;
-      //     .name {
-      //       @extend .ellipsis;
-      //       cursor: pointer;
-      //     }
-      //   }
-      //   .subtitle {
-      //     display: flex;
-      //     justify-content: space-between;
-      //     color: gray;
-      //     font-size: 10px;
-      //     span {
-      //       @extend .ellipsis;
-      //       cursor: pointer;
-      //     }
-      //   }
-      // }
     }
   }
 }

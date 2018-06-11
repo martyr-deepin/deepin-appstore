@@ -20,7 +20,8 @@
         <div class="content">
           <div class="info"
                *ngIf="!$appContent.Hover || !$app.version;else $appControl">
-            <div class="name">{{$app.localInfo.description.name}}</div>
+            <div class="name"
+                 [attr.index]="$index+1">{{$app.localInfo.description.name}}</div>
             <div class="subtitle"
                  [ngSwitch]="subtitle">
               <div>
@@ -33,27 +34,11 @@
               <dstore-star [rate]="$app.rate"></dstore-star>
             </div>
           </div>
-          <!-- <div class="info ellipsis"
-               [routerLink]="$app.name"
-               [attr.index]="rankIndex?$index+1+'.':''"
-               [attr.data-title]="$app.localInfo.description.name">
-            <div [ngSwitch]="subtitle"
-                 class="subtitle">
-              <span *ngSwitchCase="'category'"
-                    [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
-              <span *ngSwitchCase="'slogan'">
-                {{$app.localInfo.description.slogan}} &nbsp;
-              </span>
-            </div>
-          </div> -->
-          <!-- <div class="star"
-               *ngIf="!$appContent.Hover || !$app.version;else $appControl">
-            <dstore-star [rate]="$app.rate"></dstore-star>
-          </div> -->
           <ng-template #$appControl>
             <div class="info">
               <div class="title">
                 <span class="name"
+                      [attr.index]="$index+1"
                       [routerLink]="$app.name">{{$app.localInfo.description.name}}</span>
               </div>
               <div class="subtitle"
