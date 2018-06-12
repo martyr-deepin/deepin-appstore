@@ -54,7 +54,7 @@ const int kSearchDelay = 200;
 WebWindow::WebWindow(QWidget* parent)
     : DMainWindow(parent),
       search_timer_(new QTimer(this)),
-      search_re_(QRegularExpression("[\\+_\\-\\$\\.\\^!@#%&\\(\\)]")) {
+      search_re_(QRegularExpression("[\\+\\$\\.\\^!@#%&\\(\\)]")) {
   this->setObjectName("WebWindow");
 
   search_timer_->setSingleShot(true);
