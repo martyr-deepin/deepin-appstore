@@ -5,6 +5,7 @@
   width: 12vw;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #f9f9fa;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   .navItem {
     display: flex;
@@ -49,14 +50,21 @@
   }
 }
 .downloadCount {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  width: 1.2rem;
-  min-width: 1.2rem;
-  height: 1.2rem;
+  font-size: 10px;
+  font-weight: 500;
+  background-color: white;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
   display: flex;
   justify-content: center;
-  border-radius: 50%;
   align-items: center;
   margin: 0 0.5rem;
   color: #2ca7f8;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  &.rect {
+    width: 20px;
+    border-radius: 8px;
+  }
 }

@@ -11,6 +11,7 @@ import {
   concatMap,
   startWith,
   scan,
+  share,
 } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
@@ -82,6 +83,7 @@ export class AppListComponent implements OnInit, OnChanges {
     if (!this.apps$) {
       return;
     }
+
     this.appList$ = this.apps$.pipe(
       map(apps => {
         apps = apps.filter(app => app);
@@ -99,7 +101,9 @@ export class AppListComponent implements OnInit, OnChanges {
       tap(apps => {
         this.appListLength.emit(apps.length);
       }),
+      share(),
     );
+
     if (BaseService.isNative) {
       this.appJobMap$ = merge(
         this.storeService.getJobList(),

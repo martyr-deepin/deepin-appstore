@@ -140,6 +140,7 @@
       <div class="title"
            i18n>Download</div>
       <div class="downloadCount"
+           [class.rect]="$c>=10"
            [@dlcIn]
            *ngIf="dc$|async as $c">{{$c}}</div>
     </div>

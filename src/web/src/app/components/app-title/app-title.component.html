@@ -22,9 +22,15 @@
       hidden
       #dropMenu
       (blur)="dropMenu.hidden=true">
-    <li (click)="change(SortOrder.Downloads);dropMenu.hidden=true;"
-        i18n>Downloads</li>
-    <li (click)="change(SortOrder.Score);dropMenu.hidden=true;"
-        i18n>Rating</li>
+    <li (click)="change(SortOrder.Downloads);dropMenu.hidden=true;">
+      <div class="select"
+           [class.ok]="sortBy===SortOrder.Downloads"></div>
+      <ng-container i18n>Downloads</ng-container>
+    </li>
+    <li (click)="change(SortOrder.Score);dropMenu.hidden=true;">
+      <div class="select"
+           [class.ok]="sortBy===SortOrder.Score"></div>
+      <ng-container i18n>Rating</ng-container>
+    </li>
   </ul>
 </div>

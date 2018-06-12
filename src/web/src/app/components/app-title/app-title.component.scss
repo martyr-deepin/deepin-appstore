@@ -26,13 +26,18 @@
     border-radius: 5px;
     padding: 5px 0;
     background-color: white;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1);
     outline: none;
     li {
       padding: 2px 2rem;
+      padding-left: 15px;
       margin: 3px 0;
       &:hover {
-        background-color: #26a2f1;
+        background-color: #2ca7f8;
+        color: white;
+        .ok {
+          content: url('/assets/icons/select_hover.svg');
+        }
       }
     }
   }
@@ -46,5 +51,15 @@
   }
   &:active {
     content: url($url+'_press.svg');
+  }
+}
+
+.select {
+  width: 9px;
+  height: 9px;
+  margin-right: 6px;
+  display: inline-block;
+  &.ok {
+    content: url('/assets/icons/menu_select.svg');
   }
 }
