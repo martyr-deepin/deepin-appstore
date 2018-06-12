@@ -80,7 +80,6 @@ SearchManager::~SearchManager() {
 void SearchManager::searchApp(const QString& keyword) {
   AppSearchRecordList result = SearchApp(keyword, record_list_, app_names_pinyin_);
   result = result.mid(0, kMaxSearchResult);
-  qDebug() << Q_FUNC_INFO << keyword << ",result:" << result.size();
   emit this->searchAppResult(keyword, result);
 }
 
@@ -99,9 +98,6 @@ void SearchManager::updateAppList(const AppSearchRecordList& record_list) {
   // Save app name pinyin.
   QRegularExpression num_reg("\\d");
   for (const AppSearchRecord& app : record_list_) {
-    if (app.name == "steam") {
-      qDebug() << Q_FUNC_INFO << " is steam";
-    }
     QString pinyin = Chinese2Pinyin(app.local_name);
     pinyin.remove(num_reg);
     app_names_pinyin_.append(pinyin);

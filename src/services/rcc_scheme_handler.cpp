@@ -32,8 +32,6 @@ MetadataManager* g_metadata_manager = nullptr;
 }  // namespace
 
 QString RccSchemeHandler(const QUrl& url) {
-  qDebug() << Q_FUNC_INFO << url;
-
   if (g_metadata_manager == nullptr) {
     g_metadata_manager = new MetadataManager();
     g_metadata_manager->downloadAppIcons();
@@ -57,7 +55,6 @@ QString RccSchemeHandler(const QUrl& url) {
   } else if (host == "icon") {
     const QString app_name = url.fileName();
     const QString icon_path = g_metadata_manager->getAppIcon(app_name);
-    qDebug() << "icon for app:" << app_name << "is :" << icon_path;
     return icon_path;
   } else {
     // 404 not found.

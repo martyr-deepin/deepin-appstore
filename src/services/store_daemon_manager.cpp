@@ -166,7 +166,6 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
         }
       }
     }
-    qDebug() << "remaining deb names:" << deb_app_names;
     emit this->onAppListUpdated(existed_app_list);
   }
 }
