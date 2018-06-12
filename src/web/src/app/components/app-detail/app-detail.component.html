@@ -81,7 +81,7 @@
                     (click)="reminder(app.name)"
                     i18n>Ask for update</button>
           </div>
-          <div class="webSite">{{app.homePage}}</div>
+          <div class="webSite"><a target="_blank" [href]="app.homePage">{{app.homePage}}</a></div>
           <div>
             {{app.localInfo.description.description}}
           </div>

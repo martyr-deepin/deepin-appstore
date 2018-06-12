@@ -18,6 +18,7 @@
 #include "ui/web_event_delegate.h"
 
 #include <qcef_web_page.h>
+#include <QtGui/QDesktopServices>
 
 namespace dstore {
 
@@ -115,6 +116,7 @@ void WebEventDelegate::onBeforeContextMenu(
 
 bool WebEventDelegate::onBeforePopup(const QUrl& url,
                                      QCefWindowOpenDisposition disposition) {
+  QDesktopServices::openUrl(url);
   return QCefBrowserEventDelegate::onBeforePopup(url, disposition);
 }
 
