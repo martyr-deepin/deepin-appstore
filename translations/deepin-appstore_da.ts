@@ -4,18 +4,18 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="77"/>
         <source>Deepin App Store</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Programbutik</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="78"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Butik er en programbutik med omfattende kvalitetsprogrammer. Anbefaling af populære, nye opdaterede programmer og populære emner er tilgængelige. Den understøtter ét klik ved download, installation og afinstallation osv.</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation type="unfinished"/>
+        <translation>Søg efter &quot;%1&quot; i Deepin Butik</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
@@ -36,7 +36,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
         <source>Recommend App</source>
-        <translation>Anbefalet app</translation>
+        <translation>Anbefalet program</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
@@ -56,7 +56,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="106"/>
         <source>Clear Cache</source>
-        <translation type="unfinished"/>
+        <translation>Ryd cache</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="74"/>
@@ -91,7 +91,7 @@
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="106"/>
         <source>Select all</source>
-        <translation type="unfinished"/>
+        <translation>Vælg alle</translation>
     </message>
 </context>
 </TS>
