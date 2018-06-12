@@ -8,17 +8,18 @@
     <div class="appList"
          *ngIf="appList$|async as $apps;else $loading">
       <div class="app"
-           [attr.index]="$index+1"
            [class.index]="rankIndex"
            *ngFor="let $app of $apps;index as $index"
            (mouseover)="hoverApp=$app.name">
         <div class="cover"
+             [attr.index]="$index+1"
              [routerLink]="$app.name">
           <img [src]="server+'/'+([$app.localInfo.images.cover,$app.localInfo.images.coverHD]|fitImage)">
         </div>
         <div class="content">
 
           <div class="info"
+               *ngIf="!appJobMap[$app.name]"
                [class.leave]="$app.version">
             <div class="name"
                  [attr.index]="$index+1">{{$app.localInfo.description.name}}</div>
@@ -35,7 +36,8 @@
             </div>
           </div>
 
-          <div class="info hover">
+          <div class="info"
+               [class.hover]="!appJobMap[$app.name]">
             <div class="title">
               <span class="name"
                     [attr.index]="$index+1"
@@ -55,7 +57,8 @@
             </div>
           </div>
 
-          <div class="control hover">
+          <div class="control"
+               [class.hover]="!appJobMap[$app.name]">
             <ng-template #ctlBtn
                          let-$job>
               <ng-container *ngIf="versionMap[$app.name] as $version">
@@ -81,15 +84,13 @@
                    *ngIf="appJobMap[$app.name]|async as $job">
                 <ng-container *ngIf="$job.type=='download'"
                               [ngSwitch]="true">
-                  <image x="50%"
-                         y="50%"
-                         class="ctlBtn"
+                  <image x="4"
+                         y="4"
                          [attr.xlink:href]="'/assets/buttons/pause.svg'"
                          *ngSwitchCase="$job.status=='running' || $job.status=='ready'"
                          (click)="pause($job.job)"></image>
-                  <image x="50%"
-                         y="50%"
-                         class="ctlBtn"
+                  <image x="4"
+                         y="4"
                          [attr.xlink:href]="'/assets/buttons/start.svg'"
                          *ngSwitchCase="$job.status=='paused'"
                          (click)="start($job.job)"></image>

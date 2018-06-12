@@ -14,18 +14,20 @@
     overflow: hidden;
     z-index: 1;
     &.index {
-      &:nth-child(-n + 10)::after {
-        position: absolute;
-        top: 0;
-        width: 6rem;
-        height: 2rem;
-        background: radial-gradient(ellipse farthest-corner, #ffac16, #f2ac16);
-        transform: rotateZ(-45deg);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transform: rotateZ(-45deg) translateX(-25%) translateY(-40%);
-        content: attr(index);
+      &:nth-child(-n + 10) {
+        .cover::after {
+          position: absolute;
+          top: 0;
+          width: 6rem;
+          height: 2rem;
+          background: radial-gradient(ellipse farthest-corner, #ffac16, #f2ac16);
+          transform: rotateZ(-45deg);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transform: rotateZ(-45deg) translateX(-25%) translateY(-40%);
+          content: attr(index);
+        }
       }
       .name::before {
         content: attr(index) '.';
