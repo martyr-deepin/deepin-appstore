@@ -66,8 +66,8 @@ void SearchProxy::updateAppList(const QString& apps) {
       slogan,
       local_desc,
       package_uris,
-      "",
-      "",
+      {},
+      {},
     });
   }
 

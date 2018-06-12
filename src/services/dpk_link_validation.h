@@ -33,8 +33,8 @@ enum class DpkLinkValidationResult {
 
 DpkLinkValidationResult IsValidDpkLink(const QString& uri);
 
-QString GetDebName(const QStringList& uris);
-QString GetFlatpakName(const QStringList& uris);
+QStringList GetDebNames(const QStringList& uris);
+QStringList GetFlatpakNames(const QStringList& uris);
 
 }  // namespace dstore
 

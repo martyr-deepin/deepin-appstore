@@ -59,26 +59,28 @@ DpkLinkValidationResult IsValidDpkLink(const QString& uri) {
   return DpkLinkValidationResult::Ok;
 }
 
-QString GetDebName(const QStringList& uris) {
+QStringList GetDebNames(const QStringList& uris) {
+  QStringList result;
   for (const QString& uri : uris) {
     const QStringList parts = uri.split('/');
     if (parts.length() == 4 && parts.at(2) == kPkgDeb) {
-      return parts.at(3);
+      result.append(parts.at(3));
     }
   }
 
-  return QString();
+  return result;
 }
 
-QString GetFlatpakName(const QStringList& uris) {
+QStringList GetFlatpakNames(const QStringList& uris) {
+  QStringList result;
   for (const QString& uri : uris) {
     const QStringList parts = uri.split('/');
     if (parts.length() == 4 && parts.at(2) == kPkgFlatPak) {
-      return parts.at(3);
+      result.append(parts.at(3));
     }
   }
 
-  return QString();
+  return result;
 }
 
 }  // namespace dstore

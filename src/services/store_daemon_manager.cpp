@@ -118,27 +118,31 @@ void StoreDaemonManager::initConnections() {
 
 void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
   apps_.clear();
-  deb_names_.clear();
-  flatpak_names_.clear();
 
   QStringList deb_app_names;
 
   for (const AppSearchRecord& app : app_list) {
     const QString& app_name = app.name;
-    apps_.insert(app_name, app);
-    const QString deb_name = GetDebName(app.package_uris);
-    const QString flatpak_name = GetFlatpakName(app.package_uris);
-    apps_[app_name].deb = deb_name;
-    apps_[app_name].flatpak = flatpak_name;
+    const QStringList deb_names = GetDebNames(app.package_uris);
+    const QStringList flatpak_names = GetFlatpakNames(app.package_uris);
 
-    deb_app_names.append(deb_name);
+    for (const QString deb_name : deb_names) {
+      deb_app_names.append(deb_name);
+      deb_names_.insert(deb_name, app_name);
+    }
+    for (const QString flatpak_name : flatpak_names) {
+      flatpak_names_.insert(flatpak_name, app_name);
+    }
 
-    deb_names_.insert(deb_name, app_name);
-    flatpak_names_.insert(flatpak_name, app_name);
+    AppSearchRecord ext_app = app;
+    ext_app.debs =  {deb_names};
+    ext_app.flatpaks = {flatpak_names};
+    apps_.insert(app_name, ext_app);
   }
 
   const QDBusPendingReply<AppVersionList> version_reply =
       deb_interface_->QueryVersion(deb_app_names);
+
   if (version_reply.isError()) {
     qCritical() << Q_FUNC_INFO << version_reply.error();
   } else {
@@ -146,12 +150,23 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
 
     const AppVersionList version_list = version_reply.value();
     for (const AppVersion& version : version_list) {
-      if (deb_names_.contains(version.pkg_name)) {
-        const QString& app_name = deb_names_[version.pkg_name];
+      QString pkg_name = version.pkg_name;
+      const int arch_idx = pkg_name.indexOf(':');
+      if (arch_idx > 0) {
+        pkg_name = pkg_name.left(arch_idx);
+      }
+      deb_app_names.removeOne(pkg_name);
+
+      if (deb_names_.contains(pkg_name)) {
+        const QString& app_name = deb_names_[pkg_name];
         const AppSearchRecord& app = apps_[app_name];
         existed_app_list.append(app);
+        if (arch_idx > 0) {
+          deb_names_.insert(version.pkg_name, app_name);
+        }
       }
     }
+    qDebug() << "remaining deb names:" << deb_app_names;
     emit this->onAppListUpdated(existed_app_list);
   }
 }
@@ -610,11 +625,11 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
 }
 
 bool StoreDaemonManager::hasDebPkg(const QString& app_name) const {
-  return (apps_.contains(app_name) && !apps_.value(app_name).deb.isEmpty());
+  return (apps_.contains(app_name) && !apps_.value(app_name).debs.isEmpty());
 }
 
 bool StoreDaemonManager::hasFlatPak(const QString& app_name) const {
-  return (apps_.contains(app_name) && !apps_.value(app_name).flatpak.isEmpty());
+  return (apps_.contains(app_name) && !apps_.value(app_name).flatpaks.isEmpty());
 }
 
 void StoreDaemonManager::getJobsInfo(const QString& task_id,

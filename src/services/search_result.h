@@ -32,11 +32,11 @@ struct AppSearchRecord {
   QString description;
   QStringList package_uris;
 
-  // Package name used in deb format.
-  QString deb;
+  // Package names used in deb format.
+  QStringList debs;
 
-  // Package name used in flatpak format.
-  QString flatpak;
+  // Package names used in flatpak format.
+  QStringList flatpaks;
 };
 
 bool operator==(const AppSearchRecord& a, const AppSearchRecord& b);
