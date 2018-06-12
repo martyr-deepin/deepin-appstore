@@ -21,6 +21,7 @@
 #include <QAction>
 #include <DMainWindow>
 #include <QMenu>
+#include <QRegularExpression>
 class QCefWebView;
 class QTimer;
 
@@ -88,6 +89,8 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   TitleBar* title_bar_ = nullptr;
   WebEventDelegate* web_event_delegate_ = nullptr;
   TitleBarMenu* tool_bar_menu_ = nullptr;
+
+  QRegularExpression search_re_;
 
  private slots:
   void onSearchAppResult(const QString& keyword,

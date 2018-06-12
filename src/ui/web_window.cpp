@@ -53,7 +53,8 @@ const int kSearchDelay = 200;
 
 WebWindow::WebWindow(QWidget* parent)
     : DMainWindow(parent),
-      search_timer_(new QTimer(this)) {
+      search_timer_(new QTimer(this)),
+      search_re_(QRegularExpression("[\\+_\\-\\$\\.\\^!@#%&\\(\\)]")) {
   this->setObjectName("WebWindow");
 
   search_timer_->setSingleShot(true);
@@ -281,8 +282,7 @@ void WebWindow::onSearchTextChangedDelay() {
 void WebWindow::prepareSearch(bool entered) {
   const QString text = title_bar_->getSearchText();
   // Filters special chars.
-  if (text.size() <= 1 ||
-      text.contains(QRegularExpression("[+_-$!@#%^&\\(\\)]"))) {
+  if (text.size() <= 1 || text.contains(search_re_)) {
     qCritical() << "Invalid regexp:" << text;
     return;
   }
