@@ -12,7 +12,7 @@
                     <ng-container *ngSwitchCase="NotifyType.Reminder"
                                   i18n>Urge successfully</ng-container>
                     <ng-container *ngSwitchCase="NotifyType.Clear"
-                                  i18n>Clear successfully</ng-container>
+                                  i18n>Cache was cleared successfully</ng-container>
                 </span>
             </ng-container>
             <ng-container *ngSwitchCase="NotifyStatus.Error">
@@ -22,7 +22,7 @@
                     <ng-container *ngSwitchCase="NotifyType.Reminder"
                                   i18n>Urge failed</ng-container>
                     <ng-container *ngSwitchCase="NotifyType.Clear"
-                                  i18n>Clear failed</ng-container>
+                                  i18n>Failed to clear cache</ng-container>
                 </span>
             </ng-container>
         </ng-container>
