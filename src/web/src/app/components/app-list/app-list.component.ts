@@ -141,4 +141,9 @@ export class AppListComponent implements OnInit, OnChanges {
       this.appVersionMap$ = of({});
     }
   }
+
+  // Show 'open' button only if app open method is 'desktop'.
+  canOpen(app: App): boolean {
+    return app.extra.open === 'desktop';
+  }
 }
