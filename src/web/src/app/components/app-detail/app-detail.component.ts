@@ -130,4 +130,9 @@ export class AppDetailComponent implements OnInit {
       this.donate.nativeElement.close();
     }
   }
+
+  // Show 'open' button only if app open method is 'desktop'.
+  appOpenable(app: App): boolean {
+    return app.extra.open === 'desktop';
+  }
 }

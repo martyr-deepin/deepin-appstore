@@ -143,7 +143,7 @@ export class AppListComponent implements OnInit, OnChanges {
   }
 
   // Show 'open' button only if app open method is 'desktop'.
-  canOpen(app: App): boolean {
+  appOpenable(app: App): boolean {
     return app.extra.open === 'desktop';
   }
 }

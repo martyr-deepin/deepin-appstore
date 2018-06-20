@@ -17,17 +17,18 @@
 
         </ng-container>
         <ng-template #$ctlBtn>
-          <button *ngIf="!$version.localVersion;else $open"
+          <button *ngIf="!$version.localVersion"
                   (click)="install(app)"
                   i18n>Install</button>
+          <ng-template #$update>
+            <button *ngIf="$version.upgradable; else $open"
+                    (click)="install(app)"
+                    i18n>Update</button>
+          </ng-template>
           <ng-template #$open>
-            <button *ngIf="!$version.upgradable;else $update"
+            <button *ngIf="appOpenable(app)"
                     (click)="open(app.name)"
                     i18n>Open</button>
-          </ng-template>
-          <ng-template #$update>
-            <button (click)="install(app)"
-                    i18n>Update</button>
           </ng-template>
         </ng-template>
       </ng-container>

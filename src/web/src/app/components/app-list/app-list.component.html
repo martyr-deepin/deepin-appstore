@@ -67,7 +67,7 @@
                   <button *ngIf="!$version.localVersion && $version.remoteVersion"
                           (click)="installApp($app.name)"
                           i18n>Install</button>
-                  <button *ngIf="$version.localVersion && !$version.upgradable && canOpen($app)"
+                  <button *ngIf="$version.localVersion && !$version.upgradable && appOpenable($app)"
                           (click)="openApp($app.name)"
                           i18n>Open</button>
                   <button *ngIf="$version.upgradable"
