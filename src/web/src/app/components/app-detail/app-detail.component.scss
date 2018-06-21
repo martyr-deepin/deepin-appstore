@@ -6,6 +6,10 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    .icon {
+      width: 96px;
+      height: 96px;
+    }
     button {
       min-width: 8rem;
     }
@@ -23,7 +27,7 @@
           height: 2rem;
           line-height: 2rem;
           color: gray;
-          text-align: right;
+          text-align: left;
           white-space: nowrap;
           margin-right: 0.5rem;
         }
