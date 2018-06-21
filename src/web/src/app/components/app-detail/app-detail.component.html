@@ -17,7 +17,7 @@
 
         </ng-container>
         <ng-template #$ctlBtn>
-          <button *ngIf="!$version.localVersion"
+          <button *ngIf="!$version.localVersion;else $update"
                   (click)="install(app)"
                   i18n>Install</button>
           <ng-template #$update>
@@ -82,7 +82,10 @@
                     (click)="reminder(app.name)"
                     i18n>Ask for update</button>
           </div>
-          <div class="webSite"><a target="_blank" [href]="app.homePage">{{app.homePage}}</a></div>
+          <div class="webSite">
+            <a target="_blank"
+               [href]="app.homePage">{{app.homePage}}</a>
+          </div>
           <div>
             {{app.localInfo.description.description}}
           </div>
