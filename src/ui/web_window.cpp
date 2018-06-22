@@ -84,8 +84,12 @@ void WebWindow::showWindow() {
 //  } else {
 //    this->resize(872, 548);
 //  }
-    this->setMinimumSize(960, 716);
-    // this->resize(1208,778);
+    const QRect geometry = qApp->desktop()->availableGeometry(this);
+    if (geometry.width() >= 1366) {
+        this->resize(1208,778);
+    } else {
+        this->setMinimumSize(960, 716);
+    }
     this->show();
 }
 
