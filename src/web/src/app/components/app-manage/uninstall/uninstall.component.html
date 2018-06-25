@@ -12,7 +12,10 @@
              #$content>
           <div class="base">
             <span>{{$app.localInfo.description.name}}</span>
-            <span class="size">{{$installedApp.size|sizeHuman}}</span>
+            <span class="size" *ngIf="$installedApp.size > 0; else $unknown">{{$installedApp.size | sizeHuman}}</span>
+            <ng-template #$unknown>
+              <span class="size" i18n>Uknown</span>
+            </ng-template>
           </div>
           <ng-container>
             <div class="time co-star">
