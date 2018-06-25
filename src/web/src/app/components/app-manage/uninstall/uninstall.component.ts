@@ -42,7 +42,7 @@ export class UninstallComponent implements OnInit {
         jobList =>
           jobList.length === 0
             ? of([])
-            : forkJoin(jobList.map(job => this.storeService.getJobInfo(job))),
+            : timer(0, 1000).pipe(switchMap(() => this.storeService.getJobsInfo(jobList))),
       ),
       map(jobInfoList => {
         return jobInfoList
