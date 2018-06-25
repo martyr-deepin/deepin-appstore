@@ -13,6 +13,8 @@
                                   i18n>Urge successfully</ng-container>
                     <ng-container *ngSwitchCase="NotifyType.Clear"
                                   i18n>Cache was cleared successfully</ng-container>
+                    <ng-container *ngSwitchCase="NotifyType.Recommend"
+                                  i18n>Recommend successfully</ng-container>
                 </span>
             </ng-container>
             <ng-container *ngSwitchCase="NotifyStatus.Error">
@@ -23,6 +25,8 @@
                                   i18n>Urge failed</ng-container>
                     <ng-container *ngSwitchCase="NotifyType.Clear"
                                   i18n>Failed to clear cache</ng-container>
+                    <ng-container *ngSwitchCase="NotifyType.Recommend"
+                                  i18n>Recommend failed</ng-container>
                 </span>
             </ng-container>
         </ng-container>
