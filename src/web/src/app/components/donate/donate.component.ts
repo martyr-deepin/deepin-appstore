@@ -82,7 +82,7 @@ export class DonateComponent implements OnInit {
   }
   inputChange(e: Event) {
     const el = e.target as HTMLInputElement;
-    if (!el.value.match(/^\d*(\.\d{0,2})?$/)) {
+    if (!el.value.match(/^\d{0,9}(\.\d{0,2})?$/)) {
       el.value = this.amount.toString();
     }
     if (el.value) {

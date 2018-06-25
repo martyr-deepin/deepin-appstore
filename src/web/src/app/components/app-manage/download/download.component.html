@@ -9,7 +9,7 @@
     <ng-container *ngIf="job.name|appInfo|async as $app">
 
       <img class="icon"
-           [src]="metadataServer + '/' + $app.icon"
+           [src]="getUrl($app)"
            [routerLink]="$app.name">
       <div class="content">
         <div class="appInfo"

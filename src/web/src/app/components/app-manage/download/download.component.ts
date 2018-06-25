@@ -14,6 +14,7 @@ import {
   StoreJobType,
   StoreJobStatus,
 } from '../../../dstore-client.module/models/store-job-info';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-download',
@@ -29,7 +30,11 @@ import {
 })
 export class DownloadComponent implements OnInit, OnDestroy {
   metadataServer = BaseService.serverHosts.metadataServer;
-  constructor(private appService: AppService, private storeService: StoreService) {}
+  constructor(
+    private appService: AppService,
+    private storeService: StoreService,
+    private sanitizer: DomSanitizer,
+  ) {}
 
   StoreJobType = StoreJobType;
   StoreJobStatus = StoreJobStatus;
@@ -69,5 +74,11 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.jobs$.unsubscribe();
+  }
+  getUrl(app: App) {
+    if (navigator.onLine) {
+      return this.metadataServer + '/' + app.icon;
+    }
+    return this.sanitizer.bypassSecurityTrustUrl('rcc://icon/' + app.name);
   }
 }
