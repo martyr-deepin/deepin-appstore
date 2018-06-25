@@ -24,12 +24,34 @@
   }
   position: relative;
   .rand {
-    content: '随机金额';
     color: gray;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 0.1rem;
+    right: 0;
+    .randomIcon {
+      width: 10px;
+      height: 10px;
+      min-width: 10px;
+      min-height: 10px;
+      margin-left: 3px;
+    }
+    &:hover {
+      &::after {
+        content: url('/assets/buttons/random_hover.svg');
+        @extend .randomIcon;
+      }
+    }
+    &:active {
+      &::after {
+        content: url('/assets/buttons/random_press.svg');
+        @extend .randomIcon;
+      }
+    }
+    &::after {
+      content: url('/assets/buttons/random_normal.svg');
+      @extend .randomIcon;
+    }
   }
 }
 .payment {
