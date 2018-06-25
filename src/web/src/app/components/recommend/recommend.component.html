@@ -17,10 +17,11 @@
       <span required
             i18n>Type:</span>
       <select name="appType"
-              [(ngModel)]="recommend.type">
-        <option value="1"
+              [ngModel]="recommend.type"
+              (ngModelChange)="recommend.type=$event-0">
+        <option [value]="1"
                 i18n>Linux App</option>
-        <option value="2"
+        <option [value]="2"
                 i18n>Windows App</option>
         <option value="3"
                 i18n>WebApp</option>
