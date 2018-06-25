@@ -129,29 +129,35 @@
     </ng-container>
     <div class="commentItem"
          *ngFor="let c of $css[$paginator.pageIndex]">
-      <ng-container *ngIf="getUserInfo(c.userID)|async as $userInfo">
+      <div class="head"
+           *ngIf="c.userID|deepinInfo|async as $userInfo;else default">
+        <img [src]="$userInfo.profile_image"
+             class="profile">
+        <span>{{$userInfo.username}}</span>
+      </div>
+      <ng-template #default>
         <div class="head">
-          <img [src]="$userInfo.profile_image"
+          <img src="/assets/images/default.jpeg"
                class="profile">
-          <span>{{$userInfo.username}}</span>
+          <span>{{c.userID}}</span>
         </div>
-        <div class="body">
-          <div class="rate">
-            <dstore-star [rate]="c.rate"></dstore-star>
-            <span>{{c.rate}}</span>
-            <img class="hot"
-                 *ngIf="c.hot">
-          </div>
-          <span>{{c.content}}</span>
+      </ng-template>
+      <div class="body">
+        <div class="rate">
+          <dstore-star [rate]="c.rate"></dstore-star>
+          <span [style.color]="'red'">{{c.rate}}</span>
+          <img class="hot"
+               *ngIf="c.hot">
         </div>
-        <div class="time">{{c.createTime|date:'yyyy-MM-dd HH:mm'}}</div>
-        <div class="like">
-          <span *ngIf="c.likeCount">({{c.likeCount}})</span>
-          <img class="thumbUp"
-               [class.active]="c.likeByMe"
-               (click)="thumbUpClick(c)">
-        </div>
-      </ng-container>
+        <span>{{c.content}}</span>
+      </div>
+      <div class="time">{{c.createTime|date:'yyyy-MM-dd HH:mm'}}</div>
+      <div class="like">
+        <span *ngIf="c.likeCount">({{c.likeCount}})</span>
+        <img class="thumbUp"
+             [class.active]="c.likeByMe"
+             (click)="thumbUpClick(c)">
+      </div>
     </div>
   </div>
   <div class="bottom">
