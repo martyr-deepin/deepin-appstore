@@ -50,11 +50,7 @@ export class TopicComponent implements OnInit {
     this.apps$ = this.topic$.pipe(
       flatMap(topic => {
         const appNameList = topic.apps.filter(app => app.show).map(app => app.name);
-        return iif(
-          () => appNameList.length === 0,
-          of([]),
-          forkJoin(appNameList.map(appName => this.appService.getApp(appName))),
-        );
+        return this.appService.getApps(appNameList);
       }),
     );
   }

@@ -2,7 +2,6 @@
              let-apps>
   <app-wait *ngIf="apps===null"></app-wait>
 </ng-template>
-
 <ng-container *ngIf="appVersionMap$|async as versionMap;else $loading">
   <ng-container *ngIf="appJobMap$|async as appJobMap;else $loading">
     <div class="appList"

@@ -77,13 +77,14 @@ export class AppListComponent implements OnInit, OnChanges {
         );
       }),
     );
+    console.log('init');
   }
 
   ngOnChanges() {
+    console.log('ngOnChanges', this.apps$);
     if (!this.apps$) {
       return;
     }
-
     this.appList$ = this.apps$.pipe(
       map(apps => {
         apps = apps.filter(app => app);
@@ -99,9 +100,10 @@ export class AppListComponent implements OnInit, OnChanges {
         return apps;
       }),
       tap(apps => {
+        console.log('appList', apps);
         this.appListLength.emit(apps.length);
       }),
-      share(),
+      shareReplay(),
     );
 
     if (BaseService.isNative) {
