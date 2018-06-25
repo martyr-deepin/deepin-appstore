@@ -94,3 +94,9 @@ input::-webkit-inner-spin-button {
     content: url($url+'_press.svg');
   }
 }
+
+.loading {
+  display: flex;
+  height: 240px;
+  align-content: center;
+}

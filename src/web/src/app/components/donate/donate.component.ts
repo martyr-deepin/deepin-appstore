@@ -31,6 +31,7 @@ export class DonateComponent implements OnInit {
   Payment = Payment;
   payment: Payment = Payment.WeChat;
   randAmount = [2.0, 5.2, 8.88, 6.66, 18.0, 12.0, 66.0, 25.5, 9.99, 15.2];
+  loading: boolean;
   qrImg: SafeResourceUrl;
   waitPay$: Observable<PayCheck>;
   ngOnInit() {}
@@ -42,6 +43,7 @@ export class DonateComponent implements OnInit {
     this.amount = r;
   }
   pay() {
+    this.loading = true;
     iif(
       () => this.authService.isLoggedIn,
       this.userService.myInfo().pipe(
@@ -67,6 +69,7 @@ export class DonateComponent implements OnInit {
         } else {
           DstoreObject.openURL(resp.url);
         }
+        this.loading = false;
         this.waitPay$ = timer(0, 1000).pipe(
           switchMap(() => this.donateService.check(resp.tradeID)),
           tap(c => {
