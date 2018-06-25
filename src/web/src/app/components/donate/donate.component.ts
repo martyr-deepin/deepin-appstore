@@ -33,10 +33,6 @@ export class DonateComponent implements OnInit {
   randAmount = [2.0, 5.2, 8.88, 6.66, 18.0, 12.0, 66.0, 25.5, 9.99, 15.2];
   qrImg: SafeResourceUrl;
   waitPay$: Observable<PayCheck>;
-  inputChange = debounce((el: HTMLInputElement) => {
-    this.amount = Math.floor(parseFloat(el.value) * 100) / 100;
-    el.value = this.amount.toString();
-  }, 500);
   ngOnInit() {}
   rand() {
     let r = this.amount;
@@ -80,5 +76,16 @@ export class DonateComponent implements OnInit {
           }),
         );
       });
+  }
+  inputChange(e: Event) {
+    const el = e.target as HTMLInputElement;
+    if (!el.value.match(/^\d*(\.\d{0,2})?$/)) {
+      el.value = this.amount.toString();
+    }
+    if (el.value) {
+      this.amount = parseFloat(el.value);
+    } else {
+      this.amount = null;
+    }
   }
 }
