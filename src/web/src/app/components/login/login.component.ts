@@ -25,19 +25,17 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl('');
     this.loginService.onOpenLogin().subscribe(isLogin => {
-      if (!isLogin) {
-        this.authService.logout();
-        return;
-      }
       if (!this.dialogRef.nativeElement.open) {
-        if (navigator.onLine) {
+        if (isLogin) {
           this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
             `${BaseService.serverHosts.operationServer}/api/oauthLogin/commenceLogin?lang=${
               navigator.language.split('-')[0]
             }&rand=${Math.random()}`,
           );
         } else {
-          this.loginURL = '';
+          this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
+            'https://login.deepin.org/oauth2/logout',
+          );
         }
         this.loaded = false;
         this.dialogRef.nativeElement.showModal();
@@ -46,9 +44,26 @@ export class LoginComponent implements OnInit {
   }
   // login iframe loading
   load(iframe: HTMLIFrameElement) {
-    console.dir(iframe);
+    console.log('loaded', iframe.contentWindow.location, iframe.contentDocument.body.innerText);
+    const bodyText = iframe.contentDocument.body.innerText;
+    switch (iframe.contentWindow.location.pathname) {
+      case '/oauth2/authorize':
+        if (bodyText.includes('loading....') || bodyText.includes('ERR_INTERNET_DISCONNECTED')) {
+          this.loaded = false;
+        } else {
+          this.loginInit(iframe);
+        }
+        break;
+      case '/api/oauthLogin/finishLogin':
+        this.finish(iframe);
+        break;
+      case '/oauth2/logout':
+        this.logout();
+        break;
+    }
+  }
+  loginInit(iframe: HTMLIFrameElement) {
     this.loaded = true;
-
     const closeButton = iframe.contentDocument.getElementById('close');
     if (closeButton) {
       closeButton.addEventListener('click', () => {
@@ -65,6 +80,8 @@ export class LoginComponent implements OnInit {
         });
       }
     }
+  }
+  finish(iframe: HTMLIFrameElement) {
     const [, token] = iframe.contentDocument.cookie
       .split('; ')
       .map(c => c.split('='))
@@ -73,5 +90,9 @@ export class LoginComponent implements OnInit {
       this.dialogRef.nativeElement.close();
       this.authService.login(token);
     }
+  }
+  logout() {
+    this.dialogRef.nativeElement.close();
+    this.authService.logout();
   }
 }
