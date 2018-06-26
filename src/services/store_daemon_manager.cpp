@@ -147,6 +147,7 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
     qCritical() << Q_FUNC_INFO << version_reply.error();
   } else {
     AppSearchRecordList existed_app_list;
+    QSet<QString> existed_app_names;
 
     const AppVersionList version_list = version_reply.value();
     for (const AppVersion& version : version_list) {
@@ -158,11 +159,16 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
       deb_app_names.removeOne(pkg_name);
 
       if (deb_names_.contains(pkg_name)) {
-        const QString& app_name = deb_names_[pkg_name];
-        const AppSearchRecord& app = apps_[app_name];
-        existed_app_list.append(app);
-        if (arch_idx > 0) {
-          deb_names_.insert(version.pkg_name, app_name);
+        const QStringList app_names = deb_names_.values(pkg_name);
+        for (const QString& app_name : app_names) {
+          const AppSearchRecord& app = apps_[app_name];
+          if (!existed_app_names.contains(app_name)) {
+            existed_app_names.insert(app_name);
+            existed_app_list.append(app);
+          }
+          if (arch_idx > 0) {
+            deb_names_.insert(version.pkg_name, app_name);
+          }
         }
       }
     }
@@ -501,10 +507,16 @@ void StoreDaemonManager::jobList() {
 
 void StoreDaemonManager::queryVersions(const QString& task_id,
                                        const QStringList& apps) {
-  // TODO(Shaohua): remap app name.
+  // Remap app name.
+  QStringList deb_names;
+  for (const QString& app : apps) {
+    if (apps_.contains(app)) {
+      deb_names.append(apps_[app].debs);
+    }
+  }
 
   const QDBusPendingReply<AppVersionList> version_reply =
-      deb_interface_->QueryVersion(apps);
+      deb_interface_->QueryVersion(deb_names);
 
   if (version_reply.isError()) {
     emit this->queryVersionsReply(QVariantMap {
@@ -520,13 +532,15 @@ void StoreDaemonManager::queryVersions(const QString& task_id,
     QVariantList version_vars;
     for (const AppVersion& version : version_list) {
       if (deb_names_.contains(version.pkg_name)) {
-        const QString& app_name = deb_names_.value(version.pkg_name);
-        version_vars.append(QVariantMap {
-            { "name", app_name },
-            { "localVersion", version.installed_version },
-            { "remoteVersion", version.remote_version },
-            { "upgradable", version.upgradable },
-        });
+        const QStringList& app_names = deb_names_.values(version.pkg_name);
+        for (const QString& app_name : app_names) {
+          version_vars.append(QVariantMap {
+              { "name", app_name },
+              { "localVersion", version.installed_version },
+              { "remoteVersion", version.remote_version },
+              { "upgradable", version.upgradable },
+          });
+        }
       }
     }
 
@@ -544,10 +558,16 @@ void StoreDaemonManager::queryVersions(const QString& task_id,
 
 void StoreDaemonManager::queryInstalledTime(const QString& task_id,
                                             const QStringList& apps) {
-  // TODO(Shaohua): remap app name.
+  // Remap app name.
+  QStringList deb_names;
+  for (const QString& app : apps) {
+    if (apps_.contains(app)) {
+      deb_names.append(apps_[app].debs);
+    }
+  }
 
   const QDBusPendingReply<InstalledAppTimestampList> timestamp_reply =
-      deb_interface_->QueryInstallationTime(apps);
+      deb_interface_->QueryInstallationTime(deb_names);
 
   if (timestamp_reply.isError()) {
     emit this->queryInstalledTimeReply(QVariantMap {
@@ -563,11 +583,13 @@ void StoreDaemonManager::queryInstalledTime(const QString& task_id,
     QVariantList result;
     for (const InstalledAppTimestamp& timestamp : timestamp_list) {
       if (deb_names_.contains(timestamp.pkg_name)) {
-        const QString& app_name = deb_names_.value(timestamp.pkg_name);
-        result.append(QVariantMap {
-            { "app", app_name },
-            { "time", timestamp.timestamp },
-        });
+        const QStringList& app_names = deb_names_.values(timestamp.pkg_name);
+        for (const QString& app_name : app_names) {
+          result.append(QVariantMap {
+              { "app", app_name },
+              { "time", timestamp.timestamp },
+          });
+        }
       }
     }
 

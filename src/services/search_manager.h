@@ -50,10 +50,10 @@ class SearchManager : public QObject {
 
   void completeSearchApp(const QString& keyword);
 
-  void updateAppList(const AppSearchRecordList& record_list);
+  void updateAppList(const AppSearchRecordList& app_list);
 
  private:
-  AppSearchRecordList record_list_;
+  AppSearchRecordList app_list_;
 
   QStringList app_names_pinyin_;
 };

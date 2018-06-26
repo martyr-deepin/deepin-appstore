@@ -96,11 +96,13 @@ class StoreDaemonManager : public QObject {
   // Maps between appName and its metadata.
   AppSearchRecordMap apps_;
 
-  // Maps between debPkgName and appName. Many-to-One.
-  QHash<QString, QString> deb_names_;
+  // Maps between debPkgName and appName. Many-to-Many.
+  // Different appNames can refer to the same deb.
+  // And one appName can contain multiple deb names.
+  QMultiHash<QString, QString> deb_names_;
 
-  // Maps between flatpakName and appName. Many-to-One.
-  QHash<QString, QString> flatpak_names_;
+  // Maps between flatpakName and appName. Many-to-Many.
+  QMultiHash<QString, QString> flatpak_names_;
 
   AptUtilWorker* apt_worker_ = nullptr;
   QThread* apt_worker_thread_ = nullptr;
