@@ -8,16 +8,22 @@ import * as _ from 'lodash';
 })
 export class PaginatorComponent implements OnInit {
   constructor() {}
-  @Input() count: number;
+  @Input() length: number;
+  @Input() size: number;
+  get count() {
+    return Math.ceil(this.length / this.size);
+  }
   @Input() pageIndex = 0;
   @Input() brother = 5;
 
   @Output() pageIndexChange = new EventEmitter<number>(true);
+
   ngOnInit() {
     this.pageIndexChange.subscribe(page => (this.pageIndex = page));
   }
   get pageList() {
-    const pls = _.chain(0)
+    const pls = _
+      .chain(0)
       .range(this.count)
       .chunk(this.brother)
       .find(ps => ps.includes(this.pageIndex))

@@ -7,7 +7,6 @@ import { debounce } from 'lodash';
 
 import * as QRCode from 'qrcode';
 
-import { UserService } from '../../services/user.service';
 import { Payment, PayReq, PayCheck } from '../../services/donate.model';
 import { DonateService } from '../../services/donate.service';
 import { AuthService } from '../../services/auth.service';
@@ -21,7 +20,6 @@ import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
 export class DonateComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private donateService: DonateService,
     private sanitizer: DomSanitizer,
   ) {}
@@ -44,23 +42,20 @@ export class DonateComponent implements OnInit {
   }
   pay() {
     this.loading = true;
-    iif(
-      () => this.authService.isLoggedIn,
-      this.userService.myInfo().pipe(
+    this.authService.info$
+      .pipe(
         map(info => {
-          return {
+          const req: PayReq = {
             appName: this.appName,
             amount: this.amount * 100,
-            userID: info.uid,
           };
+          if (info) {
+            req.userID = info.userID;
+          }
+          return req;
         }),
-      ),
-      of({
-        appName: this.appName,
-        amount: this.amount * 100,
-      }),
-    )
-      .pipe(switchMap(req => this.donateService.donate(this.payment, req)))
+        switchMap(req => this.donateService.donate(this.payment, req)),
+      )
       .subscribe(resp => {
         if (this.payment === Payment.WeChat) {
           QRCode.toDataURL(resp.url).then(

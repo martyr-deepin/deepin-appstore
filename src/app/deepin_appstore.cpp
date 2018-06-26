@@ -46,6 +46,7 @@ int main(int argc, char** argv) {
 #ifndef NDEBUG
   // Open http://localhost:9222 in chromium browser to see dev tools.
   settings.setRemoteDebug(true);
+  settings.setIgnoresCertificateErrors(true);
 #else
   //settings.setRemoteDebug(false);
   settings.setRemoteDebug(true);

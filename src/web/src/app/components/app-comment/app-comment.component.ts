@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
+import { Observable, concat, forkJoin } from 'rxjs';
 import * as _ from 'lodash';
 
-import { AuthService } from '../../services/auth.service';
+import { AuthService, UserInfo } from '../../services/auth.service';
 import { LoginService } from '../../services/login.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { CommentService, Comment } from '../../services/comment.service';
-import { UserService } from '../../services/user.service';
 import { encodeUriQuery } from '@angular/router/src/url_tree';
-import { shareReplay } from 'rxjs/operators';
+import { shareReplay, switchMap, filter } from 'rxjs/operators';
+import { SizeHuman } from '../../dstore/pipes/size-human';
 
 @Component({
   selector: 'app-app-comment',
@@ -23,120 +23,96 @@ export class AppCommentComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private authService: AuthService,
     private commentService: CommentService,
-    private userService: UserService,
   ) {}
-
   @Input() appName: string;
   @Input() version: string;
-  operationServer = BaseService.serverHosts.operationServer;
-  commentContext = '';
-  submitError: CommentError;
-  content = '';
-  rate = 0;
-  CommentError = CommentError;
 
-  getListError: null;
-  commentList: Comment[];
-  historyList: Comment[];
-  get currentList() {
-    if (this.getListError) {
-      return undefined;
-    }
-    if (this.select === 'current') {
-      return this.commentList;
-    } else {
-      return this.historyList;
-    }
-  }
-  _select = 'current';
-  set select(s: string) {
-    if (s === 'current') {
-      this.getList();
-    } else {
-      this.getHistoryList();
-    }
-    this.page = 0;
-    this._select = s;
-  }
-  get select(): string {
-    return this._select;
-  }
-  get name() {
-    return this.userService.myName();
-  }
-  page = 0;
-  own$: Observable<Comment>;
-  myUserInfo = this.userService.myInfo();
-  getUserInfo = _.memoize(userName => this.userService.userInfo(userName));
-  register = this.authService.register;
+  info: UserInfo;
+  own: Comment;
+
+  CommentError = CommentError;
+  comment = {
+    content: '',
+    rate: 0,
+    error: null,
+  };
+
+  total = [0, 0];
+  CommentType = CommentType;
+  select = CommentType.News;
+  list: Comment[];
+  page = { index: 0, size: 20 };
+
+  login = () => this.loginService.OpenLogin();
+  logout = () => this.loginService.OpenLogout();
+  register = () => this.authService.register();
 
   ngOnInit() {
-    this.getList();
-    this.getHistoryList();
+    this.getInfo();
+    this.getCommentTotal();
     this.getOwn();
+    this.getList();
+  }
+  getInfo() {
+    this.authService.info$.subscribe(info => (this.info = info));
   }
   getOwn() {
-    this.own$ = this.commentService.own(this.appName, this.version).pipe(shareReplay());
+    this.authService.info$
+      .pipe(
+        filter(info => info != null),
+        switchMap(() => this.commentService.own(this.appName, this.version)),
+      )
+      .subscribe(own => (this.own = own));
   }
   getList() {
     this.commentService
       .list(this.appName, {
-        version: this.version,
+        page: this.page.index + 1,
+        count: this.page.size,
+        [this.select === CommentType.News ? 'version' : 'excludeVersion']: this.version,
       })
-      .subscribe(commentList => (this.commentList = commentList), err => (this.getListError = err));
+      .subscribe(result => {
+        this.list = result.comments;
+        this.total[this.select] = result.totalCount;
+      });
   }
-  getHistoryList() {
+  getCommentTotal() {
+    forkJoin(
+      this.commentService.list(this.appName, { page: 1, count: 1, version: this.version }),
+      this.commentService.list(this.appName, { page: 1, count: 1, excludeVersion: this.version }),
+    ).subscribe(([news, history]) => {
+      this.total = [news.totalCount, history.totalCount];
+    });
+  }
+  get submitComment() {
+    this.comment.content = this.comment.content.trim();
+    if (!this.comment.content && this.comment.rate === 0) {
+      this.comment.error = CommentError.AllInvalid;
+      return;
+    }
+    if (!this.comment.content) {
+      this.comment.error = CommentError.CommentInvalid;
+      return;
+    }
+    if (this.comment.rate === 0) {
+      this.comment.error = CommentError.RateInvalid;
+      return;
+    }
     this.commentService
-      .list(this.appName, {
-        excludeVersion: this.version,
-      })
-      .subscribe(commentList => (this.historyList = commentList), err => (this.getListError = err));
-  }
-
-  login() {
-    this.loginService.OpenLogin();
-  }
-
-  logout() {
-    this.loginService.OpenLogout();
-  }
-
-  get isLoggedIn(): boolean {
-    return this.authService.isLoggedIn;
-  }
-
-  inputComment($event: KeyboardEvent) {
-    console.log($event);
-    if ($event.ctrlKey && $event.key === 'Enter') {
-      this.submitComment();
-    }
-  }
-
-  submitComment() {
-    this.content = this.content.trim();
-    if (!this.content && this.rate === 0) {
-      this.submitError = CommentError.AllInvalid;
-      return;
-    }
-    if (!this.content) {
-      this.submitError = CommentError.CommentInvalid;
-      return;
-    }
-    if (this.rate === 0) {
-      this.submitError = CommentError.RateInvalid;
-      return;
-    }
-    this.commentService.create(this.appName, this.content, this.rate * 2, this.version).subscribe(
-      () => {
-        this.submitError = null;
-        this.getList();
-        this.getOwn();
-        this.select = 'current';
-      },
-      err => {
-        this.submitError = CommentError.Failed;
-      },
-    );
+      .create(this.appName, this.comment.content, this.comment.rate * 2, this.version)
+      .subscribe(
+        () => {
+          this.getOwn();
+          this.comment = {
+            rate: 0,
+            content: '',
+            error: null,
+          };
+        },
+        err => {
+          this.comment.error = CommentError.Failed;
+        },
+      );
   }
 
   thumbUpClick(c: Comment) {
@@ -156,7 +132,10 @@ export class AppCommentComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 }
-
+enum CommentType {
+  News,
+  History,
+}
 enum CommentError {
   Unknown,
   RateInvalid,

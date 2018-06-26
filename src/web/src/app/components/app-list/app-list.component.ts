@@ -1,18 +1,6 @@
 import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { Observable, timer, of, empty, forkJoin, merge, combineLatest, from } from 'rxjs';
-import {
-  map,
-  tap,
-  flatMap,
-  shareReplay,
-  switchMap,
-  debounceTime,
-  concat,
-  concatMap,
-  startWith,
-  scan,
-  share,
-} from 'rxjs/operators';
+import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
 
@@ -59,7 +47,6 @@ export class AppListComponent implements OnInit, OnChanges {
   appList$: Observable<App[]>;
   appJobMap$: Observable<{ [key: string]: Observable<StoreJobInfo> }>;
   appVersionMap$: Observable<{ [key: string]: AppVersion }>;
-  offset$: Observable<void>;
 
   // job control
   start = this.storeService.resumeJob;
@@ -68,17 +55,7 @@ export class AppListComponent implements OnInit, OnChanges {
   installApp = (appName: string) => this.storeService.installPackage(appName).subscribe();
   updateApp = (appName: string) => this.storeService.updatePackage(appName).subscribe();
 
-  ngOnInit() {
-    this.offset$ = timer(100).pipe(
-      map(() => {
-        setTimeout(
-          () => window.scrollTo(0, this.offsetService.getOffset(this.router.url) || 0),
-          100,
-        );
-      }),
-    );
-    console.log('init');
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
     console.log('ngOnChanges', this.apps$);
@@ -101,6 +78,8 @@ export class AppListComponent implements OnInit, OnChanges {
       }),
       tap(apps => {
         console.log('appList', apps);
+
+        window.scrollTo(0, this.offsetService.getOffset(this.router.url) || 0);
         this.appListLength.emit(apps.length);
       }),
       shareReplay(),

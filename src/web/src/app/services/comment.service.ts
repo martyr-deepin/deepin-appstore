@@ -13,23 +13,12 @@ export class CommentService {
     this.server = BaseService.serverHosts.operationServer;
   }
 
-  list(appName: string, query?: { [key: string]: string }) {
+  list(appName: string, query?: { [key: string]: any }) {
     const params = Object.entries(query)
       .map(a => `${a[0]}=${encodeURIComponent(a[1])}`)
       .join('&');
-    return this.http.get(`${this.server}/api/comment/app/${appName}?` + params).pipe(
-      map((resp: { comments: Comment[] }) => {
-        resp.comments.map(comment => (comment.rate /= 2));
-        const hot = resp.comments
-          .filter(c => c.likeCount > 0)
-          .sort((c1, c2) => c2.likeCount - c1.likeCount)
-          .slice(0, 3)
-          .map(c => ((c.hot = true), c));
-        resp.comments = resp.comments
-          .filter(c => !hot.includes(c))
-          .sort((c1, c2) => c2.createTime.localeCompare(c1.createTime));
-        return [...hot, ...resp.comments];
-      }),
+    return this.http.get<{ comments: Comment[]; hot: Comment[]; totalCount: number }>(
+      `${this.server}/api/comment/app/${appName}?` + params,
     );
   }
 

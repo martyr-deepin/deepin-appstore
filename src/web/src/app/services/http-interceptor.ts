@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, flatMap, map, tap, switchMap, take } from 'rxjs/operators';
 
 import { MaterializeService } from '../dstore/services/materialize.service';
 import { LoginService } from '../services/login.service';
@@ -17,32 +17,25 @@ import { AuthService } from '../services/auth.service';
 export class MyHttpInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private loginService: LoginService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.authService.isLoggedIn) {
-      req = req.clone({ setHeaders: { 'Access-Token': this.authService.token } });
-    }
-    return next.handle(req).pipe(
+    return this.authService.token$.pipe(
+      take(1),
+      map(token => {
+        return token == null ? req : req.clone({ setHeaders: { 'Access-Token': token } });
+      }),
+      switchMap(r => next.handle(r)),
       catchError((err: HttpErrorResponse, caught) => {
         switch (err.status) {
-          case 0:
-            break;
           case 401:
-            // this.materializeService.toastError('登录失效，请重新登录');
-            if (this.authService.isLoggedIn) {
-              this.authService.logout();
-            } else {
-              this.loginService.OpenLogin();
-            }
+            console.log('登录超时');
+            this.authService.logged$.pipe(take(1)).subscribe(b => {
+              if (b) {
+                this.loginService.OpenLogout();
+              } else {
+                this.loginService.OpenLogin();
+              }
+            });
             return of(null);
-          case 429:
-            // this.materializeService.toastError('访问过于频繁，请稍后重试');
-            break;
-          case 500:
-            // this.materializeService.toastError('服务器错误，请稍后重试');
-            break;
-          default:
-            throw err.error.error;
         }
-        // return of(null);
         return throwError(err);
       }),
     );

@@ -1,54 +1,47 @@
-<div class="comment">
-  <ng-container *ngIf="!isLoggedIn;else $editComment">
-    <div class="title">
+<div class="commentInput">
+  <div class="title">
+    <ng-container *ngIf="!info;else logged">
       <span i18n>Please post a comment after signed in</span>
       <a (click)="register()"
          i18n>Sign Up</a>
-    </div>
-    <button class="loginBtn"
-            (click)="login()"
-            i18n>Sign In</button>
-  </ng-container>
-  <ng-template #$editComment>
-    <ng-container *ngIf="own$|async as $own;else $edit">
-      <div class="title">
+    </ng-container>
+    <ng-template #logged>
+      <ng-container *ngIf="own;else starEdit">
         <span class="star">
           <div i18n>Your Rating:</div>
-          <dstore-star [rate]="$own.rate"></dstore-star>
-          <div>{{$own.rate}}</div>
+          <dstore-star [rate]="own.rate"></dstore-star>
+          <div>{{own.rate}}</div>
         </span>
-        <span class="myInfo"
-              *ngIf="myUserInfo|async as info">
-          {{info.username}}
-          <img class="down"
-               (click)="$dropMenu.hidden=false;$dropMenu.focus()">
-          <div class="dropdown-menu"
-               tabIndex="-1"
-               #$dropMenu
-               hidden
-               (blur)="$dropMenu.hidden=true">
-            <a (click)="logout()"
-               i18n>Sign Out</a>
-          </div>
-          <img [src]="info.profile_image"
-               class="profile min">
-        </span>
-      </div>
-
-      <div class="placeholder"
-           i18n>You have posted a comment</div>
-    </ng-container>
-    <ng-template #$edit>
-      <div class="title">
+      </ng-container>
+      <ng-template #starEdit>
         <span class="star">
           <div i18n>Please rate:</div>
-          <dstore-star [(rate)]="rate"
+          <dstore-star [(rate)]="comment.rate"
                        #$star
                        [readonly]="false"></dstore-star>
           <div>{{$star.rateHover}}</div>
         </span>
+      </ng-template>
+
+      <span class="myInfo"
+            (click)="$dropMenu.hidden=false;$dropMenu.focus()"
+            *ngIf="info.userID|deepinInfo|async as info;else default">
+        {{info.username}}
+        <img class="down"
+             (click)="$dropMenu.hidden=false;$dropMenu.focus()">
+        <div class="dropdown-menu"
+             tabIndex="-1"
+             #$dropMenu
+             hidden
+             (blur)="$dropMenu.hidden=true">
+          <a (click)="logout()"
+             i18n>Sign Out</a>
+        </div>
+        <img [src]="info.profile_image"
+             class="profile min">
+      </span>
+      <ng-template #default>
         <span class="myInfo"
-              *ngIf="myUserInfo|async as info"
               (click)="$dropMenu.hidden=false;$dropMenu.focus()">
           {{info.username}}
           <img class="down">
@@ -60,24 +53,39 @@
             <a (click)="logout()"
                i18n>Sign Out</a>
           </div>
-          <img [src]="info.profile_image"
+          <img src="/assets/images/default.jpeg"
                class="profile min">
         </span>
-      </div>
-      <textarea class="input"
-                maxlength="3000"
-                (keypress)="inputComment($event)"
-                [(ngModel)]="content"></textarea>
-      <div class="placeholder"
-           [hidden]="content"
-           i18n>Please input a comment</div>
+      </ng-template>
+
     </ng-template>
-  </ng-template>
+  </div>
+
+  <div class="edit">
+    <textarea [readOnly]="info && own"
+              [(ngModel)]="comment.content"></textarea>
+  </div>
+  <div class="fixed">
+    <button class="loginBtn"
+            *ngIf="!info;else loggedMsg"
+            (click)="login()"
+            i18n>Sign In</button>
+    <ng-template #loggedMsg>
+      <div class="placeholder"
+           *ngIf="own;else please"
+           i18n>You have posted a comment</div>
+      <ng-template #please>
+        <div class="placeholder"
+             [hidden]="comment.content"
+             i18n>Please input a comment</div>
+      </ng-template>
+    </ng-template>
+  </div>
 </div>
 
 <div class="submit"
-     *ngIf="isLoggedIn">
-  <ng-container [ngSwitch]="submitError">
+     *ngIf="info">
+  <ng-container [ngSwitch]="comment.error">
     <span class="submitError"
           *ngSwitchCase="CommentError.AllInvalid"
           i18n>Please rate and input your comment</span>
@@ -92,80 +100,89 @@
           i18n>Failed to submit</span>
   </ng-container>
   <button class="submitBtn"
+          [disabled]="own"
           (click)="submitComment()"
-          [disabled]="own$|async"
-          #$submitBtn
           i18n>Submit</button>
 </div>
 <br>
-<ng-container *ngIf="currentList|chunk:20 as $css">
-  <div class="paging">
-    <div class="title"
-         i18n>User Comments</div>
-    <div class="versionBtn currentBtn"
-         (click)="select='current';$paginator.pageIndex=0"
-         [class.active]="select==='current'"
-         i18n>Current Version ({{commentList?.length}})</div>
-    <div class="versionBtn historyBtn"
-         (click)="select='history';$paginator.pageIndex=0"
-         [class.active]="select==='history'"
-         i18n>History Versions ({{historyList?.length}})</div>
-    <div class="pagingBtn"
-         [hidden]="$css.length<=1">
-      <app-paginator [count]="$css.length"
-                     #$paginator></app-paginator>
+
+<div class="commentList">
+  <div class="header">
+    <div class="select">
+      <ng-container i18n>User Comments</ng-container>
+      &nbsp;
+      <button [class.active]="select===CommentType.News"
+              (click)="select=CommentType.News;getList()">
+        <ng-container i18n>Current Version</ng-container>
+        ({{total[CommentType.News]}})
+      </button>
+      <button [class.active]="select===CommentType.History"
+              (click)="select=CommentType.History;getList()">
+        <ng-container i18n>History Versions</ng-container>
+        ({{total[CommentType.History]}})
+      </button>
+    </div>
+    <div class="paginator"
+         *ngIf="total[select]>page.size">
+      <app-paginator [length]="total[select]"
+                     [size]="page.size"
+                     [(pageIndex)]="page.index"
+                     (pageIndexChange)="getList()"></app-paginator>
     </div>
   </div>
   <br>
-  <div class="commentList">
-    <ng-container *ngIf="$css.length===0">
-      <div class="commentItem empty error"
-           *ngIf="getListError;else $empty"
+  <div class="body">
+    <ng-container [ngSwitch]="true">
+      <div class="empty error"
+           *ngIf="!list"
            i18n>Failed to load comments</div>
-      <ng-template #$empty>
-        <div class="commentItem empty"
-             i18n>There are not any user comments</div>
-      </ng-template>
+      <div class="empty"
+           *ngIf="list && list.length===0"
+           i18n>There are not any user comments</div>
+      <ng-container *ngIf="list && list.length>0">
+        <table class="list">
+          <tr *ngFor="let c of list">
+            <td>
+              <div class="head"
+                   *ngIf="c.userID|deepinInfo|async as $userInfo;else default">
+                <img [src]="$userInfo.profile_image"
+                     class="profile">
+                <span>{{$userInfo.username}}</span>
+              </div>
+            </td>
+            <td>
+              <div class="content">
+                <div class="rate">
+                  <dstore-star [rate]="c.rate/2"></dstore-star>
+                  &nbsp;
+                  <span [style.color]="'red'">{{c.rate/2}}</span>
+                  <img class="hot"
+                       *ngIf="c.hot">
+                </div>
+                <span class="comment">{{c.content}}</span>
+              </div>
+            </td>
+            <td>
+              <div class="like">
+                <span [class.hidden]="c.likeCount<=0">({{c.likeCount}})</span>
+                <img class="thumbUp"
+                     [class.active]="c.likeByMe"
+                     (click)="thumbUpClick(c)">
+              </div>
+            </td>
+          </tr>
+        </table>
+      </ng-container>
     </ng-container>
-    <div class="commentItem"
-         *ngFor="let c of $css[$paginator.pageIndex]">
-      <div class="head"
-           *ngIf="c.userID|deepinInfo|async as $userInfo;else default">
-        <img [src]="$userInfo.profile_image"
-             class="profile">
-        <span>{{$userInfo.username}}</span>
-      </div>
-      <ng-template #default>
-        <div class="head">
-          <img src="/assets/images/default.jpeg"
-               class="profile">
-          <span>{{c.userID}}</span>
-        </div>
-      </ng-template>
-      <div class="body">
-        <div class="rate">
-          <dstore-star [rate]="c.rate"></dstore-star>
-          <span [style.color]="'red'">{{c.rate}}</span>
-          <img class="hot"
-               *ngIf="c.hot">
-        </div>
-        <span>{{c.content}}</span>
-      </div>
-      <div class="time">{{c.createTime|date:'yyyy-MM-dd HH:mm'}}</div>
-      <div class="like">
-        <span *ngIf="c.likeCount">({{c.likeCount}})</span>
-        <img class="thumbUp"
-             [class.active]="c.likeByMe"
-             (click)="thumbUpClick(c)">
-      </div>
-    </div>
   </div>
-  <div class="bottom">
-    <span (click)="scrollToTop()"
-          i18n>Back to top</span>
-    <app-paginator *ngIf="$css.length>1"
-                   [pageIndex]="$paginator.pageIndex"
-                   [count]="$css.length"
-                   (pageIndexChange)="$paginator.pageIndex=$event"></app-paginator>
-  </div>
-</ng-container>
+</div>
+<div class="bottom">
+  <a (click)="scrollToTop()"
+     i18n>Back to top</a>
+  <app-paginator *ngIf="total[select]>page.size"
+                 [(pageIndex)]="page.index"
+                 [length]="total[select]"
+                 [size]="page.size"
+                 (pageIndexChange)="getList()"></app-paginator>
+</div>
+<br>
