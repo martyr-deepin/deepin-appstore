@@ -28,6 +28,14 @@
 #include "services/rcc_scheme_handler.h"
 #include "ui/web_window.h"
 
+namespace {
+
+const char kEnableDomStorageFlush[] = "--enable-aggressive-domstorage-flushing";
+
+const char kDisableGpu[] = "--disable-gpu";
+
+}  // namespace 
+
 int main(int argc, char** argv) {
   qputenv("DXCB_FAKE_PLATFORM_NAME_XCB", "true");
   qputenv("DXCB_REDIRECT_CONTENT", "true");
@@ -45,7 +53,12 @@ int main(int argc, char** argv) {
   settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
 
   // Disable GPU process.
-  settings.addCommandLineSwitch("--disable-gpu", "");
+  settings.addCommandLineSwitch(kDisableGpu, "");
+
+  // Enable aggressive storage commit to minimize data loss.
+  // See public/common/content_switches.cc.
+  settings.addCommandLineSwitch(kEnableDomStorageFlush, "");
+
   // Set web cache folder.
   QDir cache_dir(dstore::GetCacheDir());
   cache_dir.mkpath(".");
