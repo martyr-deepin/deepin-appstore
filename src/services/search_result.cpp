@@ -29,6 +29,18 @@ bool operator==(const AppSearchRecord& a, const AppSearchRecord& b) {
 return a.name == b.name;
 }
 
+QDebug& operator<<(QDebug& debug, const AppSearchRecord& app) {
+  debug << "App {"
+        << "name:" << app.name
+        << ", local_name:" << app.local_name
+        << ", slogan:" << app.slogan
+        << ", description:" << app.description
+        << ", packages:" << app.package_uris
+        << ", debs:" << app.debs;
+
+  return debug;
+}
+
 void RegisterAppSearchRecordMetaType() {
   qRegisterMetaType<AppSearchRecord>("AppSearchRecord");
   qRegisterMetaType<AppSearchRecordList>("AppSearchRecordList");

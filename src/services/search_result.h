@@ -18,6 +18,7 @@
 #ifndef DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H
 #define DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H
 
+#include <QDebug>
 #include <QList>
 #include <QHash>
 #include <QtCore/QMetaType>
@@ -40,6 +41,8 @@ struct AppSearchRecord {
 };
 
 bool operator==(const AppSearchRecord& a, const AppSearchRecord& b);
+
+QDebug& operator<<(QDebug& debug, const AppSearchRecord& app);
 
 void RegisterAppSearchRecordMetaType();
 
