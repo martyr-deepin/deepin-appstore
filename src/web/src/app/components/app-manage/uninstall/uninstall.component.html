@@ -1,5 +1,5 @@
 <ng-container *ngIf="uninstallingApps$|async as $uninstallingApps;else $wait">
-  <div *ngIf="installedApps$|async as $installedApps">
+  <div *ngIf="installedApps$|async as $installedApps;else $wait">
     <div class="title"
          i18n>{{$installedApps.length}} {$installedApps.length,plural, =0 {application} =1 {application} other {applications} } installed
     </div>
@@ -8,16 +8,27 @@
       <ng-container *ngIf="$installedApp.name|appInfo|async as $app">
         <img class="icon"
              [src]="getUrl($app)">
-        <div class="content"
-             #$content>
+        <div class="content">
           <div class="base">
             <span>{{$app.localInfo.description.name}}</span>
-            <span class="size" *ngIf="$installedApp.size > 0; else $unknown">{{$installedApp.size | sizeHuman}}</span>
+            <span class="size"
+                  *ngIf="$installedApp.size > 0; else $unknown">{{$installedApp.size | sizeHuman}}</span>
             <ng-template #$unknown>
-              <span class="size" i18n>Uknown</span>
+              <span class="size"
+                    i18n>Uknown</span>
             </ng-template>
           </div>
-          <ng-container>
+          <ng-container *ngIf="select===$app.name ;else ctl">
+            <div class="warn"
+                 i18n>Are you sure to uninstall this application?</div>
+            <div class="uninstall">
+              <button (click)="select=''"
+                      i18n>Cancel</button>
+              <button (click)="uninstall($installedApp.name)"
+                      i18n>Confirm</button>
+            </div>
+          </ng-container>
+          <ng-template #ctl>
             <div class="time co-star">
               <span i18n>Date installed:</span>
               <span *ngIf="$installedApp.time as $t;else $unknownTime">{{$t*1000|date}}</span>
@@ -29,31 +40,15 @@
               <ng-container i18n>Version:</ng-container>{{$installedApp.version}}</div>
             <div class="uninstall">
               <button *ngIf="!$uninstallingApps.includes($installedApp.name);else $ing"
-                      (click)="$content.hidden=true"
+                      (click)="select=$app.name"
                       i18n>Uninstall</button>
               <ng-template #$ing>
                 <button i18n
                         disabled>Uninstalling</button>
               </ng-template>
             </div>
-          </ng-container>
+          </ng-template>
         </div>
-        <ng-container *ngIf="$content.hidden">
-          <div class="content">
-            <div class="base">
-              <span>{{$app.localInfo.description.name}}</span>
-              <span class="size">{{$installedApp.size|sizeHuman}}</span>
-            </div>
-            <div class="warn"
-                 i18n>Are you sure to uninstall this application?</div>
-            <div class="uninstall">
-              <button (click)="$content.hidden=false"
-                      i18n>Cancel</button>
-              <button (click)="uninstall($installedApp.name);$content.hidden=false"
-                      i18n>Confirm</button>
-            </div>
-          </div>
-        </ng-container>
       </ng-container>
     </div>
   </div>

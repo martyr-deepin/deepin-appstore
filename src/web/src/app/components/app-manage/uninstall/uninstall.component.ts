@@ -33,6 +33,8 @@ export class UninstallComponent implements OnInit {
 
   installedApps$: Observable<InstalledApp[]>;
   uninstallingApps$: Observable<string[]>;
+  select = '';
+
   ngOnInit() {
     this.uninstallingApps$ = merge(
       this.storeService.getJobList(),
@@ -60,7 +62,9 @@ export class UninstallComponent implements OnInit {
   }
 
   uninstall(appName: string) {
-    this.storeService.removePackage(appName).subscribe();
+    this.storeService.removePackage(appName).subscribe(() => {
+      this.select = '';
+    });
   }
 
   getUrl(app: App) {
