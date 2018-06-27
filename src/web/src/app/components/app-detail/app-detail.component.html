@@ -1,37 +1,46 @@
-<div *ngIf="app$|async as app;else $loading">
+<div *ngIf="app;else $loading">
   <div class="appInfo">
     <div class="info-left">
       <img class="icon"
            [src]="metadataServer+'/'+app.icon">
       <br>
-      <ng-container *ngIf="version$|async as $version">
-        <ng-container *ngIf="job$|async as $job;else $ctlBtn">
-          <ng-container [ngSwitch]="$job.type">
+      <ng-container *ngIf="job$|async as job;else cltButton">
+        <ng-container *ngIf="job.status===StoreJobStatus.paused;else running">
+          <button [style]="getButtonStyle(job.progress)"
+                  (click)="start(job.job)"
+                  i18n>Paused</button>
+        </ng-container>
+        <ng-template #running>
+          <ng-container [ngSwitch]="job.type">
             <button *ngSwitchCase="StoreJobType.download"
+                    [style]="getButtonStyle(job.progress)"
+                    (click)="pause(job.job)"
                     i18n>Downloading</button>
             <button *ngSwitchCase="StoreJobType.install"
+                    [style]="getButtonStyle(job.progress)"
+                    (click)="pause(job.job)"
                     i18n>Installing</button>
             <button *ngSwitchCase="StoreJobType.uninstall"
+                    [style]="getButtonStyle(job.progress)"
                     i18n>Uninstalling</button>
           </ng-container>
-
-        </ng-container>
-        <ng-template #$ctlBtn>
-          <button *ngIf="!$version.localVersion;else $update"
-                  (click)="install(app)"
-                  i18n>Install</button>
-          <ng-template #$update>
-            <button *ngIf="$version.upgradable; else $open"
-                    (click)="install(app)"
-                    i18n>Update</button>
-          </ng-template>
-          <ng-template #$open>
-            <button *ngIf="appOpenable(app)"
-                    (click)="open(app.name)"
-                    i18n>Open</button>
-          </ng-template>
         </ng-template>
       </ng-container>
+      <ng-template #cltButton>
+        <button *ngIf="!app.version.localVersion;else $update"
+                (click)="install(app)"
+                i18n>Install</button>
+        <ng-template #$update>
+          <button *ngIf="app.version.upgradable; else $open"
+                  (click)="install(app)"
+                  i18n>Update</button>
+        </ng-template>
+        <ng-template #$open>
+          <button *ngIf="appOpenable(app)"
+                  (click)="open(app.name)"
+                  i18n>Open</button>
+        </ng-template>
+      </ng-template>
     </div>
     <div class="info-right">
       <div class="title">{{app.localInfo.description.name}}</div>
@@ -60,20 +69,12 @@
           <ng-container *ngIf="app.version">
             <div>{{app.version.remoteVersion || app.version.localVersion}}</div>
             <div>
-              <ng-container>
-                <ng-container *ngIf="app.version.localVersion && !app.version.upgradable;else $size"
-                              i18n>Downloaded</ng-container>
-                <ng-template #$size>
-                  <ng-container *ngIf="size$|async as $size; else $msg">{{$size|sizeHuman}}</ng-container>
-                  <ng-template #$msg
-                               let-$size>
-                    <ng-container *ngIf="$size===0;else $calc"
-                                  i18n>Downloaded</ng-container>
-                    <ng-template #$calc
-                                 i18n>Calculating</ng-template>
-                  </ng-template>
-                </ng-template>
-              </ng-container>
+              <ng-container *ngIf="size===null"
+                            i18n>Calculating</ng-container>
+              <ng-container *ngIf="size===0"
+                            i18n>Downloaded</ng-container>
+              <ng-container *ngIf="size>0"
+                            i18n>{{size|sizeHuman}}</ng-container>
             </div>
           </ng-container>
           <div>{{app.updateTime|date:'longDate'}}
@@ -121,9 +122,11 @@
 
   </ng-container>
 </div>
+
 <ng-template #$loading
              let-$app>
-  <app-wait *ngIf="$app===null;else $DropOff"></app-wait>
+  <app-wait *ngIf="app===null;else $DropOff"></app-wait>
+
   <ng-template #$DropOff>
     <div class="dropOff">
       <img class="tips_bg"
@@ -153,7 +156,7 @@
 <dialog class="donateDialog"
         #$donate
         (click)="dialogClick($event.target)">
-  <app-donate [appName]="appName"
+  <app-donate [appName]="app.name"
               *ngIf="$donate.open"
               (close)="$donate.close()"></app-donate>
 </dialog>

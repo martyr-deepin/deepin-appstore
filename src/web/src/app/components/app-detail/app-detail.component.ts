@@ -1,7 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
-import { flatMap, map, tap, concat, switchMap, publishReplay, refCount } from 'rxjs/operators';
+import {
+  flatMap,
+  map,
+  tap,
+  concat,
+  switchMap,
+  publishReplay,
+  refCount,
+  startWith,
+} from 'rxjs/operators';
 import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
 
 import { App, AppService } from '../../services/app.service';
@@ -9,15 +18,16 @@ import { BaseService } from '../../dstore/services/base.service';
 import { CanvasUtil } from '../../utils/canvas-util';
 import { StoreService } from '../../dstore-client.module/services/store.service';
 import {
-  AppJobStatus,
   StoreJobInfo,
   StoreJobType,
+  StoreJobStatus,
 } from '../../dstore-client.module/models/store-job-info';
 import { ReminderService } from '../../services/reminder.service';
 import { DownloadService } from '../../services/download.service';
 import { NotifyService } from '../../services/notify.service';
 import { NotifyType, NotifyStatus } from '../../services/notify.model';
 import { AppVersion } from '../../dstore-client.module/models/app-version';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-app-detail',
@@ -27,60 +37,51 @@ import { AppVersion } from '../../dstore-client.module/models/app-version';
 export class AppDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
     private appService: AppService,
     private storeService: StoreService,
     private reminderService: ReminderService,
     private downloadService: DownloadService,
     private notifyService: NotifyService,
   ) {}
-  appName: string;
   metadataServer = BaseService.serverHosts.metadataServer;
   open = this.storeService.openApp;
 
-  AppJobStatus = AppJobStatus;
+  StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
+
+  app: App = null;
+  size: number = null;
   job$: Observable<StoreJobInfo>;
-  size$: Observable<number>;
-  app$: Observable<App>;
-  version$: Observable<AppVersion>;
+
   @ViewChild('$donate') donate: ElementRef<HTMLDialogElement>;
 
+  pause = this.storeService.pauseJob;
+  start = this.storeService.resumeJob;
   ngOnInit() {
-    this.app$ = this.route.paramMap.pipe(
-      map(param => (this.appName = param.get('appName'))),
-      flatMap(appName => this.appService.getApp(appName)),
-      publishReplay(),
-      refCount(),
-    );
-    this.job$ = this.app$.pipe(
-      flatMap(
-        app =>
-          merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
-            flatMap(
-              jobs =>
-                jobs.length === 0
-                  ? of([] as StoreJobInfo[])
-                  : forkJoin(jobs.map(job => this.storeService.getJobInfo(job))),
-            ),
+    this.route.paramMap
+      .pipe(switchMap(param => this.appService.getApp(param.get('appName'))))
+      .subscribe(app => {
+        this.app = app;
+        this.job$ = merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
+          tap(() => {
+            this.storeService.getVersion([app.name]).subscribe(v => (this.app.version = v[0]));
+            this.storeService.appDownloadSize(app.name).subscribe(size => (this.size = size));
+          }),
+          switchMap(jobs => this.storeService.getJobsInfo(jobs)),
+          map(jobs => jobs.find(job => job.name === app.name)),
+          switchMap(
+            job =>
+              !job
+                ? of(undefined)
+                : timer(1000, 1000).pipe(
+                    switchMap(() => this.storeService.getJobInfo(job.job)),
+                    startWith(job),
+                  ),
           ),
-        (app, jobs) => jobs.find(job => job.name === app.name),
-      ),
-    );
-    this.version$ = this.app$.pipe(
-      flatMap(app =>
-        merge(
-          of(app.version),
-          this.storeService.jobListChange().pipe(
-            switchMap(() => this.storeService.getVersion([app.name])),
-            map(v => v[0]),
-          ),
-        ),
-      ),
-    );
-    this.size$ = merge(of(null), this.storeService.jobListChange()).pipe(
-      switchMap(() => this.app$),
-      switchMap(app => this.storeService.appDownloadSize(app.name)),
-    );
+          tap(job => console.log(job)),
+        );
+      });
   }
 
   install(app: App) {
@@ -92,6 +93,10 @@ export class AppDetailComponent implements OnInit {
           app.downloads++;
         },
       });
+  }
+
+  getButtonStyle(progress: number) {
+    return this.sanitizer.bypassSecurityTrustStyle(`--progress:${(progress * 100).toFixed(0)}%`);
   }
 
   screenshotClick(elID: string) {
@@ -111,20 +116,20 @@ export class AppDetailComponent implements OnInit {
   }
 
   reminder() {
-    this.app$
-      .pipe(flatMap(app => this.reminderService.reminder(app.name, app.version.remoteVersion)))
-      .subscribe(
-        () => {
-          this.notifyService.success(NotifyType.Reminder);
-        },
-        err => {
-          this.notifyService.error(NotifyType.Reminder);
-        },
-      );
+    this.reminderService.reminder(this.app.name, this.app.version.remoteVersion).subscribe(
+      () => {
+        this.notifyService.success(NotifyType.Reminder);
+      },
+      err => {
+        this.notifyService.error(NotifyType.Reminder);
+      },
+    );
   }
+
   donateOpen() {
     this.donate.nativeElement.showModal();
   }
+
   dialogClick(el: HTMLElement) {
     if (el.nodeName === 'DIALOG') {
       this.donate.nativeElement.close();
