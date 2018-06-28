@@ -102,8 +102,9 @@ void StoreDaemonProxy::cleanJob(const QString& job) {
   emit manager_->cleanJobRequest(job);
 }
 
-void StoreDaemonProxy::installPackage(const QString& app_name) {
-  emit manager_->installPackageRequest(app_name);
+void StoreDaemonProxy::installPackage(const QString& app_name,
+                                      const QString& app_local_name) {
+  emit manager_->installPackageRequest(app_name, app_local_name);
 }
 
 void StoreDaemonProxy::installedPackages() {
@@ -122,12 +123,14 @@ void StoreDaemonProxy::startJob(const QString& job) {
   emit manager_->startJobRequest(job);
 }
 
-void StoreDaemonProxy::updatePackage(const QString& app_name) {
-  emit manager_->updatePackageRequest(app_name);
+void StoreDaemonProxy::updatePackage(const QString& app_name,
+                                     const QString& app_local_name) {
+  emit manager_->updatePackageRequest(app_name, app_local_name);
 }
 
-void StoreDaemonProxy::removePackage(const QString& app_name) {
-  emit manager_->removePackageRequest(app_name);
+void StoreDaemonProxy::removePackage(const QString& app_name,
+                                     const QString& app_local_name) {
+  emit manager_->removePackageRequest(app_name, app_local_name);
 }
 
 void StoreDaemonProxy::queryVersions(const QString& task_id,

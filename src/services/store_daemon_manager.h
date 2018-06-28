@@ -43,10 +43,13 @@ class StoreDaemonManager : public QObject {
   void cleanJobRequest(const QString& job);
   void pauseJobRequest(const QString& job);
   void startJobRequest(const QString& job);
-  void installPackageRequest(const QString& app_name);
+  void installPackageRequest(const QString& app_name,
+                             const QString& app_local_name);
   void packageDownloadSizeRequest(const QString& app_name);
-  void updatePackageRequest(const QString& app_name);
-  void removePackageRequest(const QString& app_name);
+  void updatePackageRequest(const QString& app_name,
+                            const QString& app_local_name);
+  void removePackageRequest(const QString& app_name,
+                            const QString& app_local_name);
   void installedPackagesRequest();
 
   void queryVersionsRequest(const QString& task_id, const QStringList& apps);
@@ -137,8 +140,9 @@ class StoreDaemonManager : public QObject {
   /**
    * apt-get install xxx
    * @param app_name
+   * @param app_local_name
    */
-  void installPackage(const QString& app_name);
+  void installPackage(const QString& app_name, const QString& app_local_name);
 
   void installedPackages();
 
@@ -151,15 +155,16 @@ class StoreDaemonManager : public QObject {
   /**
    * apt-get upgrade xxx
    * @param app_name
+   * @param app_local_name
    */
-  void updatePackage(const QString& app_name);
+  void updatePackage(const QString& app_name, const QString& app_local_name);
 
   /**
    * apt-get remove xxx
    * @param app_name
-   * @return string, returns job path
+   * @param app_local_name
    */
-  void removePackage(const QString& app_name);
+  void removePackage(const QString& app_name, const QString& app_local_name);
 
   void queryVersions(const QString& task_id, const QStringList& apps);
 

@@ -2,7 +2,7 @@
     <method name="CleanArchives">
     </method>
     <method name="Install">
-        <arg name="jobName" type="s" direction="in"></arg>
+        <arg name="localName" type="s" direction="in"></arg>
         <arg name="id" type="s" direction="in"></arg>
         <arg name="job" type="o" direction="out"></arg>
     </method>
@@ -28,7 +28,7 @@
                     value="InstalledAppTimestamp"/>
     </method>
     <method name="Remove">
-        <arg name="jobName" type="s" direction="in"></arg>
+        <arg name="localName" type="s" direction="in"></arg>
         <arg name="id" type="s" direction="in"></arg>
         <arg name="job" type="o" direction="out"></arg>
     </method>

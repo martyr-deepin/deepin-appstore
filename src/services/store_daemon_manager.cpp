@@ -299,7 +299,8 @@ void StoreDaemonManager::startJob(const QString& job) {
   }
 }
 
-void StoreDaemonManager::installPackage(const QString& app_name) {
+void StoreDaemonManager::installPackage(const QString& app_name,
+                                        const QString& app_local_name) {
   // NOTE(Shaohua): package name is also set as job_name so that `name`
   // property in JobInfo is referred to package_name.
 
@@ -314,7 +315,7 @@ void StoreDaemonManager::installPackage(const QString& app_name) {
     });
   } else if (this->hasDebPkg(app_name)) {
     const QDBusPendingReply<QDBusObjectPath> reply =
-        deb_interface_->Install(app_name, app_name);
+        deb_interface_->Install(app_local_name, app_name);
     if (reply.isError()) {
       emit this->installPackageReply(QVariantMap {
           { kResultOk, false },
@@ -436,11 +437,13 @@ void StoreDaemonManager::packageDownloadSize(const QString& app_name) {
   }
 }
 
-void StoreDaemonManager::updatePackage(const QString& app_name) {
-  this->installPackage(app_name);
+void StoreDaemonManager::updatePackage(const QString& app_name,
+                                       const QString& app_local_name) {
+  this->installPackage(app_name, app_local_name);
 }
 
-void StoreDaemonManager::removePackage(const QString& app_name) {
+void StoreDaemonManager::removePackage(const QString& app_name,
+                                       const QString& app_local_name) {
   if (this->hasFlatPak(app_name)) {
     emit this->removePackageReply(QVariantMap {
         { kResultOk, false },
@@ -452,7 +455,7 @@ void StoreDaemonManager::removePackage(const QString& app_name) {
     });
   } else if (this->hasDebPkg(app_name)) {
     const QDBusPendingReply<QDBusObjectPath> reply =
-        deb_interface_->Remove(app_name, app_name);
+        deb_interface_->Remove(app_local_name, app_name);
     if (reply.isError()) {
       emit this->removePackageReply(QVariantMap {
           { kResultOk, false },

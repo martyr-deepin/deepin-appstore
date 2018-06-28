@@ -97,8 +97,9 @@ class StoreDaemonProxy : public QObject {
   /**
    * apt-get install xxx, to install or upgrade a program.
    * @param app_name
+   * @param app_local_name App local name is used by lastore daemon
    */
-  void installPackage(const QString& app_name);
+  void installPackage(const QString& app_name, const QString& app_local_name);
 
   /**
    * Get a list of installed packages.
@@ -115,14 +116,13 @@ class StoreDaemonProxy : public QObject {
    * apt-get upgrade xxx
    * @param app_name
    */
-  void updatePackage(const QString& app_name);
+  void updatePackage(const QString& app_name, const QString& app_local_name);
 
   /**
    * apt-get remove xxx
    * @param app_name
-   * @return string, returns job path
    */
-  void removePackage(const QString& app_name);
+  void removePackage(const QString& app_name, const QString& app_local_name);
 
   /**
    * Query application version information.

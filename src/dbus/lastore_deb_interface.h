@@ -50,10 +50,10 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("CleanArchives"), argumentList);
     }
 
-    inline QDBusPendingReply<QDBusObjectPath> Install(const QString &jobName, const QString &id)
+    inline QDBusPendingReply<QDBusObjectPath> Install(const QString &localName, const QString &id)
     {
         QList<QVariant> argumentList;
-        argumentList << QVariant::fromValue(jobName) << QVariant::fromValue(id);
+        argumentList << QVariant::fromValue(localName) << QVariant::fromValue(id);
         return asyncCallWithArgumentList(QStringLiteral("Install"), argumentList);
     }
 
@@ -84,10 +84,10 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("QueryVersion"), argumentList);
     }
 
-    inline QDBusPendingReply<QDBusObjectPath> Remove(const QString &jobName, const QString &id)
+    inline QDBusPendingReply<QDBusObjectPath> Remove(const QString &localName, const QString &id)
     {
         QList<QVariant> argumentList;
-        argumentList << QVariant::fromValue(jobName) << QVariant::fromValue(id);
+        argumentList << QVariant::fromValue(localName) << QVariant::fromValue(id);
         return asyncCallWithArgumentList(QStringLiteral("Remove"), argumentList);
     }
 
