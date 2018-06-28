@@ -3,5 +3,5 @@ export const environment = {
 
   // Server address only used in browser mode.
   metadataServer: 'https://dstore-metadata.deepin.org',
-  operationServer: 'https://china.dstore-operation.deepin.org',
+  operationServer: 'https://dstore-operation-china.deepin.org',
 };
