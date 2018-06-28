@@ -141,6 +141,12 @@
         align-items: center;
         flex-direction: column;
         padding: 0.5rem;
+        span {
+          text-align: center;
+          overflow: hidden;
+          width: 100%;
+          text-overflow: ellipsis;
+        }
       }
       .content {
         min-height: 4rem;
