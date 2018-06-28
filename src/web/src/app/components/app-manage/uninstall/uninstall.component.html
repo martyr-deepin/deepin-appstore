@@ -15,7 +15,7 @@
                   *ngIf="$installedApp.size > 0; else $unknown">{{$installedApp.size | sizeHuman}}</span>
             <ng-template #$unknown>
               <span class="size"
-                    i18n>Uknown</span>
+                    i18n>Unknown</span>
             </ng-template>
           </div>
           <ng-container *ngIf="select===$app.name ;else ctl">
