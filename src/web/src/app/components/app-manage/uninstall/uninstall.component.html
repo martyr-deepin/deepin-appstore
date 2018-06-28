@@ -1,5 +1,5 @@
-<ng-container *ngIf="uninstallingApps$|async as $uninstallingApps;else $wait">
-  <div *ngIf="installedApps$|async as $installedApps;else $wait">
+<ng-container *ngIf="installedApps as $installedApps;else $wait">
+  <div *ngIf="uninstallingApps as $uninstallingApps;else $wait">
     <div class="title"
          i18n>{{$installedApps.length}} {$installedApps.length,plural, =0 {application} =1 {application} other {applications} } installed
     </div>

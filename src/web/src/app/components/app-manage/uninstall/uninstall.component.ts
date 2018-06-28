@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { trigger, state, style, animate, transition, query } from '@angular/animations';
 
-import { Observable, timer, merge, forkJoin, of } from 'rxjs';
+import { Observable, timer, merge, forkJoin, of, Subscription } from 'rxjs';
 import { map, flatMap, switchMap, tap } from 'rxjs/operators';
 
 import * as _ from 'lodash';
@@ -16,14 +17,13 @@ import {
 import { AppService, App } from '../../../services/app.service';
 import { BaseService } from '../../../dstore/services/base.service';
 import { InstalledApp } from '../../../dstore-client.module/models/installed';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-uninstall',
   templateUrl: './uninstall.component.html',
   styleUrls: ['./uninstall.component.scss'],
 })
-export class UninstallComponent implements OnInit {
+export class UninstallComponent implements OnInit, OnDestroy {
   constructor(
     private sanitizer: DomSanitizer,
     private storeService: StoreService,
@@ -31,34 +31,37 @@ export class UninstallComponent implements OnInit {
   ) {}
   metadataServer = BaseService.serverHosts.metadataServer;
 
-  installedApps$: Observable<InstalledApp[]>;
-  uninstallingApps$: Observable<string[]>;
+  installedApps: InstalledApp[];
+  uninstallingApps: string[];
   select = '';
+  job: Subscription;
 
   ngOnInit() {
-    this.uninstallingApps$ = merge(
-      this.storeService.getJobList(),
-      this.storeService.jobListChange(),
-    ).pipe(
-      switchMap(
-        jobList =>
-          jobList.length === 0
-            ? of([])
-            : timer(0, 1000).pipe(switchMap(() => this.storeService.getJobsInfo(jobList))),
-      ),
-      map(jobInfoList => {
-        return jobInfoList
+    this.job = merge(this.storeService.getJobList(), this.storeService.jobListChange())
+      .pipe(
+        tap(() => {
+          this.storeService.getInstalledApps().subscribe(list => {
+            this.installedApps = _.sortBy(list, 'time').reverse();
+          });
+        }),
+        switchMap(
+          jobs =>
+            jobs.length > 0
+              ? timer(1000, 1000).pipe(flatMap(() => this.storeService.getJobsInfo(jobs)))
+              : of([]),
+        ),
+      )
+      .subscribe(jobInfoList => {
+        console.log(jobInfoList);
+        this.uninstallingApps = jobInfoList
           .filter(
-            jobInfo =>
-              jobInfo.type === StoreJobType.uninstall && jobInfo.status !== StoreJobStatus.failed,
+            job => job.type === StoreJobType.uninstall && job.status !== StoreJobStatus.failed,
           )
-          .map(jobInfo => jobInfo.name);
-      }),
-    );
-    this.installedApps$ = this.uninstallingApps$.pipe(
-      switchMap(() => this.storeService.getInstalledApps()),
-      map(list => _.sortBy(list, 'time').reverse()),
-    );
+          .map(job => job.name);
+      });
+  }
+  ngOnDestroy() {
+    this.job.unsubscribe();
   }
 
   uninstall(appName: string, localName: string) {
