@@ -64,13 +64,13 @@
                 <ng-container #$btnGroup
                               *ngIf="$job!==null">
                   <button *ngIf="!$version.localVersion && $version.remoteVersion"
-                          (click)="installApp($app.name)"
+                          (click)="installApp($app)"
                           i18n>Install</button>
                   <button *ngIf="$version.localVersion && !$version.upgradable && appOpenable($app)"
                           (click)="openApp($app.name)"
                           i18n>Open</button>
                   <button *ngIf="$version.upgradable"
-                          (click)="updateApp($app.name)"
+                          (click)="updateApp($app)"
                           i18n>Update</button>
                 </ng-container>
               </ng-container>

@@ -86,7 +86,7 @@ export class AppDetailComponent implements OnInit {
 
   install(app: App) {
     this.storeService
-      .installPackage(app.name)
+      .installPackage(app.name, app.localInfo.description.name)
       .pipe(flatMap(() => this.downloadService.record(app.name)))
       .subscribe({
         complete: () => {

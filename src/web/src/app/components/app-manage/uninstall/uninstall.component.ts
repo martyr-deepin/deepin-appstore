@@ -61,8 +61,8 @@ export class UninstallComponent implements OnInit {
     );
   }
 
-  uninstall(appName: string) {
-    this.storeService.removePackage(appName).subscribe(() => {
+  uninstall(appName: string, localName: string) {
+    this.storeService.removePackage(appName, localName).subscribe(() => {
       this.select = '';
     });
   }

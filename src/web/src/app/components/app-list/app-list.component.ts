@@ -52,8 +52,6 @@ export class AppListComponent implements OnInit, OnChanges {
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
   openApp = this.storeService.openApp;
-  installApp = (appName: string) => this.storeService.installPackage(appName).subscribe();
-  updateApp = (appName: string) => this.storeService.updatePackage(appName).subscribe();
 
   ngOnInit() {}
 
@@ -121,6 +119,13 @@ export class AppListComponent implements OnInit, OnChanges {
       this.appJobMap$ = of({});
       this.appVersionMap$ = of({});
     }
+  }
+
+  installApp(app: App) {
+    this.storeService.installPackage(app.name, app.localInfo.description.name).subscribe();
+  }
+  updateApp(app: App) {
+    this.storeService.updatePackage(app.name, app.localInfo.description.name).subscribe();
   }
 
   // Show 'open' button only if app open method is 'desktop'.
