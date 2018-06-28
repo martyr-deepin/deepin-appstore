@@ -17,12 +17,16 @@ export class CategoryService {
     return this.http.get<CustomCategory[]>(`${this.server}/api/blob/category`).pipe(
       retry(3),
       map(ccs => {
-        return ccs.filter(c => c.show).map((c, index) => ({
-          id: index.toString(),
-          title: c.name,
-          icon: c.icon.map(i => this.server + '/images/' + i),
-          apps: c.apps,
-        }));
+        if (ccs) {
+          return ccs.filter(c => c.show).map((c, index) => ({
+            id: index.toString(),
+            title: c.name,
+            icon: c.icon.map(i => this.server + '/images/' + i),
+            apps: c.apps,
+          }));
+        } else {
+          return [];
+        }
       }),
       shareReplay(),
     );

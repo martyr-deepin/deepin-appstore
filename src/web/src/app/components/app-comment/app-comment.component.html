@@ -25,7 +25,7 @@
 
       <span class="myInfo"
             (click)="$dropMenu.hidden=false;$dropMenu.focus()"
-            *ngIf="info.userID|deepinInfo|async as info;else default">
+            *ngIf="info.userID|deepinInfo|async as info;else myInfoDefault">
         {{info.username}}
         <img class="down"
              (click)="$dropMenu.hidden=false;$dropMenu.focus()">
@@ -40,7 +40,7 @@
         <img [src]="info.profile_image"
              class="profile min">
       </span>
-      <ng-template #default>
+      <ng-template #myInfoDefault>
         <span class="myInfo"
               (click)="$dropMenu.hidden=false;$dropMenu.focus()">
           {{info.username}}
@@ -112,12 +112,12 @@
       <ng-container i18n>User Comments</ng-container>
       &nbsp;
       <button [class.active]="select===CommentType.News"
-              (click)="select=CommentType.News;getList()">
+              (click)="selectType(CommentType.News)">
         <ng-container i18n>Current Version</ng-container>
         ({{total[CommentType.News]}})
       </button>
       <button [class.active]="select===CommentType.History"
-              (click)="select=CommentType.History;getList()">
+              (click)="selectType(CommentType.History)">
         <ng-container i18n>History Versions</ng-container>
         ({{total[CommentType.History]}})
       </button>
@@ -141,14 +141,22 @@
            i18n>There are not any user comments</div>
       <ng-container *ngIf="list && list.length>0">
         <table class="list">
-          <tr *ngFor="let c of list">
+          <tr *ngFor="let c of list"
+              [@myComment]="(haveNewComment && c.userID===info?.userID) ? 'in' : ''">
             <td>
               <div class="head"
-                   *ngIf="c.userID|deepinInfo|async as $userInfo;else default">
+                   *ngIf="c.userID|deepinInfo|async as $userInfo;else deepinInfoDefault">
                 <img [src]="$userInfo.profile_image"
                      class="profile">
                 <span>{{$userInfo.username}}</span>
               </div>
+              <ng-template #deepinInfoDefault>
+                <div class="head">
+                  <img src="/assets/images/default.jpeg"
+                       class="profile">
+                  <span>{{c.userID}}</span>
+                </div>
+              </ng-template>
             </td>
             <td>
               <div class="content">

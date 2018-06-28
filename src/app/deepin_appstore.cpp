@@ -51,6 +51,7 @@ int main(int argc, char** argv) {
   //settings.setRemoteDebug(false);
   settings.setRemoteDebug(true);
 #endif
+  settings.setIgnoresCertificateErrors(true);
   settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
 
   // Disable GPU process.

@@ -50,9 +50,11 @@
   margin: 0 0.5rem;
   vertical-align: middle;
   height: 3rem;
+  width: 3rem;
   min-height: 3rem;
   border-radius: 50%;
   &.min {
+    width: 1.5rem;
     height: 1.5rem;
     min-height: 1.5rem;
   }

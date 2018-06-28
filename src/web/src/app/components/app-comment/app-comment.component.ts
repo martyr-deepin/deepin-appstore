@@ -16,6 +16,18 @@ import { SizeHuman } from '../../dstore/pipes/size-human';
   selector: 'app-app-comment',
   templateUrl: './app-comment.component.html',
   styleUrls: ['./app-comment.component.scss'],
+  animations: [
+    trigger('myComment', [
+      state('in', style({ transform: 'scaleY(1)', opacity: 1 })),
+      transition('void => in', [
+        style({
+          transform: 'scaleY(0)',
+          opacity: 0,
+        }),
+        animate(200),
+      ]),
+    ]),
+  ],
 })
 export class AppCommentComponent implements OnInit {
   constructor(
@@ -36,6 +48,7 @@ export class AppCommentComponent implements OnInit {
     rate: 0,
     error: null,
   };
+  haveNewComment = false;
 
   total = [0, 0];
   CommentType = CommentType;
@@ -53,9 +66,11 @@ export class AppCommentComponent implements OnInit {
     this.getOwn();
     this.getList();
   }
+
   getInfo() {
     this.authService.info$.subscribe(info => (this.info = info));
   }
+
   getOwn() {
     this.authService.info$
       .pipe(
@@ -64,6 +79,7 @@ export class AppCommentComponent implements OnInit {
       )
       .subscribe(own => (this.own = own));
   }
+
   getList() {
     this.commentService
       .list(this.appName, {
@@ -76,6 +92,7 @@ export class AppCommentComponent implements OnInit {
         this.total[this.select] = result.totalCount;
       });
   }
+
   getCommentTotal() {
     forkJoin(
       this.commentService.list(this.appName, { page: 1, count: 1, version: this.version }),
@@ -84,7 +101,14 @@ export class AppCommentComponent implements OnInit {
       this.total = [news.totalCount, history.totalCount];
     });
   }
-  get submitComment() {
+
+  selectType(type: CommentType) {
+    this.select = type;
+    this.page.index = 0;
+    this.getList();
+  }
+
+  submitComment() {
     this.comment.content = this.comment.content.trim();
     if (!this.comment.content && this.comment.rate === 0) {
       this.comment.error = CommentError.AllInvalid;
@@ -103,11 +127,13 @@ export class AppCommentComponent implements OnInit {
       .subscribe(
         () => {
           this.getOwn();
+          this.selectType(CommentType.News);
           this.comment = {
             rate: 0,
             content: '',
             error: null,
           };
+          this.haveNewComment = true;
         },
         err => {
           this.comment.error = CommentError.Failed;
@@ -128,6 +154,7 @@ export class AppCommentComponent implements OnInit {
       });
     }
   }
+
   scrollToTop() {
     window.scrollTo(0, 0);
   }
