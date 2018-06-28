@@ -1,97 +1,97 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="da" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="es_419" version="2.1">
 <context>
     <name>QObject</name>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="93"/>
         <source>Deepin App Store</source>
-        <translation>Deepin Programbutik</translation>
+        <translation>Deepin App Store</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="94"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Deepin Butik er en programbutik med omfattende kvalitetsprogrammer. Anbefaling af populære, nye opdaterede programmer og populære emner er tilgængelige. Den understøtter ét klik ved download, installation og afinstallation osv.</translation>
+        <translation>Deepin Store es una tienda con enriquecidas aplicaciones de calidad. Recomendaciones populares, nuevas aplicaciones actualizadas y discusiones están al alcance. Soporta la opción de hacer un clic para descargar, instalar, actualizar, desinstalar y más.</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>Søg efter &quot;%1&quot; i Deepin Butik</translation>
+        <translation>Buscar &quot;%1&quot; en Deepin Store</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
         <source>Search</source>
-        <translation>Søg</translation>
+        <translation>Buscar</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="51"/>
         <source>Sign Out</source>
-        <translation>Log ud</translation>
+        <translation>Cerrar sesión</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="77"/>
         <source>Sign In</source>
-        <translation>Log ind</translation>
+        <translation>Iniciar sesión</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
         <source>Recommend App</source>
-        <translation>Anbefalet program</translation>
+        <translation>App Recoendadas</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
         <source>Select Region</source>
-        <translation>Vælg region</translation>
+        <translation>Seleccionar Región</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="86"/>
         <source>China</source>
-        <translation>Kina</translation>
+        <translation>China</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="89"/>
         <source>International</source>
-        <translation>Internationalt</translation>
+        <translation>Internacional</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="106"/>
         <source>Clear Cache</source>
-        <translation>Ryd cache</translation>
+        <translation>Limpiar Cache</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="75"/>
         <source>Undo</source>
-        <translation>Fortryd</translation>
+        <translation>Deshacer</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="80"/>
         <source>Redo</source>
-        <translation>Omgør</translation>
+        <translation>Rehacer</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="86"/>
         <source>Cut</source>
-        <translation>Klip</translation>
+        <translation>Cortar</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="91"/>
         <source>Copy</source>
-        <translation>Kopiér</translation>
+        <translation>Copiar</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="96"/>
         <source>Paste</source>
-        <translation>Indsæt</translation>
+        <translation>Pegar</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="101"/>
         <source>Delete</source>
-        <translation>Slet</translation>
+        <translation>Eliminar</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="107"/>
         <source>Select all</source>
-        <translation>Vælg alle</translation>
+        <translation>Seleccionar todo</translation>
     </message>
 </context>
 </TS>

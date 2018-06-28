@@ -2,12 +2,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="77"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="93"/>
         <source>Deepin App Store</source>
         <translation>Deepin App Store</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="78"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="94"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
         <translation>Deepin Store ist ein Appstore mit hochwertigen und umfangreichen Anwendungen. Angesagte Empfehlungen, neue aktuelle Apps sowie angesagte Themen sind verfügbar. Mit nur einem Klick werden Downloads, Installationen, Updates sowie Deinstallationen ausgeführt.</translation>
     </message>
@@ -59,37 +59,37 @@
         <translation>Cache leeren</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="74"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="75"/>
         <source>Undo</source>
         <translation>Rückgängig</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="79"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="80"/>
         <source>Redo</source>
         <translation>Wiederherstellen</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="85"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="86"/>
         <source>Cut</source>
         <translation>Ausschneiden</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="90"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="91"/>
         <source>Copy</source>
         <translation>Kopieren</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="95"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="96"/>
         <source>Paste</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="100"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="101"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="106"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="107"/>
         <source>Select all</source>
         <translation>Alle markieren</translation>
     </message>

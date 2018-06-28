@@ -1,97 +1,97 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="da" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="az" version="2.1">
 <context>
     <name>QObject</name>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="93"/>
         <source>Deepin App Store</source>
-        <translation>Deepin Programbutik</translation>
+        <translation>Deepin App Store</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="94"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Deepin Butik er en programbutik med omfattende kvalitetsprogrammer. Anbefaling af populære, nye opdaterede programmer og populære emner er tilgængelige. Den understøtter ét klik ved download, installation og afinstallation osv.</translation>
+        <translation>Deepin Store keyfiyyətli və zəngin proqramları olan bir Appstore. Populyar tövsiyə, yeni yenilənən tətbiqlər və isti mövzular mövcuddur. Yükləmək, yükləmək, yeniləmək, qaldırmaq və s.</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>Søg efter &quot;%1&quot; i Deepin Butik</translation>
+        <translation>Deepin Store&apos;də &quot;%1&quot; axtar</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
         <source>Search</source>
-        <translation>Søg</translation>
+        <translation>Axtarış</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="51"/>
         <source>Sign Out</source>
-        <translation>Log ud</translation>
+        <translation>Çıxış</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="77"/>
         <source>Sign In</source>
-        <translation>Log ind</translation>
+        <translation>Daxil ol</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
         <source>Recommend App</source>
-        <translation>Anbefalet program</translation>
+        <translation>Tövsiyə olunanlar</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
         <source>Select Region</source>
-        <translation>Vælg region</translation>
+        <translation>Bölgəni seçin</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="86"/>
         <source>China</source>
-        <translation>Kina</translation>
+        <translation>Çin</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="89"/>
         <source>International</source>
-        <translation>Internationalt</translation>
+        <translation>Beynəlxalq</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="106"/>
         <source>Clear Cache</source>
-        <translation>Ryd cache</translation>
+        <translation>Keşi təmizləmək</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="75"/>
         <source>Undo</source>
-        <translation>Fortryd</translation>
+        <translation>Geri al</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="80"/>
         <source>Redo</source>
-        <translation>Omgør</translation>
+        <translation>Qaytar</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="86"/>
         <source>Cut</source>
-        <translation>Klip</translation>
+        <translation>Kes</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="91"/>
         <source>Copy</source>
-        <translation>Kopiér</translation>
+        <translation>Kopyala</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="96"/>
         <source>Paste</source>
-        <translation>Indsæt</translation>
+        <translation>Yapışdır</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="101"/>
         <source>Delete</source>
-        <translation>Slet</translation>
+        <translation>Sil</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="107"/>
         <source>Select all</source>
-        <translation>Vælg alle</translation>
+        <translation>Hamısını seç</translation>
     </message>
 </context>
 </TS>

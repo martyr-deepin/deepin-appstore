@@ -2,20 +2,20 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="77"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="93"/>
         <source>Deepin App Store</source>
-        <translation>Deepin App Store</translation>
+        <translation>Tienda de aplicaciones</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="78"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="94"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Deepin Store es una tienda con enriquecidas aplicaciones de calidad. Recomendaciones populares, nuevas aplicaciones actualizadas y discusiones están al alcance. Soporta la opción de hacer un clic para descargar, instalar, actualizar, desinstalar y más.</translation>
+        <translation>«Deepin Store» es una tienda con enriquecidas aplicaciones de calidad. Recomendaciones populares, nuevas aplicaciones actualizadas y discusiones están al alcance. Soporta la opción de hacer un clic para descargar, instalar, actualizar, desinstalar y más.</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>Buscar &quot;%1&quot; en Deepin Store</translation>
+        <translation>Buscar &quot;%1&quot; en la tienda Deepin</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
@@ -36,12 +36,12 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
         <source>Recommend App</source>
-        <translation>App Recomendadas</translation>
+        <translation>Aplicaciones recomendadas</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
         <source>Select Region</source>
-        <translation>Seleccionar Región </translation>
+        <translation>Seleccionar región </translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="86"/>
@@ -56,40 +56,40 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="106"/>
         <source>Clear Cache</source>
-        <translation>Limpiar Cache</translation>
+        <translation>Limpiar caché</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="74"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="75"/>
         <source>Undo</source>
         <translation>Deshacer</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="79"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="80"/>
         <source>Redo</source>
         <translation>Rehacer</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="85"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="86"/>
         <source>Cut</source>
         <translation>Cortar</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="90"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="91"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="95"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="96"/>
         <source>Paste</source>
         <translation>Pegar</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="100"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="101"/>
         <source>Delete</source>
         <translation>Borrar</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="106"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="107"/>
         <source>Select all</source>
         <translation>Seleccionar todo</translation>
     </message>

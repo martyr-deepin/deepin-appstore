@@ -2,12 +2,12 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="77"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="93"/>
         <source>Deepin App Store</source>
         <translation>Sklep z programami Deepin</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="78"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="94"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
         <translation>Sklep Deepin to sklep z programami cechujący się wysoką jakością i bogactwem wyboru. Rekomendacje w oparciu o popularność, nowozaktualizowane programy i popularne kategorie - to jego funkcje. Obsługuje także pobieranie za pomocą jednego kliknięcia, instalacje, aktualizacje, odinstalowywanie itd.</translation>
     </message>
@@ -59,37 +59,37 @@
         <translation>Wyczyść pamięć podręczną</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="74"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="75"/>
         <source>Undo</source>
         <translation>Cofnij</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="79"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="80"/>
         <source>Redo</source>
         <translation>Ponów</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="85"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="86"/>
         <source>Cut</source>
         <translation>Wytnij</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="90"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="91"/>
         <source>Copy</source>
         <translation>Kopiuj</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="95"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="96"/>
         <source>Paste</source>
         <translation>Wklej</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="100"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="101"/>
         <source>Delete</source>
         <translation>Usuń</translation>
     </message>
     <message>
-        <location filename="../src/ui/web_event_delegate.cpp" line="106"/>
+        <location filename="../src/ui/web_event_delegate.cpp" line="107"/>
         <source>Select all</source>
         <translation>Wybierz wszystkie</translation>
     </message>
