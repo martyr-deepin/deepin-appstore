@@ -11,7 +11,8 @@ import {
   refCount,
   startWith,
 } from 'rxjs/operators';
-import * as ScrollIntoView from 'scroll-into-view/scrollIntoView';
+
+import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 import { App, AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
@@ -99,16 +100,18 @@ export class AppDetailComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustStyle(`--progress:${(progress * 100).toFixed(0)}%`);
   }
 
-  screenshotClick(elID: string) {
-    // chrome 61 support
-    // const opt: ScrollIntoViewOptions = {
-    //   behavior: 'smooth',
-    //   inline: 'center',
-    //   block: 'nearest',
-    // };
-    // (<HTMLElement>event.target).scrollIntoView(opt);
-
-    ScrollIntoView(document.getElementById(elID));
+  screenshotClick(id: string) {
+    const el = document.querySelector('#' + id);
+    if (el) {
+      const opt: ScrollIntoViewOptions = {
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      };
+      //  chrome 61 support
+      //  el.scrollIntoView(opt)
+      smoothScrollIntoView(el, opt);
+    }
   }
 
   previewImage(img: HTMLImageElement) {

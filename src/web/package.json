@@ -36,7 +36,8 @@
     "qrcode": "^1.2.0",
     "rxjs": "^6.1.0",
     "rxjs-compat": "^6.1.0",
-    "scroll-into-view": "^1.9.3",
+    "scroll-into-view-if-needed": "^2.2.8",
+    "smooth-scroll-into-view-if-needed": "^1.1.9",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

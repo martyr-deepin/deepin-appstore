@@ -99,19 +99,20 @@
   </div>
   <br>
   <br>
-  <div class="screenshots">
-    <!-- [about crossOrigin attribute]https://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror/27260385#27260385 -->
-    <img *ngFor="let screenshot of app.localInfo.images.screenshot;index as $index"
-         [id]="'screenshot-'+$index"
-         [src]="metadataServer+'/'+screenshot"
-         (click)="screenshotClick('screenshot-'+$index); indication.selectIndex=$index"
-         crossOrigin="anonymous"
-         (dblclick)="previewImage($event.target)">
-  </div>
-  <dstore-indication [count]="app.localInfo.images.screenshot.length"
-                     #indication
-                     (change)="screenshotClick('screenshot-'+$event)"></dstore-indication>
-
+  <ng-container *ngIf="[app.localInfo.images.screenshot,app.localInfo.images.screenshotHD]|fitImage as screenshotList">
+    <div class="screenshots">
+      <!-- [about crossOrigin attribute]https://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror/27260385#27260385 -->
+      <img *ngFor="let screenshot of screenshotList;index as $index"
+           id="screenshot-{{$index}}"
+           [src]="metadataServer+'/'+screenshot"
+           (click)="screenshotClick('screenshot-'+$index); indication.selectIndex=$index"
+           crossOrigin="anonymous"
+           (dblclick)="previewImage($event.target)">
+    </div>
+    <dstore-indication [count]="screenshotList.length"
+                       #indication
+                       (change)="screenshotClick('screenshot-'+$event)"></dstore-indication>
+  </ng-container>
 
   <ng-container *ngIf="app.version">
     <div class="donateBtn">
