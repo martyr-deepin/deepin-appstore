@@ -57,8 +57,9 @@ void ReadJobInfo(LastoreJobInterface& job_interface,
   result.insert("name", job_interface.name());
   QStringList app_names;
 
+  // Package list may container additional language related packages.
   const QStringList pkgs = job_interface.packages();
-  if (pkgs.length() == 1) {
+  if (pkgs.length() >= 1) {
     const QString& pkg = pkgs.at(0);
     // TODO(Shaohua): Also check flatpak list.
     if (deb_names.contains(pkg)) {
