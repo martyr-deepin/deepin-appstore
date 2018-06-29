@@ -76,8 +76,7 @@
                             i18n>Calculating</ng-container>
               <ng-container *ngIf="size===0"
                             i18n>Downloaded</ng-container>
-              <ng-container *ngIf="size>0"
-                            i18n>{{size|sizeHuman}}</ng-container>
+              <ng-container *ngIf="size>0">{{size|sizeHuman}}</ng-container>
             </div>
           </ng-container>
           <div>{{app.updateTime|date:'longDate'}}

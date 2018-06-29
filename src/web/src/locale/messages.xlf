@@ -178,18 +178,11 @@
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="57cf91fd8c863da2a3bee83441288d07b8c7d9de" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{size|sizeHuman}}"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">80</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="535ed5b1faa4fb391623e885e7b752bb90b1c473" datatype="html">
         <source>Ask for update</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7898e09675b07f90ae57701b3bd781556a0d3f22" datatype="html">
