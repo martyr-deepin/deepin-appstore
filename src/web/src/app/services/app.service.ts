@@ -59,7 +59,9 @@ export class AppService {
     return this.http.get<{ apps: string[] }>(`${this.server}/api/app`).pipe(
       flatMap(resp =>
         forkJoin(
-          this.appService.getAppMapByNames(resp.apps),
+          this.appService
+            .getAppListByNames(resp.apps)
+            .pipe(map(apps => new Map(apps.map(app => [app.name, app] as [string, App])))),
           this.http.get<AppStat>(`${this.server}/api/appstat`),
         ),
       ),

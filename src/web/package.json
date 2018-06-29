@@ -28,6 +28,7 @@
     "@types/qrcode": "^0.8.1",
     "core-js": "^2.5.7",
     "jquery": "^3.3.1",
+    "localforage": "^1.7.2",
     "node": "^9.11.2",
     "node-sass": "^4.9.0",
     "npm": "^6.1.0",
