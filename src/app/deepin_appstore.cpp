@@ -33,6 +33,8 @@ namespace {
 const char kEnableDomStorageFlush[] = "--enable-aggressive-domstorage-flushing";
 
 const char kDisableGpu[] = "--disable-gpu";
+const char kEnableLogging[] = "--enable-logging";
+const char kLogLevel[] = "--log-level";
 
 }  // namespace 
 
@@ -66,6 +68,11 @@ int main(int argc, char** argv) {
   cache_dir.mkpath(".");
   settings.setCachePath(cache_dir.filePath("cache"));
   settings.setUserDataPath(cache_dir.filePath("cef-storage"));
+
+  // TODO(Shaohua): Rotate console log.
+  settings.setLogFile(cache_dir.filePath("web-console.log"));
+  settings.addCommandLineSwitch(kEnableLogging, "");
+  settings.addCommandLineSwitch(kLogLevel, "0");
 
   settings.setCustomSchemeHandler(dstore::RccSchemeHandler);
   settings.addCustomScheme(QUrl("rcc://web"));
