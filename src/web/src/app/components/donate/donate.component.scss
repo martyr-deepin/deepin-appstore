@@ -63,6 +63,9 @@
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+    input[disabled] + img {
+      opacity: 0.5;
+    }
   }
 }
 .btn {
