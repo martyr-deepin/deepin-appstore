@@ -50,4 +50,8 @@ const QVariantMap SettingsProxy::getServers() {
     };
 }
 
+void SettingsProxy::raiseWindow() {
+  emit this->raiseWindowRequested();
+}
+
 }  // namespace dstore

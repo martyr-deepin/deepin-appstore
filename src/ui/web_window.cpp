@@ -149,6 +149,9 @@ void WebWindow::initConnections() {
 
   connect(web_view_->page(), &QCefWebPage::loadingStateChanged,
           this, &WebWindow::onLoadingStateChanged);
+
+  connect(settings_proxy_, &SettingsProxy::raiseWindowRequested,
+          this, &WebWindow::raiseWindow);
 }
 
 void WebWindow::initProxy() {

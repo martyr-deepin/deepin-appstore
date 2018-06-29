@@ -32,6 +32,9 @@ class SettingsProxy : public QObject {
   explicit SettingsProxy(QObject* parent = nullptr);
   ~SettingsProxy() override;
 
+ signals:
+  void raiseWindowRequested();
+
  public slots:
   const QString getMetadataServer();
   const QString getOperationServer();
@@ -47,6 +50,11 @@ class SettingsProxy : public QObject {
    * @return
    */
   const QVariantMap getServers();
+
+  /**
+   * Raise main window.
+   */
+  void raiseWindow();
 };
 
 }  // namespace dstore
