@@ -12,8 +12,6 @@ import {
   startWith,
 } from 'rxjs/operators';
 
-import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
-
 import { App, AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { CanvasUtil } from '../../utils/canvas-util';
@@ -110,7 +108,8 @@ export class AppDetailComponent implements OnInit {
       };
       //  chrome 61 support
       //  el.scrollIntoView(opt)
-      smoothScrollIntoView(el, opt);
+      // smoothScrollIntoView(el, opt);
+      el.scrollIntoView();
     }
   }
 

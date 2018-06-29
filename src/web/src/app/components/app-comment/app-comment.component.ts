@@ -4,8 +4,6 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable, concat, forkJoin } from 'rxjs';
 import * as _ from 'lodash';
 
-import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
-
 import { AuthService, UserInfo } from '../../services/auth.service';
 import { LoginService } from '../../services/login.service';
 import { BaseService } from '../../dstore/services/base.service';
@@ -158,7 +156,8 @@ export class AppCommentComponent implements OnInit {
   }
 
   scrollToTop() {
-    smoothScrollIntoView(document.querySelector('.context'), { block: 'start' });
+    window.scrollTo(0, 0);
+    // smoothScrollIntoView(document.querySelector('.context'), { block: 'start' });
   }
 }
 enum CommentType {
