@@ -41,6 +41,8 @@ void SetRegion(OperationServerRegion region);
 
 OperationServerRegion GetRegion();
 
+QString GetSessionSettingsFile();
+
 }  // namespace dstore
 
 #endif  // DEEPIN_APPSTORE_SERVICES_SETTINGS_MANAGER_H

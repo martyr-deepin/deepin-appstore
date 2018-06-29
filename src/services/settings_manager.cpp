@@ -33,6 +33,13 @@ const char kIntlServerName[] = "internationalOperationServer";
 const char kDefaultRegionName[] = "defaultOperationServer";
 const char kRegionName[] = "currentRegion";
 
+QVariant GetSystemSettingsValue(const QString& key) {
+  QSettings settings(SETTINGS_FILE, QSettings::IniFormat);
+  return settings.value(key);
+}
+
+}  // namespace
+
 QString GetSessionSettingsFile() {
   QDir dir = QDir::home().absoluteFilePath(
       ".config/deepin/deepin-appstore");
@@ -41,13 +48,6 @@ QString GetSessionSettingsFile() {
   }
   return dir.filePath("settings.ini");
 }
-
-QVariant GetSystemSettingsValue(const QString& key) {
-  QSettings settings(SETTINGS_FILE, QSettings::IniFormat);
-  return settings.value(key);
-}
-
-}  // namespace
 
 bool IsSignInSupported() {
   return GetSystemSettingsValue(kSupportSigninName).toBool();

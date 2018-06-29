@@ -22,6 +22,7 @@
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QResizeEvent>
+#include <QSettings>
 #include <QTimer>
 #include <QWebChannel>
 #include <qcef_web_page.h>
@@ -49,6 +50,37 @@ namespace {
 
 const int kSearchDelay = 200;
 
+const char kSettingsGrpName[] = "WebWindow";
+const char kSettingsWinSize[] = "size";
+const char kSettingsWinPos[] = "pos";
+const char kSettingsWinMax[] = "isMaximized";
+
+void BackupWindowState(QWidget* widget) {
+  Q_ASSERT(widget != nullptr);
+  QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+  settings.beginGroup(kSettingsGrpName);
+  settings.setValue(kSettingsWinPos, widget->pos());
+  settings.setValue(kSettingsWinSize, widget->size());
+  settings.setValue(kSettingsWinMax, widget->isMaximized());
+  settings.endGroup();
+}
+
+void RestoreWindowState(QWidget* widget) {
+  Q_ASSERT(widget != nullptr);
+  QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+  settings.beginGroup(kSettingsGrpName);
+  if (settings.contains(kSettingsWinSize)) {
+    widget->resize(settings.value(kSettingsWinSize).toSize());
+  }
+  if (settings.contains(kSettingsWinPos)) {
+    widget->move(settings.value(kSettingsWinPos).toPoint());
+  }
+  if (settings.value(kSettingsWinMax, false).toBool()) {
+    widget->showMaximized();
+  }
+  settings.endGroup();
+}
+
 }  // namespace
 
 WebWindow::WebWindow(QWidget* parent)
@@ -65,9 +97,14 @@ WebWindow::WebWindow(QWidget* parent)
 
   // Connect signals to slots after all of internal objects are constructed.
   this->initConnections();
+
+  // Restore window state on init.
+  RestoreWindowState(this);
 }
 
 WebWindow::~WebWindow() {
+  // Save current window state.
+  BackupWindowState(this);
 }
 
 void WebWindow::loadPage() {
