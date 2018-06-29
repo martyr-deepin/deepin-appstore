@@ -39,6 +39,35 @@ const char kResult[] = "result";
 const char kResultName[] = "name";
 const char kResultValue[] = "value";
 
+void ReadJobInfo(LastoreJobInterface& job_interface,
+                 const QString& job,
+                 QMultiHash<QString, QString>& deb_names,
+                 QVariantMap& result) {
+  result.insert("id", job_interface.id());
+  result.insert("job", job);
+  result.insert("status", job_interface.status());
+  result.insert("type", job_interface.type());
+  result.insert("speed", job_interface.speed());
+  result.insert("progress", job_interface.progress());
+  result.insert("description", job_interface.description());
+  result.insert("packages", job_interface.packages());
+  result.insert("cancelable", job_interface.cancelable());
+  result.insert("downloadSize", job_interface.downloadSize());
+  result.insert("createTime", job_interface.createTime());
+  result.insert("name", job_interface.name());
+  QStringList app_names;
+
+  const QStringList pkgs = job_interface.packages();
+  if (pkgs.length() == 1) {
+    const QString& pkg = pkgs.at(0);
+    // TODO(Shaohua): Also check flatpak list.
+    if (deb_names.contains(pkg)) {
+      app_names = deb_names.values(pkg);
+    }
+  }
+  result.insert("names", app_names);
+}
+
 }  // namespace
 
 StoreDaemonManager::StoreDaemonManager(QObject* parent)
@@ -615,18 +644,8 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
                                     QDBusConnection::sessionBus(),
                                     this);
   if (job_interface.isValid()) {
-    result.insert("id", job_interface.id());
-    result.insert("job", job);
-    result.insert("name", job_interface.name());
-    result.insert("status", job_interface.status());
-    result.insert("type", job_interface.type());
-    result.insert("speed", job_interface.speed());
-    result.insert("progress", job_interface.progress());
-    result.insert("description", job_interface.description());
-    result.insert("packages", job_interface.packages());
-    result.insert("cancelable", job_interface.cancelable());
-    result.insert("downloadSize", job_interface.downloadSize());
-    result.insert("createTime", job_interface.createTime());
+    ReadJobInfo(job_interface, job, deb_names_, result);
+
     emit this->getJobInfoReply(QVariantMap {
         { kResultOk, true },
         { kResultErrName, "" },
@@ -666,19 +685,7 @@ void StoreDaemonManager::getJobsInfo(const QString& task_id,
                                       QDBusConnection::sessionBus(),
                                       this);
     if (job_interface.isValid()) {
-      job_info.insert("id", job_interface.id());
-      job_info.insert("job", job);
-      job_info.insert("name", job_interface.name());
-      job_info.insert("status", job_interface.status());
-      job_info.insert("type", job_interface.type());
-      job_info.insert("speed", job_interface.speed());
-      job_info.insert("progress", job_interface.progress());
-      job_info.insert("description", job_interface.description());
-      job_info.insert("packages", job_interface.packages());
-      job_info.insert("cancelable", job_interface.cancelable());
-      job_info.insert("downloadSize", job_interface.downloadSize());
-      job_info.insert("createTime", job_interface.createTime());
-
+      ReadJobInfo(job_interface, job, deb_names_, job_info);
       jobs_info.append(job_info);
     }
   }
