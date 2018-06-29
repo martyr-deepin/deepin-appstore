@@ -64,7 +64,12 @@ void ReadJobInfo(LastoreJobInterface& job_interface,
     // TODO(Shaohua): Also check flatpak list.
     if (deb_names.contains(pkg)) {
       app_names = deb_names.values(pkg);
+    } else {
+      qWarning() << Q_FUNC_INFO << "pkg not found:" << pkg;
     }
+  }
+  if (app_names.length() != 1) {
+    qCritical() << Q_FUNC_INFO << "app name invalid: " << app_names << job;
   }
   result.insert("names", app_names);
 }

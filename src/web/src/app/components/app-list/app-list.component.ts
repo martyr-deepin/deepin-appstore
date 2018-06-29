@@ -1,5 +1,13 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
-import { Observable, timer, of, empty, forkJoin, merge, combineLatest, from } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  EventEmitter,
+  Output,
+  OnDestroy,
+} from '@angular/core';
+import { Observable, timer, of, forkJoin, merge, from, Subscription } from 'rxjs';
 import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
@@ -23,7 +31,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './app-list.component.html',
   styleUrls: ['./app-list.component.scss'],
 })
-export class AppListComponent implements OnInit, OnChanges {
+export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private appService: AppService,
     private storeService: StoreService,
@@ -43,6 +51,9 @@ export class AppListComponent implements OnInit, OnChanges {
   @Input() subtitle = 'category';
   @Output() appListLength = new EventEmitter<number>(true);
 
+  apps: App[];
+  jobs: { [key: string]: StoreJobInfo } = {};
+  jobs$: Subscription;
   // data observable
   appList$: Observable<App[]>;
   appJobMap$: Observable<{ [key: string]: Observable<StoreJobInfo> }>;
@@ -53,15 +64,44 @@ export class AppListComponent implements OnInit, OnChanges {
   pause = this.storeService.pauseJob;
   openApp = this.storeService.openApp;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.jobs$ = merge(this.storeService.getJobList(), this.storeService.jobListChange())
+      .pipe(
+        switchMap(jobs => {
+          if (jobs.length > 0) {
+            return timer(0, 1000).pipe(flatMap(() => this.storeService.getJobsInfo(jobs)));
+          } else {
+            return of([] as StoreJobInfo[]);
+          }
+        }),
+      )
+      .subscribe(jobInfos => {
+        const jobs: { [key: string]: StoreJobInfo } = {};
+        jobInfos.forEach(job => {
+          job.names.forEach(name => {
+            jobs[name] = job;
+          });
+        });
+        this.jobs = jobs;
+        this.storeService.getVersion(Object.keys(this.jobs)).subscribe(versions => {
+          const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
+          if (this.apps) {
+            this.apps.forEach(app => {
+              if (vMap.has(app.name)) {
+                app.version = vMap.get(app.name);
+              }
+            });
+          }
+        });
+      });
+  }
+  ngOnDestroy() {
+    this.jobs$.unsubscribe();
+  }
 
   ngOnChanges() {
-    console.log('ngOnChanges', this.apps$);
-    if (!this.apps$) {
-      return;
-    }
-    this.appList$ = this.apps$.pipe(
-      map(apps => {
+    if (this.apps$) {
+      this.apps$.subscribe(apps => {
         apps = apps.filter(app => app);
         if (this.sortBy) {
           apps = sortBy(apps, [
@@ -72,53 +112,69 @@ export class AppListComponent implements OnInit, OnChanges {
         if (this.maxCount) {
           apps = apps.slice(0, this.maxCount);
         }
-        return apps;
-      }),
-      tap(apps => {
-        console.log('appList', apps);
-
-        window.scrollTo(0, this.offsetService.getOffset(this.router.url) || 0);
-        this.appListLength.emit(apps.length);
-      }),
-      shareReplay(),
-    );
-
-    if (BaseService.isNative) {
-      this.appJobMap$ = merge(
-        this.storeService.getJobList(),
-        this.storeService.jobListChange(),
-      ).pipe(
-        switchMap(jobs => this.storeService.getJobsInfo(jobs)),
-        map(jobs => {
-          return jobs.reduce<{ [key: string]: Observable<StoreJobInfo> }>(
-            (obj, job) =>
-              Object.assign(obj, {
-                [job.name]: timer(0, 1000).pipe(
-                  switchMap(() => this.storeService.getJobInfo(job.job)),
-                ),
-              }),
-            {},
-          );
-        }),
-      );
-
-      this.appVersionMap$ = combineLatest(
-        this.storeService.jobListChange().pipe(startWith([])),
-        this.appList$,
-        (job, apps) => apps,
-      ).pipe(
-        switchMap(apps => this.storeService.getVersion(apps.map(app => app.name))),
-        map(versionList => {
-          return versionList.reduce<{ [key: string]: AppVersion }>(
-            (obj, v) => Object.assign(obj, { [v.name]: v }),
-            {},
-          );
-        }),
-      );
-    } else {
-      this.appJobMap$ = of({});
-      this.appVersionMap$ = of({});
+        this.apps = apps;
+      });
     }
+    // console.log('ngOnChanges', this.apps$);
+    // if (!this.apps$) {
+    //   return;
+    // }
+    // this.appList$ = this.apps$.pipe(
+    //   map(apps => {
+    //     apps = apps.filter(app => app);
+    //     if (this.sortBy) {
+    //       apps = sortBy(apps, [
+    //         this.sortBy === SortOrder.Downloads ? 'downloads' : 'rate',
+    //         'name',
+    //       ]).reverse();
+    //     }
+    //     if (this.maxCount) {
+    //       apps = apps.slice(0, this.maxCount);
+    //     }
+    //     return apps;
+    //   }),
+    //   tap(apps => {
+    //     console.log('appList', apps);
+    //     window.scrollTo(0, this.offsetService.getOffset(this.router.url) || 0);
+    //     this.appListLength.emit(apps.length);
+    //   }),
+    //   shareReplay(),
+    // );
+    // if (BaseService.isNative) {
+    //   this.appJobMap$ = merge(
+    //     this.storeService.getJobList(),
+    //     this.storeService.jobListChange(),
+    //   ).pipe(
+    //     switchMap(jobs => this.storeService.getJobsInfo(jobs)),
+    //     map(jobs => {
+    //       return jobs.reduce<{ [key: string]: Observable<StoreJobInfo> }>(
+    //         (obj, job) =>
+    //           Object.assign(obj, {
+    //             [job.name]: timer(0, 1000).pipe(
+    //               switchMap(() => this.storeService.getJobInfo(job.job)),
+    //             ),
+    //           }),
+    //         {},
+    //       );
+    //     }),
+    //   );
+    //   this.appVersionMap$ = combineLatest(
+    //     this.storeService.jobListChange().pipe(startWith([])),
+    //     this.appList$,
+    //     (job, apps) => apps,
+    //   ).pipe(
+    //     switchMap(apps => this.storeService.getVersion(apps.map(app => app.name))),
+    //     map(versionList => {
+    //       return versionList.reduce<{ [key: string]: AppVersion }>(
+    //         (obj, v) => Object.assign(obj, { [v.name]: v }),
+    //         {},
+    //       );
+    //     }),
+    //   );
+    // } else {
+    //   this.appJobMap$ = of({});
+    //   this.appVersionMap$ = of({});
+    // }
   }
 
   installApp(app: App) {

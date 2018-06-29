@@ -53,11 +53,13 @@ export class UninstallComponent implements OnInit, OnDestroy {
       )
       .subscribe(jobInfoList => {
         console.log(jobInfoList);
-        this.uninstallingApps = jobInfoList
-          .filter(
-            job => job.type === StoreJobType.uninstall && job.status !== StoreJobStatus.failed,
-          )
-          .map(job => job.name);
+        this.uninstallingApps = [].concat(
+          ...jobInfoList
+            .filter(
+              job => job.type === StoreJobType.uninstall && job.status !== StoreJobStatus.failed,
+            )
+            .map(job => job.names),
+        );
       });
   }
   ngOnDestroy() {
@@ -67,6 +69,7 @@ export class UninstallComponent implements OnInit, OnDestroy {
   uninstall(appName: string, localName: string) {
     this.storeService.removePackage(appName, localName).subscribe(() => {
       this.select = '';
+      this.uninstallingApps.push(appName);
     });
   }
 

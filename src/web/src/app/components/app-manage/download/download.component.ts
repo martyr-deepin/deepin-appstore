@@ -58,10 +58,18 @@ export class DownloadComponent implements OnInit, OnDestroy {
             }
           });
         }),
-        switchMap(jobs => timer(0, 1000), jobs => jobs),
-        switchMap(jobs => this.storeService.getJobsInfo(jobs)),
+        switchMap(jobs => {
+          if (jobs.length > 0) {
+            return timer(0, 1000).pipe(switchMap(() => this.storeService.getJobsInfo(jobs)));
+          } else {
+            return of([]);
+          }
+        }),
       )
       .subscribe(jobInfos => {
+        if (jobInfos.length === 0) {
+          this.jobs = [];
+        }
         jobInfos.sort((a, b) => a.createTime - b.createTime).forEach(jobInfo => {
           const oldJob = this.jobs.find(job => job.id === jobInfo.id);
           if (oldJob) {

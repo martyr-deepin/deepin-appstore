@@ -3,110 +3,112 @@
   <div class="title"
        i18n>Processing {{jobs.length}} {jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
 
-  <div class="item"
-       *ngFor="let job of jobs"
-       @flyInOut>
-    <ng-container *ngIf="job.name|appInfo|async as $app">
+  <ng-container *ngFor="let job of jobs">
+    <div class="item"
+         *ngFor="let appName of job.names"
+         @flyInOut>
+      <ng-container *ngIf="appName|appInfo|async as $app">
 
-      <img class="icon"
-           [src]="getUrl($app)"
-           [routerLink]="$app.name">
-      <div class="content">
-        <div class="appInfo"
+        <img class="icon"
+             [src]="getUrl($app)"
              [routerLink]="$app.name">
-          <div class="name">{{$app.localInfo.description.name}}</div>
-          <div class="version">
-            <ng-container i18n>Version:</ng-container>{{$app.version?.remoteVersion}}</div>
-        </div>
-        <div class="time co-star">
-          <span i18n>Time left: </span>
-          <ng-container *ngIf="job.status===StoreJobStatus.running && job.speed;else $wait">
-            <span *ngIf="(job.downloadSize*(1-job.progress*2)/job.speed).toFixed(0) as $d;else $wait">
-              <ng-container *ngIf="$d>=60">
-                <ng-container *ngIf="($d/60|lodash).floor() as $m"
-                              i18n>{{$m}} min</ng-container>
-              </ng-container>
-              &nbsp;
-              <ng-container *ngIf="$d>0;else $wait">
-                <ng-container *ngIf="($d%60|lodash).floor() as $s"
-                              i18n>{{$s}} sec</ng-container>
-              </ng-container>
-            </span>
-          </ng-container>
-          <ng-template #$wait> - - </ng-template>
-        </div>
-
-        <div class="progressInfo co-star">
-          <progress [value]="job.progress"
-                    max="1"></progress>
-          <ng-container *ngIf="job.speed as speed;else $msg">
-            <ng-container *ngIf="job.progress as progress;else $msg">
-              <div class="speed"
-                   *ngIf="job.type===StoreJobType.download&&job.status===StoreJobStatus.running;else $msg">
-
-                <span *ngIf="job.downloadSize"
-                      class="size">
-                  {{(job.downloadSize*job.progress*2)|sizeHuman}} / {{job.downloadSize|sizeHuman}}
-                </span>
-                <span>{{speed|sizeHuman}}/S</span>
-              </div>
+        <div class="content">
+          <div class="appInfo"
+               [routerLink]="$app.name">
+            <div class="name">{{$app.localInfo.description.name}}</div>
+            <div class="version">
+              <ng-container i18n>Version:</ng-container>{{$app.version?.remoteVersion}}</div>
+          </div>
+          <div class="time co-star">
+            <span i18n>Time left: </span>
+            <ng-container *ngIf="job.status===StoreJobStatus.running && job.speed;else $wait">
+              <span *ngIf="(job.downloadSize*(1-job.progress*2)/job.speed).toFixed(0) as $d;else $wait">
+                <ng-container *ngIf="$d>=60">
+                  <ng-container *ngIf="($d/60|lodash).floor() as $m"
+                                i18n>{{$m}} min</ng-container>
+                </ng-container>
+                &nbsp;
+                <ng-container *ngIf="$d>0;else $wait">
+                  <ng-container *ngIf="($d%60|lodash).floor() as $s"
+                                i18n>{{$s}} sec</ng-container>
+                </ng-container>
+              </span>
             </ng-container>
-          </ng-container>
-          <ng-template #$msg>
-            <div class="message"
-                 [class.failed]="job.status===StoreJobStatus.failed">
-              <ng-container *ngIf="job.type===StoreJobType.download"
-                            [ngSwitch]="job.status">
-                <ng-container *ngSwitchCase="StoreJobStatus.running"
-                              i18n>Waiting to download</ng-container>
-                <ng-container *ngSwitchCase="StoreJobStatus.paused"
-                              i18n>Paused</ng-container>
-                <ng-container *ngSwitchCase="StoreJobStatus.ready"
-                              i18n>Waiting to download</ng-container>
-                <ng-container *ngSwitchCase="StoreJobStatus.failed"
-                              i18n>Download failed</ng-container>
-                <ng-container *ngSwitchCase="StoreJobStatus.end"
-                              i18n>Cancelling</ng-container>
-                <ng-container *ngSwitchDefault>{{job.status}}</ng-container>
-              </ng-container>
-              <ng-container *ngIf="job.type===StoreJobType.install"
-                            [ngSwitch]="job.status">
-                <ng-container *ngSwitchCase="StoreJobStatus.running"
-                              i18n>Installing</ng-container>
-                <ng-container *ngSwitchCase="StoreJobStatus.paused"
-                              i18n>Paused</ng-container>
-                <ng-container *ngSwitchCase="StoreJobStatus.ready"
-                              i18n>Waiting to install</ng-container>
-                <ng-container *ngSwitchCase="StoreJobStatus.failed"
-                              i18n>Installation failed</ng-container>
-                <ng-container *ngSwitchCase="StoreJobStatus.end"
-                              i18n>Cancelling</ng-container>
-                <ng-container *ngSwitchDefault>{{job.status}}</ng-container>
-              </ng-container>
-            </div>
-          </ng-template>
-        </div>
+            <ng-template #$wait> - - </ng-template>
+          </div>
 
-        <div class="controlBtn">
-          <ng-container [ngSwitch]="true">
-            <button class="pauseBtn"
-                    (click)="pause(job.job);$event.target.disabled=true"
-                    *ngSwitchCase="job.status===StoreJobStatus.running || job.status===StoreJobStatus.ready"
-                    [disabled]="!job.cancelable"></button>
-            <button class="startBtn"
-                    (click)="start(job.job);$event.target.disabled=true"
-                    *ngSwitchCase="job.status===StoreJobStatus.paused"
-                    [disabled]="!job.cancelable"></button>
-            <button class="restartBtn"
-                    (click)="start(job.job)"
-                    *ngSwitchCase="job.status===StoreJobStatus.failed"
-                    [disabled]="!job.cancelable"></button>
-          </ng-container>
-          <button class="cancelBtn"
-                  [disabled]="!job.cancelable"
-                  (click)="cancel(job.job)"></button>
+          <div class="progressInfo co-star">
+            <progress [value]="job.progress"
+                      max="1"></progress>
+            <ng-container *ngIf="job.speed as speed;else $msg">
+              <ng-container *ngIf="job.progress as progress;else $msg">
+                <div class="speed"
+                     *ngIf="job.type===StoreJobType.download&&job.status===StoreJobStatus.running;else $msg">
+
+                  <span *ngIf="job.downloadSize"
+                        class="size">
+                    {{(job.downloadSize*job.progress*2)|sizeHuman}} / {{job.downloadSize|sizeHuman}}
+                  </span>
+                  <span>{{speed|sizeHuman}}/S</span>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-template #$msg>
+              <div class="message"
+                   [class.failed]="job.status===StoreJobStatus.failed">
+                <ng-container *ngIf="job.type===StoreJobType.download"
+                              [ngSwitch]="job.status">
+                  <ng-container *ngSwitchCase="StoreJobStatus.running"
+                                i18n>Waiting to download</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.paused"
+                                i18n>Paused</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.ready"
+                                i18n>Waiting to download</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.failed"
+                                i18n>Download failed</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.end"
+                                i18n>Cancelling</ng-container>
+                  <ng-container *ngSwitchDefault>{{job.status}}</ng-container>
+                </ng-container>
+                <ng-container *ngIf="job.type===StoreJobType.install"
+                              [ngSwitch]="job.status">
+                  <ng-container *ngSwitchCase="StoreJobStatus.running"
+                                i18n>Installing</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.paused"
+                                i18n>Paused</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.ready"
+                                i18n>Waiting to install</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.failed"
+                                i18n>Installation failed</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.end"
+                                i18n>Cancelling</ng-container>
+                  <ng-container *ngSwitchDefault>{{job.status}}</ng-container>
+                </ng-container>
+              </div>
+            </ng-template>
+          </div>
+
+          <div class="controlBtn">
+            <ng-container [ngSwitch]="true">
+              <button class="pauseBtn"
+                      (click)="pause(job.job);$event.target.disabled=true"
+                      *ngSwitchCase="job.status===StoreJobStatus.running || job.status===StoreJobStatus.ready"
+                      [disabled]="!job.cancelable"></button>
+              <button class="startBtn"
+                      (click)="start(job.job);$event.target.disabled=true"
+                      *ngSwitchCase="job.status===StoreJobStatus.paused"
+                      [disabled]="!job.cancelable"></button>
+              <button class="restartBtn"
+                      (click)="start(job.job)"
+                      *ngSwitchCase="job.status===StoreJobStatus.failed"
+                      [disabled]="!job.cancelable"></button>
+            </ng-container>
+            <button class="cancelBtn"
+                    [disabled]="!job.cancelable"
+                    (click)="cancel(job.job)"></button>
+          </div>
         </div>
-      </div>
-    </ng-container>
-  </div>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>

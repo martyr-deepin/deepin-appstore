@@ -68,7 +68,7 @@ export class AppDetailComponent implements OnInit {
             this.storeService.appDownloadSize(app.name).subscribe(size => (this.size = size));
           }),
           switchMap(jobs => this.storeService.getJobsInfo(jobs)),
-          map(jobs => jobs.find(job => job.name === app.name)),
+          map(jobs => jobs.find(job => job.names.includes(app.name))),
           switchMap(
             job =>
               !job
