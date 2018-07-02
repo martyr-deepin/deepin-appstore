@@ -17,11 +17,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6a66f7b3aeebb8f63d58e87bba3d9f0d30d08cec" datatype="html">
@@ -39,7 +39,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="04b741bf33a6b8359849d6085278e54b35acd0b9" datatype="html">
@@ -50,7 +50,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dee8c41edf822a0124c80cc1e44643f947b3bc5c" datatype="html">
@@ -61,7 +61,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="047f50bc5b5d17b5bec0196355953e1a5c590ddb" datatype="html">
@@ -72,7 +72,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c9039b1b13b3ef165b66b3c5d79f810ab1ebb050" datatype="html">
@@ -83,7 +83,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="86288c2ac6b43ed195f0bc8bce825a3ab8151b71" datatype="html">
@@ -115,11 +115,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="04380b03179685f28fc991c2ae855696d7f6ca44" datatype="html">
@@ -297,64 +297,64 @@
         <source>Time left: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="19b8abc7295c02c42ca64ce3cac1112a95fc1936" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{$m}}"/> min</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1d6e35c41ebf2987da0468d55073712041356849" datatype="html">
         <source><x id="INTERPOLATION" equiv-text="{{$s}}"/> sec</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c7b205a4b365871a982ad7e25f423432d47aee93" datatype="html">
         <source>Waiting to download</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dff88e15f286eb39b6645e8372de971632f684cb" datatype="html">
         <source>Download failed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="36b852bcfc86e28990a9898faccba5ab10cdaf2a" datatype="html">
         <source>Cancelling</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="81cd72e5c2a49c4e6b823b367ba9dc4f3103faf9" datatype="html">
         <source>Waiting to install</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="922e72c7e493011a0f95b0318e0386e051aa97f2" datatype="html">
         <source>Installation failed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="74cc36a0738996071f407928b1e2dbae2a2bf95c" datatype="html">
@@ -362,64 +362,60 @@
     </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6c63a654764bea61f724f20116943ca5d84b2eb1" datatype="html">
         <source>{VAR_PLURAL, plural, =0 {application} =1 {application} other {applications} }</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e5d8bb389c702588877f039d72178f219453a72d" datatype="html">
         <source>Unknown</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fdda54eda63b0d772c8639f52897d2bb1714b735" datatype="html">
         <source>Are you sure to uninstall this application?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
         <source>Cancel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="68e710782ccb5398b3acb8844caf0b199da2c3da" datatype="html">
         <source>Confirm</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b03f424e22c3eb9799167ac85fd8473a784ddd40" datatype="html">
         <source>Date installed:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1dfba504a0d0bf41da961d89d402dedecde5e30d" datatype="html">
         <source>Uninstall</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">44</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="92eee6be6de0b11c924e3ab27db30257159c0a7c" datatype="html">
@@ -523,6 +519,15 @@
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
           <context context-type="linenumber">141</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee" datatype="html">
+        <source>Uninstall</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
+          <context context-type="linenumber">153</context>
+        </context-group>
+        <note priority="1" from="description">Uninstall applications</note>
+        <note priority="1" from="meaning">uninstall-app</note>
       </trans-unit>
       <trans-unit id="980bde1b7ff971daf68b8bf06d947e09c062ad86" datatype="html">
         <source>Please post a comment after signed in</source>
@@ -902,25 +907,25 @@
         <source>Pay Now</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="87c8bef501029e74fa6dd149dcad2d97a92ab762" datatype="html">
         <source>Payment Succeeded!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d6b9a958603b771efa6ec562f1411604c0089b79" datatype="html">
         <source>Paying, please wait...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
     </body>
