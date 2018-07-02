@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as localForage from 'localforage';
 import * as _ from 'lodash';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, from } from 'rxjs';
 import { map, flatMap, tap, share, shareReplay, retry, filter, catchError } from 'rxjs/operators';
 
 import { BaseService } from '../dstore/services/base.service';
@@ -19,6 +20,7 @@ export class AppService {
     private storeService: StoreService,
   ) {}
   private server = BaseService.serverHosts.operationServer;
+  private store = localForage.createInstance({ name: 'client-apps' });
 
   list = _.throttle(this.getAppList, 1000 * 30);
   appMap = _.throttle(this.getAppMap, 1000 * 30);
@@ -51,45 +53,42 @@ export class AppService {
       shareReplay(),
     );
   }
-  private getAppMapNoVersion(): Observable<Map<string, App>> {
+  private getAppMapNoVersion() {
     interface AppStat {
       downloadCount: { appName: string; count: number }[];
       rate: { appName: string; rate: number; count: number }[];
     }
-    return this.http.get<{ apps: string[] }>(`${this.server}/api/app`).pipe(
-      flatMap(resp =>
-        forkJoin(
-          this.appService
-            .getAppListByNames(resp.apps)
-            .pipe(map(apps => new Map(apps.map(app => [app.name, app] as [string, App])))),
-          this.http.get<AppStat>(`${this.server}/api/appstat`),
-        ),
-      ),
-      map(([DstoreAppMap, stat]) => {
+    return forkJoin(
+      this.appService.getAppList(),
+      this.http.get<{ apps: string[] }>(`${this.server}/api/app`),
+      this.http.get<AppStat>(`${this.server}/api/appstat`),
+    ).pipe(
+      map(([dstoreApps, { apps }, stat]) => {
         const downloadMap = _.keyBy(stat.downloadCount, 'appName');
         const rateMap = _.keyBy(stat.rate, 'appName');
-        const appMap = DstoreAppMap as Map<string, App>;
-        appMap.forEach(app => {
+        const list = dstoreApps.filter(app => apps.includes(app.name)).map((app: App) => {
           app.downloads = _.get(downloadMap, [app.name, 'count'], 0);
           app.rate = _.get(rateMap, [app.name, 'rate']) / 2 || 0;
           app.ratings = _.get(rateMap, [app.name, 'count'], 0);
-        });
-        if (!sessionStorage.getItem('apps')) {
-          localStorage.setItem('apps', JSON.stringify(Array.from(appMap.entries())));
-          sessionStorage.setItem('apps', 'ok');
-        }
-        return appMap;
+          return [app.name, app];
+        }) as Array<[string, App]>;
+        this.store.setItem('apps', list);
+        return new Map(list);
       }),
       catchError(() => {
-        const appMap = new Map(JSON.parse(localStorage.getItem('apps')) as [string, App][]);
-        return of(appMap);
+        return from(this.store.getItem<Array<[string, App]>>('apps')).pipe(
+          map(value => new Map(value)),
+        );
       }),
     );
   }
 
   // 根据分类获取应用列表
   getAppListByCategory(category: string): Observable<App[]> {
-    return this.list().pipe(map(apps => apps.filter(app => app.category === category)));
+    return this.list().pipe(
+      tap(apps => console.log(apps)),
+      map(apps => apps.filter(app => app.category === category)),
+    );
   }
   getApps(appNameList: string[]): Observable<App[]> {
     return this.appMap().pipe(map(m => appNameList.filter(m.has.bind(m)).map(m.get.bind(m))));

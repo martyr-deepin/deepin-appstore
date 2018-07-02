@@ -30,7 +30,7 @@ export class NotifyService {
         const t = new Date();
         if (bulletin.startTime <= t && bulletin.endTime > t) {
           let content: string;
-          if (navigator.language === "zh-CN") {
+          if (navigator.language === 'zh-CN') {
             content = bulletin.contentZh;
             if (bulletin.contentZh.length === 0) {
               content = bulletin.contentEn;
@@ -48,12 +48,14 @@ export class NotifyService {
           });
         }
       });
-    DstoreObject.clearArchives().subscribe(() => {
-      this.zone.run(() => {
-        this.success(NotifyType.Clear);
-        this.storeService.appDownloadSize('gedit').subscribe();
+    if (BaseService.isNative) {
+      DstoreObject.clearArchives().subscribe(() => {
+        this.zone.run(() => {
+          this.success(NotifyType.Clear);
+          this.storeService.appDownloadSize('gedit').subscribe();
+        });
       });
-    });
+    }
   }
 
   notify(n: Notify) {

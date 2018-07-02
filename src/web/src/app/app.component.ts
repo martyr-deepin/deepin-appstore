@@ -27,7 +27,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.scrollHistory();
-    this.searchIndex();
+    if (sessionStorage.getItem('searchIndex') === null) {
+      this.searchIndex();
+      sessionStorage.setItem('searchIndex', 'ok');
+    }
     this.searchListen();
   }
 

@@ -53,11 +53,9 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
 
   apps: App[];
   jobs: { [key: string]: StoreJobInfo } = {};
+  jobNames = new Set<string>();
   jobs$: Subscription;
-  // data observable
-  appList$: Observable<App[]>;
-  appJobMap$: Observable<{ [key: string]: Observable<StoreJobInfo> }>;
-  appVersionMap$: Observable<{ [key: string]: AppVersion }>;
+  loading = false;
 
   // job control
   start = this.storeService.resumeJob;
@@ -80,6 +78,7 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
         jobInfos.forEach(job => {
           job.names.forEach(name => {
             jobs[name] = job;
+            this.jobNames.add(name);
           });
         });
         this.jobs = jobs;
@@ -101,6 +100,7 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges() {
     if (this.apps$) {
+      this.loading = true;
       this.apps$.subscribe(apps => {
         apps = apps.filter(app => app);
         if (this.sortBy) {
@@ -113,68 +113,9 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
           apps = apps.slice(0, this.maxCount);
         }
         this.apps = apps;
+        this.loading = false;
       });
     }
-    // console.log('ngOnChanges', this.apps$);
-    // if (!this.apps$) {
-    //   return;
-    // }
-    // this.appList$ = this.apps$.pipe(
-    //   map(apps => {
-    //     apps = apps.filter(app => app);
-    //     if (this.sortBy) {
-    //       apps = sortBy(apps, [
-    //         this.sortBy === SortOrder.Downloads ? 'downloads' : 'rate',
-    //         'name',
-    //       ]).reverse();
-    //     }
-    //     if (this.maxCount) {
-    //       apps = apps.slice(0, this.maxCount);
-    //     }
-    //     return apps;
-    //   }),
-    //   tap(apps => {
-    //     console.log('appList', apps);
-    //     window.scrollTo(0, this.offsetService.getOffset(this.router.url) || 0);
-    //     this.appListLength.emit(apps.length);
-    //   }),
-    //   shareReplay(),
-    // );
-    // if (BaseService.isNative) {
-    //   this.appJobMap$ = merge(
-    //     this.storeService.getJobList(),
-    //     this.storeService.jobListChange(),
-    //   ).pipe(
-    //     switchMap(jobs => this.storeService.getJobsInfo(jobs)),
-    //     map(jobs => {
-    //       return jobs.reduce<{ [key: string]: Observable<StoreJobInfo> }>(
-    //         (obj, job) =>
-    //           Object.assign(obj, {
-    //             [job.name]: timer(0, 1000).pipe(
-    //               switchMap(() => this.storeService.getJobInfo(job.job)),
-    //             ),
-    //           }),
-    //         {},
-    //       );
-    //     }),
-    //   );
-    //   this.appVersionMap$ = combineLatest(
-    //     this.storeService.jobListChange().pipe(startWith([])),
-    //     this.appList$,
-    //     (job, apps) => apps,
-    //   ).pipe(
-    //     switchMap(apps => this.storeService.getVersion(apps.map(app => app.name))),
-    //     map(versionList => {
-    //       return versionList.reduce<{ [key: string]: AppVersion }>(
-    //         (obj, v) => Object.assign(obj, { [v.name]: v }),
-    //         {},
-    //       );
-    //     }),
-    //   );
-    // } else {
-    //   this.appJobMap$ = of({});
-    //   this.appVersionMap$ = of({});
-    // }
   }
 
   installApp(app: App) {

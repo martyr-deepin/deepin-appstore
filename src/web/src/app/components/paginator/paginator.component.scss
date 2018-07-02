@@ -7,9 +7,10 @@ button {
   color: black;
   background: white;
   border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 2px;
+  border-radius: 4px;
 
   &.active {
+    color: white;
     background: linear-gradient(to bottom, #8ccfff, #4bb8ff);
   }
   &:disabled {
