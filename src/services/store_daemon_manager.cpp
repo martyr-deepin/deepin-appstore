@@ -153,6 +153,8 @@ void StoreDaemonManager::initConnections() {
 
 void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
   apps_.clear();
+  deb_names_.clear();
+  flatpak_names_.clear();
 
   QStringList deb_app_names;
 
