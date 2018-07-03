@@ -192,3 +192,7 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.selectable {
+  user-select: text;
+}

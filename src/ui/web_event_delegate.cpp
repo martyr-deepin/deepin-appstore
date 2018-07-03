@@ -17,6 +17,8 @@
 
 #include "ui/web_event_delegate.h"
 
+#include <QDebug>
+
 #include <qcef_web_page.h>
 #include <QtGui/QDesktopServices>
 
@@ -66,10 +68,6 @@ void WebEventDelegate::onBeforeContextMenu(
   QCefBrowserEventDelegate::onBeforeContextMenu(web_page, menu, params);
   auto type_flags = params.getTypeFlags();
   if (type_flags & QCEF_CM_FLAG_EDITABLE) {
-
-  }
-
-  if (params.isEditable()) {
     // Editable menu.
     auto state = params.getEditStateFlags();
     menu->addItem(MenuIds::MenuUndo, QObject::tr("Undo"),
@@ -109,9 +107,15 @@ void WebEventDelegate::onBeforeContextMenu(
                   [](QCefWebPage* page) {
                     page->selectAll();
                   });
-    return;
+  } else if (type_flags & QCEF_CM_FLAG_SELECTION) {
+    // Support copy text
+    auto state = params.getEditStateFlags();
+    menu->addItem(MenuIds::MenuCopy, QObject::tr("Copy"),
+                  state & QCEF_CM_EDITFLAG_CAN_COPY,
+                  [](QCefWebPage* page) {
+                    page->copy();
+                  });
   }
-
 }
 
 bool WebEventDelegate::onBeforePopup(const QUrl& url,

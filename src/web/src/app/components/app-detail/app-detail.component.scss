@@ -133,3 +133,7 @@
     padding: 0.5rem 1rem;
   }
 }
+
+.selectable {
+  user-select: text;
+}

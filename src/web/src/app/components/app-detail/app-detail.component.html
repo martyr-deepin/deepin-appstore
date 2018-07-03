@@ -47,7 +47,7 @@
       </ng-template>
     </div>
     <div class="info-right">
-      <div class="title">{{app.localInfo.description.name}}</div>
+      <div class="title selectable">{{app.localInfo.description.name}}</div>
       <div class="content">
         <div class="desc">
           <div i18n>Rating:</div>
@@ -90,7 +90,7 @@
             <a target="_blank"
                [href]="app.homePage">{{app.homePage}}</a>
           </div>
-          <div>
+          <div class="selectable">
             {{app.localInfo.description.description}}
           </div>
         </div>
