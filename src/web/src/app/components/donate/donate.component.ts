@@ -11,6 +11,7 @@ import { Payment, PayReq, PayCheck } from '../../services/donate.model';
 import { DonateService } from '../../services/donate.service';
 import { AuthService } from '../../services/auth.service';
 import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
+import { BaseService } from '../../dstore/services/base.service';
 
 @Component({
   selector: 'app-donate',
@@ -49,6 +50,7 @@ export class DonateComponent implements OnInit {
       .pipe(
         map(info => {
           const req: PayReq = {
+            appStore: BaseService.domainName,
             appName: this.appName,
             amount: this.amount * 100,
           };

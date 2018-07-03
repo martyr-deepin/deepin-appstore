@@ -8,6 +8,7 @@ export enum Payment {
 export interface PayReq {
   appName: string;
   amount: number;
+  appStore: string;
   userID?: number;
 }
 export interface PayResp {

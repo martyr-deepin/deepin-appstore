@@ -75,32 +75,3 @@
     </div>
   </ng-container>
 </ng-template>
-<!-- <div class="loading"
-     *ngIf="loading;else $waitPay">
-  <app-wait [checkNet]="false"></app-wait>
-</div> -->
-
-<!-- <ng-template #$waitPay>
-  <div class="waitPay"
-       *ngIf="waitPay$|async as check;else $payForm">
-
-    <ng-container *ngIf="check.isExist;else $wait">
-      <img class="icon"
-           src="/assets/icons/ok.svg">
-      <br>
-      <div i18n>Payment Succeeded!</div>
-    </ng-container>
-    <ng-template #$wait>
-      <ng-container *ngIf="qrImg;else $msg">
-        <img [src]="qrImg">
-        <img class="wait">
-        <div i18n>Paying, please wait...</div>
-      </ng-container>
-      <ng-template #$msg>
-        <img class="wait"
-             [style.width.rem]="4">
-        <div i18n>Paying, please wait...</div>
-      </ng-template>
-    </ng-template>
-  </div>
-</ng-template> -->
