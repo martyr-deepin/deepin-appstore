@@ -1,5 +1,3 @@
-{{uninstallingApps|json}}
-
 <ng-container *ngIf="installedApps as $installedApps;else $wait">
   <div *ngIf="uninstallingApps as $uninstallingApps;else $wait">
     <div class="title"
@@ -12,7 +10,7 @@
              [src]="getUrl($app)">
         <div class="content">
           <div class="base">
-            <span>{{$app.localInfo.description.name}}({{$app.name}})</span>
+            <span>{{$app.localInfo.description.name}}</span>
             <span class="size"
                   *ngIf="$installedApp.size > 0; else $unknown">{{$installedApp.size | sizeHuman}}</span>
             <ng-template #$unknown>
