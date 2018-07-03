@@ -1,16 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
-import {
-  flatMap,
-  map,
-  tap,
-  concat,
-  switchMap,
-  publishReplay,
-  refCount,
-  startWith,
-} from 'rxjs/operators';
+import { flatMap, map, tap, concat, switchMap, startWith } from 'rxjs/operators';
+
+import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 import { App, AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
@@ -26,7 +20,6 @@ import { DownloadService } from '../../services/download.service';
 import { NotifyService } from '../../services/notify.service';
 import { NotifyType, NotifyStatus } from '../../services/notify.model';
 import { AppVersion } from '../../dstore-client.module/models/app-version';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-app-detail',
@@ -108,8 +101,8 @@ export class AppDetailComponent implements OnInit {
       };
       //  chrome 61 support
       //  el.scrollIntoView(opt)
-      // smoothScrollIntoView(el, opt);
-      el.scrollIntoView();
+      smoothScrollIntoView(el, opt);
+      // el.scrollIntoView();
     }
   }
 
