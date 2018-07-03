@@ -61,6 +61,8 @@ class StoreDaemonManager : public QObject {
 
   void openAppRequest(const QString& app_name);
 
+  void fixErrorRequest(const QString& error_type);
+
 
   void isDbusConnectedReply(bool state);
 
@@ -86,6 +88,8 @@ class StoreDaemonManager : public QObject {
   void jobListChanged(const QStringList& jobs);
 
   void onAppListUpdated(const AppSearchRecordList& app_list);
+
+  void fixErrorReply(const QString& job_path);
 
  public slots:
   void updateAppList(const AppSearchRecordList& app_list);
@@ -194,6 +198,8 @@ class StoreDaemonManager : public QObject {
   void getJobsInfo(const QString& task_id, const QStringList& jobs);
 
   void onJobListChanged();
+
+  void fixError(const QString& error_type);
 };
 
 }  // namespace dstore

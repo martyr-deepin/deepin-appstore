@@ -90,6 +90,9 @@ void StoreDaemonProxy::initConnections() {
   connect(manager_, &StoreDaemonManager::jobListChanged,
           this, &StoreDaemonProxy::jobListChanged);
 
+  connect(manager_, &StoreDaemonManager::fixErrorReply,
+          this, &StoreDaemonProxy::fixErrorReply);
+
   connect(this, &StoreDaemonProxy::clearArchives,
           manager_, &StoreDaemonManager::clearArchivesRequest);
 }
@@ -154,6 +157,10 @@ void StoreDaemonProxy::getJobInfo(const QString& job) {
 void StoreDaemonProxy::getJobsInfo(const QString& task_id,
                                    const QStringList& jobs) {
   emit manager_->getJobsInfoRequest(task_id, jobs);
+}
+
+void StoreDaemonProxy::fixError(const QString& error_type) {
+  emit manager_->fixErrorRequest(error_type);
 }
 
 void StoreDaemonProxy::openApp(const QString& app_name) {

@@ -50,6 +50,13 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("CleanArchives"), argumentList);
     }
 
+    inline QDBusPendingReply<QDBusObjectPath> FixError(const QString &errType)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(errType);
+        return asyncCallWithArgumentList(QStringLiteral("FixError"), argumentList);
+    }
+
     inline QDBusPendingReply<QDBusObjectPath> Install(const QString &localName, const QString &id)
     {
         QList<QVariant> argumentList;

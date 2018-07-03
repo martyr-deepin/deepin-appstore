@@ -68,6 +68,8 @@ class StoreDaemonProxy : public QObject {
 
   void onAppListUpdated(const AppSearchRecordList& app_list);
 
+  void fixErrorReply(const QString& job_path);
+
  public slots:
   /**
    * Check connecting to backend app store daemon or not.
@@ -159,6 +161,11 @@ class StoreDaemonProxy : public QObject {
   void getJobInfo(const QString& job);
 
   void getJobsInfo(const QString& task_id, const QStringList& jobs);
+
+  /**
+   * Try to fix installation error.
+   */
+  void fixError(const QString& error_type);
 
   /**
    * Request to open installed application.

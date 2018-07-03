@@ -146,6 +146,9 @@ void StoreDaemonManager::initConnections() {
   connect(this, &StoreDaemonManager::getJobsInfoRequest,
           this, &StoreDaemonManager::getJobsInfo);
 
+  connect(this, &StoreDaemonManager::fixErrorRequest,
+          this, &StoreDaemonManager::fixError);
+
 
   connect(deb_interface_, &LastoreDebInterface::jobListChanged,
           this, &StoreDaemonManager::onJobListChanged);
@@ -715,6 +718,11 @@ void StoreDaemonManager::onJobListChanged() {
     paths.append(job.path());
   }
   emit this->jobListChanged(paths);
+}
+
+void StoreDaemonManager::fixError(const QString& error_type) {
+  const QDBusObjectPath path = deb_interface_->FixError(error_type);
+  emit this->fixErrorReply(path.path());
 }
 
 }  // namespace dstore

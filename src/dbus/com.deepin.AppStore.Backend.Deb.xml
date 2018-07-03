@@ -6,6 +6,10 @@
         <arg name="id" type="s" direction="in"></arg>
         <arg name="job" type="o" direction="out"></arg>
     </method>
+    <method name="FixError">
+        <arg name="errType" type="s" direction="in"></arg>
+        <arg name="job" type="o" direction="out"></arg>
+    </method>
     <method name="ListInstalled">
         <arg name="installedInfoList" type="a(ss)" direction="out"></arg>
         <annotation name="org.qtproject.QtDBus.QtTypeName.Out0"
