@@ -11,7 +11,8 @@
                   i18n>Paused</button>
         </ng-container>
         <ng-template #running>
-          <ng-container [ngSwitch]="job.type">
+          <ng-container *ngIf="job.status!==StoreJobStatus.failed;else cltButton"
+                        [ngSwitch]="job.type">
             <button *ngSwitchCase="StoreJobType.download"
                     [style]="getButtonStyle(job.progress)"
                     (click)="pause(job.job)"
