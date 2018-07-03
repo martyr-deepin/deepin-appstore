@@ -113,6 +113,7 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
           apps = apps.slice(0, this.maxCount);
         }
         this.apps = apps;
+        this.appListLength.emit(this.apps.length);
         this.loading = false;
       });
     }
