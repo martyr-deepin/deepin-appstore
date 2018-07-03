@@ -6,24 +6,33 @@
       <br>
       <ng-container *ngIf="job$|async as job;else cltButton">
         <ng-container *ngIf="job.status===StoreJobStatus.paused;else running">
-          <button [style]="getButtonStyle(job.progress)"
-                  (click)="start(job.job)"
-                  i18n>Paused</button>
+
+          <app-progress-button text="Paused"
+                               i18n-text
+                               [progress]="job.progress"
+                               (click)="start(job.job)"></app-progress-button>
         </ng-container>
         <ng-template #running>
           <ng-container *ngIf="job.status!==StoreJobStatus.failed;else cltButton"
                         [ngSwitch]="job.type">
-            <button *ngSwitchCase="StoreJobType.download"
-                    [style]="getButtonStyle(job.progress)"
-                    (click)="pause(job.job)"
-                    i18n>Downloading</button>
-            <button *ngSwitchCase="StoreJobType.install"
-                    [style]="getButtonStyle(job.progress)"
-                    (click)="pause(job.job)"
-                    i18n>Installing</button>
-            <button *ngSwitchCase="StoreJobType.uninstall"
-                    [style]="getButtonStyle(job.progress)"
-                    i18n>Uninstalling</button>
+            <app-progress-button text="Downloading"
+                                 i18n-text
+                                 *ngSwitchCase="StoreJobType.download"
+                                 [progress]="job.progress"
+                                 [disabled]="!job.cancelable"
+                                 (click)="pause(job.job)"></app-progress-button>
+            <app-progress-button text="Installing"
+                                 i18n-text
+                                 *ngSwitchCase="StoreJobType.install"
+                                 [progress]="job.progress"
+                                 [disabled]="!job.cancelable"
+                                 (click)="pause(job.job)"></app-progress-button>
+            <app-progress-button text="Uninstalling"
+                                 i18n-text
+                                 *ngSwitchCase="StoreJobType.uninstall"
+                                 [progress]="job.progress"
+                                 [disabled]="!job.cancelable"
+                                 (click)="pause(job.job)"></app-progress-button>
           </ng-container>
         </ng-template>
       </ng-container>

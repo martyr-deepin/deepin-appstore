@@ -11,14 +11,8 @@
       height: 96px;
     }
     button {
+      padding: 5px 0;
       min-width: 8rem;
-      --progress: 100%;
-      background-image: linear-gradient(
-          to right,
-          transparent var(--progress),
-          #f2f2f2 var(--progress)
-        ),
-        linear-gradient(to bottom, #8ccfff, #4bb8ff);
     }
   }
   .info-right {

@@ -48,6 +48,7 @@ import { LodashPipe } from './pipes/lodash.pipe';
 import { AppInfoPipe } from './pipes/app-info';
 import { MoreComponent } from './components/more/more.component';
 import { DonateComponent } from './components/donate/donate.component';
+import { ProgressButtonComponent } from './components/progress-button/progress-button.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { DonateComponent } from './components/donate/donate.component';
     DonateComponent,
     LodashPipe,
     AppInfoPipe,
+    ProgressButtonComponent,
   ],
   imports: [
     BrowserModule,

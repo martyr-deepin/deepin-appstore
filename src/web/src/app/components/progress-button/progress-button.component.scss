@@ -1,0 +1,29 @@
+:host {
+  position: relative;
+  &:hover {
+    .progress {
+      background-image: linear-gradient(to bottom, #4bb8ff, #0aa1ff);
+    }
+  }
+  &:active {
+    .progress {
+      background-image: linear-gradient(to bottom, #0b8cff, #0aa1ff);
+    }
+  }
+}
+
+button {
+  min-width: 8rem;
+  width: 8rem;
+  padding: 5px 0;
+  &.gray {
+    background-image: none;
+    color: black;
+  }
+}
+div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
