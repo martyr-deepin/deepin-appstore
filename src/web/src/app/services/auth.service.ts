@@ -5,6 +5,7 @@ import { map, skip } from 'rxjs/operators';
 import { DstoreObject } from '../dstore-client.module/utils/dstore-objects';
 import { LoginService } from './login.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BaseService } from '../dstore/services/base.service';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
       }
     });
   }
-  private tokenStorageKey = 'auth-token';
+  private tokenStorageKey = 'auth-token:' + BaseService.domainName;
   private jwtService = new JwtHelperService();
   private tokenSubject = new BehaviorSubject<string>(localStorage.getItem(this.tokenStorageKey));
 

@@ -18,9 +18,11 @@ export class AppService {
     private http: HttpClient,
     private appService: DstoreAppService,
     private storeService: StoreService,
-  ) {}
+  ) {
+    console.log(BaseService.domainName);
+  }
   private server = BaseService.serverHosts.operationServer;
-  private store = localForage.createInstance({ name: 'client-apps' });
+  private store = localForage.createInstance({ name: 'client-apps:' + BaseService.domainName });
 
   list = _.throttle(this.getAppList, 1000 * 30);
   appMap = _.throttle(this.getAppMap, 1000 * 30);
