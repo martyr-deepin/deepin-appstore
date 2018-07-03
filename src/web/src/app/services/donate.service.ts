@@ -20,7 +20,10 @@ export class DonateService {
         return this.http.post<PayResp>(this.server + '/api/donate/paypal', req);
     }
   }
-  check(id: string) {
+  check(payment: Payment, id: string) {
+    if (payment === Payment.WeChat) {
+      return this.http.get<PayCheck>(this.server + '/api/donate/wechatpay/check/' + id);
+    }
     return this.http.get<PayCheck>(this.server + '/api/donate/check/' + id);
   }
 }

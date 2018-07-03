@@ -1,7 +1,7 @@
 :host {
   display: block;
   width: 400px;
-  height: 300px;
+  height: 250px;
 }
 .title {
   text-align: center;
@@ -9,7 +9,7 @@
 .gird {
   display: grid;
   grid-template-columns: auto auto;
-  grid-gap: 2rem;
+  grid-gap: 1rem;
   margin: 2rem;
 }
 .amount {
@@ -84,7 +84,7 @@ input::-webkit-inner-spin-button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 20rem;
+  height: 100%;
   .icon {
     width: 3rem;
   }

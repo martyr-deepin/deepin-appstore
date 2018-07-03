@@ -1,6 +1,6 @@
 <img class="close"
      (click)="close.emit()">
-<ng-template #$payForm>
+<ng-container *ngIf="!waitPay$ && !loading;else paying">
   <div class="title">
     <h2 i18n>Donate</h2>
   </div>
@@ -45,12 +45,42 @@
             (click)="pay();$event.target.disabled=true"
             i18n>Pay Now</button>
   </div>
+</ng-container>
+<ng-template #paying>
+  <ng-template #loading>
+    <br>
+    <app-wait [checkNet]="false"></app-wait>
+  </ng-template>
+  <ng-container *ngIf="waitPay$|async as check;else loading">
+    <div class="waitPay">
+      <ng-container *ngIf="check.isExist;else $wait">
+        <img class="icon"
+             src="/assets/icons/ok.svg">
+        <br>
+        <div i18n>Payment Succeeded!</div>
+      </ng-container>
+      <ng-template #$wait>
+        <ng-container *ngIf="qrImg;else $msg">
+          <img [src]="qrImg">
+          <img class="wait">
+          <div *ngIf="check.isPaying"
+               i18n>Paying, please wait...</div>
+        </ng-container>
+        <ng-template #$msg>
+          <img class="wait"
+               [style.width.rem]="4">
+          <div i18n>Paying, please wait...</div>
+        </ng-template>
+      </ng-template>
+    </div>
+  </ng-container>
 </ng-template>
-<div class="loading"
+<!-- <div class="loading"
      *ngIf="loading;else $waitPay">
   <app-wait [checkNet]="false"></app-wait>
-</div>
-<ng-template #$waitPay>
+</div> -->
+
+<!-- <ng-template #$waitPay>
   <div class="waitPay"
        *ngIf="waitPay$|async as check;else $payForm">
 
@@ -73,4 +103,4 @@
       </ng-template>
     </ng-template>
   </div>
-</ng-template>
+</ng-template> -->

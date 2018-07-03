@@ -32,7 +32,9 @@ export class DonateComponent implements OnInit {
   loading: boolean;
   qrImg: SafeResourceUrl;
   waitPay$: Observable<PayCheck>;
+
   ngOnInit() {}
+
   rand() {
     let r = this.amount;
     while (r === this.amount) {
@@ -40,6 +42,7 @@ export class DonateComponent implements OnInit {
     }
     this.amount = r;
   }
+
   pay() {
     this.loading = true;
     this.authService.info$
@@ -57,8 +60,12 @@ export class DonateComponent implements OnInit {
         switchMap(req => this.donateService.donate(this.payment, req)),
       )
       .subscribe(resp => {
+        if (resp.error || !resp.shortURL) {
+          console.error(resp);
+          return;
+        }
         if (this.payment === Payment.WeChat) {
-          QRCode.toDataURL(resp.url).then(
+          QRCode.toDataURL(resp.shortURL).then(
             url => (this.qrImg = this.sanitizer.bypassSecurityTrustResourceUrl(url)),
           );
         } else {
@@ -66,7 +73,7 @@ export class DonateComponent implements OnInit {
         }
         this.loading = false;
         this.waitPay$ = timer(0, 1000).pipe(
-          switchMap(() => this.donateService.check(resp.tradeID)),
+          switchMap(() => this.donateService.check(this.payment, resp.tradeID)),
           tap(c => {
             if (c.isExist) {
               // this.close.emit();
@@ -75,6 +82,7 @@ export class DonateComponent implements OnInit {
         );
       });
   }
+
   inputChange(e: Event) {
     const el = e.target as HTMLInputElement;
     if (!el.value.match(/^\d{0,9}(\.\d{0,2})?$/)) {

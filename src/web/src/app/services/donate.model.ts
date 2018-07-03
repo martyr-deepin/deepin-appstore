@@ -13,9 +13,11 @@ export interface PayReq {
 export interface PayResp {
   tradeID: string;
   url: string;
+  shortURL: string;
   error: Error;
 }
 
 export interface PayCheck {
+  isPaying: boolean;
   isExist: boolean;
 }
