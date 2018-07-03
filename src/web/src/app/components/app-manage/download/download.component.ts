@@ -50,14 +50,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.jobs$ = merge(this.storeService.getJobList(), this.storeService.jobListChange())
       .pipe(
         map(jobs => jobs.filter(job => job.includes('install')).sort((a, b) => b.localeCompare(a))),
-        tap(jobs => {
-          this.jobs.forEach((job, index) => {
-            if (!jobs.includes(job.job)) {
-              console.log('remove', job);
-              this.jobs.splice(index, 1);
-            }
-          });
-        }),
         switchMap(jobs => {
           if (jobs.length > 0) {
             return timer(0, 1000).pipe(switchMap(() => this.storeService.getJobsInfo(jobs)));
@@ -67,10 +59,13 @@ export class DownloadComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe(jobInfos => {
+        console.log(jobInfos);
         if (jobInfos.length === 0) {
           this.jobs = [];
+          return;
         }
-        jobInfos.sort((a, b) => a.createTime - b.createTime).forEach(jobInfo => {
+        this.jobs = this.jobs.filter(job => jobInfos.find(info => info.id === job.id));
+        jobInfos.sort((a, b) => a.id.localeCompare(b.id)).forEach(jobInfo => {
           const oldJob = this.jobs.find(job => job.id === jobInfo.id);
           if (oldJob) {
             Object.assign(oldJob, jobInfo);
