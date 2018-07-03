@@ -9,7 +9,8 @@
           i18n>Top {{top}}</span>
   </div>
   <div class="dropdown"
-       (click)="dropMenu.hidden=false;dropMenu.focus()">
+       (click)="dropMenu.hidden=false;dropMenu.focus()"
+       [hidden]="sortHidden">
 
     <ng-container *ngIf="sortBy===SortOrder.Downloads"
                   i18n>Downloads</ng-container>

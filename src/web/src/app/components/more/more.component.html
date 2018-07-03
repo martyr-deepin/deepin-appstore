@@ -1,2 +1,3 @@
-<!-- <app-app-title #$title>{{$list.title}}</app-app-title> -->
-<app-app-list [apps$]="apps$"></app-app-list>
+<app-app-title #$title>{{title|fitLanguage}}</app-app-title>
+<app-app-list [apps$]="apps$"
+              [sortBy]="$title.sortBy"></app-app-list>

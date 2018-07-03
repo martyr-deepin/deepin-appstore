@@ -12,11 +12,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MoreComponent implements OnInit {
   constructor(private route: ActivatedRoute, private appService: AppService) {}
-
+  title: string[];
   apps$: Observable<App[]>;
   ngOnInit() {
     this.apps$ = this.route.paramMap.pipe(
       flatMap(paramMap => {
+        this.title = paramMap.get('title').split(',');
         return this.appService.getApps(paramMap.get('apps').split(','));
       }),
     );
