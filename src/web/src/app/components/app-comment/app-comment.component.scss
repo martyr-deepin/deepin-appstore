@@ -128,15 +128,14 @@
       border-collapse: collapse;
       table-layout: fixed;
       tr {
-        min-height: 5rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
         td:first-child {
           width: 5rem;
-          padding: 0.5rem;
+          padding: 0 0.5rem;
         }
-        td:last-child {
-          width: 3rem;
-        }
+      }
+      td:nth-child(2n + 1) {
+        min-height: 5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
       }
       .head {
         display: flex;
@@ -151,16 +150,25 @@
           text-overflow: ellipsis;
         }
       }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.4rem;
+        .rate {
+          display: flex;
+        }
+        .right {
+          display: flex;
+          .time {
+            color: gray;
+          }
+        }
+      }
       .content {
         min-height: 4rem;
         max-height: 8rem;
         overflow: hidden;
-        .rate {
-          display: flex;
-        }
-        .comment {
-          word-wrap: break-word;
-        }
+        word-wrap: break-word;
       }
       .like {
         display: flex;

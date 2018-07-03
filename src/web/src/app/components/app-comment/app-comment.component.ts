@@ -56,6 +56,7 @@ export class AppCommentComponent implements OnInit {
   CommentType = CommentType;
   select = CommentType.News;
   list: Comment[];
+  hot: Comment[];
   page = { index: 0, size: 20 };
 
   login = () => this.loginService.OpenLogin();
@@ -90,7 +91,12 @@ export class AppCommentComponent implements OnInit {
         [this.select === CommentType.News ? 'version' : 'excludeVersion']: this.version,
       })
       .subscribe(result => {
-        this.list = result.comments;
+        if (this.page.index === 0 && result.hot) {
+          result.hot.forEach(c => (c.hot = true));
+          this.list = [...result.hot, ...result.comments];
+        } else {
+          this.list = result.comments;
+        }
         this.total[this.select] = result.totalCount;
       });
   }

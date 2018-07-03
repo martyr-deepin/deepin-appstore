@@ -141,44 +141,56 @@
            i18n>There are not any user comments</div>
       <ng-container *ngIf="list && list.length>0">
         <table class="list">
-          <tr *ngFor="let c of list"
-              [@myComment]="(haveNewComment && c.userID===info?.userID) ? 'in' : ''">
-            <td>
-              <div class="head"
-                   *ngIf="c.userID|deepinInfo|async as $userInfo;else deepinInfoDefault">
-                <img [src]="$userInfo.profile_image"
-                     class="profile">
-                <span>{{$userInfo.username}}</span>
-              </div>
-              <ng-template #deepinInfoDefault>
-                <div class="head">
-                  <img src="/assets/images/default.jpeg"
+          <ng-container *ngFor="let c of list">
+            <tr [@myComment]="(haveNewComment && c.userID===info?.userID) ? 'in' : ''">
+              <td rowspan="2">
+                <div class="head"
+                     *ngIf="c.userID|deepinInfo|async as $userInfo;else deepinInfoDefault">
+                  <img [src]="$userInfo.profile_image"
                        class="profile">
-                  <span>{{c.userID}}</span>
+                  <span>{{$userInfo.username}}</span>
                 </div>
-              </ng-template>
-            </td>
-            <td>
-              <div class="content">
-                <div class="rate">
-                  <dstore-star [rate]="c.rate/2"></dstore-star>
-                  &nbsp;
-                  <span [style.color]="'red'">{{c.rate/2}}</span>
-                  <img class="hot"
-                       *ngIf="c.hot">
+                <ng-template #deepinInfoDefault>
+                  <div class="head">
+                    <img src="/assets/images/default.jpeg"
+                         class="profile">
+                    <span>{{c.userID}}</span>
+                  </div>
+                </ng-template>
+              </td>
+              <td>
+                <div class="top">
+                  <div class="rate">
+                    <dstore-star [rate]="c.rate/2"></dstore-star>
+                    &nbsp;
+                    <span [style.color]="'red'">{{c.rate/2}}</span>
+                    &nbsp;
+                    <img src="/assets/icons/hot.svg"
+                         *ngIf="c.hot">
+                  </div>
+                  <div class="right">
+                    <div class="time">{{c.createTime |date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                    &nbsp;&nbsp;
+                    <div class="like">
+                      <span [class.hidden]="c.likeCount<=0">({{c.likeCount}})</span>
+                      <img class="thumbUp"
+                           [class.hidden]="info && c.userID===info.userID"
+                           [class.active]="c.likeByMe"
+                           (click)="thumbUpClick(c)">
+                    </div>
+                  </div>
                 </div>
-                <span class="comment selectable">{{c.content}}</span>
-              </div>
-            </td>
-            <td>
-              <div class="like">
-                <span [class.hidden]="c.likeCount<=0">({{c.likeCount}})</span>
-                <img class="thumbUp"
-                     [class.active]="c.likeByMe"
-                     (click)="thumbUpClick(c)">
-              </div>
-            </td>
-          </tr>
+                <!-- <span class="comment selectable">{{c.content}}</span> -->
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="content">
+                  {{c.content}}
+                </div>
+              </td>
+            </tr>
+          </ng-container>
         </table>
       </ng-container>
     </ng-container>
