@@ -92,8 +92,9 @@ export class AppCommentComponent implements OnInit {
       })
       .subscribe(result => {
         if (this.page.index === 0 && result.hot) {
-          result.hot.forEach(c => (c.hot = true));
-          this.list = [...result.hot, ...result.comments];
+          const hot = _.sortBy(result.hot, ['likeCount', 'createTime']).reverse();
+          hot.forEach(c => (c.hot = true));
+          this.list = [...hot, ...result.comments];
         } else {
           this.list = result.comments;
         }
