@@ -9,12 +9,48 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="dee8c41edf822a0124c80cc1e44643f947b3bc5c">
+        <source>Install</source>
+        <target>安装</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dstore-client.module/components/job-button/job-button.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="c9039b1b13b3ef165b66b3c5d79f810ab1ebb050">
+        <source>Open</source>
+        <target>打开</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dstore-client.module/components/job-button/job-button.component.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="047f50bc5b5d17b5bec0196355953e1a5c590ddb">
+        <source>Update</source>
+        <target>更新</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/dstore-client.module/components/job-button/job-button.component.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc">
         <source>Paused</source>
         <target>暂停</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
@@ -38,11 +74,15 @@
         <target>正在安装</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">76</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="04b741bf33a6b8359849d6085278e54b35acd0b9">
@@ -50,47 +90,11 @@
         <target>正在卸载</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">49</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="dee8c41edf822a0124c80cc1e44643f947b3bc5c">
-        <source>Install</source>
-        <target>安装</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
-          <context context-type="linenumber">66</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="047f50bc5b5d17b5bec0196355953e1a5c590ddb">
-        <source>Update</source>
-        <target>更新</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">36</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
-          <context context-type="linenumber">72</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="c9039b1b13b3ef165b66b3c5d79f810ab1ebb050">
-        <source>Open</source>
-        <target>打开</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/app-list/app-list.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="86288c2ac6b43ed195f0bc8bce825a3ab8151b71">
@@ -98,7 +102,7 @@
         <target>已安装</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="758496ccd0c37659b18828f3234eac3915c1a32f">
@@ -106,7 +110,7 @@
         <target>评分：</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="0cc1dec590ecd74bef71a865fb364779bc42a749">
@@ -114,7 +118,7 @@
         <target>分类：</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="ca17606ffe979fb5b411861280c33d2ad3e7a216">
@@ -122,7 +126,7 @@
         <target>版本：</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">65</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
@@ -130,7 +134,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="04380b03179685f28fc991c2ae855696d7f6ca44">
@@ -138,15 +142,15 @@
         <target>大小：</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="1aca220dfe1f66d56e27b15a6505ac3ee036d610">
-        <source>Update Date:</source>
-        <target>更新日期：</target>
+      <trans-unit datatype="html" id="c865350c1e557f8c00140a145e33f39ff822cdc0">
+        <source>Updated Date:</source>
+        <target>更新日期</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="055d47bb1af14fe2aebd1733bf30d5bf4add46f5">
@@ -154,7 +158,7 @@
         <target>官网：</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4a22c6843133f0b0d7dc0d28f864f2f90c1de7ad">
@@ -162,23 +166,23 @@
         <target>简介：</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="87b37a0f6e615a458d400a7e7f4e5d2a236738a2">
         <source><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> downloads</source>
-        <target><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> 次下载</target>
+        <target>&lt;x equiv-text=&quot;{{app.downloads}}&quot; id=&quot;INTERPOLATION&quot;/&gt; 次下载</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="0a9b80ad236842efdae45b225724cfa85f9ef066">
         <source><x equiv-text="{{app.ratings}}" id="INTERPOLATION"/> ratings</source>
-        <target><x equiv-text="{{app.ratings}}" id="INTERPOLATION"/>次评分</target>
+        <target>&lt;x equiv-text=&quot;{{app.ratings}}&quot; id=&quot;INTERPOLATION&quot;/&gt;次评分</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="1a5b6d68dd00f96022a9781b03b407784b5090b0">
@@ -186,7 +190,7 @@
         <target>计算中...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="e8c021c9d36ccd882cb337c19cbca3067c249d41">
@@ -194,7 +198,7 @@
         <target>已下载</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="535ed5b1faa4fb391623e885e7b752bb90b1c473">
@@ -202,7 +206,7 @@
         <target>催促更新</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="7898e09675b07f90ae57701b3bd781556a0d3f22">
@@ -210,7 +214,7 @@
         <target>打赏</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">129</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
@@ -222,15 +226,15 @@
         <target>抱歉</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">137</context>
+          <context context-type="linenumber">147</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">156</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">163</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
@@ -242,7 +246,7 @@
         <target>这款应用正在调整中，您可以返回到</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="680d5c75b7fd8d37961083608b9fcdc4167b4c43">
@@ -250,7 +254,7 @@
         <target>上一页</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">140</context>
+          <context context-type="linenumber">150</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="6dd070f6eb99a4e300bce2af82d76f3d01c61edd">
@@ -258,7 +262,7 @@
         <target>连接失败，请检查您的网络后尝试刷新</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="2631d08f671cb06e269dfe7ce2268ab52ef73375">
@@ -266,12 +270,12 @@
         <target>深度商店出错了</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
-          <context context-type="linenumber">154</context>
+          <context context-type="linenumber">164</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="299e6603e5dafea1c29c20493f2b3aabaca8bc96">
         <source><x equiv-text="{{count}}" id="INTERPOLATION"/> applications</source>
-        <target>共<x equiv-text="{{count}}" id="INTERPOLATION"/>个 </target>
+        <target>共&lt;x equiv-text=&quot;{{count}}&quot; id=&quot;INTERPOLATION&quot;/&gt;个 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -279,7 +283,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c5fa28eef4963d7813b35fc31c729401f6378c76">
         <source>Top <x equiv-text="{{top}}" id="INTERPOLATION"/></source>
-        <target>前<x equiv-text="{{top}}" id="INTERPOLATION"/>个</target>
+        <target>前&lt;x equiv-text=&quot;{{top}}&quot; id=&quot;INTERPOLATION&quot;/&gt;个</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -290,11 +294,11 @@
         <target>下载量</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a9b941f25f425bd907b8e23cbaed9e96a85e7db7">
@@ -302,16 +306,16 @@
         <target>评分</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="bfc41537a483ae9579984d7b8f1cdb52e386be52">
         <source>Processing <x equiv-text="{{jobs.length}}" id="INTERPOLATION"/> <x equiv-text="{jobs.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/></source>
-        <target><x equiv-text="{{jobs.length}}" id="INTERPOLATION"/> 个<x equiv-text="{jobs.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/>正在进行</target>
+        <target>&lt;x equiv-text=&quot;{{jobs.length}}&quot; id=&quot;INTERPOLATION&quot;/&gt; 个&lt;x equiv-text=&quot;{jobs.length, plural, =0 {...} =1 {...} other {...}}&quot; id=&quot;ICU&quot;/&gt;正在进行</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -335,7 +339,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="19b8abc7295c02c42ca64ce3cac1112a95fc1936">
         <source><x equiv-text="{{$m}}" id="INTERPOLATION"/> min</source>
-        <target><x equiv-text="{{$m}}" id="INTERPOLATION"/>分</target>
+        <target>&lt;x equiv-text=&quot;{{$m}}&quot; id=&quot;INTERPOLATION&quot;/&gt;分</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">28</context>
@@ -343,7 +347,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1d6e35c41ebf2987da0468d55073712041356849">
         <source><x equiv-text="{{$s}}" id="INTERPOLATION"/> sec</source>
-        <target><x equiv-text="{{$s}}" id="INTERPOLATION"/>秒</target>
+        <target>&lt;x equiv-text=&quot;{{$s}}&quot; id=&quot;INTERPOLATION&quot;/&gt;秒</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -376,10 +380,6 @@
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">70</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
-          <context context-type="linenumber">84</context>
-        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="81cd72e5c2a49c4e6b823b367ba9dc4f3103faf9">
         <source>Waiting to install</source>
@@ -400,11 +400,11 @@
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
         <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <target>已安装<x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/>个 <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/>
+        <target>已安装&lt;x equiv-text=&quot;{{$installedApps.length}}&quot; id=&quot;INTERPOLATION&quot;/&gt;个 &lt;x equiv-text=&quot;{$installedApps.length, plural, =0 {...} =1 {...} other {...}}&quot; id=&quot;ICU&quot;/&gt;
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="6c63a654764bea61f724f20116943ca5d84b2eb1">
@@ -412,7 +412,7 @@
         <target>{VAR_PLURAL, plural, =0 {应用} =1 {应用} other {应用} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="e5d8bb389c702588877f039d72178f219453a72d">
@@ -420,11 +420,11 @@
         <target>未知</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fdda54eda63b0d772c8639f52897d2bb1714b735">
@@ -432,7 +432,7 @@
         <target>您确定要卸载此应用吗？</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="d7b35c384aecd25a516200d6921836374613dfe7">
@@ -440,7 +440,7 @@
         <target>取消</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="68e710782ccb5398b3acb8844caf0b199da2c3da">
@@ -448,7 +448,7 @@
         <target>确认</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="b03f424e22c3eb9799167ac85fd8473a784ddd40">
@@ -456,7 +456,7 @@
         <target>安装日期：</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="1dfba504a0d0bf41da961d89d402dedecde5e30d">
@@ -464,7 +464,7 @@
         <target>卸载</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="92eee6be6de0b11c924e3ab27db30257159c0a7c">
@@ -750,13 +750,13 @@
         <target>回到顶部</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
-          <context context-type="linenumber">189</context>
+          <context context-type="linenumber">201</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="5e10bfec657136150ed6007533cc9574c66268ba">
         <source>Searching results for <x equiv-text="{{title$|async}}" id="INTERPOLATION"/>
 </source>
-        <target><x equiv-text="{{title$|async}}" id="INTERPOLATION"/>的搜索结果
+        <target>&lt;x equiv-text=&quot;{{title$|async}}&quot; id=&quot;INTERPOLATION&quot;/&gt;的搜索结果
 </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
@@ -774,7 +774,7 @@
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
       <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
-        <target>您可以向我们<x ctype="x-a" equiv-text="&amp;lt;a&amp;gt;" id="START_LINK"/>推荐<x ctype="x-a" equiv-text="&amp;lt;/a&amp;gt;" id="CLOSE_LINK"/>此应用</target>
+        <target>您可以向我们&lt;x ctype=&quot;x-a&quot; equiv-text=&quot;&amp;lt;a&amp;gt;&quot; id=&quot;START_LINK&quot;/&gt;推荐&lt;x ctype=&quot;x-a&quot; equiv-text=&quot;&amp;lt;/a&amp;gt;&quot; id=&quot;CLOSE_LINK&quot;/&gt;此应用</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -942,7 +942,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="248ac7083d6aeaba08df615c1af40aedb6df794a">
         <source>Announcement：<x equiv-text="{{$notify.content}}" id="INTERPOLATION"/></source>
-        <target>公告：<x equiv-text="{{$notify.content}}" id="INTERPOLATION"/></target>
+        <target>公告：&lt;x equiv-text=&quot;{{$notify.content}}&quot; id=&quot;INTERPOLATION&quot;/&gt;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -1033,7 +1033,7 @@
         <target>支付成功！</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="d6b9a958603b771efa6ec562f1411604c0089b79">
