@@ -48,7 +48,11 @@ export class LoginComponent implements OnInit {
     const bodyText = iframe.contentDocument.body.innerText;
     switch (iframe.contentWindow.location.pathname) {
       case '/oauth2/authorize':
-        if (bodyText.includes('loading....') || bodyText.includes('ERR_INTERNET_DISCONNECTED')) {
+        if (
+          bodyText.includes('loading....') ||
+          bodyText.includes('ERR_INTERNET_DISCONNECTED') ||
+          bodyText.includes('ERR_NAME_RESOLUTION_FAILED')
+        ) {
           this.loaded = false;
         } else {
           this.loginInit(iframe);
@@ -60,6 +64,7 @@ export class LoginComponent implements OnInit {
       case '/oauth2/logout':
         this.logout();
         break;
+      default:
     }
   }
   loginInit(iframe: HTMLIFrameElement) {
