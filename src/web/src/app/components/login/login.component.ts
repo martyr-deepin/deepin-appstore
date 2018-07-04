@@ -48,11 +48,7 @@ export class LoginComponent implements OnInit {
     const bodyText = iframe.contentDocument.body.innerText;
     switch (iframe.contentWindow.location.pathname) {
       case '/oauth2/authorize':
-        if (
-          bodyText.includes('loading....') ||
-          bodyText.includes('ERR_INTERNET_DISCONNECTED') ||
-          bodyText.includes('ERR_NAME_RESOLUTION_FAILED')
-        ) {
+        if (bodyText.includes('loading....') || bodyText.includes('Failed to load URL')) {
           this.loaded = false;
         } else {
           this.loginInit(iframe);
