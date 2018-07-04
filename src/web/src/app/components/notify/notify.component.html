@@ -27,6 +27,8 @@
                                   i18n>Failed to clear cache</ng-container>
                     <ng-container *ngSwitchCase="NotifyType.Recommend"
                                   i18n>Submit failed</ng-container>
+                    <ng-container *ngSwitchCase="NotifyType.JobError"
+                                  i18n>{{$notify.content}}</ng-container>
                 </span>
             </ng-container>
         </ng-container>

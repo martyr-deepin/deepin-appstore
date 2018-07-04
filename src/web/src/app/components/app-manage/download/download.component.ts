@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Observable, of, forkJoin, timer, iif, merge, Subscription } from 'rxjs';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map, tap, filter } from 'rxjs/operators';
 
 import { memoize, throttle, sortBy } from 'lodash';
 
@@ -13,8 +13,13 @@ import {
   StoreJobInfo,
   StoreJobType,
   StoreJobStatus,
+  CanFixError,
+  StoreJobError,
+  StoreJobErrorType,
 } from '../../../dstore-client.module/models/store-job-info';
 import { DomSanitizer } from '@angular/platform-browser';
+import { NotifyService } from '../../../services/notify.service';
+import { NotifyType, NotifyStatus } from '../../../services/notify.model';
 
 @Component({
   selector: 'app-download',
@@ -34,6 +39,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
     private appService: AppService,
     private storeService: StoreService,
     private sanitizer: DomSanitizer,
+    private notifyService: NotifyService,
   ) {}
 
   StoreJobType = StoreJobType;
@@ -46,6 +52,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
 
   jobs: StoreJobInfo[] = [];
   jobs$: Subscription;
+  fixing = false;
+
   ngOnInit() {
     this.jobs$ = merge(this.storeService.getJobList(), this.storeService.jobListChange())
       .pipe(
@@ -75,13 +83,47 @@ export class DownloadComponent implements OnInit, OnDestroy {
         });
       });
   }
+
   ngOnDestroy() {
     this.jobs$.unsubscribe();
   }
+
   getUrl(app: App) {
     if (navigator.onLine) {
       return this.metadataServer + '/' + app.icon;
     }
     return this.sanitizer.bypassSecurityTrustUrl('rcc://icon/' + app.name);
+  }
+
+  retry(job: StoreJobInfo) {
+    let err: StoreJobError;
+    try {
+      err = JSON.parse(job.description) as StoreJobError;
+    } catch (e) {
+      err = { ErrType: StoreJobErrorType.unknown, ErrDetail: job.description };
+    }
+    if (CanFixError.includes(err.ErrType)) {
+      this.fixing = true;
+      this.storeService
+        .fixError(err.ErrType.toString().split('::')[1])
+        .pipe(
+          switchMap(
+            jobPath => this.storeService.jobListChange(),
+            (jobPath, jobList) => jobList.includes(jobPath),
+          ),
+          filter(exists => !exists),
+        )
+        .subscribe(() => {
+          this.fixing = false;
+          this.storeService.resumeJob(job.job);
+        });
+    } else {
+      this.notifyService.notify({
+        type: NotifyType.JobError,
+        status: NotifyStatus.Error,
+        content: err.ErrDetail,
+        delay: 5000,
+      });
+    }
   }
 }

@@ -9,6 +9,7 @@ export enum NotifyType {
   Reminder,
   Recommend,
   Clear,
+  JobError,
 }
 export enum NotifyStatus {
   Unknown,

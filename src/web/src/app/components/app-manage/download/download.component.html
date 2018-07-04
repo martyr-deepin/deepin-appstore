@@ -99,7 +99,8 @@
                       *ngSwitchCase="job.status===StoreJobStatus.paused"
                       [disabled]="!job.cancelable"></button>
               <button class="restartBtn"
-                      (click)="start(job.job)"
+                      (click)="retry(job)"
+                      [disabled]="fixing"
                       *ngSwitchCase="job.status===StoreJobStatus.failed"
                       [disabled]="!job.cancelable"></button>
             </ng-container>
