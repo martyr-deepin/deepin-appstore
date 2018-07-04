@@ -62,11 +62,14 @@ export class DonateComponent implements OnInit {
         switchMap(req => this.donateService.donate(this.payment, req)),
       )
       .subscribe(resp => {
-        if (resp.error || !resp.shortURL) {
+        if (resp.error) {
           console.error(resp);
           return;
         }
         if (this.payment === Payment.WeChat) {
+          if (!resp.shortURL) {
+            return;
+          }
           QRCode.toDataURL(resp.shortURL).then(
             url => (this.qrImg = this.sanitizer.bypassSecurityTrustResourceUrl(url)),
           );
@@ -78,7 +81,7 @@ export class DonateComponent implements OnInit {
           switchMap(() => this.donateService.check(this.payment, resp.tradeID)),
           tap(c => {
             if (c.isExist) {
-              // this.close.emit();
+              DstoreObject.raiseWindow();
             }
           }),
         );
