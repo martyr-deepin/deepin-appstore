@@ -5,8 +5,7 @@ import { switchMap, map, tap, filter } from 'rxjs/operators';
 
 import { memoize, throttle, sortBy } from 'lodash';
 
-import { App } from '../../../dstore/services/app';
-import { AppService } from '../../../services/app.service';
+import { AppService, App } from '../../../services/app.service';
 import { BaseService } from '../../../dstore/services/base.service';
 import { StoreService } from '../../../dstore-client.module/services/store.service';
 import {
@@ -50,30 +49,41 @@ export class DownloadComponent implements OnInit, OnDestroy {
   pause = this.storeService.pauseJob;
   cancel = this.storeService.clearJob;
 
+  apps = new Map<string, App>();
   jobs: StoreJobInfo[] = [];
   jobs$: Subscription;
   fixing = false;
 
   ngOnInit() {
+    this.appService.list().subscribe(apps => {
+      apps.forEach(app => {
+        this.apps.set(app.name, app);
+      });
+    });
+
     this.jobs$ = merge(this.storeService.getJobList(), this.storeService.jobListChange())
       .pipe(
-        map(jobs => jobs.filter(job => job.includes('install')).sort((a, b) => b.localeCompare(a))),
         switchMap(jobs => {
           if (jobs.length > 0) {
             return timer(0, 1000).pipe(switchMap(() => this.storeService.getJobsInfo(jobs)));
           } else {
-            return of([]);
+            return of([] as StoreJobInfo[]);
           }
         }),
       )
       .subscribe(jobInfos => {
-        console.log(jobInfos);
+        jobInfos = jobInfos
+          .filter(job => job.type === StoreJobType.install || job.type === StoreJobType.download)
+          .filter(job => job.names.map(name => this.apps.has(name)).includes(true))
+          .sort((a, b) => a.id.localeCompare(b.id));
+
         if (jobInfos.length === 0) {
           this.jobs = [];
           return;
         }
+
         this.jobs = this.jobs.filter(job => jobInfos.find(info => info.id === job.id));
-        jobInfos.sort((a, b) => a.id.localeCompare(b.id)).forEach(jobInfo => {
+        jobInfos.forEach(jobInfo => {
           const oldJob = this.jobs.find(job => job.id === jobInfo.id);
           if (oldJob) {
             Object.assign(oldJob, jobInfo);

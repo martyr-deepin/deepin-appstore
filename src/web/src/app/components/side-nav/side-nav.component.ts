@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Observable, timer, merge } from 'rxjs';
-import { tap, flatMap, map } from 'rxjs/operators';
+import { tap, flatMap, map, switchMap } from 'rxjs/operators';
 
 import { memoize } from 'lodash';
 
@@ -10,6 +10,8 @@ import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { StoreService } from '../../dstore-client.module/services/store.service';
+import { AppService } from '../../dstore/services/app.service';
+import { StoreJobType } from '../../dstore-client.module/models/store-job-info';
 
 @Component({
   selector: 'app-side-nav',
@@ -24,9 +26,10 @@ import { StoreService } from '../../dstore-client.module/services/store.service'
 })
 export class SideNavComponent implements OnInit {
   constructor(
-    private categoryService: CategoryService,
     private sanitizer: DomSanitizer,
+    private categoryService: CategoryService,
     private storeService: StoreService,
+    private appService: AppService,
   ) {}
   native = BaseService.isNative;
   @ViewChild('nav') nav: ElementRef<HTMLDivElement>;
@@ -41,18 +44,30 @@ export class SideNavComponent implements OnInit {
        --active: url(${icon[1]})`,
     );
   });
+
   getStyleByID = memoize((id: string) => {
     return this.sanitizer.bypassSecurityTrustStyle(
       `content: url("/assets/icons/${id}.svg");
        --active: url("/assets/icons/${id}_active.svg")`,
     );
   });
+
   ngOnInit() {
     this.cs$ = this.categoryService.list();
-    this.dc$ = merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
-      map(jobs => jobs.filter(job => job.includes('install')).length),
+    this.dc$ = merge(
+      timer(0, 5000).pipe(switchMap(() => this.storeService.getJobList())),
+      this.storeService.jobListChange(),
+    ).pipe(
+      switchMap(jobs => this.storeService.getJobsInfo(jobs)),
+      map(
+        jobs =>
+          jobs.filter(
+            job => job.type === StoreJobType.install || job.type === StoreJobType.download,
+          ).length,
+      ),
     );
   }
+
   mousewheel(event: WheelEvent) {
     const nav = this.nav.nativeElement;
     if (event.wheelDeltaY > 0) {

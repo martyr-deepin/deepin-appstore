@@ -62,7 +62,7 @@
   </div>
 
   <div class="edit">
-    <textarea [readOnly]="info && own"
+    <textarea [readOnly]="!info || own"
               [(ngModel)]="comment.content"></textarea>
   </div>
   <div class="fixed">

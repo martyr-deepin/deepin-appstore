@@ -24,13 +24,12 @@ export class AppService {
   private server = BaseService.serverHosts.operationServer;
   private store = localForage.createInstance({ name: 'client-apps:' + BaseService.domainName });
 
-  list = _.throttle(this.getAppList, 1000 * 30);
   appMap = _.throttle(this.getAppMap, 1000 * 30);
   listNoVersion(): Observable<App[]> {
     return this.getAppMapNoVersion().pipe(map(appMap => Array.from(appMap.values())));
   }
-  private getAppList(): Observable<App[]> {
-    return this.getAppMap().pipe(map(appMap => Array.from(appMap.values())));
+  list(): Observable<App[]> {
+    return this.appMap().pipe(map(appMap => Array.from(appMap.values())));
   }
   private getAppMap(): Observable<Map<string, App>> {
     if (!BaseService.isNative) {

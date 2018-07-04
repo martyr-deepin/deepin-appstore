@@ -1,14 +1,15 @@
+<ng-template #loading>
+  <app-wait [style.height.vh]="95"></app-wait>
+</ng-template>
 <div class="list"
-     *ngIf="jobs">
+     *ngIf="jobs && apps.size>0;else loading">
   <div class="title"
        i18n>Processing {{jobs.length}} {jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
-
   <ng-container *ngFor="let job of jobs">
     <div class="item"
          *ngFor="let appName of job.names"
          @flyInOut>
-      <ng-container *ngIf="appName|appInfo|async as $app">
-
+      <ng-container *ngIf="apps.get(appName) as $app">
         <img class="icon"
              [src]="getUrl($app)"
              [routerLink]="$app.name">

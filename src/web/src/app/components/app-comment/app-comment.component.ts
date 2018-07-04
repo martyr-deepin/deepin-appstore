@@ -11,7 +11,7 @@ import { LoginService } from '../../services/login.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { CommentService, Comment } from '../../services/comment.service';
 import { encodeUriQuery } from '@angular/router/src/url_tree';
-import { shareReplay, switchMap, filter } from 'rxjs/operators';
+import { shareReplay, switchMap, filter, tap } from 'rxjs/operators';
 import { SizeHuman } from '../../dstore/pipes/size-human';
 
 @Component({
@@ -77,10 +77,15 @@ export class AppCommentComponent implements OnInit {
   getOwn() {
     this.authService.info$
       .pipe(
+        tap(() => {
+          this.getList();
+        }),
         filter(info => info != null),
         switchMap(() => this.commentService.own(this.appName, this.version)),
       )
-      .subscribe(own => (this.own = own));
+      .subscribe(own => {
+        this.own = own;
+      });
   }
 
   getList() {
