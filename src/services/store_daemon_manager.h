@@ -89,7 +89,7 @@ class StoreDaemonManager : public QObject {
 
   void onAppListUpdated(const AppSearchRecordList& app_list);
 
-  void fixErrorReply(const QString& job_path);
+  void fixErrorReply(const QVariantMap& result);
 
  public slots:
   void updateAppList(const AppSearchRecordList& app_list);

@@ -722,7 +722,16 @@ void StoreDaemonManager::onJobListChanged() {
 
 void StoreDaemonManager::fixError(const QString& error_type) {
   const QDBusObjectPath path = deb_interface_->FixError(error_type);
-  emit this->fixErrorReply(path.path());
+  const QString job_path = path.path();
+  emit this->fixErrorReply(QVariantMap {
+      { kResultOk, (!job_path.isEmpty()) },
+      { kResultErrName, "" },
+      { kResultErrMsg, "" },
+      { kResult, QVariantMap {
+          { kResultName, error_type },
+          { kResultValue, job_path },
+      }},
+  });
 }
 
 }  // namespace dstore
