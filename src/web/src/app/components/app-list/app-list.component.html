@@ -42,153 +42,27 @@
           </div>
         </div>
         <div class="control">
-          <ng-template #ctlBtn
-                       let-$job>
-            <ng-container *ngIf="$app.version as $version">
-              <ng-container #$btnGroup
-                            *ngIf="$job!==null">
-                <button *ngIf="!$version.localVersion && $version.remoteVersion"
-                        (click)="installApp($app)"
-                        i18n>Install</button>
-                <button *ngIf="$version.localVersion && !$version.upgradable && appOpenable($app)"
-                        (click)="openApp($app.name)"
-                        i18n>Open</button>
-                <button *ngIf="$version.upgradable"
-                        (click)="updateApp($app)"
-                        i18n>Update</button>
-              </ng-container>
-            </ng-container>
+          <ng-container *ngIf="jobs[$app.name] as job;else controlBtn">
+            <dstore-circle-button [running]="job.status===StoreJobStatus.running || job.status===StoreJobStatus.ready"
+                                  [progress]="job.progress"
+                                  (runningChange)="$event?start(job.job):pause(job.job)"></dstore-circle-button>
+          </ng-container>
+
+          <ng-template #controlBtn>
+            <div #ctlBtn>
+              <dstore-job-button [version]="$app.version"
+                                 [appName]="$app.name"
+                                 [localName]="$app.localInfo.description.name"
+                                 (start)="ctlBtn.hidden=true"></dstore-job-button>
+            </div>
+            <dstore-circle-button [running]="true"
+                                  *ngIf="ctlBtn.hidden"></dstore-circle-button>
           </ng-template>
-
-          <ng-container *ngIf="jobs[$app.name];else ctlBtn">
-            <svg width="22px"
-                 height="22px"
-                 class="controlBtn"
-                 *ngIf="jobs[$app.name] as $job">
-              <ng-container *ngIf="$job.type===StoreJobType.download || $job.type===StoreJobType.install"
-                            [ngSwitch]="true">
-                <image x="4"
-                       y="4"
-                       [attr.xlink:href]="'/assets/buttons/pause.svg'"
-                       *ngSwitchCase="$job.status===StoreJobStatus.running || $job.status===StoreJobStatus.ready"
-                       (click)="pause($job.job)"></image>
-                <image x="4"
-                       y="4"
-                       [attr.xlink:href]="'/assets/buttons/start.svg'"
-                       *ngSwitchCase="$job.status=='paused'"
-                       (click)="start($job.job)"></image>
-              </ng-container>
-              <rect width="100%"
-                    height="100%"
-                    fill="none"
-                    stroke-width="4"></rect>
-              <circle cx="50%"
-                      cy="50%"
-                      r="40%"
-                      stroke="black"
-                      stroke-opacity="0.05"
-                      stroke-width="4"
-                      fill="none" />
-              <circle cx="50%"
-                      cy="50%"
-                      r="40%"
-                      stroke="#2ca7f8"
-                      stroke-width="4"
-                      fill="none"
-                      [style.transform-origin]="'center'"
-                      [style.transform]="'rotate(-90deg)'"
-                      attr.stroke-dasharray="calc( 2rem*3.14*{{$job.progress}} ) calc( 2rem * 3.14 * 2 )"></circle>
-            </svg>
-          </ng-container>
         </div>
       </div>
-
-      <!--   <div class="info"
-           [class.hover]="!jobs[$app.name]">
-        <div class="title">
-          <span class="name"
-                [attr.index]="$index+1"
-                [routerLink]="$app.name">{{$app.localInfo.description.name}}</span>
-        </div>
-        <div class="subtitle"
-             [ngSwitch]="subtitle">
-          <div>
-            <span *ngSwitchCase="'category'"
-                  class="category"
-                  [routerLink]="['/category',$app.category]">{{$app.localCategory}}</span>
-            <span *ngSwitchCase="'slogan'"
-                  [routerLink]="$app.name">
-              {{$app.localInfo.description.slogan}} &nbsp;
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="control"
-           [class.hover]="!jobs[$app.name]">
-        <ng-template #ctlBtn
-                     let-$job>
-          <ng-container *ngIf="$app.version as $version">
-            <ng-container #$btnGroup
-                          *ngIf="$job!==null">
-              <button *ngIf="!$version.localVersion && $version.remoteVersion"
-                      (click)="installApp($app)"
-                      i18n>Install</button>
-              <button *ngIf="$version.localVersion && !$version.upgradable && appOpenable($app)"
-                      (click)="openApp($app.name)"
-                      i18n>Open</button>
-              <button *ngIf="$version.upgradable"
-                      (click)="updateApp($app)"
-                      i18n>Update</button>
-            </ng-container>
-          </ng-container>
-        </ng-template>
-
-        <ng-container *ngIf="jobs[$app.name];else ctlBtn">
-          <svg width="22px"
-               height="22px"
-               class="controlBtn"
-               *ngIf="jobs[$app.name] as $job">
-            <ng-container *ngIf="$job.type===StoreJobType.download || $job.type===StoreJobType.install"
-                          [ngSwitch]="true">
-              <image x="4"
-                     y="4"
-                     [attr.xlink:href]="'/assets/buttons/pause.svg'"
-                     *ngSwitchCase="$job.status===StoreJobStatus.running || $job.status===StoreJobStatus.ready"
-                     (click)="pause($job.job)"></image>
-              <image x="4"
-                     y="4"
-                     [attr.xlink:href]="'/assets/buttons/start.svg'"
-                     *ngSwitchCase="$job.status=='paused'"
-                     (click)="start($job.job)"></image>
-            </ng-container>
-            <rect width="100%"
-                  height="100%"
-                  fill="none"
-                  stroke-width="4"></rect>
-            <circle cx="50%"
-                    cy="50%"
-                    r="40%"
-                    stroke="black"
-                    stroke-opacity="0.05"
-                    stroke-width="4"
-                    fill="none" />
-            <circle cx="50%"
-                    cy="50%"
-                    r="40%"
-                    stroke="#2ca7f8"
-                    stroke-width="4"
-                    fill="none"
-                    [style.transform-origin]="'center'"
-                    [style.transform]="'rotate(-90deg)'"
-                    attr.stroke-dasharray="calc( 2rem*3.14*{{$job.progress}} ) calc( 2rem * 3.14 * 2 )"></circle>
-          </svg>
-        </ng-container>
-      </div> -->
 
     </div>
   </div>
-  <div class="app"
-       [style.height]="0"
+  <div class="empty"
        *ngFor="let a of [1,2,3,4,5,6]"></div>
 </div>

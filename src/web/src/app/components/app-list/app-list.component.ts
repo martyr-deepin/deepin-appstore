@@ -54,6 +54,7 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   apps: App[];
   jobs: { [key: string]: StoreJobInfo } = {};
   jobNames = new Set<string>();
+  installApps = new Set<string>();
   jobs$: Subscription;
   loading = false;
 
@@ -81,6 +82,7 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
             this.jobNames.add(name);
           });
         });
+
         this.jobs = jobs;
         this.storeService.getVersion(Object.keys(this.jobs)).subscribe(versions => {
           const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
@@ -120,6 +122,7 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   installApp(app: App) {
+    this.installApps.add(app.name);
     this.storeService.installPackage(app.name, app.localInfo.description.name).subscribe();
   }
   updateApp(app: App) {

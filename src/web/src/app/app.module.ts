@@ -10,6 +10,7 @@ registerLocaleData(localeZH, 'zh-Hans');
 
 import { RoutingModule } from './routing/routing.module';
 import { DstoreModule } from './dstore/dstore.module';
+import { ClientModule } from './dstore-client.module/client.module';
 
 import { MyHttpInterceptor } from './services/http-interceptor';
 
@@ -86,6 +87,7 @@ import { ProgressButtonComponent } from './components/progress-button/progress-b
     ReactiveFormsModule,
     HttpClientModule,
     DstoreModule,
+    ClientModule,
     RoutingModule,
   ],
   providers: [
