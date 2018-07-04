@@ -39,7 +39,7 @@ const char kResult[] = "result";
 const char kResultName[] = "name";
 const char kResultValue[] = "value";
 
-void ReadJobInfo(LastoreJobInterface& job_interface,
+bool ReadJobInfo(LastoreJobInterface& job_interface,
                  const QString& job,
                  QMultiHash<QString, QString>& deb_names,
                  QVariantMap& result) {
@@ -68,10 +68,10 @@ void ReadJobInfo(LastoreJobInterface& job_interface,
       qWarning() << Q_FUNC_INFO << "pkg not found:" << pkg;
     }
   }
-  if (app_names.length() != 1) {
-    qCritical() << Q_FUNC_INFO << "app name invalid: " << app_names << job;
-  }
+
   result.insert("names", app_names);
+
+  return (! app_names.isEmpty());
 }
 
 }  // namespace
@@ -655,17 +655,26 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
                                     QDBusConnection::sessionBus(),
                                     this);
   if (job_interface.isValid()) {
-    ReadJobInfo(job_interface, job, deb_names_, result);
-
-    emit this->getJobInfoReply(QVariantMap {
-        { kResultOk, true },
-        { kResultErrName, "" },
-        { kResultErrMsg, "" },
-        { kResult, QVariantMap {
-            { kResultName, job },
-            { kResultValue, result },
-        }},
-    });
+    if (ReadJobInfo(job_interface, job, deb_names_, result)) {
+      emit this->getJobInfoReply(QVariantMap {
+          { kResultOk, true },
+          { kResultErrName, "" },
+          { kResultErrMsg, "" },
+          { kResult, QVariantMap {
+              { kResultName, job },
+              { kResultValue, result },
+          }},
+      });
+    } else {
+      emit this->getJobInfoReply(QVariantMap {
+          { kResultOk, false },
+          { kResultErrName, "app name list is empty" },
+          { kResultErrMsg, "" },
+          { kResult, QVariantMap {
+              { kResultName, job },
+          }},
+      });
+    }
   } else {
     emit this->getJobInfoReply(QVariantMap {
         { kResultOk, false },
@@ -696,8 +705,11 @@ void StoreDaemonManager::getJobsInfo(const QString& task_id,
                                       QDBusConnection::sessionBus(),
                                       this);
     if (job_interface.isValid()) {
-      ReadJobInfo(job_interface, job, deb_names_, job_info);
-      jobs_info.append(job_info);
+      if (ReadJobInfo(job_interface, job, deb_names_, job_info)) {
+        jobs_info.append(job_info);
+      } else {
+        qWarning() << "Invalid app_names for job:" << job;
+      }
     }
   }
   emit this->getJobsInfoReply(QVariantMap {
