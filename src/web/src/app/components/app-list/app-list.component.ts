@@ -106,10 +106,12 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
       this.apps$.subscribe(apps => {
         apps = apps.filter(app => app);
         if (this.sortBy) {
-          apps = sortBy(apps, [
-            this.sortBy === SortOrder.Downloads ? 'downloads' : 'rate',
-            'name',
-          ]).reverse();
+          apps = sortBy(
+            apps,
+            this.sortBy === SortOrder.Downloads
+              ? ['downloads', 'rate', 'name']
+              : ['rate', 'downloads', 'name'],
+          ).reverse();
         }
         if (this.maxCount) {
           apps = apps.slice(0, this.maxCount);
