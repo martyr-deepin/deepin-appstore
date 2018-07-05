@@ -130,6 +130,7 @@
       <button i18n
               (click)="donateOpen()">Donate</button>
     </div>
+    <app-donors [appName]="app.name"></app-donors>
     <div class="hr"></div>
     <br>
     <app-app-comment [appName]="app.name"

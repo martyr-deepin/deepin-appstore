@@ -1,0 +1,17 @@
+.donors {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: 2rem;
+    width: 2rem;
+    min-height: 2rem;
+    border-radius: 50%;
+    margin: 0 -5px;
+    box-shadow: rgba(0, 0, 0, 0.1);
+  }
+  span {
+    margin-left: 1rem;
+  }
+  margin: 1rem 0;
+}
