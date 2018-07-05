@@ -10,7 +10,7 @@ import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { StoreService } from '../../dstore-client.module/services/store.service';
-import { AppService } from '../../dstore/services/app.service';
+import { AppService } from '../../services/app.service';
 import { StoreJobType } from '../../dstore-client.module/models/store-job-info';
 
 @Component({
@@ -59,12 +59,15 @@ export class SideNavComponent implements OnInit {
       this.storeService.jobListChange(),
     ).pipe(
       switchMap(jobs => this.storeService.getJobsInfo(jobs)),
-      map(
-        jobs =>
-          jobs.filter(
-            job => job.type === StoreJobType.install || job.type === StoreJobType.download,
-          ).length,
-      ),
+      switchMap(jobs => {
+        const apps = [].concat(
+          ...jobs
+            .filter(job => job.type === StoreJobType.install || job.type === StoreJobType.download)
+            .map(job => job.names),
+        );
+        return this.appService.getApps(apps);
+      }),
+      map(apps => apps.length),
     );
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { get, parseInt } from 'lodash';
@@ -24,34 +24,44 @@ export class TopicComponent implements OnInit {
     private appService: AppService,
     private sectionService: SectionService,
   ) {}
+  @ViewChild('topicContainer') topicContainer: ElementRef<HTMLDivElement>;
 
   server = BaseService.serverHosts.operationServer;
-  topic$: Observable<SectionTopic>;
+  topic: SectionTopic;
   apps$: Observable<App[]>;
 
-  @HostBinding('style.backgroundImage') bgImg;
-
   ngOnInit() {
-    this.topic$ = this.route.paramMap.pipe(
-      flatMap(param => {
-        const sectionIndex = parseInt(param.get('section'), 10);
-        const topicIndex = parseInt(param.get('topic'), 10);
-        return this.sectionService.getList().pipe(
-          map(sectionList => get(sectionList, [sectionIndex, 'items'])),
-          map((topicList: SectionTopic[]) => topicList.filter(t => t.show)[topicIndex]),
-          tap(topic => {
-            if (topic && topic.backgroundColor) {
-              this.bgImg = `linear-gradient(to bottom, transparent,${topic.backgroundColor})`;
-            }
-          }),
+    this.route.paramMap
+      .pipe(
+        flatMap(
+          param => {
+            return this.sectionService.getList();
+          },
+          (param, sectionList) => {
+            const sectionIndex = parseInt(param.get('section'), 10);
+            const topicIndex = parseInt(param.get('topic'), 10);
+            return get(sectionList, [sectionIndex, 'items', topicIndex]) as SectionTopic;
+          },
+        ),
+      )
+      .subscribe(topic => {
+        this.topic = topic;
+        this.apps$ = this.appService.getApps(
+          topic.apps.filter(app => app.show).map(app => app.name),
         );
-      }),
-    );
-    this.apps$ = this.topic$.pipe(
-      flatMap(topic => {
-        const appNameList = topic.apps.filter(app => app.show).map(app => app.name);
-        return this.appService.getApps(appNameList);
-      }),
-    );
+      });
+  }
+
+  loaded() {
+    const el = this.topicContainer.nativeElement;
+
+    el.hidden = false;
+    Array.from(el.querySelectorAll<HTMLDivElement>('.name')).forEach(name => {
+      name.style.color = this.topic.nameColor;
+    });
+
+    Array.from(el.querySelectorAll<HTMLDivElement>('.subtitle')).forEach(subtitle => {
+      subtitle.style.color = this.topic.subTitleColor;
+    });
   }
 }
