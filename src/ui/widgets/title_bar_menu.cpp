@@ -56,6 +56,10 @@ void TitleBarMenu::setLoginState(bool login) {
 }
 
 void TitleBarMenu::setRegion(bool is_china) {
+  if (!AllowSwitchRegion()) {
+    qWarning() << "Do not allow switching regions";
+    return;
+  }
   if (is_china) {
     region_china_->setChecked(true);
   } else {
@@ -82,9 +86,15 @@ void TitleBarMenu::initActions() {
                     this, &TitleBarMenu::recommendAppRequested);
   }
 
-  auto region_menu = this->addMenu(QObject::tr("Select Region"));
+  QMenu* region_menu = nullptr;
+  if (AllowSwitchRegion()) {
+    region_menu = this->addMenu(QObject::tr("Select Region"));
+  } else {
+    region_menu = new QMenu();
+    connect(this, &QObject::destroyed,
+            region_menu, &QMenu::deleteLater);
+  }
   region_china_ = region_menu->addAction(QObject::tr("China"));
-
   region_china_->setCheckable(true);
   region_international_ = region_menu->addAction(QObject::tr("International"));
   region_international_->setCheckable(true);
