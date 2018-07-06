@@ -31,7 +31,7 @@
           <ng-template #ctl>
             <div class="time co-star">
               <span i18n>Date installed:</span>
-              <span *ngIf="$installedApp.time as $t;else $unknownTime">{{$t*1000|date}}</span>
+              <span *ngIf="$installedApp.time as $t;else $unknownTime">{{$t*1000|date:'yyyy-MM-dd'}}</span>
               <ng-template #$unknownTime>
                 <span i18n>Unknown</span>
               </ng-template>
