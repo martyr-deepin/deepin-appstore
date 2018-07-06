@@ -1,3 +1,6 @@
+2018-07-06 5.0.1 Xu Shaohua<xushaohua2016@outlook.com>
+    * Rewrite UI with angular
+
 2018-01-20 5.0.0 xushaohua<xushaohua@deepin.com>
 	* Port to qcef
 

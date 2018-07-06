@@ -1,3 +1,9 @@
+deepin-appstore (5.0.l) unstable; urgency=medium
+
+  * Rewrite UI with angular
+
+ -- Xu Shaohua <xushaohua2016@outlook.com>  Fri, 06 Jul 2018 09:34:55 +0800
+
 deepin-appstore (5.0.0-1) unstable; urgency=medium
 
   * Port to qcef
