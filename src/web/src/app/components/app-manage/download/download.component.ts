@@ -33,7 +33,6 @@ import { NotifyType, NotifyStatus } from '../../../services/notify.model';
   ],
 })
 export class DownloadComponent implements OnInit, OnDestroy {
-  metadataServer = BaseService.serverHosts.metadataServer;
   constructor(
     private appService: AppService,
     private storeService: StoreService,
@@ -97,13 +96,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.jobs$.unsubscribe();
-  }
-
-  getUrl(app: App) {
-    if (navigator.onLine) {
-      return this.metadataServer + '/' + app.icon;
-    }
-    return this.sanitizer.bypassSecurityTrustUrl('rcc://icon/' + app.name);
   }
 
   retry(job: StoreJobInfo) {

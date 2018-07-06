@@ -1,5 +1,6 @@
 <ng-template #loading>
-  <app-wait [style.height.vh]="95"></app-wait>
+  <app-wait [style.height.vh]="95"
+            [checkNet]="false"></app-wait>
 </ng-template>
 <div class="list"
      *ngIf="jobs && apps.size>0;else loading">
@@ -11,7 +12,7 @@
          @flyInOut>
       <ng-container *ngIf="apps.get(appName) as $app">
         <img class="icon"
-             [src]="getUrl($app)"
+             [src]="$app|icon"
              [routerLink]="$app.name">
         <div class="content">
           <div class="appInfo"

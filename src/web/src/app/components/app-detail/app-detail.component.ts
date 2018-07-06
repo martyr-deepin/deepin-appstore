@@ -36,7 +36,6 @@ export class AppDetailComponent implements OnInit {
     private downloadService: DownloadService,
     private notifyService: NotifyService,
   ) {}
-  metadataServer = BaseService.serverHosts.metadataServer;
   open = this.storeService.openApp;
 
   StoreJobStatus = StoreJobStatus;

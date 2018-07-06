@@ -2,7 +2,7 @@
   <div class="appInfo">
     <div class="info-left">
       <img class="icon"
-           [src]="metadataServer+'/'+app.icon">
+           [src]="app|icon">
       <br>
       <ng-container *ngIf="app.version">
         <ng-container *ngIf="job$|async as job;else cltButton">

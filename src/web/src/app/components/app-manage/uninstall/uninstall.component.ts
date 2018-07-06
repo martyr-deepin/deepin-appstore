@@ -29,7 +29,6 @@ export class UninstallComponent implements OnInit, OnDestroy {
     private storeService: StoreService,
     private appService: AppService,
   ) {}
-  metadataServer = BaseService.serverHosts.metadataServer;
 
   installedApps: InstalledApp[];
   uninstallingApps: string[];
@@ -71,12 +70,5 @@ export class UninstallComponent implements OnInit, OnDestroy {
       this.select = '';
       this.uninstallingApps.push(appName);
     });
-  }
-
-  getUrl(app: App) {
-    if (navigator.onLine) {
-      return this.metadataServer + '/' + app.icon;
-    }
-    return this.sanitizer.bypassSecurityTrustUrl('rcc://icon/' + app.name);
   }
 }

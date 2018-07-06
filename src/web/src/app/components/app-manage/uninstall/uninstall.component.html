@@ -7,7 +7,7 @@
          *ngFor="let $installedApp of $installedApps">
       <ng-container *ngIf="$installedApp.name|appInfo|async as $app">
         <img class="icon"
-             [src]="getUrl($app)">
+             [src]="$app|icon">
         <div class="content">
           <div class="base">
             <span>{{$app.localInfo.description.name}}</span>
