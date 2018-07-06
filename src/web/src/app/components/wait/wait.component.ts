@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class WaitComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
   @Input() checkNet = true;
-  @Input() timeout = 10;
+  @Input() timeout = 15;
   timeout$: Observable<string>;
   waitOnline$: Observable<void>;
   online: boolean;
@@ -21,7 +21,8 @@ export class WaitComponent implements OnInit {
     } else {
       this.online = true;
     }
-    this.timeout$ = timer(navigator.onLine ? this.timeout * 1000 : 0).pipe(map(() => 'timeout'));
+    console.log(this.checkNet, this.online, navigator.onLine);
+    this.timeout$ = timer(this.online ? this.timeout * 1000 : 0).pipe(map(() => 'timeout'));
     this.waitOnline$ = fromEvent(window, 'online').pipe(
       map(() => {
         this.refresh();

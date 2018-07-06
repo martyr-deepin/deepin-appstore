@@ -5,12 +5,12 @@
      [hidden]="loading"
      *ngIf="apps as $apps">
   <div class="app"
+       [routerLink]="$app.name"
        [class.index]="rankIndex"
        [class.job]="jobs[$app.name] || jobNames.has($app.name)"
        *ngFor="let $app of $apps;index as $index">
     <div class="cover"
-         [attr.index]="$index+1"
-         [routerLink]="$app.name">
+         [attr.index]="$index+1">
       <img [src]="server+'/'+([$app.localInfo.images.cover,$app.localInfo.images.coverHD]|fitImage)">
     </div>
     <div class="content">
@@ -21,7 +21,8 @@
         <div class="subtitle"
              [ngSwitch]="subtitle">
           <span *ngSwitchCase="'category'"
-                class="category">{{$app.localCategory}}</span>
+                class="category"
+                [routerLink]="[$app.localCategory]">{{$app.localCategory}}</span>
           <span *ngSwitchCase="'slogan'">
             {{$app.localInfo.description.slogan}}
           </span>

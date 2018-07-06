@@ -1,0 +1,23 @@
+<ng-container [ngSwitch]="errType">
+  <ng-container *ngSwitchCase="StoreJobErrorType.dependenciesBroken"
+                i18n>依赖关系破坏</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.dpkgInterrupted"
+                i18n>dpkg被中断</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.invalidSourcesList"
+                i18n>源列表无效</ng-container>
+
+  <ng-container *ngSwitchCase="StoreJobErrorType.removeDDE"
+                i18n>将会卸载 dde 软件包</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.fetchFailed"
+                i18n>获取失败</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.dpkgError"
+                i18n>dpkg 错误</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.pkgNotFound"
+                i18n>找不到这个软件包</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.unmetDependencies"
+                i18n>有不满足的依赖关系</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.noInstallationCandidate"
+                i18n>没有安装候选</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.insufficientSpace"
+                i18n>硬盘剩余空间不足</ng-container>
+</ng-container>

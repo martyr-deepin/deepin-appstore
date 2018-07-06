@@ -1,4 +1,4 @@
-<ng-container *ngIf="online;else $offline">
+<ng-container *ngIf="online; else $offline">
     <ng-container *ngIf="timeout$|async;else water">
         <img class="failed"
              src="/assets/icons/failed.svg">

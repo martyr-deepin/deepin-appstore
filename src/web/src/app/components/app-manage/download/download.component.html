@@ -65,8 +65,9 @@
                                 i18n>Paused</ng-container>
                   <ng-container *ngSwitchCase="StoreJobStatus.ready"
                                 i18n>Waiting to download</ng-container>
-                  <ng-container *ngSwitchCase="StoreJobStatus.failed"
-                                i18n>Download failed</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.failed">
+                    <app-store-job-error [rowString]="job.description"></app-store-job-error>
+                  </ng-container>
                   <ng-container *ngSwitchCase="StoreJobStatus.end"
                                 i18n>Cancelling</ng-container>
                   <ng-container *ngSwitchDefault>{{job.status}}</ng-container>
@@ -79,8 +80,9 @@
                                 i18n>Paused</ng-container>
                   <ng-container *ngSwitchCase="StoreJobStatus.ready"
                                 i18n>Waiting to install</ng-container>
-                  <ng-container *ngSwitchCase="StoreJobStatus.failed"
-                                i18n>Installation failed</ng-container>
+                  <ng-container *ngSwitchCase="StoreJobStatus.failed">
+                    <app-store-job-error [rowString]="job.description"></app-store-job-error>
+                  </ng-container>
                   <ng-container *ngSwitchCase="StoreJobStatus.end"
                                 i18n>Installing</ng-container>
                   <ng-container *ngSwitchDefault>{{job.status}}</ng-container>

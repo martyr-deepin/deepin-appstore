@@ -50,6 +50,7 @@ import { AppInfoPipe } from './pipes/app-info';
 import { MoreComponent } from './components/more/more.component';
 import { DonateComponent } from './components/donate/donate.component';
 import { ProgressButtonComponent } from './components/progress-button/progress-button.component';
+import { StoreJobErrorComponent } from './components/store-job-error/store-job-error.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { ProgressButtonComponent } from './components/progress-button/progress-b
     LodashPipe,
     AppInfoPipe,
     ProgressButtonComponent,
+    StoreJobErrorComponent,
   ],
   imports: [
     BrowserModule,
