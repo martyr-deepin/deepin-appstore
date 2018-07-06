@@ -28,9 +28,11 @@ namespace {
 
 const char kSupportSigninName[] = "supportSignIn";
 const char kMetaServerName[] = "metadataServer";
-const char kChinaServerName[] = "chinaOperationServer";
-const char kIntlServerName[] = "internationalOperationServer";
-const char kDefaultRegionName[] = "defaultOperationServer";
+
+const char kOperationType[] = "operationType";
+const char kOperationPrimaryServer[] = "operationPrimary";
+const char kOperationSecondaryServer[] = "operationSecondary";
+const char kOperationDefault[] = "operationDefault";
 const char kRegionName[] = "currentRegion";
 
 QVariant GetSystemSettingsValue(const QString& key) {
@@ -58,10 +60,10 @@ QString GetMetadataServer() {
 }
 
 QString GetOperationServer() {
-  if (GetRegion() == RegionChina) {
-    return GetSystemSettingsValue(kChinaServerName).toString();
+  if (GetRegion() == RegionInternational) {
+    return GetSystemSettingsValue(kOperationSecondaryServer).toString();
   } else {
-    return GetSystemSettingsValue(kIntlServerName).toString();
+    return GetSystemSettingsValue(kOperationPrimaryServer).toString();
   }
 }
 
@@ -71,10 +73,40 @@ void SetRegion(OperationServerRegion region) {
 }
 
 OperationServerRegion GetRegion() {
-  const int default_region = GetSystemSettingsValue(kDefaultRegionName).toInt();
-  QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-  const int region = settings.value(kRegionName, default_region).toInt();
-  return static_cast<OperationServerRegion>(region);
+  if(GetOperationType() == OperationType::OperationCommunity) {
+    const int default_region = GetSystemSettingsValue(kOperationDefault).toInt();
+    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+    const int region = settings.value(kRegionName, default_region).toInt();
+    return static_cast<OperationServerRegion>(region);
+  } else {
+    return OperationServerRegion::RegionChina;
+  }
+}
+
+OperationType GetOperationType() {
+  const int type = GetSystemSettingsValue(kOperationType).toInt();
+  return static_cast<OperationType>(type);
+}
+
+bool UpyunBannerVisible() {
+  switch (GetOperationType()) {
+    case OperationType::OperationCommunity: {
+      return GetRegion() == OperationServerRegion::RegionChina;
+    }
+    case OperationType::OperationProfessional: {
+      return false;
+    }
+    case OperationType::OperationLoongson: {
+      return false;
+    }
+    default: {
+    }
+  }
+  return false;
+}
+
+bool AllowSwitchRegion() {
+  return GetRegion() == OperationServerRegion::RegionChina;
 }
 
 }  // namespace dstore

@@ -28,6 +28,12 @@ QString GetMetadataServer();
 
 QString GetOperationServer();
 
+enum OperationType {
+  OperationCommunity = 0,
+  OperationProfessional = 1,
+  OperationLoongson = 2,
+};
+
 enum OperationServerRegion {
   RegionChina = 0,
   RegionInternational = 1,
@@ -39,9 +45,24 @@ enum OperationServerRegion {
  */
 void SetRegion(OperationServerRegion region);
 
+// Get current operation server region.
+// Always returns the primary server on professional and loongson.
 OperationServerRegion GetRegion();
 
 QString GetSessionSettingsFile();
+
+OperationType GetOperationType();
+
+// Show upyun banner or not in app-detail page.
+// * community
+//   * China, true
+//   * International, false
+// * professional, false
+// * loongson, false
+bool UpyunBannerVisible();
+
+// Only allow switch-region in community version.
+bool AllowSwitchRegion();
 
 }  // namespace dstore
 
