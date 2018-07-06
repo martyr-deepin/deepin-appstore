@@ -20,13 +20,7 @@ export class NotifyService {
     private zone: NgZone,
     private storeService: StoreService,
   ) {
-    const s = new Array(100).fill(11111111111111111).join(',');
-    this.notify({
-      type: NotifyType.Bulletin,
-      status: NotifyStatus.Success,
-      content: s,
-    });
-
+    this.getBulletin();
     if (BaseService.isNative) {
       DstoreObject.clearArchives().subscribe(() => {
         this.zone.run(() => {
@@ -38,34 +32,34 @@ export class NotifyService {
   }
 
   private getBulletin() {
-    // this.http
-    //   .get(BaseService.serverHosts.operationServer + '/api/bulletin', { responseType: 'text' })
-    //   .subscribe(body => {
-    //     const { bulletin }: { bulletin: Bulletin } = JSON.parse(
-    //       body,
-    //       (k: string, v) => (k.includes('Time') ? new Date(v) : v),
-    //     );
-    //     const t = new Date();
-    //     if (bulletin.startTime <= t && bulletin.endTime > t) {
-    //       let content: string;
-    //       if (navigator.language === 'zh-CN') {
-    //         content = bulletin.contentZh;
-    //         if (bulletin.contentZh.length === 0) {
-    //           content = bulletin.contentEn;
-    //         }
-    //       } else {
-    //         content = bulletin.contentEn;
-    //         if (bulletin.contentEn.length === 0) {
-    //           content = bulletin.contentZh;
-    //         }
-    //       }
-    //       this.notify({
-    //         type: NotifyType.Bulletin,
-    //         status: NotifyStatus.Success,
-    //         content: content,
-    //       });
-    //     }
-    //   });
+    this.http
+      .get(BaseService.serverHosts.operationServer + '/api/bulletin', { responseType: 'text' })
+      .subscribe(body => {
+        const { bulletin }: { bulletin: Bulletin } = JSON.parse(
+          body,
+          (k: string, v) => (k.includes('Time') ? new Date(v) : v),
+        );
+        const t = new Date();
+        if (bulletin.startTime <= t && bulletin.endTime > t) {
+          let content: string;
+          if (navigator.language === 'zh-CN') {
+            content = bulletin.contentZh;
+            if (bulletin.contentZh.length === 0) {
+              content = bulletin.contentEn;
+            }
+          } else {
+            content = bulletin.contentEn;
+            if (bulletin.contentEn.length === 0) {
+              content = bulletin.contentZh;
+            }
+          }
+          this.notify({
+            type: NotifyType.Bulletin,
+            status: NotifyStatus.Success,
+            content: content,
+          });
+        }
+      });
   }
 
   notify(n: Notify) {

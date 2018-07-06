@@ -20,6 +20,7 @@ import { DownloadService } from '../../services/download.service';
 import { NotifyService } from '../../services/notify.service';
 import { NotifyType, NotifyStatus } from '../../services/notify.model';
 import { AppVersion } from '../../dstore-client.module/models/app-version';
+import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
 
 @Component({
   selector: 'app-app-detail',
@@ -36,6 +37,7 @@ export class AppDetailComponent implements OnInit {
     private downloadService: DownloadService,
     private notifyService: NotifyService,
   ) {}
+  adVisible = DstoreObject.AdVisible();
   open = this.storeService.openApp;
 
   StoreJobStatus = StoreJobStatus;

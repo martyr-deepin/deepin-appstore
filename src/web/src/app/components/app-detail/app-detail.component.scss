@@ -131,3 +131,13 @@
 .selectable {
   user-select: text;
 }
+
+.ad {
+  width: 100%;
+  height: 3rem;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+}
