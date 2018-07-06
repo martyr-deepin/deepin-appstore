@@ -54,4 +54,8 @@ void SettingsProxy::raiseWindow() {
   emit this->raiseWindowRequested();
 }
 
+bool SettingsProxy::upyunBannerVisible() {
+  return UpyunBannerVisible();
+}
+
 }  // namespace dstore

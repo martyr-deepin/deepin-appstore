@@ -55,6 +55,12 @@ class SettingsProxy : public QObject {
    * Raise main window.
    */
   void raiseWindow();
+
+  /**
+   * Check whether UPYun banner should be shown in app-detail page.
+   * @return bool
+   */
+  bool upyunBannerVisible();
 };
 
 }  // namespace dstore
