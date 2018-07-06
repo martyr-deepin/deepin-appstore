@@ -136,7 +136,8 @@
     <app-app-comment [appName]="app.name"
                      [version]="app.version.remoteVersion || app.version.localVersion"></app-app-comment>
     <div class="ad"
-         *ngIf="adVisible|async">cdn由又拍云支持</div>
+         *ngIf="adVisible|async"
+         i18n>CDN supported by UPYUN</div>
   </ng-container>
 </div>
 
