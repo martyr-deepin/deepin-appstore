@@ -37,6 +37,7 @@ export class AppDetailComponent implements OnInit {
     private downloadService: DownloadService,
     private notifyService: NotifyService,
   ) {}
+  metadataServer = BaseService.serverHosts.metadataServer;
   adVisible = DstoreObject.AdVisible();
   open = this.storeService.openApp;
 

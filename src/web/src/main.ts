@@ -1,8 +1,14 @@
-import { enableProdMode } from '@angular/core';
+import {
+  enableProdMode,
+  TRANSLATIONS,
+  TRANSLATIONS_FORMAT,
+  MissingTranslationStrategy,
+} from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import { Locale } from './app/dstore/utils/locale';
 
 if (environment.production) {
   enableProdMode();
@@ -10,9 +16,31 @@ if (environment.production) {
 
 declare const require;
 
+const loadTranslations = new Promise((resolve, reject) => {
+  const lang = Locale.getUnixLocale();
+  if (lang === 'en-US') {
+    resolve(null);
+  }
+  const translations = require(`raw-loader!./locale/messages.${lang}.xlf`);
+  resolve(translations);
+});
+
 const bootstrap = () => {
-  platformBrowserDynamic()
-    .bootstrapModule(AppModule)
+  console.log('bootstrap');
+  loadTranslations
+    .catch(err => {
+      console.error('loadTranslations', err);
+      return null;
+    })
+    .then(translations => {
+      platformBrowserDynamic().bootstrapModule(AppModule, {
+        missingTranslation: MissingTranslationStrategy.Warning,
+        providers: [
+          { provide: TRANSLATIONS, useValue: translations },
+          { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
+        ],
+      });
+    })
     .catch(err => console.log(err));
 };
 
