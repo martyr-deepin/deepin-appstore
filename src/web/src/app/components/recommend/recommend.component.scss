@@ -3,19 +3,9 @@ dialog {
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
-.grid {
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-gap: 1rem;
-  margin: 2rem 1rem;
-}
-span {
-  vertical-align: top;
-  &[required] {
-    &::before {
-      content: '*';
-    }
-  }
+table {
+  border-collapse: separate;
+  border-spacing: 1rem 1rem;
 }
 input,
 textarea {
@@ -27,11 +17,16 @@ textarea {
     background-color: rgba(36, 46, 77, 0.05);
     border: solid 1px rgba(43, 167, 248, 0.3);
   }
+  &.ng-invalid.ng-touched {
+    border: solid 1px red;
+  }
 }
+
 textarea {
   height: 3rem;
   resize: none;
 }
+
 select {
   font-size: 12px;
   padding: 6px;
@@ -44,6 +39,7 @@ select {
     border: solid 1px rgba(43, 167, 248, 0.3);
   }
 }
+
 button {
   width: 100%;
   background: none;
@@ -56,11 +52,11 @@ button {
     opacity: 0.3;
   }
 }
+
 .title {
   font-weight: bold;
-  text-align: center;
-  margin: 0;
 }
+
 .close {
   position: absolute;
   right: 0;
@@ -74,4 +70,10 @@ button {
   &:active {
     content: url($url+'_press.svg');
   }
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  color: red;
 }

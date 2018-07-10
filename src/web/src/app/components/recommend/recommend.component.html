@@ -1,75 +1,132 @@
 <dialog #myDialog>
+  <img class="close"
+       (click)="close()">
   <form #myForm="ngForm">
-    <img class="close"
-         (click)="close()">
-    <div class="title"
-         i18n>Recommend App</div>
-    <div class="grid">
-      <span required
-            i18n>Name:</span>
-      <input type="text"
-             name="appName"
-             [(ngModel)]="recommend.name"
-             required
-             i18n-placeholder
-             placeholder="Official name">
-
-      <span required
-            i18n>Type:</span>
-      <select name="appType"
-              [ngModel]="recommend.type"
-              (ngModelChange)="recommend.type=$event-0">
-        <option [value]="1"
-                i18n>Linux App</option>
-        <option [value]="2"
-                i18n>Windows App</option>
-        <option value="3"
-                i18n>WebApp</option>
-        <option value="4"
-                i18n>Android App</option>
-      </select>
-
-      <span required
-            i18n>License:</span>
-      <input type="text"
-             name="authorization"
-             [(ngModel)]="recommend.authorization"
-             required
-             i18n-placeholder
-             placeholder="Input No if no license is required">
-
-      <span required
-            i18n>Homepage:</span>
-      <input type="url"
-             name="homePage"
-             pattern="https?://.+"
-             [(ngModel)]="recommend.homePage"
-             required
-             i18n-placeholder
-             placeholder="Official website">
-
-      <span required
-            i18n>Download Site:</span>
-      <input type="url"
-             name="downloadURL"
-             pattern="https?://.+"
-             [(ngModel)]="recommend.downloadURL"
-             required
-             i18n-placeholder
-             placeholder="Official download address">
-
-
-      <span i18n>Others:</span>
-      <textarea name="extra"
-                maxlength="255"
-                [(ngModel)]="recommend.extraInfo"
-                i18n-placeholder
-                placeholder="Introduction or other info"></textarea>
-    </div>
-    <button [disabled]="!myForm.form.valid"
-            (click)="submit()"
-            i18n>Submit</button>
-
+    <table>
+      <caption class="title"
+               i18n>Recommend App</caption>
+      <tr>
+        <td>
+          *
+          <ng-container i18n>Name:</ng-container>
+        </td>
+        <td>
+          <input type="text"
+                 name="appName"
+                 [(ngModel)]="recommend.name"
+                 required
+                 i18n-placeholder
+                 placeholder="Official name">
+        </td>
+      </tr>
+      <tr>
+        <td> *
+          <ng-container i18n>Type:</ng-container>
+        </td>
+        <td>
+          <select name="appType"
+                  [ngModel]="recommend.type"
+                  (ngModelChange)="recommend.type=$event-0"
+                  required>
+            <option [value]="1"
+                    i18n>Linux App</option>
+            <option [value]="2"
+                    i18n>Windows App</option>
+            <option value="3"
+                    i18n>Web App</option>
+            <option value="4"
+                    i18n>Android App</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td> *
+          <ng-container i18n>License:</ng-container>
+        </td>
+        <td>
+          <input type="text"
+                 name="authorization"
+                 [(ngModel)]="recommend.authorization"
+                 required
+                 i18n-placeholder
+                 placeholder="Input No if no license is required">
+        </td>
+      </tr>
+      <tr>
+        <td> *
+          <ng-container i18n>Homepage:</ng-container>
+        </td>
+        <td>
+          <input type="url"
+                 name="homePage"
+                 pattern="https?://.+"
+                 [(ngModel)]="recommend.homePage"
+                 required
+                 i18n-placeholder
+                 placeholder="Official website">
+        </td>
+      </tr>
+      <tr>
+        <td> *
+          <ng-container i18n>Download Site:</ng-container>
+        </td>
+        <td>
+          <input type="url"
+                 name="downloadURL"
+                 pattern="https?://.+"
+                 [(ngModel)]="recommend.downloadURL"
+                 required
+                 i18n-placeholder
+                 placeholder="Official download address">
+        </td>
+      </tr>
+      <tr>
+        <td vAlign="top"
+            Align="right">
+          <ng-container i18n>Others:</ng-container>
+        </td>
+        <td>
+          <textarea name="extra"
+                    maxlength="255"
+                    [(ngModel)]="recommend.extraInfo"
+                    i18n-placeholder
+                    placeholder="Introduction or other info"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div class="error">
+            <ng-container *ngIf="error"
+                          [ngSwitch]="error.name">
+              <ng-container *ngSwitchCase="'appName'"
+                            i18n>Name cannot be empty</ng-container>
+              <ng-container *ngSwitchCase="'appType'"
+                            i18n>Type cannot be empty</ng-container>
+              <ng-container *ngSwitchCase="'authorization'"
+                            i18n>License cannot be empty</ng-container>
+              <ng-container *ngSwitchCase="'homePage'">
+                <ng-container *ngIf="error.error==='required'"
+                              i18n>Homepage cannot be empty</ng-container>
+                <ng-container *ngIf="error.error==='pattern'"
+                              i18n>Homepage is not a correct format</ng-container>
+              </ng-container>
+              <ng-container *ngSwitchCase="'downloadURL'">
+                <ng-container *ngIf="error.error==='required'"
+                              i18n>Download Site cannot be empty</ng-container>
+                <ng-container *ngIf="error.error==='pattern'"
+                              i18n>Download Site is not a correct format</ng-container>
+              </ng-container>
+            </ng-container>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <button (click)="submit()"
+                  i18n>Submit</button>
+        </td>
+      </tr>
+    </table>
   </form>
 </dialog>
 {{openDialog$|async}}
