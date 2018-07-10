@@ -8,6 +8,11 @@ body {
   user-select: none;
   cursor: default;
 }
+input,
+textarea {
+  font-family: 'Noto Sans CJK SC';
+  font-size: 12px;
+}
 
 ::-webkit-scrollbar {
   width: 8px;
