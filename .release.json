@@ -1,7 +1,6 @@
 {
         "commit": {
                 "quilt": false,
-                "pkgver": "git describe --tags --long %(ref)s | awk '{split($0,v,\"-\"); print \"5.0+r\"v[2]\"+\"v[3]}'",
                 "dist": "experimental"
         },
         "release": {
