@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="96px" height="72px" viewBox="0 0 96 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>default_screenshot_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="浅色" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="default_screenshot" transform="translate(-259.000000, -105.000000)" fill="#E2E2E2" fill-rule="nonzero">
+            <g id="iconmonstr-picture-1" transform="translate(259.000000, 105.000000)">
+                <path d="M20,22 C20,18.688 22.688,16 26,16 C29.312,16 32,18.688 32,22 C32,25.316 29.312,28 26,28 C22.688,28 20,25.316 20,22 Z M56,24 L45.924,40 L36,32.16 L20,56 L76,56 L56,24 Z M88,8 L88,64 L8,64 L8,8 L88,8 Z M96,0 L0,0 L0,72 L96,72 L96,0 Z" id="default_screenshot_icon"></path>
+            </g>
+        </g>
+    </g>
+</svg>
