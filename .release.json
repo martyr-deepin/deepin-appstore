@@ -1,8 +1,4 @@
 {
-        "commit": {
-                "quilt": false,
-                "dist": "experimental"
-        },
         "release": {
                 "quilt": true,
                 "pkgver": "git describe --abbrev=0 --tags %(ref)s",
