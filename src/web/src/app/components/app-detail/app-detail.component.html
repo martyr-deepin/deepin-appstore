@@ -68,7 +68,8 @@
             <div i18n>Size:</div>
           </ng-container>
           <div i18n>Updated Date:</div>
-          <div i18n>Website:</div>
+          <div *ngIf="app.homePage"
+               i18n>Website:</div>
           <div i18n>Description:</div>
         </div>
         <div class="info">
@@ -92,12 +93,13 @@
             </div>
           </ng-container>
           <div>{{app.updateTime|date:'longDate'}}
-            <span class="toRight">></span>
+            <span class="toRight">&lt;</span>
             <button class="reminder"
                     (click)="reminder(app.name)"
                     i18n>Ask for update</button>
           </div>
-          <div class="webSite">
+          <div class="webSite"
+               *ngIf="app.homePage">
             <a target="_blank"
                [href]="app.homePage">{{app.homePage}}</a>
           </div>
