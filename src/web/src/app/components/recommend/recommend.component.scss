@@ -2,6 +2,8 @@ dialog {
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  top: 50%;
+  transform: translateY(-50%);
 }
 table {
   border-collapse: separate;
