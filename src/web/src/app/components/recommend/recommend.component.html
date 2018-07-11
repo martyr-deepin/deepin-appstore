@@ -2,7 +2,7 @@
   <img class="close"
        (click)="close()">
   <form #myForm="ngForm">
-    <table>
+    <table *ngIf="myDialog.open">
       <caption class="title"
                i18n>Recommend App</caption>
       <tr>
@@ -11,12 +11,18 @@
           <ng-container i18n>Name:</ng-container>
         </td>
         <td>
-          <input type="text"
-                 name="appName"
-                 [(ngModel)]="recommend.name"
-                 required
-                 i18n-placeholder
-                 placeholder="Official name">
+          <div class="input-field">
+            <input type="text"
+                   name="appName"
+                   [(ngModel)]="recommend.name"
+                   required
+                   i18n-placeholder
+                   placeholder="Official name"
+                   #appName="ngModel">
+            <label class="input-error"
+                   *ngIf="appName.hasError('required')"
+                   i18n>Official name cannot be empty</label>
+          </div>
         </td>
       </tr>
       <tr>
@@ -44,12 +50,18 @@
           <ng-container i18n>License:</ng-container>
         </td>
         <td>
-          <input type="text"
-                 name="authorization"
-                 [(ngModel)]="recommend.authorization"
-                 required
-                 i18n-placeholder
-                 placeholder="Input No if no license is required">
+          <div class="input-field">
+            <input type="text"
+                   name="authorization"
+                   [(ngModel)]="recommend.authorization"
+                   required
+                   i18n-placeholder
+                   placeholder="Input No if no license is required"
+                   #authorization="ngModel">
+            <label class="input-error"
+                   *ngIf="authorization.hasError('required')"
+                   i18n>License cannot be empty</label>
+          </div>
         </td>
       </tr>
       <tr>
@@ -57,13 +69,22 @@
           <ng-container i18n>Homepage:</ng-container>
         </td>
         <td>
-          <input type="url"
-                 name="homePage"
-                 pattern="https?://.+"
-                 [(ngModel)]="recommend.homePage"
-                 required
-                 i18n-placeholder
-                 placeholder="Official website">
+          <div class="input-field">
+            <input type="url"
+                   name="homePage"
+                   pattern="https?://.+"
+                   [(ngModel)]="recommend.homePage"
+                   required
+                   i18n-placeholder
+                   placeholder="Official website"
+                   #homePage="ngModel">
+            <label class="input-error"
+                   *ngIf="homePage.hasError('required')"
+                   i18n>Official website cannot be empty</label>
+            <label class="input-error"
+                   *ngIf="homePage.hasError('pattern')"
+                   i18n>Official website is not a correct format</label>
+          </div>
         </td>
       </tr>
       <tr>
@@ -71,13 +92,22 @@
           <ng-container i18n>Download Site:</ng-container>
         </td>
         <td>
-          <input type="url"
-                 name="downloadURL"
-                 pattern="https?://.+"
-                 [(ngModel)]="recommend.downloadURL"
-                 required
-                 i18n-placeholder
-                 placeholder="Official download address">
+          <div class="input-field">
+            <input type="url"
+                   name="downloadURL"
+                   pattern="https?://.+"
+                   [(ngModel)]="recommend.downloadURL"
+                   required
+                   i18n-placeholder
+                   placeholder="Official download address"
+                   #downloadURL="ngModel">
+            <label class="input-error"
+                   *ngIf="downloadURL.hasError('required')"
+                   i18n>Download Site cannot be empty</label>
+            <label class="input-error"
+                   *ngIf="downloadURL.hasError('pattern')"
+                   i18n>Download Site is not a correct format</label>
+          </div>
         </td>
       </tr>
       <tr>
@@ -91,33 +121,6 @@
                     [(ngModel)]="recommend.extraInfo"
                     i18n-placeholder
                     placeholder="Introduction or other info"></textarea>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <div class="error">
-            <ng-container *ngIf="error"
-                          [ngSwitch]="error.name">
-              <ng-container *ngSwitchCase="'appName'"
-                            i18n>Name cannot be empty</ng-container>
-              <ng-container *ngSwitchCase="'appType'"
-                            i18n>Type cannot be empty</ng-container>
-              <ng-container *ngSwitchCase="'authorization'"
-                            i18n>License cannot be empty</ng-container>
-              <ng-container *ngSwitchCase="'homePage'">
-                <ng-container *ngIf="error.error==='required'"
-                              i18n>Homepage cannot be empty</ng-container>
-                <ng-container *ngIf="error.error==='pattern'"
-                              i18n>Homepage is not a correct format</ng-container>
-              </ng-container>
-              <ng-container *ngSwitchCase="'downloadURL'">
-                <ng-container *ngIf="error.error==='required'"
-                              i18n>Download Site cannot be empty</ng-container>
-                <ng-container *ngIf="error.error==='pattern'"
-                              i18n>Download Site is not a correct format</ng-container>
-              </ng-container>
-            </ng-container>
-          </div>
         </td>
       </tr>
       <tr>

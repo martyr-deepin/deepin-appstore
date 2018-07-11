@@ -18,17 +18,14 @@ export class RecommendComponent implements OnInit {
   @ViewChild('myForm') form: NgForm;
   recommend = new Recommend();
   openDialog$: Observable<void>;
-  error: { name: string; error: string };
 
   ngOnInit() {
     this.openDialog$ = this.recommendService.onOpenRecommend().pipe(map(() => this.open()));
-    this.form.valueChanges.subscribe(() => {
-      this.error = null;
-    });
   }
 
   open() {
     if (!this.dialogRef.nativeElement.open) {
+      this.recommend = new Recommend();
       this.dialogRef.nativeElement.showModal();
     }
   }
@@ -38,15 +35,8 @@ export class RecommendComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form);
     if (this.form.invalid) {
-      this.error = Object.entries(this.form.controls)
-        .map(([name, control]) => {
-          const error = control.errors ? Object.keys(control.errors)[0] : null;
-          return { name, error };
-        })
-        .find(r => r.error != null);
-
+      Object.values(this.form.controls).forEach(control => control.markAsDirty());
       return;
     }
     this.recommendService.recommendSubmit(this.recommend).subscribe(
