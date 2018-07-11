@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable, concat, forkJoin } from 'rxjs';
@@ -31,7 +31,7 @@ import { SizeHuman } from '../../dstore/pipes/size-human';
     ]),
   ],
 })
-export class AppCommentComponent implements OnInit {
+export class AppCommentComponent implements OnInit, OnChanges {
   constructor(
     private loginService: LoginService,
     private domSanitizer: DomSanitizer,
@@ -64,6 +64,12 @@ export class AppCommentComponent implements OnInit {
   register = () => this.authService.register();
 
   ngOnInit() {
+    this.init();
+  }
+  ngOnChanges() {
+    this.init();
+  }
+  init() {
     this.getInfo();
     this.getCommentTotal();
     this.getOwn();
