@@ -1,5 +1,6 @@
 <div class="notify"
-     *ngIf="notify$|async as $notify">
+     *ngIf="notify$|async as $notify"
+     @flyInOut>
     <span class="succeed"
           *ngIf="$notify.type===NotifyType.Bulletin;else $others"
           i18n>Announcement：{{$notify.content}}</span>
