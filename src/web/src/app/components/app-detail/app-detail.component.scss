@@ -70,8 +70,10 @@
     background-position: center;
     background-color: #f3f3f3;
 
-    // border: 1px solid rgba(0, 0, 0, 0.1);
-    // box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    min-width: 360px;
+    height: 250px;
     max-height: 250px;
   }
 }
