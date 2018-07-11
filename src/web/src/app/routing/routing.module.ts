@@ -42,6 +42,10 @@ const routes: Routes = [
     component: UninstallComponent,
   },
   {
+    path: 'uninstall/:appName',
+    component: AppDetailComponent,
+  },
+  {
     path: 'download',
     component: DownloadComponent,
   },
