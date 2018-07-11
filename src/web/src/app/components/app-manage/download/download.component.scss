@@ -4,92 +4,93 @@
 }
 .title {
   padding: 10px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 .loading {
   width: 100%;
   height: 100%;
 }
 .list {
-  .item {
-    margin: 0.8rem 0;
-    display: flex;
-    .content {
-      padding-left: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-grow: 1;
-      align-items: center;
-      .appInfo {
-        flex: 3;
-        display: flex;
-        flex-direction: column;
-        height: 48px;
-        justify-content: space-around;
-        .version {
-          color: gray;
-          font-size: 0.8rem;
-        }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    tr {
+      height: 70px;
+      td:first-child {
+        width: 3rem;
       }
-      .time {
-        flex: 3;
-        color: gray;
-        font-size: 0.8rem;
-      }
-      .progressInfo {
-        flex: 3;
-        flex-shrink: 0;
-        padding-top: 0.5rem;
-        progress {
-          width: 100%;
-        }
-        .speed {
-          display: flex;
-          justify-content: space-between;
-          color: gray;
-          .size {
-            white-space: nowrap;
-          }
-        }
-        .message {
-          display: flex;
-          justify-content: center;
-          font-size: 0.8rem;
-          color: gray;
-        }
-        .failed {
-          color: red;
-        }
-      }
-      .controlBtn {
-        flex: 2;
-        display: flex;
-        justify-content: flex-end;
-        button {
-          width: 36px;
-          height: 36px;
-          padding: 0;
-          background-size: 100% 100%;
-          background-color: transparent;
-          background-repeat: no-repeat;
-          box-shadow: unset;
-        }
-        @each $ctl in ('pause', 'start', 'restart', 'cancel') {
-          .#{$ctl}Btn {
-            background-image: url('/assets/buttons/#{$ctl}_normal.svg');
-            &:hover {
-              background-image: url('/assets/buttons/#{$ctl}_hover.svg');
-            }
-            &:disabled {
-              background-image: url('/assets/buttons/#{$ctl}_insensitive.svg');
-            }
-          }
-        }
+      td:not(:first-child) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       }
     }
   }
 }
+.appInfo {
+  display: flex;
+  flex-direction: column;
+  height: 48px;
+  justify-content: space-around;
+  .version {
+    color: gray;
+    font-size: 0.8rem;
+  }
+}
+.time {
+  width: 150px;
+  color: gray;
+  font-size: 0.8rem;
+}
+.progressInfo {
+  min-width: 200px;
+  flex-shrink: 0;
+  padding-top: 0.5rem;
+  progress {
+    width: 100%;
+  }
+  .speed {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+    .size {
+      white-space: nowrap;
+    }
+  }
+  .message {
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: gray;
+  }
+  .failed {
+    color: red;
+  }
+}
+.controlBtn {
+  flex: 2;
+  display: flex;
+  justify-content: flex-end;
+  button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background-size: 100% 100%;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    box-shadow: unset;
+  }
+  @each $ctl in ('pause', 'start', 'restart', 'cancel') {
+    .#{$ctl}Btn {
+      background-image: url('/assets/buttons/#{$ctl}_normal.svg');
+      &:hover {
+        background-image: url('/assets/buttons/#{$ctl}_hover.svg');
+      }
+      &:disabled {
+        background-image: url('/assets/buttons/#{$ctl}_insensitive.svg');
+      }
+    }
+  }
+}
+
 progress[value] {
   /* Reset the default appearance */
   -webkit-appearance: none;

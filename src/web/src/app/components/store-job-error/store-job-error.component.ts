@@ -25,4 +25,7 @@ export class StoreJobErrorComponent implements OnInit {
   errType: StoreJobErrorType;
   errDetail: string;
   ngOnInit() {}
+  click(event: Event) {
+    event.stopPropagation();
+  }
 }

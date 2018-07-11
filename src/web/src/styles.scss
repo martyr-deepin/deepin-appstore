@@ -17,25 +17,23 @@ select {
 
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-thumb {
   background-clip: content-box;
   background-color: rgba(0, 0, 0, 0.5);
-  border-left: 2px solid rgba(0, 0, 0, 0);
-  border-right: 2px solid rgba(0, 0, 0, 0);
+  border: 2px solid transparent;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
   $color: rgba(0, 0, 0, 0.7);
   background-color: $color;
-  border-left: 2px solid $color;
-  border-right: 2px solid $color;
+  border: 2px solid $color;
 }
 ::-webkit-scrollbar-thumb:active {
   $color: rgba(0, 0, 0, 0.8);
   background-color: $color;
-  border-left: 2px solid $color;
-  border-right: 2px solid $color;
+  border: 2px solid $color;
 }
 .icon {
   position: relative;

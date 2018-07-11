@@ -63,9 +63,7 @@ export class AppCommentComponent implements OnInit, OnChanges {
   logout = () => this.loginService.OpenLogout();
   register = () => this.authService.register();
 
-  ngOnInit() {
-    this.init();
-  }
+  ngOnInit() {}
   ngOnChanges() {
     this.init();
   }

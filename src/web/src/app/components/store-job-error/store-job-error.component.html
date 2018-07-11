@@ -1,23 +1,26 @@
-<ng-container [ngSwitch]="errType">
+<div class="errorType"
+     [ngSwitch]="errType"
+     (click)="dialog.showModal()">
   <ng-container *ngSwitchCase="StoreJobErrorType.dependenciesBroken"
-                i18n>依赖关系破坏</ng-container>
+                i18n>Failed to install, broken dependencies, please retry</ng-container>
   <ng-container *ngSwitchCase="StoreJobErrorType.dpkgInterrupted"
-                i18n>dpkg被中断</ng-container>
-  <ng-container *ngSwitchCase="StoreJobErrorType.invalidSourcesList"
-                i18n>源列表无效</ng-container>
-
-  <ng-container *ngSwitchCase="StoreJobErrorType.removeDDE"
-                i18n>将会卸载 dde 软件包</ng-container>
+                i18n>Failed to install, it was interrupted, please retry</ng-container>
   <ng-container *ngSwitchCase="StoreJobErrorType.fetchFailed"
-                i18n>获取失败</ng-container>
+                i18n>Failed to download, please retry</ng-container>
   <ng-container *ngSwitchCase="StoreJobErrorType.dpkgError"
-                i18n>dpkg 错误</ng-container>
-  <ng-container *ngSwitchCase="StoreJobErrorType.pkgNotFound"
-                i18n>找不到这个软件包</ng-container>
+                i18n>Failed to install, dpkg error</ng-container>
   <ng-container *ngSwitchCase="StoreJobErrorType.unmetDependencies"
-                i18n>有不满足的依赖关系</ng-container>
-  <ng-container *ngSwitchCase="StoreJobErrorType.noInstallationCandidate"
-                i18n>没有安装候选</ng-container>
+                i18n>Failed to install, unmet dependencies</ng-container>
   <ng-container *ngSwitchCase="StoreJobErrorType.insufficientSpace"
-                i18n>硬盘剩余空间不足</ng-container>
-</ng-container>
+                i18n>Failed to install, insufficient space, please clean and retry</ng-container>
+  <ng-container *ngSwitchDefault
+                i18n>Failed to install</ng-container>
+</div>
+
+<dialog #dialog
+        (click)="dialog.close()">
+  <div (click)="click($event)">
+    <h3 i18n>Details</h3>
+    <pre>{{errDetail}}</pre>
+  </div>
+</dialog>
