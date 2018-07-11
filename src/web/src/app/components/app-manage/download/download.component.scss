@@ -73,6 +73,7 @@
           background-size: 100% 100%;
           background-color: transparent;
           background-repeat: no-repeat;
+          box-shadow: unset;
         }
         @each $ctl in ('pause', 'start', 'restart', 'cancel') {
           .#{$ctl}Btn {

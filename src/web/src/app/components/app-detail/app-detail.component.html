@@ -38,22 +38,11 @@
           </ng-template>
         </ng-container>
         <ng-template #cltButton>
-          <button *ngIf="!app.version.localVersion;else $update"
-                  (click)="install(app)"
-                  i18n>Install</button>
-          <ng-template #$update>
-            <button *ngIf="app.version.upgradable; else $open"
-                    (click)="install(app)"
-                    i18n>Update</button>
-          </ng-template>
-          <ng-template #$open>
-            <button *ngIf="appOpenable(app); else $installed"
-                    (click)="open(app.name)"
-                    i18n>Open</button>
-          </ng-template>
-          <ng-template #$installed>
-            <button i18n>Installed</button>
-          </ng-template>
+          <dstore-job-button class="jobButton"
+                             [version]="app.version"
+                             [appName]="app.name"
+                             [localName]="app.localInfo.description.name"
+                             (start)="ctlBtn.hidden=true"></dstore-job-button>
         </ng-template>
       </ng-container>
     </div>

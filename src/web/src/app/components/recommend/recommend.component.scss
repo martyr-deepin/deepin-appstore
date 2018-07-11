@@ -1,15 +1,10 @@
-dialog {
-  border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-  top: 50%;
-  transform: translateY(-50%);
-}
 table {
   border-collapse: separate;
   border-spacing: 1rem 1rem;
   td {
-    text-align: right;
+    span {
+      color: red;
+    }
   }
 }
 input,
@@ -44,15 +39,7 @@ select {
 
 button {
   width: 100%;
-  background: none;
-  color: #4bb8ff;
-  font-size: 1.2rem;
-  font-weight: 400;
-  padding: 0.3rem;
-  border: 1px solid #4bb8ff;
-  &:disabled {
-    opacity: 0.3;
-  }
+  height: 2rem;
 }
 
 .title {
@@ -83,9 +70,9 @@ button {
     bottom: 0;
     transform: translateY(110%);
     padding: 6px 8px;
-    box-shadow: 0 0 1px red, 0 1px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    color: red;
+    color: #f9704f;
     background-color: white;
     &::after {
       content: '';
@@ -97,15 +84,22 @@ button {
       left: 1rem;
       top: 0;
       background-color: white;
-      border-left: 1px solid rgba(0, 0, 0, 0.3);
-      border-top: 1px solid rgba(0, 0, 0, 0.3);
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
   }
   input {
+    outline: none;
     &.ng-invalid.ng-dirty {
-      border: solid 1px red;
-      &:focus + .input-error {
-        display: block;
+      border: solid 1px transparent;
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(255, 124, 117, 0.8);
+        & + .input-error {
+          display: block;
+        }
+      }
+      &:not(:focus) {
+        box-shadow: 0 0 0 2px rgba(255, 124, 117, 0.6);
       }
     }
   }

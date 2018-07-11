@@ -4,7 +4,7 @@
 }
 .title {
   padding: 10px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 .appItem {
   display: flex;
@@ -40,8 +40,18 @@
       justify-content: space-between;
       button {
         width: 5rem;
-        padding: 0.5rem 0;
         margin: 0 0.5rem;
+      }
+      .confirm {
+        color: #0699ff;
+        font-weight: 500;
+        box-shadow: inset 0 0 0 1px rgba(0, 132, 255, 0.4);
+        &:focus {
+          color: white;
+        }
+        &:hover {
+          color: white;
+        }
       }
     }
   }
