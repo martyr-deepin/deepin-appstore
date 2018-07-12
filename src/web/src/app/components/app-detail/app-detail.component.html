@@ -88,9 +88,8 @@
                     i18n>Ask for update</button>
           </div>
           <div class="webSite"
-               *ngIf="app.homePage">
-            <a target="_blank"
-               [href]="app.homePage">{{app.homePage}}</a>
+               *ngIf="app.homePage"
+               (click)="openURL(app.homePage)">{{app.homePage}}
           </div>
           <div class="selectable">
             {{app.localInfo.description.description}}

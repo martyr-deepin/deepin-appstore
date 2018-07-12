@@ -50,6 +50,7 @@ export class AppDetailComponent implements OnInit {
 
   @ViewChild('$donate') donate: ElementRef<HTMLDialogElement>;
 
+  openURL = DstoreObject.openURL;
   pause = this.storeService.pauseJob;
   start = this.storeService.resumeJob;
   ngOnInit() {
