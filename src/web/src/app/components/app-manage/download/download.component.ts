@@ -47,10 +47,10 @@ export class DownloadComponent implements OnInit, OnDestroy {
   // 下载任务控制
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
-  cancel = this.storeService.clearJob;
 
   apps = new Map<string, App>();
   jobs: StoreJobInfo[] = [];
+  cancels = new Set<string>();
   jobs$: Subscription;
   fixing = false;
 
@@ -130,5 +130,10 @@ export class DownloadComponent implements OnInit, OnDestroy {
     } else {
       this.storeService.resumeJob(job.job);
     }
+  }
+
+  cancel(job: string) {
+    this.cancels.add(job);
+    this.storeService.clearJob(job);
   }
 }

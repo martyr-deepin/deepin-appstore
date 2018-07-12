@@ -77,8 +77,12 @@
                     <ng-container *ngSwitchCase="StoreJobStatus.failed">
                       <app-store-job-error [rowString]="job.description"></app-store-job-error>
                     </ng-container>
-                    <ng-container *ngSwitchCase="StoreJobStatus.end"
-                                  i18n>Cancelling</ng-container>
+                    <ng-container *ngSwitchCase="StoreJobStatus.end">
+                      <ng-container *ngIf="cancels.has(job.job); else downloaded"
+                                    i18n>Cancelling</ng-container>
+                      <ng-template #downloaded
+                                   i18n>Downloaded</ng-template>
+                    </ng-container>
                     <ng-container *ngSwitchCase="StoreJobStatus.success"
                                   i18n>Downloaded</ng-container>
                     <ng-container *ngSwitchDefault>{{job.status}}</ng-container>
@@ -94,8 +98,12 @@
                     <ng-container *ngSwitchCase="StoreJobStatus.failed">
                       <app-store-job-error [rowString]="job.description"></app-store-job-error>
                     </ng-container>
-                    <ng-container *ngSwitchCase="StoreJobStatus.end"
-                                  i18n>Cancelling</ng-container>
+                    <ng-container *ngSwitchCase="StoreJobStatus.end">
+                      <ng-container *ngIf="cancels.has(job.job); else installed"
+                                    i18n>Cancelling</ng-container>
+                      <ng-template #installed
+                                   i18n>Installed</ng-template>
+                    </ng-container>
                     <ng-container *ngSwitchCase="StoreJobStatus.success"
                                   i18n>Installed</ng-container>
                     <ng-container *ngSwitchDefault>{{job.status}}</ng-container>
