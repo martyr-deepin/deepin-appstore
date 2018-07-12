@@ -49,7 +49,6 @@ import { LodashPipe } from './pipes/lodash.pipe';
 import { AppInfoPipe } from './pipes/app-info';
 import { MoreComponent } from './components/more/more.component';
 import { DonateComponent } from './components/donate/donate.component';
-import { ProgressButtonComponent } from './components/progress-button/progress-button.component';
 import { StoreJobErrorComponent } from './components/store-job-error/store-job-error.component';
 import { DonorsComponent } from './components/donors/donors.component';
 
@@ -80,7 +79,6 @@ import { DonorsComponent } from './components/donors/donors.component';
     DonateComponent,
     LodashPipe,
     AppInfoPipe,
-    ProgressButtonComponent,
     StoreJobErrorComponent,
     DonorsComponent,
   ],

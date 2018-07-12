@@ -6,36 +6,12 @@
       <br>
       <ng-container *ngIf="app.version">
         <ng-container *ngIf="job$|async as job;else cltButton">
-          <ng-container *ngIf="job.status===StoreJobStatus.paused;else running">
 
-            <app-progress-button text="Paused"
-                                 i18n-text
-                                 [progress]="job.progress"
-                                 (click)="start(job.job)"></app-progress-button>
-          </ng-container>
-          <ng-template #running>
-            <ng-container *ngIf="job.status!==StoreJobStatus.failed;else cltButton"
-                          [ngSwitch]="job.type">
-              <app-progress-button text="Downloading"
-                                   i18n-text
-                                   *ngSwitchCase="StoreJobType.download"
-                                   [progress]="job.progress"
-                                   [disabled]="!job.cancelable"
-                                   (click)="pause(job.job)"></app-progress-button>
-              <app-progress-button text="Installing"
-                                   i18n-text
-                                   *ngSwitchCase="StoreJobType.install"
-                                   [progress]="job.progress"
-                                   [disabled]="!job.cancelable"
-                                   (click)="pause(job.job)"></app-progress-button>
-              <app-progress-button text="Uninstalling"
-                                   i18n-text
-                                   *ngSwitchCase="StoreJobType.uninstall"
-                                   [progress]="job.progress"
-                                   [disabled]="!job.cancelable"
-                                   (click)="pause(job.job)"></app-progress-button>
-            </ng-container>
-          </ng-template>
+          <dstore-progress-button [job]="job.job"
+                                  [type]="job.type"
+                                  [status]="job.status"
+                                  [progress]="job.progress"
+                                  [disabled]="!job.cancelable || job.status===StoreJobStatus.failed"></dstore-progress-button>
         </ng-container>
         <ng-template #cltButton>
           <dstore-job-button class="jobButton"
