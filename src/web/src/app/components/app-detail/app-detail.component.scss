@@ -9,6 +9,7 @@
     .icon {
       width: 96px;
       height: 96px;
+      cursor: default;
     }
     button {
       min-width: 8rem;
@@ -45,6 +46,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           max-width: 20rem;
+          cursor: pointer;
         }
       }
     }
