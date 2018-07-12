@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
   app.setApplicationVersion(dstore::kAppVersion);
   app.setApplicationName(dstore::kAppName);
   app.loadTranslator();
-  app.setApplicationDisplayName(QObject::tr("Deepin App Store"));
+  app.setApplicationDisplayName(QObject::tr("Deepin Store"));
   app.setApplicationDescription(QObject::tr(
       "Deepin Store is an Appstore with quality and rich applications. "
       "Popular recommendation, new updated apps and hot topics are available. "
