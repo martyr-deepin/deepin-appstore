@@ -40,14 +40,14 @@ export class SideNavComponent implements OnInit {
 
   getStyle = memoize((icon: string[]) => {
     return this.sanitizer.bypassSecurityTrustStyle(
-      `content: url(${icon[0]});
+      `--normal: url(${icon[0]});
        --active: url(${icon[1]})`,
     );
   });
 
   getStyleByID = memoize((id: string) => {
     return this.sanitizer.bypassSecurityTrustStyle(
-      `content: url("/assets/icons/${id}.svg");
+      `--normal: url("/assets/icons/${id}.svg");
        --active: url("/assets/icons/${id}_active.svg")`,
     );
   });

@@ -1,0 +1,92 @@
+:host {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+.screenshots {
+  display: flex;
+  overflow-x: hidden;
+  img {
+    margin: 1rem 2rem;
+    margin-left: 0;
+
+    background-image: url('/assets/images/default_screenshot.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #f3f3f3;
+
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+    min-width: 360px;
+    height: 250px;
+    max-height: 250px;
+  }
+}
+
+.left {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  background-color: white;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  top: calc(50% - 2rem);
+  left: 0.5rem;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.right {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  top: calc(50% - 2rem);
+  right: 0.5rem;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+dialog {
+  width: 20rem;
+  height: 15rem;
+}
+.button {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  box-shadow: none;
+  background-color: transparent;
+  background-size: 100% 100%;
+  top: calc(50% - 2rem);
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+.nextButton {
+  @extend .button;
+  right: 0.5rem;
+  background-image: url('/assets/buttons/next_normal.svg');
+  &:not(:disabled) {
+    &:hover {
+      background-image: url('/assets/buttons/next_hover.svg');
+    }
+    &:active {
+      background-image: url('/assets/buttons/next_press.svg');
+    }
+  }
+}
+.lastButton {
+  @extend .button;
+  left: 0.5rem;
+  background-image: url('/assets/buttons/previous_normal.svg');
+  &:not(:disabled) {
+    &:hover {
+      background-image: url('/assets/buttons/previous_hover.svg');
+    }
+    &:active {
+      background-image: url('/assets/buttons/previous_press.svg');
+    }
+  }
+}

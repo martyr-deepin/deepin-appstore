@@ -105,6 +105,10 @@ dialog {
   border-radius: 5px;
   border: 1px solid #fff;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 16px 40px rgba(0, 0, 0, 0.4);
+
+  body {
+    background-color: red;
+  }
 }
 img {
   cursor: pointer;

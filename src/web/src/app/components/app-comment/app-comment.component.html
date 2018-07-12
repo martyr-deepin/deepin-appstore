@@ -26,9 +26,7 @@
       <span class="myInfo"
             (click)="$dropMenu.hidden=false;$dropMenu.focus()"
             *ngIf="info.userID|deepinInfo|async as info;else myInfoDefault">
-        {{info.username}}
-        <img class="down"
-             (click)="$dropMenu.hidden=false;$dropMenu.focus()">
+        <span class="name">{{info.username}}</span>
         <div class="dropdown-menu"
              tabIndex="-1"
              #$dropMenu
@@ -43,8 +41,7 @@
       <ng-template #myInfoDefault>
         <span class="myInfo"
               (click)="$dropMenu.hidden=false;$dropMenu.focus()">
-          {{info.username}}
-          <img class="down">
+          <span class="name">{{info.username}}</span>
           <div class="dropdown-menu"
                tabIndex="-1"
                #$dropMenu

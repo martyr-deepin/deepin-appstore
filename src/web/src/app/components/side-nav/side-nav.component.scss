@@ -23,14 +23,16 @@
       width: 16px;
       min-width: 16px;
       height: 16px;
-      content: var(--src);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-image: var(--normal);
     }
     &.active {
       border-right: 3px solid #2ca7f8;
       background-color: #d6eefe;
       color: #2ca7f8;
       .categoryIcon {
-        content: var(--active) !important;
+        background-image: var(--active);
       }
     }
     &:not(.active):hover {

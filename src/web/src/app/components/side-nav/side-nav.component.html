@@ -4,16 +4,16 @@
   <div class="navItem"
        routerLinkActive="active"
        [routerLink]="['index']">
-    <img class="categoryIcon"
-         [attr.style]="getStyleByID('homepage')">
+    <div class="categoryIcon"
+         [attr.style]="getStyleByID('homepage')"></div>
     <div class="title"
          i18n>Home</div>
   </div>
   <div class="navItem"
        routerLinkActive="active"
        [routerLink]="['ranking']">
-    <img class="categoryIcon"
-         [attr.style]="getStyleByID('ranking')">
+    <div class="categoryIcon"
+         [attr.style]="getStyleByID('ranking')"></div>
     <div class="title"
          i18n>Rankings</div>
   </div>
@@ -23,8 +23,11 @@
            routerLinkActive="active"
            *ngFor="let c of $cs"
            [routerLink]="['category',c.id]">
-        <img class="categoryIcon"
-             [attr.style]="getStyle(c.icon)">{{c.title}}</div>
+        <div class="categoryIcon"
+             [attr.style]="getStyle(c.icon)">
+        </div>
+        {{c.title}}
+      </div>
     </ng-container>
   </ng-container>
 
@@ -33,8 +36,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','internet']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('internet')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('internet')"></div>
       <div class="title"
            i18n>Internet</div>
     </div>
@@ -42,8 +45,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','chat']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('chat')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('chat')"></div>
       <div class="title"
            i18n>Chat</div>
     </div>
@@ -51,8 +54,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','music']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('music')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('music')"></div>
       <div class="title"
            i18n>Music</div>
     </div>
@@ -60,8 +63,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','video']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('video')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('video')"></div>
       <div class="title"
            i18n>Video</div>
     </div>
@@ -69,8 +72,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','graphics']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('graphics')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('graphics')"></div>
       <div class="title"
            i18n>Graphics</div>
     </div>
@@ -78,8 +81,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','game']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('game')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('game')"></div>
       <div class="title"
            i18n>Game</div>
     </div>
@@ -87,8 +90,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','office']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('office')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('office')"></div>
       <div class="title"
            i18n>Office</div>
     </div>
@@ -96,8 +99,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','reading']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('reading')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('reading')"></div>
       <div class="title"
            i18n>Reading</div>
     </div>
@@ -105,8 +108,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','development']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('development')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('development')"></div>
       <div class="title"
            i18n>Development</div>
     </div>
@@ -114,8 +117,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','system']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('system')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('system')"></div>
       <div class="title"
            i18n>System</div>
     </div>
@@ -123,8 +126,8 @@
          routerLinkActive="active"
          tabIndex="0"
          [routerLink]="['category','others']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('others')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('others')"></div>
       <div class="title"
            i18n>Others</div>
     </div>
@@ -135,8 +138,8 @@
     <div class="navItem"
          routerLinkActive="active"
          [routerLink]="['download']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('downloads')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('downloads')"></div>
       <div class="title"
            i18n>Download</div>
       <div class="downloadCount"
@@ -147,8 +150,8 @@
     <div class="navItem"
          routerLinkActive="active"
          [routerLink]="['uninstall']">
-      <img class="categoryIcon"
-           [attr.style]="getStyleByID('uninstall')">
+      <div class="categoryIcon"
+           [attr.style]="getStyleByID('uninstall')"></div>
       <div class="title"
            i18n="uninstall-app|Uninstall applications">Uninstall</div>
     </div>

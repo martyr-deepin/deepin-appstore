@@ -16,6 +16,27 @@
     font-size: 0.8rem;
     color: gray;
   }
+  .dropdown {
+    $url: '/assets/buttons/down';
+    &:after {
+      display: inline-block;
+      content: '';
+      width: 9px;
+      height: 9px;
+      margin-left: 0.5rem;
+      background-image: url($url+'_normal.svg');
+    }
+    &:hover {
+      &:after {
+        background-image: url($url+'_hover.svg');
+      }
+    }
+    &:active {
+      &:after {
+        background-image: url($url+'_press.svg');
+      }
+    }
+  }
   .dropdown-menu {
     cursor: pointer;
     position: absolute;
@@ -40,17 +61,6 @@
         }
       }
     }
-  }
-}
-.down {
-  margin-left: 0.5rem;
-  $url: '/assets/buttons/down';
-  content: url($url+'_normal.svg');
-  &:hover {
-    content: url($url+'_hover.svg');
-  }
-  &:active {
-    content: url($url+'_press.svg');
   }
 }
 

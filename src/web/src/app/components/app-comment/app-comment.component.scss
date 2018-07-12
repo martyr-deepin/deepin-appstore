@@ -63,7 +63,29 @@
     min-height: 1.5rem;
   }
 }
-
+.myInfo {
+  $url: '/assets/buttons/down';
+  .name {
+    &:after {
+      display: inline-block;
+      content: '';
+      width: 9px;
+      height: 9px;
+      margin-left: 0.5rem;
+      background-image: url($url+'_normal.svg');
+    }
+  }
+  &:hover {
+    .name:after {
+      background-image: url($url+'_hover.svg');
+    }
+  }
+  &:active {
+    .name:after {
+      background-image: url($url+'_press.svg');
+    }
+  }
+}
 .down {
   width: 9px;
   height: 9px;
@@ -76,6 +98,7 @@
     content: url($url+'_press.svg');
   }
 }
+
 .dropdown-menu {
   position: absolute;
   top: 2rem;

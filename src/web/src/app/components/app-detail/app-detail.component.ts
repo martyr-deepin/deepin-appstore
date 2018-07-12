@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
 import { flatMap, map, tap, concat, switchMap, startWith } from 'rxjs/operators';
 
-import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
-
 import { App, AppService } from '../../services/app.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { CanvasUtil } from '../../utils/canvas-util';
@@ -77,40 +75,6 @@ export class AppDetailComponent implements OnInit {
           tap(job => console.log(job)),
         );
       });
-  }
-
-  install(app: App) {
-    this.storeService
-      .installPackage(app.name, app.localInfo.description.name)
-      .pipe(flatMap(() => this.downloadService.record(app.name)))
-      .subscribe({
-        complete: () => {
-          app.downloads++;
-        },
-      });
-  }
-
-  getButtonStyle(progress: number) {
-    return this.sanitizer.bypassSecurityTrustStyle(`--progress:${(progress * 100).toFixed(0)}%`);
-  }
-
-  screenshotClick(id: string) {
-    const el = document.querySelector('#' + id);
-    if (el) {
-      const opt: ScrollIntoViewOptions = {
-        behavior: 'smooth',
-        inline: 'center',
-        block: 'nearest',
-      };
-      //  chrome 61 support
-      //  el.scrollIntoView(opt)
-      smoothScrollIntoView(el, opt);
-      // el.scrollIntoView();
-    }
-  }
-
-  previewImage(img: HTMLImageElement) {
-    window['dstore'].channel.objects.imageViewer.openBase64(CanvasUtil.getBase64Image(img));
   }
 
   reminder() {
