@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class AppTitleComponent implements OnInit {
   constructor() {}
   SortOrder = SortOrder;
+  log = console.log;
   @Input() title = '';
   @Input() top: number;
   @Input() count: number;
