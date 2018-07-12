@@ -1,6 +1,4 @@
-<div class="errorType"
-     [ngSwitch]="errType"
-     (click)="dialog.showModal()">
+<div [ngSwitch]="errType">
   <ng-container *ngSwitchCase="StoreJobErrorType.dependenciesBroken"
                 i18n>Failed to install, broken dependencies, please retry</ng-container>
   <ng-container *ngSwitchCase="StoreJobErrorType.dpkgInterrupted"
@@ -13,8 +11,12 @@
                 i18n>Failed to install, unmet dependencies</ng-container>
   <ng-container *ngSwitchCase="StoreJobErrorType.insufficientSpace"
                 i18n>Failed to install, insufficient space, please clean and retry</ng-container>
-  <ng-container *ngSwitchDefault
-                i18n>Failed to install</ng-container>
+  <ng-container *ngSwitchDefault>
+    <ng-container i18n>Failed to install</ng-container>
+  </ng-container>
+  <span class="details"
+        *ngIf="errDetail"
+        (click)="dialog.showModal()">Details</span>
 </div>
 
 <dialog #dialog

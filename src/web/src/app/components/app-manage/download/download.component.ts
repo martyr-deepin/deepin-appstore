@@ -120,13 +120,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
           this.fixing = false;
           this.storeService.resumeJob(job.job);
         });
-    } else if (err.ErrType === StoreJobErrorType.unknown) {
-      this.notifyService.notify({
-        type: NotifyType.JobError,
-        status: NotifyStatus.Error,
-        content: err.ErrDetail,
-        delay: 5000,
-      });
     } else {
       this.storeService.resumeJob(job.job);
     }
