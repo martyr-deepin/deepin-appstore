@@ -1,50 +1,67 @@
 <img class="close"
      (click)="close.emit()">
 <ng-container *ngIf="!waitPay$ && !loading;else paying">
-  <div class="title">
-    <h2 i18n>Donate</h2>
-  </div>
-  <div class="gird">
-    <label i18n>Amount:</label>
-    <div class="amount">
-      <input type="text"
-             [value]="amount"
-             (input)="inputChange($event)">
-      <div class="rand"
-           (click)="rand()"
-           i18n>Random</div>
-    </div>
-    <label i18n>Payment:</label>
-    <div class="payment">
-      <label>
-        <input type="radio"
-               name="payment"
-               [(ngModel)]="payment"
-               [value]="Payment.WeChat">
-        <img src="/assets/icons/wechat.svg">
-      </label>
-      <label>
-        <input type="radio"
-               name="payment"
-               [(ngModel)]="payment"
-               [value]="Payment.AliPay">
-        <img src="/assets/icons/alipay.svg">
-      </label>
-      <br>
-      <label>
-        <input type="radio"
-               name="payment"
-               [(ngModel)]="payment"
-               [value]="Payment.PayPal"
-               disabled>
-        <img src="/assets/icons/paypal.svg">
-      </label>
-    </div>
-    <button class="btn"
-            [disabled]="amount<=0"
-            (click)="pay();$event.target.disabled=true"
-            i18n>Pay Now</button>
-  </div>
+  <table>
+    <caption>
+      <h2 i18n>Donate</h2>
+    </caption>
+    <tr>
+      <td>
+        <label i18n>Amount:</label>
+      </td>
+      <td>
+        <div class="amount">
+          <input type="text"
+                 [value]="amount"
+                 (input)="inputChange($event)">
+          <div class="rand"
+               (click)="rand()"
+               i18n>Random</div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label i18n>Payment:</label>
+      </td>
+      <td>
+        <div class="payment">
+          <label>
+            <input type="radio"
+                   name="payment"
+                   [(ngModel)]="payment"
+                   [value]="Payment.WeChat">
+            <img src="/assets/icons/wechat.svg">
+          </label>
+          <label>
+            <input type="radio"
+                   name="payment"
+                   [(ngModel)]="payment"
+                   [value]="Payment.AliPay">
+            <img src="/assets/icons/alipay.svg">
+          </label>
+          <br>
+          <label hidden>
+            <input type="radio"
+                   name="payment"
+                   [(ngModel)]="payment"
+                   [value]="Payment.PayPal"
+                   disabled>
+            <img src="/assets/icons/paypal.svg">
+          </label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2
+          align="center">
+        <button class="btn"
+                [disabled]="amount<=0"
+                (click)="pay();$event.target.disabled=true"
+                i18n>Pay Now</button>
+      </td>
+    </tr>
+  </table>
 </ng-container>
 <ng-template #paying>
   <ng-template #loading>

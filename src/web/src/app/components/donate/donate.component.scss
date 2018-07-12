@@ -3,14 +3,13 @@
   width: 400px;
   height: 250px;
 }
-.title {
-  text-align: center;
-}
-.gird {
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-gap: 1rem;
-  margin: 2rem;
+table {
+  width: 80%;
+  margin: auto;
+  border-collapse: collapse;
+  tr {
+    height: 4rem;
+  }
 }
 .amount {
   input {
@@ -59,6 +58,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-top: 1rem;
   label {
     display: flex;
     align-items: center;
@@ -71,6 +71,7 @@
 .btn {
   grid-column: span 2;
   height: 2rem;
+  width: 80%;
 }
 
 input::-webkit-outer-spin-button,
