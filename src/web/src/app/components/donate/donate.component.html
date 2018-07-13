@@ -5,10 +5,11 @@
 </div>
 
 <dialog class="donateDialog"
+        (close)="init()"
         #dialog>
   <ng-container *ngIf="dialog.open">
     <img class="close"
-         (click)="dialog.close();waitPay$=null">
+         (click)="dialog.close()">
     <ng-container *ngIf="!waitPay$ && !loading;else paying">
       <table>
         <caption>
@@ -67,7 +68,7 @@
               align="center">
             <button class="btn"
                     [disabled]="amount<=0"
-                    (click)="pay()"
+                    (click)="pay();$event.target.disabled=true"
                     i18n>Pay Now</button>
           </td>
         </tr>
@@ -106,5 +107,4 @@
   </ng-container>
 </dialog>
 
-<app-donors [appName]="appName"
-            [random]="update"></app-donors>
+<app-donors [appName]="appName"></app-donors>

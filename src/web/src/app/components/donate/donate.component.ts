@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ChangeDetectorRef,
   NgZone,
+  ViewChild,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -20,6 +21,7 @@ import { DonateService } from '../../services/donate.service';
 import { AuthService } from '../../services/auth.service';
 import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
 import { BaseService } from '../../dstore/services/base.service';
+import { DonorsComponent } from '../donors/donors.component';
 
 @Component({
   selector: 'app-donate',
@@ -32,8 +34,8 @@ export class DonateComponent implements OnInit {
     private donateService: DonateService,
     private sanitizer: DomSanitizer,
   ) {}
+  @ViewChild(DonorsComponent) donors: DonorsComponent;
   @Input() appName: string;
-  update: string;
   amount = 2;
   Payment = Payment;
   payment: Payment = Payment.WeChat;
@@ -43,6 +45,14 @@ export class DonateComponent implements OnInit {
   waitPay$: Observable<PayCheck>;
 
   ngOnInit() {}
+
+  init() {
+    this.amount = 2;
+    this.waitPay$ = null;
+    this.payment = Payment.WeChat;
+    this.loading = false;
+    this.qrImg = null;
+  }
 
   rand() {
     let r = this.amount;
@@ -67,9 +77,14 @@ export class DonateComponent implements OnInit {
           }
           return req;
         }),
-        switchMap(req => this.donateService.donate(this.payment, req)),
+        switchMap(
+          req => this.donateService.donate(this.payment, req),
+          (req, resp) => {
+            return { req, resp };
+          },
+        ),
       )
-      .subscribe(resp => {
+      .subscribe(({ req, resp }) => {
         if (resp.error) {
           console.error(resp);
           return;
@@ -85,15 +100,22 @@ export class DonateComponent implements OnInit {
           DstoreObject.openURL(resp.url);
         }
         this.loading = false;
-        this.waitPay$ = timer(0, 1000).pipe(
-          switchMap(() => this.donateService.check(this.payment, resp.tradeID)),
-          tap(c => {
-            if (c.isExist) {
-              DstoreObject.raiseWindow();
-              this.update = resp.tradeID;
-            }
-          }),
-        );
+        this.waitPay$ = new Observable<PayCheck>(obs => {
+          const s = timer(0, 1000)
+            .pipe(
+              switchMap(() => this.donateService.check(this.payment, resp.tradeID)),
+              tap(c => {
+                obs.next(c);
+                if (c.isExist) {
+                  s.unsubscribe();
+                  obs.complete();
+                  DstoreObject.raiseWindow();
+                  this.donors.add(req.userID);
+                }
+              }),
+            )
+            .subscribe();
+        });
       });
   }
 
