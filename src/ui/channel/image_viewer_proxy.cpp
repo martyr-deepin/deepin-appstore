@@ -41,6 +41,10 @@ void ImageViewerProxy::setImageList(const QStringList& urls, int current) {
   current_ = -1;
   if (current >= 0 && current < urls.length()) {
     current_ = current;
+    // Notify web page to download current image.
+    emit this->openOnlineImageRequest(urls.at(current));
+  } else {
+    qWarning() << Q_FUNC_INFO << "Invalid url index:" << current << urls;
   }
 }
 
