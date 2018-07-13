@@ -39,27 +39,6 @@
               ],
               "outputPath": "../web_dist/appstore/"
             },
-            "production-zh-Hans": {
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": false,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "outputPath": "../web_dist/appstore-zh_CN/",
-              "i18nFile": "src/locale/messages.zh_CN.xlf",
-              "i18nFormat": "xlf",
-              "i18nLocale": "zh-Hans"
-            },
             "myml": {
               "fileReplacements": [
                 {

@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<?xml version="1.0" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="ms">
     <body>
       <trans-unit datatype="html" id="ac0f81713a84217c9bd1d9bb460245d8190b073f">
@@ -99,7 +100,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="86288c2ac6b43ed195f0bc8bce825a3ab8151b71">
         <source>Installed</source>
-        <context-group purpose="location">
+        <target>Installed</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">54</context>
         </context-group>
@@ -146,7 +147,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c865350c1e557f8c00140a145e33f39ff822cdc0">
         <source>Updated Date:</source>
-        <context-group purpose="location">
+        <target>Updated Date:</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">68</context>
         </context-group>
@@ -583,7 +584,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee">
         <source>Uninstall</source>
-        <context-group purpose="location">
+        <target>Uninstall</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
           <context context-type="linenumber">153</context>
         </context-group>
@@ -712,14 +713,14 @@
       </trans-unit>
       <trans-unit datatype="html" id="9a1bd0840d2c3901d359e4a58a9c73545b7e9598">
         <source>Current Version</source>
-        <context-group purpose="location">
+        <target>Current Version</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9e5ce729ba1ff21c6bed9417bca2d16cd6b8e1fd">
         <source>History Versions</source>
-        <context-group purpose="location">
+        <target>History Versions</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">121</context>
         </context-group>
@@ -962,7 +963,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="bc94133fdad4a10cda0e971ffa5a5867c5ddf984">
         <source>Submit succeeded</source>
-        <context-group purpose="location">
+        <target>Submit succeeded</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
@@ -985,7 +986,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a4ebb29f3e25de97f36a395cf50585b89251806f">
         <source>Submit failed</source>
-        <context-group purpose="location">
+        <target>Submit failed</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">29</context>
         </context-group>

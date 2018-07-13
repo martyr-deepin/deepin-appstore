@@ -6,12 +6,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration production",
-    "build-zh-hans": "ng build --configuration production-zh-Hans",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "i18n": "ng xi18n --outputPath locale",
-    "fix-i18n": "find src/locale -type f | xargs sed -i -e '/target/s/&lt;/</g' -e '/target/s/&gt;/>/g' -e '/target/s/&quot;/\"/g'"
+    "i18n": "ng xi18n --outputPath locale"
   },
   "private": true,
   "dependencies": {

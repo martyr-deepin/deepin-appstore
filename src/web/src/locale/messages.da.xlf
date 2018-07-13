@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<?xml version="1.0" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="da">
     <body>
       <trans-unit datatype="html" id="ac0f81713a84217c9bd1d9bb460245d8190b073f">
@@ -99,7 +100,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="86288c2ac6b43ed195f0bc8bce825a3ab8151b71">
         <source>Installed</source>
-        <context-group purpose="location">
+        <target>Installed</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">54</context>
         </context-group>
@@ -146,7 +147,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c865350c1e557f8c00140a145e33f39ff822cdc0">
         <source>Updated Date:</source>
-        <context-group purpose="location">
+        <target>Updated Date:</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">68</context>
         </context-group>
@@ -209,7 +210,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="7898e09675b07f90ae57701b3bd781556a0d3f22">
         <source>Donate</source>
-        <context-group purpose="location">
+        <target>Donate</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">129</context>
         </context-group>
@@ -240,7 +241,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0166106da9d18911cf205d22548b9f4d21008f3f">
         <source>It's in adjustment, you can return to</source>
-        <context-group purpose="location">
+        <target>It's in adjustment, you can return to</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">148</context>
         </context-group>
@@ -255,14 +256,14 @@
       </trans-unit>
       <trans-unit datatype="html" id="6dd070f6eb99a4e300bce2af82d76f3d01c61edd">
         <source>Connection failed, please check your network and refresh</source>
-        <context-group purpose="location">
+        <target>Connection failed, please check your network and refresh</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="2631d08f671cb06e269dfe7ce2268ab52ef73375">
         <source>Something goes wrong.</source>
-        <context-group purpose="location">
+        <target>Something goes wrong.</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">164</context>
         </context-group>
@@ -309,21 +310,21 @@
       </trans-unit>
       <trans-unit datatype="html" id="bfc41537a483ae9579984d7b8f1cdb52e386be52">
         <source>Processing <x equiv-text="{{jobs.length}}" id="INTERPOLATION"/> <x equiv-text="{jobs.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/></source>
-        <context-group purpose="location">
+        <target>Processing </target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="aa89c1f96de1bc2fe9a7fdb44604986a29924255">
         <source>{VAR_PLURAL, plural, =0 {task} =1 {task} other {tasks} }</source>
-        <context-group purpose="location">
+        <target>{VAR_PLURAL, plural, =0 {task} =1 {task} other {tasks} }</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="7ebcb099ec39a931331060f46e3a61e4e71524b4">
         <source>Time left: </source>
-        <context-group purpose="location">
+        <target>Time left: </target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
@@ -366,7 +367,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="36b852bcfc86e28990a9898faccba5ab10cdaf2a">
         <source>Cancelling</source>
-        <context-group purpose="location">
+        <target>Cancelling</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">70</context>
         </context-group>
@@ -390,14 +391,14 @@
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
         <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <context-group purpose="location">
+        <target/><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="6c63a654764bea61f724f20116943ca5d84b2eb1">
         <source>{VAR_PLURAL, plural, =0 {application} =1 {application} other {applications} }</source>
-        <context-group purpose="location">
+        <target>{VAR_PLURAL, plural, =0 {application} =1 {application} other {applications} }</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
@@ -416,7 +417,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fdda54eda63b0d772c8639f52897d2bb1714b735">
         <source>Are you sure to uninstall this application?</source>
-        <context-group purpose="location">
+        <target>Are you sure to uninstall this application?</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
@@ -439,7 +440,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b03f424e22c3eb9799167ac85fd8473a784ddd40">
         <source>Date installed:</source>
-        <context-group purpose="location">
+        <target>Date installed:</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">33</context>
         </context-group>
@@ -462,7 +463,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c19df76e4d9f2ee2fec4aeca41fef6a087c8c542">
         <source>Rankings</source>
-        <context-group purpose="location">
+        <target>Rankings</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
@@ -569,7 +570,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee">
         <source>Uninstall</source>
-        <context-group purpose="location">
+        <target>Uninstall</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
           <context context-type="linenumber">153</context>
         </context-group>
@@ -578,7 +579,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="980bde1b7ff971daf68b8bf06d947e09c062ad86">
         <source>Please post a comment after signed in</source>
-        <context-group purpose="location">
+        <target>Please post a comment after signed in</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">4</context>
         </context-group>
@@ -601,14 +602,14 @@
       </trans-unit>
       <trans-unit datatype="html" id="2a0a6ac772761620f2ffa35d76d8ef089efead44">
         <source>Please rate:</source>
-        <context-group purpose="location">
+        <target>Please rate:</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="640eec093c685babaa3265137215e3cc92ad704d">
         <source>Sign Out</source>
-        <context-group purpose="location">
+        <target>Sign Out</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">38</context>
         </context-group>
@@ -627,42 +628,42 @@
       </trans-unit>
       <trans-unit datatype="html" id="b2125f73794002b8bd9ab6720ef9e42ac0bb11e0">
         <source>You have posted a comment</source>
-        <context-group purpose="location">
+        <target>You have posted a comment</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="8f32c151d28bb66bae4e4f6a248bdeb8a2b27cf1">
         <source>Please input a comment</source>
-        <context-group purpose="location">
+        <target>Please input a comment</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3b49b13d9f6506617da72137d77aaf34a8527940">
         <source>Please rate and input your comment</source>
-        <context-group purpose="location">
+        <target>Please rate and input your comment</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="eafc7cb251d676d25843aeff194c97097f8fa894">
         <source>Please input your comment</source>
-        <context-group purpose="location">
+        <target>Please input your comment</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="aa20f809feb37966ee4cad2afcf71dcd37cad1a2">
         <source>Please rate</source>
-        <context-group purpose="location">
+        <target>Please rate</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="7af947253f8e439064c440c7e8b65b79f1697ee8">
         <source>Failed to submit</source>
-        <context-group purpose="location">
+        <target>Failed to submit</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">100</context>
         </context-group>
@@ -689,28 +690,28 @@
       </trans-unit>
       <trans-unit datatype="html" id="9a1bd0840d2c3901d359e4a58a9c73545b7e9598">
         <source>Current Version</source>
-        <context-group purpose="location">
+        <target>Current Version</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9e5ce729ba1ff21c6bed9417bca2d16cd6b8e1fd">
         <source>History Versions</source>
-        <context-group purpose="location">
+        <target>History Versions</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="71890cc31aaa2b924675a1547355fc690c395146">
         <source>Failed to load comments</source>
-        <context-group purpose="location">
+        <target>Failed to load comments</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">138</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="b0b8edf5739046d6481de3de28d9e8bfbcee3757">
         <source>There are not any user comments</source>
-        <context-group purpose="location">
+        <target>There are not any user comments</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">141</context>
         </context-group>
@@ -726,14 +727,14 @@
       <trans-unit datatype="html" id="5e10bfec657136150ed6007533cc9574c66268ba">
         <source>Searching results for <x equiv-text="{{title$|async}}" id="INTERPOLATION"/>
 </source>
-        <context-group purpose="location">
+        <target>Searching results for </target><context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3a2c86e43bad2e779a341feec8f1246fdf048d3a">
         <source>No search results found</source>
-        <context-group purpose="location">
+        <target>No search results found</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
@@ -741,14 +742,15 @@
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
       <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
-        <context-group purpose="location">
+        <target>Welcome to
+      </target><context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="8c9b06e0d7654df958e18a0ccf70b47edfb8ed62">
         <source>Recommend App</source>
-        <context-group purpose="location">
+        <target>Recommend App</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
@@ -763,7 +765,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9369355f8d70a1d75c4b3fd0c05a4d12916e9e89">
         <source>Official name</source>
-        <context-group purpose="location">
+        <target>Official name</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
@@ -818,7 +820,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6f5f4f9eeeacbc4b5aaf55a9a307c0cbcfa6f1f8">
         <source>Input No if no license is required</source>
-        <context-group purpose="location">
+        <target>Input No if no license is required</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">39</context>
         </context-group>
@@ -841,147 +843,147 @@
       </trans-unit>
       <trans-unit datatype="html" id="b07b1257a5086e577ec5b97b2143922e60578364">
         <source>Download Site:</source>
-        <context-group purpose="location">
+        <target>Download Site:</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3fae2626f67e486c30420654180cbf6f42b23b24">
         <source>Official download address</source>
-        <context-group purpose="location">
+        <target>Official download address</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="00138eb76d88382673aa4416d47f9cae64b370bf">
         <source>Others:</source>
-        <context-group purpose="location">
+        <target>Others:</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="42ac849018f29bd2f0e8ee2a2becc5f06c24a1f9">
         <source>Introduction or other info</source>
-        <context-group purpose="location">
+        <target>Introduction or other info</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="c81780f921c4ded2a45dadd68238f428bb5e5308">
         <source>Network error</source>
-        <context-group purpose="location">
+        <target>Network error</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/wait/wait.component.ts</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="94516fa213706c67ce5a5b5765681d7fb032033a">
         <source>Loading...</source>
-        <context-group purpose="location">
+        <target>Loading...</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/wait/wait.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="b9757ef0fc7afb5e0e6499cb459ed8d086c8dea1">
         <source>Sorry, connection failed, please check your network and refresh</source>
-        <context-group purpose="location">
+        <target>Sorry, connection failed, please check your network and refresh</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/wait/wait.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="c8d1785038d461ec66b5799db21864182b35900a">
         <source>Refresh</source>
-        <context-group purpose="location">
+        <target>Refresh</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/wait/wait.component.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="248ac7083d6aeaba08df615c1af40aedb6df794a">
         <source>Announcement：<x equiv-text="{{$notify.content}}" id="INTERPOLATION"/></source>
-        <context-group purpose="location">
+        <target>Announcement：</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="7adf474dce2df967c3c8a4f03627e51c3930de14">
         <source>Urge successfully</source>
-        <context-group purpose="location">
+        <target>Urge successfully</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="17652b0b4f68bee9645c241ef23c8471170b3e01">
         <source>Cache was cleared successfully</source>
-        <context-group purpose="location">
+        <target>Cache was cleared successfully</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="bc94133fdad4a10cda0e971ffa5a5867c5ddf984">
         <source>Submit succeeded</source>
-        <context-group purpose="location">
+        <target>Submit succeeded</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="91b4e447c0ebefd9b2e867ee923998b825219b9c">
         <source>Urge failed</source>
-        <context-group purpose="location">
+        <target>Urge failed</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9adf078da8da4a1f22687e15f76dae2369a603df">
         <source>Failed to clear cache</source>
-        <context-group purpose="location">
+        <target>Failed to clear cache</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a4ebb29f3e25de97f36a395cf50585b89251806f">
         <source>Submit failed</source>
-        <context-group purpose="location">
+        <target>Submit failed</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="91ce116be6e8df104128f339912c9207f01265cd">
         <source>Amount:</source>
-        <context-group purpose="location">
+        <target>Amount:</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3efbc55094b3e633835a1866fcfb14b0601376dc">
         <source>Random</source>
-        <context-group purpose="location">
+        <target>Random</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fb3545e97e371069768103e01599f35e789d556c">
         <source>Payment:</source>
-        <context-group purpose="location">
+        <target>Payment:</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="53d20cc6953546db5373b1ae5a686aa655a715bb">
         <source>Pay Now</source>
-        <context-group purpose="location">
+        <target>Pay Now</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="87c8bef501029e74fa6dd149dcad2d97a92ab762">
         <source>Payment Succeeded!</source>
-        <context-group purpose="location">
+        <target>Payment Succeeded!</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="d6b9a958603b771efa6ec562f1411604c0089b79">
         <source>Paying, please wait...</source>
-        <context-group purpose="location">
+        <target>Paying, please wait...</target><context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">67</context>
         </context-group>
