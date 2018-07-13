@@ -29,7 +29,13 @@ export class UninstallComponent implements OnInit, OnDestroy {
     private storeService: StoreService,
     private appService: AppService,
   ) {}
-
+  disabledList = [
+    'dde-control-center',
+    'dde-introduction',
+    'dde-file-manager',
+    'deepin-appstore',
+    'deepin-manual',
+  ];
   installedApps: InstalledApp[];
   uninstallingApps: string[];
   select = '';

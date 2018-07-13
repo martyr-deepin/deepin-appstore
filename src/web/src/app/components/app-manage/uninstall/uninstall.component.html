@@ -43,6 +43,7 @@
             <div class="uninstall">
               <button *ngIf="!$uninstallingApps.includes($installedApp.name);else $ing"
                       (click)="select=$app.name"
+                      [disabled]="disabledList.includes($app.name)"
                       i18n>Uninstall</button>
               <ng-template #$ing>
                 <button i18n
