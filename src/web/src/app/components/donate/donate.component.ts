@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef,
+  NgZone,
+} from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { Observable, of, iif, timer } from 'rxjs';
@@ -25,7 +33,7 @@ export class DonateComponent implements OnInit {
     private sanitizer: DomSanitizer,
   ) {}
   @Input() appName: string;
-  @Output() close = new EventEmitter<void>();
+  update: string;
   amount = 2;
   Payment = Payment;
   payment: Payment = Payment.WeChat;
@@ -82,6 +90,7 @@ export class DonateComponent implements OnInit {
           tap(c => {
             if (c.isExist) {
               DstoreObject.raiseWindow();
+              this.update = resp.tradeID;
             }
           }),
         );

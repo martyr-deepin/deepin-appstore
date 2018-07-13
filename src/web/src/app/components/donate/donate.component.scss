@@ -1,5 +1,14 @@
-:host {
-  display: block;
+.donateBtn {
+  text-align: center;
+  margin-bottom: 1rem;
+  button {
+    padding: 0 1rem;
+    height: 2rem;
+    width: 5rem;
+  }
+}
+
+dialog {
   width: 400px;
   height: 250px;
 }

@@ -46,8 +46,6 @@ export class AppDetailComponent implements OnInit {
   size: number = null;
   job$: Observable<StoreJobInfo>;
 
-  @ViewChild('$donate') donate: ElementRef<HTMLDialogElement>;
-
   openURL = DstoreObject.openURL;
   pause = this.storeService.pauseJob;
   start = this.storeService.resumeJob;
@@ -86,16 +84,6 @@ export class AppDetailComponent implements OnInit {
         this.notifyService.error(NotifyType.Reminder);
       },
     );
-  }
-
-  donateOpen() {
-    this.donate.nativeElement.showModal();
-  }
-
-  dialogClick(el: HTMLElement) {
-    if (el.nodeName === 'DIALOG') {
-      this.donate.nativeElement.close();
-    }
   }
 
   // Show 'open' button only if app open method is 'desktop'.

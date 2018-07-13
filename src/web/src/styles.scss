@@ -81,6 +81,11 @@ button {
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.02);
   height: 24px;
   color: rgba(48, 48, 48, 1);
+  &.primary {
+    color: #0699ff;
+    font-weight: 500;
+    box-shadow: inset 0 0 0 1px rgba(0, 132, 255, 0.4);
+  }
   &:not(:disabled) {
     &:hover {
       color: white;

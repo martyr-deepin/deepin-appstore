@@ -16,29 +16,20 @@ export class DonorsComponent implements OnInit, OnChanges {
     private auth: AuthService,
   ) {}
   @Input() appName: string;
+  @Input() random: number;
   donors = [];
   total = 0;
   ngOnInit() {}
   ngOnChanges() {
-    this.donorsService
-      .getDonation(this.appName)
-      .pipe(
-        switchMap(
-          result => this.auth.logged$,
-          (result, isLogin) => {
-            const randomUser = new Array(5)
-              .map(() => Math.ceil(88888 * Math.random() + 888))
-              .slice(0, result.totalCount);
-            if (!isLogin || !result.donators) {
-              result.donators = randomUser;
-            }
-            return result;
-          },
-        ),
-      )
-      .subscribe(result => {
-        this.donors = result.donators;
-        this.total = result.totalCount;
-      });
+    this.donorsService.getDonation(this.appName).subscribe(result => {
+      if (!result.donators) {
+        result.donators = [];
+      }
+      while (result.donators.length < result.totalCount && result.donators.length < 5) {
+        result.donators.push(Math.ceil(88888 * Math.random() + 888));
+      }
+      this.donors = result.donators;
+      this.total = result.totalCount;
+    });
   }
 }

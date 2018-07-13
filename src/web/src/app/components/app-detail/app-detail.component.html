@@ -80,11 +80,7 @@
   <app-screenshot [screenshotList]="[app.localInfo.images.screenshot,app.localInfo.images.screenshotHD]|fitImage"></app-screenshot>
 
   <ng-container *ngIf="app.version">
-    <div class="donateBtn">
-      <button i18n
-              (click)="donateOpen()">Donate</button>
-    </div>
-    <app-donors [appName]="app.name"></app-donors>
+    <app-donate [appName]="app.name"></app-donate>
     <div class="hr"></div>
     <br>
     <app-app-comment [appName]="app.name"
@@ -124,11 +120,3 @@
     </div>
   </ng-template>
 </ng-template>
-
-<dialog class="donateDialog"
-        #$donate
-        (click)="dialogClick($event.target)">
-  <app-donate [appName]="app.name"
-              *ngIf="$donate.open"
-              (close)="$donate.close()"></app-donate>
-</dialog>
