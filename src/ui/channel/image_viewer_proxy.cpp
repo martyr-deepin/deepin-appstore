@@ -36,15 +36,43 @@ void ImageViewerProxy::open(const QString& filepath) {
   emit this->openImageFileRequested(filepath);
 }
 
-void ImageViewerProxy::openBase64(const QString& data) {
+void ImageViewerProxy::setImageList(const QStringList& urls, int current) {
+  urls_ = urls;
+  current_ = -1;
+  if (current >= 0 && current < urls.length()) {
+    current_ = current;
+  }
+}
+
+void ImageViewerProxy::openBase64(const QString& url, const QString& data) {
+  Q_ASSERT(current_ < urls_.length());
+  if (url != urls_.at(current_)) {
+    qWarning() << Q_FUNC_INFO << "url not match,"
+               <<"expected:" << urls_.at(current_)
+               << ", got:" << url;
+    return;
+  }
+
   const QByteArray img_data = QByteArray::fromBase64(data.toLocal8Bit());
   QPixmap pixmap;
   const bool status = pixmap.loadFromData(img_data);
   if (status) {
     emit this->openPixmapRequested(pixmap);
   } else {
-    qWarning() << Q_FUNC_INFO << "Failed to load pixmap:" << data;
+    qWarning() << Q_FUNC_INFO << "Failed to load pixmap:" << url;
   }
+}
+
+void ImageViewerProxy::onPreviousImageRequested() {
+  current_ = (urls_.length() - current_ + 1) % urls_.length();
+  qDebug() << Q_FUNC_INFO << current_ << urls_.length();
+  emit this->openOnlineImageRequest(urls_.at(current_));
+}
+
+void ImageViewerProxy::onNextImageRequested() {
+  current_ = (current_ + 1) % urls_.length();
+  qDebug() << Q_FUNC_INFO << current_ << urls_.length();
+  emit this->openOnlineImageRequest(urls_.at(current_));
 }
 
 }  // namespace dstore

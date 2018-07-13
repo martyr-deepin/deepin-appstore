@@ -41,9 +41,7 @@ ImageViewer::ImageViewer(QWidget* parent)
     : QDialog(parent) {
   this->setObjectName("ImageViewer");
   this->initUI();
-
-  connect(close_button_, &Dtk::Widget::DImageButton::clicked,
-          this, &ImageViewer::close);
+  this->initConnection();
 }
 
 ImageViewer::~ImageViewer() {
@@ -94,15 +92,37 @@ void ImageViewer::openPixmap(QPixmap pixmap) {
   close_button_->raise();
 }
 
+void ImageViewer::initConnection() {
+  connect(close_button_, &Dtk::Widget::DImageButton::clicked,
+          this, &ImageViewer::close);
+  connect(previous_button_, &Dtk::Widget::DImageButton::clicked,
+          this, &ImageViewer::previousImageRequested);
+  connect(next_button_, &Dtk::Widget::DImageButton::clicked,
+          this, &ImageViewer::nextImageRequested);
+}
+
 void ImageViewer::initUI() {
-  img_label_ = new QLabel(this);
+  img_label_ = new QLabel();
   img_label_->setObjectName("ImageLabel");
 
   close_button_ = new Dtk::Widget::DImageButton(this);
   close_button_->setObjectName("CloseButton");
   close_button_->raise();
 
-  this->setContentsMargins(kBorderSize, kBorderSize, kBorderSize, kBorderSize);
+  previous_button_ = new Dtk::Widget::DImageButton();
+  previous_button_->setObjectName("PreviousButton");
+  next_button_ = new Dtk::Widget::DImageButton();
+  next_button_->setObjectName("NextButton");
+
+  QHBoxLayout* layout = new QHBoxLayout();
+  layout->setContentsMargins(0, 0, 0, 0);
+  layout->setSpacing(10);
+  layout->addWidget(previous_button_);
+  layout->addWidget(img_label_);
+  layout->addWidget(next_button_);
+
+  this->setContentsMargins(0, 0, 0, 0);
+  this->setLayout(layout);
   this->setWindowFlags(Qt::FramelessWindowHint |
                        Qt::BypassWindowManagerHint |
                        Qt::Dialog |

@@ -236,6 +236,20 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 
   add_executable(qurl-demo app/qurl_demo.cpp)
   target_link_libraries(qurl-demo ${LINK_LIBS})
+
+  add_executable(test-image-viewer
+                 app/test_image_viewer.cpp
+
+                 base/file_util.cpp
+                 base/file_util.h
+                 ui/utils/theme_manager.cpp
+                 ui/utils/theme_manager.h
+                 ui/widgets/image_viewer.cpp
+                 ui/widgets/image_viewer.h
+
+                 resources/themes/themes.qrc
+                 )
+  target_link_libraries(test-image-viewer ${LINK_LIBS})
 endif()
 
 add_executable(deepin-appstore-metadata

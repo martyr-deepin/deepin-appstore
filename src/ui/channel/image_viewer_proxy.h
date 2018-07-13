@@ -22,6 +22,7 @@
 
 namespace dstore {
 
+// Image viewer controller
 class ImageViewerProxy : public QObject {
   Q_OBJECT
  public:
@@ -33,6 +34,13 @@ class ImageViewerProxy : public QObject {
 
   void openPixmapRequested(const QPixmap& pixmap);
 
+  /**
+   * Request to open online image file.
+   * Call |openBase64| to send response.
+   * @param url Image url
+   */
+  void openOnlineImageRequest(const QString& url);
+
  public slots:
   /**
    * Open image in viewer window.
@@ -41,10 +49,26 @@ class ImageViewerProxy : public QObject {
   void open(const QString& filepath);
 
   /**
-   * Open base64-encoded image data.
-   * @param data
+   * Update image url list.
+   * Call this method
+   * @param urls
+   * @param current Index of image to be open.
    */
-  void openBase64(const QString& data);
+  void setImageList(const QStringList& urls, int current);
+
+  /**
+   * Open base64-encoded image data.
+   * @param url Image url
+   * @param data Base64-encoded image content
+   */
+  void openBase64(const QString& url, const QString& data);
+
+  void onPreviousImageRequested();
+  void onNextImageRequested();
+
+ private:
+  QStringList urls_;
+  int current_;
 };
 
 }  // namespace dstore

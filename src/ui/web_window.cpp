@@ -140,6 +140,10 @@ void WebWindow::initConnections() {
           image_viewer_, &ImageViewer::open);
   connect(image_viewer_proxy_, &ImageViewerProxy::openPixmapRequested,
           image_viewer_, &ImageViewer::openPixmap);
+  connect(image_viewer_, &ImageViewer::previousImageRequested,
+          image_viewer_proxy_, &ImageViewerProxy::onPreviousImageRequested);
+  connect(image_viewer_, &ImageViewer::nextImageRequested,
+          image_viewer_proxy_, &ImageViewerProxy::onNextImageRequested);
 
   connect(search_manager_, &SearchManager::searchAppResult,
           this, &WebWindow::onSearchAppResult);

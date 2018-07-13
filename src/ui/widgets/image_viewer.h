@@ -31,6 +31,17 @@ class ImageViewer : public QDialog {
   explicit ImageViewer(QWidget* parent = nullptr);
   ~ImageViewer() override;
 
+ signals:
+  /**
+   * Emitted when previous-button is clicked.
+   */
+  void previousImageRequested();
+
+  /**
+   * Emitted when next-button is clicked.
+   */
+  void nextImageRequested();
+
  public slots:
   /**
    * Open a local image file and render in image box.
@@ -52,9 +63,12 @@ class ImageViewer : public QDialog {
 
  private:
   void initUI();
+  void initConnection();
 
   QLabel* img_label_ = nullptr;
   Dtk::Widget::DImageButton* close_button_ = nullptr;
+  Dtk::Widget::DImageButton* previous_button_ = nullptr;
+  Dtk::Widget::DImageButton* next_button_ = nullptr;
 };
 
 }  // namespace dstore
