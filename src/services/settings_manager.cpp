@@ -106,7 +106,7 @@ bool UpyunBannerVisible() {
 }
 
 bool AllowSwitchRegion() {
-  return GetRegion() == OperationServerRegion::RegionChina;
+  return GetOperationType() == OperationType::OperationCommunity;
 }
 
 }  // namespace dstore
