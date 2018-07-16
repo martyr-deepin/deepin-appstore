@@ -10,6 +10,7 @@ import { SearchService, SearchResult } from './services/search.service';
 import { Channel } from './dstore-client.module/utils/channel';
 import { App } from './dstore/services/app';
 import { OffsetService } from './services/offset.service';
+import { DstoreObject } from './dstore-client.module/utils/dstore-objects';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class AppComponent implements OnInit {
     this.scrollHistory();
     this.searchIndex();
     this.searchListen();
+    this.screenshotPreview();
   }
 
   scrollHistory() {
@@ -67,6 +69,21 @@ export class AppComponent implements OnInit {
     this.searchService.onOpenAppList().subscribe(result => {
       console.log('open app list', result.appNameList);
       this.router.navigate(['search', { keyword: result.keyword, apps: result.appNameList }]);
+    });
+  }
+  screenshotPreview() {
+    const img = new Image();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    DstoreObject.openOnlineImage().subscribe(src => {
+      img.onload = () => {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+        const data = canvas.toDataURL();
+        DstoreObject.imageViewer(src, data.slice(data.indexOf(',') + 1));
+      };
+      img.src = src;
     });
   }
 }
