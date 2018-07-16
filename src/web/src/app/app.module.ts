@@ -52,6 +52,7 @@ import { DonateComponent } from './components/donate/donate.component';
 import { StoreJobErrorComponent } from './components/store-job-error/store-job-error.component';
 import { DonorsComponent } from './components/donors/donors.component';
 import { ScreenshotComponent } from './components/screenshot/screenshot.component';
+import { DialogDirective } from './directive/dialog.directive';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { ScreenshotComponent } from './components/screenshot/screenshot.componen
     StoreJobErrorComponent,
     DonorsComponent,
     ScreenshotComponent,
+    DialogDirective,
   ],
   imports: [
     BrowserModule,
