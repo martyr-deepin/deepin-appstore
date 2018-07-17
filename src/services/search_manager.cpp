@@ -18,7 +18,6 @@
 #include "services/search_manager.h"
 
 #include <QDebug>
-#include <QtCore/QRegularExpression>
 
 #include "services/backend/chinese2pinyin.h"
 
@@ -33,17 +32,18 @@ AppSearchRecordList SearchApp(const QString& keyword,
                               const QStringList& app_names_pinyin) {
   AppSearchRecordList result;
   QSet<QString> app_names;
+  const QString keyword_pinyin = Chinese2PinyinNoSyl(keyword);
 
   for (int i = 0; i < app_names_pinyin.length(); i++) {
-    if (app_names_pinyin.at(i).contains(keyword, Qt::CaseInsensitive)) {
+    if (app_names_pinyin.at(i).contains(keyword_pinyin, Qt::CaseInsensitive)) {
       result.append(apps.at(i));
       app_names.insert(apps.at(i).name);
     }
   }
 
   for (const AppSearchRecord& app : apps) {
-    if (app.name.contains(keyword, Qt::CaseInsensitive) ||
-        app.local_name.contains(keyword, Qt::CaseInsensitive)) {
+    if (app.name.contains(keyword_pinyin, Qt::CaseInsensitive) ||
+        app.local_name.contains(keyword_pinyin, Qt::CaseInsensitive)) {
       if (!app_names.contains(app.name)) {
         result.append(app);
         app_names.insert(app.name);
@@ -52,8 +52,8 @@ AppSearchRecordList SearchApp(const QString& keyword,
   }
 
   for (const AppSearchRecord& app : apps) {
-    if (app.description.contains(keyword, Qt::CaseInsensitive) ||
-        app.slogan.contains(keyword, Qt::CaseInsensitive)) {
+    if (app.description.contains(keyword_pinyin, Qt::CaseInsensitive) ||
+        app.slogan.contains(keyword_pinyin, Qt::CaseInsensitive)) {
       if (!app_names.contains(app.name)) {
         result.append(app);
         app_names.insert(app.name);
@@ -96,11 +96,8 @@ void SearchManager::updateAppList(const AppSearchRecordList& app_list) {
   std::sort(app_list_.begin(), app_list_.end());
 
   // Save app name pinyin.
-  QRegularExpression num_reg("\\d");
   for (const AppSearchRecord& app : app_list_) {
-    QString pinyin = Chinese2Pinyin(app.local_name);
-    pinyin.remove(num_reg);
-    app_names_pinyin_.append(pinyin);
+    app_names_pinyin_.append(Chinese2PinyinNoSyl(app.local_name));
   }
 }
 

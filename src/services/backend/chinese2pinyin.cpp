@@ -39,13 +39,31 @@ QString Chinese2Pinyin(const QString& words) {
   InitDict();
 
   QString result;
-  for (int i = 0; i < words.length(); ++i) {
-    const uint32_t key = static_cast<uint32_t>(words.at(i).unicode());
+  for (const QChar& word : words) {
+    const uint32_t key = static_cast<uint32_t>(word.unicode());
     auto find_result = dict.find(key);
     if (find_result != dict.end()) {
       result.append(find_result.value());
     } else {
-      result.append(words.at(i));
+      result.append(word);
+    }
+  }
+  return result;
+}
+
+QString Chinese2PinyinNoSyl(const QString& words) {
+  InitDict();
+
+  QString result;
+
+  for (const QChar& word : words) {
+    const uint32_t key = static_cast<uint32_t>(word.unicode());
+    auto find_result = dict.find(key);
+    if (find_result != dict.end()) {
+      const QString& value = find_result.value();
+      result.append(value.left(value.length() - 2));
+    } else {
+      result.append(word);
     }
   }
   return result;

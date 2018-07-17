@@ -9,7 +9,19 @@
 
 namespace dstore {
 
+/**
+ * Convert Chinese word into pinyin, with syllable.
+ * @param words
+ * @return
+ */
 QString Chinese2Pinyin(const QString& words);
+
+/**
+ * Convert Chinese word into pinyin, without syllable.
+ * @param words
+ * @return
+ */
+QString Chinese2PinyinNoSyl(const QString& words);
 
 }  // namespace dstore
 
