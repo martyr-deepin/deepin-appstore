@@ -43,17 +43,25 @@ def fix_xlf(xlf_file):
             target_elem.text = source_value
 
         # Escape values in <target>
-        for child in trans_elem.getchildren():
-            if child.tag == TARGET_TAG:
-                if child.text:
-                    child.text = html.unescape(child.text)
-                break
+#        for child in trans_elem.getchildren():
+#            if child.tag == TARGET_TAG:
+#                if child.text:
+#                    text = child.text.replace("&lt;", "<")
+#                    text = text.replace("&gt;", ">")
+#                    text = text.replace("&quot;", '"')
+#                    child.text = text
+#                break
 
         # Write back
         with open(xlf_file, "wb") as fh:
             # First, write xml head
             fh.write(b'<?xml version="1.0" ?>\n')
-            fh.write(etree.tostring(root, pretty_print=True, encoding='utf8'))
+            content = etree.tostring(root, pretty_print=True, encoding='utf8')
+            # Escape HTML special chars in <target>
+            content = content.replace(b"&lt;", b"<")
+            content = content.replace(b"&gt;", b">")
+            content = content.replace(b"&quot;", b'"')
+            fh.write(content)
 
 
 def main():
