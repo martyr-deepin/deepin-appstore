@@ -21,22 +21,9 @@
 #include <QFileInfo>
 #include <QLocale>
 
-#include "services/metadata_manager.h"
-
 namespace dstore {
 
-namespace {
-
-MetadataManager* g_metadata_manager = nullptr;
-
-}  // namespace
-
 QString RccSchemeHandler(const QUrl& url) {
-  if (g_metadata_manager == nullptr) {
-    g_metadata_manager = new MetadataManager();
-    g_metadata_manager->downloadAppIcons();
-  }
-
   const QString host = url.host();
   if (host == "web") {
     const char kAppDefaultLocalDir[] = DSTORE_WEB_DIR "/appstore";
@@ -52,10 +39,6 @@ QString RccSchemeHandler(const QUrl& url) {
       filepath = QString("%1/%2").arg(app_local_dir).arg("index.html");
     }
     return filepath;
-  } else if (host == "icon") {
-    const QString app_name = url.fileName();
-    const QString icon_path = g_metadata_manager->getAppIcon(app_name);
-    return icon_path;
   } else {
     // 404 not found.
     return "";
