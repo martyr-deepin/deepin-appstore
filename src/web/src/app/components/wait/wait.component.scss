@@ -17,16 +17,18 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
   background: url('/assets/images/water_front.svg') repeat-x,
     url('/assets/images/water_back.svg') repeat-x, rgba(43, 169, 243, 0.15);
-  background-size: 200%;
-  background-position: left bottom;
-  animation: flow 2s infinite linear;
+  background-size: 500% 100%;
+  --position: 1rem;
+  background-position: left var(--position);
+  animation: flow 20s infinite linear;
 }
+
 @keyframes flow {
   from {
-    background-position: 0 bottom;
+    background-position: 0 var(--position), 500% var(--position);
   }
   to {
-    background-position: 200% bottom;
+    background-position: 500% var(--position), 0 var(--position);
   }
 }
 a {
