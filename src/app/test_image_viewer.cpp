@@ -16,15 +16,29 @@
  */
 
 #include <QApplication>
+#include <QTimer>
 
 #include "ui/widgets/image_viewer.h"
 
 int main(int argc, char** argv) {
   QApplication app(argc, argv);
 
-  dstore::ImageViewer viewer;
-  viewer.open("/tmp/demo.png");
-  viewer.show();
+  dstore::ImageViewer* viewer = new dstore::ImageViewer();
+  QObject::connect(viewer, &dstore::ImageViewer::previousImageRequested, [&]() {
+    viewer->showIndicator();
+    QTimer::singleShot(2000, [=]() {
+      viewer->open("/tmp/demo2.jpg");
+    });
+  });
+
+  QObject::connect(viewer, &dstore::ImageViewer::nextImageRequested, [&]() {
+    viewer->showIndicator();
+    QTimer::singleShot(2000, [=]() {
+      viewer->open("/tmp/demo.jpg");
+    });
+  });
+
+  viewer->show();
 
   return app.exec();
 }

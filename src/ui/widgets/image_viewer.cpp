@@ -21,6 +21,7 @@
 #include <QApplication>
 #include <QDebug>
 #include <QPainter>
+#include <QPoint>
 #include <QResizeEvent>
 #include <QStackedLayout>
 #include <QtCore/QTimer>
@@ -76,6 +77,15 @@ void ImageViewer::openPixmap(QPixmap pixmap) {
   this->resize(screen_rect.size());
   this->showFullScreen();
 
+  // Hide spinner.
+  spinner_->hide();
+  spinner_->stop();
+
+  const int button_width = static_cast<int>(screen_rect.width() * 0.1);
+  previous_button_->setFixedWidth(button_width);
+  next_button_->setFixedWidth(button_width);
+
+  // Update pixmap of image label.
   img_label_->setPixmap(pixmap);
   img_label_->setFixedSize(pixmap.width(), pixmap.height());
   QRect img_rect = img_label_->rect();
@@ -92,6 +102,30 @@ void ImageViewer::openPixmap(QPixmap pixmap) {
   close_button_->raise();
 }
 
+void ImageViewer::showIndicator() {
+  const QRect screen_rect = qApp->desktop()->screenGeometry(QCursor::pos());
+  this->move(screen_rect.topLeft());
+  this->resize(screen_rect.size());
+  this->showFullScreen();
+  const int button_width = static_cast<int>(screen_rect.width() * 0.1);
+  previous_button_->setFixedWidth(button_width);
+  next_button_->setFixedWidth(button_width);
+
+  // Show spinner, moving to center of screen.
+  spinner_->show();
+  spinner_->start();
+  spinner_->move(screen_rect.center());
+
+  // Reset pixmap of image label
+  const QSize size = img_label_->size();
+  QPixmap empty_pixmap(size);
+  empty_pixmap.fill(QColor(0, 0, 0, 1));
+  img_label_->setPixmap(empty_pixmap);
+
+  // Hide close button
+  close_button_->hide();
+}
+
 void ImageViewer::initConnection() {
   connect(close_button_, &Dtk::Widget::DImageButton::clicked,
           this, &ImageViewer::close);
@@ -104,6 +138,7 @@ void ImageViewer::initConnection() {
 void ImageViewer::initUI() {
   img_label_ = new QLabel();
   img_label_->setObjectName("ImageLabel");
+  img_label_->setMinimumSize(640, 480);
 
   close_button_ = new Dtk::Widget::DImageButton(this);
   close_button_->setObjectName("CloseButton");
@@ -114,11 +149,14 @@ void ImageViewer::initUI() {
   next_button_ = new Dtk::Widget::DImageButton();
   next_button_->setObjectName("NextButton");
 
+  spinner_ = new Dtk::Widget::DSpinner(this);
+  spinner_->setFixedSize(96, 96);
+
   QHBoxLayout* layout = new QHBoxLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(10);
   layout->addWidget(previous_button_);
-  layout->addWidget(img_label_);
+  layout->addWidget(img_label_, 1, Qt::AlignCenter);
   layout->addWidget(next_button_);
 
   this->setContentsMargins(0, 0, 0, 0);

@@ -19,6 +19,7 @@
 #define DEEPIN_APPSTORE_UI_WIDGETS_IMAGE_VIEWER_H
 
 #include <QDialog>
+#include <DSpinner>
 #include <dimagebutton.h>
 
 class QLabel;
@@ -56,6 +57,11 @@ class ImageViewer : public QDialog {
    */
   void openPixmap(QPixmap pixmap);
 
+  /**
+   * Show image loading indicator.
+   */
+  void showIndicator();
+
  protected:
   void mousePressEvent(QMouseEvent* event) override;
 
@@ -69,6 +75,7 @@ class ImageViewer : public QDialog {
   Dtk::Widget::DImageButton* close_button_ = nullptr;
   Dtk::Widget::DImageButton* previous_button_ = nullptr;
   Dtk::Widget::DImageButton* next_button_ = nullptr;
+  Dtk::Widget::DSpinner* spinner_ = nullptr;
 };
 
 }  // namespace dstore
