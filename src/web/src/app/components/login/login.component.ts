@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
 import { BaseService } from '../../dstore/services/base.service';
@@ -16,11 +17,12 @@ export class LoginComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private authService: AuthService,
     private loginService: LoginService,
+    private http: HttpClient,
   ) {}
-
   @ViewChild('dialog') dialogRef: { nativeElement: HTMLDialogElement };
   loaded = false;
   loginURL: SafeUrl;
+  server = BaseService.serverHosts.operationServer;
 
   ngOnInit() {
     this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl('');
@@ -63,6 +65,7 @@ export class LoginComponent implements OnInit {
       default:
     }
   }
+
   loginInit(iframe: HTMLIFrameElement) {
     this.loaded = true;
     const closeButton = iframe.contentDocument.getElementById('close');
@@ -82,6 +85,7 @@ export class LoginComponent implements OnInit {
       }
     }
   }
+
   finish(iframe: HTMLIFrameElement) {
     const [, token] = iframe.contentDocument.cookie
       .split('; ')
@@ -92,8 +96,11 @@ export class LoginComponent implements OnInit {
       this.authService.login(token);
     }
   }
+
   logout() {
-    this.dialogRef.nativeElement.close();
-    this.authService.logout();
+    this.http.post(this.server + '/api/logout', null).subscribe(() => {
+      this.dialogRef.nativeElement.close();
+      this.authService.logout();
+    });
   }
 }
