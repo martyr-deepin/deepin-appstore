@@ -97,6 +97,10 @@ input::-webkit-inner-spin-button {
   .icon {
     width: 3rem;
   }
+  .amount {
+    font-weight: bold;
+    color: #e79305;
+  }
   .wait {
     content: url('/assets/images/spinner.svg');
     animation: loop 2s infinite linear;

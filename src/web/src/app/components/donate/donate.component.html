@@ -90,10 +90,16 @@
           </ng-container>
           <ng-template #$wait>
             <ng-container *ngIf="qrImg;else $msg">
+              <div>
+                <ng-container i18n>WeChat Pay:</ng-container>
+                <span class="amount"
+                      i18n>RMB ￥{{amount}}</span>
+              </div>
               <img [src]="qrImg">
-              <img class="wait">
-              <div *ngIf="check.isPaying"
-                   i18n>Paying, please wait...</div>
+              <ng-container *ngIf="check.isPaying">
+                <img class="wait">
+                <div i18n>Paying, please wait...</div>
+              </ng-container>
             </ng-container>
             <ng-template #$msg>
               <img class="wait"
