@@ -11,7 +11,7 @@ import {
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { Observable, of, iif, timer } from 'rxjs';
-import { map, catchError, switchMap, tap } from 'rxjs/operators';
+import { map, catchError, switchMap, tap, find, takeWhile, pairwise } from 'rxjs/operators';
 import { debounce } from 'lodash';
 
 import * as QRCode from 'qrcode';
@@ -43,10 +43,11 @@ export class DonateComponent implements OnInit {
   loading: boolean;
   qrImg: SafeResourceUrl;
   waitPay$: Observable<PayCheck>;
+  done: boolean;
 
   ngOnInit() {}
 
-  init() {
+  close() {
     this.amount = 2;
     this.waitPay$ = null;
     this.payment = Payment.WeChat;
@@ -100,28 +101,24 @@ export class DonateComponent implements OnInit {
           DstoreObject.openURL(resp.url);
         }
         this.loading = false;
-        this.waitPay$ = new Observable<PayCheck>(obs => {
-          const s = timer(0, 1000)
-            .pipe(
-              switchMap(() => this.donateService.check(this.payment, resp.tradeID)),
-              tap(c => {
-                obs.next(c);
-                if (c.isExist) {
-                  s.unsubscribe();
-                  obs.complete();
-                  DstoreObject.raiseWindow();
-                  this.donors.add(req.userID);
-                }
-              }),
-            )
-            .subscribe();
-        });
+        this.waitPay$ = timer(0, 2000).pipe(
+          switchMap(() => this.donateService.check(this.payment, resp.tradeID)),
+          pairwise(),
+          takeWhile(result => !result[0].isExist),
+          map(result => result[1]),
+          tap(c => {
+            if (c.isExist) {
+              DstoreObject.raiseWindow();
+              this.donors.add(req.userID);
+            }
+          }),
+        );
       });
   }
 
   inputChange(e: Event) {
     const el = e.target as HTMLInputElement;
-    if (!el.value.match(/^\d{0,9}(\.\d{0,2})?$/)) {
+    if (!el.value.match(/^\d{0,6}(\.\d{0,2})?$/)) {
       el.value = this.amount.toString();
     }
     if (el.value) {

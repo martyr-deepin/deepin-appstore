@@ -1,9 +1,10 @@
 :host {
   margin: 0 -1.5rem;
   display: block;
-  min-height: 100%;
 }
-
+.topicContainer {
+  min-height: 100vh;
+}
 .bgImg {
   width: 100%;
   cursor: default;

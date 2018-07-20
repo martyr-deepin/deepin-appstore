@@ -1,0 +1,35 @@
+div {
+  text-align: left;
+  padding: 0 1rem;
+}
+h1 {
+  outline: none;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  color: #333;
+  font-weight: 700;
+  border-bottom: 1px solid #e8ecf1;
+}
+h2 {
+  font-size: 16pt;
+  color: #333;
+  line-height: 1.4;
+}
+p,
+ul,
+li {
+  font-size: 11pt;
+  line-height: 1.7;
+  color: #494949;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+}
+a {
+  outline: none;
+  color: #70b1e7;
+}

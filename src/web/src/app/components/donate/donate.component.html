@@ -2,10 +2,16 @@
   <button class="primary"
           (click)="dialog.showModal()"
           i18n>Donate</button>
+  <span class="statement"
+        (click)="statement.showModal()"
+        i18n>Donation Statement</span>
 </div>
-
+<dialog class="statementDialog"
+        #statement>
+  <app-statement></app-statement>
+</dialog>
 <dialog class="donateDialog"
-        (close)="init()"
+        (close)="close()"
         #dialog>
   <ng-container *ngIf="dialog.open">
     <img class="close"
@@ -92,6 +98,7 @@
             <ng-container *ngIf="qrImg;else $msg">
               <div>
                 <ng-container i18n>WeChat Pay:</ng-container>
+                &nbsp;
                 <span class="amount"
                       i18n>RMB ￥{{amount}}</span>
               </div>

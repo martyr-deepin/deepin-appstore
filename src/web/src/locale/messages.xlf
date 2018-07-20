@@ -937,53 +937,74 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="669bbc0f902d4018748d26cf8caab481c9cb3777" datatype="html">
+        <source>Donation Statement</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="91ce116be6e8df104128f339912c9207f01265cd" datatype="html">
         <source>Amount:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3efbc55094b3e633835a1866fcfb14b0601376dc" datatype="html">
         <source>Random</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fb3545e97e371069768103e01599f35e789d556c" datatype="html">
         <source>Payment:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="53d20cc6953546db5373b1ae5a686aa655a715bb" datatype="html">
         <source>Pay Now</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="87c8bef501029e74fa6dd149dcad2d97a92ab762" datatype="html">
         <source>Payment Succeeded!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f" datatype="html">
+        <source>WeChat Pay:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9a7fbae87a7ba66c7af0187ad47bd4de4b5cf336" datatype="html">
+        <source>RMB ￥<x id="INTERPOLATION" equiv-text="{{amount}}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d6b9a958603b771efa6ec562f1411604c0089b79" datatype="html">
         <source>Paying, please wait...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">108</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="12ffbefb7d9b1b9b8e2e48d13ec42f3235ca8338" datatype="html">
@@ -1040,6 +1061,277 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6664546063f31882c83bbcb9d630a9df10f6b870" datatype="html">
+        <source>The Donation Statement of Deepin Store</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3a2492e16d5394e7d399a47c402b44054e54e2a5" datatype="html">
+        <source>Why donate an application?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7ac40689f42e189c9c070ef2047b2afef29f2657" datatype="html">
+        <source>In the open source community, anyone can obtain, copy and distribute source code for free all the time. Many developers
+    have spent their enthusiasm, ability and spare time on developing a lot of excellent software for Linux users. However,
+    many outstanding open source free application has stopped updating, due to the limited time of developers or the economic
+    pressure for community operation.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8c323ca6e285fa05d0d0c7116a1f66eb1de62d9d" datatype="html">
+        <source>Therefore, under the condition of respecting the labor results of developers and community rules, Deepin Store provides
+    the donation channel to help developers and community as users want, hoping that the donation incomes encourage the application
+    authors and offer the necessary operating expenses for the open source community.
+    <x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br/&gt;"/>In addition, many Linux versions of excellent commercial software are unknown by the public, so various excellent and
+    free (or trial) closed source applications have been collected in Deepin Store based on user recommendations. The donation
+    incomes of these applications present the strong demand of excellent software from Linux community and users, which will
+    be recognized by software companies.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cc6548ce54828721886759320f9cb476a9cd8a4f" datatype="html">
+        <source>The purpose of donation are specifically as follows:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="469b9cc8e16c8e1a757043168fbc6215910e47b0" datatype="html">
+        <source>Making it possible that the developers and the packagers can get recognition and encouragement from users;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="344b40fed6bfb9ca9973aaf107a7fd7c77a95c2e" datatype="html">
+        <source>Obtaining funds to support a variety of practical needs, such as high-level application servers and bandwidth;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6924fb8637dc66fdef595bf09e2b0ee936409ca4" datatype="html">
+        <source>Encouraging community developers and business developers to actively develop, iterate and maintain applications;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="85aec683d3c87941b4042df675b4819b1f44cb9c" datatype="html">
+        <source>Providing a distribution platform for open source software and Linux commercial software, to attract more developers
+      to participate in constructing the community ecology.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e47e1ef29f3f0fc81d28dee9c160161ceac0a3bc" datatype="html">
+        <source>In Deepin Store, whether it is open source or free closed source software, the donation channel is open by default, with
+    the functions of income claiming, extracting, distributing, and so on.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5e311cf5c82beeeab63b2685af900d1eddb91ecc" datatype="html">
+        <source>What is the donation?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6e822c17eba40fd306a368e9b582f92d1fa61baf" datatype="html">
+        <source>To appreciate for the positive contributions of community developers, and let developers get the direct recognition from
+    users, the &quot;Donation&quot; mechanism is developed for individual developers and Linux software companies to get reasonable
+    rewards.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e6f04460fd7f206ed0da220988394ab370bb9ea1" datatype="html">
+        <source>Note: Donation does not mean purchasing applications. Many apps in Deepin Store are free to use without money. Donation
+    is not a mandatory requirement, users can download and use the applications completely for free. To show the approval
+    of the application, users can donate a small amount of money to the authors and the packagers voluntarily.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="df333c9cf3c6cbd511560e579d70953407c78b35" datatype="html">
+        <source>How to distribute the donation incomes?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d48ccf165bea19975e3f922959cf2b99f9b082eb" datatype="html">
+        <source>The donation incomes of each application is distributed by 6:2:2 to developer, packager, and operator currently. (Note:
+    The distribution rules may change in the future according to the operation policy)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="aa5a22fe950999499bce999f9a93a35d683b3cfe" datatype="html">
+        <source>We will contact the original application developers or organizations proactively, to help them claim their software and
+    provide official installation packages in Deepin Store. If the developer and the packager of an app are the same person
+    or organization, 80% (60% + 20%) of the incomes are owned by that person or organization, and the operator gets the rest
+    20%.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="def33867d282d4816e43738186a9bd823ccbdbaa" datatype="html">
+        <source>If the personal income tax is involved in law, in China, Wuhan Deepin Technology Co. Ltd. can help withhold the income
+    tax; in other regions, the author has to declare the tax on his or her own.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6d3f398a42da973b21fd90dd926f5e99c0d1e5c7" datatype="html">
+        <source>How to extract the donation?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cde4db22ed403007596bb98ef2a153e3092a612f" datatype="html">
+        <source>Developers and packagers should register Deepin ID and then log into personal platform:
+    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>https://dstore-metadata.deepin.org<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to view the application list they developed or packaged. They can also view the
+    summary and the details of the donation amount for each application. When the total amount reaches ￥100 CNY (or reaches
+    $20 USD), a withdrawal can be applied for and will be processed within 5 working days after official check. Developers
+    and packagers can track the withdrawal status at any time.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5c43c7009e873f9248cc7c8f8c0e6c2c9e45575a" datatype="html">
+        <source>How to deal with the donation incomes not claimed?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8f595009a7be247da42e71d1671ae1c4f1b91cb3" datatype="html">
+        <source>If some application developers are unreachable or have not claimed their software, deepin team will summarize and extract
+    this part of donation incomes in December each year, and donate the unclaimed amount to other important open source communities
+    or organizations that need support. (Specific grantees and amount information will be publicly released in November and
+    seek advice from communities)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="739ef137fbce689fbde9417efae327590147f0cc" datatype="html">
+        <source>How to be an author?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="31f5d7bd6785b37da15d765df4022350bd3e285a" datatype="html">
+        <source>Deliver your own app as an author, or claim to be the author if your app has already been in Deepin Store. Currently there
+    is not an open self-service claiming channel, please contact
+    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>appstore@deepin.com<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="befb7b92d597d2fafd54ebdc8474877cfd8bbb26" datatype="html">
+        <source>Requirements: The author should be the original personal developer or developer team, and the application should meet the
+    collection rules or has been put in Deepin Store, see:
+    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>https://www.deepin.org/deliver-applications<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/>
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0841da1aa0740eb7258ca842fcba3bb6f5295994" datatype="html">
+        <source>How to be an packager?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="539a838133fe3bb8e373db50481d9c58d20b3347" datatype="html">
+        <source>The packager should provide the package and the metadata as the application requirements of Deepin Store. At present, there
+    is not an open automatic packaging channel. To be a packager, please contact
+    <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>appstore@deepin.com<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> for packaging guide. When a third party packaging channel is officially open, there will be a
+    notice in community.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="671da4f2eb6b184d97d9ccfe26f1e9e2fcc62855" datatype="html">
+        <source>After becoming a packager of a certain app, when the source app is updated, the packager must package and update the app
+    in Deepin Store within one week. If there are three times of delays, or an update is delayed for more than two weeks,
+    the packager will have no permission on the app any longer, and the subsequent donation will no longer belong to the
+    packager.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fb4af6a417575cec20207d355a510b90b7d8214e" datatype="html">
+        <source>
+    If the original author provides a qualified package, or there is already a qualified packager, we will not accept a new packager
+    for that app. Application in flatpak format is in priority, so if the app does not have a flatpak package, the packager
+    that delivers it in flatpak format will be accepted.
+  </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fcde58253a4cfd52c228eebdae74e1be7a1ab714" datatype="html">
+        <source>Notes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e503dbb7a56adb07761123ecbd5f487e7290b73f" datatype="html">
+        <source>
+      The donation function is set by default for each application in Deepin Store. If the original developer or the developer
+      company does not want this feature, please contact us at
+      <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>appstore@deepin.com<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to close the &quot;Donation&quot; channel.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c5f53ea3207949f835be4e84efbba30b35cd8e17" datatype="html">
+        <source>If the original developer or the company does not permit software distribution in Deepin Store due to the copyright,
+      please contact us at
+      <x id="START_LINK" ctype="x-a" equiv-text="&lt;a&gt;"/>appstore@deepin.com<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a&gt;"/> to remove the application.
+    </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/statement/statement.component.ts</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
     </body>

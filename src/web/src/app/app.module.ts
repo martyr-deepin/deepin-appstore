@@ -53,6 +53,7 @@ import { StoreJobErrorComponent } from './components/store-job-error/store-job-e
 import { DonorsComponent } from './components/donors/donors.component';
 import { ScreenshotComponent } from './components/screenshot/screenshot.component';
 import { DialogDirective } from './directive/dialog.directive';
+import { StatementComponent } from './components/statement/statement.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { DialogDirective } from './directive/dialog.directive';
     DonorsComponent,
     ScreenshotComponent,
     DialogDirective,
+    StatementComponent,
   ],
   imports: [
     BrowserModule,
