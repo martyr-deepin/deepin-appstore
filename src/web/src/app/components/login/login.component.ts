@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
   ) {}
   @ViewChild('dialog') dialogRef: { nativeElement: HTMLDialogElement };
+  isLogin: boolean;
   loaded = false;
   loginURL: SafeUrl;
   server = BaseService.serverHosts.operationServer;
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl('');
     this.loginService.onOpenLogin().subscribe(isLogin => {
       if (!this.dialogRef.nativeElement.open) {
+        this.isLogin = isLogin;
         if (isLogin) {
           this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
             `${BaseService.serverHosts.operationServer}/api/oauthLogin/commenceLogin?lang=${
@@ -53,6 +55,9 @@ export class LoginComponent implements OnInit {
     const bodyText = iframe.contentDocument.body.innerText;
     switch (iframe.contentWindow.location.pathname) {
       case '/oauth2/authorize':
+        if (!this.isLogin) {
+          this.logout();
+        }
         if (bodyText.includes('loading....') || bodyText.includes('Failed to load URL')) {
           this.loaded = false;
         } else {
