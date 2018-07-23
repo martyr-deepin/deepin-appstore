@@ -47,6 +47,9 @@ export class LoginComponent implements OnInit {
   // login iframe loading
   load(iframe: HTMLIFrameElement) {
     console.log('loaded', iframe.contentWindow.location, iframe.contentDocument.body.innerText);
+    iframe.contentDocument.body.addEventListener('mousewheel', e => {
+      e.preventDefault();
+    });
     const bodyText = iframe.contentDocument.body.innerText;
     switch (iframe.contentWindow.location.pathname) {
       case '/oauth2/authorize':

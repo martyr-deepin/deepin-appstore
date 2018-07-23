@@ -11,10 +11,9 @@ export class DialogDirective {
     e.stopPropagation();
 
     const el = this.elementRef.nativeElement;
-    console.log(e, el);
     if (
       (e.wheelDeltaY < 0 &&
-        el.scrollTop + el.offsetHeight >= this.elementRef.nativeElement.scrollHeight) ||
+        el.scrollHeight - el.scrollTop <= el.clientHeight + loginDialogMargin) ||
       (e.wheelDeltaY > 0 && el.scrollTop === 0)
     ) {
       e.preventDefault();
@@ -22,8 +21,9 @@ export class DialogDirective {
   }
   @HostListener('click', ['$event'])
   click(e: Event) {
-    if (e.srcElement.nodeName === 'DIALOG') {
+    if (e.srcElement.nodeName === 'DIALOG' && this.elementRef.nativeElement.open) {
       this.elementRef.nativeElement.close();
     }
   }
 }
+const loginDialogMargin = 4;
