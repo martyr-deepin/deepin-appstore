@@ -4,7 +4,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="100"/>
         <source>Deepin Store</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Store</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="101"/>
