@@ -38,7 +38,7 @@ If some application developers are unreachable or have not claimed their softwar
 Deliver your own app as an author, or claim to be the author if your app has already been in Deepin Store. Currently there is not an open self-service claiming channel, please contact appstore@deepin.com.
 Requirements: The author should be the original personal developer or developer team, and the application should meet the collection rules or has been put in Deepin Store, see: https://www.deepin.org/deliver-applications .
 
-## How to be an packager?
+## How to be a packager?
 
 The packager should provide the package and the metadata as the application requirements of Deepin Store. At present, there is not an open automatic packaging channel. To be a packager, please contact appstore@deepin.com for packaging guide. When a third party packaging channel is officially open, there will be a notice in community.
 After becoming a packager of a certain app, when the source app is updated, the packager must package and update the app in Deepin Store within one week. If there are three times of delays, or an update is delayed for more than two weeks, the packager will have no permission on the app any longer, and the subsequent donation will no longer belong to the packager.
