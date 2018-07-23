@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
 import { StatementService } from '../../services/statement.service';
 
@@ -6,7 +6,6 @@ import { StatementService } from '../../services/statement.service';
   selector: 'app-statement',
   templateUrl: './statement.component.html',
   styleUrls: ['./statement.component.scss'],
-  encapsulation: ViewEncapsulation.Native,
 })
 export class StatementComponent implements OnInit {
   constructor(private statementService: StatementService) {}
