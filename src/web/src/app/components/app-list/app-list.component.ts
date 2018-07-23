@@ -83,7 +83,6 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
           });
         });
 
-        this.jobs = jobs;
         this.storeService.getVersion(Object.keys(this.jobs)).subscribe(versions => {
           const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
           if (this.apps) {
@@ -93,6 +92,7 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
               }
             });
           }
+          this.jobs = jobs;
         });
       });
   }

@@ -117,7 +117,7 @@
               <ng-container [ngSwitch]="true">
                 <button class="pauseBtn"
                         (click)="pause(job.job);$event.target.disabled=true"
-                        *ngSwitchCase="job.status===StoreJobStatus.running || job.status===StoreJobStatus.ready"
+                        *ngSwitchCase="[StoreJobStatus.running,StoreJobStatus.ready,StoreJobStatus.end].includes(job.status)"
                         [disabled]="!job.cancelable"></button>
                 <button class="startBtn"
                         (click)="start(job.job);$event.target.disabled=true"
