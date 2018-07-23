@@ -1,3 +1,9 @@
+deepin-appstore (5.0.2) unstable; urgency=medium
+
+  * Fix ui issues
+
+ -- Xu Shaohua <xushaohua2016@outlook.com>  Mon, 23 Jul 2018 14:31:04 +0800
+
 deepin-appstore (5.0.l) unstable; urgency=medium
 
   * Rewrite UI with angular

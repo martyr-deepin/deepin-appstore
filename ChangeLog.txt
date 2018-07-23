@@ -1,3 +1,6 @@
+2018-07-23 5.0.2 Xu Shaohua<xushaohua2016@outlook.com>
+    * Fix ui issues
+
 2018-07-06 5.0.1 Xu Shaohua<xushaohua2016@outlook.com>
     * Rewrite UI with angular
 
