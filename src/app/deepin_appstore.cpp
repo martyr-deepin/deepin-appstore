@@ -50,8 +50,7 @@ int main(int argc, char** argv) {
   settings.setRemoteDebug(true);
   settings.setIgnoresCertificateErrors(true);
 #else
-  //settings.setRemoteDebug(false);
-  settings.setRemoteDebug(true);
+  settings.setRemoteDebug(false);
 #endif
   settings.setIgnoresCertificateErrors(true);
   settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
