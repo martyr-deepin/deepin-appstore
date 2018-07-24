@@ -1064,7 +1064,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="669bbc0f902d4018748d26cf8caab481c9cb3777">
         <source>Donation Statement</source>
-        <target>Donation Statement</target><context-group purpose="location">
+        <target>Декларация за дарение</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
@@ -1111,14 +1112,16 @@
       </trans-unit>
       <trans-unit datatype="html" id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f">
         <source>WeChat Pay:</source>
-        <target>WeChat Pay:</target><context-group purpose="location">
+        <target>WeChat Pay:</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9a7fbae87a7ba66c7af0187ad47bd4de4b5cf336">
         <source>RMB ￥<x equiv-text="{{amount}}" id="INTERPOLATION"/></source>
-        <target>RMB ￥</target><context-group purpose="location">
+        <target>RMB ￥<x equiv-text="{{amount}}" id="INTERPOLATION"/></target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">103</context>
         </context-group>
