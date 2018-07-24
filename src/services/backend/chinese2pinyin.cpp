@@ -5,6 +5,7 @@
 #include "services/backend/chinese2pinyin.h"
 
 #include <QHash>
+#include <QRegularExpression>
 #include <QTextStream>
 
 #include "base/file_util.h"
@@ -16,6 +17,8 @@ namespace {
 static QHash<uint32_t, QString> dict = { };
 
 const char kDictFile[] = ":/services/backend/pinyin.dict";
+
+QRegularExpression g_num_reg("\\d+");
 
 void InitDict() {
   if (dict.size() != 0) {
@@ -60,12 +63,14 @@ QString Chinese2PinyinNoSyl(const QString& words) {
     const uint32_t key = static_cast<uint32_t>(word.unicode());
     auto find_result = dict.find(key);
     if (find_result != dict.end()) {
-      const QString& value = find_result.value();
-      result.append(value.left(value.length() - 2));
+      QString value = find_result.value();
+      value = value.remove(g_num_reg);
+      result.append(value);
     } else {
       result.append(word);
     }
   }
+  // TODO(Shaohua): Remove space char.
   return result;
 }
 
