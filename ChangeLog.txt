@@ -1,3 +1,6 @@
+2018-07-24 5.0.2.1 Xu Shaohua<xushaohua2016@outlook.com>
+    * Fix homepage control button
+
 2018-07-23 5.0.2 Xu Shaohua<xushaohua2016@outlook.com>
     * Fix ui issues
 

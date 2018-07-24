@@ -1,3 +1,9 @@
+deepin-appstore (5.0.2.1) unstable; urgency=medium
+
+  * Fix homepage control button
+
+ -- Xu Shaohua <xushaohua2016@outlook.com>  Tue, 24 Jul 2018 09:37:34 +0800
+
 deepin-appstore (5.0.2) unstable; urgency=medium
 
   * Fix ui issues
