@@ -1196,7 +1196,11 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
         <target>Detaylar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
     </body>
