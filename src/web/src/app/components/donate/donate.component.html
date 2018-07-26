@@ -8,6 +8,8 @@
 </div>
 <dialog class="statementDialog"
         #statement>
+  <img class="close"
+       (click)="statement.close()">
   <app-statement></app-statement>
 </dialog>
 <dialog class="donateDialog"
