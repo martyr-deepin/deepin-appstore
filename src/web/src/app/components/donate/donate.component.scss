@@ -59,6 +59,9 @@ table {
       min-height: 10px;
       margin-left: 3px;
     }
+    &::after {
+      margin-left: 6px;
+    }
     &:hover {
       &::after {
         content: url('/assets/buttons/random_hover.svg');
