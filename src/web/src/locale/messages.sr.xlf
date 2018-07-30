@@ -20,7 +20,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c9039b1b13b3ef165b66b3c5d79f810ab1ebb050">
         <source>Open</source>
-        <target>Отвори</target>
+        <target>Покрени</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dstore-client.module/components/job-button/job-button.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -395,9 +395,9 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
-        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
+        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> инсталирано
+        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> инсталирано
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
@@ -574,7 +574,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="dc75033a5238fdc4f462212c847a45ba8018a3fd">
         <source>Download</source>
-        <target>Преузми</target>
+        <target>Преузимање</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
           <context context-type="linenumber">144</context>
@@ -770,9 +770,9 @@
       </trans-unit>
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
-      <x ctype="x-a" equiv-text="<a>" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/> this application</source>
+      <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
         <target>Добро дошли у
-      <x ctype="x-a" equiv-text="<a>" id="START_LINK"/>препоручи<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/> програм</target>
+      <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>препоручи<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> програм</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">20</context>

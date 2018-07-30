@@ -395,9 +395,9 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
-        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
+        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <target><x equiv-text="{{$apps.length}}" id="INTERPOLATION"/> <x equiv-text="{$apps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installé</target>
+        <target><x equiv-text="{{$apps.length}}" id="INTERPOLATION"/><x equiv-text="{$apps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -769,8 +769,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
-      <x ctype="x-a" equiv-text="<a>" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/> this application</source>
-        <target>Bienvenue à <x ctype="x-a" equiv-text="<a>" id="START_LINK"/>recommander<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/>cette application</target>
+      <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
+        <target>Bienvenue à <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommander<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>cette application</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -1062,7 +1062,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="669bbc0f902d4018748d26cf8caab481c9cb3777">
         <source>Donation Statement</source>
-        <target>Donation Statement</target><context-group purpose="location">
+        <target>Donation Statement</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
@@ -1109,14 +1110,16 @@
       </trans-unit>
       <trans-unit datatype="html" id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f">
         <source>WeChat Pay:</source>
-        <target>WeChat Pay:</target><context-group purpose="location">
+        <target>WeChat Pay:</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9a7fbae87a7ba66c7af0187ad47bd4de4b5cf336">
         <source>RMB ￥<x equiv-text="{{amount}}" id="INTERPOLATION"/></source>
-        <target>RMB ￥</target><context-group purpose="location">
+        <target>RMB ￥<x equiv-text="{{amount}}" id="INTERPOLATION"/></target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">103</context>
         </context-group>

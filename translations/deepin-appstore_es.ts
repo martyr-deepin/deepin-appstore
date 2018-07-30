@@ -9,7 +9,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="101"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>«Deepin Store» es una tienda con enriquecidas aplicaciones de calidad. Recomendaciones populares, nuevas aplicaciones actualizadas y discusiones están al alcance. Soporta la opción de hacer un clic para descargar, instalar, actualizar, desinstalar y más.</translation>
+        <translation>Deepin Store es una tienda con excelentes aplicaciones. Que discrimina entre recomendaciones populares, nuevas aplicaciones; actualizadas. Puede hacer un clic para descargar, instalar, actualizar, desinstalar y mucho más.</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>

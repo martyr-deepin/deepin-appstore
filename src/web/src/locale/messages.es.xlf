@@ -140,7 +140,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c865350c1e557f8c00140a145e33f39ff822cdc0">
         <source>Updated Date:</source>
-        <target>Fecha actualizada:</target>
+        <target>Fecha actualización:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -204,7 +204,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="535ed5b1faa4fb391623e885e7b752bb90b1c473">
         <source>Ask for update</source>
-        <target>Solicitar actualización de</target>
+        <target>Solicitar actualización</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">64</context>
@@ -320,7 +320,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="aa89c1f96de1bc2fe9a7fdb44604986a29924255">
         <source>{VAR_PLURAL, plural, =0 {task} =1 {task} other {tasks} }</source>
-        <target>{VAR_PLURAL, plural, =0 {task} =1 {task} otros {tasks} }</target>
+        <target>{VAR_PLURAL, plural, =0 {task} =1 {task} other {tasks} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -395,9 +395,9 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
-        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
+        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> instalado
+        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> instalado
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
@@ -406,7 +406,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6c63a654764bea61f724f20116943ca5d84b2eb1">
         <source>{VAR_PLURAL, plural, =0 {application} =1 {application} other {applications} }</source>
-        <target>{VAR_PLURAL, plural, =0 {aplicación} =1 {aplicación} otro {aplicaciones} }</target>
+        <target>{VAR_PLURAL, plural, =0 {aplicación} =1 {aplicación} other {aplicaciones} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -660,7 +660,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="3b49b13d9f6506617da72137d77aaf34a8527940">
         <source>Please rate and input your comment</source>
-        <target>Por favor calificación y su comentario de entrada</target>
+        <target>Califica e ingrese su comentario</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">89</context>
@@ -736,7 +736,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b0b8edf5739046d6481de3de28d9e8bfbcee3757">
         <source>There are not any user comments</source>
-        <target>No hay ningún comentario del usuario</target>
+        <target>No hay ningún comentario</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">140</context>
@@ -762,7 +762,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="3a2c86e43bad2e779a341feec8f1246fdf048d3a">
         <source>No search results found</source>
-        <target>No se encontraron resultados búsqueda</target>
+        <target>No hay resultados de búsqueda</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -770,9 +770,9 @@
       </trans-unit>
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
-      <x ctype="x-a" equiv-text="<a>" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/> this application</source>
+      <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
         <target>Bienvenido a
-<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>recomendadas<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/>Esta aplicación</target>
+<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recomendadas<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>Esta aplicación</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -972,7 +972,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b9757ef0fc7afb5e0e6499cb459ed8d086c8dea1">
         <source>Sorry, connection failed, please check your network and refresh</source>
-        <target>Lo sentimos, la conexión falló, revisa tu red y refresca</target>
+        <target>Lo sentimos, la conexión falló, revise su red</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/wait/wait.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -1044,7 +1044,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="8de08a808857e4c16e239c7a661e05a5824e407a">
         <source><x equiv-text="{{total}}" id="INTERPOLATION"/> contributors</source>
-        <target><x equiv-text="{{total}}" id="INTERPOLATION"/>contibuidores</target>
+        <target><x equiv-text="{{total}}" id="INTERPOLATION"/>contribuyentes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donors/donors.component.ts</context>
           <context context-type="linenumber">8</context>

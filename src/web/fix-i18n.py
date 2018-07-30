@@ -23,25 +23,26 @@ def fix_xlf(xlf_file):
     SOURCE_TAG = "{urn:oasis:names:tc:xliff:document:1.2}source"
     TARGET_TAG = "{urn:oasis:names:tc:xliff:document:1.2}target"
     print("fix xlf:", xlf_file)
-    root = etree.parse(xlf_file)
+    # about remove_blank_text(https://lxml.de/FAQ.html#why-doesn-t-the-pretty-print-option-reformat-my-xml-output)
+    parser = etree.XMLParser(remove_blank_text=True)
+    root = etree.parse(xlf_file,parser)
     trans_elems = root.findall(TRANS_TAG)
     for trans_elem in trans_elems:
         # Add missing <target> tag
         children = trans_elem.getchildren()
         find_target = False
-        source_value = ""
+        source_elem = None
         source_idx = -1
         for index, child in enumerate(children):
             if child.tag == TARGET_TAG:
                 find_target = True
             elif child.tag == SOURCE_TAG:
-                source_value = child.text
                 source_idx = index
+                source_elem = child
         if not find_target:
-            target_elem = etree.Element("target")
+            target_elem = etree.fromstring(etree.tostring(source_elem))
+            target_elem.tag='target'
             trans_elem.insert(source_idx + 1, target_elem)
-            target_elem.text = source_value
-
         # Escape values in <target>
 #        for child in trans_elem.getchildren():
 #            if child.tag == TARGET_TAG:
@@ -52,16 +53,16 @@ def fix_xlf(xlf_file):
 #                    child.text = text
 #                break
 
-        # Write back
-        with open(xlf_file, "wb") as fh:
-            # First, write xml head
-            fh.write(b'<?xml version="1.0" ?>\n')
-            content = etree.tostring(root, pretty_print=True, encoding='utf8')
-            # Escape HTML special chars in <target>
-            content = content.replace(b"&lt;", b"<")
-            content = content.replace(b"&gt;", b">")
-            content = content.replace(b"&quot;", b'"')
-            fh.write(content)
+    # Write back
+    with open(xlf_file, "wb") as fh:
+        # First, write xml head
+        fh.write(b'<?xml version="1.0" ?>\n')
+        content = etree.tostring(root, pretty_print=True, encoding='utf8')
+        # Escape HTML special chars in <target>
+        # content = content.replace(b"&lt;", b"<")
+        # content = content.replace(b"&gt;", b">")
+        # content = content.replace(b"&quot;", b'"')
+        fh.write(content)
 
 
 def main():

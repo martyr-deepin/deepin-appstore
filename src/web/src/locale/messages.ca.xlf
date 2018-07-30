@@ -212,7 +212,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="c0331aa0a5a4589294b7826d8613515c597812a8">
         <source>CDN supported by UPYUN</source>
-        <target>CDN supported by UPYUN</target><context-group purpose="location">
+        <target>CDN suportat per UPYUN</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">90</context>
         </context-group>
@@ -394,9 +395,9 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
-        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
+        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> instal·lades
+        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> instal·lades
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
@@ -769,9 +770,9 @@
       </trans-unit>
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
-      <x ctype="x-a" equiv-text="<a>" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/> this application</source>
+      <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
         <target>Us donem la benvinguda a
-      <x ctype="x-a" equiv-text="<a>" id="START_LINK"/>recomana<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/> aquesta aplicació</target>
+      <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recomana<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> aquesta aplicació</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -803,7 +804,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="52e863ce1221c2ed25dd2c31dfdc25fcbe86a945">
         <source>Official name cannot be empty</source>
-        <target>Official name cannot be empty</target><context-group purpose="location">
+        <target>El nom oficial no pot estar buit</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
@@ -834,7 +836,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="9344ca32af8910907786565d9ca9764aa812b407">
         <source>Web App</source>
-        <target>Web App</target><context-group purpose="location">
+        <target>Aplicació web</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
@@ -865,7 +868,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="9b62ca9a213226a980418755f4911690948a8713">
         <source>License cannot be empty</source>
-        <target>License cannot be empty</target><context-group purpose="location">
+        <target>La llicència no pot estar buida</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">65</context>
         </context-group>
@@ -888,14 +892,16 @@
       </trans-unit>
       <trans-unit datatype="html" id="ad6bd4ae49ca00337fb45c29dac75284e052b531">
         <source>Official website cannot be empty</source>
-        <target>Official website cannot be empty</target><context-group purpose="location">
+        <target>El lloc web oficial no pot estar buit</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3ef3fab1d1ccff8068f5170321199ebe767b16ca">
         <source>Official website is not a correct format</source>
-        <target>Official website is not a correct format</target><context-group purpose="location">
+        <target>El lloc web oficial no és un format correcte</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">89</context>
         </context-group>
@@ -918,14 +924,16 @@
       </trans-unit>
       <trans-unit datatype="html" id="34f5d5789f634f199341deaa49cee0650c6fdec8">
         <source>Download Site cannot be empty</source>
-        <target>Download Site cannot be empty</target><context-group purpose="location">
+        <target>El lloc de baixada no pot estar buit</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4f6a0916ec15413acb423f0a6e9253f082927ed6">
         <source>Download Site is not a correct format</source>
-        <target>Download Site is not a correct format</target><context-group purpose="location">
+        <target>El lloc de baixada no és un format correcte</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">113</context>
         </context-group>
@@ -1036,7 +1044,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="8de08a808857e4c16e239c7a661e05a5824e407a">
         <source><x equiv-text="{{total}}" id="INTERPOLATION"/> contributors</source>
-        <target/><context-group purpose="location">
+        <target><x equiv-text="{{total}}" id="INTERPOLATION"/> contribuïdors</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donors/donors.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
@@ -1055,7 +1064,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="669bbc0f902d4018748d26cf8caab481c9cb3777">
         <source>Donation Statement</source>
-        <target>Donation Statement</target><context-group purpose="location">
+        <target>Declaració de donació</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
@@ -1102,14 +1112,16 @@
       </trans-unit>
       <trans-unit datatype="html" id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f">
         <source>WeChat Pay:</source>
-        <target>WeChat Pay:</target><context-group purpose="location">
+        <target>Pagament WeChat:</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9a7fbae87a7ba66c7af0187ad47bd4de4b5cf336">
         <source>RMB ￥<x equiv-text="{{amount}}" id="INTERPOLATION"/></source>
-        <target>RMB ￥</target><context-group purpose="location">
+        <target><x equiv-text="{{amount}}" id="INTERPOLATION"/> RMB ￥</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">103</context>
         </context-group>
@@ -1128,56 +1140,64 @@
       </trans-unit>
       <trans-unit datatype="html" id="12ffbefb7d9b1b9b8e2e48d13ec42f3235ca8338">
         <source>Failed to install, broken dependencies, please retry</source>
-        <target>Failed to install, broken dependencies, please retry</target><context-group purpose="location">
+        <target>No s'ha pogut instal·lar, les dependències estan malmeses, torneu-ho a provar</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="1bfd1a0a6eebefb23765a85505d5238e9aedfa33">
         <source>Failed to install, it was interrupted, please retry</source>
-        <target>Failed to install, it was interrupted, please retry</target><context-group purpose="location">
+        <target>No s'ha pogut instal·lar, s'ha interromput, torneu-ho a provar</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a8961af16111ab2b84a767b39eb12002ddf6a61d">
         <source>Failed to download, please retry</source>
-        <target>Failed to download, please retry</target><context-group purpose="location">
+        <target>No s'ha pogut baixar, torneu-ho a provar</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3115c600b33759a741314adeba4d9498304691d6">
         <source>Failed to install, dpkg error</source>
-        <target>Failed to install, dpkg error</target><context-group purpose="location">
+        <target>No s'ha pogut instal·lar, error dpkg</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="79d1d2b0411af9ecb4539c544f486531eae2dfaa">
         <source>Failed to install, unmet dependencies</source>
-        <target>Failed to install, unmet dependencies</target><context-group purpose="location">
+        <target>No s'ha pogut instal·lar, dependències no satisfetes</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9355e83c7966d65637ae359cbe731471f659853e">
         <source>Failed to install, insufficient space, please clean and retry</source>
-        <target>Failed to install, insufficient space, please clean and retry</target><context-group purpose="location">
+        <target>No s'ha pogut instal·lar, no hi ha prou espai, allibereu-ne i torneu-ho a provar</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a5fab2ced13ebcd9ef9c0ce37990e7fc020f1be1">
         <source>Failed to install</source>
-        <target>Failed to install</target><context-group purpose="location">
+        <target>No s'ha pogut instal·lar</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4f8b2bb476981727ab34ed40fde1218361f92c45">
         <source>Details</source>
-        <target>Details</target><context-group purpose="location">
+        <target>Detalls</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">20</context>
         </context-group>

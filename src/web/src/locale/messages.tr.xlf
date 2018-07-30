@@ -212,7 +212,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c0331aa0a5a4589294b7826d8613515c597812a8">
         <source>CDN supported by UPYUN</source>
-        <target>CDN, UPYUN tarafından destekleniyor </target>
+        <target>UPYUN tarafından desteklenen CDN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">90</context>
@@ -395,9 +395,9 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
-        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
+        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> kuruldu
+        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> kuruldu
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
@@ -406,7 +406,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6c63a654764bea61f724f20116943ca5d84b2eb1">
         <source>{VAR_PLURAL, plural, =0 {application} =1 {application} other {applications} }</source>
-        <target>{VAR_PLURAL, plural, =0 {uygulama} =1 {uygulama} diğer {uygulama} }</target>
+        <target>{VAR_PLURAL, plural, =0 {uygulama} =1 {uygulama} other {uygulama} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -770,9 +770,9 @@
       </trans-unit>
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
-      <x ctype="x-a" equiv-text="<a>" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/> this application</source>
+      <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
         <target>Hoşgeldiniz
-bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="x-a" equiv-text="</a>" id="CLOSE_LINK"/></target>
+bu uygulamayı<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>önerin<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
           <context context-type="linenumber">20</context>
@@ -804,7 +804,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="52e863ce1221c2ed25dd2c31dfdc25fcbe86a945">
         <source>Official name cannot be empty</source>
-        <target>Resmi adı boş bırakılamaz</target>
+        <target>Resmi ad boş bırakılamaz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -836,7 +836,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="9344ca32af8910907786565d9ca9764aa812b407">
         <source>Web App</source>
-        <target>İnternet Uygulaması</target>
+        <target>Web Uygulaması</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -892,7 +892,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="ad6bd4ae49ca00337fb45c29dac75284e052b531">
         <source>Official website cannot be empty</source>
-        <target>Resmi internet sitesi boş bırakılamaz</target>
+        <target>Resmi web sitesi boş bırakılamaz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">86</context>
@@ -900,7 +900,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="3ef3fab1d1ccff8068f5170321199ebe767b16ca">
         <source>Official website is not a correct format</source>
-        <target>Resmi internet sitesi doğru biçimde değil</target>
+        <target>Resmi web sitesinin biçimi doğru değil</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">89</context>
@@ -932,7 +932,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="4f6a0916ec15413acb423f0a6e9253f082927ed6">
         <source>Download Site is not a correct format</source>
-        <target>İndirme sitesi doğru biçimde değil</target>
+        <target>İndirme sitesinin biçimi doğru değil</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">113</context>
@@ -1044,7 +1044,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="8de08a808857e4c16e239c7a661e05a5824e407a">
         <source><x equiv-text="{{total}}" id="INTERPOLATION"/> contributors</source>
-        <target><x equiv-text="{{total}}" id="INTERPOLATION"/> katkıcılar</target>
+        <target><x equiv-text="{{total}}" id="INTERPOLATION"/> katılımcı</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donors/donors.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -1064,7 +1064,8 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="669bbc0f902d4018748d26cf8caab481c9cb3777">
         <source>Donation Statement</source>
-        <target>Donation Statement</target><context-group purpose="location">
+        <target>Bağış Bildirimi</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">7</context>
         </context-group>
@@ -1111,14 +1112,16 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f">
         <source>WeChat Pay:</source>
-        <target>WeChat Pay:</target><context-group purpose="location">
+        <target>WeChat Pay:</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9a7fbae87a7ba66c7af0187ad47bd4de4b5cf336">
         <source>RMB ￥<x equiv-text="{{amount}}" id="INTERPOLATION"/></source>
-        <target>RMB ￥</target><context-group purpose="location">
+        <target>RMB ￥<x equiv-text="{{amount}}" id="INTERPOLATION"/></target>
+        <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">103</context>
         </context-group>
@@ -1137,7 +1140,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="12ffbefb7d9b1b9b8e2e48d13ec42f3235ca8338">
         <source>Failed to install, broken dependencies, please retry</source>
-        <target>Yüklenemedi, bozuk bağımlılıklar, lütfen tekrar deneyiniz</target>
+        <target>Kurulamadı, bağımlılıklar kopuk. lütfen yeniden deneyin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">3</context>
@@ -1145,7 +1148,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="1bfd1a0a6eebefb23765a85505d5238e9aedfa33">
         <source>Failed to install, it was interrupted, please retry</source>
-        <target>Yüklenemedi, kesintiye uğradı, lütfen tekrar deneyiniz</target>
+        <target>Kurulamadı, kesintiye uğradı, lütfen yeniden deneyin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">5</context>
@@ -1153,7 +1156,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="a8961af16111ab2b84a767b39eb12002ddf6a61d">
         <source>Failed to download, please retry</source>
-        <target>İndirme başarısız, lütfen tekrar deneyiniz</target>
+        <target>İndirilemedi, lütfen yeniden deneyin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -1161,7 +1164,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="3115c600b33759a741314adeba4d9498304691d6">
         <source>Failed to install, dpkg error</source>
-        <target>Yükleme başarısız, dpkg hatası</target>
+        <target>Kurulamadı, dpkg sorunu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -1169,7 +1172,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="79d1d2b0411af9ecb4539c544f486531eae2dfaa">
         <source>Failed to install, unmet dependencies</source>
-        <target>Yükleme başarısız, karşılanmamış bağımlılıklar</target>
+        <target>Kurulamadı, bağımlılıklar karşılanmadı</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -1177,7 +1180,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="9355e83c7966d65637ae359cbe731471f659853e">
         <source>Failed to install, insufficient space, please clean and retry</source>
-        <target>Yükleme başarısız, alan yetersiz, lütfen temizledikten sonra tekrar deneyiniz</target>
+        <target>Kurulamadı, disk alanı yetersiz, lütfen biraz disk alanı açtıktan sonra yeniden deneyin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">13</context>
@@ -1185,7 +1188,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="a5fab2ced13ebcd9ef9c0ce37990e7fc020f1be1">
         <source>Failed to install</source>
-        <target>Yükleme başarısız</target>
+        <target>Kurulamadı</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">15</context>
@@ -1193,7 +1196,7 @@ bu uygulamayı<x ctype="x-a" equiv-text="<a>" id="START_LINK"/>önerin<x ctype="
       </trans-unit>
       <trans-unit datatype="html" id="4f8b2bb476981727ab34ed40fde1218361f92c45">
         <source>Details</source>
-        <target>Detaylar</target>
+        <target>Ayrıntılar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">20</context>

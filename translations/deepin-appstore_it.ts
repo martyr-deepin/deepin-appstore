@@ -37,7 +37,7 @@ Localizzazione italiana a cura di Massimo A. Carofano.</translation>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
         <source>Recommend App</source>
-        <translation>App consigliate</translation>
+        <translation>Richiedi App</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="91"/>
