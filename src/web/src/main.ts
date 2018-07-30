@@ -29,7 +29,7 @@ const bootstrap = () => {
   console.log('bootstrap');
   loadTranslations
     .catch(err => {
-      console.error('loadTranslations', err);
+      console.error('loadTranslations error:', err);
       return null;
     })
     .then(translations => {
@@ -41,7 +41,11 @@ const bootstrap = () => {
         ],
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log('translations error:', err);
+      platformBrowserDynamic().bootstrapModule(AppModule);
+    })
+    .catch(console.log);
 };
 
 if (window['QWebChannel'] !== undefined) {
