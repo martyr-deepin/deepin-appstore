@@ -62,6 +62,9 @@ void ImageViewer::open(const QString& filepath) {
 }
 
 void ImageViewer::openPixmap(QPixmap pixmap) {
+  if (!spinner_->isPlaying()) {
+    return;
+  }
   const QRect screen_rect = qApp->desktop()->screenGeometry(QCursor::pos());
   const int pixmap_max_width = static_cast<int>(screen_rect.width() * 0.8);
   const int pixmap_max_height = static_cast<int>(screen_rect.height() * 0.8);
