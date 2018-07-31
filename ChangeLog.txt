@@ -1,3 +1,7 @@
+2018-07-24 5.0.2.2 Wu Rongjie<wurongjie@deepin.com>
+    * Use new domain name
+    * Fix i18n error caused empty page
+
 2018-07-24 5.0.2.2 Xu Shaohua<xushaohua2016@outlook.com>
     * Update i18n
 
