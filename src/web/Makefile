@@ -6,12 +6,12 @@ build: app
 app: web create-docker release-docker
 
 web: prepare-node-image
-	sudo docker run --rm -v $(CURDIR):/src -w /src node:9 \
+	sudo docker run --rm -v $(CURDIR):/src -w /src node:8 \
 		./node_modules/.bin/ng build --configuration=production \
 		--output-path=./deploy/dist
 
 prepare-node-image:
-	sudo docker pull node:9
+	sudo docker pull node:8
 
 # Create docker image
 create-docker: prepare-nginx-image rm-docker
