@@ -28,7 +28,7 @@ If the personal income tax is involved in law, in China, Wuhan Deepin Technology
 
 ## How to extract the donation?
 
-Developers and packagers should register Deepin ID and then log into personal platform: https://dstore-metadata.deepin.org to view the application list they developed or packaged.
+Developers and packagers should register Deepin ID and then log into personal platform: https://dstore-metadata.deepin.cn to view the application list they developed or packaged.
 They can also view the summary and the details of the donation amount for each application. When the total amount reaches ￥ 100 CNY (or reaches $20 USD), a withdrawal can be applied for and will be processed within 5 working days after official check. Developers and packagers can track the withdrawal status at any time.
 How to deal with the donation incomes not claimed?
 If some application developers are unreachable or have not claimed their software, deepin team will summarize and extract this part of donation incomes in December each year, and donate the unclaimed amount to other important open source communities or organizations that need support. (Specific grantees and amount information will be publicly released in November and seek advice from communities)
