@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
   }
 
   logout() {
-    this.http.post(this.server + '/api/logout', null).subscribe(() => {
+    this.http.post(this.server + '/api/logout', null).subscribe(null, null, () => {
       this.dialogRef.nativeElement.close();
       this.authService.logout();
     });
