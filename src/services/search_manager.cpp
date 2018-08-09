@@ -52,15 +52,14 @@ AppSearchRecordList SearchApp(const QString& keyword,
   }
 
   for (const AppSearchRecord& app : apps) {
-    if (app.description.contains(keyword_pinyin, Qt::CaseInsensitive) ||
-        app.slogan.contains(keyword_pinyin, Qt::CaseInsensitive)) {
+    if (app.description.contains(keyword, Qt::CaseInsensitive) ||
+        app.slogan.contains(keyword, Qt::CaseInsensitive)) {
       if (!app_names.contains(app.name)) {
         result.append(app);
         app_names.insert(app.name);
       }
     }
   }
-
   return result;
 }
 
