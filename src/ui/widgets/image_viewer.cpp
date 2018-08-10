@@ -62,7 +62,7 @@ void ImageViewer::open(const QString& filepath) {
 }
 
 void ImageViewer::openPixmap(QPixmap pixmap) {
-  if (!spinner_->isPlaying()) {
+  if (!this->isVisible()) {
     return;
   }
   const QRect screen_rect = qApp->desktop()->screenGeometry(QCursor::pos());
