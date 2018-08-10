@@ -37,7 +37,7 @@
                     },
                     "http://elephant.appstore.deepin.com":{
                         "professional": {
-                            "client_id": "b277bedaba1d4bf3cac6341ac8e8cdd17599d484",
+                            "client_id": "1f3bc5bb181500262dc88a5a06720265eeb8f216",
                         },
                     },
                     "http://appstore.deepin.test": {
