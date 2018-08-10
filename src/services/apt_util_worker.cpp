@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QtDBus/QtDBus>
 #include "services/apt_util_worker.h"
 
 #include <QDebug>
@@ -47,8 +48,14 @@ void OpenApp(const QString& app_name) {
   QString output;
   if (SpawnCmd("lastore-tools", {"querydesktop", app_name}, output)) {
     const QString desktop_file = output.trimmed();
-    if (!ExecuteDesktopFile(desktop_file)) {
-      qWarning() << Q_FUNC_INFO << "failed to launch:" << app_name;
+
+    if(QDBusConnection::sessionBus().isConnected()) {
+        quint32 timestamp = 0;
+        QStringList ars;
+        QDBusInterface manager("com.deepin.SessionManager","/com/deepin/StartManager","com.deepin.StartManager");
+        if(manager.isValid()){
+          manager.call("LaunchApp",QVariant::fromValue(desktop_file),QVariant::fromValue(timestamp),QVariant::fromValue(ars));
+        }
     }
   }
 }
