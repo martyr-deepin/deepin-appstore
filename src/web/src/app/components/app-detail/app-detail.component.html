@@ -57,7 +57,7 @@
               <ng-container *ngIf="size>0">{{size|sizeHuman}}</ng-container>
             </div>
           </ng-container>
-          <div>{{app.updateTime|date:'longDate'}}
+          <div>{{app.updateTime|date:'yyyy-MM-dd HH:mm'}}
             <span class="toRight">&lt;</span>
             <button class="reminder"
                     (click)="reminder(app.name)"
