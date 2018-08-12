@@ -1,3 +1,13 @@
+<a name="4.0.14"></a>
+## 4.0.14 (2018-08-12)
+
+
+#### Bug Fixes
+
+*   deepin id error ([cc095a65](https://github.com/linuxdeepin/deepin-appstore/commit/cc095a65df6a1cd3159cd79650d13a00ea0d0efa))
+
+
+
 <a name="4.0.13"></a>
 ### 4.0.13 (2018-07-16)
 
