@@ -1,3 +1,7 @@
+2018-08-3 5.0.2.6 Wu Rongjie<wurongjie@deepin.com>
+    * fix logout error
+    * fix image viewer on retina display
+
 2018-08-3 5.0.2.5 Wu Rongjie<wurongjie@deepin.com>
     * fix donation statement metadata url 
 
