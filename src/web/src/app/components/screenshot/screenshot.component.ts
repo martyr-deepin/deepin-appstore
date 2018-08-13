@@ -13,7 +13,8 @@ import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
 export class ScreenshotComponent implements OnInit {
   constructor() {}
   metadataServer = BaseService.serverHosts.metadataServer;
-  @Input() screenshotList: string[];
+  @Input()
+  screenshotList: string[];
   select = 0;
   loading = false;
 
@@ -32,13 +33,5 @@ export class ScreenshotComponent implements OnInit {
   }
   previewImage(index: number) {
     DstoreObject.imagesPreview(this.screenshotList.map(s => this.metadataServer + '/' + s), index);
-    // const img = new Image();
-    // img.onload = () => {
-    //   this.loading = false;
-    //   this.goto(index);
-    //   window['dstore'].channel.objects.imageViewer.openBase64(CanvasUtil.getBase64Image(img));
-    // };
-    // this.loading = true;
-    // img.src = this.metadataServer + '/' + this.screenshotList[index];
   }
 }

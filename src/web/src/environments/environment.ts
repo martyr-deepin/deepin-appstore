@@ -7,6 +7,6 @@ export const environment = {
   production: false,
 
   // Server address only used in browser mode.
-  metadataServer: 'https://dstore-metadata.deepin.cn',
-  operationServer: 'https://dstore-operation-china.deepin.cn',
+  metadataServer: 'http://server-13:8000',
+  operationServer: 'http://server-13:8100',
 };

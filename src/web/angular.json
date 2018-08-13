@@ -39,13 +39,23 @@
               ],
               "outputPath": "../web_dist/appstore/"
             },
-            "myml": {
+            "international": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.myml.ts"
+                  "with": "src/environments/environment.prod.international.ts"
                 }
-              ]
+              ],
+              "outputPath": "../web_dist/appstore/"
             }
           }
         },
@@ -57,9 +67,6 @@
           "configurations": {
             "production": {
               "browserTarget": "deepin-appstore-web:build:production"
-            },
-            "myml": {
-              "browserTarget": "deepin-appstore-web:build:myml"
             }
           }
         },

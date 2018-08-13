@@ -32,25 +32,12 @@ export class SideNavComponent implements OnInit {
     private appService: AppService,
   ) {}
   native = BaseService.isNative;
-  @ViewChild('nav') nav: ElementRef<HTMLDivElement>;
+  @ViewChild('nav')
+  nav: ElementRef<HTMLDivElement>;
   // category list
   cs$: Observable<Category[]>;
   // download count
   dc$: Observable<number>;
-
-  getStyle = memoize((icon: string[]) => {
-    return this.sanitizer.bypassSecurityTrustStyle(
-      `--normal: url(${icon[0]});
-       --active: url(${icon[1]})`,
-    );
-  });
-
-  getStyleByID = memoize((id: string) => {
-    return this.sanitizer.bypassSecurityTrustStyle(
-      `--normal: url("/assets/icons/${id}.svg");
-       --active: url("/assets/icons/${id}_active.svg")`,
-    );
-  });
 
   ngOnInit() {
     this.cs$ = this.categoryService.list();
@@ -82,5 +69,9 @@ export class SideNavComponent implements OnInit {
         event.preventDefault();
       }
     }
+  }
+
+  getStyle(icons: string[]) {
+    return this.sanitizer.bypassSecurityTrustStyle(icons.map(url => `url(${url})`).join(','));
   }
 }

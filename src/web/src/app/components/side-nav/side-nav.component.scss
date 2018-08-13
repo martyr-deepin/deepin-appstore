@@ -25,14 +25,21 @@
       height: 16px;
       background-size: 100%;
       background-repeat: no-repeat;
-      background-image: var(--normal);
+      background-position-x: 0, 16px;
+      $list: homepage ranking internet chat music video graphics game office reading development
+        system others downloads uninstall;
+      @each $v in $list {
+        &.#{$v} {
+          background-image: url('/assets/icons/#{$v}.svg'), url('/assets/icons/#{$v}_active.svg');
+        }
+      }
     }
     &.active {
       border-right: 3px solid #2ca7f8;
       background-color: #d6eefe;
       color: #2ca7f8;
       .categoryIcon {
-        background-image: var(--active);
+        background-position-x: 16px, 0px;
       }
     }
     &:not(.active):hover {

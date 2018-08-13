@@ -12,6 +12,7 @@ import { Locale } from './app/dstore/utils/locale';
 
 if (environment.production) {
   enableProdMode();
+  console.log = (...args: any[]) => {};
 }
 
 declare const require;
