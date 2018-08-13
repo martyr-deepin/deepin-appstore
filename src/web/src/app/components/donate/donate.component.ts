@@ -34,12 +34,14 @@ export class DonateComponent implements OnInit {
     private donateService: DonateService,
     private sanitizer: DomSanitizer,
   ) {}
-  @ViewChild(DonorsComponent) donors: DonorsComponent;
-  @Input() appName: string;
-  amount = 2;
+  @ViewChild(DonorsComponent)
+  donors: DonorsComponent;
+  @Input()
+  appName: string;
+  amount = 9.9;
   Payment = Payment;
   payment: Payment = Payment.WeChat;
-  randAmount = [2.0, 5.2, 8.88, 6.66, 18.0, 12.0, 66.0, 25.5, 9.99, 15.2];
+  randAmount = [2.0, 5.2, 8.88, 6.66, 9.9, 18.0, 12.0, 66.0, 25.5, 9.99, 15.2];
   loading: boolean;
   qrImg: SafeResourceUrl;
   waitPay$: Observable<PayCheck>;
