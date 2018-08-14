@@ -67,6 +67,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
  protected:
   // Update width of title bar when main window is resized.
   void resizeEvent(QResizeEvent* event) override;
+  void focusInEvent(QFocusEvent *event) override;
 
  private:
   void initConnections();

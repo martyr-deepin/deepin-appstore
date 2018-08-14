@@ -271,6 +271,13 @@ void WebWindow::resizeEvent(QResizeEvent* event) {
   title_bar_->setFixedWidth(event->size().width());
 }
 
+void WebWindow::focusInEvent(QFocusEvent *event)
+{
+    DMainWindow::focusInEvent(event);
+
+    web_view_->setFocus();
+}
+
 void WebWindow::onSearchAppResult(const QString& keyword,
                                   const AppSearchRecordList& result) {
   Q_UNUSED(keyword);
