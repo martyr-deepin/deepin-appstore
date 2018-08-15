@@ -44,12 +44,18 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   StoreJobType = StoreJobType;
 
   // input and output
-  @Input() apps$: Observable<App[]>;
-  @Input() sortBy: SortOrder;
-  @Input() maxCount: number;
-  @Input() rankIndex: boolean;
-  @Input() subtitle = 'category';
-  @Output() appListLength = new EventEmitter<number>(true);
+  @Input()
+  apps$: Observable<App[]>;
+  @Input()
+  sortBy: SortOrder;
+  @Input()
+  maxCount: number;
+  @Input()
+  rankIndex: boolean;
+  @Input()
+  subtitle = 'category';
+  @Output()
+  appListLength = new EventEmitter<number>(true);
 
   apps: App[];
   jobs: { [key: string]: StoreJobInfo } = {};
@@ -106,12 +112,11 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
       this.apps$.subscribe(apps => {
         apps = apps.filter(app => app);
         if (this.sortBy) {
-          apps = sortBy(
-            apps,
-            this.sortBy === SortOrder.Downloads
-              ? ['downloads', 'rate', 'name']
-              : ['rate', 'downloads', 'name'],
-          ).reverse();
+          if (this.sortBy === SortOrder.Downloads) {
+            apps = sortBy(apps, ['downloads', 'name']).reverse();
+          } else {
+            apps = apps.sort((a, b) => b.rate * b.ratings - a.rate * a.ratings);
+          }
         }
         if (this.maxCount) {
           apps = apps.slice(0, this.maxCount);
