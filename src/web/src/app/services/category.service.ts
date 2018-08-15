@@ -10,6 +10,7 @@ import { Category as DstoreCategory } from '../dstore/services/category.service'
 @Injectable()
 export class CategoryService {
   server = BaseService.serverHosts.operationServer;
+
   constructor(private http: HttpClient) {}
 
   list = throttle(this.getList, 1000 * 60);

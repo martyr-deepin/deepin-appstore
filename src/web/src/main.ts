@@ -58,8 +58,8 @@ if (window['QWebChannel'] !== undefined) {
     window['dstore']['channel'] = channel;
     channel.objects.settings.getServers((obj: Object) => {
       // These properties are defined in src/ui/channel/settings_proxy.cpp
-      window['dstore']['metadataServer'] = obj['metadataServer'];
-      window['dstore']['operationServer'] = obj['operationServer'];
+      environment.metadataServer = obj['metadataServer'];
+      environment.operationServer = obj['operationServer'];
 
       bootstrap();
     });
