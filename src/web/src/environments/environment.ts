@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
 
-  // Server address only used in browser mode.
+  // Default server address only used in browser mode.
   metadataServer: 'http://server-13:8000',
   operationServer: 'http://server-13:8100',
 };
