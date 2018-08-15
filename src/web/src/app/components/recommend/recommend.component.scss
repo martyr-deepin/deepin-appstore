@@ -9,6 +9,7 @@ table {
 }
 input,
 textarea {
+  outline: none;
   padding: 6px;
   width: 20rem;
   border-radius: 3px;
@@ -25,6 +26,7 @@ textarea {
 }
 
 select {
+  outline: none;
   font-size: 12px;
   padding: 6px;
   width: 21rem;
@@ -89,7 +91,6 @@ button {
     }
   }
   input {
-    outline: none;
     &.ng-invalid.ng-dirty {
       border: solid 1px transparent;
       &:focus {
