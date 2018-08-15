@@ -26,16 +26,13 @@ export class SearchComponent implements OnInit {
   apps$: Observable<App[]>;
 
   ngOnInit() {
-    this.keyword$ = this.route.paramMap.pipe(map(param => param.get('keyword')));
-    this.title$ = this.keyword$.pipe(map(keyword => `"${truncate(keyword, { length: 16 })}"`));
+    this.title$ = this.route.queryParamMap.pipe(
+      map(param => `"${truncate(param.get('keyword'), { length: 16 })}"`),
+    );
 
-    this.apps$ = this.route.paramMap.pipe(
+    this.apps$ = this.route.queryParamMap.pipe(
       flatMap(param => {
-        // angular 'getAll' bug https://github.com/angular/angular/issues/19179
-        const appNameList = param
-          .getAll('apps')
-          .map(apps => apps.split(','))
-          .reduce((a, b) => [...a, ...b]);
+        const appNameList = param.getAll('apps');
         return this.appService.getApps(appNameList);
       }),
     );

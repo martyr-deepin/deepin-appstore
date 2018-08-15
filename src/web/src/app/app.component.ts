@@ -24,7 +24,8 @@ export class AppComponent implements OnInit {
     private searchService: SearchService,
     private offsetService: OffsetService,
   ) {}
-  @ViewChild('$context') contentRef: ElementRef<HTMLDivElement>;
+  @ViewChild('$context')
+  contentRef: ElementRef<HTMLDivElement>;
 
   ngOnInit(): void {
     this.scrollHistory();
@@ -68,7 +69,9 @@ export class AppComponent implements OnInit {
 
     this.searchService.onOpenAppList().subscribe(result => {
       console.log('open app list', result.appNameList);
-      this.router.navigate(['search', { keyword: result.keyword, apps: result.appNameList }]);
+      this.router.navigate(['search'], {
+        queryParams: { keyword: result.keyword, apps: result.appNameList },
+      });
     });
   }
   screenshotPreview() {
