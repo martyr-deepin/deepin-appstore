@@ -11,7 +11,7 @@ import { App as DstoreApp } from '../dstore/services/app';
 import { StoreService } from '../dstore-client.module/services/store.service';
 import { AppVersion } from '../dstore-client.module/models/app-version';
 import { version } from 'punycode';
-import { AppStatService, AppStat } from './app-stat.service';
+import { AppStatService, AppStat } from './stat.service';
 
 @Injectable()
 export class AppService {
