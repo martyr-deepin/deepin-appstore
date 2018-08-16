@@ -27,14 +27,30 @@
   width: 400px;
   height: 250px;
 }
-table {
-  width: 80%;
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.donateForm {
+  width: 90%;
   margin: auto;
-  border-collapse: collapse;
-  tr {
-    height: 4rem;
+  text-align: center;
+  .formField {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    div {
+      flex-grow: 1;
+      input {
+        outline: none;
+      }
+    }
   }
 }
+
 .amount {
   input {
     width: 100%;
@@ -80,6 +96,11 @@ table {
       @extend .randomIcon;
     }
   }
+}
+.paymentLabel {
+  white-space: nowrap;
+  align-self: flex-start;
+  padding-top: 22px;
 }
 .payment {
   display: flex;

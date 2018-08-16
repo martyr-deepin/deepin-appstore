@@ -15,11 +15,60 @@
 <dialog class="donateDialog"
         (close)="close()"
         #dialog>
-  <ng-container *ngIf="dialog.open">
-    <img class="close"
-         (click)="dialog.close()">
-    <ng-container *ngIf="!waitPay$ && !loading;else paying">
-      <table>
+  <div class="container">
+    <ng-container *ngIf="dialog.open">
+      <img class="close"
+           (click)="dialog.close()">
+      <ng-container *ngIf="!waitPay$ && !loading;else paying">
+        <div class="donateForm">
+          <h2 i18n>Donate</h2>
+          <div class="formField">
+            <label i18n>Amount:</label>
+            <div class="amount">
+              <input type="text"
+                     [value]="amount"
+                     (input)="inputChange($event)"
+                     (keyup.enter)="pay()">
+              <div class="rand"
+                   (click)="rand()"
+                   i18n>Random</div>
+            </div>
+          </div>
+          <div class="formField">
+            <label class="paymentLabel"
+                   i18n>Payment:</label>
+            <div class="payment">
+              <label>
+                <input type="radio"
+                       name="payment"
+                       [(ngModel)]="payment"
+                       [value]="Payment.WeChat">
+                <img src="/assets/icons/wechat.svg">
+              </label>
+              <label>
+                <input type="radio"
+                       name="payment"
+                       [(ngModel)]="payment"
+                       [value]="Payment.AliPay">
+                <img src="/assets/icons/alipay.svg">
+              </label>
+              <br>
+              <label>
+                <input type="radio"
+                       name="payment"
+                       [(ngModel)]="payment"
+                       [value]="Payment.PayPal">
+                <img src="/assets/icons/paypal.svg">
+              </label>
+            </div>
+          </div>
+
+          <button class="btn"
+                  [disabled]="amount<=0"
+                  (click)="pay();$event.target.disabled=true"
+                  i18n>Pay Now</button>
+        </div>
+        <!-- <table>
         <caption>
           <h2 i18n>Donate</h2>
         </caption>
@@ -60,12 +109,11 @@
                 <img src="/assets/icons/alipay.svg">
               </label>
               <br>
-              <label hidden>
+              <label>
                 <input type="radio"
                        name="payment"
                        [(ngModel)]="payment"
-                       [value]="Payment.PayPal"
-                       disabled>
+                       [value]="Payment.PayPal">
                 <img src="/assets/icons/paypal.svg">
               </label>
             </div>
@@ -80,46 +128,47 @@
                     i18n>Pay Now</button>
           </td>
         </tr>
-      </table>
-    </ng-container>
-
-    <ng-template #paying>
-      <ng-template #loading>
-        <br>
-        <app-wait [checkNet]="false"></app-wait>
-      </ng-template>
-      <ng-container *ngIf="waitPay$|async as check;else loading">
-        <div class="waitPay">
-          <ng-container *ngIf="check.isExist;else $wait">
-            <img class="icon"
-                 src="/assets/icons/ok.svg">
-            <br>
-            <div i18n>Payment Succeeded!</div>
-          </ng-container>
-          <ng-template #$wait>
-            <ng-container *ngIf="qrImg;else $msg">
-              <div>
-                <ng-container i18n>WeChat Pay:</ng-container>
-                &nbsp;
-                <span class="amount"
-                      i18n>RMB ￥{{amount}}</span>
-              </div>
-              <img [src]="qrImg">
-              <ng-container *ngIf="check.isPaying">
-                <img class="wait">
-                <div i18n>Paying, please wait...</div>
-              </ng-container>
-            </ng-container>
-            <ng-template #$msg>
-              <img class="wait"
-                   [style.width.rem]="4">
-              <div i18n>Paying, please wait...</div>
-            </ng-template>
-          </ng-template>
-        </div>
+      </table> -->
       </ng-container>
-    </ng-template>
-  </ng-container>
+
+      <ng-template #paying>
+        <ng-template #loading>
+          <br>
+          <app-wait [checkNet]="false"></app-wait>
+        </ng-template>
+        <ng-container *ngIf="waitPay$|async as check;else loading">
+          <div class="waitPay">
+            <ng-container *ngIf="check.isExist;else $wait">
+              <img class="icon"
+                   src="/assets/icons/ok.svg">
+              <br>
+              <div i18n>Payment Succeeded!</div>
+            </ng-container>
+            <ng-template #$wait>
+              <ng-container *ngIf="qrImg;else $msg">
+                <div>
+                  <ng-container i18n>WeChat Pay:</ng-container>
+                  &nbsp;
+                  <span class="amount"
+                        i18n>RMB ￥{{amount}}</span>
+                </div>
+                <img [src]="qrImg">
+                <ng-container *ngIf="check.isPaying">
+                  <img class="wait">
+                  <div i18n>Paying, please wait...</div>
+                </ng-container>
+              </ng-container>
+              <ng-template #$msg>
+                <img class="wait"
+                     [style.width.rem]="4">
+                <div i18n>Paying, please wait...</div>
+              </ng-template>
+            </ng-template>
+          </div>
+        </ng-container>
+      </ng-template>
+    </ng-container>
+  </div>
 </dialog>
 
 <app-donors [appName]="appName"></app-donors>
