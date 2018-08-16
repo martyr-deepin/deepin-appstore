@@ -35,11 +35,11 @@ export class AppStatService {
         result.rate.forEach(r => {
           if (stat.has(r.appName)) {
             const s = stat.get(r.appName);
-            s.rate = r.rate;
+            s.rate = r.rate / 2;
             s.votes = r.count;
           } else {
             const s = new AppStat();
-            s.rate = r.rate;
+            s.rate = r.rate / 2;
             s.votes = r.count;
             stat.set(r.appName, s);
           }
