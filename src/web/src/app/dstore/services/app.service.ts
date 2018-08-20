@@ -14,7 +14,7 @@ import {
   catchError,
 } from 'rxjs/operators';
 
-import { throttle, filter, compact, chain, get, cloneDeep, defaultsDeep } from 'lodash';
+import { throttle, filter, compact, chain, get, cloneDeep, defaults } from 'lodash';
 
 import * as localForage from 'localforage';
 
@@ -63,6 +63,11 @@ export class AppService {
       } else {
         app.localInfo = Object.values(app.locale).find(l => Boolean(l.description.name));
       }
+      app.localInfo.images = defaults(
+        {},
+        app.localInfo.images,
+        ...Object.values(app.locale).map(locale => locale.images),
+      );
     });
     return appMap;
   }
