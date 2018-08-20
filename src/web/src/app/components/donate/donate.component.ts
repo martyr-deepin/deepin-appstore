@@ -50,7 +50,7 @@ export class DonateComponent implements OnInit {
   ngOnInit() {}
 
   close() {
-    this.amount = 2;
+    this.amount = 9.9;
     this.waitPay$ = null;
     this.payment = Payment.WeChat;
     this.loading = false;
