@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  margin: 1rem 0;
+}
+.indicationList {
+  display: flex;
+  justify-content: center;
+  .indicationItem {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    &.select {
+      background-color: #01bdff;
+    }
+  }
+}

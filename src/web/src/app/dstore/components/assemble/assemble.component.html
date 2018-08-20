@@ -1,0 +1,53 @@
+<dstore-title [title]="section.title|fitLanguage"></dstore-title>
+<div class="assembleList"
+     *ngIf="categoryList">
+  <ng-container *ngFor="let $assemble of assembleList">
+    <div class="assemble"
+         *ngIf="$assemble.show && categoryList[$assemble.category]">
+      <div class="title"
+           [routerLink]="['/category',$assemble.category]">
+        {{categoryList[$assemble.category].LocalName}}
+      </div>
+      <ng-container *ngFor="let $index of section.rowSpan|range;first as $first">
+        <ng-container *ngIf="filter($assemble.apps)[$index]?.name|appInfo|async as $app">
+          <div class="item"
+               [class.job]="jobs.has($app.name) || jobsNames.has($app.name)"
+               [routerLink]="$app.name">
+            <img class="icon"
+                 [src]="server+'/'+$app.icon">
+            <div class="cover">
+              <img [src]="server+'/'+([$app.localInfo.images.cover,$app.localInfo.images.coverHD]|fitImage)">
+            </div>
+            <div class="info">
+              <div class="base">
+                <span class="name appTitle">{{$app.localInfo.description.name}}</span>
+                <span class="subtitle">{{$app.localInfo.description.slogan}}</span>
+              </div>
+              <div class="control">
+                <ng-container *ngIf="jobs.get($app.name) as job;else controlBtn">
+                  <dstore-circle-button [running]="[StoreJobStatus.running,StoreJobStatus.ready,StoreJobStatus.end].includes(job.status)"
+                                        [progress]="job.progress"
+                                        [disabled]="!job.cancelable"
+                                        (runningChange)="$event?start(job.job):pause(job.job)"></dstore-circle-button>
+                </ng-container>
+
+                <ng-template #controlBtn>
+                  <div #ctlBtn>
+                    <dstore-job-button [version]="versions.get($app.name)"
+                                       [appName]="$app.name"
+                                       [localName]="$app.localInfo.description.name"
+                                       [openType]="$app.extra['open']"
+                                       (start)="ctlBtn.hidden=true"></dstore-job-button>
+                  </div>
+                  <dstore-circle-button [running]="true"
+                                        *ngIf="ctlBtn.hidden"></dstore-circle-button>
+                </ng-template>
+              </div>
+            </div>
+
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

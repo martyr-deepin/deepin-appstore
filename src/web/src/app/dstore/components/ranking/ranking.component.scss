@@ -1,0 +1,60 @@
+@import '../style';
+
+.rankingList {
+  display: flex;
+  flex-direction: column;
+  width: 225px;
+  .ranking {
+    display: flex;
+    margin-bottom: 16px;
+    padding: 0 5px;
+    &:hover {
+      cursor: pointer;
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.05);
+      .info {
+        border-bottom: solid 1px transparent;
+        .control {
+          display: block;
+        }
+      }
+    }
+    &.job {
+      .info {
+        .control {
+          display: block;
+        }
+      }
+    }
+    .info {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+      min-width: 0;
+      margin-left: 1rem;
+      border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+      padding-top: 4px;
+      .no {
+        margin-right: 8px;
+      }
+      .base {
+        flex-grow: 1;
+        min-width: 0;
+        .appTitle {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .control {
+        display: none;
+        margin-left: 4px;
+        align-self: center;
+      }
+    }
+  }
+}
+
+.textIndent {
+  text-indent: calc(8px + 1.5rem) !important;
+}

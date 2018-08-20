@@ -1,0 +1,48 @@
+<dstore-title [title]="section.title|fitLanguage"
+              [more]="'/ranking'"></dstore-title>
+
+<div class="rankingList"
+     *ngIf="appList as $apps">
+  <ng-container *ngFor="let $index of this.section.ranking.count|range">
+    <div class="ranking"
+         [routerLink]="$app.name"
+         [class.job]="jobs[$app.name] || jobsNames.has($app.name)"
+         *ngIf="$apps[$index] as $app;else $empty">
+      <img class="icon"
+           [src]="metadataServer+'/'+$app.icon">
+      <div class="info">
+        <span class="no">{{$index+1}}.</span>
+        <div class="base">
+          <div class="appTitle">{{$app.localInfo.description.name}}</div>
+          <div class="subtitle"
+               [routerLink]="['/category',$app.category]">{{$app.localCategory}}</div>
+        </div>
+        <div class="control">
+          <ng-container *ngIf="jobs[$app.name] as job;else controlBtn">
+            <dstore-circle-button [running]="[StoreJobStatus.running,StoreJobStatus.ready,StoreJobStatus.end].includes(job.status)"
+                                  [progress]="job.progress"
+                                  [disabled]="!job.cancelable"
+                                  (runningChange)="$event?start(job.job):pause(job.job)"></dstore-circle-button>
+          </ng-container>
+
+          <ng-template #controlBtn>
+            <div #ctlBtn>
+              <dstore-job-button [version]="$app.version"
+                                 [appName]="$app.name"
+                                 [localName]="$app.localInfo.description.name"
+                                 [openType]="$app.extra['open']"
+                                 (start)="ctlBtn.hidden=true"></dstore-job-button>
+            </div>
+            <dstore-circle-button [running]="true"
+                                  *ngIf="ctlBtn.hidden"></dstore-circle-button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<ng-template #$empty>
+  <div class="ranking empty">
+    <img class="icon">
+  </div>
+</ng-template>

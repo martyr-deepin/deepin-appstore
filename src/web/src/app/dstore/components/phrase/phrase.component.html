@@ -1,0 +1,48 @@
+<dstore-title [title]="section.title|fitLanguage"
+              [more]="moreNav"></dstore-title>
+<div class="list">
+  <ng-container *ngFor="let $index of (section.colSpan*section.rowSpan)|range">
+    <div class="item"
+         [class.job]="jobs[$app.name] || jobsNames.has($app.name)"
+         [routerLink]="$app.name"
+         *ngIf="appList[$index] as $app;else $empty">
+      <div>
+        <img class="icon"
+             [src]="metadataServer +'/'+ $app.icon">
+      </div>
+      <div class="info">
+        <div class="base">
+          <span class="appTitle">{{$app.localInfo.description.name}}</span>
+          <span class="subtitle"
+                [routerLink]="$app.name">{{phraseList[$index].phrases|fitLanguage}}</span>
+        </div>
+        <div class="control">
+          <ng-container *ngIf="jobs[$app.name] as job;else controlBtn">
+            <dstore-circle-button [running]="[StoreJobStatus.running,StoreJobStatus.ready,StoreJobStatus.end].includes(job.status)"
+                                  [progress]="job.progress"
+                                  [disabled]="!job.cancelable"
+                                  (runningChange)="$event?start(job.job):pause(job.job)"></dstore-circle-button>
+          </ng-container>
+
+          <ng-template #controlBtn>
+            <div #ctlBtn>
+              <dstore-job-button [version]="$app.version"
+                                 [appName]="$app.name"
+                                 [localName]="$app.localInfo.description.name"
+                                 [openType]="$app.extra['open']"
+                                 (start)="ctlBtn.hidden=true"></dstore-job-button>
+            </div>
+            <dstore-circle-button [running]="true"
+                                  *ngIf="ctlBtn.hidden"></dstore-circle-button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #$empty>
+  <div class="item empty">
+
+  </div>
+</ng-template>
