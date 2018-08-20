@@ -18,6 +18,7 @@
 #include "ui/widgets/image_viewer.h"
 
 #include <DWidgetUtil>
+#include <DThemeManager>
 #include <QApplication>
 #include <QDebug>
 #include <QPainter>
@@ -27,7 +28,6 @@
 #include <QtCore/QTimer>
 #include <QDesktopWidget>
 
-#include "ui/utils/theme_manager.h"
 
 namespace dstore {
 
@@ -173,7 +173,7 @@ void ImageViewer::initUI() {
   this->setAttribute(Qt::WA_TranslucentBackground, true);
   this->setModal(true);
 
-  ThemeManager::instance()->registerWidget(this);
+  Dtk::Widget::DThemeManager::instance()->registerWidget(this);
 }
 
 void ImageViewer::mousePressEvent(QMouseEvent* event) {

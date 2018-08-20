@@ -1,0 +1,4 @@
+Dtk--Widget--DMainWindow {
+  qproperty-borderColor: rgba(16, 16, 16, 80%);
+  background-color: transparent;
+}

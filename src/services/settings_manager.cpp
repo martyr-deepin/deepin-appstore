@@ -34,6 +34,7 @@ const char kOperationPrimaryServer[] = "operationPrimary";
 const char kOperationSecondaryServer[] = "operationSecondary";
 const char kOperationDefault[] = "operationDefault";
 const char kRegionName[] = "currentRegion";
+const char kThemeName[] = "themeName";
 
 QVariant GetSystemSettingsValue(const QString& key) {
   QSettings settings(SETTINGS_FILE, QSettings::IniFormat);
@@ -65,6 +66,17 @@ QString GetOperationServer() {
   } else {
     return GetSystemSettingsValue(kOperationPrimaryServer).toString();
   }
+}
+
+void SetThemeName (const QString &themeName) {
+  QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+  settings.setValue(kThemeName, themeName);
+}
+
+QString GetThemeName() {
+  QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+  QString themeName = settings.value(kThemeName, "light").toString();
+  return themeName;
 }
 
 void SetRegion(OperationServerRegion region) {

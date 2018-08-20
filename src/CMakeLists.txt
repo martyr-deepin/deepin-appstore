@@ -171,9 +171,6 @@ set(UI_FILES
     ui/channel/store_daemon_proxy.cpp
     ui/channel/store_daemon_proxy.h
 
-    ui/utils/theme_manager.cpp
-    ui/utils/theme_manager.h
-
     ui/widgets/image_viewer.cpp
     ui/widgets/image_viewer.h
     ui/widgets/search_button.cpp
@@ -200,38 +197,38 @@ add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 # Update angular dist/. Works on x86 based platforms.
 add_custom_command(OUTPUT npm-update-web-dist
                    COMMAND sh -c "PATH=./node_modules/.bin:$PATH npm run build"
-                   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
-                   VERBATIM
-                   )
+		   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
+		   VERBATIM
+		   )
 add_custom_target(update-web-dist DEPENDS npm-update-web-dist)
 
 add_executable(deepin-appstore
                app/deepin_appstore.cpp
-               ${BASE_FILES}
-               ${DBUS_FILES}
-               ${RESOURCES_FILES}
-               ${SERVICES_FILES}
-               ${UI_FILES}
-               )
+	       ${BASE_FILES}
+	       ${DBUS_FILES}
+	       ${RESOURCES_FILES}
+	       ${SERVICES_FILES}
+	       ${UI_FILES}
+	       )
 target_link_libraries(deepin-appstore ${LINK_LIBS})
 if (CMAKE_BUILD_TYPE MATCHES Release)
   add_dependencies(deepin-appstore
                    update-qm
-                   update-web-dist)
+		   update-web-dist)
 endif()
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(test-launcher
                  app/test_launcher.cpp
-                 base/launcher.cpp
-                 base/launcher.h
-                 )
+		 base/launcher.cpp
+		 base/launcher.h
+		 )
   target_link_libraries(test-launcher ${LINK_LIBS})
   add_executable(test-base64-image
                  app/base64_image.cpp
-                 base/file_util.cpp
-                 base/file_util.h
-                 )
+		 base/file_util.cpp
+		 base/file_util.h
+		 )
   target_link_libraries(test-base64-image ${LINK_LIBS})
 
   add_executable(qurl-demo app/qurl_demo.cpp)
@@ -240,15 +237,15 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(test-image-viewer
                  app/test_image_viewer.cpp
 
-                 base/file_util.cpp
-                 base/file_util.h
-                 ui/utils/theme_manager.cpp
-                 ui/utils/theme_manager.h
-                 ui/widgets/image_viewer.cpp
-                 ui/widgets/image_viewer.h
+		 base/file_util.cpp
+		 base/file_util.h
+		 ui/utils/theme_manager.cpp
+		 ui/utils/theme_manager.h
+		 ui/widgets/image_viewer.cpp
+		 ui/widgets/image_viewer.h
 
-                 resources/themes/themes.qrc
-                 )
+		 resources/themes/themes.qrc
+		 )
   target_link_libraries(test-image-viewer ${LINK_LIBS})
 endif()
 
@@ -256,16 +253,16 @@ add_executable(deepin-appstore-metadata
 
                app/deepin_appstore_metadata.cpp
 
-               ${BASE_FILES}
-               ${DBUS_FILES}
-               ${SERVICES_FILES}
-               )
+	       ${BASE_FILES}
+	       ${DBUS_FILES}
+	       ${SERVICES_FILES}
+	       )
 target_link_libraries(deepin-appstore-metadata ${Qt_LIBS})
 
 install(TARGETS
         deepin-appstore
-        deepin-appstore-metadata
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+	deepin-appstore-metadata
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist

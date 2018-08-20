@@ -18,6 +18,8 @@
 #include "ui/web_window.h"
 
 #include <DTitlebar>
+#include <DThemeManager>
+
 #include <QApplication>
 #include <QDebug>
 #include <QDesktopWidget>
@@ -179,6 +181,10 @@ void WebWindow::initConnections() {
           menu_proxy_, &MenuProxy::recommendAppRequested);
   connect(tool_bar_menu_, &TitleBarMenu::loginRequested,
           menu_proxy_, &MenuProxy::loginRequested);
+  connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
+          menu_proxy_, &MenuProxy::switchThemeRequested);
+  connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
+          this, &WebWindow::onThemeChaged);
   connect(tool_bar_menu_, &TitleBarMenu::regionChanged,
           this, &WebWindow::onRegionChanged);
   connect(tool_bar_menu_, &TitleBarMenu::clearCacheRequested,
@@ -215,6 +221,10 @@ void WebWindow::initProxy() {
 }
 
 void WebWindow::initUI() {
+// :/dark/Dtk--Widget--DAboutDialog.theme
+// :/dark/WebWindow.css
+  Dtk::Widget::DThemeManager::instance()->registerWidget(this);
+
   web_view_ = new QCefWebView();
   this->setCentralWidget(web_view_);
 
@@ -238,6 +248,8 @@ void WebWindow::initUI() {
   web_view_->page()->setEventDelegate(web_event_delegate_);
 
   this->setFocusPolicy(Qt::ClickFocus);
+
+  Dtk::Widget::DThemeManager::instance()->setTheme(GetThemeName());
 }
 
 void WebWindow::initServices() {
@@ -363,6 +375,11 @@ void WebWindow::onTitleBarEntered() {
   if (text.size() > 1) {
     completion_window_->onEnterPressed();
   }
+}
+
+void WebWindow::onThemeChaged(const QString theme_name)
+{
+  Dtk::Widget::DThemeManager::instance()->setTheme(theme_name);
 }
 
 void WebWindow::onWebViewUrlChanged(const QUrl& url) {

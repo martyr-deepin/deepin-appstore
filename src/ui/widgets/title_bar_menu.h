@@ -28,10 +28,6 @@ class TitleBarMenu : public QMenu {
                  READ isLoggedIn
                  WRITE setLoginState
                  NOTIFY loginRequested)
-  Q_PROPERTY(bool darkTheme
-                 READ isDarkTheme
-                 WRITE setDarkTheme
-                 NOTIFY switchThemeRequested)
 
  public:
   explicit TitleBarMenu(bool support_sign_in, QWidget* parent = nullptr);
@@ -39,11 +35,9 @@ class TitleBarMenu : public QMenu {
 
   bool isLoggedIn() const;
 
-  bool isDarkTheme() const;
-
  signals:
   void loginRequested(bool login);
-  void switchThemeRequested(bool is_dark_theme);
+  void switchThemeRequested(QString themeName);
   void recommendAppRequested();
   void regionChanged();
   void clearCacheRequested();
@@ -51,7 +45,7 @@ class TitleBarMenu : public QMenu {
  public slots:
   void setLoginState(bool login);
   void setRegion(bool is_china);
-  void setDarkTheme(bool is_dark_theme);
+  void setThemeName(QString themeName);
 
  private:
   void initActions();
@@ -63,7 +57,7 @@ class TitleBarMenu : public QMenu {
   QActionGroup* region_group_ = nullptr;
   QAction* region_china_ = nullptr;
   QAction* region_international_ = nullptr;
-  bool is_dark_theme_ = false;
+  QString theme_name_ = "light";
   QAction* switch_theme_action_ = nullptr;
 
  private slots:

@@ -1,0 +1,22 @@
+
+#ImageLabel {
+  /*box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.30);*/
+}
+
+#CloseButton {
+  qproperty-normalPic: url(:/light/images/close_normal.svg);
+  qproperty-hoverPic: url(:/light/images/close_hover.svg);
+  qproperty-pressPic: url(:/light/images/close_press.svg);
+}
+
+#PreviousButton {
+  qproperty-normalPic: url(:/light/images/previous_normal.svg);
+  qproperty-hoverPic: url(:/light/images/previous_hover.svg);
+  qproperty-pressPic: url(:/light/images/previous_press.svg);
+}
+
+#NextButton {
+  qproperty-normalPic: url(:/light/images/next_normal.svg);
+  qproperty-hoverPic: url(:/light/images/next_hover.svg);
+  qproperty-pressPic: url(:/light/images/next_press.svg);
+}

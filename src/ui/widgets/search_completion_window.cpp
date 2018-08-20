@@ -19,8 +19,8 @@
 
 #include <QDebug>
 #include <QVBoxLayout>
+#include <DThemeManager>
 
-#include "ui/utils/theme_manager.h"
 #include "ui/widgets/search_button.h"
 
 namespace dstore {
@@ -180,7 +180,7 @@ void SearchCompletionWindow::initUI() {
                        Qt::BypassWindowManagerHint);
   this->setAttribute(Qt::WA_NativeWindow, true);
 
-  ThemeManager::instance()->registerWidget(this);
+  Dtk::Widget::DThemeManager::instance()->registerWidget(this);
 }
 
 void SearchCompletionWindow::onResultListClicked(const QModelIndex& index) {

@@ -36,7 +36,7 @@ const char kDisableGpu[] = "--disable-gpu";
 const char kEnableLogging[] = "--enable-logging";
 const char kLogLevel[] = "--log-level";
 
-}  // namespace 
+}  // namespace
 
 int main(int argc, char** argv) {
   qputenv("DXCB_FAKE_PLATFORM_NAME_XCB", "true");
@@ -45,15 +45,17 @@ int main(int argc, char** argv) {
   QCefGlobalSettings settings;
   // Do not use sandbox.
   settings.setNoSandbox(true);
-#ifndef NDEBUG
-  // Open http://localhost:9222 in chromium browser to see dev tools.
-  settings.setRemoteDebug(true);
+
+  if (qEnvironmentVariableIntValue("DSTORE_DEBUG") == 1) {
+    // Open http://localhost:9222 in chromium browser to see dev tools.
+    settings.setRemoteDebug(true);
+    settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Verbose);
+  } else {
+    settings.setRemoteDebug(false);
+    settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
+  }
+
   settings.setIgnoresCertificateErrors(true);
-#else
-  settings.setRemoteDebug(false);
-#endif
-  settings.setIgnoresCertificateErrors(true);
-  settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
 
   // Disable GPU process.
   settings.addCommandLineSwitch(kDisableGpu, "");

@@ -38,10 +38,6 @@ bool TitleBarMenu::isLoggedIn() const {
   return is_signed_in_;
 }
 
-bool TitleBarMenu::isDarkTheme() const {
-  return is_dark_theme_;
-}
-
 void TitleBarMenu::setLoginState(bool login) {
   Q_ASSERT(support_sign_in_);
 
@@ -67,13 +63,14 @@ void TitleBarMenu::setRegion(bool is_china) {
   }
 }
 
-void TitleBarMenu::setDarkTheme(bool is_dark_theme) {
-  is_dark_theme_ = is_dark_theme;
-//  if (is_dark_theme) {
-//    switch_theme_action_->setText(QObject::tr("Light Theme"));
-//  } else {
-//    switch_theme_action_->setText(QObject::tr("Dark Theme"));
-//  }
+void TitleBarMenu::setThemeName(QString theme_name) {
+  theme_name_ = theme_name;
+  SetThemeName(theme_name_);
+  if (theme_name_ == "light") {
+    switch_theme_action_->setChecked(false);
+  } else {
+    switch_theme_action_->setChecked(true);
+  }
 }
 
 void TitleBarMenu::initActions() {
@@ -116,9 +113,12 @@ void TitleBarMenu::initActions() {
   this->addAction(QObject::tr("Clear Cache"),
                   this, &TitleBarMenu::clearCacheRequested);
 
-//  switch_theme_action_ = this->addAction(QObject::tr("Dark Theme"));
-//  connect(switch_theme_action_, &QAction::triggered,
-//          this, &TitleBarMenu::onThemeActionTriggered);
+  const QString themeName = GetThemeName();
+  switch_theme_action_ = this->addAction(QObject::tr("Dark Theme"));
+  switch_theme_action_->setCheckable(true);
+  connect(switch_theme_action_, &QAction::triggered,
+          this, &TitleBarMenu::onThemeActionTriggered);
+  this->setThemeName(themeName);
 
   this->addSeparator();
 }
@@ -128,7 +128,13 @@ void TitleBarMenu::onSignInActionTriggered() {
 }
 
 void TitleBarMenu::onThemeActionTriggered() {
-  emit this->switchThemeRequested(!is_dark_theme_);
+  if(theme_name_ == "light") {
+    theme_name_ = "dark";
+  } else {
+    theme_name_ = "light";
+  }
+  this->setThemeName(theme_name_);
+  emit this->switchThemeRequested(theme_name_);
 }
 
 void TitleBarMenu::onRegionGroupTriggered(QAction* action) {

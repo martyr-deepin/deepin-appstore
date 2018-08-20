@@ -19,8 +19,8 @@
 
 #include <QDebug>
 #include <QTimer>
+#include <DThemeManager>
 
-#include "ui/utils/theme_manager.h"
 #include "ui/widgets/search_edit.h"
 
 namespace dstore {
@@ -105,7 +105,7 @@ void TitleBar::initUI() {
 
   this->setAttribute(Qt::WA_TranslucentBackground, true);
 
-  ThemeManager::instance()->registerWidget(this);
+  Dtk::Widget::DThemeManager::instance()->registerWidget(this);
 }
 
 void TitleBar::onSearchTextChanged() {

@@ -1,5 +1,4 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
+<RCC>
     <qresource prefix="/">
         <file>common/images/deepin-appstore.svg</file>
         <file>light/images/backward_hover.svg</file>
@@ -19,10 +18,33 @@
         <file>light/images/previous_hover.svg</file>
         <file>light/images/previous_normal.svg</file>
         <file>light/images/previous_press.svg</file>
-
-        <file>light/ImageViewer.css</file>
-        <file>light/RecommendApp.css</file>
-        <file>light/SearchCompletionWindow.css</file>
-        <file>light/TitleBar.css</file>
+        <file>light/dstore--ImageViewer.theme</file>
+        <file>light/dstore--SearchCompletionWindow.theme</file>
+        <file>light/dstore--TitleBar.theme</file>
+        <file>dark/images/back_hover.svg</file>
+        <file>dark/images/back_normal.svg</file>
+        <file>dark/images/back_press.svg</file>
+        <file>dark/images/backward_hover.svg</file>
+        <file>dark/images/backward_insensitive.svg</file>
+        <file>dark/images/backward_normal.svg</file>
+        <file>dark/images/backward_press.svg</file>
+        <file>dark/images/close_hover.svg</file>
+        <file>dark/images/close_normal.svg</file>
+        <file>dark/images/close_press.svg</file>
+        <file>dark/images/forward_hover.svg</file>
+        <file>dark/images/forward_insensitive.svg</file>
+        <file>dark/images/forward_normal.svg</file>
+        <file>dark/images/forward_press.svg</file>
+        <file>dark/images/next_hover.svg</file>
+        <file>dark/images/next_normal.svg</file>
+        <file>dark/images/next_press.svg</file>
+        <file>dark/images/previous_hover.svg</file>
+        <file>dark/images/previous_normal.svg</file>
+        <file>dark/images/previous_press.svg</file>
+        <file>dark/dstore--ImageViewer.theme</file>
+        <file>dark/dstore--SearchCompletionWindow.theme</file>
+        <file>dark/dstore--TitleBar.theme</file>
+        <file>light/dstore--WebWindow.theme</file>
+        <file>dark/dstore--WebWindow.theme</file>
     </qresource>
 </RCC>

@@ -49,6 +49,9 @@ void SetRegion(OperationServerRegion region);
 // Always returns the primary server on professional and loongson.
 OperationServerRegion GetRegion();
 
+QString GetThemeName();
+void SetThemeName (const QString &themeName);
+
 QString GetSessionSettingsFile();
 
 OperationType GetOperationType();

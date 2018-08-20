@@ -43,6 +43,10 @@ class MenuProxy : public QObject {
    */
   void recommendAppRequested();
 
+  /**
+   * this signal is emitted when user click menu
+   */
+  void switchThemeRequested(QString themeName);
 
   /**
    * Login state shall be updated. This signal is emitted on web page
