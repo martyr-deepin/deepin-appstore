@@ -56,7 +56,7 @@ export class AppService {
     const categoryList = await this.categoryServer.getList().toPromise();
     Object.values(appMap).forEach(app => {
       app.localCategory = categoryList[app.category].LocalName;
-      if (get(app, ['locale', Locale.getUnixLocale(), 'description.name'])) {
+      if (get(app, ['locale', Locale.getUnixLocale(), 'description', 'name'])) {
         app.localInfo = app.locale[Locale.getUnixLocale()];
       } else if (get(app, 'locale.en_US.description.name')) {
         app.localInfo = app.locale['en_US'];
