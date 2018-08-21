@@ -1,21 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-    <title>close_press</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <circle id="path-1" cx="20" cy="18" r="12"></circle>
-    </defs>
-    <g id="最大化最小化" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="close_press">
-            <g id="Group-7" transform="translate(4.000000, 6.000000)">
-                <image id="Bitmap" x="0" y="0" width="40" height="40" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAABWFJREFUWAmdlz1MbGUQhvdPjPwFGiOikcYYAzUdgVhcE3M7Cg2JnRstbGxsKIwFlQk2dtyCBGJhwFiA0cQYeki0oZXcArkhgQCBhOD+OO/HeT5nP8/ZXZhkmPlm3pl5z5w9Z5dy6XFSflxZqf3Qun4H9YNLMf2Q6YlJm+ZdYB7Gx7yfV+9JeB9sXoxcqVvzvByxIhsbZw7Di6zHg/GxQoIQAMxZNvU5C4vvh8lHhUl9xRBfF2I1Ms4yhJDOxPArWYyzsGDkSxgGIdlWyHT+AaeoevhzSYO8pEMgICustIrd3d198+zs7LPb29ufms3mn+12+4VUvmLKCeNrstq8C7RUkJQD8ZiEFGS05ZdMXzZ9xXRoa2vr7Zubm3Uj02i1WmbyJcs1hFWNarMe6qWe6s0FM7eQoAd4cgPWBHLDx8fHHxqdKw23TbWx8lMllxG9Uq31GjbVhaqnevdNEoKeHJsbtEbD5+fnX9qwpgb64SmxorNq1UO9TNWz2yYt/Z9AThaCkNPVDh8dHX1kg5uNRqONioh8COEX5YUTSfVST1M2qVldbzUEIae1a/2B3MbGxjvW+ColABFsL8IOd6We1h+SRbc6vhpEUMIGZXVFQS8vL78bGhr6WAAv9lkslcvlkmyekJOVePz19fXG+Pj45xZuOuVVRMO2NubJ4ROvbG5uvmHkltQ8VastJOdz1PnYyMjIknpbLM5S3kQc4FFWMhUAylXm5uae2gBtsqeIiARCqSWX2er8/PxT88Mcs8xVOkpKEFC0Y2NjT9JBRWd1Va5IyFE/Ojr6xLBxlvNji5SgEr6gUqvVpkCnAxQn5n0IpNZj5Ge9xcHPVCqKnlYEUMfZmryWR0Ige7LDQyIr0cNALASSP/TBqrfKMgXNOdwKCCroBVCI09AD8HvleJKFx+epznp0zKKv4KbhKXax4AZSBO/u7l7g97KQle1Hc3p3zNa8vM9gBw97uT4n8FACqqOGHt763j7u/TyCHY/h6enpb2xDhX4gfr95cFj19mTUPjnHDaYJnYPu7Oz8Yn6Tpt6qmc4IPhj/mfN+hmtmveMs+mQ2NNY9577LaqPxK858fYnX7GfSt/Y+XPJDLN5TRISaFHxxcfH95OTkFxZvmP5j6r/y9FoIBItuMVcVgGtra9/Y6+M63RCbKrI2pGPDOkvUSz3N1RzIMFOQKOkG0y3qNRR0b2/vg9nZ2WdGJu+iYkPviHi6QTu39vf3P1lYWPjZsNoeygY94Y6XJGRldZtFROTkh1t9eHhYn5qa+uohJK02SqVSadlvwa+np6fXLOhvrXwRE0k2KRtIBMclFOcqZClsWuNnBwcHdXs9dNxuFeSJNiiRVY1trq4eFvLb8rMCXCVyTOKvFG1Ngr0/3Z+JBbu+vv6XfYZ+nJmZGR0cHHzXgF1vud3Spv1398Pq6uqn9Xr9D8NrWylBSEKM+ZEQJJSQL9VglCebWx7Oy8vLry8uLr4/MTHx3sDAwFvVavVVbcsu4NS+JZ6fnJz8vr29/evKysrf1gtSsv2SbKfErDYS9ET5TEKUMxcg63upj7bBRwTrSSqms9+eathisNpIKgCI66xGxGXVFJJsu4ggeMh0I8YMa38vnqCSDPFANSSuKuVQT85jPI4NyaZKH6zqJDoH8QSJYSMoCzBIcfncVhFDM2gwDMVSjyWO9bXRT69aiTTmh+On5PLqNFgCAVlPzufkI9SFc0oGUBrnDEHh8MkRk/VDPEFy5LGKS9Lz/7Z1D7v/6wcTJ1ZkwWEZWGTByYLxsa4EAUKGs6yPed9j8P1g7+fliUXbqznAfnApJo8M/bA9MWlTCnvZx9b1JJQO/hdmtnRRoxdT+QAAAABJRU5ErkJggg=="></image>
-                <g id="Oval">
-                    <use fill="#ECECEC" fill-rule="evenodd" xlink:href="#path-1"></use>
-                    <circle stroke-opacity="0.1" stroke="#000000" stroke-width="1" cx="20" cy="18" r="12.5"></circle>
-                </g>
-                <polygon id="Combined-Shape" fill="#FF3663" fill-rule="nonzero" points="20.2426407 18.9497475 17.0606602 22.131728 16.7071068 22.4852814 16 21.7781746 16.3535534 21.4246212 19.5355339 18.2426407 16.3535534 15.0606602 16 14.7071068 16.7071068 14 17.0606602 14.3535534 20.2426407 17.5355339 23.4246212 14.3535534 23.7781746 14 24.4852814 14.7071068 24.131728 15.0606602 20.9497475 18.2426407 24.131728 21.4246212 24.4852814 21.7781746 23.7781746 22.4852814 23.4246212 22.131728"></polygon>
-            </g>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <circle id="close_press-b" cx="12" cy="12" r="12"/>
+    <filter id="close_press-a" width="179.2%" height="179.2%" x="-39.6%" y="-35.4%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="3"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(12 12)">
+    <use fill="#000" filter="url(#close_press-a)" xlink:href="#close_press-b"/>
+    <use fill="#FFF" fill-opacity=".1" xlink:href="#close_press-b"/>
+    <polygon fill="#FF3663" fill-rule="nonzero" points="12.243 12.95 9.061 16.132 8.707 16.485 8 15.778 8.354 15.425 11.536 12.243 8.354 9.061 8 8.707 8.707 8 9.061 8.354 12.243 11.536 15.425 8.354 15.778 8 16.485 8.707 16.132 9.061 12.95 12.243 16.132 15.425 16.485 15.778 15.778 16.485 15.425 16.132"/>
+  </g>
 </svg>

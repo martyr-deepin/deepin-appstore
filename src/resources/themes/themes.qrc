@@ -46,5 +46,7 @@
         <file>dark/dstore--TitleBar.theme</file>
         <file>light/dstore--WebWindow.theme</file>
         <file>dark/dstore--WebWindow.theme</file>
+        <file>dark/DTitlebar.theme</file>
+        <file>light/DTitlebar.theme</file>
     </qresource>
 </RCC>

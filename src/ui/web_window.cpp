@@ -221,8 +221,6 @@ void WebWindow::initProxy() {
 }
 
 void WebWindow::initUI() {
-// :/dark/Dtk--Widget--DAboutDialog.theme
-// :/dark/WebWindow.css
   Dtk::Widget::DThemeManager::instance()->registerWidget(this);
 
   web_view_ = new QCefWebView();
@@ -249,6 +247,7 @@ void WebWindow::initUI() {
 
   this->setFocusPolicy(Qt::ClickFocus);
 
+  Dtk::Widget::DThemeManager::instance()->registerWidget(this->titlebar(), "DTitlebar");
   Dtk::Widget::DThemeManager::instance()->setTheme(GetThemeName());
 }
 
