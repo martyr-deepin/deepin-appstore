@@ -14,10 +14,10 @@
   <ng-container *ngSwitchDefault>
     <ng-container i18n>Failed to install</ng-container>
   </ng-container>
-  <span class="details"
-        *ngIf="errDetail"
-        (click)="dialog.showModal()"
-        i18n>Details</span>
+  <a class="details"
+     *ngIf="errDetail"
+     (click)="dialog.showModal()"
+     i18n>Details</a>
 </div>
 
 <dialog #dialog

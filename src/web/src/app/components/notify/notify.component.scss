@@ -13,8 +13,8 @@
   overflow: hidden;
   word-break: break-all;
   border-radius: 4px;
-  background-color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  background-color: var(--main-bg-color);
+  box-shadow: 0 2px 10px var(--main-bg-color), 0 0 0 1px var(--main-title-hr-color);
 
   span {
     margin: 0.2rem 0.8rem;

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <circle id="cancel_press-b" cx="14" cy="14" r="14"/>
+    <filter id="cancel_press-a" width="114.3%" height="114.3%" x="-7.1%" y="-3.6%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <rect width="36" height="36" fill="#232220"/>
+    <g transform="translate(4 4)">
+      <use fill="#000" filter="url(#cancel_press-a)" xlink:href="#cancel_press-b"/>
+      <use fill="#FFF" fill-opacity=".1" xlink:href="#cancel_press-b"/>
+      <polygon fill="#2CA7F8" fill-rule="nonzero" points="14.243 14.95 11.061 18.132 10.707 18.485 10 17.778 10.354 17.425 13.536 14.243 10.354 11.061 10 10.707 10.707 10 11.061 10.354 14.243 13.536 17.425 10.354 17.778 10 18.485 10.707 18.132 11.061 14.95 14.243 18.132 17.425 18.485 17.778 17.778 18.485 17.425 18.132"/>
+    </g>
+  </g>
+</svg>

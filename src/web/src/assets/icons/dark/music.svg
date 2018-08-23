@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd" stroke="#DDD" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 1)">
+    <ellipse cx="11.542" cy="11.088" rx="2" ry="1.5"/>
+    <ellipse cx="2.543" cy="12.088" rx="2" ry="1.5"/>
+    <path d="M13.5 10.5L13.5 2.5M4.5 11.5L4.5 3.5"/>
+    <polygon points="4.5 .5 13.5 1.5 13.5 4 4.5 3" transform="matrix(-1 0 0 1 18 0)"/>
+  </g>
+</svg>

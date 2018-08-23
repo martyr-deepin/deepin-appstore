@@ -60,7 +60,8 @@ if (window['QWebChannel'] !== undefined) {
       // These properties are defined in src/ui/channel/settings_proxy.cpp
       environment.metadataServer = obj['metadataServer'];
       environment.operationServer = obj['operationServer'];
-
+      environment.themeName = obj['themeName'];
+      console.log(obj);
       bootstrap();
     });
   });

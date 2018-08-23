@@ -1,0 +1,24 @@
+:host {
+  cursor: pointer;
+  margin: 0 0.5rem;
+  display: flex;
+}
+.controlBtn {
+  &.enabled {
+    background-repeat: no-repeat;
+    background-position: center;
+    &.start {
+      background-image: var(--start-icon);
+    }
+    &.pause {
+      background-image: var(--pause-icon);
+    }
+  }
+  .bgc {
+    stroke: var(--main-color);
+    stroke-opacity: 0.1;
+  }
+}
+.disabled {
+  opacity: 0.4;
+}

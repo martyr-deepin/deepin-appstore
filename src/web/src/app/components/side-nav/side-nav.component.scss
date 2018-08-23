@@ -1,3 +1,4 @@
+@import 'theme';
 .nav {
   user-select: none;
   text-align: center;
@@ -5,7 +6,8 @@
   width: 12vw;
   overflow-y: auto;
   overflow-x: hidden;
-  background-color: #f9f9fa;
+  color: var(--nav-color);
+  background-color: var(--nav-bg-color);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   .navItem {
     display: flex;
@@ -26,17 +28,15 @@
       background-size: 100%;
       background-repeat: no-repeat;
       background-position-x: 0, 16px;
-      $list: homepage ranking internet chat music video graphics game office reading development
-        system others downloads uninstall;
-      @each $v in $list {
+      @each $v in $category-list {
         &.#{$v} {
-          background-image: url('/assets/icons/#{$v}.svg'), url('/assets/icons/#{$v}_active.svg');
+          background-image: var(--nav-icon-#{$v});
         }
       }
     }
     &.active {
       border-right: 3px solid #2ca7f8;
-      background-color: #d6eefe;
+      background-color: var(--nav-bg-color-active);
       color: #2ca7f8;
       .categoryIcon {
         background-position-x: 16px, 0px;
@@ -61,7 +61,6 @@
 .downloadCount {
   font-size: 10px;
   font-weight: 500;
-  background-color: white;
   width: 16px;
   height: 16px;
   min-width: 16px;
@@ -71,7 +70,7 @@
   margin: 0 0.5rem;
   color: #2ca7f8;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 1px var(--main-title-hr-color);
   &.rect {
     width: 20px;
     border-radius: 8px;

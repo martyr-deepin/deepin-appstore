@@ -2,7 +2,3 @@
 	path = src/web/node_modules
 	url = https://cr.deepin.io/vendor-deps
 	branch = deepin-appstore
-[submodule "src/web/src/app/dstore-client.module"]
-	path = src/web/src/app/dstore-client.module
-	url = https://cr.deepin.io/dstore-web-components
-	branch = client

@@ -61,7 +61,7 @@
   <div class="edit">
     <textarea [readOnly]="!info || own"
               [(ngModel)]="comment.content"
-              (keyup.enter)="submitComment()"></textarea>
+              (keyup.control.enter)="submitComment()"></textarea>
   </div>
   <div class="fixed">
     <button class="loginBtn"

@@ -70,11 +70,16 @@ dialog {
   background-image: url('/assets/buttons/next_normal.svg');
   &:not(:disabled) {
     &:hover {
+      background-color: unset;
       background-image: url('/assets/buttons/next_hover.svg');
     }
     &:active {
+      background-color: unset;
       background-image: url('/assets/buttons/next_press.svg');
     }
+  }
+  &:disabled {
+    background-color: unset;
   }
 }
 .lastButton {
@@ -83,10 +88,15 @@ dialog {
   background-image: url('/assets/buttons/previous_normal.svg');
   &:not(:disabled) {
     &:hover {
+      background-color: unset;
       background-image: url('/assets/buttons/previous_hover.svg');
     }
     &:active {
+      background-color: unset;
       background-image: url('/assets/buttons/previous_press.svg');
     }
+  }
+  &:disabled {
+    background-color: unset;
   }
 }

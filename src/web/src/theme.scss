@@ -1,0 +1,154 @@
+$category-list: homepage ranking internet chat music video graphics game office reading development
+  system others downloads uninstall;
+
+$control-button: ('cancel' 'pause' 'restart' 'start');
+
+.light {
+  --theme-name: 'light';
+
+  --nav-color: #000;
+  --nav-bg-color: #f9f9fa;
+  --nav-bg-color-active: #d6eefe;
+
+  --scrollbar-bg-color: transparent;
+  --scrollbar-color: rgba(0, 0, 0, 0.5);
+  --scrollbar-color-hover: rgba(0, 0, 0, 0.6);
+  --scrollbar-color-active: rgba(0, 0, 0, 0.8);
+
+  @each $v in $category-list {
+    --nav-icon-#{$v}: url('/assets/icons/light/#{$v}.svg'), url('/assets/icons/#{$v}_active.svg');
+  }
+
+  --main-color: black;
+  --main-bg-color: white;
+  --main-title-hr-color: rgba(0, 0, 0, 0.15);
+  --main-item-hr-color: rgba(0, 0, 0, 0.1);
+
+  --tips_bg: url('/assets/icons/light/tips_bg.svg');
+  --select-icon: url('/assets/icons/light/select.svg');
+  --start-icon: url('/assets/buttons/light/start.svg');
+  --pause-icon: url('/assets/buttons/light/pause.svg');
+  --down-icon: url('/assets/buttons/light/down_normal.svg'),
+    url('/assets/buttons/light/down_hover.svg'), url('/assets/buttons/light/down_press.svg');
+  --random-icon: url('/assets/buttons/light/random_normal.svg'),
+    url('/assets/buttons/light/random_hover.svg'), url('/assets/buttons/light/random_press.svg');
+
+  @each $v in $control-button {
+    --control-icon-#{$v}: url('/assets/buttons/light/#{$v}_normal.svg'),
+      url('/assets/buttons/light/#{$v}_hover.svg'), url('/assets/buttons/light/#{$v}_press.svg'),
+      url('/assets/buttons/light/#{$v}_insensitive.svg');
+  }
+  button {
+    background-color: white;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(0, 0, 0, 0.02);
+    height: 24px;
+    color: rgba(48, 48, 48, 1);
+    &.primary {
+      color: #0699ff;
+      font-weight: 500;
+      box-shadow: inset 0 0 0 1px rgba(0, 132, 255, 0.4);
+    }
+    &.control {
+      color: white;
+      background-image: linear-gradient(to bottom, #8ccfff, #4bb8ff);
+    }
+    &:not(:disabled) {
+      &:hover {
+        color: white;
+        background-image: linear-gradient(to bottom, #4bb8ff, #0aa1ff);
+      }
+      &:active,
+      &.active {
+        color: white;
+        background-image: linear-gradient(to bottom, #0b8cff, #0aa1ff);
+      }
+    }
+    &:disabled {
+      color: rgba(48, 48, 48, 0.4);
+      cursor: unset;
+    }
+  }
+}
+
+.dark {
+  --theme-name: 'dark';
+  color: var(--main-color);
+  background-color: var(--main-bg-color);
+  filter: brightness(85%);
+
+  --scrollbar-bg-color: #1c1c1c;
+  --scrollbar-color: rgba(255, 255, 255, 0.1);
+  --scrollbar-color-hover: rgba(255, 255, 255, 0.2);
+  --scrollbar-color-active: rgba(255, 255, 255, 0.3);
+
+  --nav-color: #afafaf;
+  --nav-bg-color: #252525;
+  --nav-bg-color-active: rgba(44, 167, 248, 0.1);
+
+  --tips_bg: url('/assets/icons/dark/tips_bg.svg');
+  --select-icon: url('/assets/icons/dark/select.svg');
+  --start-icon: url('/assets/buttons/dark/start.svg');
+  --pause-icon: url('/assets/buttons/dark/pause.svg');
+  --down-icon: url('/assets/buttons/dark/down_normal.svg'),
+    url('/assets/buttons/dark/down_hover.svg'), url('/assets/buttons/dark/down_press.svg');
+  --random-icon: url('/assets/buttons/dark/random_normal.svg'),
+    url('/assets/buttons/dark/random_hover.svg'), url('/assets/buttons/dark/random_press.svg');
+
+  @each $v in $category-list {
+    --nav-icon-#{$v}: url('/assets/icons/dark/#{$v}.svg'), url('/assets/icons/#{$v}_active.svg');
+  }
+
+  --main-color: rgba(255, 255, 255, 0.8);
+  --main-bg-color: #212121;
+  --main-title-hr-color: rgba(255, 255, 255, 0.15);
+  --main-item-hr-color: rgba(255, 255, 255, 0.05);
+
+  @each $v in $control-button {
+    --control-icon-#{$v}: url('/assets/buttons/dark/#{$v}_normal.svg'),
+      url('/assets/buttons/dark/#{$v}_hover.svg'), url('/assets/buttons/dark/#{$v}_press.svg'),
+      url('/assets/buttons/dark/#{$v}_insensitive.svg');
+  }
+
+  button {
+    color: #cccccc;
+    background-color: #414141;
+    &.control {
+      color: #e9e9e9;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    &:hover:enabled {
+      color: #e9e9e9;
+      background-color: #636363;
+    }
+    &:active:enabled,
+    &.active:enabled {
+      color: #2ba6f6;
+      background-color: #363636;
+    }
+    &:disabled {
+      color: #5e5e5e;
+      background-color: #2d2d2d;
+    }
+    &.primary {
+      color: #0699ff;
+      background-color: #2b2b2b;
+      box-shadow: inset 0 0 0 1px rgba(0, 132, 255, 0.5);
+      &:hover:enabled {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: unset;
+      }
+      &:active:enabled {
+        color: #2ca7f8;
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: unset;
+      }
+    }
+  }
+  input,
+  textarea,
+  select {
+    color: gray;
+    background-color: var(--main-title-hr-color);
+  }
+}

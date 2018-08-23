@@ -4,14 +4,7 @@
 button {
   padding: 0.2rem 0.5rem;
   margin-left: 0.2rem;
-  color: black;
-  background: white;
   border-radius: 4px;
-
-  &.active {
-    color: white;
-    background: linear-gradient(to bottom, #8ccfff, #4bb8ff);
-  }
   &:disabled {
     opacity: 0.5;
   }

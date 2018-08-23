@@ -1,0 +1,42 @@
+<button class="bg"
+        [disabled]="disabled">
+
+  <span *ngIf="status === StoreJobStatus.paused || status === StoreJobStatus.failed; else bgRunning"
+        i18n
+        @fadeRight>Paused</span>
+  <ng-template #bgRunning>
+    <span [ngSwitch]="type"
+          @fadeLeft>
+      <ng-container *ngSwitchCase="StoreJobType.download"
+                    i18n>Downloading</ng-container>
+      <ng-container *ngSwitchCase="StoreJobType.install"
+                    i18n>Installing</ng-container>
+      <ng-container *ngSwitchCase="StoreJobType.uninstall"
+                    i18n>Uninstalling</ng-container>
+    </span>
+  </ng-template>
+
+</button>
+<div class="fg">
+  <button class="btn control"
+          [style]="style"
+          (click)="click()"
+          [disabled]="disabled">
+
+    <span *ngIf="status === StoreJobStatus.paused || status === StoreJobStatus.failed; else fgRunning"
+          i18n
+          @fadeRight>Paused</span>
+    <ng-template #fgRunning>
+      <span [ngSwitch]="type"
+            @fadeLeft>
+        <ng-container *ngSwitchCase="StoreJobType.download"
+                      i18n>Downloading</ng-container>
+        <ng-container *ngSwitchCase="StoreJobType.install"
+                      i18n>Installing</ng-container>
+        <ng-container *ngSwitchCase="StoreJobType.uninstall"
+                      i18n>Uninstalling</ng-container>
+      </span>
+    </ng-template>
+
+  </button>
+</div>

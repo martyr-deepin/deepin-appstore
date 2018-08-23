@@ -69,31 +69,29 @@
     top: 50%;
     transform: translateY(-50%);
     right: 0;
-    .randomIcon {
+    &::after {
+      margin-left: 6px;
       width: 10px;
       height: 10px;
       min-width: 10px;
       min-height: 10px;
       margin-left: 3px;
+      content: '';
+      display: inline-block;
+      background-image: var(--random-icon);
+      background-repeat: no-repeat;
+      background-position: 0, 10px, 10px;
     }
-    &::after {
-      margin-left: 6px;
-    }
+
     &:hover {
       &::after {
-        content: url('/assets/buttons/random_hover.svg');
-        @extend .randomIcon;
+        background-position: 10px, 0, 10px;
       }
     }
     &:active {
       &::after {
-        content: url('/assets/buttons/random_press.svg');
-        @extend .randomIcon;
+        background-position: 10px, 10px, 0;
       }
-    }
-    &::after {
-      content: url('/assets/buttons/random_normal.svg');
-      @extend .randomIcon;
     }
   }
 }

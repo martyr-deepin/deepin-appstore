@@ -1,10 +1,11 @@
+@import 'theme';
 :host {
   display: block;
   padding: 1rem 2rem;
 }
 .title {
   padding: 10px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid var(--main-title-hr-color);
 }
 .loading {
   width: 100%;
@@ -20,7 +21,7 @@
         width: 3rem;
       }
       td:not(:first-child) {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid var(--main-item-hr-color);
       }
     }
   }
@@ -69,24 +70,29 @@
   flex: 2;
   display: flex;
   justify-content: flex-end;
-  button {
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    background-size: 100% 100%;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    box-shadow: unset;
-  }
-  @each $ctl in ('pause', 'start', 'restart', 'cancel') {
+  @each $ctl in $control-button {
     .#{$ctl}Btn {
-      background-image: url('/assets/buttons/#{$ctl}_normal.svg');
-      &:hover {
-        background-image: url('/assets/buttons/#{$ctl}_hover.svg');
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      background-size: 100% 100%;
+      background-color: transparent !important;
+      background-repeat: no-repeat;
+      box-shadow: unset;
+      background-position-x: 0, 36px, 36px, 36px;
+      &:hover:enabled {
+        background-image: var(--control-icon-#{$ctl});
+        background-position-x: 36px, 0, 36px, 36px;
+      }
+      &:active:enabled {
+        background-image: var(--control-icon-#{$ctl});
+        background-position-x: 36px, 36px, 0, 36px;
       }
       &:disabled {
-        background-image: url('/assets/buttons/#{$ctl}_insensitive.svg');
+        background-image: var(--control-icon-#{$ctl});
+        background-position-x: 36px, 36px, 36px, 0;
       }
+      background-image: var(--control-icon-#{$ctl});
     }
   }
 }
@@ -99,7 +105,7 @@ progress[value] {
     height: 6px;
     border-radius: 4px;
     box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05), inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--main-title-hr-color);
   }
   &::-webkit-progress-value {
     background-color: #2ca7f8;

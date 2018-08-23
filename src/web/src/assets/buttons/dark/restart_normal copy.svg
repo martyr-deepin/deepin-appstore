@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <circle id="restart_normal-copy-b" cx="14" cy="14" r="14"/>
+    <filter id="restart_normal-copy-a" width="114.3%" height="114.3%" x="-7.1%" y="-3.6%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <rect width="36" height="36" fill="#232220"/>
+    <g transform="translate(4 4)">
+      <use fill="#000" filter="url(#restart_normal-copy-a)" xlink:href="#restart_normal-copy-b"/>
+      <use fill="#FFF" fill-opacity=".1" xlink:href="#restart_normal-copy-b"/>
+      <path fill="#2CA7F8" fill-rule="nonzero" d="M15.9471081,10.0528919 C15.3504086,9.75794746 14.6876969,9.6 14,9.6 C11.5699471,9.6 9.6,11.5699471 9.6,14 C9.6,16.4300529 11.5699471,18.4 14,18.4 C16.4300529,18.4 18.4,16.4300529 18.4,14 L19.6,14 C19.6,17.0927946 17.0927946,19.6 14,19.6 C10.9072054,19.6 8.4,17.0927946 8.4,14 C8.4,10.9072054 10.9072054,8.4 14,8.4 C15.012562,8.4 15.984549,8.67005397 16.8321199,9.16788011 L19,7 L19,12 L14,12 L15.9471081,10.0528919 Z"/>
+    </g>
+  </g>
+</svg>

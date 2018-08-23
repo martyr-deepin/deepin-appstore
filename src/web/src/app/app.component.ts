@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/cor
 import { Router, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { filter, pairwise } from 'rxjs/operators';
+import { environment } from 'environments/environment';
 
 import { BaseService } from './dstore/services/base.service';
 import { StoreService } from './dstore-client.module/services/store.service';
@@ -11,6 +12,7 @@ import { Channel } from './dstore-client.module/utils/channel';
 import { App } from './dstore/services/app';
 import { OffsetService } from './services/offset.service';
 import { DstoreObject } from './dstore-client.module/utils/dstore-objects';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,7 @@ export class AppComponent implements OnInit {
     private appService: AppService,
     private searchService: SearchService,
     private offsetService: OffsetService,
+    private themeService: ThemeService,
   ) {}
   @ViewChild('$context')
   contentRef: ElementRef<HTMLDivElement>;
@@ -32,6 +35,13 @@ export class AppComponent implements OnInit {
     this.searchIndex();
     this.searchListen();
     this.screenshotPreview();
+    this.switchTheme();
+  }
+
+  switchTheme() {
+    this.themeService.getTheme().subscribe(theme => {
+      document.body.className = theme;
+    });
   }
 
   scrollHistory() {

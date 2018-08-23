@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <g fill="none" fill-rule="evenodd" opacity=".4" transform="translate(4 4)">
+    <circle cx="14" cy="14" r="14" fill="#FFF" fill-opacity=".15"/>
+    <rect width="2" height="8" x="11" y="10" fill="#DCDCDC"/>
+    <rect width="2" height="8" x="15" y="10" fill="#DCDCDC"/>
+  </g>
+</svg>

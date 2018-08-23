@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  position: relative;
+  width: 8rem;
+}
+.bg {
+  width: 8rem;
+}
+.fg {
+  width: 8rem;
+  position: absolute;
+  top: 0;
+}
+.crop {
+  width: 4rem;
+  overflow: hidden;
+}
+.btn {
+  width: 8rem;
+  --progress: 50%;
+  mask-image: linear-gradient(to right, black var(--progress), transparent var(--progress));
+}
+button {
+  span {
+    position: absolute;
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
