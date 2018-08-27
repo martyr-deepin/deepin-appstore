@@ -23,6 +23,7 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --main-bg-color: white;
   --main-title-hr-color: rgba(0, 0, 0, 0.15);
   --main-item-hr-color: rgba(0, 0, 0, 0.1);
+  --main-item-bg-color-hover: rgba(0, 0, 0, 0.05);
 
   --tips_bg: url('/assets/icons/light/tips_bg.svg');
   --select-icon: url('/assets/icons/light/select.svg');
@@ -102,6 +103,7 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --main-bg-color: #212121;
   --main-title-hr-color: rgba(255, 255, 255, 0.15);
   --main-item-hr-color: rgba(255, 255, 255, 0.05);
+  --main-item-bg-color-hover: rgba(255, 255, 255, 0.05);
 
   @each $v in $control-button {
     --control-icon-#{$v}: url('/assets/buttons/dark/#{$v}_normal.svg'),

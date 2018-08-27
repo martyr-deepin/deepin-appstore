@@ -12,7 +12,7 @@
     &:hover {
       cursor: pointer;
       border-radius: 5px;
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color: var(--main-item-bg-color-hover);
     }
     .hover {
       display: none;
