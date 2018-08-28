@@ -10,7 +10,7 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --nav-bg-color: #f9f9fa;
   --nav-bg-color-active: #d6eefe;
 
-  --scrollbar-bg-color: transparent;
+  --scrollbar-bg-color: var(--main-bg-color);
   --scrollbar-color: rgba(0, 0, 0, 0.5);
   --scrollbar-color-hover: rgba(0, 0, 0, 0.6);
   --scrollbar-color-active: rgba(0, 0, 0, 0.8);
