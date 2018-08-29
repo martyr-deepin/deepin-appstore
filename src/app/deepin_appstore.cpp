@@ -24,7 +24,9 @@
 
 #include "base/consts.h"
 #include "resources/images.h"
+#include "resources/theme.h"
 #include "services/dbus_manager.h"
+#include "services/settings_manager.h"
 #include "services/rcc_scheme_handler.h"
 #include "ui/web_window.h"
 
@@ -77,6 +79,7 @@ int main(int argc, char** argv) {
 
   settings.setCustomSchemeHandler(dstore::RccSchemeHandler);
   settings.addCustomScheme(QUrl("rcc://web"));
+  settings.setBackgroundColor(dstore::BackgroundColor(dstore::GetThemeName()));
 
   if (QCefInit(argc, argv, settings) >= 0) {
     return 0;
@@ -88,7 +91,7 @@ int main(int argc, char** argv) {
     app.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);
   }
 
-  app.setTheme("light");
+  app.setTheme(dstore::GetThemeName());
   app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
   app.setWindowIcon(QIcon(dstore::kImageDeepinAppStore));
   app.setProductIcon(QIcon(dstore::kImageDeepinAppStore));
@@ -124,6 +127,7 @@ int main(int argc, char** argv) {
                      &window, &dstore::WebWindow::raiseWindow);
     QObject::connect(&dbus_manager, &dstore::DBusManager::showDetailRequested,
                      &window, &dstore::WebWindow::showAppDetail);
+
 
     window.loadPage();
     window.showWindow();

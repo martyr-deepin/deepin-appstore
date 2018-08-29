@@ -248,7 +248,6 @@ void WebWindow::initUI() {
   this->setFocusPolicy(Qt::ClickFocus);
 
   Dtk::Widget::DThemeManager::instance()->registerWidget(this->titlebar(), "DTitlebar");
-  Dtk::Widget::DThemeManager::instance()->setTheme(GetThemeName());
 }
 
 void WebWindow::initServices() {
