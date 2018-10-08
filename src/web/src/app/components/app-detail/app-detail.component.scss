@@ -111,7 +111,9 @@
 .selectable {
   user-select: text;
 }
-
+.pre {
+  white-space: pre-line;
+}
 .ad {
   width: 100%;
   height: 3rem;
