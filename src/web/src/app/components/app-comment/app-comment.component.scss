@@ -196,6 +196,7 @@
         max-height: 8rem;
         overflow: hidden;
         word-wrap: break-word;
+        user-select: text;
       }
       .like {
         display: flex;
@@ -223,8 +224,4 @@
   padding: 0.5rem 0;
   justify-content: space-between;
   align-items: center;
-}
-
-.selectable {
-  user-select: text;
 }
