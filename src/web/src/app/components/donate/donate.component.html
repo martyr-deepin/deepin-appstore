@@ -43,14 +43,14 @@
                        name="payment"
                        [(ngModel)]="payment"
                        [value]="Payment.WeChat">
-                <img src="/assets/icons/wechat.svg">
+                <img class="paymentIcon wechat">
               </label>
               <label>
                 <input type="radio"
                        name="payment"
                        [(ngModel)]="payment"
                        [value]="Payment.AliPay">
-                <img src="/assets/icons/alipay.svg">
+                <img class="paymentIcon alipay">
               </label>
               <br>
               <label>
@@ -58,7 +58,7 @@
                        name="payment"
                        [(ngModel)]="payment"
                        [value]="Payment.PayPal">
-                <img src="/assets/icons/paypal.svg">
+                <img class="paymentIcon paypal">
               </label>
             </div>
           </div>

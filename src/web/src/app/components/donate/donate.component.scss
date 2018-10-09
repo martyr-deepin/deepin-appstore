@@ -176,3 +176,16 @@ input::-webkit-inner-spin-button {
   height: 100%;
   align-content: center;
 }
+.paymentIcon {
+  width: 100px;
+  height: 28px;
+  &.wechat {
+    content: var(--wechat-icon);
+  }
+  &.alipay {
+    content: var(--alipay-icon);
+  }
+  &.paypal {
+    content: var(--paypal-icon);
+  }
+}

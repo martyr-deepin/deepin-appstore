@@ -34,6 +34,10 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --random-icon: url('/assets/buttons/light/random_normal.svg'),
     url('/assets/buttons/light/random_hover.svg'), url('/assets/buttons/light/random_press.svg');
 
+  --wechat-icon: url('/assets/icons/light/wechat.svg');
+  --alipay-icon: url('/assets/icons/light/alipay.svg');
+  --paypal-icon: url('/assets/icons/light/paypal.svg');
+
   @each $v in $control-button {
     --control-icon-#{$v}: url('/assets/buttons/light/#{$v}_normal.svg'),
       url('/assets/buttons/light/#{$v}_hover.svg'), url('/assets/buttons/light/#{$v}_press.svg'),
@@ -94,6 +98,10 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
     url('/assets/buttons/dark/down_hover.svg'), url('/assets/buttons/dark/down_press.svg');
   --random-icon: url('/assets/buttons/dark/random_normal.svg'),
     url('/assets/buttons/dark/random_hover.svg'), url('/assets/buttons/dark/random_press.svg');
+
+  --wechat-icon: url('/assets/icons/dark/wechat.svg');
+  --alipay-icon: url('/assets/icons/dark/alipay.svg');
+  --paypal-icon: url('/assets/icons/dark/paypal.svg');
 
   @each $v in $category-list {
     --nav-icon-#{$v}: url('/assets/icons/dark/#{$v}.svg'), url('/assets/icons/#{$v}_active.svg');
