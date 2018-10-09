@@ -47,20 +47,6 @@ button {
   font-weight: bold;
 }
 
-.close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: pointer;
-  $url: '/assets/buttons/close';
-  content: url($url+'_normal.svg');
-  &:hover {
-    content: url($url+'_hover.svg');
-  }
-  &:active {
-    content: url($url+'_press.svg');
-  }
-}
 .input-field {
   position: relative;
   .input-error {

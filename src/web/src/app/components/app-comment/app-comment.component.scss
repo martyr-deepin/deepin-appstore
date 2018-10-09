@@ -75,33 +75,22 @@
       width: 9px;
       height: 9px;
       margin-left: 0.5rem;
-      background-image: url($url+'_normal.svg');
+      background-repeat: no-repeat;
+      background-position-x: 0, 9px, 9px;
+      background-image: var(--down-icon);
     }
   }
   &:hover {
     .name:after {
-      background-image: url($url+'_hover.svg');
+      background-position-x: 9px, 0, 9px;
     }
   }
   &:active {
     .name:after {
-      background-image: url($url+'_press.svg');
+      background-position-x: 9px, 9px, 0;
     }
   }
 }
-.down {
-  width: 9px;
-  height: 9px;
-  $url: '/assets/buttons/down';
-  content: url($url+'_normal.svg');
-  &:hover {
-    content: url($url+'_hover.svg');
-  }
-  &:active {
-    content: url($url+'_press.svg');
-  }
-}
-
 .dropdown-menu {
   position: absolute;
   top: 2rem;

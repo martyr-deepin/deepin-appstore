@@ -94,6 +94,20 @@ dialog {
   body {
     background-color: red;
   }
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    $url: '/assets/buttons/close';
+    content: var(--dialog-close-icon);
+    &:hover {
+      content: url($url+'_hover.svg');
+    }
+    &:active {
+      content: url($url+'_press.svg');
+    }
+  }
 }
 img {
   cursor: pointer;

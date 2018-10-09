@@ -156,21 +156,6 @@ input::-webkit-inner-spin-button {
   line-height: 10rem;
 }
 
-.close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: pointer;
-  $url: '/assets/buttons/close';
-  content: url($url+'_normal.svg');
-  &:hover {
-    content: url($url+'_hover.svg');
-  }
-  &:active {
-    content: url($url+'_press.svg');
-  }
-}
-
 .loading {
   display: flex;
   height: 100%;

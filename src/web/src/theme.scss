@@ -33,6 +33,7 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
     url('/assets/buttons/light/down_hover.svg'), url('/assets/buttons/light/down_press.svg');
   --random-icon: url('/assets/buttons/light/random_normal.svg'),
     url('/assets/buttons/light/random_hover.svg'), url('/assets/buttons/light/random_press.svg');
+  --dialog-close-icon: url('/assets/buttons/light/close_light.svg');
 
   --wechat-icon: url('/assets/icons/light/wechat.svg');
   --alipay-icon: url('/assets/icons/light/alipay.svg');
@@ -98,6 +99,7 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
     url('/assets/buttons/dark/down_hover.svg'), url('/assets/buttons/dark/down_press.svg');
   --random-icon: url('/assets/buttons/dark/random_normal.svg'),
     url('/assets/buttons/dark/random_hover.svg'), url('/assets/buttons/dark/random_press.svg');
+  --dialog-close-icon: url('/assets/buttons/dark/close_dark.svg');
 
   --wechat-icon: url('/assets/icons/dark/wechat.svg');
   --alipay-icon: url('/assets/icons/dark/alipay.svg');
