@@ -15,7 +15,7 @@
         <target>Instalar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dstore-client.module/components/job-button/job-button.component.ts</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="c9039b1b13b3ef165b66b3c5d79f810ab1ebb050">
@@ -23,7 +23,7 @@
         <target>Abrir</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dstore-client.module/components/job-button/job-button.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="047f50bc5b5d17b5bec0196355953e1a5c590ddb">
@@ -31,7 +31,7 @@
         <target>Actualizar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dstore-client.module/components/job-button/job-button.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc">
@@ -164,7 +164,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="87b37a0f6e615a458d400a7e7f4e5d2a236738a2">
         <source><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> downloads</source>
-        <target><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/>descargas</target>
+        <target><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> descargas</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">45</context>
@@ -172,7 +172,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0a9b80ad236842efdae45b225724cfa85f9ef066">
         <source><x equiv-text="{{app.ratings}}" id="INTERPOLATION"/> ratings</source>
-        <target><x equiv-text="{{app.ratings}}" id="INTERPOLATION"/>valoraciones</target>
+        <target><x equiv-text="{{app.ratings}}" id="INTERPOLATION"/> valoraciones</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">47</context>
@@ -235,7 +235,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="0166106da9d18911cf205d22548b9f4d21008f3f">
@@ -272,7 +272,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="299e6603e5dafea1c29c20493f2b3aabaca8bc96">
         <source><x equiv-text="{{count}}" id="INTERPOLATION"/> applications</source>
-        <target><x equiv-text="{{count}}" id="INTERPOLATION"/>aplicaciones</target>
+        <target><x equiv-text="{{count}}" id="INTERPOLATION"/> aplicaciones</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -336,7 +336,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="19b8abc7295c02c42ca64ce3cac1112a95fc1936">
         <source><x equiv-text="{{$m}}" id="INTERPOLATION"/> min</source>
-        <target><x equiv-text="{{$m}}" id="INTERPOLATION"/>min</target>
+        <target><x equiv-text="{{$m}}" id="INTERPOLATION"/> min</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">37</context>
@@ -344,7 +344,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1d6e35c41ebf2987da0468d55073712041356849">
         <source><x equiv-text="{{$s}}" id="INTERPOLATION"/> sec</source>
-        <target><x equiv-text="{{$s}}" id="INTERPOLATION"/>sec</target>
+        <target><x equiv-text="{{$s}}" id="INTERPOLATION"/> sec</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">42</context>
@@ -469,15 +469,15 @@
         <target>Hogar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="c19df76e4d9f2ee2fec4aeca41fef6a087c8c542">
         <source>Rankings</source>
-        <target>Valoraciones</target>
+        <target>Populares</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/ranking/ranking.component.ts</context>
@@ -489,15 +489,15 @@
         <target>Internet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="5adf337be1ad12c915ae18012f1bfa1f2ca4628b">
         <source>Chat</source>
-        <target>Conversación</target>
+        <target>Mensajería</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="06a9c25174be5c4e9fca4e8b423410b1900d5a55">
@@ -505,7 +505,7 @@
         <target>Música </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="2d1ea268a6a9f483dbc2cbfe19bf4256a57a6af4">
@@ -513,7 +513,7 @@
         <target>Vídeo </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="b8685c2f51906a91fd8e282f25c7fd9b36b27c77">
@@ -521,7 +521,7 @@
         <target>Gráficos</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="0e6a93b6d39a899de3abb0cb10c51f19057fa547">
@@ -529,7 +529,7 @@
         <target>Juegos</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="1908513266d3ce2dc37135be38ac4baef11a3a0b">
@@ -537,7 +537,7 @@
         <target>Ofimática </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="440387abefa7c51156990554beb9f5f18576decb">
@@ -545,7 +545,7 @@
         <target>Lectura</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="7f3f6a4fb2545cacf800f0623582b6d41d1f8791">
@@ -553,7 +553,7 @@
         <target>Desarrollo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="8011e20c5bbe51602d459a860fbf29b599b55edd">
@@ -561,7 +561,7 @@
         <target>Sistema</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">123</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="2e77ab4db0c90cd71b6a0ef856724b21e4a53218">
@@ -569,15 +569,15 @@
         <target>Otros</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">132</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="dc75033a5238fdc4f462212c847a45ba8018a3fd">
         <source>Download</source>
-        <target>Descargar</target>
+        <target>Descarga</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee">
@@ -585,7 +585,7 @@
         <target>Desinstalar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="linenumber">141</context>
         </context-group>
         <note from="description" priority="1">Uninstall applications</note>
         <note from="meaning" priority="1">uninstall-app</note>
@@ -712,7 +712,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9a1bd0840d2c3901d359e4a58a9c73545b7e9598">
         <source>Current Version</source>
-        <target>Versión Actual</target>
+        <target>Versión actual</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">115</context>
@@ -720,7 +720,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9e5ce729ba1ff21c6bed9417bca2d16cd6b8e1fd">
         <source>History Versions</source>
-        <target>Historial de Versiones</target>
+        <target>Historial de versiones</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">120</context>
@@ -747,7 +747,7 @@
         <target>Volver al principio</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
-          <context context-type="linenumber">200</context>
+          <context context-type="linenumber">199</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="5e10bfec657136150ed6007533cc9574c66268ba">
@@ -765,22 +765,22 @@
         <target>No hay resultados de búsqueda</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="b4e38c85d29831ee687684eb315702a15b46bb09">
         <source>Welcome to
       <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
         <target>Bienvenido a
-<x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recomendadas<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>Esta aplicación</target>
+       <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recomiendan <x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>esta aplicación</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/search/search.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="8c9b06e0d7654df958e18a0ccf70b47edfb8ed62">
         <source>Recommend App</source>
-        <target>Aplicaciones recomendadas</target>
+        <target>Recomendar aplicación</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -860,7 +860,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6f5f4f9eeeacbc4b5aaf55a9a307c0cbcfa6f1f8">
         <source>Input No if no license is required</source>
-        <target>No se requiere licencia de entrada</target>
+        <target>Digite No si no necesita licencia</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">61</context>
@@ -1044,7 +1044,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="8de08a808857e4c16e239c7a661e05a5824e407a">
         <source><x equiv-text="{{total}}" id="INTERPOLATION"/> contributors</source>
-        <target><x equiv-text="{{total}}" id="INTERPOLATION"/>contribuyentes</target>
+        <target><x equiv-text="{{total}}" id="INTERPOLATION"/> contribuyentes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donors/donors.component.ts</context>
           <context context-type="linenumber">8</context>
@@ -1059,12 +1059,12 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="669bbc0f902d4018748d26cf8caab481c9cb3777">
-        <source>Donation Statement</source>
-        <target>Declaración de donación</target>
+      <trans-unit datatype="html" id="568c82e4dd743c0218ca10fb434e537a17a22d6c">
+        <source>Statement for Delivery and Donation</source>
+        <target>Declaración de entrega y donación</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -1083,7 +1083,7 @@
         <target>Aleatorio</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fb3545e97e371069768103e01599f35e789d556c">
@@ -1091,7 +1091,7 @@
         <target>Pago:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="53d20cc6953546db5373b1ae5a686aa655a715bb">
@@ -1099,23 +1099,23 @@
         <target>Pagar ahora</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="87c8bef501029e74fa6dd149dcad2d97a92ab762">
         <source>Payment Succeeded!</source>
-        <target>¡Pago exitoso!</target>
+        <target>¡Pago completado!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f">
         <source>WeChat Pay:</source>
-        <target>Paga WeChat:</target>
+        <target>Pago WeChat:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9a7fbae87a7ba66c7af0187ad47bd4de4b5cf336">
@@ -1123,7 +1123,7 @@
         <target>RMB ￥<x equiv-text="{{amount}}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="d6b9a958603b771efa6ec562f1411604c0089b79">
@@ -1131,11 +1131,11 @@
         <target>Pagando, espere...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">97</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="12ffbefb7d9b1b9b8e2e48d13ec42f3235ca8338">
@@ -1156,7 +1156,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a8961af16111ab2b84a767b39eb12002ddf6a61d">
         <source>Failed to download, please retry</source>
-        <target>No se pudo descargar, por favor, intenta de nuevo</target>
+        <target>Descarga fallida, intente de nuevo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -1164,7 +1164,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="3115c600b33759a741314adeba4d9498304691d6">
         <source>Failed to install, dpkg error</source>
-        <target>Error al instalar, error dpkg</target>
+        <target>Instalación fallida, error dpkg</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">9</context>
@@ -1172,7 +1172,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="79d1d2b0411af9ecb4539c544f486531eae2dfaa">
         <source>Failed to install, unmet dependencies</source>
-        <target>Error al instalar, dependencias no satisfechas</target>
+        <target>Instalación fallida, dependencias insatisfechas</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -1180,7 +1180,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9355e83c7966d65637ae359cbe731471f659853e">
         <source>Failed to install, insufficient space, please clean and retry</source>
-        <target>Error al instalar, espacio insuficiente, limpie y vuelva a intentar</target>
+        <target>Instalación fallida por falta de espacio, limpie y vuelva a intentar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/store-job-error/store-job-error.component.ts</context>
           <context context-type="linenumber">13</context>

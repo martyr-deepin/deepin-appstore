@@ -2,16 +2,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="100"/>
-        <source>Deepin Store</source>
-        <translation>Botiga Deepin</translation>
-    </message>
-    <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="101"/>
-        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>La Botiga del Deepin és una botiga d&apos;aplicacions rica de contingut i de qualitat. Disposa de recomanacions, aplicacions actualitzades i temes destacats. Admet la baixada, la instal·lació, l&apos;actualització, la desinstal·lació, etc., amb només un sol clic.</translation>
-    </message>
-    <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
@@ -23,38 +13,43 @@
         <translation>Cerca</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="51"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="47"/>
         <source>Sign Out</source>
         <translation>Surt</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="49"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="78"/>
         <source>Sign In</source>
         <translation>Entra</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="117"/>
+        <source>Dark Theme</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>Recommend App</source>
         <translation>Aplicació recomanada</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="91"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>
         <source>Select Region</source>
         <translation>Seleccioneu la regió</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="97"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="94"/>
         <source>China</source>
         <translation>Xina</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="96"/>
         <source>International</source>
         <translation>Internacional</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="116"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="113"/>
         <source>Clear Cache</source>
         <translation>Neteja la cau</translation>
     </message>

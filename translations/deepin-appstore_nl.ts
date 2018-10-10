@@ -1,93 +1,93 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="hr" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl" version="2.1">
 <context>
     <name>QObject</name>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>Traži &quot;%1&quot;u Deepin trgovini</translation>
+        <translation>Zoek &quot;%1&quot; in de Deepin Winkel</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
         <source>Search</source>
-        <translation>Traži</translation>
+        <translation>Zoeken</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="47"/>
         <source>Sign Out</source>
-        <translation>Odjava</translation>
+        <translation>Uitloggen</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="49"/>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="78"/>
         <source>Sign In</source>
-        <translation>Prijava</translation>
+        <translation>Inloggen</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="117"/>
         <source>Dark Theme</source>
-        <translation type="unfinished"/>
+        <translation>Donker thema</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>Recommend App</source>
-        <translation>Preporučena aplikacija</translation>
+        <translation>Aanbevolen app</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>
         <source>Select Region</source>
-        <translation>Odaberi regiju</translation>
+        <translation>Regio kiezen</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="94"/>
         <source>China</source>
-        <translation>Kina</translation>
+        <translation>China</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="96"/>
         <source>International</source>
-        <translation>Međunarodno</translation>
+        <translation>Internationaal</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="113"/>
         <source>Clear Cache</source>
-        <translation type="unfinished"/>
+        <translation>Cache opschonen</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
         <source>Undo</source>
-        <translation type="unfinished"/>
+        <translation>Ongedaan maken</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="78"/>
         <source>Redo</source>
-        <translation type="unfinished"/>
+        <translation>Opnieuw</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="84"/>
         <source>Cut</source>
-        <translation>Izreži</translation>
+        <translation>Knippen</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="89"/>
         <location filename="../src/ui/web_event_delegate.cpp" line="113"/>
         <source>Copy</source>
-        <translation>Kopiraj</translation>
+        <translation>Kopiëren</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="94"/>
         <source>Paste</source>
-        <translation>Zalijepi</translation>
+        <translation>Plakken</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="99"/>
         <source>Delete</source>
-        <translation>Izbriši</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="105"/>
         <source>Select all</source>
-        <translation>Odaberi sve</translation>
+        <translation>Alles selecteren</translation>
     </message>
 </context>
 </TS>

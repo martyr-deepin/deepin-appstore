@@ -2,16 +2,6 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="100"/>
-        <source>Deepin Store</source>
-        <translation>Deepin Mağazası</translation>
-    </message>
-    <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="101"/>
-        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Deepin Mağazası, kaliteli ve zengin uygulamalara sahip bir uygulama mağazasıdır. Beğenilen uygulamalar öneriler, yeni güncellenmiş uygulamalar ve güncel uygulama konuları içerir. İndirme, kurma, güncelleme, kaldırma gibi işlemlerin tek tıkla yapılmasını sağlar.</translation>
-    </message>
-    <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
@@ -23,38 +13,43 @@
         <translation>Ara</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="51"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="47"/>
         <source>Sign Out</source>
         <translation>Oturumu Kapat</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="53"/>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="81"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="49"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="78"/>
         <source>Sign In</source>
         <translation>Oturum Aç</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="85"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="117"/>
+        <source>Dark Theme</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>Recommend App</source>
         <translation>Uygulama Öner</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="91"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>
         <source>Select Region</source>
         <translation>Bölge Seçin</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="97"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="94"/>
         <source>China</source>
         <translation>Çin</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="96"/>
         <source>International</source>
         <translation>Uluslararası</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="116"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="113"/>
         <source>Clear Cache</source>
         <translation>Ön Belleği Temizle</translation>
     </message>
