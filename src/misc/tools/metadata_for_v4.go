@@ -115,8 +115,31 @@ type ScreenShot struct {
 	Src  string `json:"src"`
 }
 
+type DownloadInfo struct {
+	AppName string `json:"appName"`
+	Count   int    `json:"count"`
+}
+
+type RankResult struct {
+	List [](*DownloadInfo) `json:"downloadCount"`
+}
+
 func main() {
-	data, err := ioutil.ReadFile("app.json")
+	data, err := ioutil.ReadFile("appstat.json")
+	if nil != err {
+		log.Print("Red json failed", err)
+		os.Exit(1)
+	}
+
+	rankResult := RankResult{}
+	err = json.Unmarshal(data, &rankResult)
+	if nil != err {
+		log.Print("parse json failed", err)
+		os.Exit(1)
+	}
+	downloadList := rankResult.List
+
+	data, err = ioutil.ReadFile("app.json")
 	if nil != err {
 		log.Print("Red json failed", err)
 		os.Exit(1)
@@ -128,6 +151,19 @@ func main() {
 		os.Exit(1)
 	}
 
+	appMap := map[string]*AppBody{}
+	for _, app := range result.Apps {
+		appMap[app.Name] = app
+	}
+	for idx, item := range downloadList {
+		body, ok := appMap[item.AppName]
+		if !ok {
+			fmt.Printf("%v,%v,%v,%v,%v\n", idx, item.AppName, item.Count, "NULL", "NULL")
+		} else {
+			fmt.Printf("%v,%v,%v,%v,%v\n", idx, item.AppName, item.Count, body.Category, body.LocaleDetail["zh_CN"].Description.Name)
+		}
+	}
+	return
 	for _, app := range result.Apps {
 		locale := app.LocaleDetail
 		if len(locale) <= 0 {
