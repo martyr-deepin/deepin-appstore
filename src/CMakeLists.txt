@@ -212,7 +212,14 @@ add_executable(deepin-appstore
 	       ${SERVICES_FILES}
 	       ${UI_FILES}
 	       )
-target_link_libraries(deepin-appstore ${LINK_LIBS})
+
+
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_INSTALL_RPATH "${LibQCef_LIBDIR}/qcef")
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set_target_properties(deepin-appstore PROPERTIES INSTALL_RPATH "${LibQCef_LIBDIR}/qcef")
+target_link_libraries(deepin-appstore ${LibQCef_LIBDIR}/qcef/libcef.so ${LINK_LIBS})
 if (CMAKE_BUILD_TYPE MATCHES Release)
   add_dependencies(deepin-appstore
                    update-qm
