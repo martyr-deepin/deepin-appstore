@@ -179,10 +179,19 @@ qt5_add_translation(DMAN_TRANSLATION_QM ${DMAN_TRANSLATION_TS})
 add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 
 # Update angular dist/. Works on x86 based platforms.
-add_custom_command(OUTPUT npm-update-web-dist
-                   COMMAND sh -c "PATH=./node_modules/.bin:$PATH npm run build"
-                   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
-                   VERBATIM)
+if(BUILD_WEB_RESOURCES)
+  add_custom_command(OUTPUT npm-update-web-dist
+                     COMMAND sh -c
+                             "PATH=./node_modules/.bin:$PATH npm run build"
+                     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
+                     VERBATIM)
+else()
+  add_custom_command(OUTPUT npm-update-web-dist
+                     COMMAND sh -c "mkdir web_dist"
+                     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+                     VERBATIM)
+endif()
+
 add_custom_target(update-web-dist DEPENDS npm-update-web-dist)
 
 add_executable(deepin-appstore
@@ -203,12 +212,7 @@ target_link_libraries(deepin-appstore ${LibQCef_LIBDIR}/qcef/libcef.so
                       ${LINK_LIBS})
 
 if(CMAKE_BUILD_TYPE MATCHES Release)
-  add_dependencies(deepin-appstore update-qm)
-
-  if(BUILD_WEB_RESOURCES)
-    add_dependencies(deepin-appstore update-web-dist)
-  endif()
-
+  add_dependencies(deepin-appstore update-qm update-web-dist)
 endif()
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)

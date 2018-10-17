@@ -32,5 +32,6 @@ Description: Deepin App Store
 
 Package: deepin-appstore-data
 Architecture: all
+Replaces: deepin-appstore ( <= 5.0.2.6+r39 )
 Description: Deepin App Store web data
  Deepin App Store web data, build from npm
