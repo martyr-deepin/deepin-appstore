@@ -6,8 +6,13 @@ export QT_SELECT=qt5
 %:
 	dh $@  --parallel
 
+ifeq ($(DEB_BUILD_ARCH), amd64)
 override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON
+else
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON -DBUILD_WEB_RESOURCES=OFF
+endif
 
 override_dh_auto_build:
 ifneq (,$(wildcard .git/config))

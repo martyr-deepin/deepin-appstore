@@ -25,6 +25,12 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  lastore-daemon (>=0.9.62),
  libqt5dbus5,
  libqt5sql5-sqlite,
+ deepin-appstore-data
 Replaces: dstore-client
 Description: Deepin App Store
  Deepin App Store Client.
+
+Package: deepin-appstore-data
+Architecture: all
+Description: Deepin App Store web data
+ Deepin App Store web data, build from npm
