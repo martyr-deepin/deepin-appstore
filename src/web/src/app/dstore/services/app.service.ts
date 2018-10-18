@@ -63,11 +63,45 @@ export class AppService {
       } else {
         app.localInfo = Object.values(app.locale).find(l => Boolean(l.description.name));
       }
-      app.localInfo.images = defaults(
-        {},
-        app.localInfo.images,
-        ...Object.values(app.locale).map(locale => locale.images),
-      );
+      // 填充图片
+      if (!app.localInfo.images.cover) {
+        const l = Object.values(app.locale).find(
+          locale => Boolean(locale.images) && Boolean(locale.images.cover),
+        );
+        if (l) {
+          app.localInfo.images.cover = l.images.cover;
+        }
+      }
+      if (!app.localInfo.images.coverHD) {
+        const l = Object.values(app.locale).find(
+          locale => Boolean(locale.images) && Boolean(locale.images.coverHD),
+        );
+        if (l) {
+          app.localInfo.images.cover = l.images.cover;
+        }
+      }
+      if (!app.localInfo.images.screenshot || app.localInfo.images.screenshot.length === 0) {
+        const l = Object.values(app.locale).find(
+          locale =>
+            Boolean(locale.images) &&
+            Boolean(locale.images.screenshot) &&
+            locale.images.screenshot.length > 0,
+        );
+        if (l) {
+          app.localInfo.images.screenshot = l.images.screenshot;
+        }
+      }
+      if (!app.localInfo.images.screenshotHD || app.localInfo.images.screenshotHD.length === 0) {
+        const l = Object.values(app.locale).find(
+          locale =>
+            Boolean(locale.images) &&
+            Boolean(locale.images.screenshotHD) &&
+            locale.images.screenshotHD.length > 0,
+        );
+        if (l) {
+          app.localInfo.images.screenshotHD = l.images.screenshotHD;
+        }
+      }
     });
     return appMap;
   }
