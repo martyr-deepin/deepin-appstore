@@ -5,7 +5,7 @@
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>Cerca &quot;%s&quot; a la Botiga del Deepin</translation>
+        <translation>Cerca &quot;%1&quot; a la Botiga del Deepin</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="117"/>
         <source>Dark Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tema fosc</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
@@ -88,6 +88,16 @@
         <location filename="../src/ui/web_event_delegate.cpp" line="105"/>
         <source>Select all</source>
         <translation>Selecciona-ho tot</translation>
+    </message>
+    <message>
+        <location filename="../src/app/deepin_appstore.cpp" line="103"/>
+        <source>Deepin Store</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/app/deepin_appstore.cpp" line="104"/>
+        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

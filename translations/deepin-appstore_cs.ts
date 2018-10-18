@@ -89,5 +89,15 @@
         <source>Select all</source>
         <translation>Vybrat vše</translation>
     </message>
+    <message>
+        <location filename="../src/app/deepin_appstore.cpp" line="103"/>
+        <source>Deepin Store</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/app/deepin_appstore.cpp" line="104"/>
+        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 </TS>

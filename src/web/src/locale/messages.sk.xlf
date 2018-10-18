@@ -1,5 +1,4 @@
-<?xml version="1.0" ?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="sk">
     <body>
       <trans-unit datatype="html" id="ac0f81713a84217c9bd1d9bb460245d8190b073f">
@@ -240,7 +239,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0166106da9d18911cf205d22548b9f4d21008f3f">
         <source>It's in adjustment, you can return to</source>
-        <target>It's in adjustment, you can return to</target>
+        <target>Je to nastavenie, do ktorého sa môžete vrátiť</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">103</context>
@@ -288,7 +287,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="822fab38216f64e8166d368b59fe756ca39d301b">
         <source>Downloads</source>
-        <target>Downloads</target>
+        <target>K stiahnutiu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-title/app-title.component.ts</context>
           <context context-type="linenumber">19</context>
@@ -320,7 +319,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="aa89c1f96de1bc2fe9a7fdb44604986a29924255">
         <source>{VAR_PLURAL, plural, =0 {task} =1 {task} other {tasks} }</source>
-        <target>{VAR_PLURAL, plural, =0 {task} =1 {task} other {tasks} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.ts</context>
           <context context-type="linenumber">10</context>
@@ -395,9 +393,9 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
-        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
+        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> nainštalované
+        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> nainštalované
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
@@ -406,7 +404,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="6c63a654764bea61f724f20116943ca5d84b2eb1">
         <source>{VAR_PLURAL, plural, =0 {application} =1 {application} other {applications} }</source>
-        <target>{VAR_PLURAL, plural, =0 {application} =1 {application} other {applications} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -542,7 +539,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="440387abefa7c51156990554beb9f5f18576decb">
         <source>Reading</source>
-        <target>Reading</target>
+        <target>Čítanie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
           <context context-type="linenumber">95</context>
@@ -574,7 +571,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="dc75033a5238fdc4f462212c847a45ba8018a3fd">
         <source>Download</source>
-        <target>Download</target>
+        <target>Stiahnuť</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.ts</context>
           <context context-type="linenumber">130</context>
@@ -592,7 +589,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="980bde1b7ff971daf68b8bf06d947e09c062ad86">
         <source>Please post a comment after signed in</source>
-        <target>Please post a comment after signed in</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">4</context>
@@ -600,7 +596,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="28629af803ab8b5f6e995b17d486e6a1527e2a96">
         <source>Sign Up</source>
-        <target>Sign Up</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-comment/app-comment.component.ts</context>
           <context context-type="linenumber">6</context>
@@ -804,7 +799,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="52e863ce1221c2ed25dd2c31dfdc25fcbe86a945">
         <source>Official name cannot be empty</source>
-        <target>Official name cannot be empty</target>
+        <target>Oficiálny názov nesmie byť prázdny</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">24</context>
@@ -860,7 +855,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="6f5f4f9eeeacbc4b5aaf55a9a307c0cbcfa6f1f8">
         <source>Input No if no license is required</source>
-        <target>Input No if no license is required</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">61</context>
@@ -908,7 +902,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="b07b1257a5086e577ec5b97b2143922e60578364">
         <source>Download Site:</source>
-        <target>Download Site:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">96</context>
@@ -924,7 +917,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="34f5d5789f634f199341deaa49cee0650c6fdec8">
         <source>Download Site cannot be empty</source>
-        <target>Download Site cannot be empty</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">110</context>
@@ -932,7 +924,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="4f6a0916ec15413acb423f0a6e9253f082927ed6">
         <source>Download Site is not a correct format</source>
-        <target>Download Site is not a correct format</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.ts</context>
           <context context-type="linenumber">113</context>
@@ -972,7 +963,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="b9757ef0fc7afb5e0e6499cb459ed8d086c8dea1">
         <source>Sorry, connection failed, please check your network and refresh</source>
-        <target>Sorry, connection failed, please check your network and refresh</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/wait/wait.component.ts</context>
           <context context-type="linenumber">17</context>
@@ -996,7 +986,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="7adf474dce2df967c3c8a4f03627e51c3930de14">
         <source>Urge successfully</source>
-        <target>Urge successfully</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">14</context>
@@ -1020,7 +1009,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="91b4e447c0ebefd9b2e867ee923998b825219b9c">
         <source>Urge failed</source>
-        <target>Urge failed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.ts</context>
           <context context-type="linenumber">26</context>
@@ -1064,7 +1052,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="568c82e4dd743c0218ca10fb434e537a17a22d6c">
         <source>Statement for Delivery and Donation</source>
-        <target>Statement for Delivery and Donation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">7</context>
@@ -1072,7 +1059,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="91ce116be6e8df104128f339912c9207f01265cd">
         <source>Amount:</source>
-        <target>Amount:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">26</context>

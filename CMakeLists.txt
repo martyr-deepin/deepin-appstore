@@ -4,7 +4,7 @@ project(deepin-appstore)
 add_subdirectory(src)
 
 add_custom_command(OUTPUT update-qt-i18n
-    COMMAND lupdate -recursive -I src/app src/ui -ts translations/deepin-appstore.ts
+    COMMAND lupdate -recursive src/app src/ui -ts translations/deepin-appstore.ts
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
 add_custom_command(OUTPUT update-web-i18n

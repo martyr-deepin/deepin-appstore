@@ -89,5 +89,15 @@
         <source>Select all</source>
         <translation>全选</translation>
     </message>
+    <message>
+        <location filename="../src/app/deepin_appstore.cpp" line="103"/>
+        <source>Deepin Store</source>
+        <translation>深度商店</translation>
+    </message>
+    <message>
+        <location filename="../src/app/deepin_appstore.cpp" line="104"/>
+        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
+        <translation>深度商店是一款品质精良、内容丰富的应用商店。精选热门推荐、新品应用和专题介绍。支持一键式下载安装、更新、卸载等功能。</translation>
+    </message>
 </context>
 </TS>

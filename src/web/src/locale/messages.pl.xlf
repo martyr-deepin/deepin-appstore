@@ -1,5 +1,4 @@
-<?xml version="1.0" ?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="pl">
     <body>
       <trans-unit datatype="html" id="ac0f81713a84217c9bd1d9bb460245d8190b073f">
@@ -164,7 +163,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="87b37a0f6e615a458d400a7e7f4e5d2a236738a2">
         <source><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> downloads</source>
-        <target><x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> pobrań</target>
+        <target> <x equiv-text="{{app.downloads}}" id="INTERPOLATION"/> pobrań</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-detail/app-detail.component.ts</context>
           <context context-type="linenumber">45</context>
@@ -395,9 +394,9 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="74cc36a0738996071f407928b1e2dbae2a2bf95c">
-        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
+        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed
     </source>
-        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> zainstalowano
+        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> zainstalowano
     </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.ts</context>
@@ -1064,7 +1063,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="568c82e4dd743c0218ca10fb434e537a17a22d6c">
         <source>Statement for Delivery and Donation</source>
-        <target>Statement for Delivery and Donation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/donate/donate.component.ts</context>
           <context context-type="linenumber">7</context>
