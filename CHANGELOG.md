@@ -1,3 +1,14 @@
+<a name="5.1.0.1"></a>
+## 5.1.0.1 (2018-10-18)
+
+
+#### Bug Fixes
+
+*   image fill ([8f1953cf](https://github.com/linuxdeepin/deepin-appstore/commit/8f1953cfaf28d15e6565f9d814363e5c06fdca73))
+*   lupdate args error ([dda1617a](https://github.com/linuxdeepin/deepin-appstore/commit/dda1617a8811c1ad38e268fea8b332c1b2872410))
+
+
+
 <a name="5.1.0.0"></a>
 ## 5.1.0.0 (2018-10-18)
 
