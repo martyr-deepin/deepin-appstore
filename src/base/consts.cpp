@@ -20,7 +20,6 @@
 namespace dstore {
 
 const char kAppName[] = "deepin-appstore";
-const char kAppVersion[] = "5.0.2.2";
 
 #ifndef NDEBUG
 const char kIndexPage[] = "http://localhost:4200";

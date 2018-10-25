@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
   app.setProductIcon(QIcon(dstore::kImageDeepinAppStore));
   app.setOrganizationName("deepin");
   app.setOrganizationDomain("deepin.org");
-  app.setApplicationVersion(dstore::kAppVersion);
+  app.setApplicationVersion(Dtk::Widget::DApplication::buildVersion("5.0.0.0"));
   app.setApplicationName(dstore::kAppName);
   app.loadTranslator();
   app.setApplicationDisplayName(QObject::tr("Deepin Store"));

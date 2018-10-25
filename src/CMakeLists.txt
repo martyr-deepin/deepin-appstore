@@ -13,6 +13,10 @@ else()
     -DSETTINGS_FILE="${CMAKE_CURRENT_SOURCE_DIR}/resources/settings.ini")
 endif()
 
+if (CONFIG_VERSION)
+  add_definitions(-DVERSION=${CONFIG_VERSION})
+endif()
+
 add_subdirectory(dbus)
 add_subdirectory(resources)
 

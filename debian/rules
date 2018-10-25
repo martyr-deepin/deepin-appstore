@@ -3,15 +3,19 @@
 export DH_VERBOSE=1
 export QT_SELECT=qt5
 
+VERSION = $(shell dpkg-parsechangelog -ldebian/changelog -SVersion | sed 's/.*.is.//g')
+_PACK_VER = $(shell echo $(VERSION) | awk -F'[+_~-]' '{print $$1}')
+CONFIG_VERSION = $(_PACK_VER)
+
 %:
 	dh $@  --parallel
 
 ifeq ($(DEB_BUILD_ARCH), amd64)
 override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON -DCONFIG_VERSION=$(CONFIG_VERSION)
 else
 override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON -DBUILD_WEB_RESOURCES=OFF
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON -DBUILD_WEB_RESOURCES=OFF -DCONFIG_VERSION=$(CONFIG_VERSION)
 endif
 
 override_dh_auto_build:
