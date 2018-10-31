@@ -40,7 +40,8 @@ Requirements: The author should be the original personal developer or developer 
 
 ## How to be a packager?
 
-At present, the automatic packaging channel is not open. To be a packager, please provide the package and the metadata in personal platform: https://dstore-metadata.deepin.cn according to the requirements of Deepin Store, and then contact appstore@deepin.com with deepin ID, Github ID, project address, introduction, email and author info. Deepin team will keep contact with you. When the packaging channel is officially open, there will be a notice in community.
+At present, the automatic packaging channel is not open. To be a packager, please provide the package and the metadata in personal platform: https://dstore-metadata.deepin.cn according to the requirements of Deepin Store, and then contact appstore@deepin.com with deepin ID, Github ID, project address, package name, introduction, email and author info. Deepin team will keep contact with you. When the packaging channel is officially open, there will be a notice in community.
+(Note: The package name should be unique. For example, dde plugin: dde-\*\*\*-plugin; the application: \*\*\*-music, \*\*\*-movie; icon theme: \*\*\*-icon-theme; gtk theme: gtk-theme-\*\*\*.)
 After becoming a packager of a certain app, when the source app is updated, the packager must package and update the app in Deepin Store within one week. If there are three times of delays, or an update is delayed for more than two weeks, the packager will have no permission on the app any longer, and the subsequent donation will no longer belong to the packager.
 If the original author provides a qualified package, or there is already a qualified packager, we will not accept a new packager for that app. Application in flatpak format is in priority, so if the app does not have a flatpak package, the packager that delivers it in flatpak format will be accepted.
 
