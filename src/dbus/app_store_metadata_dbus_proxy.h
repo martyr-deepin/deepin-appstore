@@ -22,23 +22,26 @@
 
 #include "dbus/dbus_variant/app_metadata.h"
 
-namespace dstore {
+namespace dstore
+{
 
 class MetadataManager;
 
-class AppStoreMetadataDbusProxy : public QObject {
-  Q_OBJECT
- public:
-  explicit AppStoreMetadataDbusProxy(QObject* parent = nullptr);
-  ~AppStoreMetadataDbusProxy() override;
+class AppStoreMetadataDbusProxy : public QObject
+{
+    Q_OBJECT
+    Q_CLASSINFO("D-Bus Interface", "com.deepin.AppStore")
+public:
+    explicit AppStoreMetadataDbusProxy(QObject *parent = nullptr);
+    ~AppStoreMetadataDbusProxy() override;
 
- public slots:
-  QString GetAppIcon(const QString& app_name);
-  AppMetadata GetAppMetadata(const QString& app_name);
-  void OpenApp(const QString& app_name);
+public slots:
+    Q_SCRIPTABLE QString GetAppIcon(const QString &app_name);
+    Q_SCRIPTABLE QString GetAppMetadataList(const QStringList &app_name_list);
+    Q_SCRIPTABLE void OpenApp(const QString &app_name);
 
- private:
-  MetadataManager* manager_ = nullptr;
+private:
+    MetadataManager *manager_ = nullptr;
 };
 
 }  // namespace dstore

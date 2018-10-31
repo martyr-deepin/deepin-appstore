@@ -37,10 +37,9 @@ QString AppStoreMetadataDbusProxy::GetAppIcon(const QString& app_name) {
   return manager_->getAppIcon(app_name);
 }
 
-AppMetadata AppStoreMetadataDbusProxy::GetAppMetadata(const QString& app_name) {
-  AppMetadata metadata;
-  manager_->getAppMetadata(app_name, metadata);
-  return metadata;
+QString AppStoreMetadataDbusProxy::GetAppMetadataList(const QStringList &app_name_list)
+{
+    return manager_->getAppMetadataList(app_name_list);
 }
 
 void AppStoreMetadataDbusProxy::OpenApp(const QString& app_name) {

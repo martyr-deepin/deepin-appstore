@@ -13,7 +13,7 @@ else()
     -DSETTINGS_FILE="${CMAKE_CURRENT_SOURCE_DIR}/resources/settings.ini")
 endif()
 
-if (CONFIG_VERSION)
+if(CONFIG_VERSION)
   add_definitions(-DVERSION=${CONFIG_VERSION})
 endif()
 
@@ -238,8 +238,6 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
                  app/test_image_viewer.cpp
                  base/file_util.cpp
                  base/file_util.h
-                 ui/utils/theme_manager.cpp
-                 ui/utils/theme_manager.h
                  ui/widgets/image_viewer.cpp
                  ui/widgets/image_viewer.h
                  resources/themes/themes.qrc)

@@ -20,18 +20,18 @@
 #include <QDebug>
 
 #include "dbus/dbus_consts.h"
-#include "dbus/app_store_metadata_dbus_adapter.h"
 #include "dbus/app_store_metadata_dbus_proxy.h"
 
 int main(int argc, char** argv) {
   QCoreApplication app(argc, argv);
 
   dstore::AppStoreMetadataDbusProxy proxy;
-  AppStoreMetadataDBusAdapter adapter(&proxy);
 
   QDBusConnection conn = QDBusConnection::sessionBus();
   if (!conn.registerService(dstore::kAppStoreMetadataDbusService) ||
-      !conn.registerObject(dstore::kAppStoreMetadataDbusPath, &proxy)) {
+      !conn.registerObject(dstore::kAppStoreMetadataDbusPath,
+       &proxy,
+       QDBusConnection::ExportScriptableContents)) {
     qCritical() << "Failed to register dbus service";
     return 1;
   }
