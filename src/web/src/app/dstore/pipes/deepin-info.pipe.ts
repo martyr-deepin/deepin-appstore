@@ -4,7 +4,7 @@ import { environment } from 'environments/environment';
 import { chunk } from 'lodash';
 
 import { Observable, Subject, forkJoin } from 'rxjs';
-import { map, debounceTime, switchMap, first, share, scan } from 'rxjs/operators';
+import { map, debounceTime, switchMap, first, share, reduce } from 'rxjs/operators';
 
 export interface DeepinInfo {
   uid: number;
@@ -24,7 +24,7 @@ export class DeepinInfoPipe implements PipeTransform {
   constructor(private http: HttpClient) {
     // 多次查询转为单次批量查询
     this.result = this.buffer.pipe(
-      scan((acc, uid) => acc.concat(uid), [] as number[]),
+      reduce((acc: number[], value: number) => [...acc, value], []),
       debounceTime(10),
       switchMap(list => this.getDeepinInfo(...list)),
       share(),

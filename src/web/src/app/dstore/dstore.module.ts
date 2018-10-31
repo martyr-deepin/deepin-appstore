@@ -8,7 +8,6 @@ import { ClientModule } from '../dstore-client.module/client.module';
 import { AppService } from './services/app.service';
 import { CategoryService } from './services/category.service';
 import { DownloadingService } from './services/downloading.service';
-import { MaterializeService } from './services/materialize.service';
 
 import { TitleComponent } from './components/title/title.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
@@ -19,12 +18,6 @@ import { TopicComponent } from './components/topic/topic.component';
 import { IconComponent } from './components/icon/icon.component';
 import { AssembleComponent } from './components/assemble/assemble.component';
 
-import { AppNavComponent } from './web-components/app-nav/app-nav.component';
-import { AppPagingComponent } from './web-components/app-paging/app-paging.component';
-import { DstorePagingComponent } from './web-components/dstore-paging/dstore-paging.component';
-import { AppSearchComponent } from './web-components/app-search/app-search.component';
-import { ImageUploadComponent } from './web-components/image-upload/image-upload.component';
-import { ProgressComponent } from './web-components/progress/progress.component';
 import { StarComponent } from './widget/star/star.component';
 import { IndicationComponent } from './widget/indication/indication.component';
 
@@ -52,7 +45,7 @@ import { IconPipe } from './pipes/icon.pipe';
     ReactiveFormsModule,
     ClientModule,
   ],
-  providers: [AppService, CategoryService, DownloadingService, MaterializeService],
+  providers: [AppService, CategoryService, DownloadingService],
   declarations: [
     TitleComponent,
     CarouselComponent,
@@ -61,25 +54,19 @@ import { IconPipe } from './pipes/icon.pipe';
     PhraseComponent,
     TopicComponent,
     IconComponent,
-    AppNavComponent,
-    AppPagingComponent,
-    AppSearchComponent,
     AssembleComponent,
-    ImageUploadComponent,
     DevPipe,
     AppInfoPipe,
     AppSearchPipe,
     FitLanguage,
     FitImage,
     SizeHuman,
-    ProgressComponent,
     StarComponent,
     IndicationComponent,
     HoverDirective,
     ChunkPipe,
     RangePipe,
     SanitizerPipe,
-    DstorePagingComponent,
     DeepinInfoPipe,
     StopDirective,
     IconPipe,
@@ -92,13 +79,7 @@ import { IconPipe } from './pipes/icon.pipe';
     PhraseComponent,
     TopicComponent,
     IconComponent,
-    AppNavComponent,
-    AppPagingComponent,
-    DstorePagingComponent,
-    AppSearchComponent,
     AssembleComponent,
-    ImageUploadComponent,
-    ProgressComponent,
     StarComponent,
     IndicationComponent,
     HoverDirective,

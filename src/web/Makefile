@@ -6,15 +6,15 @@ build: app
 app: web create-docker release-docker
 
 web: prepare-node-image
-	sudo docker run --rm -v $(CURDIR):/src -w /src node:8 \
+	sudo docker run --rm -v $(CURDIR):/src -w /src node:10 \
 		./node_modules/.bin/ng build --configuration=production \
 		--output-path=./deploy/dist/china --base-href /china/ --deploy-url /china/
-	sudo docker run --rm -v $(CURDIR):/src -w /src node:8 \
+	sudo docker run --rm -v $(CURDIR):/src -w /src node:10 \
 		./node_modules/.bin/ng build --configuration=international \
 		--output-path=./deploy/dist/international --base-href /international/ --deploy-url /international/
 
 prepare-node-image:
-	sudo docker pull node:8
+	sudo docker pull node:10
 
 # Create docker image
 create-docker: prepare-nginx-image rm-docker

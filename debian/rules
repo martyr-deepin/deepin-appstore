@@ -23,9 +23,7 @@ ifneq (,$(wildcard .git/config))
 	git submodule update --init --recursive
 	git submodule update --remote
 else
-	rm -rf src/web/node_modules
-	git clone -b deepin-appstore https://cr.deepin.io/vendor-deps src/web/node_modules
-
-	rm -rf src/web/src/app/dstore-client.module
-	git clone -b client https://cr.deepin.io/dstore-web-components src/web/src/app/dstore-client.module
+	rm -rf src/web/node_modules src/web/vendor-deps
+	git clone -b deepin-appstore https://cr.deepin.io/vendor-deps src/web/vendor-deps
+	cd src/web; ln -s vendor-deps/node_modules node_modules
 endif

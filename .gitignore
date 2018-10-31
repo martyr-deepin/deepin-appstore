@@ -9,6 +9,9 @@ build/
 debian/files
 debian/*.log
 debian/*.substvars
+debian/tmp
 debian/deepin-appstore
+debian/deepin-appstore-data
 debian/debhelper-build-stamp
 debian/.debhelper/
+src/web_dist

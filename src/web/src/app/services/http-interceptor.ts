@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, flatMap, map, tap, switchMap, take } from 'rxjs/operators';
 
-import { MaterializeService } from '../dstore/services/materialize.service';
 import { LoginService } from '../services/login.service';
 import { AuthService } from '../services/auth.service';
 

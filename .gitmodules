@@ -1,4 +1,4 @@
-[submodule "src/web/node_modules"]
-	path = src/web/node_modules
+[submodule "src/web/vendor-deps"]
+	path = src/web/vendor-deps
 	url = https://cr.deepin.io/vendor-deps
 	branch = deepin-appstore

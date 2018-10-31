@@ -2,9 +2,10 @@
 
 # compiled output
 /dist
-/dist-server
 /tmp
 /out-tsc
+
+# dependencies
 
 # IDEs and editors
 /.idea
@@ -28,12 +29,9 @@
 /coverage
 /libpeerconnection.log
 npm-debug.log
+yarn-error.log
 testem.log
 /typings
-
-# e2e
-/e2e/*.js
-/e2e/*.map
 
 # System Files
 .DS_Store

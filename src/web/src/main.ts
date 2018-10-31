@@ -8,64 +8,54 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { Locale } from './app/dstore/utils/locale';
 
 if (environment.production) {
   enableProdMode();
-  console.log = (...args: any[]) => {};
 }
-
+// use the require method provided by webpack
 declare const require;
 
-const loadTranslations = new Promise((resolve, reject) => {
-  const lang = Locale.getUnixLocale();
-  if (lang === 'en-US') {
-    resolve(null);
-  }
-  const translations = require(`raw-loader!./locale/messages.${lang}.xlf`);
-  resolve(translations);
-});
-
-const bootstrap = () => {
-  console.log('bootstrap');
-  loadTranslations
-    .catch(err => {
-      console.error('loadTranslations error:', err);
-      return null;
-    })
-    .then(translations => {
-      platformBrowserDynamic().bootstrapModule(AppModule, {
-        missingTranslation: MissingTranslationStrategy.Warning,
-        providers: [
-          { provide: TRANSLATIONS, useValue: translations },
-          { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
-        ],
-      });
-    })
-    .catch(err => {
-      console.log('translations error:', err);
-      platformBrowserDynamic().bootstrapModule(AppModule);
-    })
-    .catch(console.log);
-};
-
-if (window['QWebChannel'] !== undefined) {
+async function main() {
   // Native client mode.
-  // noinspection TsLint
-  // tslint:disable-next-line:no-unused-expression
-  new window['QWebChannel'](window['qt'].webChannelTransport, channel => {
+  if (window['QWebChannel']) {
+    const channel = await new Promise<any>(resolve => {
+      // noinspection TsLint
+      // tslint:disable-next-line:no-unused-expression
+      new window['QWebChannel'](window['qt'].webChannelTransport, resolve);
+    });
     window['dstore'] = {};
     window['dstore']['channel'] = channel;
-    channel.objects.settings.getServers((obj: Object) => {
-      // These properties are defined in src/ui/channel/settings_proxy.cpp
-      environment.metadataServer = obj['metadataServer'];
-      environment.operationServer = obj['operationServer'];
-      environment.themeName = obj['themeName'];
-      console.log(obj);
-      bootstrap();
+
+    const servers = await new Promise(resolve => {
+      channel.objects.settings.getServers(resolve);
     });
+    environment.metadataServer = servers['metadataServer'];
+    environment.operationServer = servers['operationServer'];
+    environment.themeName = servers['themeName'];
+  }
+  // loading locale
+  let translations;
+  for (let language of navigator.languages) {
+    language = language.replace('-', '_');
+    try {
+      translations = require(`raw-loader!./locale/messages.${language}.xlf`);
+      break;
+    } catch (err) {
+      console.error('cannot load locale', language, err);
+    }
+  }
+  // load locale file failed
+  if (!translations) {
+    platformBrowserDynamic().bootstrapModule(AppModule);
+    return;
+  }
+  // use locale
+  platformBrowserDynamic().bootstrapModule(AppModule, {
+    missingTranslation: MissingTranslationStrategy.Warning,
+    providers: [
+      { provide: TRANSLATIONS, useValue: translations },
+      { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
+    ],
   });
-} else {
-  // Browser mode.
-  bootstrap();
 }
+main();

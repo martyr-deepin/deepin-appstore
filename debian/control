@@ -13,7 +13,8 @@ Build-Depends:
  libsass0,
  pkg-config,
  qttools5-dev-tools,
- qttools5-dev
+ qttools5-dev,
+ nodejs
 Standards-Version: 3.9.5
 Homepage: https://deepin.org
 Vcs-Git: https://cr.deepin.io/dstore/deepin-appstore

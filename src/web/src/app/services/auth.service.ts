@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import * as JwtDecode from 'jwt-decode';
 import { map, skip } from 'rxjs/operators';
 
 import { DstoreObject } from '../dstore-client.module/utils/dstore-objects';
 import { LoginService } from './login.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { BaseService } from '../dstore/services/base.service';
 
 @Injectable()
@@ -21,12 +21,11 @@ export class AuthService {
     });
   }
   private tokenStorageKey = 'auth-token:' + BaseService.domainName;
-  private jwtService = new JwtHelperService();
   private tokenSubject = new BehaviorSubject<string>(localStorage.getItem(this.tokenStorageKey));
 
   token$ = this.tokenSubject.asObservable();
   logged$ = this.token$.pipe(map(token => token !== null));
-  info$ = this.token$.pipe(map(token => this.jwtService.decodeToken(token) as UserInfo));
+  info$ = this.token$.pipe(map(token => JwtDecode(token) as UserInfo));
 
   login(token: string) {
     this.tokenSubject.next(token);

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { filter, pairwise } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 
@@ -15,7 +15,7 @@ import { DstoreObject } from './dstore-client.module/utils/dstore-objects';
 import { ThemeService } from './services/theme.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'dstore-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
