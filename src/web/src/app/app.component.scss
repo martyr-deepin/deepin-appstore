@@ -8,10 +8,8 @@
   }
   .context {
     flex: 1;
-    overflow-x: hidden;
-    @media (min-width: 600px) {
-      padding: 0 10px;
-    }
+    height: 100vh;
     position: relative;
+    overflow: hidden;
   }
 }

@@ -54,6 +54,7 @@ import { DonorsComponent } from './components/donors/donors.component';
 import { ScreenshotComponent } from './components/screenshot/screenshot.component';
 import { DialogDirective } from './directive/dialog.directive';
 import { StatementComponent } from './components/statement/statement.component';
+import { ScrollbarComponent } from './components/scrollbar/scrollbar.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { StatementComponent } from './components/statement/statement.component';
     ScreenshotComponent,
     DialogDirective,
     StatementComponent,
+    ScrollbarComponent,
   ],
   imports: [
     BrowserModule,

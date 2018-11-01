@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { BaseService } from '../dstore/services/base.service';
+import { environment } from 'environments/environment';
 import { Section } from '../dstore/services/section';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Injectable()
 export class SectionService {
+  url = `${environment.operationServer}/api/blob/section`;
+  list = this.http.get(this.url).pipe(
+    map((ss: Section[]) => ss),
+    shareReplay(),
+  );
   constructor(private http: HttpClient) {}
-  getList(): Observable<Section[]> {
-    return this.http
-      .get(`${BaseService.serverHosts.operationServer}/api/blob/section`)
-      .pipe(map((ss: Section[]) => ss));
+  getList() {
+    return this.list;
   }
 }

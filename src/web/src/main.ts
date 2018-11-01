@@ -34,28 +34,24 @@ async function main() {
     environment.themeName = servers['themeName'];
   }
   // loading locale
-  let translations;
   for (let language of navigator.languages) {
     language = language.replace('-', '_');
     try {
-      translations = require(`raw-loader!./locale/messages.${language}.xlf`);
+      const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
+      if (translations != null) {
+        return await platformBrowserDynamic().bootstrapModule(AppModule, {
+          missingTranslation: MissingTranslationStrategy.Warning,
+          providers: [
+            { provide: TRANSLATIONS, useValue: translations },
+            { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
+          ],
+        });
+      }
       break;
     } catch (err) {
       console.error('cannot load locale', language, err);
     }
   }
-  // load locale file failed
-  if (!translations) {
-    platformBrowserDynamic().bootstrapModule(AppModule);
-    return;
-  }
-  // use locale
-  platformBrowserDynamic().bootstrapModule(AppModule, {
-    missingTranslation: MissingTranslationStrategy.Warning,
-    providers: [
-      { provide: TRANSLATIONS, useValue: translations },
-      { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
-    ],
-  });
+  return await platformBrowserDynamic().bootstrapModule(AppModule);
 }
 main();

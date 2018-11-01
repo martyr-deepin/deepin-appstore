@@ -31,7 +31,6 @@ export class AppComponent implements OnInit {
   contentRef: ElementRef<HTMLDivElement>;
 
   ngOnInit(): void {
-    this.scrollHistory();
     this.searchIndex();
     this.searchListen();
     this.screenshotPreview();
@@ -44,25 +43,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  scrollHistory() {
-    const offsetMap = new Map<string, number>();
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationStart),
-        pairwise(),
-      )
-      .subscribe(([oldEvent, event]: [NavigationStart, NavigationStart]) => {
-        console.log('router event:', oldEvent, window.pageYOffset, event, offsetMap);
-        if (!event.restoredState) {
-          offsetMap.set(oldEvent.url, window.pageYOffset);
-          this.offsetService.saveOffset(oldEvent.url, window.pageYOffset);
-          if (oldEvent.url === '/') {
-            offsetMap.set('/index', window.pageYOffset);
-          }
-        }
-        setTimeout(() => window.scrollTo(0, offsetMap.get(event.url) || 0), 100);
-      });
-  }
   searchIndex() {
     if (BaseService.isNative) {
       this.appService.listNoVersion().subscribe((apps: App[]) => {

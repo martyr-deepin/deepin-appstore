@@ -1,11 +1,11 @@
 :host {
   position: relative;
-  width: 100%;
   display: block;
+  margin: 0 -1rem;
 }
 .screenshots {
   display: flex;
-  overflow-x: hidden;
+  overflow: hidden;
   img {
     margin: 1rem 2rem;
     margin-left: 0;

@@ -1,0 +1,9 @@
+.scrollbar {
+  display: block;
+  height: 100%;
+  position: relative;
+  overflow: auto;
+  .container {
+    padding: 0 1rem;
+  }
+}

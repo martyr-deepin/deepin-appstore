@@ -5,19 +5,7 @@ import { JsonpClientBackend } from '@angular/common/http';
   selector: 'dialog',
 })
 export class DialogDirective {
-  constructor(private elementRef: ElementRef<HTMLDialogElement>) {
-    const observer = new MutationObserver(() => {
-      if (this.elementRef.nativeElement.open) {
-        document.body.style.overflowY = 'hidden';
-      } else {
-        document.body.style.overflowY = 'auto';
-      }
-    });
-    observer.observe(this.elementRef.nativeElement, {
-      attributes: true,
-      attributeFilter: ['open'],
-    });
-  }
+  constructor(private elementRef: ElementRef<HTMLDialogElement>) {}
 
   @HostListener('mousedown', ['$event'])
   click(e: Event) {
