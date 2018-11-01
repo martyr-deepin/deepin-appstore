@@ -1,14 +1,57 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>DstoreWeb</title>
   <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <link rel="icon"
+        type="image/x-icon"
+        href="favicon.ico">
 </head>
+
+<style>
+  .bootstrap {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .water {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+    background: url('/assets/images/water_front.svg') repeat-x,
+      url('/assets/images/water_back.svg') repeat-x, rgba(43, 169, 243, 0.15);
+    background-size: 500% 100%;
+    --position: 1rem;
+    background-position: left var(--position);
+    animation: flow 20s infinite linear;
+  }
+
+  @keyframes flow {
+    from {
+      background-position: 0 var(--position), 500% var(--position);
+    }
+
+    to {
+      background-position: 500% var(--position), 0 var(--position);
+    }
+  }
+</style>
+
 <body>
-  <dstore-root></dstore-root>
+  <dstore-root>
+    <div class="bootstrap">
+      <div class="water"></div>
+    </div>
+  </dstore-root>
 </body>
+
 </html>
