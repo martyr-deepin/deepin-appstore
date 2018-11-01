@@ -1,59 +1,42 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
-import { Observable, Subject, forkJoin, from, of } from 'rxjs';
-import {
-  retry,
-  shareReplay,
-  map,
-  tap,
-  flatMap,
-  scan,
-  switchMap,
-  last,
-  catchError,
-} from 'rxjs/operators';
+import { Observable, from, BehaviorSubject } from 'rxjs';
+import { retry, map, tap, filter } from 'rxjs/operators';
 
-import { throttle, filter, compact, chain, get, cloneDeep, defaults } from 'lodash';
+import { compact, get } from 'lodash';
 
 import * as localForage from 'localforage';
 
-import { BaseService } from './base.service';
 import { CategoryService } from './category.service';
 
 import { App, appReviver } from './app';
-import { Error, ErrorCode } from './errno';
+import { Error } from './errno';
 import { Locale } from '../utils/locale';
 
 @Injectable()
 export class AppService {
-  private readonly appsStoreKey = 'apps-apps';
-  private readonly paramsStoreKey = 'apps-params  ';
-  private readonly metadataService = BaseService.serverHosts.metadataServer;
-  private readonly isNative = BaseService.isNative;
-  private readonly apiURL = `${this.metadataService}/api/app`;
+  private readonly apiURL = `${environment.metadataServer}/api/app`;
+  private readonly appMap$ = new BehaviorSubject<AppMap>(null);
   private readonly store = localForage.createInstance({ name: 'apps' });
-  private appMap$ = from(this.getAppMap());
-
-  constructor(private http: HttpClient, private categoryServer: CategoryService) {}
-
-  private async getAppMap() {
-    const result = await this.http
-      .get(this.apiURL, { responseType: 'text' })
+  categoryList$ = this.categoryServer.getList().toPromise();
+  constructor(private http: HttpClient, private categoryServer: CategoryService) {
+    this.syncAppMap();
+  }
+  private getApps(url: string) {
+    return this.http
+      .get(url, { responseType: 'text' })
       .pipe(
-        retry(3),
         map(body => JSON.parse(body, appReviver) as Result),
+        map(result => result.apps),
       )
       .toPromise();
-
-    if (!result || result.error) {
-      throw result;
-    }
-    const appMap = result.apps.reduce(
-      (acc, app) => Object.assign(acc, { [app.name]: app }),
-      {} as AppMap,
-    );
-    const categoryList = await this.categoryServer.getList().toPromise();
+  }
+  private async setApps(apps: App[]) {
+    const categoryList = await this.categoryList$;
+    const appMap = apps.reduce((acc, app) => Object.assign(acc, { [app.name]: app }), {} as AppMap);
+    // 添加快捷访问
     Object.values(appMap).forEach(app => {
       app.localCategory = categoryList[app.category].LocalName;
       if (get(app, ['locale', Locale.getUnixLocale(), 'description', 'name'])) {
@@ -103,12 +86,29 @@ export class AppService {
         }
       }
     });
-    return appMap;
+    this.appMap$.next(appMap);
+  }
+  private async syncAppMap() {
+    let apps = await this.store.getItem<App[]>('apps');
+    if (!apps) {
+      apps = await this.getApps('/assets/app.json');
+    }
+    await this.setApps(apps);
+
+    apps = await this.getApps(this.apiURL);
+    if (apps) {
+      apps.sort((a, b) => a.name.localeCompare(b.name));
+      await this.store.setItem('apps', apps);
+      await this.setApps(apps);
+    }
   }
 
   // 获取全部应用列表
   getAppList(): Observable<App[]> {
-    return this.appMap$.pipe(map(m => compact(Object.values(m))));
+    return this.appMap$.pipe(
+      filter(Boolean),
+      map(m => compact(Object.values(m))),
+    );
   }
 
   // 根据应用名获取应用
