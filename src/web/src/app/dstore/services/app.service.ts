@@ -98,7 +98,7 @@ export class AppService {
     apps = await this.getApps(this.apiURL);
     if (apps) {
       apps.sort((a, b) => a.name.localeCompare(b.name));
-      await this.store.setItem('apps', apps);
+      this.store.setItem('apps', apps);
       await this.setApps(apps);
     }
   }
@@ -113,15 +113,12 @@ export class AppService {
 
   // 根据应用名获取应用
   getAppByName(name: string): Observable<App> {
-    return this.appMap$.pipe(
-      map(m => m[name]),
-      tap(app => console.log(`getAppByName:(${name}):`, app)),
-    );
+    return this.appMap$.pipe(map(m => m[name]));
   }
 
   // 根据应用名列表获取应用列表
   getAppListByNames(appNames: string[]): Observable<App[]> {
-    return this.appMap$.pipe(map(m => appNames.map(appName => m[appName])));
+    return this.appMap$.pipe(map(m => appNames.map(appName => m[appName]).filter(Boolean)));
   }
 }
 

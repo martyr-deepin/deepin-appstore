@@ -32,6 +32,9 @@ async function main() {
     environment.metadataServer = servers['metadataServer'];
     environment.operationServer = servers['operationServer'];
     environment.themeName = servers['themeName'];
+    if (Boolean(servers['aot'])) {
+      return await platformBrowserDynamic().bootstrapModule(AppModule);
+    }
   }
   // loading locale
   for (let language of navigator.languages) {
