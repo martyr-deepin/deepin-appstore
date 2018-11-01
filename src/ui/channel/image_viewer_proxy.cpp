@@ -68,7 +68,7 @@ void ImageViewerProxy::openBase64(const QString& url, const QString& data) {
 }
 
 void ImageViewerProxy::onPreviousImageRequested() {
-  current_ = (urls_.length() - current_ + 1) % urls_.length();
+  current_ = (urls_.length() + current_ - 1) % urls_.length();
   qDebug() << Q_FUNC_INFO << current_ << urls_.length();
   emit this->openOnlineImageRequest(urls_.at(current_));
 }
