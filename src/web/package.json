@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --output-path ../web_dist/appstore",
-    "build-aot": "ng build --aot --prod --output-path ../web_dist_aot/appstore",
+    "build-aot": "ng build --aot --prod --output-path ../web_dist_aot/appstore --i18n-locale zh_CN --i18n-file src/locale/messages.zh_CN.xlf --i18n-format xlf",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

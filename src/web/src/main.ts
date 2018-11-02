@@ -3,6 +3,7 @@ import {
   TRANSLATIONS,
   TRANSLATIONS_FORMAT,
   MissingTranslationStrategy,
+  CompilerOptions,
 } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
@@ -16,6 +17,7 @@ if (environment.production) {
 declare const require;
 
 async function main() {
+  let opts: CompilerOptions;
   // Native client mode.
   if (window['QWebChannel']) {
     const channel = await new Promise<any>(resolve => {
@@ -32,29 +34,28 @@ async function main() {
     environment.metadataServer = servers['metadataServer'];
     environment.operationServer = servers['operationServer'];
     environment.themeName = servers['themeName'];
-    if (Boolean(servers['aot'])) {
-      return await platformBrowserDynamic().bootstrapModule(AppModule);
-    }
-  }
-  // loading locale
-  for (let language of navigator.languages) {
-    language = language.replace('-', '_');
-    try {
-      const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
-      if (translations != null) {
-        return await platformBrowserDynamic().bootstrapModule(AppModule, {
-          missingTranslation: MissingTranslationStrategy.Warning,
-          providers: [
-            { provide: TRANSLATIONS, useValue: translations },
-            { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
-          ],
-        });
+    if (!Boolean(servers['aot'])) {
+      // loading locale file
+      for (let language of navigator.languages) {
+        language = language.replace('-', '_');
+        try {
+          const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
+          if (translations != null) {
+            opts = {
+              missingTranslation: MissingTranslationStrategy.Warning,
+              providers: [
+                { provide: TRANSLATIONS, useValue: translations },
+                { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
+              ],
+            };
+          }
+          break;
+        } catch (err) {
+          console.error('cannot load locale', language, err);
+        }
       }
-      break;
-    } catch (err) {
-      console.error('cannot load locale', language, err);
     }
   }
-  return await platformBrowserDynamic().bootstrapModule(AppModule);
+  return await platformBrowserDynamic().bootstrapModule(AppModule, opts);
 }
 main();
