@@ -186,12 +186,12 @@ add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 if(BUILD_WEB_RESOURCES)
   add_custom_command(OUTPUT npm-update-web-dist
                      COMMAND sh -c
-                             "PATH=./node_modules/.bin:$PATH npm run build"
+                             "PATH=./node_modules/.bin:$PATH npm run build; PATH=./node_modules/.bin:$PATH npm run build-aot; "
                      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
                      VERBATIM)
 else()
   add_custom_command(OUTPUT npm-update-web-dist
-                     COMMAND sh -c "mkdir web_dist"
+                     COMMAND sh -c "mkdir web_dist web_dist_aot || true"
                      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                      VERBATIM)
 endif()
@@ -255,6 +255,9 @@ install(TARGETS deepin-appstore deepin-appstore-metadata
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist_aot
         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/)
 
 install(DIRECTORY ${CMAKE_BINARY_DIR}/translations
