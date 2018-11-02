@@ -38,8 +38,10 @@ export class AppCommentComponent implements OnInit, OnChanges {
     private authService: AuthService,
     private commentService: CommentService,
   ) {}
-  @Input() appName: string;
-  @Input() version: string;
+  @Input()
+  appName: string;
+  @Input()
+  version: string;
 
   info: UserInfo;
   own: Comment;
@@ -174,8 +176,7 @@ export class AppCommentComponent implements OnInit, OnChanges {
   }
 
   scrollToTop() {
-    // window.scrollTo(0, 0);
-    smoothScrollIntoView(document.querySelector('.context'), { block: 'start' });
+    smoothScrollIntoView(document.querySelector('.appInfo'), { block: 'start' });
   }
 }
 enum CommentType {
