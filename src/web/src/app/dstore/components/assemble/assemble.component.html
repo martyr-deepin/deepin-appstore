@@ -8,8 +8,8 @@
            [routerLink]="['/category',$assemble.category]">
         {{categoryList[$assemble.category].LocalName}}
       </div>
-      <ng-container *ngFor="let $index of section.rowSpan|range;first as $first">
-        <ng-container *ngIf="filter($assemble.apps)[$index]?.name|appInfo|async as $app">
+      <ng-container *ngFor="let $assembleApp of $assemble.apps">
+        <ng-container *ngIf="$assembleApp.name|appInfo|async as $app">
           <div class="item"
                [class.job]="jobs.has($app.name) || jobsNames.has($app.name)"
                [routerLink]="$app.name">

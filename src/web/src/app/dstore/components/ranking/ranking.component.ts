@@ -4,7 +4,7 @@ import { Observable, Subscription, merge, timer, of } from 'rxjs';
 import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
 
 import { BaseService } from '../../services/base.service';
-import { App, AppService } from '../../../services/app.service';
+import { App, AppService } from 'app/services/app.service';
 
 import { Section } from '../../services/section';
 import { AppFilterFunc, Allowed } from '../appFilter';
@@ -29,8 +29,10 @@ export class RankingComponent implements OnInit, OnDestroy {
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
 
-  @Input() section: Section;
-  @Input() appFilter: AppFilterFunc = Allowed;
+  @Input()
+  section: Section;
+  @Input()
+  appFilter: AppFilterFunc = Allowed;
 
   appList: App[];
   jobs: { [key: string]: StoreJobInfo } = {};
@@ -43,22 +45,16 @@ export class RankingComponent implements OnInit, OnDestroy {
   openApp = this.storeService.openApp;
 
   ngOnInit() {
-    console.log('ranking');
     const category = this.section.ranking.category;
-    this.appService.list().subscribe(apps => {
+    this.appService.list().subscribe(async apps => {
       if (category) {
         apps = apps.filter(app => app.category === category);
       }
-      this.appList = apps
-        .filter(app => {
-          if (category) {
-            return app.category === category && this.appFilter(app.name);
-          } else {
-            return this.appFilter(app.name);
-          }
-        })
-        .sort((a, b) => b.downloads - a.downloads)
-        .slice(0, this.section.ranking.count);
+      apps.sort((a, b) => b.downloads - a.downloads).slice(0, this.section.ranking.count);
+      const versionMap = await this.storeService
+        .getVersionMap(apps.map(app => app.name))
+        .toPromise();
+      this.appList = apps.filter(app => versionMap.has(app.name));
       this.getJobs();
     });
   }

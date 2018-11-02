@@ -139,11 +139,11 @@ export class StoreService {
   }
 
   getVersionMap(appNameList: string[]): Observable<Map<string, AppVersion>> {
-    return this.execWithCallback(
-      'storeDaemon.queryVersions',
-      appNameList.toString(),
-      appNameList,
-    ).pipe(map((vs: AppVersion[]) => new Map(_.toPairs(_.keyBy(vs, 'name')))));
+    return this.getVersion(appNameList).pipe(
+      map((vs: AppVersion[]) => {
+        return new Map(vs.map(v => [v.name, v] as [string, AppVersion]));
+      }),
+    );
   }
 
   getInstalledApps(): Observable<InstalledApp[]> {

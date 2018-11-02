@@ -109,8 +109,8 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges() {
     if (this.apps$) {
       this.loading = true;
-      this.apps$.subscribe(apps => {
-        apps = apps.filter(app => app);
+      this.apps$.subscribe(async apps => {
+        apps = apps.filter(Boolean);
         if (this.sortBy) {
           if (this.sortBy === SortOrder.Downloads) {
             apps = sortBy(apps, ['downloads', 'name']).reverse();
@@ -121,6 +121,14 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
         if (this.maxCount) {
           apps = apps.slice(0, this.maxCount);
         }
+        const versionMap = await this.storeService
+          .getVersionMap(apps.map(app => app.name))
+          .toPromise();
+        apps = apps.filter(app => versionMap.has(app.name)).map(app => {
+          app.version = versionMap.get(app.name);
+          return app;
+        });
+
         this.apps = apps;
         this.appListLength.emit(this.apps.length);
         this.loading = false;

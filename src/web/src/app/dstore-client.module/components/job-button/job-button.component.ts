@@ -9,11 +9,16 @@ import { StoreService } from '../../services/store.service';
 })
 export class JobButtonComponent implements OnInit {
   constructor(private storeService: StoreService) {}
-  @Input() appName: string;
-  @Input() localName: string;
-  @Input() version: AppVersion;
-  @Input() openType: string;
-  @Output() start = new EventEmitter<string>();
+  @Input()
+  appName: string;
+  @Input()
+  localName: string;
+  @Input()
+  version: AppVersion;
+  @Input()
+  openType: string;
+  @Output()
+  start = new EventEmitter<string>();
   canOpen = canOpen;
   disabled: boolean;
 

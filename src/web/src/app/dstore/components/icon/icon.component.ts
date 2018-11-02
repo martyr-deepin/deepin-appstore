@@ -31,9 +31,12 @@ export class IconComponent implements OnInit, OnDestroy {
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
 
-  @Input() section: Section;
-  @Input() apps: SectionApp[];
-  @Input() appFilter: AppFilterFunc = Allowed;
+  @Input()
+  section: Section;
+  @Input()
+  apps: SectionApp[];
+  @Input()
+  appFilter: AppFilterFunc = Allowed;
 
   // data
   moreNav: any[] = [];

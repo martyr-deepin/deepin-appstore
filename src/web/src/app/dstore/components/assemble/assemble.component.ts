@@ -29,9 +29,12 @@ export class AssembleComponent implements OnInit, OnDestroy {
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
 
-  @Input() section: Section;
-  @Input() assembleList: SectionAssemble[] = [];
-  @Input() appFilter: AppFilterFunc = Allowed;
+  @Input()
+  section: Section;
+  @Input()
+  assembleList: SectionAssemble[] = [];
+  @Input()
+  appFilter: AppFilterFunc = Allowed;
 
   constructor(
     private appService: AppService,
@@ -62,8 +65,9 @@ export class AssembleComponent implements OnInit, OnDestroy {
     this.jobs$.unsubscribe();
   }
 
-  filter(apps: SectionApp[]) {
-    return apps.filter(app => this.appFilter(app.name));
+  async filter(apps: SectionApp[]) {
+    const versionMap = await this.storeService.getVersionMap(apps.map(app => app.name)).toPromise();
+    return apps.filter(app => versionMap.has(app.name));
   }
 
   getJobs() {

@@ -1,16 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, pairwise } from 'rxjs/operators';
-import { environment } from 'environments/environment';
+import { Router } from '@angular/router';
 
 import { BaseService } from './dstore/services/base.service';
-import { StoreService } from './dstore-client.module/services/store.service';
 import { AppService } from './services/app.service';
-import { SearchService, SearchResult } from './services/search.service';
+import { SearchService } from './services/search.service';
 import { Channel } from './dstore-client.module/utils/channel';
 import { App } from './dstore/services/app';
-import { OffsetService } from './services/offset.service';
 import { DstoreObject } from './dstore-client.module/utils/dstore-objects';
 import { ThemeService } from './services/theme.service';
 
@@ -24,7 +19,6 @@ export class AppComponent implements OnInit {
     private router: Router,
     private appService: AppService,
     private searchService: SearchService,
-    private offsetService: OffsetService,
     private themeService: ThemeService,
   ) {}
   @ViewChild('$context')
@@ -45,7 +39,7 @@ export class AppComponent implements OnInit {
 
   searchIndex() {
     if (BaseService.isNative) {
-      this.appService.listNoVersion().subscribe((apps: App[]) => {
+      this.appService.list().subscribe((apps: App[]) => {
         const appStringList = JSON.stringify(apps);
         Channel.exec('search.updateAppList', appStringList);
       });

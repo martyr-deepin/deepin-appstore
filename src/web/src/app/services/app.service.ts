@@ -1,66 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import * as localForage from 'localforage';
-import * as _ from 'lodash';
-import { Observable, forkJoin, of, from, zip } from 'rxjs';
-import { map, flatMap, tap, share, shareReplay, retry, filter, catchError } from 'rxjs/operators';
+import { Observable, combineLatest, Subject } from 'rxjs';
+import { map, scan, share, debounceTime, flatMap } from 'rxjs/operators';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
 import { App as DstoreApp } from '../dstore/services/app';
-import { StoreService } from '../dstore-client.module/services/store.service';
 import { AppVersion } from '../dstore-client.module/models/app-version';
-import { version } from 'punycode';
 import { AppStatService, AppStat } from './stat.service';
+import { StoreService } from 'app/dstore-client.module/services/store.service';
 
 @Injectable()
 export class AppService {
   constructor(
     private http: HttpClient,
     private appService: DstoreAppService,
-    private storeService: StoreService,
     private appStatService: AppStatService,
-  ) {
-    console.log(BaseService.domainName);
-  }
+    private storeService: StoreService,
+  ) {}
   private server = BaseService.serverHosts.operationServer;
-  private store = localForage.createInstance({ name: 'client-apps:' + BaseService.domainName });
+  activeList = this.http.get<{ apps: string[] }>(`${this.server}/api/app`).toPromise();
 
-  appMap = _.throttle(this.getAppMap, 1000 * 30);
-  listNoVersion(): Observable<App[]> {
-    return this.getAppMapNoVersion().pipe(map(appMap => Array.from(appMap.values())));
-  }
-  list(): Observable<App[]> {
-    return this.appMap().pipe(map(appMap => Array.from(appMap.values())));
-  }
-  private getAppMap(): Observable<Map<string, App>> {
-    if (!BaseService.isNative) {
-      return this.getAppMapNoVersion().pipe(shareReplay());
-    }
-    return this.getAppMapNoVersion().pipe(
-      flatMap(appMap => {
-        return this.storeService.getVersion(Array.from(appMap.keys())).pipe(
-          map(versionList => {
-            const versionMap = _.keyBy(versionList, 'name');
-            appMap.forEach(app => {
-              if (versionMap[app.name]) {
-                app.version = versionMap[app.name];
-              } else {
-                appMap.delete(app.name);
-              }
-            });
-            return appMap;
-          }),
-        );
-      }),
-      shareReplay(),
-    );
-  }
-  private getAppMapNoVersion() {
-    return zip(
+  private getAppQuery = new Subject<string>();
+  private getAppResult = this.getAppQuery.pipe(
+    scan((acc: string[], name: string) => [...acc, name], []),
+    debounceTime(10),
+    flatMap(list => this.getApps(list)),
+    share(),
+  );
+
+  getAppMap() {
+    return combineLatest(
       this.appService.getAppList(),
-      this.http.get<{ apps: string[] }>(`${this.server}/api/app`),
-      this.appStatService.getAppStat(),
+      this.activeList,
+      this.appStatService.appStatMap,
     ).pipe(
       map(([dstoreApps, { apps }, statMap]) => {
         const list = dstoreApps.filter(app => apps.includes(app.name)).map((app: App) => {
@@ -70,29 +43,38 @@ export class AppService {
           app.ratings = stat.votes;
           return [app.name, app];
         }) as Array<[string, App]>;
-        this.store.setItem('apps', list);
         return new Map(list);
-      }),
-      catchError(() => {
-        return from(this.store.getItem<Array<[string, App]>>('apps')).pipe(
-          map(value => new Map(value)),
-        );
       }),
     );
   }
 
+  list(): Observable<App[]> {
+    return this.getAppMap().pipe(map(appMap => Array.from(appMap.values())));
+  }
   // 根据分类获取应用列表
   getAppListByCategory(category: string): Observable<App[]> {
     return this.list().pipe(map(apps => apps.filter(app => app.category === category)));
   }
   getApps(appNameList: string[]): Observable<App[]> {
-    return this.appMap().pipe(map(m => appNameList.filter(m.has.bind(m)).map(m.get.bind(m))));
-  }
-  getApp(appName: string): Observable<App> {
-    return this.appMap().pipe(
-      map(m => m.get(appName)),
-      tap(app => console.log('getApp', app)),
+    return combineLatest(this.getAppMap(), this.storeService.getVersionMap(appNameList)).pipe(
+      map(([appMap, versionMap]) => {
+        const apps = appNameList
+          .filter(name => versionMap.has(name) && appMap.has(name))
+          .map(name => {
+            const app = appMap.get(name);
+            app.version = versionMap.get(name);
+            return app;
+          });
+        return apps;
+      }),
     );
+  }
+
+  getApp(appName: string): Observable<App> {
+    setTimeout(() => {
+      this.getAppQuery.next(appName);
+    }, 0);
+    return this.getAppResult.pipe(map(list => list.find(app => app.name === appName)));
   }
 }
 

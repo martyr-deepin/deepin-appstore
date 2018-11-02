@@ -32,7 +32,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   jobs$: Subscription;
 
   ngOnInit() {
-    this.appService.appMap().subscribe(appMap => {
+    this.appService.getAppMap().subscribe(appMap => {
       this.appMap = appMap;
       this.sectionList$ = this.sectionService.getList().pipe(map(ss => ss.filter(s => s.show)));
     });

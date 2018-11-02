@@ -18,40 +18,32 @@ import {
 })
 export class AppStatService {
   private apiURL = environment.operationServer + '/api/appstat';
-  private appStatMap$: Observable<Map<string, AppStat>>;
 
+  appStatMap: Promise<Map<string, AppStat>>;
   constructor(private http: HttpClient) {
-    this.initStatMap();
+    this.appStatMap = this.getStatMap();
   }
-  initStatMap() {
-    this.appStatMap$ = this.http.get<Result>(this.apiURL).pipe(
-      map(result => {
-        const stat = new Map<string, AppStat>();
-        result.downloadCount.forEach(d => {
-          const s = new AppStat();
-          s.downloads = d.count;
-          stat.set(d.appName, s);
-        });
-        result.rate.forEach(r => {
-          if (stat.has(r.appName)) {
-            const s = stat.get(r.appName);
-            s.rate = r.rate / 2;
-            s.votes = r.count;
-          } else {
-            const s = new AppStat();
-            s.rate = r.rate / 2;
-            s.votes = r.count;
-            stat.set(r.appName, s);
-          }
-        });
-        return stat;
-      }),
-      shareReplay(),
-    );
-  }
-
-  getAppStat(): Observable<Map<string, AppStat>> {
-    return this.appStatMap$;
+  private async getStatMap() {
+    const result = await this.http.get<Result>(this.apiURL).toPromise();
+    const stat = new Map<string, AppStat>();
+    result.downloadCount.forEach(d => {
+      const s = new AppStat();
+      s.downloads = d.count;
+      stat.set(d.appName, s);
+    });
+    result.rate.forEach(r => {
+      if (stat.has(r.appName)) {
+        const s = stat.get(r.appName);
+        s.rate = r.rate / 2;
+        s.votes = r.count;
+      } else {
+        const s = new AppStat();
+        s.rate = r.rate / 2;
+        s.votes = r.count;
+        stat.set(r.appName, s);
+      }
+    });
+    return stat;
   }
 }
 

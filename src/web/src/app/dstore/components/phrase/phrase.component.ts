@@ -38,9 +38,12 @@ export class PhraseComponent implements OnInit, OnDestroy {
   StoreJobType = StoreJobType;
 
   // input
-  @Input() section: Section;
-  @Input() phraseList: SectionPhrase[] = [];
-  @Input() appFilter: AppFilterFunc = Allowed;
+  @Input()
+  section: Section;
+  @Input()
+  phraseList: SectionPhrase[] = [];
+  @Input()
+  appFilter: AppFilterFunc = Allowed;
 
   // data
   moreNav: any[] = [];
