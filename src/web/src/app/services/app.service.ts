@@ -18,6 +18,7 @@ export class AppService {
     private appStatService: AppStatService,
     private storeService: StoreService,
   ) {}
+  private native = Boolean(window['dstore']);
   private server = BaseService.serverHosts.operationServer;
   activeList = this.http.get<{ apps: string[] }>(`${this.server}/api/app`).toPromise();
 
@@ -56,6 +57,13 @@ export class AppService {
     return this.list().pipe(map(apps => apps.filter(app => app.category === category)));
   }
   getApps(appNameList: string[]): Observable<App[]> {
+    if (!this.native) {
+      return this.getAppMap().pipe(
+        map(appMap => {
+          return appNameList.map(name => appMap.get(name)).filter(Boolean);
+        }),
+      );
+    }
     return combineLatest(this.getAppMap(), this.storeService.getVersionMap(appNameList)).pipe(
       map(([appMap, versionMap]) => {
         const apps = appNameList

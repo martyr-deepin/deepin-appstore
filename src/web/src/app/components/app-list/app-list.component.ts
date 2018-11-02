@@ -121,13 +121,16 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
         if (this.maxCount) {
           apps = apps.slice(0, this.maxCount);
         }
-        const versionMap = await this.storeService
-          .getVersionMap(apps.map(app => app.name))
-          .toPromise();
-        apps = apps.filter(app => versionMap.has(app.name)).map(app => {
-          app.version = versionMap.get(app.name);
-          return app;
-        });
+
+        if (BaseService.isNative) {
+          const versionMap = await this.storeService
+            .getVersionMap(apps.map(app => app.name))
+            .toPromise();
+          apps = apps.filter(app => versionMap.has(app.name)).map(app => {
+            app.version = versionMap.get(app.name);
+            return app;
+          });
+        }
 
         this.apps = apps;
         this.appListLength.emit(this.apps.length);

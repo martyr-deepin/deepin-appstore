@@ -38,13 +38,11 @@ export class DstoreObject {
   }
   static openOnlineImage(): Observable<string> {
     return new Observable<string>(obs => {
-      console.log('openOnlineImage');
       const openOnlineImage: Signal = get(window, [
         ...DstoreObjectPath,
         'imageViewer',
         'openOnlineImageRequest',
       ]);
-      console.log(openOnlineImage, [...DstoreObjectPath, 'imageViewer', 'openOnlineImageRequest']);
       if (openOnlineImage) {
         const callback = (src: string) => obs.next(src);
         openOnlineImage.connect(callback);

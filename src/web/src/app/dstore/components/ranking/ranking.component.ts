@@ -51,10 +51,13 @@ export class RankingComponent implements OnInit, OnDestroy {
         apps = apps.filter(app => app.category === category);
       }
       apps.sort((a, b) => b.downloads - a.downloads).slice(0, this.section.ranking.count);
-      const versionMap = await this.storeService
-        .getVersionMap(apps.map(app => app.name))
-        .toPromise();
-      this.appList = apps.filter(app => versionMap.has(app.name));
+      if (BaseService.isNative) {
+        const versionMap = await this.storeService
+          .getVersionMap(apps.map(app => app.name))
+          .toPromise();
+        apps = apps.filter(app => versionMap.has(app.name));
+      }
+      this.appList = apps;
       this.getJobs();
     });
   }
