@@ -50,7 +50,7 @@ export class RankingComponent implements OnInit, OnDestroy {
       if (category) {
         apps = apps.filter(app => app.category === category);
       }
-      apps.sort((a, b) => b.downloads - a.downloads).slice(0, this.section.ranking.count);
+      apps = apps.sort((a, b) => b.downloads - a.downloads).slice(0, this.section.ranking.count);
       if (BaseService.isNative) {
         const versionMap = await this.storeService
           .getVersionMap(apps.map(app => app.name))
