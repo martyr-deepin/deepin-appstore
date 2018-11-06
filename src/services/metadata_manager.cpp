@@ -80,7 +80,6 @@ QString MetadataManager::getAppIcon(const QString &app_name)
     QString url;
     auto app = apps_.value(app_name);
     url = metadata_server_ + "/" + app.value("icon").toString();
-
     if (!url.isEmpty() && cache_worker_->downloadFile(url, filepath)) {
         return filepath;
     }
@@ -98,14 +97,13 @@ QString MetadataManager::getAppMetadataList(const QStringList &app_name_list)
     }
 
     QJsonObject apps;
-    for (const auto &app : app_name_list) {
-        auto obj = this->findMetadata(app);
+    for (const auto &app_name : app_name_list) {
+        auto obj = this->findMetadata(app_name);
         if (obj.isEmpty()) {
             continue;
         }
-        obj["icon"] = getAppIcon(app);
-        apps.insert(app, obj);
-
+        obj["icon"] = getAppIcon(app_name);
+        apps.insert(app_name, obj);
     }
     return QJsonDocument(apps).toJson();
 }
@@ -179,17 +177,14 @@ bool MetadataManager::parseMetadata(const QString &index_file,
         QJsonValue apps_val = obj.value("apps");
         QJsonArray apps_arr = apps_val.toArray();
         for (const QJsonValue &app : apps_arr) {
-            const QJsonObject app_obj = app.toObject();
+            QJsonObject app_obj = app.toObject();
             const QString name = app_obj.value("name").toString();
-
-            if (!index_list.contains(name)) {
-                continue;
-            }
-
+            const auto putaway = index_list.contains(name);
+            app_obj.insert("putaway", putaway);
             const QString icon = app_obj.value("icon").toString();
             const QString category = app_obj.value("category").toString();
 //            apps_.append(AppMetadata{name, icon, category});
-            apps_.insert(name, app.toObject());
+            apps_.insert(name, app_obj);
         }
     } else {
         return false;
@@ -201,6 +196,7 @@ bool MetadataManager::parseMetadata(const QString &index_file,
 QJsonObject MetadataManager::findMetadata(const QString &app_name)
 {
     // FIXME(Shaohua): Convert package name
+//    qDebug() << apps_.size() << app_name;
     return apps_.value(app_name);
 }
 
