@@ -6,19 +6,18 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class LoginService {
-  constructor(private zone: NgZone) {}
+  constructor(private zone: NgZone) {
+    Channel.connect<boolean>('menu.loginRequested').subscribe(status => {
+      zone.run(() => {
+        this.obs.next(status);
+      });
+    });
+  }
 
   private obs = new Subject<boolean>();
 
   onOpenLogin(): Observable<boolean> {
-    return merge(
-      this.obs,
-      Observable.create(obs => {
-        Channel.registerCallback('menu.loginRequested', isLogin => {
-          this.zone.run(obs.next.bind(obs, isLogin));
-        });
-      }),
-    );
+    return this.obs.asObservable();
   }
 
   OpenLogin() {

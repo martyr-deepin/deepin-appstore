@@ -1,5 +1,7 @@
-<app-wait *ngIf="loading">
-</app-wait>
+<div class="loading"
+     *ngIf="loading">
+  <app-wait></app-wait>
+</div>
 
 <div class="appList"
      [hidden]="loading"

@@ -85,6 +85,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   SearchManager* search_manager_ = nullptr;
   SearchProxy* search_proxy_ = nullptr;
   QTimer* search_timer_ = nullptr;
+  QThread* proxy_thread_ = nullptr;
   SettingsProxy* settings_proxy_ = nullptr;
   StoreDaemonProxy* store_daemon_proxy_ = nullptr;
   TitleBar* title_bar_ = nullptr;

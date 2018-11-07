@@ -107,6 +107,28 @@ WebWindow::WebWindow(QWidget* parent)
 WebWindow::~WebWindow() {
   // Save current window state.
   BackupWindowState(this);
+
+
+
+  if(image_viewer_proxy_ != nullptr){
+    delete image_viewer_proxy_;
+  }
+  if(log_proxy_ != nullptr){
+    delete log_proxy_;
+  }
+  if(menu_proxy_ != nullptr){
+    delete menu_proxy_;
+  }
+  if(settings_proxy_ != nullptr){
+    delete settings_proxy_;
+  }
+  if(store_daemon_proxy_ != nullptr){
+    delete store_daemon_proxy_;
+  }
+  if(proxy_thread_ != nullptr){
+    proxy_thread_->quit();
+    delete proxy_thread_;
+  }
 }
 
 void WebWindow::loadPage() {
@@ -205,12 +227,12 @@ void WebWindow::initConnections() {
 
 void WebWindow::initProxy() {
   auto web_channel = web_view_->page()->webChannel();
-  image_viewer_proxy_ = new ImageViewerProxy(this);
-  log_proxy_ = new LogProxy(this);
-  menu_proxy_ = new MenuProxy(this);
-  search_proxy_ = new SearchProxy(this);
-  settings_proxy_ = new SettingsProxy(this);
-  store_daemon_proxy_ = new StoreDaemonProxy(this);
+  image_viewer_proxy_ = new ImageViewerProxy();
+  log_proxy_ = new LogProxy();
+  menu_proxy_ = new MenuProxy();
+  search_proxy_ = new SearchProxy();
+  settings_proxy_ = new SettingsProxy();
+  store_daemon_proxy_ = new StoreDaemonProxy();
 
   web_channel->registerObject("imageViewer", image_viewer_proxy_);
   web_channel->registerObject("log", log_proxy_);
@@ -218,6 +240,16 @@ void WebWindow::initProxy() {
   web_channel->registerObject("search", search_proxy_);
   web_channel->registerObject("settings", settings_proxy_);
   web_channel->registerObject("storeDaemon", store_daemon_proxy_);
+
+  proxy_thread_ = new QThread();
+  web_channel->moveToThread(proxy_thread_);
+  image_viewer_proxy_->moveToThread(proxy_thread_);
+  log_proxy_->moveToThread(proxy_thread_);
+  menu_proxy_->moveToThread(proxy_thread_);
+  search_proxy_->moveToThread(proxy_thread_);
+  settings_proxy_->moveToThread(proxy_thread_);
+  store_daemon_proxy_->moveToThread(proxy_thread_);
+  proxy_thread_->start();
 }
 
 void WebWindow::initUI() {

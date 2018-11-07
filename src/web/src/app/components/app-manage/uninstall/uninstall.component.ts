@@ -17,6 +17,7 @@ import {
 import { AppService, App } from '../../../services/app.service';
 import { BaseService } from '../../../dstore/services/base.service';
 import { InstalledApp } from '../../../dstore-client.module/models/installed';
+import { JobService } from 'app/services/job.service';
 
 @Component({
   selector: 'app-uninstall',
@@ -28,6 +29,7 @@ export class UninstallComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private storeService: StoreService,
     private appService: AppService,
+    private jobService: JobService,
   ) {}
   disabledList = [
     'dde-control-center',
@@ -42,29 +44,25 @@ export class UninstallComponent implements OnInit, OnDestroy {
   job: Subscription;
 
   ngOnInit() {
-    this.job = merge(this.storeService.getJobList(), this.storeService.jobListChange())
+    this.job = this.jobService.jobsInfo().subscribe(jobs => {
+      this.uninstallingApps = [].concat(
+        ...jobs
+          .filter(
+            job => job.type === StoreJobType.uninstall && job.status !== StoreJobStatus.failed,
+          )
+          .map(job => job.names),
+      );
+      console.log('jobsinfo', jobs, this.uninstallingApps);
+    });
+    this.jobService
+      .jobList()
       .pipe(
-        tap(() => {
-          this.storeService.getInstalledApps().subscribe(list => {
-            this.installedApps = _.sortBy(list, 'time').reverse();
-          });
+        switchMap(() => {
+          return this.storeService.getInstalledApps();
         }),
-        switchMap(
-          jobs =>
-            jobs.length > 0
-              ? timer(1000, 1000).pipe(flatMap(() => this.storeService.getJobsInfo(jobs)))
-              : of([]),
-        ),
       )
-      .subscribe(jobInfoList => {
-        console.log(jobInfoList);
-        this.uninstallingApps = [].concat(
-          ...jobInfoList
-            .filter(
-              job => job.type === StoreJobType.uninstall && job.status !== StoreJobStatus.failed,
-            )
-            .map(job => job.names),
-        );
+      .subscribe(list => {
+        this.installedApps = _.sortBy(list, 'time').reverse();
       });
   }
   ngOnDestroy() {

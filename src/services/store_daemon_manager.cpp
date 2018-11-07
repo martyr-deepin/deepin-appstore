@@ -106,50 +106,6 @@ StoreDaemonManager::~StoreDaemonManager() {
 }
 
 void StoreDaemonManager::initConnections() {
-  connect(this, &StoreDaemonManager::clearArchivesRequest,
-          this, &StoreDaemonManager::clearArchives);
-  connect(this, &StoreDaemonManager::openAppRequest,
-          apt_worker_, &AptUtilWorker::openAppRequest);
-
-  connect(this, &StoreDaemonManager::isDbusConnectedRequest,
-          this, &StoreDaemonManager::isDBusConnected);
-
-  connect(this, &StoreDaemonManager::startJobRequest,
-          this, &StoreDaemonManager::startJob);
-  connect(this, &StoreDaemonManager::pauseJobRequest,
-          this, &StoreDaemonManager::pauseJob);
-  connect(this, &StoreDaemonManager::cleanJobRequest,
-          this, &StoreDaemonManager::cleanJob);
-
-  connect(this, &StoreDaemonManager::installPackageRequest,
-          this, &StoreDaemonManager::installPackage);
-  connect(this, &StoreDaemonManager::removePackageRequest,
-          this, &StoreDaemonManager::removePackage);
-  connect(this, &StoreDaemonManager::updatePackageRequest,
-          this, &StoreDaemonManager::updatePackage);
-
-  connect(this, &StoreDaemonManager::packageDownloadSizeRequest,
-          this, &StoreDaemonManager::packageDownloadSize);
-
-  connect(this, &StoreDaemonManager::installedPackagesRequest,
-          this, &StoreDaemonManager::installedPackages);
-
-  connect(this, &StoreDaemonManager::queryVersionsRequest,
-          this, &StoreDaemonManager::queryVersions);
-  connect(this, &StoreDaemonManager::queryInstalledTimeRequest,
-          this, &StoreDaemonManager::queryInstalledTime);
-
-  connect(this, &StoreDaemonManager::jobListRequest,
-          this, &StoreDaemonManager::jobList);
-  connect(this, &StoreDaemonManager::getJobInfoRequest,
-          this, &StoreDaemonManager::getJobInfo);
-  connect(this, &StoreDaemonManager::getJobsInfoRequest,
-          this, &StoreDaemonManager::getJobsInfo);
-
-  connect(this, &StoreDaemonManager::fixErrorRequest,
-          this, &StoreDaemonManager::fixError);
-
-
   connect(deb_interface_, &LastoreDebInterface::jobListChanged,
           this, &StoreDaemonManager::onJobListChanged);
 }
@@ -160,7 +116,6 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
   flatpak_names_.clear();
 
   QStringList deb_app_names;
-
   for (const AppSearchRecord& app : app_list) {
     const QString& app_name = app.name;
     const QStringList deb_names = GetDebNames(app.package_uris);
@@ -219,13 +174,15 @@ void StoreDaemonManager::updateAppList(const AppSearchRecordList& app_list) {
 void StoreDaemonManager::clearArchives() {
   deb_interface_->CleanArchives();
 }
-
-void StoreDaemonManager::isDBusConnected() {
-  const bool state = deb_interface_->isValid();
-  emit this->isDbusConnectedReply(state);
+void StoreDaemonManager::openApp(const QString& app_name){
+  emit apt_worker_->openAppRequest(app_name);
 }
 
-void StoreDaemonManager::cleanJob(const QString& job) {
+bool StoreDaemonManager::isDBusConnected() {
+  return deb_interface_->isValid();
+}
+
+QVariantMap StoreDaemonManager::cleanJob(const QString& job) {
   LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
                                     QDBusConnection::sessionBus(),
@@ -233,37 +190,30 @@ void StoreDaemonManager::cleanJob(const QString& job) {
   if (job_interface.isValid()) {
     const QDBusPendingReply<> reply = job_interface.Clean();
     if (reply.isError()) {
-      emit this->cleanJobReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, false },
           { kResultErrName, reply.error().name() },
           { kResultErrMsg, reply.error().message() },
-          { kResult, QVariantMap {
-              { kResultName, job },
-          }}
-      });
+          { kResult, job}
+      };
     } else {
-      emit this->cleanJobReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, true },
           { kResultErrName, "" },
           { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, job },
-          }}
-      });
+          { kResult, job}
+      };
     }
   } else {
-    emit this->cleanJobReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, job_interface.lastError().name() },
         { kResultErrMsg, job_interface.lastError().message() },
-        { kResult, QVariantMap {
-            { kResultName, job },
-        }}
-    });
+    };
   }
 }
 
-void StoreDaemonManager::pauseJob(const QString& job) {
+QVariantMap StoreDaemonManager::pauseJob(const QString& job) {
   LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
                                     QDBusConnection::sessionBus(),
@@ -271,37 +221,33 @@ void StoreDaemonManager::pauseJob(const QString& job) {
   if (job_interface.isValid()) {
     const QDBusPendingReply<> reply = job_interface.Pause();
     if (reply.isError()) {
-      emit this->pauseJobReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, false },
           { kResultErrName, reply.error().name() },
           { kResultErrMsg, reply.error().message() },
-          { kResult, QVariantMap {
-              { kResultName, job },
-          }}
-      });
+          { kResult, job}
+      };
     } else {
-      emit this->pauseJobReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, true },
           { kResultErrName, "" },
           { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, job },
-          }}
-      });
+          { kResult, job}
+      };
     }
   } else {
-    emit this->pauseJobReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, job_interface.lastError().name() },
         { kResultErrMsg, job_interface.lastError().message() },
         { kResult, QVariantMap {
             { kResultName, job },
         }}
-    });
+    };
   }
 }
 
-void StoreDaemonManager::startJob(const QString& job) {
+QVariantMap StoreDaemonManager::startJob(const QString& job) {
   LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
                                     QDBusConnection::sessionBus(),
@@ -309,99 +255,81 @@ void StoreDaemonManager::startJob(const QString& job) {
   if (job_interface.isValid()) {
     const QDBusPendingReply<> reply = job_interface.Start();
     if (reply.isError()) {
-      emit this->startJobReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, false },
           { kResultErrName, reply.error().name() },
           { kResultErrMsg, reply.error().message() },
-          { kResult, QVariantMap {
-              { kResultName, job },
-          }}
-      });
+          { kResult, job}
+      };
     } else {
-      emit this->startJobReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, true },
           { kResultErrName, "" },
           { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, job },
-          }}
-      });
+          { kResult, job}
+      };
     }
   } else {
-    emit this->startJobReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, job_interface.lastError().name() },
         { kResultErrMsg, job_interface.lastError().message() },
-        { kResult, QVariantMap {
-            { kResultName, job },
-        }}
-    });
+        { kResult, job}
+    };
   }
 }
 
-void StoreDaemonManager::installPackage(const QString& app_name,
+QVariantMap StoreDaemonManager::installPackage(const QString& app_name,
                                         const QString& app_local_name) {
   // NOTE(Shaohua): package name is also set as job_name so that `name`
   // property in JobInfo is referred to package_name.
 
   if (this->hasFlatPak(app_name)) {
-    emit this->installPackageReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, "flatpak not supported" },
         { kResultErrMsg, "flatpak not supported" },
-        { kResult, QVariantMap {
-            { kResultName, app_name },
-        }},
-    });
+        { kResult, app_name},
+    };
   } else if (this->hasDebPkg(app_name)) {
     const QDBusPendingReply<QDBusObjectPath> reply =
         deb_interface_->Install(app_local_name, app_name);
     if (reply.isError()) {
-      emit this->installPackageReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, false },
           { kResultErrName, reply.error().name() },
           { kResultErrMsg, reply.error().message() },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-          }},
-      });
+          { kResult, app_name},
+      };
     } else {
-      emit this->installPackageReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, true },
           { kResultErrName, "" },
           { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-              { kResultValue, reply.value().path() },
-          }},
-      });
+          { kResult, reply.value().path()},
+      };
     }
   } else {
     qCritical() << Q_FUNC_INFO << "Invalid app: " << app_name;
-    emit this->installPackageReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, "Invalid app" },
         { kResultErrMsg, "Invalid app" },
-        { kResult, QVariantMap {
-            { kResultName, app_name },
-        }},
-    });
+    };
   }
 }
 
-void StoreDaemonManager::installedPackages() {
+QVariantMap StoreDaemonManager::installedPackages() {
   // TODO(Shaohua): List flatpak packages.
   const QDBusPendingReply<InstalledAppInfoList> reply =
       deb_interface_->ListInstalled();
   if (reply.isError()) {
-    emit this->installedPackagesReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, reply.error().name() },
         { kResultErrMsg, reply.error().message() },
-        { kResult, QVariantMap {
-            { kResultName, "" },
-        }},
-    });
+        { kResult, ""},
+    };
   } else {
     const InstalledAppInfoList list = reply.value();
     QVariantList result;
@@ -416,120 +344,92 @@ void StoreDaemonManager::installedPackages() {
         });
       }
     }
-
-    emit this->installedPackagesReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, true },
         { kResultErrName, "" },
         { kResultErrMsg, "" },
-        { kResult, QVariantMap {
-            { kResultName, "" },
-            { kResultValue, result },
-        }},
-    });
+        { kResult, result},
+    };
   }
 }
 
-void StoreDaemonManager::packageDownloadSize(const QString& app_name) {
+QVariantMap StoreDaemonManager::packageDownloadSize(const QString& app_name) {
 
   if (this->hasFlatPak(app_name)) {
-    emit this->packageDownloadSizeReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, "flatpak not supported" },
         { kResultErrMsg, "flatpak not supported" },
-        { kResult, QVariantMap {
-            { kResultName, app_name },
-        }},
-    });
+    };
   } else if (this->hasDebPkg(app_name)) {
     const QDBusPendingReply<qlonglong> reply =
         deb_interface_->QueryDownloadSize(app_name);
     if (reply.isError()) {
-      emit this->packageDownloadSizeReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, false },
           { kResultErrName, reply.error().name() },
           { kResultErrMsg, reply.error().message() },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-          }},
-      });
+      };
     } else {
       const qlonglong size = reply.value();
-      emit this->packageDownloadSizeReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, true },
           { kResultErrName, reply.error().name() },
           { kResultErrMsg, reply.error().message() },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-              { kResultValue, size },
-          }},
-      });
+          { kResult, size },
+      };
     }
   } else {
     qCritical() << Q_FUNC_INFO << "Invalid app: " << app_name;
-    emit this->packageDownloadSizeReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, "Invalid app" },
         { kResultErrMsg, "Invalid app" },
-        { kResult, QVariantMap {
-            { kResultName, app_name },
-        }},
-    });
+    };
   }
 }
 
-void StoreDaemonManager::updatePackage(const QString& app_name,
+QVariantMap StoreDaemonManager::updatePackage(const QString& app_name,
                                        const QString& app_local_name) {
-  this->installPackage(app_name, app_local_name);
+  return this->installPackage(app_name, app_local_name);
 }
 
-void StoreDaemonManager::removePackage(const QString& app_name,
+QVariantMap StoreDaemonManager::removePackage(const QString& app_name,
                                        const QString& app_local_name) {
   if (this->hasFlatPak(app_name)) {
-    emit this->removePackageReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, "flatpak not supported" },
         { kResultErrMsg, "flatpak not supported" },
-        { kResult, QVariantMap {
-            { kResultName, app_name },
-        }},
-    });
+    };
   } else if (this->hasDebPkg(app_name)) {
     const QDBusPendingReply<QDBusObjectPath> reply =
         deb_interface_->Remove(app_local_name, app_name);
     if (reply.isError()) {
-      emit this->removePackageReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, false },
           { kResultErrName, reply.error().name() },
           { kResultErrMsg, reply.error().message() },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-          }},
-      });
+      };
     } else {
-      emit this->removePackageReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, true },
           { kResultErrName, "" },
           { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, app_name },
-              { kResultValue, reply.value().path() },
-          }},
-      });
+          { kResult, reply.value().path() },
+      };
     }
   } else {
     qCritical() << Q_FUNC_INFO << "Invalid app: " << app_name;
-    emit this->removePackageReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, "Invalid app_name" },
         { kResultErrMsg, "Invalid app_name" },
-        { kResult, QVariantMap {
-            { kResultName, app_name },
-        }},
-    });
+    };
   }
 }
 
-void StoreDaemonManager::jobList() {
+QVariantMap StoreDaemonManager::jobList() {
   // TODO(Shaohua): List flatpak jobs.
 
   const QList<QDBusObjectPath> jobs = deb_interface_->jobList();
@@ -537,19 +437,15 @@ void StoreDaemonManager::jobList() {
   for (const QDBusObjectPath& job : jobs) {
     paths.append(job.path());
   }
-  emit this->jobListReply(QVariantMap {
+  return QVariantMap {
       { kResultOk, true },
       { kResultErrName, "" },
       { kResultErrMsg, "" },
-      { kResult, QVariantMap {
-          { kResultName, "", },
-          { kResultValue, paths },
-      }}
-  });
+      { kResult, paths }
+  };
 }
 
-void StoreDaemonManager::queryVersions(const QString& task_id,
-                                       const QStringList& apps) {
+QVariantMap StoreDaemonManager::queryVersions(const QStringList& apps) {
   // Remap app name.
   QStringList deb_names;
   for (const QString& app : apps) {
@@ -562,14 +458,11 @@ void StoreDaemonManager::queryVersions(const QString& task_id,
       deb_interface_->QueryVersion(deb_names);
 
   if (version_reply.isError()) {
-    emit this->queryVersionsReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, version_reply.error().name() },
         { kResultErrMsg, version_reply.error().message() },
-        { kResult, QVariantMap {
-            { kResultName, task_id },
-        }},
-    });
+    };
   } else {
     const AppVersionList version_list = version_reply.value();
     QVariantList version_vars;
@@ -587,20 +480,16 @@ void StoreDaemonManager::queryVersions(const QString& task_id,
       }
     }
 
-    emit this->queryVersionsReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, true },
         { kResultErrName, "" },
         { kResultErrMsg, "" },
-        { kResult, QVariantMap {
-            { kResultName, task_id },
-            { kResultValue, version_vars },
-        }},
-    });
+        { kResult, version_vars},
+    };
   }
 }
 
-void StoreDaemonManager::queryInstalledTime(const QString& task_id,
-                                            const QStringList& apps) {
+QVariantMap StoreDaemonManager::queryInstalledTime(const QStringList& apps) {
   // Remap app name.
   QStringList deb_names;
   for (const QString& app : apps) {
@@ -613,14 +502,11 @@ void StoreDaemonManager::queryInstalledTime(const QString& task_id,
       deb_interface_->QueryInstallationTime(deb_names);
 
   if (timestamp_reply.isError()) {
-    emit this->queryInstalledTimeReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, timestamp_reply.error().name() },
         { kResultErrMsg, timestamp_reply.error().message() },
-        { kResult, QVariantMap {
-            { kResultName, task_id },
-        }},
-    });
+    };
   } else {
     const InstalledAppTimestampList timestamp_list = timestamp_reply.value();
     QVariantList result;
@@ -636,19 +522,16 @@ void StoreDaemonManager::queryInstalledTime(const QString& task_id,
       }
     }
 
-    emit this->queryInstalledTimeReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, true },
         { kResultErrName, "" },
         { kResultErrMsg, "" },
-        { kResult, QVariantMap {
-            { kResultName, task_id },
-            { kResultValue, result },
-        }},
-    });
+        { kResult, result},
+    };
   }
 }
 
-void StoreDaemonManager::getJobInfo(const QString& job) {
+QVariantMap StoreDaemonManager::getJobInfo(const QString& job) {
   QVariantMap result;
   LastoreJobInterface job_interface(kLastoreDebJobService,
                                     job,
@@ -656,34 +539,29 @@ void StoreDaemonManager::getJobInfo(const QString& job) {
                                     this);
   if (job_interface.isValid()) {
     if (ReadJobInfo(job_interface, job, deb_names_, result)) {
-      emit this->getJobInfoReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, true },
           { kResultErrName, "" },
           { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, job },
-              { kResultValue, result },
-          }},
-      });
+          { kResult, result },
+      };
     } else {
-      emit this->getJobInfoReply(QVariantMap {
+      return QVariantMap {
           { kResultOk, false },
           { kResultErrName, "app name list is empty" },
           { kResultErrMsg, "" },
-          { kResult, QVariantMap {
-              { kResultName, job },
-          }},
-      });
+          { kResult, job },
+      };
     }
   } else {
-    emit this->getJobInfoReply(QVariantMap {
+    return QVariantMap {
         { kResultOk, false },
         { kResultErrName, "Invalid job interface" },
         { kResultErrMsg, job_interface.lastError().message() },
         { kResult, QVariantMap {
             { kResultName, job },
         }},
-    });
+    };
   }
 }
 
@@ -695,8 +573,7 @@ bool StoreDaemonManager::hasFlatPak(const QString& app_name) const {
   return (apps_.contains(app_name) && !apps_.value(app_name).flatpaks.isEmpty());
 }
 
-void StoreDaemonManager::getJobsInfo(const QString& task_id,
-                                     const QStringList& jobs) {
+QVariantMap StoreDaemonManager::getJobsInfo(const QStringList& jobs) {
   QVariantList jobs_info;
   for (const QString& job : jobs) {
     QVariantMap job_info;
@@ -712,18 +589,16 @@ void StoreDaemonManager::getJobsInfo(const QString& task_id,
       }
     }
   }
-  emit this->getJobsInfoReply(QVariantMap {
+  return QVariantMap {
       { kResultOk, true },
       { kResultErrName, "" },
       { kResultErrMsg, "" },
-      { kResult, QVariantMap {
-          { kResultName, task_id },
-          { kResultValue, jobs_info },
-      }},
-  });
+      { kResult, jobs_info},
+  };
 }
 
 void StoreDaemonManager::onJobListChanged() {
+  qDebug()<<"jobList change";
   const QList<QDBusObjectPath> jobs = deb_interface_->jobList();
   QStringList paths;
   for (const QDBusObjectPath& job : jobs) {
@@ -732,18 +607,15 @@ void StoreDaemonManager::onJobListChanged() {
   emit this->jobListChanged(paths);
 }
 
-void StoreDaemonManager::fixError(const QString& error_type) {
+QVariantMap StoreDaemonManager::fixError(const QString& error_type) {
   const QDBusObjectPath path = deb_interface_->FixError(error_type);
   const QString job_path = path.path();
-  emit this->fixErrorReply(QVariantMap {
+  return QVariantMap {
       { kResultOk, (!job_path.isEmpty()) },
       { kResultErrName, "" },
       { kResultErrMsg, "" },
-      { kResult, QVariantMap {
-          { kResultName, error_type },
-          { kResultValue, job_path },
-      }},
-  });
+      { kResult, job_path},
+  };
 }
 
 }  // namespace dstore

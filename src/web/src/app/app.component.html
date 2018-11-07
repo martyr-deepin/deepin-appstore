@@ -4,7 +4,8 @@
   </div>
   <div class="context"
        #$context>
-    <dstore-scrollbar [savePosition]="true">
+    <dstore-scrollbar *ngIf="updated"
+                      [savePosition]="true">
       <router-outlet></router-outlet>
     </dstore-scrollbar>
   </div>

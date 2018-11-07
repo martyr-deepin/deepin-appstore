@@ -18,6 +18,7 @@ import { AppFilterFunc, Allowed } from '../appFilter';
 import { CategoryService, Category } from '../../services/category.service';
 import { StoreService } from '../../../dstore-client.module/services/store.service';
 import { AppVersion } from '../../../dstore-client.module/models/app-version';
+import { JobService } from 'app/services/job.service';
 
 @Component({
   selector: 'dstore-assemble',
@@ -41,12 +42,13 @@ export class AssembleComponent implements OnInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private category: CategoryService,
     private storeService: StoreService,
+    private jobService: JobService,
   ) {}
   categoryList: { [key: string]: Category };
 
   // data
   versions = new Map<string, AppVersion>();
-  jobs = new Map<string, StoreJobInfo>();
+  jobs: { [key: string]: StoreJobInfo } = {};
   jobsNames = new Set<string>();
   jobs$: Subscription;
 
@@ -71,29 +73,16 @@ export class AssembleComponent implements OnInit, OnDestroy {
   }
 
   getJobs() {
-    return merge(this.storeService.getJobList(), this.storeService.jobListChange())
-      .pipe(
-        tap(() => {
-          this.getVersions();
-        }),
-        switchMap(jobs => {
-          if (jobs.length > 0) {
-            return timer(0, 1000).pipe(flatMap(() => this.storeService.getJobsInfo(jobs)));
-          } else {
-            return of([] as StoreJobInfo[]);
-          }
-        }),
-      )
-      .subscribe(jobInfos => {
-        const jobs = new Map<string, StoreJobInfo>();
-        jobInfos.forEach(job => {
-          job.names.forEach(name => {
-            jobs.set(name, job);
-            this.jobsNames.add(name);
-          });
+    return this.jobService.jobsInfo().subscribe(jobInfos => {
+      const jobs = {};
+      jobInfos.forEach(job => {
+        job.names.forEach(name => {
+          jobs[name] = job;
+          this.jobsNames.add(name);
         });
-        this.jobs = jobs;
       });
+      this.jobs = jobs;
+    });
   }
 
   getVersions() {

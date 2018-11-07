@@ -5,7 +5,7 @@
 
 
 <div class="list"
-     *ngIf="jobs && apps.size>0;else loading">
+     *ngIf="loadCount>=2;else loading">
   <div class="title"
        i18n>Processing {{jobs.length}} {jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
 
@@ -24,7 +24,8 @@
                  [routerLink]="$app.name">
               <div class="name">{{$app.localInfo.description.name}}</div>
               <div class="version">
-                <ng-container i18n>Version:</ng-container>{{$app.version?.remoteVersion}}</div>
+                <ng-container i18n>Version:</ng-container>{{$app.version?.remoteVersion}}
+              </div>
             </div>
           </td>
           <td>

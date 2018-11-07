@@ -38,133 +38,28 @@ StoreDaemonProxy::StoreDaemonProxy(QObject* parent)
 
   manager_thread_->start();
   manager_->moveToThread(manager_thread_);
+
 }
 
 StoreDaemonProxy::~StoreDaemonProxy() {
   manager_thread_->quit();
   manager_thread_->wait(3);
 }
-
+QStringList StoreDaemonProxy::jobInfoList(){
+  QStringList list;
+  list.append("hello");
+  list.append("world");
+  return list;
+}
 void StoreDaemonProxy::initConnections() {
   connect(manager_thread_, &QThread::finished,
-          manager_, &StoreDaemonManager::deleteLater);
-
-  connect(manager_, &StoreDaemonManager::isDbusConnectedReply,
-          this, &StoreDaemonProxy::isDbusConnectedReply);
-
-  connect(manager_, &StoreDaemonManager::cleanJobReply,
-          this, &StoreDaemonProxy::cleanJobReply);
-  connect(manager_, &StoreDaemonManager::pauseJobReply,
-          this, &StoreDaemonProxy::pauseJobReply);
-  connect(manager_, &StoreDaemonManager::startJobReply,
-          this, &StoreDaemonProxy::startJobReply);
-  connect(manager_, &StoreDaemonManager::installPackageReply,
-          this, &StoreDaemonProxy::installPackageReply);
-  connect(manager_, &StoreDaemonManager::packageDownloadSizeReply,
-          this, &StoreDaemonProxy::packageDownloadSizeReply);
-  connect(manager_, &StoreDaemonManager::updatePackageReply,
-          this, &StoreDaemonProxy::updatePackageReply);
-  connect(manager_, &StoreDaemonManager::removePackageReply,
-          this, &StoreDaemonProxy::removePackageReply);
-
-  connect(manager_, &StoreDaemonManager::queryVersionsReply,
-          this, &StoreDaemonProxy::queryVersionsReply);
-  connect(manager_, &StoreDaemonManager::queryInstalledTimeReply,
-          this, &StoreDaemonProxy::queryInstalledTimeReply);
-
-  connect(manager_, &StoreDaemonManager::installedPackagesReply,
-          this, &StoreDaemonProxy::installedPackagesReply);
-
-  connect(manager_, &StoreDaemonManager::jobListReply,
-          this, &StoreDaemonProxy::jobListReply);
-  connect(manager_, &StoreDaemonManager::getJobInfoReply,
-          this, &StoreDaemonProxy::getJobInfoReply);
-  connect(manager_, &StoreDaemonManager::getJobsInfoReply,
-          this, &StoreDaemonProxy::getJobsInfoReply);
-
-  connect(this, &StoreDaemonProxy::updateAppList,
-          manager_, &StoreDaemonManager::updateAppList);
-  connect(manager_, &StoreDaemonManager::onAppListUpdated,
-          this, &StoreDaemonProxy::onAppListUpdated);
-
+        manager_, &StoreDaemonManager::deleteLater);
   connect(manager_, &StoreDaemonManager::jobListChanged,
-          this, &StoreDaemonProxy::jobListChanged);
-
-  connect(manager_, &StoreDaemonManager::fixErrorReply,
-          this, &StoreDaemonProxy::fixErrorReply);
-
-  connect(this, &StoreDaemonProxy::clearArchives,
-          manager_, &StoreDaemonManager::clearArchivesRequest);
-}
-
-void StoreDaemonProxy::isDBusConnected() {
-  emit manager_->isDbusConnectedRequest();
-}
-
-void StoreDaemonProxy::cleanJob(const QString& job) {
-  emit manager_->cleanJobRequest(job);
-}
-
-void StoreDaemonProxy::installPackage(const QString& app_name,
-                                      const QString& app_local_name) {
-  emit manager_->installPackageRequest(app_name, app_local_name);
-}
-
-void StoreDaemonProxy::installedPackages() {
-  emit manager_->installedPackagesRequest();
-}
-
-void StoreDaemonProxy::packageDownloadSize(const QString& app_name) {
-  emit manager_->packageDownloadSizeRequest(app_name);
-}
-
-void StoreDaemonProxy::pauseJob(const QString& job) {
-  emit manager_->pauseJobRequest(job);
-}
-
-void StoreDaemonProxy::startJob(const QString& job) {
-  emit manager_->startJobRequest(job);
-}
-
-void StoreDaemonProxy::updatePackage(const QString& app_name,
-                                     const QString& app_local_name) {
-  emit manager_->updatePackageRequest(app_name, app_local_name);
-}
-
-void StoreDaemonProxy::removePackage(const QString& app_name,
-                                     const QString& app_local_name) {
-  emit manager_->removePackageRequest(app_name, app_local_name);
-}
-
-void StoreDaemonProxy::queryVersions(const QString& task_id,
-                                     const QStringList& apps) {
-  emit manager_->queryVersionsRequest(task_id, apps);
-}
-
-void StoreDaemonProxy::queryInstalledTime(const QString& task_id,
-                                          const QStringList& apps) {
-  emit manager_->queryInstalledTimeRequest(task_id, apps);
-}
-
-void StoreDaemonProxy::jobList() {
-  emit manager_->jobListRequest();
-}
-
-void StoreDaemonProxy::getJobInfo(const QString& job) {
-  emit manager_->getJobInfoRequest(job);
-}
-
-void StoreDaemonProxy::getJobsInfo(const QString& task_id,
-                                   const QStringList& jobs) {
-  emit manager_->getJobsInfoRequest(task_id, jobs);
-}
-
-void StoreDaemonProxy::fixError(const QString& error_type) {
-  emit manager_->fixErrorRequest(error_type);
-}
-
-void StoreDaemonProxy::openApp(const QString& app_name) {
-  emit manager_->openAppRequest(app_name);
+        this, &StoreDaemonProxy::jobListChanged);
+  connect(manager_, &StoreDaemonManager::onAppListUpdated,
+        this, &StoreDaemonProxy::onAppListUpdated);
+  connect(this, &StoreDaemonProxy::updateAppList,
+        manager_, &StoreDaemonManager::updateAppList);
 }
 
 }  // namespace dstore

@@ -11,7 +11,7 @@
       <ng-container *ngFor="let $assembleApp of $assemble.apps">
         <ng-container *ngIf="$assembleApp.name|appInfo|async as $app">
           <div class="item"
-               [class.job]="jobs.has($app.name) || jobsNames.has($app.name)"
+               [class.job]="jobs[$app.name] || jobsNames.has($app.name)"
                [routerLink]="$app.name">
             <img class="icon"
                  [src]="server+'/'+$app.icon">
@@ -24,7 +24,7 @@
                 <span class="subtitle">{{$app.localInfo.description.slogan}}</span>
               </div>
               <div class="control">
-                <ng-container *ngIf="jobs.get($app.name) as job;else controlBtn">
+                <ng-container *ngIf="jobs[$app.name] as job;else controlBtn">
                   <dstore-circle-button [running]="[StoreJobStatus.running,StoreJobStatus.ready,StoreJobStatus.end].includes(job.status)"
                                         [progress]="job.progress"
                                         [disabled]="!job.cancelable"

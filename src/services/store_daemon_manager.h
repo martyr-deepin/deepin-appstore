@@ -35,51 +35,8 @@ class StoreDaemonManager : public QObject {
  public:
   explicit StoreDaemonManager(QObject* parent = nullptr);
   ~StoreDaemonManager() override;
-
+  
  signals:
-  void isDbusConnectedRequest();
-
-  void clearArchivesRequest();
-  void cleanJobRequest(const QString& job);
-  void pauseJobRequest(const QString& job);
-  void startJobRequest(const QString& job);
-  void installPackageRequest(const QString& app_name,
-                             const QString& app_local_name);
-  void packageDownloadSizeRequest(const QString& app_name);
-  void updatePackageRequest(const QString& app_name,
-                            const QString& app_local_name);
-  void removePackageRequest(const QString& app_name,
-                            const QString& app_local_name);
-  void installedPackagesRequest();
-
-  void queryVersionsRequest(const QString& task_id, const QStringList& apps);
-  void queryInstalledTimeRequest(const QString& task_id,
-                                 const QStringList& apps);
-  void jobListRequest();
-  void getJobInfoRequest(const QString& job);
-  void getJobsInfoRequest(const QString& task_id, const QStringList& jobs);
-
-  void openAppRequest(const QString& app_name);
-
-  void fixErrorRequest(const QString& error_type);
-
-
-  void isDbusConnectedReply(bool state);
-
-  void cleanJobReply(const QVariantMap& result);
-  void pauseJobReply(const QVariantMap& result);
-  void startJobReply(const QVariantMap& result);
-  void installPackageReply(const QVariantMap& result);
-  void packageDownloadSizeReply(const QVariantMap& result);
-  void updatePackageReply(const QVariantMap& result);
-  void removePackageReply(const QVariantMap& result);
-
-  void queryVersionsReply(const QVariantMap& result);
-  void queryInstalledTimeReply(const QVariantMap& result);
-  void jobListReply(const QVariantMap& result);
-  void installedPackagesReply(const QVariantMap& result);
-  void getJobInfoReply(const QVariantMap& result);
-  void getJobsInfoReply(const QVariantMap& result);
 
   /**
    * Emitted when JobList property changed.
@@ -88,8 +45,6 @@ class StoreDaemonManager : public QObject {
   void jobListChanged(const QStringList& jobs);
 
   void onAppListUpdated(const AppSearchRecordList& app_list);
-
-  void fixErrorReply(const QVariantMap& result);
 
  public slots:
   void updateAppList(const AppSearchRecordList& app_list);
@@ -115,70 +70,71 @@ class StoreDaemonManager : public QObject {
   QThread* apt_worker_thread_ = nullptr;
   LastoreDebInterface* deb_interface_ = nullptr;
 
- private slots:
+ public slots:
   void clearArchives();
+  void openApp(const QString& app_name);
 
   /**
    * Check connecting to backend app store daemon or not.
    */
-  void isDBusConnected();
+  bool isDBusConnected();
 
   /**
    * Clean up a specific job.
    * @param job
    */
-  void cleanJob(const QString& job);
+  QVariantMap cleanJob(const QString& job);
 
   /**
    * Pause a running job
    * @param job
    */
-  void pauseJob(const QString& job);
+  QVariantMap pauseJob(const QString& job);
 
   /**
    * Resume a paused job
    * @param job
    */
-  void startJob(const QString& job);
+  QVariantMap startJob(const QString& job);
 
   /**
    * apt-get install xxx
    * @param app_name
    * @param app_local_name
    */
-  void installPackage(const QString& app_name, const QString& app_local_name);
+  QVariantMap installPackage(const QString& app_name, const QString& app_local_name);
 
-  void installedPackages();
+  QVariantMap installedPackages();
 
   /**
    * Get deb package size
    * @param app_name
    */
-  void packageDownloadSize(const QString& app_name);
+  QVariantMap packageDownloadSize(const QString& app_name);
 
   /**
    * apt-get upgrade xxx
    * @param app_name
    * @param app_local_name
    */
-  void updatePackage(const QString& app_name, const QString& app_local_name);
+  QVariantMap updatePackage(const QString& app_name, const QString& app_local_name);
 
   /**
    * apt-get remove xxx
    * @param app_name
    * @param app_local_name
    */
-  void removePackage(const QString& app_name, const QString& app_local_name);
+  QVariantMap removePackage(const QString& app_name, const QString& app_local_name);
 
-  void queryVersions(const QString& task_id, const QStringList& apps);
+  QVariantMap queryVersions(const QStringList& apps);
 
-  void queryInstalledTime(const QString& task_id, const QStringList& apps);
+  QVariantMap queryInstalledTime(const QStringList& apps);
 
   /**
    * Returns all of jobs existing in backend.
    * @return stringList
    */
-  void jobList();
+  QVariantMap jobList();
 
   /**
    * Get temporary job info.
@@ -193,13 +149,13 @@ class StoreDaemonManager : public QObject {
    * * cancelable: boolean
    * * packages: stringList
    */
-  void getJobInfo(const QString& job);
+  QVariantMap getJobInfo(const QString& job);
 
-  void getJobsInfo(const QString& task_id, const QStringList& jobs);
+  QVariantMap getJobsInfo(const QStringList& jobs);
 
   void onJobListChanged();
 
-  void fixError(const QString& error_type);
+  QVariantMap fixError(const QString& error_type);
 };
 
 }  // namespace dstore

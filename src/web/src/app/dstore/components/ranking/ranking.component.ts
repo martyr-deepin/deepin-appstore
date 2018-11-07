@@ -15,6 +15,7 @@ import {
   StoreJobType,
 } from '../../../dstore-client.module/models/store-job-info';
 import { AppVersion } from '../../../dstore-client.module/models/app-version';
+import { JobService } from 'app/services/job.service';
 
 @Component({
   selector: 'dstore-ranking',
@@ -22,7 +23,11 @@ import { AppVersion } from '../../../dstore-client.module/models/app-version';
   styleUrls: ['./ranking.component.scss'],
 })
 export class RankingComponent implements OnInit, OnDestroy {
-  constructor(private appService: AppService, private storeService: StoreService) {}
+  constructor(
+    private appService: AppService,
+    private storeService: StoreService,
+    private jobService: JobService,
+  ) {}
 
   metadataServer = BaseService.serverHosts.metadataServer;
   isNative = BaseService.isNative;
@@ -63,29 +68,16 @@ export class RankingComponent implements OnInit, OnDestroy {
   }
 
   getJobs() {
-    this.jobs$ = merge(this.storeService.getJobList(), this.storeService.jobListChange())
-      .pipe(
-        tap(() => {
-          this.getVersion();
-        }),
-        switchMap(jobs => {
-          if (jobs.length > 0) {
-            return timer(0, 1000).pipe(flatMap(() => this.storeService.getJobsInfo(jobs)));
-          } else {
-            return of([] as StoreJobInfo[]);
-          }
-        }),
-      )
-      .subscribe(jobInfos => {
-        const jobs: { [key: string]: StoreJobInfo } = {};
-        jobInfos.forEach(job => {
-          job.names.forEach(name => {
-            jobs[name] = job;
-            this.jobsNames.add(name);
-          });
+    this.jobs$ = this.jobService.jobsInfo().subscribe(jobInfos => {
+      const jobs = {};
+      jobInfos.forEach(job => {
+        job.names.forEach(name => {
+          jobs[name] = job;
+          this.jobsNames.add(name);
         });
-        this.jobs = jobs;
       });
+      this.jobs = jobs;
+    });
   }
   getVersion() {
     if (this.appList) {

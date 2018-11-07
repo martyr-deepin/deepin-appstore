@@ -4,14 +4,13 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { Observable, timer, merge } from 'rxjs';
 import { tap, flatMap, map, switchMap } from 'rxjs/operators';
 
-import { memoize } from 'lodash';
-
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
 import { BaseService } from '../../dstore/services/base.service';
 import { StoreService } from '../../dstore-client.module/services/store.service';
 import { AppService } from '../../services/app.service';
 import { StoreJobType } from '../../dstore-client.module/models/store-job-info';
+import { JobService } from 'app/services/job.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -28,7 +27,7 @@ export class SideNavComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private categoryService: CategoryService,
-    private storeService: StoreService,
+    private jobService: JobService,
     private appService: AppService,
   ) {}
   native = BaseService.isNative;
@@ -41,20 +40,11 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit() {
     this.cs$ = this.categoryService.list();
-    this.dc$ = merge(
-      timer(0, 5000).pipe(switchMap(() => this.storeService.getJobList())),
-      this.storeService.jobListChange(),
-    ).pipe(
-      switchMap(jobs => this.storeService.getJobsInfo(jobs)),
-      switchMap(jobs => {
-        const apps = [].concat(
-          ...jobs
-            .filter(job => job.type === StoreJobType.install || job.type === StoreJobType.download)
-            .map(job => job.names),
-        );
-        return this.appService.getApps(apps);
+    const CountType = [StoreJobType.install, StoreJobType.download];
+    this.dc$ = this.jobService.jobsInfo().pipe(
+      map(infoList => {
+        return infoList.filter(info => CountType.includes(info.type)).length;
       }),
-      map(apps => apps.length),
     );
   }
 

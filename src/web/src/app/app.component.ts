@@ -23,12 +23,17 @@ export class AppComponent implements OnInit {
   ) {}
   @ViewChild('$context')
   contentRef: ElementRef<HTMLDivElement>;
-
+  updated = false;
   ngOnInit(): void {
     this.searchIndex();
     this.searchListen();
     this.screenshotPreview();
     this.switchTheme();
+    if (!BaseService.isNative) {
+      this.updated = true;
+    } else {
+      this.waitUpdate();
+    }
   }
 
   switchTheme() {
@@ -36,7 +41,7 @@ export class AppComponent implements OnInit {
       document.body.className = theme;
     });
   }
-
+  // 添加搜索查询索引
   searchIndex() {
     if (BaseService.isNative) {
       this.appService.list().subscribe((apps: App[]) => {
@@ -44,6 +49,12 @@ export class AppComponent implements OnInit {
         Channel.exec('search.updateAppList', appStringList);
       });
     }
+  }
+  // 等待后台添加索引
+  waitUpdate() {
+    Channel.connect('storeDaemon.onAppListUpdated').subscribe(resp => {
+      setTimeout(() => (this.updated = true), 0);
+    });
   }
   searchListen() {
     this.searchService.onOpenApp().subscribe(appName => {

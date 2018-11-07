@@ -9,7 +9,7 @@ import { Channel } from '../dstore-client.module/utils/channel';
 export class ThemeService {
   private theme$ = new BehaviorSubject<string>(environment.themeName);
   constructor() {
-    Channel.registerCallback('menu.switchThemeRequested', theme => {
+    Channel.connect<string>('menu.switchThemeRequested').subscribe(theme => {
       this.theme$.next(theme);
     });
   }

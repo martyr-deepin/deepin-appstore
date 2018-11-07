@@ -1,17 +1,7 @@
 import { Injectable, NgZone, Version } from '@angular/core';
 import { Channel } from '../utils/channel';
-import { Observable, forkJoin, of, BehaviorSubject } from 'rxjs';
-import {
-  flatMap,
-  map,
-  filter,
-  take,
-  switchMap,
-  shareReplay,
-  share,
-  first,
-  skip,
-} from 'rxjs/operators';
+import { Observable, from, of, BehaviorSubject } from 'rxjs';
+import { flatMap, map, first, skip } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from '../models/store-job-info';
@@ -28,24 +18,15 @@ interface SignalObject {
 @Injectable()
 export class StoreService {
   private server = BaseService.serverHosts.operationServer;
-  private jobList$ = new BehaviorSubject<string[]>([]);
 
-  constructor(private zone: NgZone, private http: HttpClient) {
-    this.initJobListSub();
-  }
-
-  private initJobListSub() {
-    const callback = (list: string[]) => this.jobList$.next(list);
-    this.execWithCallback('storeDaemon.jobList').subscribe(callback);
-    Channel.registerCallback('storeDaemon.jobListChanged', callback);
-  }
+  constructor(private zone: NgZone, private http: HttpClient) {}
 
   getJobList(): Observable<string[]> {
-    return this.jobList$.asObservable().pipe(first());
+    return this.execWithCallback('storeDaemon.jobList');
   }
 
   jobListChange(): Observable<string[]> {
-    return this.jobList$.asObservable().pipe(skip(1));
+    return Channel.connect('storeDaemon.jobListChanged');
   }
 
   private downloadRecord(appName: string) {
@@ -131,11 +112,9 @@ export class StoreService {
   }
 
   getVersion(appNameList: string[]): Observable<AppVersion[]> {
-    return this.execWithCallback<AppVersion[]>(
-      'storeDaemon.queryVersions',
-      appNameList.toString(),
-      appNameList,
-    ).pipe(map(versionList => versionList.filter(v => v.remoteVersion)));
+    return this.execWithCallback<AppVersion[]>('storeDaemon.queryVersions', appNameList).pipe(
+      map(versionList => versionList.filter(v => v.remoteVersion)),
+    );
   }
 
   getVersionMap(appNameList: string[]): Observable<Map<string, AppVersion>> {
@@ -165,11 +144,7 @@ export class StoreService {
   }
 
   getInstalledTimes(appNameList: string[]): Observable<{ app: string; time: number }[]> {
-    return this.execWithCallback(
-      'storeDaemon.queryInstalledTime',
-      appNameList.toString(),
-      appNameList,
-    );
+    return this.execWithCallback('storeDaemon.queryInstalledTime', appNameList);
   }
   getInstalledTimeMap(appNameList: string[]): Observable<Map<string, number>> {
     return this.getInstalledTimes(appNameList).pipe(
@@ -195,7 +170,7 @@ export class StoreService {
   }
 
   getJobsInfo(jobs: string[]): Observable<StoreJobInfo[]> {
-    return this.execWithCallback('storeDaemon.getJobsInfo', jobs.join(','), jobs);
+    return this.execWithCallback('storeDaemon.getJobsInfo', jobs);
   }
 
   /**
@@ -212,25 +187,10 @@ export class StoreService {
    */
 
   execWithCallback<T>(method: string, ...args: any[]): Observable<T> {
-    const obs$ = new Observable<StoreResponse>(obs => {
-      return Channel.execWithCallback(
-        (storeResp: StoreResponse) => {
-          if (!storeResp.ok) {
-            console.error(method, 'store error', storeResp);
-          } else {
-            console.warn(method, 'store resp', storeResp);
-          }
-          this.zone.run(() => obs.next(storeResp));
-        },
-        method,
-        ...args,
-      );
-    });
-    return obs$.pipe(
-      filter(resp => resp.errorName === ''),
-      filter(resp => args.length === 0 || args[0] === resp.result.name),
-      map(resp => resp.result.value),
-      take(1),
+    return from(
+      Channel.exec<StoreResponse>(method, ...args).then(resp => {
+        return resp.ok ? resp.result : Promise.reject(resp);
+      }),
     );
   }
 }
@@ -242,5 +202,5 @@ class StoreResponse {
   ok: boolean;
   errorName: string;
   errorMsg: string;
-  result: { name: string; value: any };
+  result: any;
 }

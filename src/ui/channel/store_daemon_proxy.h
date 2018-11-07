@@ -33,32 +33,16 @@ class StoreDaemonProxy : public QObject {
   explicit StoreDaemonProxy(QObject* parent = nullptr);
   ~StoreDaemonProxy() override;
 
+  Q_INVOKABLE QStringList jobInfoList();
+  Q_PROPERTY(QStringList myIntInCppSide READ jobInfoList);
+  
  signals:
-  void isDbusConnectedReply(bool state);
+  // void isDbusConnectedReply(bool state);
 
   /**
    * Emitted when apt-get clean is called.
    */
   void clearArchives();
-
-  void cleanJobReply(const QVariantMap& result);
-  void pauseJobReply(const QVariantMap& result);
-  void startJobReply(const QVariantMap& result);
-  void installPackageReply(const QVariantMap& result);
-  void packageDownloadSizeReply(const QVariantMap& result);
-  void updatePackageReply(const QVariantMap& result);
-  void removePackageReply(const QVariantMap& result);
-  void upgradableAppsReply(const QVariantMap& result);
-
-  void installedPackagesReply(const QVariantMap& result);
-
-  void queryVersionsReply(const QVariantMap& result);
-  void queryInstalledTimeReply(const QVariantMap& result);
-  void jobListReply(const QVariantMap& result);
-  void getJobInfoReply(const QVariantMap& result);
-  void getJobsInfoReply(const QVariantMap& result);
-
-  void updateAppList(const AppSearchRecordList& record_list);
 
   /**
  * Emitted when JobList property changed.
@@ -66,15 +50,15 @@ class StoreDaemonProxy : public QObject {
  */
   void jobListChanged(const QStringList& jobs);
 
+  void updateAppList(const AppSearchRecordList& record_list);
   void onAppListUpdated(const AppSearchRecordList& app_list);
-
-  void fixErrorReply(const QVariantMap& result);
-
  public slots:
   /**
    * Check connecting to backend app store daemon or not.
    */
-  void isDBusConnected();
+  bool isDBusConnected(){
+    return manager_->isDBusConnected();
+  }
 
   // Store Manager methods:
 
@@ -82,68 +66,90 @@ class StoreDaemonProxy : public QObject {
    * Clean up a specific job.
    * @param job
    */
-  void cleanJob(const QString& job);
+  QVariantMap cleanJob(const QString& job){
+    return manager_->cleanJob(job);
+  }
 
   /**
    * Pause a running job
    * @param job
    */
-  void pauseJob(const QString& job);
+  QVariantMap pauseJob(const QString& job){
+    return manager_->pauseJob(job);
+  }
 
   /**
    * Resume a paused job
    * @param job
    */
-  void startJob(const QString& job);
+  QVariantMap startJob(const QString& job){
+    return manager_->startJob(job);
+  }
 
   /**
    * apt-get install xxx, to install or upgrade a program.
    * @param app_name
    * @param app_local_name App local name is used by lastore daemon
    */
-  void installPackage(const QString& app_name, const QString& app_local_name);
+  QVariantMap installPackage(const QString& app_name, const QString& app_local_name){
+    return manager_->installPackage(app_name,app_local_name);
+  }
 
   /**
    * Get a list of installed packages.
    */
-  void installedPackages();
+  QVariantMap installedPackages(){
+    return manager_->installedPackages();
+  }
 
   /**
    * Get deb package size
    * @param app_name
    */
-  void packageDownloadSize(const QString& app_name);
+  QVariantMap packageDownloadSize(const QString& app_name){
+    return manager_->packageDownloadSize(app_name);
+  }
 
   /**
    * apt-get upgrade xxx
    * @param app_name
    */
-  void updatePackage(const QString& app_name, const QString& app_local_name);
+  QVariantMap updatePackage(const QString& app_name, const QString& app_local_name){
+    return manager_->updatePackage(app_name,app_local_name);
+  }
 
   /**
    * apt-get remove xxx
    * @param app_name
    */
-  void removePackage(const QString& app_name, const QString& app_local_name);
+  QVariantMap removePackage(const QString& app_name, const QString& app_local_name){
+    return manager_->removePackage(app_name,app_local_name);
+  }
 
   /**
    * Query application version information.
    * @param apps
    */
-  void queryVersions(const QString& task_id, const QStringList& apps);
+  QVariantMap queryVersions(const QStringList& apps){
+    return manager_->queryVersions(apps);
+  }
 
   /**
    * Query installed timestamp of apps.
    * @param task_id
    * @param apps
    */
-  void queryInstalledTime(const QString& task_id, const QStringList& apps);
+  QVariantMap queryInstalledTime(const QStringList& apps){
+    return manager_->queryInstalledTime(apps);
+  }
 
   /**
    * Returns all of jobs existing in backend.
    * @return stringList
    */
-  void jobList();
+  QVariantMap jobList(){
+    return manager_->jobList();
+  }
 
   /**
    * Get temporary job info.
@@ -158,20 +164,33 @@ class StoreDaemonProxy : public QObject {
    * * cancelable: boolean
    * * packages: stringList
    */
-  void getJobInfo(const QString& job);
+  QVariantMap getJobInfo(const QString& job){
+    return manager_->getJobInfo(job);
+  }
 
-  void getJobsInfo(const QString& task_id, const QStringList& jobs);
+  QVariantMap getJobsInfo(const QStringList& jobs){
+    return manager_->getJobsInfo(jobs);
+  }
 
   /**
    * Try to fix installation error.
    */
-  void fixError(const QString& error_type);
+  QVariantMap fixError(const QString& error_type){
+    return manager_->fixError(error_type);
+  }
 
   /**
    * Request to open installed application.
    * @param app_name
    */
-  void openApp(const QString& app_name);
+  void openApp(const QString& app_name){
+    return manager_->openApp(app_name);
+  }
+
+  QString test(){
+    QThread::sleep(3);
+    return "this is test";
+  }
 
  private:
   void initConnections();

@@ -14,5 +14,6 @@ debian/deepin-appstore
 debian/deepin-appstore-data
 debian/debhelper-build-stamp
 debian/.debhelper/
-src/web_distsrc/web_dist_aot
+src/web_dist
+src/web_dist_aot
 debian/deepin-appstore-data-aot

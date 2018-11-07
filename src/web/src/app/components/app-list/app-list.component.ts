@@ -25,6 +25,7 @@ import { AppVersion } from '../../dstore-client.module/models/app-version';
 import { AppService } from '../../services/app.service';
 import { OffsetService } from '../../services/offset.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JobService } from 'app/services/job.service';
 
 @Component({
   selector: 'app-app-list',
@@ -36,6 +37,7 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
     private appService: AppService,
     private storeService: StoreService,
     private offsetService: OffsetService,
+    private jobService: JobService,
     private router: Router,
   ) {}
   // const
@@ -70,37 +72,27 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   openApp = this.storeService.openApp;
 
   ngOnInit() {
-    this.jobs$ = merge(this.storeService.getJobList(), this.storeService.jobListChange())
-      .pipe(
-        switchMap(jobs => {
-          if (jobs.length > 0) {
-            return timer(0, 1000).pipe(flatMap(() => this.storeService.getJobsInfo(jobs)));
-          } else {
-            return of([] as StoreJobInfo[]);
-          }
-        }),
-      )
-      .subscribe(jobInfos => {
-        const jobs: { [key: string]: StoreJobInfo } = {};
-        jobInfos.forEach(job => {
-          job.names.forEach(name => {
-            jobs[name] = job;
-            this.jobNames.add(name);
-          });
-        });
-
-        this.storeService.getVersion(Object.keys(this.jobs)).subscribe(versions => {
-          const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
-          if (this.apps) {
-            this.apps.forEach(app => {
-              if (vMap.has(app.name)) {
-                app.version = vMap.get(app.name);
-              }
-            });
-          }
-          this.jobs = jobs;
+    this.jobs$ = this.jobService.jobsInfo().subscribe(jobInfos => {
+      const jobs: { [key: string]: StoreJobInfo } = {};
+      jobInfos.forEach(job => {
+        job.names.forEach(name => {
+          jobs[name] = job;
+          this.jobNames.add(name);
         });
       });
+
+      this.storeService.getVersion(Object.keys(this.jobs)).subscribe(versions => {
+        const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
+        if (this.apps) {
+          this.apps.forEach(app => {
+            if (vMap.has(app.name)) {
+              app.version = vMap.get(app.name);
+            }
+          });
+        }
+        this.jobs = jobs;
+      });
+    });
   }
   ngOnDestroy() {
     this.jobs$.unsubscribe();

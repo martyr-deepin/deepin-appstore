@@ -93,7 +93,10 @@
 
 <ng-template #$loading
              let-$app>
-  <app-wait *ngIf="app===null;else $DropOff"></app-wait>
+  <div class="loading"
+       *ngIf="app===null;else $DropOff">
+    <app-wait></app-wait>
+  </div>
 
   <ng-template #$DropOff>
     <div class="dropOff">

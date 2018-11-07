@@ -10,20 +10,19 @@ import { BaseService } from '../dstore/services/base.service';
   providedIn: 'root',
 })
 export class RecommendService {
-  constructor(private zone: NgZone, private http: HttpClient) {}
+  constructor(private zone: NgZone, private http: HttpClient) {
+    Channel.connect<void>('menu.recommendAppRequested').subscribe(() => {
+      zone.run(() => {
+        this.openRecommend();
+      });
+    });
+  }
 
   server = BaseService.serverHosts.operationServer;
   private obs = new Subject<void>();
 
   onOpenRecommend(): Observable<void> {
-    return merge(
-      this.obs,
-      new Observable<void>(obs => {
-        Channel.registerCallback('menu.recommendAppRequested', () => {
-          this.zone.run(obs.next.bind(obs));
-        });
-      }),
-    ).pipe(tap(() => console.log('OpenRecommend')));
+    return this.obs.asObservable();
   }
 
   openRecommend() {
