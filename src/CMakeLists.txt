@@ -191,7 +191,7 @@ if(BUILD_WEB_RESOURCES)
                      VERBATIM)
 else()
   add_custom_command(OUTPUT npm-update-web-dist
-                     COMMAND sh -c "mkdir web_dist web_dist_aot || true"
+                     COMMAND sh -c "mkdir -p web_dist web_dist_aot/appstore || true"
                      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                      VERBATIM)
 endif()
