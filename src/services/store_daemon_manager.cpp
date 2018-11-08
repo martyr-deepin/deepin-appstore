@@ -467,6 +467,26 @@ QVariantMap StoreDaemonManager::queryVersions(const QStringList& apps) {
     const AppVersionList version_list = version_reply.value();
     QVariantList version_vars;
     for (const AppVersion& version : version_list) {
+      
+      auto pkg_name = version.pkg_name;
+      const int arch_idx = pkg_name.indexOf(':');
+      if (arch_idx > 0)
+      {
+        pkg_name = pkg_name.left(arch_idx);
+      }
+
+      if (deb_names_.contains(pkg_name))
+      {
+        const QStringList app_names = deb_names_.values(pkg_name);
+        for (const QString &app_name : app_names)
+        {
+          if (arch_idx > 0)
+          {
+            deb_names_.insert(version.pkg_name, app_name);
+          }
+        }
+      }
+      
       if (deb_names_.contains(version.pkg_name)) {
         const QStringList& app_names = deb_names_.values(version.pkg_name);
         for (const QString& app_name : app_names) {

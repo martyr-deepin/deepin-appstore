@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
   // 等待后台添加索引
   waitUpdate() {
     Channel.connect('storeDaemon.onAppListUpdated').subscribe(resp => {
-      setTimeout(() => (this.updated = true), 0);
+      this.updated = true;
     });
   }
   searchListen() {
