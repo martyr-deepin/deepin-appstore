@@ -1,9 +1,7 @@
-<ng-container *ngIf="list$|async as $list;else loading">
-    <app-app-title #$title>{{title}}</app-app-title>
-    <app-app-list [apps$]="$list.apps$"
-                  [sortBy]="$title.sortBy"
-                  [subtitle]="'slogan'"></app-app-list>
+<ng-container *ngIf="(list$ | async) as $list; else: loading">
+  <app-app-title #$title>{{ title }}</app-app-title>
+  <app-app-list [apps$]="$list.apps$" [sortBy]="$title.sortBy" [subtitle]="'slogan'"></app-app-list>
 </ng-container>
 <ng-template #loading>
-    <app-wait></app-wait>
+  <div class="loadingContainer"><app-wait></app-wait></div>
 </ng-template>

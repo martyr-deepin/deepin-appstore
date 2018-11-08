@@ -13,7 +13,7 @@ export class Channel {
   }
 
   static exec<T>(method: string, ...args: any[]): Promise<T> {
-    console.warn('exec', method);
+    console.warn('exec', method, args);
     return new Promise<T>(resolve => {
       Channel.getSlot(method)(...args, resolve);
     });

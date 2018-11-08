@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { BehaviorSubject, Observable, of, timer } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, of, timer } from 'rxjs';
 import { switchMap, share, map } from 'rxjs/operators';
 
 import { StoreService } from 'app/dstore-client.module/services/store.service';
@@ -11,6 +11,7 @@ import { StoreJobInfo } from 'app/dstore-client.module/models/store-job-info';
 export class JobService {
   private jobList$ = new BehaviorSubject<string[]>([]);
   private jobInfoList$ = new BehaviorSubject<StoreJobInfo[]>([]);
+  private interval: Subscription;
   constructor(private zone: NgZone, private StoreServer: StoreService) {
     this.StoreServer.getJobList().subscribe(list => this.update(list));
     this.StoreServer.jobListChange().subscribe(list => this.update(list));
@@ -19,7 +20,10 @@ export class JobService {
     this.zone.run(() => {
       this.jobList$.next(list);
       if (list.length > 0) {
-        timer(0, 1000)
+        if (this.interval) {
+          this.interval.unsubscribe();
+        }
+        this.interval = timer(0, 1000)
           .pipe(switchMap(() => this.StoreServer.getJobsInfo(list)))
           .subscribe(infoList => this.jobInfoList$.next(infoList));
       } else {

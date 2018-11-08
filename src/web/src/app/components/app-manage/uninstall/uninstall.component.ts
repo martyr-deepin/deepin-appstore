@@ -39,20 +39,15 @@ export class UninstallComponent implements OnInit, OnDestroy {
     'deepin-manual',
   ];
   installedApps: InstalledApp[];
-  uninstallingApps: string[];
+  uninstallingApps = new Set<string>();
   select = '';
   job: Subscription;
 
   ngOnInit() {
     this.job = this.jobService.jobsInfo().subscribe(jobs => {
-      this.uninstallingApps = [].concat(
-        ...jobs
-          .filter(
-            job => job.type === StoreJobType.uninstall && job.status !== StoreJobStatus.failed,
-          )
-          .map(job => job.names),
-      );
-      console.log('jobsinfo', jobs, this.uninstallingApps);
+      jobs
+        .filter(job => job.type === StoreJobType.uninstall && job.status !== StoreJobStatus.failed)
+        .forEach(job => job.names.forEach(name => this.uninstallingApps.add(name)));
     });
     this.jobService
       .jobList()
@@ -72,7 +67,7 @@ export class UninstallComponent implements OnInit, OnDestroy {
   uninstall(appName: string, localName: string) {
     this.storeService.removePackage(appName, localName).subscribe(() => {
       this.select = '';
-      this.uninstallingApps.push(appName);
+      this.uninstallingApps.add(appName);
     });
   }
 }

@@ -58,6 +58,9 @@ export class DownloadComponent implements OnInit, OnDestroy {
     });
 
     this.jobs$ = this.jobService.jobsInfo().subscribe(jobs => {
+      jobs = jobs.filter(
+        job => job.type === StoreJobType.download || job.type === StoreJobType.install,
+      );
       this.loadCount++;
       const list = jobs.map(job => job.id);
       this.jobs.forEach((job, index) => {

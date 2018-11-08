@@ -1,21 +1,8 @@
-<ng-container *ngIf="online; else $offline">
-    <ng-container *ngIf="timeout$|async;else water">
-        <img class="failed"
-             src="/assets/icons/failed.svg">
-        <span class="timeout"
-              i18n>Network error</span>
-    </ng-container>
-    <ng-template #water>
-        <div class="water"></div>
-        <div class="title"
-             i18n>Loading...</div>
-    </ng-template>
+<ng-container *ngIf="(timeout$ | async); else: water">
+  <img class="failed" src="/assets/icons/failed.svg" />
+  <span class="timeout" i18n>Network error</span>
 </ng-container>
-<ng-template #$offline>
-    <img src="/assets/icons/tips_bg.svg"
-         class="tips_bg">
-    <div i18n>Sorry, connection failed, please check your network and refresh</div>
-    <a (click)="refresh()"
-       i18n>Refresh</a>
-    {{waitOnline$|async}}
+<ng-template #water>
+  <div class="water"></div>
+  <div class="title" i18n>Loading...</div>
 </ng-template>

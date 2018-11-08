@@ -7,12 +7,6 @@
   color: var(--main-color);
   border-bottom: 1px solid var(--main-title-hr-color);
 }
-.loading {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
 .appItem {
   display: flex;
   align-items: center;
