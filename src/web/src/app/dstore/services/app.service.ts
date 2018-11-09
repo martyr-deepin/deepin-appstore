@@ -15,6 +15,8 @@ import { App, appReviver } from './app';
 import { Error } from './errno';
 import { Locale } from '../utils/locale';
 
+const DSTORE_VERSION = '5.1.2.1';
+
 @Injectable()
 export class AppService {
   private readonly apiURL = `${environment.metadataServer}/api/app`;
@@ -89,6 +91,10 @@ export class AppService {
     this.appMap$.next(appMap);
   }
   private async syncAppMap() {
+    if (localStorage.getItem('DSTORE_VERSION') !== DSTORE_VERSION) {
+      localStorage.setItem('DSTORE_VERSION', DSTORE_VERSION);
+      await this.store.clear();
+    }
     let apps = await this.store.getItem<App[]>('apps');
     if (!apps) {
       apps = await this.getApps('/assets/app.json');
