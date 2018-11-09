@@ -16,7 +16,7 @@ const directives = [DialogDirective];
 
 @NgModule({
   declarations: [...components, ...directives],
-  exports: [...components, ...directives],
+  exports: [...components, ...directives, DstoreModule, ClientModule],
   imports: [CommonModule, RouterModule, DstoreModule, ClientModule],
 })
 export class ShareModule {}

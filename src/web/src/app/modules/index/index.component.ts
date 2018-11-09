@@ -3,12 +3,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription, merge, timer, of } from 'rxjs';
 import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
 
-import { SectionService } from '../../services/section.service';
-import { Section, SectionType } from '../../dstore/services/section';
-import { App } from '../../services/app.service';
-import { AppService } from '../../services/app.service';
-import { StoreService } from '../../dstore-client.module/services/store.service';
-import { StoreJobInfo } from '../../dstore-client.module/models/store-job-info';
+import { SectionService } from 'app/services/section.service';
+import { Section, SectionType } from 'app/dstore/services/section';
+import { App } from 'app/services/app.service';
+import { AppService } from 'app/services/app.service';
+import { StoreService } from 'app/dstore-client.module/services/store.service';
+import { StoreJobInfo } from 'app/dstore-client.module/models/store-job-info';
 
 @Component({
   selector: 'app-index',
@@ -24,7 +24,6 @@ export class IndexComponent implements OnInit, OnDestroy {
   SectionType = SectionType;
   sectionList$: Observable<Section[]>;
   appMap: Map<string, App>;
-  appFilter = this._appFilter.bind(this);
 
   // job
   jobs: { [key: string]: StoreJobInfo } = {};
@@ -64,9 +63,5 @@ export class IndexComponent implements OnInit, OnDestroy {
         });
         this.jobs = jobs;
       });
-  }
-
-  _appFilter(appName: string): boolean {
-    return this.appMap.has(appName);
   }
 }

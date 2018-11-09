@@ -5,7 +5,7 @@
   </div>
   <div class="appItem" *ngFor="let $installedApp of $installedApps">
     <ng-container *ngIf="($installedApp.name | appInfo | async) as $app">
-      <img class="icon" [src]="$app | icon" [routerLink]="$app.name" />
+      <img class="icon" [src]="$app | icon" [routerLink]="['app', $app.name]" />
       <div class="content">
         <div class="base">
           <span>{{ $app.localInfo.description.name }}</span>

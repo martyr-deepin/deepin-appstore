@@ -5,12 +5,12 @@ import { get, parseInt } from 'lodash';
 import { Observable, forkJoin, iif, of } from 'rxjs';
 import { map, flatMap, tap } from 'rxjs/operators';
 
-import { SectionTopic } from '../../dstore/services/section';
-import { SectionService } from '../../services/section.service';
-import { BaseService } from '../../dstore/services/base.service';
-import { AppService } from '../../services/app.service';
+import { SectionTopic } from 'app/dstore/services/section';
+import { SectionService } from 'app/services/section.service';
+import { BaseService } from 'app/dstore/services/base.service';
+import { AppService } from 'app/services/app.service';
 
-import { App } from '../../dstore/services/app';
+import { App } from 'app/dstore/services/app';
 
 @Component({
   selector: 'app-topic',

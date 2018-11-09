@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { IndexComponent } from 'app/components/index/index.component';
 import { CategoryComponent } from 'app/components/category/category.component';
 import { RankingComponent } from 'app/components/ranking/ranking.component';
 import { DownloadComponent } from 'app/components/app-manage/download/download.component';
 import { UninstallComponent } from 'app/components/app-manage/uninstall/uninstall.component';
-import { TopicComponent } from 'app/components/topic/topic.component';
-import { MoreComponent } from 'app/components/more/more.component';
 
 const routes: Routes = [
   {
@@ -18,10 +14,6 @@ const routes: Routes = [
   // 保持导航关联
   {
     path: 'app/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
-  },
-  {
-    path: 'index/apps/:appName',
     loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
   {
@@ -41,8 +33,7 @@ const routes: Routes = [
     loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
 
-  { path: 'index', component: IndexComponent },
-  { path: 'index/apps', component: MoreComponent },
+  { path: 'index', loadChildren: 'app/modules/index/index.module#IndexModule' },
   {
     path: 'category/:id',
     component: CategoryComponent,
@@ -62,14 +53,6 @@ const routes: Routes = [
   {
     path: 'search',
     loadChildren: 'app/modules/search/search.module#SearchModule',
-  },
-  {
-    path: 'topic/:section/:topic',
-    component: TopicComponent,
-  },
-  {
-    path: 'topic/:section/:topic/:appName',
-    redirectTo: 'app/:appName',
   },
 ];
 @NgModule({

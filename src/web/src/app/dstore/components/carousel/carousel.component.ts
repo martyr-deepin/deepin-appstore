@@ -156,7 +156,7 @@ export class CarouselComponent implements OnInit, OnDestroy {
     if (index === this.selectIndex) {
       const select = this._carouselList[this.selectIndex];
       if (select.type === CarouselType.App) {
-        this.router.navigate([select.link], { relativeTo: this.route });
+        this.router.navigate(['./app/', select.link], { relativeTo: this.route });
       } else {
         this.router.navigate([select.link]);
       }

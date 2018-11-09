@@ -36,10 +36,8 @@ export class ScrollbarComponent implements OnInit, OnDestroy {
 
     let restoreID: number;
     this.restored = this.router.events.subscribe((event: RouterEvent) => {
-      console.log('scrollbar', event);
       if (event instanceof NavigationStart) {
         if (this.savePosition) {
-          console.log('scrollbar save', event);
           this.position.set(this.router['lastSuccessfulId'], this.getPos());
 
           if (event.restoredState) {

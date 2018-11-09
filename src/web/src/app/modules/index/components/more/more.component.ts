@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
-import { App, AppService } from '../../services/app.service';
+import { App, AppService } from 'app/services/app.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

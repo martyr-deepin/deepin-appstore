@@ -30,18 +30,15 @@ import { RecommendService } from './services/recommend.service';
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { CategoryComponent } from './components/category/category.component';
-import { IndexComponent } from './components/index/index.component';
 import { DownloadComponent } from './components/app-manage/download/download.component';
 import { UninstallComponent } from './components//app-manage/uninstall/uninstall.component';
 import { RankingComponent } from './components/ranking/ranking.component';
 import { LoginComponent } from './components/login/login.component';
-import { TopicComponent } from './components/topic/topic.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
 import { NotifyComponent } from './components/notify/notify.component';
 
 import { LodashPipe } from './pipes/lodash.pipe';
 import { AppInfoPipe } from './pipes/app-info';
-import { MoreComponent } from './components/more/more.component';
 import { StoreJobErrorComponent } from './components/store-job-error/store-job-error.component';
 
 @NgModule({
@@ -52,15 +49,12 @@ import { StoreJobErrorComponent } from './components/store-job-error/store-job-e
     UninstallComponent,
     SideNavComponent,
     CategoryComponent,
-    IndexComponent,
     DownloadComponent,
     UninstallComponent,
     RankingComponent,
     LoginComponent,
-    TopicComponent,
     RecommendComponent,
     NotifyComponent,
-    MoreComponent,
     LodashPipe,
     AppInfoPipe,
     StoreJobErrorComponent,
