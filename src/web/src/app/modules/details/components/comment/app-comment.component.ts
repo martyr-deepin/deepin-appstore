@@ -6,13 +6,13 @@ import * as _ from 'lodash';
 
 import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
 
-import { AuthService, UserInfo } from '../../services/auth.service';
-import { LoginService } from '../../services/login.service';
-import { BaseService } from '../../dstore/services/base.service';
-import { CommentService, Comment } from '../../services/comment.service';
+import { AuthService, UserInfo } from 'app/services/auth.service';
+import { LoginService } from 'app/services/login.service';
+import { BaseService } from 'app/dstore/services/base.service';
+import { CommentService, Comment } from 'app/services/comment.service';
 import { encodeUriQuery } from '@angular/router/src/url_tree';
 import { shareReplay, switchMap, filter, tap } from 'rxjs/operators';
-import { SizeHuman } from '../../dstore/pipes/size-human';
+import { SizeHuman } from 'app/dstore/pipes/size-human';
 
 @Component({
   selector: 'app-app-comment',

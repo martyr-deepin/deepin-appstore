@@ -16,11 +16,11 @@ import { debounce } from 'lodash';
 
 import * as QRCode from 'qrcode';
 
-import { Payment, PayReq, PayCheck } from '../../services/donate.model';
-import { DonateService } from '../../services/donate.service';
-import { AuthService } from '../../services/auth.service';
-import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
-import { BaseService } from '../../dstore/services/base.service';
+import { Payment, PayReq, PayCheck } from 'app/services/donate.model';
+import { DonateService } from 'app/services/donate.service';
+import { AuthService } from 'app/services/auth.service';
+import { DstoreObject } from 'app/dstore-client.module/utils/dstore-objects';
+import { BaseService } from 'app/dstore/services/base.service';
 import { DonorsComponent } from '../donors/donors.component';
 
 @Component({
@@ -66,10 +66,12 @@ export class DonateComponent implements OnInit {
   }
 
   pay() {
+    console.log('start');
     this.loading = true;
     this.authService.info$
       .pipe(
         map(info => {
+          console.log('get');
           const req: PayReq = {
             appStore: BaseService.domainName,
             appName: this.appName,

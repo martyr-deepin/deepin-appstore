@@ -28,6 +28,7 @@ export class ScrollbarComponent implements OnInit {
   ngOnInit() {
     const scrollbar = new PerfectScrollbar(this.el, {
       suppressScrollY: false,
+      suppressScrollX: true,
       wheelPropagation: false,
     });
     this.router.events

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
-import { StatementService } from '../../services/statement.service';
+import { DstoreObject } from 'app/dstore-client.module/utils/dstore-objects';
+import { StatementService } from 'app/services/statement.service';
 
 @Component({
   selector: 'app-statement',

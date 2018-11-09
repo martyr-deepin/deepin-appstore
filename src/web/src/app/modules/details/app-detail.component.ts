@@ -4,21 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
 import { flatMap, map, tap, concat, switchMap, startWith } from 'rxjs/operators';
 
-import { App, AppService } from '../../services/app.service';
-import { BaseService } from '../../dstore/services/base.service';
-import { CanvasUtil } from '../../utils/canvas-util';
-import { StoreService } from '../../dstore-client.module/services/store.service';
+import { App, AppService } from 'app/services/app.service';
+import { BaseService } from 'app/dstore/services/base.service';
+import { CanvasUtil } from 'app/utils/canvas-util';
+import { StoreService } from 'app/dstore-client.module/services/store.service';
 import {
   StoreJobInfo,
   StoreJobType,
   StoreJobStatus,
-} from '../../dstore-client.module/models/store-job-info';
-import { ReminderService } from '../../services/reminder.service';
-import { DownloadService } from '../../services/download.service';
-import { NotifyService } from '../../services/notify.service';
-import { NotifyType, NotifyStatus } from '../../services/notify.model';
-import { AppVersion } from '../../dstore-client.module/models/app-version';
-import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
+} from 'app/dstore-client.module/models/store-job-info';
+import { ReminderService } from 'app/services/reminder.service';
+import { DownloadService } from 'app/services/download.service';
+import { NotifyService } from 'app/services/notify.service';
+import { NotifyType, NotifyStatus } from 'app/services/notify.model';
+import { AppVersion } from 'app/dstore-client.module/models/app-version';
+import { DstoreObject } from 'app/dstore-client.module/utils/dstore-objects';
 
 @Component({
   selector: 'app-app-detail',
@@ -61,14 +61,13 @@ export class AppDetailComponent implements OnInit {
           }),
           switchMap(jobs => this.storeService.getJobsInfo(jobs)),
           map(jobs => jobs.find(job => job.names.includes(app.name))),
-          switchMap(
-            job =>
-              !job
-                ? of(undefined)
-                : timer(1000, 1000).pipe(
-                    switchMap(() => this.storeService.getJobInfo(job.job)),
-                    startWith(job),
-                  ),
+          switchMap(job =>
+            !job
+              ? of(undefined)
+              : timer(1000, 1000).pipe(
+                  switchMap(() => this.storeService.getJobInfo(job.job)),
+                  startWith(job),
+                ),
           ),
           tap(job => console.log(job)),
         );

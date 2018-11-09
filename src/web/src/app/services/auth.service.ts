@@ -25,7 +25,15 @@ export class AuthService {
 
   token$ = this.tokenSubject.asObservable();
   logged$ = this.token$.pipe(map(token => token !== null));
-  info$ = this.token$.pipe(map(token => JwtDecode(token) as UserInfo));
+  info$ = this.token$.pipe(
+    map(token => {
+      if (token) {
+        return JwtDecode(token) as UserInfo;
+      } else {
+        return null;
+      }
+    }),
+  );
 
   login(token: string) {
     this.tokenSubject.next(token);

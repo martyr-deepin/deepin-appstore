@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,14 +37,7 @@ import { StopDirective } from './directive/stop.directive';
 import { IconPipe } from './pipes/icon.pipe';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    HttpModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ClientModule,
-  ],
+  imports: [CommonModule, HttpModule, RouterModule, FormsModule, ReactiveFormsModule, ClientModule],
   providers: [AppService, CategoryService, DownloadingService],
   declarations: [
     TitleComponent,

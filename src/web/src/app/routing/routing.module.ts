@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { IndexComponent } from '../components/index/index.component';
-import { CategoryComponent } from '../components/category/category.component';
-import { RankingComponent } from '../components/ranking/ranking.component';
-import { DownloadComponent } from '../components/app-manage/download/download.component';
-import { UninstallComponent } from '../components/app-manage/uninstall/uninstall.component';
-import { AppDetailComponent } from '../components/app-detail/app-detail.component';
-import { SearchComponent } from '../components/search/search.component';
-import { TopicComponent } from '../components/topic/topic.component';
-import { MoreComponent } from '../components/more/more.component';
+import { IndexComponent } from 'app/components/index/index.component';
+import { CategoryComponent } from 'app/components/category/category.component';
+import { RankingComponent } from 'app/components/ranking/ranking.component';
+import { DownloadComponent } from 'app/components/app-manage/download/download.component';
+import { UninstallComponent } from 'app/components/app-manage/uninstall/uninstall.component';
+import { SearchComponent } from 'app/components/search/search.component';
+import { TopicComponent } from 'app/components/topic/topic.component';
+import { MoreComponent } from 'app/components/more/more.component';
 
 const routes: Routes = [
   {
@@ -17,17 +16,31 @@ const routes: Routes = [
     redirectTo: 'index',
     pathMatch: 'full',
   },
-  { path: 'index', component: IndexComponent },
-  { path: 'index/apps', component: MoreComponent },
-  { path: 'index/apps/:appName', component: AppDetailComponent },
-  { path: 'index/:appName', component: AppDetailComponent },
+  // 保持导航关联
   {
-    path: 'category/:id',
-    component: CategoryComponent,
+    path: 'app/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
   {
     path: 'category/:id/:appName',
-    component: AppDetailComponent,
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
+  },
+  {
+    path: 'uninstall/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
+  },
+  {
+    path: 'download/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
+  },
+
+  { path: 'index', component: IndexComponent },
+  { path: 'index/apps', component: MoreComponent },
+  { path: 'index/apps/:appName', redirectTo: 'app/:appName' },
+  { path: 'index/:appName', redirectTo: 'app/:appName' },
+  {
+    path: 'category/:id',
+    component: CategoryComponent,
   },
   {
     path: 'ranking',
@@ -35,23 +48,15 @@ const routes: Routes = [
   },
   {
     path: 'ranking/:appName',
-    component: AppDetailComponent,
+    redirectTo: 'app/:appName',
   },
   {
     path: 'uninstall',
     component: UninstallComponent,
   },
   {
-    path: 'uninstall/:appName',
-    component: AppDetailComponent,
-  },
-  {
     path: 'download',
     component: DownloadComponent,
-  },
-  {
-    path: 'download/:appName',
-    component: AppDetailComponent,
   },
   {
     path: 'search',
@@ -59,7 +64,7 @@ const routes: Routes = [
   },
   {
     path: 'search/:appName',
-    component: AppDetailComponent,
+    redirectTo: 'app/:appName',
   },
   {
     path: 'topic/:section/:topic',
@@ -67,7 +72,7 @@ const routes: Routes = [
   },
   {
     path: 'topic/:section/:topic/:appName',
-    component: AppDetailComponent,
+    redirectTo: 'app/:appName',
   },
 ];
 @NgModule({
