@@ -12,18 +12,18 @@ import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rx
 import * as _ from 'lodash';
 import { sortBy } from 'lodash';
 
-import { App } from '../../services/app.service';
+import { App } from 'app/services/app.service';
 import { SortOrder } from '../app-title/app-title.component';
-import { BaseService } from '../../dstore/services/base.service';
-import { StoreService } from '../../dstore-client.module/services/store.service';
+import { BaseService } from 'app/dstore/services/base.service';
+import { StoreService } from 'app/dstore-client.module/services/store.service';
 import {
   StoreJobInfo,
   StoreJobType,
   StoreJobStatus,
-} from '../../dstore-client.module/models/store-job-info';
-import { AppVersion } from '../../dstore-client.module/models/app-version';
-import { AppService } from '../../services/app.service';
-import { OffsetService } from '../../services/offset.service';
+} from 'app/dstore-client.module/models/store-job-info';
+import { AppVersion } from 'app/dstore-client.module/models/app-version';
+import { AppService } from 'app/services/app.service';
+import { OffsetService } from 'app/services/offset.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobService } from 'app/services/job.service';
 

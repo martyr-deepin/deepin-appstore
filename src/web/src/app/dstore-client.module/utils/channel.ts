@@ -24,7 +24,11 @@ export class Channel {
     console.warn('connect', method);
     return new Observable<T>(obs => {
       const callback = (...resp) => {
-        obs.next(...resp);
+        if (resp.length > 1) {
+          obs.next(resp as any);
+        } else {
+          obs.next(resp[0]);
+        }
       };
       Channel.getSignal(method).connect(callback);
       return () => {

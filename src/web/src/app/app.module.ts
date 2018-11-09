@@ -34,9 +34,6 @@ import { IndexComponent } from './components/index/index.component';
 import { DownloadComponent } from './components/app-manage/download/download.component';
 import { UninstallComponent } from './components//app-manage/uninstall/uninstall.component';
 import { RankingComponent } from './components/ranking/ranking.component';
-import { AppListComponent } from './components/app-list/app-list.component';
-import { AppTitleComponent } from './components/app-title/app-title.component';
-import { SearchComponent } from './components/search/search.component';
 import { LoginComponent } from './components/login/login.component';
 import { TopicComponent } from './components/topic/topic.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
@@ -59,9 +56,6 @@ import { StoreJobErrorComponent } from './components/store-job-error/store-job-e
     DownloadComponent,
     UninstallComponent,
     RankingComponent,
-    AppListComponent,
-    AppTitleComponent,
-    SearchComponent,
     LoginComponent,
     TopicComponent,
     RecommendComponent,

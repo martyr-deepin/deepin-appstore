@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
   searchListen() {
     this.searchService.onOpenApp().subscribe(appName => {
       console.log('open app', appName);
-      this.router.navigate(['search', appName]);
+      this.router.navigate(['/app/', appName]);
     });
 
     this.searchService.onOpenAppList().subscribe(result => {

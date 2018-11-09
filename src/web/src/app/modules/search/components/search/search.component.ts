@@ -4,9 +4,8 @@ import { Observable } from 'rxjs';
 import { map, flatMap } from 'rxjs/operators';
 import { truncate } from 'lodash';
 
-import { App, AppService } from '../../services/app.service';
-import { SortOrder } from '../app-title/app-title.component';
-import { RecommendService } from '../../services/recommend.service';
+import { App, AppService } from 'app/services/app.service';
+import { RecommendService } from 'app/services/recommend.service';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +19,6 @@ export class SearchComponent implements OnInit {
     private recommendService: RecommendService,
   ) {}
 
-  sortBy = SortOrder.Downloads;
   keyword$: Observable<string>;
   title$: Observable<string>;
   apps$: Observable<App[]>;

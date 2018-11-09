@@ -6,7 +6,6 @@ import { CategoryComponent } from 'app/components/category/category.component';
 import { RankingComponent } from 'app/components/ranking/ranking.component';
 import { DownloadComponent } from 'app/components/app-manage/download/download.component';
 import { UninstallComponent } from 'app/components/app-manage/uninstall/uninstall.component';
-import { SearchComponent } from 'app/components/search/search.component';
 import { TopicComponent } from 'app/components/topic/topic.component';
 import { MoreComponent } from 'app/components/more/more.component';
 
@@ -19,6 +18,14 @@ const routes: Routes = [
   // 保持导航关联
   {
     path: 'app/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
+  },
+  {
+    path: 'index/apps/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
+  },
+  {
+    path: 'ranking/:appName',
     loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
   {
@@ -36,8 +43,6 @@ const routes: Routes = [
 
   { path: 'index', component: IndexComponent },
   { path: 'index/apps', component: MoreComponent },
-  { path: 'index/apps/:appName', redirectTo: 'app/:appName' },
-  { path: 'index/:appName', redirectTo: 'app/:appName' },
   {
     path: 'category/:id',
     component: CategoryComponent,
@@ -45,10 +50,6 @@ const routes: Routes = [
   {
     path: 'ranking',
     component: RankingComponent,
-  },
-  {
-    path: 'ranking/:appName',
-    redirectTo: 'app/:appName',
   },
   {
     path: 'uninstall',
@@ -60,11 +61,7 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    component: SearchComponent,
-  },
-  {
-    path: 'search/:appName',
-    redirectTo: 'app/:appName',
+    loadChildren: 'app/modules/search/search.module#SearchModule',
   },
   {
     path: 'topic/:section/:topic',

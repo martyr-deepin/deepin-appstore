@@ -15,7 +15,6 @@ import { find, defaults } from 'lodash';
 
 import { AppService, App } from '../../services/app.service';
 import { CategoryService, Category } from '../../services/category.service';
-import { SortOrder } from '../app-title/app-title.component';
 
 @Component({
   selector: 'app-category',

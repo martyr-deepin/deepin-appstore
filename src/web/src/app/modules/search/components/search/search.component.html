@@ -1,0 +1,21 @@
+<app-app-title #$title [hidden]="$title.count === 0" i18n
+  >Searching results for {{ title$ | async }}
+</app-app-title>
+<app-app-list
+  #$list
+  [apps$]="apps$"
+  [sortBy]="$title.sortBy"
+  [hidden]="$title.count === 0"
+  (appListLength)="$title.count = $event"
+></app-app-list>
+
+<ng-container *ngIf="$title.count === 0">
+  <div class="searchEmpty">
+    <img class="tips_bg" /> <span i18n>Sorry</span>
+    <div class="gray-text" i18n>No search results found</div>
+
+    <div class="gray-text" i18n>
+      Welcome to <a class="recommend" (click)="recommend()">recommend</a> this application
+    </div>
+  </div>
+</ng-container>

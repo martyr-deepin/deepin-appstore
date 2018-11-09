@@ -11,7 +11,6 @@ import { BaseService } from '../../dstore/services/base.service';
 import { AppService } from '../../services/app.service';
 
 import { App } from '../../dstore/services/app';
-import { SortOrder } from '../app-title/app-title.component';
 
 @Component({
   selector: 'app-topic',

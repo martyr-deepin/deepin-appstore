@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AppService } from '../../services/app.service';
-import { SortOrder } from '../app-title/app-title.component';
 import { App } from '../../dstore/services/app';
 
 @Component({
