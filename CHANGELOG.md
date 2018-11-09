@@ -1,3 +1,39 @@
+<a name="5.1.2.0"></a>
+## 5.1.2.0 (2018-11-09)
+
+
+#### Bug Fixes
+
+*   scrollbar restore ([eb182871](https://github.com/linuxdeepin/deepin-appstore/commit/eb1828715941530d8c6cf3de2bfe8dd97a4e7127))
+*   query version lost ([233f09e0](https://github.com/linuxdeepin/deepin-appstore/commit/233f09e09a0d0bf076e9b14c3fb9a44fa60e767d))
+*   style ([39f33a96](https://github.com/linuxdeepin/deepin-appstore/commit/39f33a969abff0569686cdc681637d7e94601177))
+*   aot file missing ([94d59970](https://github.com/linuxdeepin/deepin-appstore/commit/94d59970061f02e5cf88b1187ae7c90f532eb91a))
+*   get app not putaway info missing ([7e48cca7](https://github.com/linuxdeepin/deepin-appstore/commit/7e48cca7988f31cbc1595b2078e64e51d3643f4f))
+*   ranking ([e758130a](https://github.com/linuxdeepin/deepin-appstore/commit/e758130a8034c52aea3f0089e92862ba6dbd838c))
+*   online store does not query version ([b05fbe2d](https://github.com/linuxdeepin/deepin-appstore/commit/b05fbe2dfb70e0dadf773eb3c525f9423743cc95))
+*   scroll to top ([87861d06](https://github.com/linuxdeepin/deepin-appstore/commit/87861d06e3e2535a3cd7d19a88f544306069e08d))
+*   aot runtime error ([22f4a06f](https://github.com/linuxdeepin/deepin-appstore/commit/22f4a06fb2b2ae6a6d202661d98d06dd1725c5a3))
+*   build dist path error ([8520ee86](https://github.com/linuxdeepin/deepin-appstore/commit/8520ee8676d100f1d1cb2b6b3b4a5563ae668247))
+*   onPreviousImageRequested return error index ([d54a32e7](https://github.com/linuxdeepin/deepin-appstore/commit/d54a32e756232ed83ef7935bb633c80568f591a0))
+*   deepin info pipe ([1e833c12](https://github.com/linuxdeepin/deepin-appstore/commit/1e833c12a7d83fdc5c4cb4f94bd3d67d387f06d1))
+*   auto get version ([80eb3123](https://github.com/linuxdeepin/deepin-appstore/commit/80eb312322bf0f260136a8886e65f88285e4a21a))
+
+#### Features
+
+*   split index module ([ef2ae597](https://github.com/linuxdeepin/deepin-appstore/commit/ef2ae597f6621eb76d1d8f819328e336fe7d8dc9))
+*   split search modelu ([ed7d99ad](https://github.com/linuxdeepin/deepin-appstore/commit/ed7d99ad571fd0e98cf1358b4989edaaa93dd7d8))
+*   split app detail modules ([1fa99508](https://github.com/linuxdeepin/deepin-appstore/commit/1fa99508977b492952ce2866fd5c1d82fd00666e))
+*   webchannel ([cf222d7b](https://github.com/linuxdeepin/deepin-appstore/commit/cf222d7b392285b3ee6497fbef40850410f8d05d))
+*   batch query version ([3f0d5047](https://github.com/linuxdeepin/deepin-appstore/commit/3f0d5047323339f754ed99e238a2a6b8cda78214))
+*   build aot package for mips64el ([8519fae5](https://github.com/linuxdeepin/deepin-appstore/commit/8519fae5fbeaccc820dd000ed76d999ce74f6770))
+*   add aot build ([ca2882dc](https://github.com/linuxdeepin/deepin-appstore/commit/ca2882dc06b005ffb202edbe273a29dcbcfcf453))
+*   add bootstrap animation ([9deafea4](https://github.com/linuxdeepin/deepin-appstore/commit/9deafea4bd1629396477ecf5ba3dfe2a6ac32e81))
+*   app service use local file ([4e0939a6](https://github.com/linuxdeepin/deepin-appstore/commit/4e0939a62e9e63c6e0e914af343a72485c6da9a7))
+*   return meta data ([bdededac](https://github.com/linuxdeepin/deepin-appstore/commit/bdededaccbc4b8ef0d03a5f4557c9e412b1e08ad))
+*   remove bottom padding ([b9f5d83a](https://github.com/linuxdeepin/deepin-appstore/commit/b9f5d83a81d10bffc24a111f032cf207ea79a11f))
+
+
+
 <a name="5.1.0.1"></a>
 ## 5.1.0.1 (2018-10-18)
 
