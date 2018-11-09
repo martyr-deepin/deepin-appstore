@@ -31,7 +31,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>Recommend App</source>
-        <translation>Uygulama Öner</translation>
+        <translation>Uygulama Önerin</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>
@@ -92,12 +92,12 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="103"/>
         <source>Deepin Store</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Mağazası</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="104"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Mağazasında kaliteli ve zengin uygulamalar bulunur. Beğenilen uygulama önerileri, yeni ve güncel uygulamalar ile gündemdeki konular gibi özellikler sunar. Mağazayı kullanarak indirme, kurma, güncelleme, kaldırma gibi uygulama işlemlerini tek tık ile yapabilirsiniz.</translation>
     </message>
 </context>
 </TS>

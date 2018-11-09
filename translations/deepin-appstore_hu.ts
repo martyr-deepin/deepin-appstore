@@ -92,12 +92,12 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="103"/>
         <source>Deepin Store</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Áruház</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="104"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation type="unfinished"/>
+        <translation>A Deepin Store egy kiváló alkalmazás-áruház. Itt rengeteg alkalmazást letölthetsz, leírásokat és véleményeket olvashatsz ezekről. Támogatja a letöltés, telepítés, frissítés, eltávolítás funkciókat.</translation>
     </message>
 </context>
 </TS>
