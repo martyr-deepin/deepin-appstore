@@ -19,9 +19,7 @@
               class="primary"
               (click)="uninstall($installedApp.name, $app.localInfo.description.name)"
               i18n
-            >
-              Confirm
-            </button>
+            >Confirm</button>
           </div>
         </ng-container>
         <ng-template #ctl>
@@ -41,9 +39,7 @@
               (click)="select = $app.name"
               [disabled]="disabledList.includes($app.name)"
               i18n
-            >
-              Uninstall
-            </button>
+            >Uninstall</button>
             <ng-template #$ing> <button i18n disabled>Uninstalling</button> </ng-template>
           </div>
         </ng-template>

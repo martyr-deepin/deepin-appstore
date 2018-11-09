@@ -140,8 +140,8 @@
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="bfc41537a483ae9579984d7b8f1cdb52e386be52" datatype="html">
-        <source>Processing <x id="INTERPOLATION" equiv-text="{{jobs.length}}"/> <x id="ICU" equiv-text="{jobs.length, plural, =0 {...} =1 {...} other {...}}"/></source>
+      <trans-unit id="b1b2b24fabda7cb53e6a74d24392a039be91412b" datatype="html">
+        <source>Processing <x id="INTERPOLATION" equiv-text="{{ jobs.length }}"/> <x id="ICU" equiv-text="{jobs.length, plural, =0 {...} =1 {...} other {...}}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.html</context>
           <context context-type="linenumber">6</context>

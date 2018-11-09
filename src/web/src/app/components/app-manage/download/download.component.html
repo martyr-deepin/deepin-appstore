@@ -3,9 +3,7 @@
 </ng-template>
 
 <div class="list" *ngIf="loadCount >= 2; else: loading">
-  <div class="title" i18n>
-    Processing {{ jobs.length }} {jobs.length, plural,=0 {task} =1 {task} other {tasks}}
-  </div>
+  <div class="title" i18n>Processing {{ jobs.length }} {jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
 
   <table>
     <ng-container *ngFor="let job of jobs">
