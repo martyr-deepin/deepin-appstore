@@ -15,7 +15,7 @@ import { shareReplay, switchMap, filter, tap } from 'rxjs/operators';
 import { SizeHuman } from 'app/dstore/pipes/size-human';
 
 @Component({
-  selector: 'app-app-comment',
+  selector: 'dstore-app-comment',
   templateUrl: './app-comment.component.html',
   styleUrls: ['./app-comment.component.scss'],
   animations: [

@@ -78,10 +78,10 @@
     <app-donate [appName]="app.name"></app-donate>
     <div class="hr"></div>
     <br />
-    <app-app-comment
+    <dstore-app-comment
       [appName]="app.name"
       [version]="app.version.remoteVersion || app.version.localVersion"
-    ></app-app-comment>
+    ></dstore-app-comment>
     <div class="ad" *ngIf="(adVisible | async)" i18n>CDN supported by UPYUN</div>
   </ng-container>
 </div>

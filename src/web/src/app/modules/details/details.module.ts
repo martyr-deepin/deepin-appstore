@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DetailsRoutingModule } from './details-routing.module';
-import { DstoreModule } from 'app/dstore/dstore.module';
-import { ClientModule } from 'app/dstore-client.module/client.module';
 import { ShareModule } from 'app/modules/share/share.module';
 
 import { AppDetailComponent } from './app-detail.component';
@@ -25,14 +23,6 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     AppCommentComponent,
     PaginatorComponent,
   ],
-  imports: [
-    CommonModule,
-    DetailsRoutingModule,
-    DstoreModule,
-    ClientModule,
-    ShareModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CommonModule, DetailsRoutingModule, ShareModule, FormsModule, ReactiveFormsModule],
 })
 export class DetailsModule {}
