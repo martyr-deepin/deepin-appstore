@@ -487,16 +487,14 @@ QVariantMap StoreDaemonManager::queryVersions(const QStringList& apps) {
         }
       }
       
-      if (deb_names_.contains(version.pkg_name)) {
-        const QStringList& app_names = deb_names_.values(version.pkg_name);
-        for (const QString& app_name : app_names) {
-          version_vars.append(QVariantMap {
-              { "name", app_name },
-              { "localVersion", version.installed_version },
-              { "remoteVersion", version.remote_version },
-              { "upgradable", version.upgradable },
-          });
-        }
+      const QStringList& app_names = deb_names_.values(version.pkg_name);
+      for (const QString& app_name : app_names) {
+        version_vars.append(QVariantMap {
+            { "name", app_name },
+            { "localVersion", version.installed_version },
+            { "remoteVersion", version.remote_version },
+            { "upgradable", version.upgradable },
+        });
       }
     }
 
