@@ -1,8 +1,5 @@
 <ng-container *ngIf="installedApps as $installedApps; else: $wait">
-  <div class="title" i18n>
-    {{ $installedApps.length }} {$installedApps.length,plural, =0 {application} =1 {application}
-    other {applications} } installed
-  </div>
+  <div class="title" i18n>{{$installedApps.length}} {$installedApps.length, plural, =0 {application} =1 {application} other {applications} } installed</div>
   <div class="appItem" *ngFor="let $installedApp of $installedApps">
     <ng-container *ngIf="($installedApp.name | appInfo | async) as $app">
       <img class="icon" [src]="$app | icon" [routerLink]="$app.name" />
