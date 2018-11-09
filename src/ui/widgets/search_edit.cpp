@@ -22,7 +22,10 @@
 namespace dstore {
 
 SearchEdit::SearchEdit(QWidget* parent) : DSearchEdit(parent) {
-
+    auto edit = this->findChild<QLineEdit*>("Edit");
+    if (edit) {
+        edit->setContextMenuPolicy(Qt::NoContextMenu);
+    }
 }
 
 SearchEdit::~SearchEdit() {
