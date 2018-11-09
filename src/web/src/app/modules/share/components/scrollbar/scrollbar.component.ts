@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
+import { Router, RouterEvent, NavigationStart, NavigationEnd } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
+import { Subscription } from 'rxjs';
 import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
@@ -8,13 +9,14 @@ import { filter, pairwise } from 'rxjs/operators';
   templateUrl: './scrollbar.component.html',
   styleUrls: ['./scrollbar.component.scss'],
 })
-export class ScrollbarComponent implements OnInit {
+export class ScrollbarComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
   @ViewChild('scrollbar')
   scrollbarEl: ElementRef<HTMLDivElement>;
   @Input()
   savePosition: boolean;
-  position = new Map<string, [number, number]>();
+  position = new Map<number, [number, number]>();
+  restored: Subscription;
 
   getPos(): [number, number] {
     return [this.el.scrollTop, this.el.scrollLeft];
@@ -31,19 +33,40 @@ export class ScrollbarComponent implements OnInit {
       suppressScrollX: true,
       wheelPropagation: false,
     });
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationStart),
-        pairwise(),
-      )
-      .subscribe(([oldRoute, newRoute]: [NavigationStart, NavigationStart]) => {
+
+    let restoreID: number;
+    this.restored = this.router.events.subscribe((event: RouterEvent) => {
+      console.log('scrollbar', event);
+      if (event instanceof NavigationStart) {
         if (this.savePosition) {
-          this.position.set(oldRoute.url, this.getPos());
+          console.log('scrollbar save', event);
+          this.position.set(this.router['lastSuccessfulId'], this.getPos());
+
+          if (event.restoredState) {
+            restoreID = event.restoredState.navigationId;
+          } else {
+            restoreID = null;
+          }
         }
+      } else if (event instanceof NavigationEnd) {
         window['requestIdleCallback'](() => {
-          this.setPos(this.position.get(newRoute.url));
           scrollbar.update();
+          if (restoreID) {
+            const pos = this.position.get(restoreID);
+            setTimeout(() => {
+              console.log('scrollbar restore', pos);
+              this.setPos(pos);
+            }, 200);
+          } else {
+            this.setPos();
+          }
         });
-      });
+      }
+    });
+  }
+  ngOnDestroy() {
+    if (this.restored) {
+      this.restored.unsubscribe();
+    }
   }
 }
