@@ -1,3 +1,18 @@
+<a name="5.1.2.1"></a>
+## 5.1.2.1 (2018-11-12)
+
+
+#### Bug Fixes
+
+*   remove line break from source ([67f7d31f](https://github.com/linuxdeepin/deepin-appstore/commit/67f7d31fa4d54c5d32a085a428c78df3ca6f3583))
+*   i18n ([32b732f7](https://github.com/linuxdeepin/deepin-appstore/commit/32b732f7a814ad6156622e671ac432b71f16b3c4))
+*   disable search menu ([4efa8307](https://github.com/linuxdeepin/deepin-appstore/commit/4efa8307c448c8c41230e46c9359d925a677d710))
+*   query version lost ([cef68229](https://github.com/linuxdeepin/deepin-appstore/commit/cef68229b0a5fc40e9849a83f167ca36f5c9492f))
+*   clear cache ([ee9d419f](https://github.com/linuxdeepin/deepin-appstore/commit/ee9d419f5bfbe516fb57aee208f011ca07d0b6d6))
+*   uninstall routerlink ([8b32705f](https://github.com/linuxdeepin/deepin-appstore/commit/8b32705fcba1aac160d09e999d13eb4d86ecc68e))
+
+
+
 <a name="5.1.2.0"></a>
 ## 5.1.2.0 (2018-11-09)
 
