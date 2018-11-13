@@ -19,6 +19,7 @@
 
 #include <DTitlebar>
 #include <DThemeManager>
+#include <DPlatformWindowHandle>
 
 #include <QApplication>
 #include <QDebug>
@@ -90,6 +91,9 @@ WebWindow::WebWindow(QWidget* parent)
       search_timer_(new QTimer(this)),
       search_re_(QRegularExpression("[\\+\\$\\.\\^!@#%&\\(\\)]")) {
   this->setObjectName("WebWindow");
+
+  // 使用 redirectContent 模式，用于内嵌 x11 窗口时能有正确的圆角效果
+  DPlatformWindowHandle::enableDXcbForWindow(this, true);
 
   search_timer_->setSingleShot(true);
 

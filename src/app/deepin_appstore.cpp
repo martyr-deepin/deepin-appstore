@@ -42,7 +42,6 @@ const char kLogLevel[] = "--log-level";
 
 int main(int argc, char** argv) {
   qputenv("DXCB_FAKE_PLATFORM_NAME_XCB", "true");
-  qputenv("DXCB_REDIRECT_CONTENT", "true");
 
   QCefGlobalSettings settings;
   // Do not use sandbox.
