@@ -51,6 +51,7 @@ export class AssembleComponent implements OnInit, OnDestroy {
   jobs: { [key: string]: StoreJobInfo } = {};
   jobsNames = new Set<string>();
   jobs$: Subscription;
+  version$: Subscription;
 
   // job control
   start = this.storeService.resumeJob;
@@ -62,9 +63,15 @@ export class AssembleComponent implements OnInit, OnDestroy {
       this.categoryList = cs;
     });
     this.jobs$ = this.getJobs();
+    this.version$ = this.getVersions();
   }
   ngOnDestroy() {
-    this.jobs$.unsubscribe();
+    if (this.jobs$) {
+      this.jobs$.unsubscribe();
+    }
+    if (this.version$) {
+      this.version$.unsubscribe();
+    }
   }
 
   async filter(apps: SectionApp[]) {
@@ -91,9 +98,16 @@ export class AssembleComponent implements OnInit, OnDestroy {
         assemble.apps.filter(app => app.show).map(app => app.name),
       ),
     );
-    this.storeService.getVersion(apps).subscribe(vs => {
-      this.versions = new Map(vs.map(v => [v.name, v] as [string, AppVersion]));
-    });
+    return this.jobService
+      .jobList()
+      .pipe(
+        flatMap(() => {
+          return this.storeService.getVersion(apps);
+        }),
+      )
+      .subscribe(vs => {
+        this.versions = new Map(vs.map(v => [v.name, v] as [string, AppVersion]));
+      });
   }
 
   installApp(app: App) {

@@ -74,6 +74,9 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
       cursor: unset;
     }
   }
+  select {
+    background-color: white;
+  }
 }
 
 .dark {
