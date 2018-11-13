@@ -1,3 +1,16 @@
+<a name="5.1.2.2"></a>
+## 5.1.2.2 (2018-11-13)
+
+
+#### Bug Fixes
+
+*   loading anmine ([6a95b17e](https://github.com/linuxdeepin/deepin-appstore/commit/6a95b17efb60ee19736f22790b33f1f3325e802e))
+*   index page install button ([b2b518d4](https://github.com/linuxdeepin/deepin-appstore/commit/b2b518d46d6df053e8005a2e8ab465afe5fef3ad))
+*   app list updated ([013b084c](https://github.com/linuxdeepin/deepin-appstore/commit/013b084ca4ce861406928b81b487f740ed11a59f))
+*   index component ([127fa034](https://github.com/linuxdeepin/deepin-appstore/commit/127fa0340b3917a13ffc37210e08be89cfac60a8))
+
+
+
 <a name="5.1.2.1"></a>
 ## 5.1.2.1 (2018-11-12)
 
