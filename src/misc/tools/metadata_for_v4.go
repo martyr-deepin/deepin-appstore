@@ -124,7 +124,7 @@ type RankResult struct {
 	List [](*DownloadInfo) `json:"downloadCount"`
 }
 
-func main() {
+func rank(appMap map[string]*AppBody) {
 	data, err := ioutil.ReadFile("appstat.json")
 	if nil != err {
 		log.Print("Red json failed", err)
@@ -138,8 +138,19 @@ func main() {
 		os.Exit(1)
 	}
 	downloadList := rankResult.List
+	for idx, item := range downloadList {
+		body, ok := appMap[item.AppName]
+		if !ok {
+			fmt.Printf("%v,%v,%v,%v,%v\n", idx, item.AppName, item.Count, "NULL", "NULL")
+		} else {
+			fmt.Printf("%v,%v,%v,%v,%v\n", idx, item.AppName, item.Count, body.Category, body.LocaleDetail["zh_CN"].Description.Name)
+		}
+	}
+	return
+}
 
-	data, err = ioutil.ReadFile("app.json")
+func main() {
+	data, err := ioutil.ReadFile("app.json")
 	if nil != err {
 		log.Print("Red json failed", err)
 		os.Exit(1)
@@ -155,32 +166,26 @@ func main() {
 	for _, app := range result.Apps {
 		appMap[app.Name] = app
 	}
-	for idx, item := range downloadList {
-		body, ok := appMap[item.AppName]
-		if !ok {
-			fmt.Printf("%v,%v,%v,%v,%v\n", idx, item.AppName, item.Count, "NULL", "NULL")
-		} else {
-			fmt.Printf("%v,%v,%v,%v,%v\n", idx, item.AppName, item.Count, body.Category, body.LocaleDetail["zh_CN"].Description.Name)
-		}
-	}
-	return
+
 	for _, app := range result.Apps {
 		locale := app.LocaleDetail
 		if len(locale) <= 0 {
 			continue
 		}
 
+		m := Manifest{
+			Locales: make(map[string]*ManifestLocale, 0),
+		}
 		path := fmt.Sprintf("./metadata/%v/meta/manifest.json", app.Name)
 		data, err := ioutil.ReadFile(path)
 		if nil != err {
-			log.Printf("skip: %v %v", app.Name, err)
-			continue
-		}
-		m := Manifest{}
-		err = json.Unmarshal(data, &m)
-		if nil != err {
-			log.Print(app.Name, err)
-			continue
+			log.Printf("read failed: %v %v", app.Name, err)
+			os.MkdirAll(fmt.Sprintf("./metadata/%v/meta", app.Name), 0755)
+		} else {
+			err = json.Unmarshal(data, &m)
+			if nil != err {
+				log.Print(app.Name, err)
+			}
 		}
 
 		needSync := false
@@ -207,10 +212,10 @@ func main() {
 			log.Print(app.Name, err)
 			continue
 		}
-		if needSync {
-			log.Printf("sync: %v", app.Name)
-			ioutil.WriteFile(path, data, 0644)
-		}
+		// if needSync {
+		log.Printf("sync: %v", app.Name)
+		ioutil.WriteFile(path, data, 0644)
+		// }
 
 	}
 }
