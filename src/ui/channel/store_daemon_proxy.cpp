@@ -45,12 +45,7 @@ StoreDaemonProxy::~StoreDaemonProxy() {
   manager_thread_->quit();
   manager_thread_->wait(3);
 }
-QStringList StoreDaemonProxy::jobInfoList(){
-  QStringList list;
-  list.append("hello");
-  list.append("world");
-  return list;
-}
+
 void StoreDaemonProxy::initConnections() {
   connect(manager_thread_, &QThread::finished,
         manager_, &StoreDaemonManager::deleteLater);

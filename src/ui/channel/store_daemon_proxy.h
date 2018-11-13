@@ -32,9 +32,6 @@ class StoreDaemonProxy : public QObject {
  public:
   explicit StoreDaemonProxy(QObject* parent = nullptr);
   ~StoreDaemonProxy() override;
-
-  Q_INVOKABLE QStringList jobInfoList();
-  Q_PROPERTY(QStringList myIntInCppSide READ jobInfoList);
   
  signals:
   // void isDbusConnectedReply(bool state);

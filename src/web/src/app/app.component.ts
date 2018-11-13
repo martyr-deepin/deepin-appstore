@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BaseService } from './dstore/services/base.service';
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
     private appService: AppService,
     private searchService: SearchService,
     private themeService: ThemeService,
+    private zone: NgZone,
   ) {}
   @ViewChild('$context')
   contentRef: ElementRef<HTMLDivElement>;
@@ -53,7 +54,9 @@ export class AppComponent implements OnInit {
   // 等待后台添加索引
   waitUpdate() {
     Channel.connect('storeDaemon.onAppListUpdated').subscribe(resp => {
-      this.updated = true;
+      this.zone.run(() => {
+        this.updated = true;
+      });
     });
   }
   searchListen() {
