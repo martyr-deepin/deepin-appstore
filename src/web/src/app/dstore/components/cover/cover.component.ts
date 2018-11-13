@@ -55,16 +55,21 @@ export class CoverComponent implements OnInit, OnDestroy {
   pause = this.storeService.pauseJob;
   openApp = this.storeService.openApp;
   ngOnInit() {
-    this.appService
-      .getApps(this.apps.filter(app => app.show).map(app => app.name))
+    this.jobService
+      .jobList()
+      .pipe(
+        flatMap(() =>
+          this.appService.getApps(this.apps.filter(app => app.show).map(app => app.name)),
+        ),
+      )
       .subscribe(appList => {
         this.appList = appList;
         this.moreNav = [
           './apps',
           { title: this.section.title, apps: appList.map(app => app.name) },
         ];
-        this.getJobs();
       });
+    this.getJobs();
   }
   getJobs() {
     return this.jobService.jobsInfo().subscribe(jobInfos => {

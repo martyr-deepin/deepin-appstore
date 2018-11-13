@@ -43,6 +43,7 @@ export class RankingComponent implements OnInit, OnDestroy {
   jobs: { [key: string]: StoreJobInfo } = {};
   jobsNames = new Set<string>();
   jobs$: Subscription;
+  version$: Subscription;
 
   // job control
   start = this.storeService.resumeJob;
@@ -64,6 +65,7 @@ export class RankingComponent implements OnInit, OnDestroy {
       }
       this.appList = apps;
       this.getJobs();
+      this.getVersion();
     });
   }
 
@@ -81,19 +83,29 @@ export class RankingComponent implements OnInit, OnDestroy {
   }
   getVersion() {
     if (this.appList) {
-      this.storeService.getVersion(this.appList.map(app => app.name)).subscribe(versions => {
-        const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
-        this.appList.forEach(app => {
-          if (vMap.has(app.name)) {
-            app.version = vMap.get(app.name);
-          }
+      this.version$ = this.jobService
+        .jobList()
+        .pipe(
+          flatMap(() => {
+            return this.storeService.getVersion(this.appList.map(app => app.name));
+          }),
+        )
+        .subscribe(versions => {
+          const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
+          this.appList.forEach(app => {
+            if (vMap.has(app.name)) {
+              app.version = vMap.get(app.name);
+            }
+          });
         });
-      });
     }
   }
   ngOnDestroy() {
     if (this.jobs$) {
       this.jobs$.unsubscribe();
+    }
+    if (this.version$) {
+      this.version$.unsubscribe();
     }
   }
 
