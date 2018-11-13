@@ -8,7 +8,7 @@ import { StoreJobInfo } from '../models/store-job-info';
 import { AppVersion } from '../models/app-version';
 import { InstalledApp } from '../models/installed';
 import { HttpClient } from '@angular/common/http';
-import { BaseService } from '../../dstore/services/base.service';
+// import { BaseService } from '../../dstore/services/base.service';
 
 interface SignalObject {
   connect: (any) => {};
@@ -17,7 +17,7 @@ interface SignalObject {
 
 @Injectable()
 export class StoreService {
-  private server = BaseService.serverHosts.operationServer;
+  // private server = BaseService.serverHosts.operationServer;
 
   constructor(private zone: NgZone, private http: HttpClient) {}
 
@@ -29,9 +29,9 @@ export class StoreService {
     return Channel.connect('storeDaemon.jobListChanged');
   }
 
-  private downloadRecord(appName: string) {
-    this.http.post<void>(`${this.server}/api/downloading/app/${appName}`, null).subscribe();
-  }
+  // private downloadRecord(appName: string) {
+  //   this.http.post<void>(`${this.server}/api/downloading/app/${appName}`, null).subscribe();
+  // }
   /**
    * Check connectivity to backend lastore daemon.
    * @returns {Observable<boolean>} If returns false, all methods in this class will not work.
@@ -58,7 +58,7 @@ export class StoreService {
    * @returns {Observable<string>} path to job
    */
   installPackage(appName: string, localName: string): Observable<string> {
-    this.downloadRecord(appName);
+    // this.downloadRecord(appName);
     return this.execWithCallback('storeDaemon.installPackage', appName, localName);
   }
 
@@ -68,7 +68,7 @@ export class StoreService {
    * @returns {Observable<string>}
    */
   updatePackage(appName: string, localName: string): Observable<string> {
-    this.downloadRecord(appName);
+    // this.downloadRecord(appName);
     return this.execWithCallback('storeDaemon.updatePackage', appName, localName);
   }
 

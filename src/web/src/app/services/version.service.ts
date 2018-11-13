@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { scan, debounceTime, flatMap, share, map } from 'rxjs/operators';
-import { StoreService } from 'app/dstore-client.module/services/store.service';
-import { AppVersion } from 'app/dstore-client.module/models/app-version';
+import { StoreService } from 'app/modules/client/services/store.service';
+import { AppVersion } from 'app/modules/client/models/app-version';
 
 @Injectable({
   providedIn: 'root',

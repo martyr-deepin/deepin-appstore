@@ -7,8 +7,8 @@ import { SectionService } from 'app/services/section.service';
 import { Section, SectionType } from 'app/dstore/services/section';
 import { App } from 'app/services/app.service';
 import { AppService } from 'app/services/app.service';
-import { StoreService } from 'app/dstore-client.module/services/store.service';
-import { StoreJobInfo } from 'app/dstore-client.module/models/store-job-info';
+import { StoreService } from 'app/modules/client/services/store.service';
+import { StoreJobInfo } from 'app/modules/client/models/store-job-info';
 
 @Component({
   selector: 'app-index',

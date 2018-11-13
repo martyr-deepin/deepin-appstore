@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { BaseService } from './dstore/services/base.service';
 import { AppService } from './services/app.service';
 import { SearchService } from './services/search.service';
-import { Channel } from './dstore-client.module/utils/channel';
+import { Channel } from 'app/modules/client/utils/channel';
 import { App } from './dstore/services/app';
-import { DstoreObject } from './dstore-client.module/utils/dstore-objects';
+import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { ThemeService } from './services/theme.service';
 
 @Component({

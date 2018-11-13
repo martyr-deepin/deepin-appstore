@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DstoreObject } from 'app/dstore-client.module/utils/dstore-objects';
+import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { StatementService } from 'app/services/statement.service';
 
 @Component({

@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Channel } from '../dstore-client.module/utils/channel';
+import { Channel } from 'app/modules/client/utils/channel';
 @Injectable()
 export class SearchService {
   constructor(private zone: NgZone) {}

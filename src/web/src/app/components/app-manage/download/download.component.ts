@@ -3,8 +3,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { Observable, of, forkJoin, timer, iif, merge, Subscription } from 'rxjs';
 import { switchMap, map, tap, filter } from 'rxjs/operators';
 
-import { AppService, App } from '../../../services/app.service';
-import { StoreService } from '../../../dstore-client.module/services/store.service';
+import { AppService, App } from 'app/services/app.service';
+import { StoreService } from 'app/modules/client/services/store.service';
 import {
   StoreJobInfo,
   StoreJobType,
@@ -12,7 +12,7 @@ import {
   CanFixError,
   StoreJobError,
   StoreJobErrorType,
-} from '../../../dstore-client.module/models/store-job-info';
+} from 'app/modules/client//models/store-job-info';
 import { JobService } from 'app/services/job.service';
 
 @Component({

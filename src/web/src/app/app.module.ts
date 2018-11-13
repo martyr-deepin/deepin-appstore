@@ -10,7 +10,7 @@ registerLocaleData(localeZH, 'zh-Hans');
 
 import { RoutingModule } from './routing/routing.module';
 import { DstoreModule } from './dstore/dstore.module';
-import { ClientModule } from './dstore-client.module/client.module';
+import { ClientModule } from 'app/modules/client/client.module';
 import { ShareModule } from 'app/modules/share/share.module';
 
 import { MyHttpInterceptor } from './services/http-interceptor';
@@ -22,7 +22,6 @@ import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CommentService } from './services/comment.service';
 import { BaseService } from './dstore/services/base.service';
-import { StoreService } from './dstore-client.module/services/store.service';
 import { SearchService } from './services/search.service';
 import { LoginService } from './services/login.service';
 import { RecommendService } from './services/recommend.service';
@@ -38,7 +37,6 @@ import { RecommendComponent } from './components/recommend/recommend.component';
 import { NotifyComponent } from './components/notify/notify.component';
 
 import { LodashPipe } from './pipes/lodash.pipe';
-import { AppInfoPipe } from './pipes/app-info';
 import { StoreJobErrorComponent } from './components/store-job-error/store-job-error.component';
 
 @NgModule({
@@ -56,7 +54,6 @@ import { StoreJobErrorComponent } from './components/store-job-error/store-job-e
     RecommendComponent,
     NotifyComponent,
     LodashPipe,
-    AppInfoPipe,
     StoreJobErrorComponent,
   ],
   imports: [
@@ -76,7 +73,6 @@ import { StoreJobErrorComponent } from './components/store-job-error/store-job-e
     SectionService,
     AuthGuardService,
     AuthService,
-    StoreService,
     CommentService,
     SearchService,
     LoginService,

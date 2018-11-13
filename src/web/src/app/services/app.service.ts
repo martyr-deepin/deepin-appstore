@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, combineLatest, Subject } from 'rxjs';
-import { map, scan, share, debounceTime, flatMap } from 'rxjs/operators';
+import { map, scan, share, debounceTime, switchMap } from 'rxjs/operators';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
 import { App as DstoreApp } from '../dstore/services/app';
-import { AppVersion } from '../dstore-client.module/models/app-version';
+import { AppVersion } from 'app/modules/client/models/app-version';
 import { AppStatService, AppStat } from './stat.service';
-import { StoreService } from 'app/dstore-client.module/services/store.service';
+import { StoreService } from 'app/modules/client/services/store.service';
 
 @Injectable()
 export class AppService {
@@ -22,14 +22,6 @@ export class AppService {
   private server = BaseService.serverHosts.operationServer;
   activeList = this.http.get<{ apps: string[] }>(`${this.server}/api/app`).toPromise();
 
-  private getAppQuery = new Subject<string>();
-  private getAppResult = this.getAppQuery.pipe(
-    scan((acc: string[], name: string) => [...acc, name], []),
-    debounceTime(10),
-    flatMap(list => this.getApps(list)),
-    share(),
-  );
-
   getAppMap() {
     return combineLatest(
       this.appService.getAppList(),
@@ -37,13 +29,15 @@ export class AppService {
       this.appStatService.appStatMap,
     ).pipe(
       map(([dstoreApps, { apps }, statMap]) => {
-        const list = dstoreApps.filter(app => apps.includes(app.name)).map((app: App) => {
-          const stat = statMap.get(app.name) || new AppStat();
-          app.downloads = stat.downloads;
-          app.rate = stat.rate;
-          app.ratings = stat.votes;
-          return [app.name, app];
-        }) as Array<[string, App]>;
+        const list = dstoreApps
+          .filter(app => apps.includes(app.name))
+          .map((app: App) => {
+            const stat = statMap.get(app.name) || new AppStat();
+            app.downloads = stat.downloads;
+            app.rate = stat.rate;
+            app.ratings = stat.votes;
+            return [app.name, app];
+          }) as Array<[string, App]>;
         return new Map(list);
       }),
     );
@@ -79,10 +73,7 @@ export class AppService {
   }
 
   getApp(appName: string): Observable<App> {
-    setTimeout(() => {
-      this.getAppQuery.next(appName);
-    }, 0);
-    return this.getAppResult.pipe(map(list => list.find(app => app.name === appName)));
+    return this.getApps([appName]).pipe(map(apps => apps[0]));
   }
 }
 

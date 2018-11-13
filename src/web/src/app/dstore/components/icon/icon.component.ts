@@ -7,13 +7,13 @@ import { BaseService } from '../../services/base.service';
 import { AppService, App } from '../../../services/app.service';
 import { SectionApp, Section } from '../../services/section';
 import { AppFilterFunc, Allowed } from '../appFilter';
-import { StoreService } from '../../../dstore-client.module/services/store.service';
+import { StoreService } from 'app/modules/client/services/store.service';
 import {
   StoreJobInfo,
   StoreJobStatus,
   StoreJobType,
-} from '../../../dstore-client.module/models/store-job-info';
-import { AppVersion } from '../../../dstore-client.module/models/app-version';
+} from 'app/modules/client/models/store-job-info';
+import { AppVersion } from 'app/modules/client/models/app-version';
 import { JobService } from 'app/services/job.service';
 
 @Component({

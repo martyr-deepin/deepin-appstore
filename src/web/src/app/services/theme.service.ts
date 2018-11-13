@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'environments/environment';
-import { Channel } from '../dstore-client.module/utils/channel';
+import { Channel } from 'app/modules/client/utils/channel';
 
 @Injectable({
   providedIn: 'root',

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { DstoreModule } from 'app/dstore/dstore.module';
-import { ClientModule } from 'app/dstore-client.module/client.module';
+import { ClientModule } from 'app/modules/client/client.module';
 
 import { WaitComponent } from './components/wait/wait.component';
 import { ScrollbarComponent } from './components/scrollbar/scrollbar.component';

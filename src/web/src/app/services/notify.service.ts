@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { ReplaySubject } from 'rxjs';
 
-import { DstoreObject } from '../dstore-client.module/utils/dstore-objects';
+import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { Notify, NotifyType, NotifyStatus } from './notify.model';
 import { BaseService } from '../dstore/services/base.service';
-import { StoreService } from '../dstore-client.module/services/store.service';
+import { StoreService } from 'app/modules/client/services/store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -35,9 +35,8 @@ export class NotifyService {
     this.http
       .get(BaseService.serverHosts.operationServer + '/api/bulletin', { responseType: 'text' })
       .subscribe(body => {
-        const { bulletin }: { bulletin: Bulletin } = JSON.parse(
-          body,
-          (k: string, v) => (k.includes('Time') ? new Date(v) : v),
+        const { bulletin }: { bulletin: Bulletin } = JSON.parse(body, (k: string, v) =>
+          k.includes('Time') ? new Date(v) : v,
         );
         const t = new Date();
         if (bulletin.startTime <= t && bulletin.endTime > t) {

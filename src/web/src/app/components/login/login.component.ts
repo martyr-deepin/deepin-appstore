@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
-import { DstoreObject } from '../../dstore-client.module/utils/dstore-objects';
+import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { BaseService } from '../../dstore/services/base.service';
 import { AuthService } from '../../services/auth.service';
 import { LoginService } from '../../services/login.service';

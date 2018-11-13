@@ -15,13 +15,13 @@ import { sortBy } from 'lodash';
 import { App } from 'app/services/app.service';
 import { SortOrder } from '../app-title/app-title.component';
 import { BaseService } from 'app/dstore/services/base.service';
-import { StoreService } from 'app/dstore-client.module/services/store.service';
+import { StoreService } from 'app/modules/client/services/store.service';
 import {
   StoreJobInfo,
   StoreJobType,
   StoreJobStatus,
-} from 'app/dstore-client.module/models/store-job-info';
-import { AppVersion } from 'app/dstore-client.module/models/app-version';
+} from 'app/modules/client/models/store-job-info';
+import { AppVersion } from 'app/modules/client/models/app-version';
 import { AppService } from 'app/services/app.service';
 import { OffsetService } from 'app/services/offset.service';
 import { ActivatedRoute, Router } from '@angular/router';

@@ -7,16 +7,16 @@ import { map, flatMap, switchMap, tap } from 'rxjs/operators';
 
 import * as _ from 'lodash';
 
-import { StoreService } from '../../../dstore-client.module/services/store.service';
+import { StoreService } from 'app/modules/client/services/store.service';
 import {
   StoreJobInfo,
   StoreJobStatus,
   StoreJobType,
   AppJobStatus,
-} from '../../../dstore-client.module/models/store-job-info';
+} from 'app/modules/client/models/store-job-info';
 import { AppService, App } from '../../../services/app.service';
 import { BaseService } from '../../../dstore/services/base.service';
-import { InstalledApp } from '../../../dstore-client.module/models/installed';
+import { InstalledApp } from 'app/modules/client/models/installed';
 import { JobService } from 'app/services/job.service';
 
 @Component({

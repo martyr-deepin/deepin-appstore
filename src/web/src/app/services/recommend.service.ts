@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable, merge, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { Channel } from '../dstore-client.module/utils/channel';
+import { Channel } from 'app/modules/client/utils/channel';
 import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../dstore/services/base.service';
 

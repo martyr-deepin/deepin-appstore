@@ -1,8 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { scan, debounceTime, share, flatMap, map, shareReplay } from 'rxjs/operators';
-
-import { memoize } from 'lodash';
+import { Subject } from 'rxjs';
+import { scan, debounceTime, share, flatMap, map } from 'rxjs/operators';
 
 import { AppService } from 'app/services/app.service';
 

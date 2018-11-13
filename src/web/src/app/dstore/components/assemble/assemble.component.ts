@@ -12,12 +12,12 @@ import {
   StoreJobInfo,
   StoreJobStatus,
   StoreJobType,
-} from '../../../dstore-client.module/models/store-job-info';
+} from 'app/modules/client/models/store-job-info';
 import { SectionAssemble, Section, SectionApp } from '../../services/section';
 import { AppFilterFunc, Allowed } from '../appFilter';
 import { CategoryService, Category } from '../../services/category.service';
-import { StoreService } from '../../../dstore-client.module/services/store.service';
-import { AppVersion } from '../../../dstore-client.module/models/app-version';
+import { StoreService } from 'app/modules/client/services/store.service';
+import { AppVersion } from 'app/modules/client/models/app-version';
 import { JobService } from 'app/services/job.service';
 
 @Component({

@@ -2,8 +2,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, of, timer } from 'rxjs';
 import { switchMap, share, map } from 'rxjs/operators';
 
-import { StoreService } from 'app/dstore-client.module/services/store.service';
-import { StoreJobInfo } from 'app/dstore-client.module/models/store-job-info';
+import { StoreService } from 'app/modules/client/services/store.service';
+import { StoreJobInfo } from 'app/modules/client/models/store-job-info';
 
 @Injectable({
   providedIn: 'root',

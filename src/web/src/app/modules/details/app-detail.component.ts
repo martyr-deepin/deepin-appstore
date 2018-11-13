@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
@@ -7,21 +7,22 @@ import { flatMap, map, tap, concat, switchMap, startWith } from 'rxjs/operators'
 import { App, AppService } from 'app/services/app.service';
 import { BaseService } from 'app/dstore/services/base.service';
 import { CanvasUtil } from 'app/utils/canvas-util';
-import { StoreService } from 'app/dstore-client.module/services/store.service';
+import { StoreService } from 'app/modules/client/services/store.service';
 import {
   StoreJobInfo,
   StoreJobType,
   StoreJobStatus,
-} from 'app/dstore-client.module/models/store-job-info';
+} from 'app/modules/client/models/store-job-info';
 import { ReminderService } from 'app/services/reminder.service';
 import { DownloadService } from 'app/services/download.service';
 import { NotifyService } from 'app/services/notify.service';
 import { NotifyType, NotifyStatus } from 'app/services/notify.model';
-import { AppVersion } from 'app/dstore-client.module/models/app-version';
-import { DstoreObject } from 'app/dstore-client.module/utils/dstore-objects';
+import { AppVersion } from 'app/modules/client/models/app-version';
+import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
+import { JobService } from 'app/services/job.service';
 
 @Component({
-  selector: 'app-app-detail',
+  selector: 'dstore-app-detail',
   templateUrl: './app-detail.component.html',
   styleUrls: ['./app-detail.component.scss'],
 })
@@ -34,6 +35,7 @@ export class AppDetailComponent implements OnInit {
     private reminderService: ReminderService,
     private downloadService: DownloadService,
     private notifyService: NotifyService,
+    private jobService: JobService,
   ) {}
   metadataServer = BaseService.serverHosts.metadataServer;
   adVisible = DstoreObject.AdVisible();
@@ -54,7 +56,7 @@ export class AppDetailComponent implements OnInit {
       .pipe(switchMap(param => this.appService.getApp(param.get('appName'))))
       .subscribe(app => {
         this.app = app;
-        this.job$ = merge(this.storeService.getJobList(), this.storeService.jobListChange()).pipe(
+        this.job$ = this.jobService.jobList().pipe(
           tap(() => {
             this.storeService.getVersion([app.name]).subscribe(v => (this.app.version = v[0]));
             this.storeService.appDownloadSize(app.name).subscribe(size => (this.size = size));

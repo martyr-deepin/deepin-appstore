@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { AppVersion } from '../../dstore-client.module/models/app-version';
+import { AppVersion } from 'app/modules/client/models/app-version';
 
 export class App {
   id = 0;
@@ -116,15 +116,13 @@ export function appReviver(k: string, v: any): any {
               images.coverHD = _.first(imgs).path;
               break;
             case ImageType.Screenshot:
-              images.screenshot = _
-                .chain(imgs)
+              images.screenshot = _.chain(imgs)
                 .sortBy('order')
                 .map('path')
                 .value();
               break;
             case ImageType.ScreenshotHD:
-              images.screenshotHD = _
-                .chain(imgs)
+              images.screenshotHD = _.chain(imgs)
                 .sortBy('order')
                 .map('path')
                 .value();
@@ -230,8 +228,7 @@ interface Image {
 
 export function appSearch(app: App, search: string): boolean {
   const s = search.toLocaleLowerCase();
-  return _
-    .flatMap(app.locale, localInfo => Object.values(localInfo.description))
+  return _.flatMap(app.locale, localInfo => Object.values(localInfo.description))
     .concat(app.name)
     .map((v: string) => v.toLocaleLowerCase().includes(s))
     .includes(true);

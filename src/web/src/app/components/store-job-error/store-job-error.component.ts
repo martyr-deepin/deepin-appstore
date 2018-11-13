@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StoreJobErrorType, StoreJobError } from '../../dstore-client.module/models/store-job-info';
+import { StoreJobErrorType, StoreJobError } from 'app/modules/client/models/store-job-info';
 
 @Component({
   selector: 'app-store-job-error',

@@ -3,7 +3,7 @@ import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 import { BaseService } from 'app/dstore/services/base.service';
 import { CanvasUtil } from 'app/utils/canvas-util';
-import { DstoreObject } from 'app/dstore-client.module/utils/dstore-objects';
+import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 
 @Component({
   selector: 'app-screenshot',

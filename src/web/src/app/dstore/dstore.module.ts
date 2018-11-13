@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ClientModule } from '../dstore-client.module/client.module';
+import { ClientModule } from 'app/modules/client/client.module';
 
 import { AppService } from './services/app.service';
 import { CategoryService } from './services/category.service';

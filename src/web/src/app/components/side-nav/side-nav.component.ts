@@ -7,9 +7,9 @@ import { tap, flatMap, map, switchMap } from 'rxjs/operators';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
 import { BaseService } from '../../dstore/services/base.service';
-import { StoreService } from '../../dstore-client.module/services/store.service';
+import { StoreService } from 'app/modules/client/services/store.service';
 import { AppService } from '../../services/app.service';
-import { StoreJobType } from '../../dstore-client.module/models/store-job-info';
+import { StoreJobType } from 'app/modules/client/models/store-job-info';
 import { JobService } from 'app/services/job.service';
 
 @Component({

@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import * as JwtDecode from 'jwt-decode';
 import { map, skip } from 'rxjs/operators';
 
-import { DstoreObject } from '../dstore-client.module/utils/dstore-objects';
+import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { LoginService } from './login.service';
 import { BaseService } from '../dstore/services/base.service';
 
