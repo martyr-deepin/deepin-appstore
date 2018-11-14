@@ -467,7 +467,7 @@ QVariantMap StoreDaemonManager::queryVersions(const QStringList& apps) {
     const AppVersionList version_list = version_reply.value();
     QVariantList version_vars;
     for (const AppVersion& version : version_list) {
-      
+
       auto pkg_name = version.pkg_name;
       const int arch_idx = pkg_name.indexOf(':');
       if (arch_idx > 0)
@@ -486,7 +486,7 @@ QVariantMap StoreDaemonManager::queryVersions(const QStringList& apps) {
           }
         }
       }
-      
+
       const QStringList& app_names = deb_names_.values(version.pkg_name);
       for (const QString& app_name : app_names) {
         version_vars.append(QVariantMap {
@@ -597,8 +597,7 @@ QVariantMap StoreDaemonManager::getJobsInfo(const QStringList& jobs) {
     QVariantMap job_info;
     LastoreJobInterface job_interface(kLastoreDebJobService,
                                       job,
-                                      QDBusConnection::sessionBus(),
-                                      this);
+                                      QDBusConnection::sessionBus());
     if (job_interface.isValid()) {
       if (ReadJobInfo(job_interface, job, deb_names_, job_info)) {
         jobs_info.append(job_info);
