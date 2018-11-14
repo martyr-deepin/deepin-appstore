@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
   // Do not use sandbox.
   settings.setNoSandbox(true);
 
-  if (qEnvironmentVariableIntValue("DSTORE_DEBUG") == 1) {
+  if (qEnvironmentVariableIntValue("QCEF_DEBUG") == 1) {
     // Open http://localhost:9222 in chromium browser to see dev tools.
     settings.setRemoteDebug(true);
     settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Verbose);

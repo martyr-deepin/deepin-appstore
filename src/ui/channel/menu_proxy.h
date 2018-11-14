@@ -20,46 +20,60 @@
 
 #include <QObject>
 
-namespace dstore {
+namespace dstore
+{
 
 /**
  * Expose tool menu methods and signals to web page.
  */
-class MenuProxy : public QObject {
-  Q_OBJECT
- public:
-  explicit MenuProxy(QObject* parent = nullptr);
-  ~MenuProxy() override;
+class MenuProxy : public QObject
+{
+    Q_OBJECT
+public:
+    explicit MenuProxy(QObject *parent = nullptr);
+    ~MenuProxy() override;
 
- signals:
-  /**
-   * This signal is emitted when Login/Logout menu item is activated.
-   * @param login true if request to login, false for logout.
-   */
-  void loginRequested(bool login);
+signals:
+    /**
+     * This signal is emitted when Login/Logout menu item is activated.
+     * @param login true if request to login, false for logout.
+     */
+    void loginRequested(bool login);
 
-  /**
-   * This signal is emitted when RecommendApp menu item is activated.
-   */
-  void recommendAppRequested();
+    /**
+     * This signal is emitted when RecommendApp menu item is activated.
+     */
+    void recommendAppRequested();
 
-  /**
-   * this signal is emitted when user click menu
-   */
-  void switchThemeRequested(QString themeName);
+    /**
+     * this signal is emitted when user click menu
+     */
+    void switchThemeRequested(QString themeName);
 
-  /**
-   * Login state shall be updated. This signal is emitted on web page
-   * @param login
-   */
-  void loginStateUpdated(bool login);
+    /**
+     * Login state shall be updated. This signal is emitted on web page
+     * @param login
+     */
+    void loginStateUpdated(bool login);
 
- public slots:
-  /**
-   * Update menu item state.
-   * @param login true if user logged-in, false otherwise.
-   */
-  void setLoginState(bool login);
+    /**
+     * @brief notify user info change when user login/logout from web page
+     * @param info
+     */
+    void userInfoUpdated(QJsonObject info);
+
+public slots:
+    /**
+     * Update menu item state.
+     * @param login true if user logged-in, false otherwise.
+     */
+    void setLoginState(bool login);
+
+    /**
+     * @brief update titlebar info
+     * @param info
+     */
+    void setUserInfo(QJsonObject info);
 };
 
 }  // namespace dstore

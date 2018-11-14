@@ -17,18 +17,31 @@
 
 #include "ui/channel/menu_proxy.h"
 
-namespace dstore {
+#include <QDebug>
+#include <QJsonObject>
 
-MenuProxy::MenuProxy(QObject* parent) : QObject(parent) {
-  this->setObjectName("MenuProxy");
+namespace dstore
+{
+
+MenuProxy::MenuProxy(QObject *parent) : QObject(parent)
+{
+    this->setObjectName("MenuProxy");
 }
 
-MenuProxy::~MenuProxy() {
+MenuProxy::~MenuProxy()
+{
 
 }
 
-void MenuProxy::setLoginState(bool login) {
-  emit this->loginStateUpdated(login);
+void MenuProxy::setLoginState(bool login)
+{
+    emit this->loginStateUpdated(login);
+}
+
+void MenuProxy::setUserInfo(QJsonObject info)
+{
+    qDebug() << "setUserInfo" << info;
+    emit this->userInfoUpdated(info);
 }
 
 }  // namespace dstore
