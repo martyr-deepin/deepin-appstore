@@ -13,7 +13,7 @@ import { DstoreModule } from './dstore/dstore.module';
 import { ClientModule } from 'app/modules/client/client.module';
 import { ShareModule } from 'app/modules/share/share.module';
 
-import { MyHttpInterceptor } from './services/http-interceptor';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 import { AppService } from './services/app.service';
 import { CategoryService } from './services/category.service';
@@ -77,7 +77,7 @@ import { StoreJobErrorComponent } from './components/store-job-error/store-job-e
     SearchService,
     LoginService,
     RecommendService,
-    { provide: HTTP_INTERCEPTORS, useClass: MyHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
