@@ -73,18 +73,19 @@ export class AppComponent implements OnInit {
     });
   }
   screenshotPreview() {
-    const img = new Image();
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
     DstoreObject.openOnlineImage().subscribe(src => {
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img, 0, 0);
-        const data = canvas.toDataURL();
-        DstoreObject.imageViewer(src, data.slice(data.indexOf(',') + 1));
-      };
-      img.src = src;
+      fetch(src)
+        .then(resp => resp.blob())
+        .then(blob => {
+          return new Promise<string>(resolve => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.readAsDataURL(blob);
+          });
+        })
+        .then(data => {
+          DstoreObject.imageViewer(src, data.slice(data.indexOf(',') + 1));
+        });
     });
   }
 }
