@@ -21,15 +21,15 @@
 
 namespace dstore {
 
-bool operator<(const AppSearchRecord& a, const AppSearchRecord& b) {
+bool operator<(const SearchMeta& a, const SearchMeta& b) {
   return a.name < b.name;
 }
 
-bool operator==(const AppSearchRecord& a, const AppSearchRecord& b) {
+bool operator==(const SearchMeta& a, const SearchMeta& b) {
 return a.name == b.name;
 }
 
-QDebug& operator<<(QDebug& debug, const AppSearchRecord& app) {
+QDebug& operator<<(QDebug& debug, const SearchMeta& app) {
   debug << "App {"
         << "name:" << app.name
         << ", local_name:" << app.local_name
@@ -41,9 +41,9 @@ QDebug& operator<<(QDebug& debug, const AppSearchRecord& app) {
   return debug;
 }
 
-void RegisterAppSearchRecordMetaType() {
-  qRegisterMetaType<AppSearchRecord>("AppSearchRecord");
-  qRegisterMetaType<AppSearchRecordList>("AppSearchRecordList");
+void RegisterSearchMetaMetaType() {
+  qRegisterMetaType<SearchMeta>("SearchMeta");
+  qRegisterMetaType<SearchMetaList>("SearchMetaList");
 }
 
 }  // namespace dstore

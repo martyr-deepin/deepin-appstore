@@ -196,8 +196,6 @@ void WebWindow::initConnections()
             this, &WebWindow::onCompleteSearchAppResult);
 
     connect(search_proxy_, &SearchProxy::onAppListUpdated,
-            store_daemon_proxy_, &StoreDaemonProxy::updateAppList);
-    connect(store_daemon_proxy_, &StoreDaemonProxy::onAppListUpdated,
             search_manager_, &SearchManager::updateAppList);
 
     connect(search_timer_, &QTimer::timeout,
@@ -249,12 +247,12 @@ void WebWindow::initConnections()
 void WebWindow::initProxy()
 {
     auto web_channel = web_view_->page()->webChannel();
+    store_daemon_proxy_ = new StoreDaemonProxy();
     image_viewer_proxy_ = new ImageViewerProxy();
     log_proxy_ = new LogProxy();
     menu_proxy_ = new MenuProxy();
     search_proxy_ = new SearchProxy();
     settings_proxy_ = new SettingsProxy();
-    store_daemon_proxy_ = new StoreDaemonProxy();
 
     web_channel->registerObject("imageViewer", image_viewer_proxy_);
     web_channel->registerObject("log", log_proxy_);
@@ -347,7 +345,7 @@ void WebWindow::focusInEvent(QFocusEvent *event)
 }
 
 void WebWindow::onSearchAppResult(const QString &keyword,
-                                  const AppSearchRecordList &result)
+                                  const SearchMetaList &result)
 {
     Q_UNUSED(keyword);
     completion_window_->setSearchResult(result);
@@ -369,13 +367,13 @@ void WebWindow::onSearchAppResult(const QString &keyword,
 }
 
 void WebWindow::onCompleteSearchAppResult(const QString &keyword,
-        const AppSearchRecordList &result)
+        const SearchMetaList &result)
 {
     Q_UNUSED(keyword);
 
     // Show search page in web.
     QStringList names;
-    for (const AppSearchRecord &app : result) {
+    for (const SearchMeta &app : result) {
         names.append(app.name);
     }
     emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
@@ -418,7 +416,7 @@ void WebWindow::prepareSearch(bool entered)
     }
 }
 
-void WebWindow::onSearchResultClicked(const AppSearchRecord &result)
+void WebWindow::onSearchResultClicked(const SearchMeta &result)
 {
     // Emit signal to web page.
     emit search_proxy_->openApp(result.name);

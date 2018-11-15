@@ -15,27 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DEEPIN_APPSTORE_SERVICES_DPK_LINK_VALIDATION_H
-#define DEEPIN_APPSTORE_SERVICES_DPK_LINK_VALIDATION_H
+#pragma once
 
 #include <QString>
 
-namespace dstore {
+namespace dstore
+{
 
-enum class DpkLinkValidationResult {
-  Ok,
-  InvalidFormat,
-  InvalidSchemeName,
-  InvalidPkgType,
-  AppNameTooShort,
-  AppNameTooLong,
+/**
+dpk://type/id
+dpk://deb/deepin-manual
+dpk://flatpak/org.deepin.flatdeb.dde-calendar
+*/
+class DpkURI
+{
+public:
+    DpkURI(const QString &dpk);
+    bool isValid() const;
+    QString getType() const;
+    QString getID() const;
+
+private:
+    QString url;
+    QString type;
+    QString id;
 };
 
-DpkLinkValidationResult IsValidDpkLink(const QString& uri);
-
-QStringList GetDebNames(const QStringList& uris);
-QStringList GetFlatpakNames(const QStringList& uris);
-
 }  // namespace dstore
-
-#endif  // DEEPIN_APPSTORE_SERVICES_DPK_LINK_VALIDATION_H

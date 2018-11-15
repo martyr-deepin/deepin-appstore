@@ -22,36 +22,42 @@
 
 #include "services/search_result.h"
 
-namespace dstore {
+namespace dstore
+{
 
-class SearchProxy : public QObject {
-  Q_OBJECT
- public:
-  explicit SearchProxy(QObject* parent = nullptr);
-  ~SearchProxy() override;
+class SearchProxy : public QObject
+{
+    Q_OBJECT
+public:
+    explicit SearchProxy(QObject *parent = nullptr);
+    ~SearchProxy() override;
 
- signals:
-  void onAppListUpdated(const AppSearchRecordList& record_list);
+Q_SIGNALS:
+    /**
+    * Request to open app info page
+    * @param name
+    */
+    void onAppListUpdated(const SearchMetaList &record_list);
 
-  /**
-   * Request to open app info page
-   * @param name
-   */
-  void openApp(const QString& name);
+    /**
+     * Request to open app info page
+     * @param name
+     */
+    void openApp(const QString &name);
 
-  /**
-   * Request to open app search result page
-   * @param keyword search keyword
-   * @param names
-   */
-  void openAppList(const QString& keyword, const QStringList& names);
+    /**
+     * Request to open app search result page
+     * @param keyword search keyword
+     * @param names
+     */
+    void openAppList(const QString &keyword, const QStringList &names);
 
- public slots:
-  /**
-   * Update app list used in search service.
-   * @param apps Serialized application info
-   */
-  void updateAppList(const QString& apps);
+public Q_SLOTS:
+    /**
+     * Update app list used in search service.
+     * @param apps Serialized application info
+     */
+    void updateAppList(const QString &apps);
 };
 
 }  // namespace dstore

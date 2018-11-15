@@ -23,38 +23,38 @@
 #include "dbus/dbus_consts.h"
 #include "dbus/lastore_job_interface.h"
 
-namespace dstore {
+namespace dstore
+{
 
-StoreDaemonProxy::StoreDaemonProxy(QObject* parent)
+StoreDaemonProxy::StoreDaemonProxy(QObject *parent)
     : QObject(parent),
       manager_thread_(new QThread(this)),
-      manager_(new StoreDaemonManager()) {
+      manager_(new StoreDaemonManager())
+{
 
-  this->setObjectName("StoreDaemonProxy");
+    this->setObjectName("StoreDaemonProxy");
 
-  RegisterAppSearchRecordMetaType();
+    RegisterSearchMetaMetaType();
 
-  this->initConnections();
+    this->initConnections();
 
-  manager_thread_->start();
-  manager_->moveToThread(manager_thread_);
+    manager_thread_->start();
+    manager_->moveToThread(manager_thread_);
 
 }
 
-StoreDaemonProxy::~StoreDaemonProxy() {
-  manager_thread_->quit();
-  manager_thread_->wait(3);
+StoreDaemonProxy::~StoreDaemonProxy()
+{
+    manager_thread_->quit();
+    manager_thread_->wait(3);
 }
 
-void StoreDaemonProxy::initConnections() {
-  connect(manager_thread_, &QThread::finished,
-        manager_, &StoreDaemonManager::deleteLater);
-  connect(manager_, &StoreDaemonManager::jobListChanged,
-        this, &StoreDaemonProxy::jobListChanged);
-  connect(manager_, &StoreDaemonManager::onAppListUpdated,
-        this, &StoreDaemonProxy::onAppListUpdated);
-  connect(this, &StoreDaemonProxy::updateAppList,
-        manager_, &StoreDaemonManager::updateAppList);
+void StoreDaemonProxy::initConnections()
+{
+    connect(manager_thread_, &QThread::finished,
+            manager_, &StoreDaemonManager::deleteLater);
+    connect(manager_, &StoreDaemonManager::jobListChanged,
+            this, &StoreDaemonProxy::jobListChanged);
 }
 
 }  // namespace dstore

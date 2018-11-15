@@ -19,143 +19,139 @@
 #define DEEPIN_APPSTORE_SERVICES_STORE_DAEMON_MANAGER_H
 
 #include <QObject>
-
+#include <QScopedPointer>
 #include "services/search_result.h"
 
-class QThread;
+namespace dstore
+{
 
-class LastoreDebInterface;
+struct Package {
+    QString packageURI;
+    QString localVersion;
+    QString remoteVersion;
+    bool upgradable;
+};
 
-namespace dstore {
+struct AppPackage {
+    QString         name;
+    QString         localName;
+    QStringList     packageURI;
+    QList<Package>  packages;
 
-class AptUtilWorker;
+    static AppPackage fromJson(const QByteArray &json);
+    QByteArray toJson() const;
+};
 
-class StoreDaemonManager : public QObject {
-  Q_OBJECT
- public:
-  explicit StoreDaemonManager(QObject* parent = nullptr);
-  ~StoreDaemonManager() override;
-  
- signals:
+class StoreDaemonManagerPrivate;
+class StoreDaemonManager : public QObject
+{
+    Q_OBJECT
+public:
+    explicit StoreDaemonManager(QObject *parent = nullptr);
+    ~StoreDaemonManager() override;
 
-  /**
-   * Emitted when JobList property changed.
-   * @param jobs
-   */
-  void jobListChanged(const QStringList& jobs);
+Q_SIGNALS:
+    /**
+     * Emitted when JobList property changed.
+     * @param jobs
+     */
+    void jobListChanged(const QStringList &jobs);
 
-  void onAppListUpdated(const AppSearchRecordList& app_list);
+public Q_SLOTS:
+    /**
+     * @brief clearArchives clean apt arvhives
+     */
+    void clearArchives();
+    QVariantMap fixError(const QString &error_type);
 
- public slots:
-  void updateAppList(const AppSearchRecordList& app_list);
+    /**
+     * Check connecting to backend app store daemon or not.
+     */
+    bool isDBusConnected();
 
- private:
-  void initConnections();
+    /**
+     * @brief openApp by app_name
+     * @param app_name: TODO, open by packageURI
+     */
+    void openApp(const QString &app_name);
 
-  bool hasDebPkg(const QString& app_name) const;
-  bool hasFlatPak(const QString& app_name) const;
+    QVariantMap installedPackages();
+    /**
+     * Get deb package size
+     * @param app_name
+     */
+    QVariantMap packageDownloadSize(const QString &app_name);
+    QVariantMap queryInstalledTime(const QStringList &apps);
 
-  // Maps between appName and its metadata.
-  AppSearchRecordMap apps_;
+    /**
+     * apt-get install xxx
+     * @param app_name
+     * @param app_local_name
+     */
+    QVariantMap installPackage(const QString &app_name, const QString &app_local_name);
 
-  // Maps between debPkgName and appName. Many-to-Many.
-  // Different appNames can refer to the same deb.
-  // And one appName can contain multiple deb names.
-  QMultiHash<QString, QString> deb_names_;
+    /**
+     * apt-get upgrade xxx
+     * @param app_name
+     * @param app_local_name
+     */
+    QVariantMap updatePackage(const QString &app_name, const QString &app_local_name);
+    /**
+     * apt-get remove xxx
+     * @param app_name
+     * @param app_local_name
+     */
+    QVariantMap removePackage(const QString &app_name, const QString &app_local_name);
 
-  // Maps between flatpakName and appName. Many-to-Many.
-  QMultiHash<QString, QString> flatpak_names_;
+    QVariantMap queryVersions(const QStringList &apps);
 
-  AptUtilWorker* apt_worker_ = nullptr;
-  QThread* apt_worker_thread_ = nullptr;
-  LastoreDebInterface* deb_interface_ = nullptr;
+    /**
+     * Clean up a specific job.
+     * @param job
+     */
+    QVariantMap cleanJob(const QString &job);
 
- public slots:
-  void clearArchives();
-  void openApp(const QString& app_name);
+    /**
+     * Pause a running job
+     * @param job
+     */
+    QVariantMap pauseJob(const QString &job);
 
-  /**
-   * Check connecting to backend app store daemon or not.
-   */
-  bool isDBusConnected();
+    /**
+     * Resume a paused job
+     * @param job
+     */
+    QVariantMap startJob(const QString &job);
 
-  /**
-   * Clean up a specific job.
-   * @param job
-   */
-  QVariantMap cleanJob(const QString& job);
 
-  /**
-   * Pause a running job
-   * @param job
-   */
-  QVariantMap pauseJob(const QString& job);
+    /**
+     * Get temporary job info.
+     * * valid: bool, false if this job is invalid.
+     * * id: string
+     * * name: string
+     * * status: string
+     * * type: string
+     * * speed: int64
+     * * progress: double
+     * * description: string
+     * * cancelable: boolean
+     * * packages: stringList
+     */
+    QVariantMap getJobInfo(const QString &job);
 
-  /**
-   * Resume a paused job
-   * @param job
-   */
-  QVariantMap startJob(const QString& job);
+    QVariantMap getJobsInfo(const QStringList &jobs);
 
-  /**
-   * apt-get install xxx
-   * @param app_name
-   * @param app_local_name
-   */
-  QVariantMap installPackage(const QString& app_name, const QString& app_local_name);
+    /**
+     * Returns all of jobs existing in backend.
+     * @return stringList
+     */
+    QVariantMap jobList();
 
-  QVariantMap installedPackages();
+    void onJobListChanged();
 
-  /**
-   * Get deb package size
-   * @param app_name
-   */
-  QVariantMap packageDownloadSize(const QString& app_name);
-
-  /**
-   * apt-get upgrade xxx
-   * @param app_name
-   * @param app_local_name
-   */
-  QVariantMap updatePackage(const QString& app_name, const QString& app_local_name);
-
-  /**
-   * apt-get remove xxx
-   * @param app_name
-   * @param app_local_name
-   */
-  QVariantMap removePackage(const QString& app_name, const QString& app_local_name);
-
-  QVariantMap queryVersions(const QStringList& apps);
-
-  QVariantMap queryInstalledTime(const QStringList& apps);
-
-  /**
-   * Returns all of jobs existing in backend.
-   * @return stringList
-   */
-  QVariantMap jobList();
-
-  /**
-   * Get temporary job info.
-   * * valid: bool, false if this job is invalid.
-   * * id: string
-   * * name: string
-   * * status: string
-   * * type: string
-   * * speed: int64
-   * * progress: double
-   * * description: string
-   * * cancelable: boolean
-   * * packages: stringList
-   */
-  QVariantMap getJobInfo(const QString& job);
-
-  QVariantMap getJobsInfo(const QStringList& jobs);
-
-  void onJobListChanged();
-
-  QVariantMap fixError(const QString& error_type);
+private:
+    QScopedPointer<StoreDaemonManagerPrivate> dd_ptr;
+    Q_DECLARE_PRIVATE_D(qGetPtrHelper(dd_ptr), StoreDaemonManager)
 };
 
 }  // namespace dstore

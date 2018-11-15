@@ -27,10 +27,10 @@ namespace {
 
 const int kMaxSearchResult = 10;
 
-AppSearchRecordList SearchApp(const QString& keyword,
-                              const AppSearchRecordList& apps,
+SearchMetaList SearchApp(const QString& keyword,
+                              const SearchMetaList& apps,
                               const QStringList& app_names_pinyin) {
-  AppSearchRecordList result;
+  SearchMetaList result;
   QSet<QString> app_names;
   const QString keyword_pinyin = Chinese2PinyinNoSyl(keyword);
 
@@ -41,7 +41,7 @@ AppSearchRecordList SearchApp(const QString& keyword,
     }
   }
 
-  for (const AppSearchRecord& app : apps) {
+  for (const SearchMeta& app : apps) {
     if (app.name.contains(keyword_pinyin, Qt::CaseInsensitive) ||
         app.local_name.contains(keyword_pinyin, Qt::CaseInsensitive)) {
       if (!app_names.contains(app.name)) {
@@ -51,7 +51,7 @@ AppSearchRecordList SearchApp(const QString& keyword,
     }
   }
 
-  for (const AppSearchRecord& app : apps) {
+  for (const SearchMeta& app : apps) {
     if (app.description.contains(keyword, Qt::CaseInsensitive) ||
         app.slogan.contains(keyword, Qt::CaseInsensitive)) {
       if (!app_names.contains(app.name)) {
@@ -77,17 +77,17 @@ SearchManager::~SearchManager() {
 }
 
 void SearchManager::searchApp(const QString& keyword) {
-  AppSearchRecordList result = SearchApp(keyword, app_list_, app_names_pinyin_);
+  SearchMetaList result = SearchApp(keyword, app_list_, app_names_pinyin_);
   result = result.mid(0, kMaxSearchResult);
   emit this->searchAppResult(keyword, result);
 }
 
 void SearchManager::completeSearchApp(const QString& keyword) {
-  AppSearchRecordList result = SearchApp(keyword, app_list_, app_names_pinyin_);
+  SearchMetaList result = SearchApp(keyword, app_list_, app_names_pinyin_);
   emit this->completeSearchAppResult(keyword, result);
 }
 
-void SearchManager::updateAppList(const AppSearchRecordList& app_list) {
+void SearchManager::updateAppList(const SearchMetaList& app_list) {
   app_list_ = app_list;
   app_names_pinyin_.clear();
 
@@ -95,7 +95,7 @@ void SearchManager::updateAppList(const AppSearchRecordList& app_list) {
   std::sort(app_list_.begin(), app_list_.end());
 
   // Save app name pinyin.
-  for (const AppSearchRecord& app : app_list_) {
+  for (const SearchMeta& app : app_list_) {
     app_names_pinyin_.append(Chinese2PinyinNoSyl(app.local_name));
   }
 }

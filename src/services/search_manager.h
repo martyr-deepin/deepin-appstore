@@ -40,20 +40,20 @@ class SearchManager : public QObject {
    * @param record_list matched apps, might be empty.
    */
   void searchAppResult(const QString& keyword,
-                       const AppSearchRecordList& record_list);
+                       const SearchMetaList& record_list);
 
   void completeSearchAppResult(const QString& keyword,
-                               const AppSearchRecordList& record_list);
+                               const SearchMetaList& record_list);
 
  public slots:
   void searchApp(const QString& keyword);
 
   void completeSearchApp(const QString& keyword);
 
-  void updateAppList(const AppSearchRecordList& app_list);
+  void updateAppList(const SearchMetaList& app_list);
 
  private:
-  AppSearchRecordList app_list_;
+  SearchMetaList app_list_;
 
   QStringList app_names_pinyin_;
 };

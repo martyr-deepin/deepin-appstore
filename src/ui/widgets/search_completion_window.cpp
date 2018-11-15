@@ -119,10 +119,10 @@ void SearchCompletionWindow::setKeyword(const QString& keyword) {
 }
 
 void SearchCompletionWindow::setSearchResult(
-    const AppSearchRecordList& result) {
+    const SearchMetaList& result) {
   result_ = result;
   QStringList names;
-  for (const AppSearchRecord& entry : result) {
+  for (const SearchMeta& entry : result) {
     names.append(entry.local_name);
   }
   model_->setStringList(names);

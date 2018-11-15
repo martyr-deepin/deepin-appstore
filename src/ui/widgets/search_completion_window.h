@@ -36,12 +36,12 @@ class SearchCompletionWindow : public QFrame {
   ~SearchCompletionWindow() override;
 
   void autoResize();
-  const AppSearchRecordList& searchResult() const { return result_; }
+  const SearchMetaList& searchResult() const { return result_; }
 
   const QString getKeyword() const { return keyword_; }
 
  signals:
-  void resultClicked(const AppSearchRecord& result);
+  void resultClicked(const SearchMeta& result);
   void searchButtonClicked();
 
  public slots:
@@ -50,7 +50,7 @@ class SearchCompletionWindow : public QFrame {
   void onEnterPressed();
 
   void setKeyword(const QString& keyword);
-  void setSearchResult(const AppSearchRecordList& result);
+  void setSearchResult(const SearchMetaList& result);
 
  private:
   void initConnections();
@@ -59,7 +59,7 @@ class SearchCompletionWindow : public QFrame {
   QListView* result_view_ = nullptr;
   QStringListModel* model_ = nullptr;
   SearchButton* search_button_ = nullptr;
-  AppSearchRecordList result_;
+  SearchMetaList result_;
   QString keyword_;
 
  private slots:

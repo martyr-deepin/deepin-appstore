@@ -26,7 +26,7 @@
 namespace dstore {
 
 // App entry used in search service.
-struct AppSearchRecord {
+struct SearchMeta {
   QString name;
   QString local_name;
   QString slogan;
@@ -40,21 +40,21 @@ struct AppSearchRecord {
   QStringList flatpaks;
 };
 
-bool operator==(const AppSearchRecord& a, const AppSearchRecord& b);
+bool operator==(const SearchMeta& a, const SearchMeta& b);
 
-QDebug& operator<<(QDebug& debug, const AppSearchRecord& app);
+QDebug& operator<<(QDebug& debug, const SearchMeta& app);
 
-void RegisterAppSearchRecordMetaType();
+void RegisterSearchMetaMetaType();
 
-bool operator<(const AppSearchRecord& a, const AppSearchRecord& b);
+bool operator<(const SearchMeta& a, const SearchMeta& b);
 
-typedef QList<AppSearchRecord> AppSearchRecordList;
+typedef QList<SearchMeta> SearchMetaList;
 
-typedef QHash<QString, AppSearchRecord> AppSearchRecordMap;
+typedef QHash<QString, SearchMeta> SearchMetaMap;
 
 }  // namespace dstore
 
-Q_DECLARE_METATYPE(dstore::AppSearchRecord);
-Q_DECLARE_METATYPE(dstore::AppSearchRecordList);
+Q_DECLARE_METATYPE(dstore::SearchMeta);
+Q_DECLARE_METATYPE(dstore::SearchMetaList);
 
 #endif  // DEEPIN_APPSTORE_SERVICES_SEARCH_RESULT_H
