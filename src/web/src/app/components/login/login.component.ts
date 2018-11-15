@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
   // login iframe loading
   load(iframe: HTMLIFrameElement) {
-    console.log('loaded', iframe.contentWindow.location, iframe.contentDocument.body.innerText);
+    // console.log('loaded', iframe.contentWindow.location, iframe.contentDocument.body.innerText);
     iframe.contentDocument.body.addEventListener('mousewheel', e => {
       e.preventDefault();
     });
@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit {
       case '/oauth2/logout':
         this.logout();
         break;
-      default:
     }
   }
 
@@ -100,7 +99,9 @@ export class LoginComponent implements OnInit {
       .map(c => c.split('='))
       .find(([key, value]) => key === 'auth-token') || ['', ''];
     if (token) {
-      this.dialogRef.nativeElement.close();
+      if (this.dialogRef.nativeElement.open) {
+        this.dialogRef.nativeElement.close();
+      }
       this.authService.login(token);
     }
   }
