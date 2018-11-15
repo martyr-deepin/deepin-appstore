@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryComponent } from 'app/components/category/category.component';
-import { DownloadComponent } from 'app/components/app-manage/download/download.component';
-import { UninstallComponent } from 'app/components/app-manage/uninstall/uninstall.component';
 
 const routes: Routes = [
   {
@@ -16,40 +13,24 @@ const routes: Routes = [
     loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
   {
-    path: 'category/:id/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
-  },
-  {
-    path: 'uninstall/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
-  },
-  {
-    path: 'download/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
-  },
-  {
     path: 'index',
     loadChildren: 'app/modules/index/index.module#IndexModule',
   },
   {
-    path: 'category/:id',
-    component: CategoryComponent,
+    path: 'category',
+    loadChildren: 'app/modules/category/category.module#CategoryModule',
   },
   {
     path: 'ranking',
     loadChildren: 'app/modules/ranking/ranking.module#RankingModule',
   },
   {
-    path: 'ranking/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
+    path: 'download',
+    loadChildren: 'app/modules/download/download.module#DownloadModule',
   },
   {
     path: 'uninstall',
-    component: UninstallComponent,
-  },
-  {
-    path: 'download',
-    component: DownloadComponent,
+    loadChildren: 'app/modules/uninstall/uninstall.module#UninstallModule',
   },
   {
     path: 'search',

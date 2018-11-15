@@ -4,7 +4,9 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { map, retry, shareReplay } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CategoryService {
   private server = environment.operationServer;
   private apiURL = this.server + '/api/blob/category';
@@ -15,12 +17,14 @@ export class CategoryService {
       retry(3),
       map(ccs => {
         if (ccs) {
-          return ccs.filter(c => c.show).map((c, index) => ({
-            id: index.toString(),
-            title: c.name,
-            icon: c.icon.map(i => this.server + '/images/' + i),
-            apps: c.apps,
-          }));
+          return ccs
+            .filter(c => c.show)
+            .map((c, index) => ({
+              id: index.toString(),
+              title: c.name,
+              icon: c.icon.map(i => this.server + '/images/' + i),
+              apps: c.apps,
+            }));
         } else {
           return [];
         }

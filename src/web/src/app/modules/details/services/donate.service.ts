@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Payment, PayReq, PayResp, PayCheck } from './donate.model';
-import { BaseService } from '../dstore/services/base.service';
+import { BaseService } from 'app/dstore/services/base.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

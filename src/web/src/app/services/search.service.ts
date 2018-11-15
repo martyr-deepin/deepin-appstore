@@ -3,7 +3,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Channel } from 'app/modules/client/utils/channel';
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SearchService {
   constructor(private zone: NgZone) {}
 

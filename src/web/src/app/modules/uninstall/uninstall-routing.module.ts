@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RankingComponent } from './components/ranking/ranking.component';
+import { UninstallComponent } from './components/uninstall/uninstall.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: RankingComponent,
+    component: UninstallComponent,
   },
   {
     path: ':appName',
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RankingRoutingModule {}
+export class UninstallRoutingModule {}

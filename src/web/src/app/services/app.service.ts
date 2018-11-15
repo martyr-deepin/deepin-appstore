@@ -10,7 +10,9 @@ import { AppVersion } from 'app/modules/client/models/app-version';
 import { AppStatService, AppStat } from './stat.service';
 import { StoreService } from 'app/modules/client/services/store.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AppService {
   constructor(
     private http: HttpClient,

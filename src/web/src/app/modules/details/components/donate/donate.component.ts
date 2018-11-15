@@ -16,8 +16,8 @@ import { debounce } from 'lodash';
 
 import * as QRCode from 'qrcode';
 
-import { Payment, PayReq, PayCheck } from 'app/services/donate.model';
-import { DonateService } from 'app/services/donate.service';
+import { Payment, PayReq, PayCheck } from '../../services/donate.model';
+import { DonateService } from '../../services/donate.service';
 import { AuthService } from 'app/services/auth.service';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { BaseService } from 'app/dstore/services/base.service';

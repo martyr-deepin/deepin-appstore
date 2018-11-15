@@ -64,7 +64,7 @@
               "aot": false,
               "buildOptimizer": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "budgets": [
                 {
                   "type": "initial",

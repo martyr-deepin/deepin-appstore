@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, switchMap } from 'rxjs/operators';
-import { DonorsService } from 'app/services/donors.service';
+import { DonorsService } from '../../services/donors.service';
 import { AuthService } from 'app/services/auth.service';
 
 @Component({

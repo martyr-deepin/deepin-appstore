@@ -8,12 +8,9 @@ import { LoginService } from './login.service';
 import { BaseService } from '../dstore/services/base.service';
 import { environment } from 'environments/environment';
 
-export interface UserInfo {
-  username: string;
-  userID: number;
-}
-console.log(environment);
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   constructor() {}
 
@@ -43,4 +40,9 @@ export class AuthService {
   register() {
     DstoreObject.openURL(`https://account.deepin.org/register`);
   }
+}
+
+export interface UserInfo {
+  username: string;
+  userID: number;
 }

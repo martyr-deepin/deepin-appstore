@@ -16,7 +16,7 @@ import {
 import { JobService } from 'app/services/job.service';
 
 @Component({
-  selector: 'app-download',
+  selector: 'dstore-download',
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.scss'],
   animations: [
@@ -108,9 +108,11 @@ export class DownloadComponent implements OnInit, OnDestroy {
       this.storeService.resumeJob(job.job);
     }
   }
-
   cancel(job: string) {
     this.cancels.add(job);
     this.storeService.clearJob(job);
+  }
+  floor(n: number): number {
+    return Math.floor(n);
   }
 }

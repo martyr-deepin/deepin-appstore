@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RankingComponent } from './components/ranking/ranking.component';
+import { CategoryComponent } from './components/category/category.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: RankingComponent,
+    path: ':id',
+    component: CategoryComponent,
   },
   {
-    path: ':appName',
+    path: ':id/:appName',
     loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RankingRoutingModule {}
+export class CategoryRoutingModule {}

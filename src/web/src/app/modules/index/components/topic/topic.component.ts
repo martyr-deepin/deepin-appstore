@@ -6,11 +6,11 @@ import { Observable, forkJoin, iif, of } from 'rxjs';
 import { map, flatMap, tap } from 'rxjs/operators';
 
 import { SectionTopic } from 'app/dstore/services/section';
-import { SectionService } from 'app/services/section.service';
 import { BaseService } from 'app/dstore/services/base.service';
 import { AppService } from 'app/services/app.service';
 
 import { App } from 'app/dstore/services/app';
+import { SectionService } from '../../services/section.service';
 
 @Component({
   selector: 'app-topic',

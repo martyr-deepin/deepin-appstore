@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, take, first, switchMap, map } from 'rxjs/operators';
 
-import { LoginService } from './login.service';
 import { AuthService } from './auth.service';
 
 @Injectable()

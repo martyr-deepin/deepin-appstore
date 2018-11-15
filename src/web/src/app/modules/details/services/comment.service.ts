@@ -3,10 +3,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import * as _ from 'lodash';
 
-import { BaseService } from '../dstore/services/base.service';
+import { BaseService } from 'app/dstore/services/base.service';
 import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CommentService {
   private server: string;
   constructor(private http: HttpClient) {

@@ -1,4 +1,4 @@
-import { Error } from '../dstore/services/errno';
+import { Error } from 'app/dstore/services/errno';
 
 export enum Payment {
   WeChat = 1,

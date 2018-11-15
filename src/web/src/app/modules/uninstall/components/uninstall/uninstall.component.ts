@@ -14,13 +14,13 @@ import {
   StoreJobType,
   AppJobStatus,
 } from 'app/modules/client/models/store-job-info';
-import { AppService, App } from '../../../services/app.service';
-import { BaseService } from '../../../dstore/services/base.service';
+import { AppService, App } from 'app/services/app.service';
+import { BaseService } from 'app/dstore/services/base.service';
 import { InstalledApp } from 'app/modules/client/models/installed';
 import { JobService } from 'app/services/job.service';
 
 @Component({
-  selector: 'app-uninstall',
+  selector: 'store-uninstall',
   templateUrl: './uninstall.component.html',
   styleUrls: ['./uninstall.component.scss'],
 })

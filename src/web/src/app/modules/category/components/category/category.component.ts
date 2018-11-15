@@ -1,23 +1,15 @@
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of, forkJoin, Subject } from 'rxjs';
-import {
-  flatMap,
-  tap,
-  map,
-  defaultIfEmpty,
-  share,
-  distinctUntilChanged,
-  catchError,
-} from 'rxjs/operators';
+import { flatMap, tap, map } from 'rxjs/operators';
 
 import { find, defaults } from 'lodash';
 
-import { AppService, App } from '../../services/app.service';
-import { CategoryService, Category } from '../../services/category.service';
+import { AppService, App } from 'app/services/app.service';
+import { CategoryService, Category } from 'app/services/category.service';
 
 @Component({
-  selector: 'app-category',
+  selector: 'dstore-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss'],
 })

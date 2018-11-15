@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription, merge, timer, of } from 'rxjs';
 import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
 
-import { SectionService } from 'app/services/section.service';
+import { SectionService } from './services/section.service';
 import { Section, SectionType } from 'app/dstore/services/section';
 import { App } from 'app/services/app.service';
 import { AppService } from 'app/services/app.service';

@@ -23,7 +23,6 @@ import {
 } from 'app/modules/client/models/store-job-info';
 import { AppVersion } from 'app/modules/client/models/app-version';
 import { AppService } from 'app/services/app.service';
-import { OffsetService } from 'app/services/offset.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobService } from 'app/services/job.service';
 
@@ -33,13 +32,7 @@ import { JobService } from 'app/services/job.service';
   styleUrls: ['./app-list.component.scss'],
 })
 export class AppListComponent implements OnInit, OnChanges, OnDestroy {
-  constructor(
-    private appService: AppService,
-    private storeService: StoreService,
-    private offsetService: OffsetService,
-    private jobService: JobService,
-    private router: Router,
-  ) {}
+  constructor(private storeService: StoreService, private jobService: JobService) {}
   // const
   server = BaseService.serverHosts.metadataServer;
   StoreJobStatus = StoreJobStatus;
