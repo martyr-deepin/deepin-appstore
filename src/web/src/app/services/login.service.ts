@@ -28,9 +28,6 @@ export class LoginService {
         this.OpenLogin();
       }
     });
-    this.authService.logged$.subscribe(logged => {
-      this.SetLoginStatue(logged);
-    });
     this.authService.info$.subscribe(info => {
       this.SetLoginInfo(info);
     });
@@ -49,10 +46,6 @@ export class LoginService {
     this.obs.next(false);
   }
 
-  SetLoginStatue(logged: boolean) {
-    Channel.exec('menu.setLoginState', logged);
-  }
-
   SetLoginInfo(userInfo: UserInfo) {
     if (userInfo) {
       // 设置头像
@@ -67,9 +60,15 @@ export class LoginService {
             });
           })
           .then(data => {
-            Channel.exec('menu.setUserInfo', { profile_image: data.slice(data.indexOf(',') + 1) });
+            Channel.exec('menu.setUserInfo', {
+              name: info.username,
+              uid: info.uid,
+              profile_image: data.slice(data.indexOf(',') + 1),
+            });
           });
       });
+    } else {
+      Channel.exec('menu.setUserInfo', {});
     }
   }
 }
