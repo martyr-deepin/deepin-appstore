@@ -7,7 +7,7 @@
      [hidden]="loading"
      *ngIf="apps as $apps">
   <div class="app"
-       [routerLink]="$app.name"
+       [routerLink]="routePrefix?[routePrefix,$app.name]:$app.name"
        [class.index]="rankIndex"
        [class.job]="jobs[$app.name] || jobNames.has($app.name)"
        *ngFor="let $app of $apps;index as $index">

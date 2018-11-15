@@ -54,6 +54,10 @@ const routes: Routes = [
     path: 'search',
     loadChildren: 'app/modules/search/search.module#SearchModule',
   },
+  {
+    path: 'tag/:tag',
+    loadChildren: 'app/modules/tags/tags.module#TagsModule',
+  },
 ];
 @NgModule({
   imports: [

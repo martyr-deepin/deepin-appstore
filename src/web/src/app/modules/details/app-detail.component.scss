@@ -123,3 +123,14 @@
   align-items: center;
   color: gray;
 }
+
+.tags {
+  .tag {
+    color: white;
+    padding: 0 0.5rem;
+    background-color: coral;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+}

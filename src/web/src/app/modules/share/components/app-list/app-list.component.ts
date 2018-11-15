@@ -49,6 +49,10 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   @Input()
   apps$: Observable<App[]>;
   @Input()
+  appList: App[];
+  @Input()
+  routePrefix: string;
+  @Input()
   sortBy: SortOrder;
   @Input()
   maxCount: number;
@@ -72,6 +76,9 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   openApp = this.storeService.openApp;
 
   ngOnInit() {
+    if (this.appList) {
+      this.apps = this.appList;
+    }
     this.jobs$ = this.jobService.jobsInfo().subscribe(jobInfos => {
       const jobs: { [key: string]: StoreJobInfo } = {};
       jobInfos.forEach(job => {
@@ -95,7 +102,9 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.jobs$.unsubscribe();
+    if (this.jobs$) {
+      this.jobs$.unsubscribe();
+    }
   }
 
   ngOnChanges() {
