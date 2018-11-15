@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from 'app/components/category/category.component';
-import { RankingComponent } from 'app/components/ranking/ranking.component';
 import { DownloadComponent } from 'app/components/app-manage/download/download.component';
 import { UninstallComponent } from 'app/components/app-manage/uninstall/uninstall.component';
 
@@ -17,10 +16,6 @@ const routes: Routes = [
     loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
   {
-    path: 'ranking/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
-  },
-  {
     path: 'category/:id/:appName',
     loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
@@ -32,15 +27,21 @@ const routes: Routes = [
     path: 'download/:appName',
     loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
-
-  { path: 'index', loadChildren: 'app/modules/index/index.module#IndexModule' },
+  {
+    path: 'index',
+    loadChildren: 'app/modules/index/index.module#IndexModule',
+  },
   {
     path: 'category/:id',
     component: CategoryComponent,
   },
   {
     path: 'ranking',
-    component: RankingComponent,
+    loadChildren: 'app/modules/ranking/ranking.module#RankingModule',
+  },
+  {
+    path: 'ranking/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
   {
     path: 'uninstall',

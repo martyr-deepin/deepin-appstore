@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AppService } from '../../services/app.service';
-import { App } from '../../dstore/services/app';
+import { AppService } from 'app/services/app.service';
+import { App } from 'app/dstore/services/app';
 
 @Component({
-  selector: 'app-ranking',
+  selector: 'dstore-ranking',
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.scss'],
 })

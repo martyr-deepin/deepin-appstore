@@ -31,7 +31,6 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { CategoryComponent } from './components/category/category.component';
 import { DownloadComponent } from './components/app-manage/download/download.component';
 import { UninstallComponent } from './components//app-manage/uninstall/uninstall.component';
-import { RankingComponent } from './components/ranking/ranking.component';
 import { LoginComponent } from './components/login/login.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
 import { NotifyComponent } from './components/notify/notify.component';
@@ -49,7 +48,6 @@ import { StoreJobErrorComponent } from './components/store-job-error/store-job-e
     CategoryComponent,
     DownloadComponent,
     UninstallComponent,
-    RankingComponent,
     LoginComponent,
     RecommendComponent,
     NotifyComponent,
