@@ -33,14 +33,8 @@ MenuProxy::~MenuProxy()
 
 }
 
-void MenuProxy::setLoginState(bool login)
-{
-    emit this->loginStateUpdated(login);
-}
-
 void MenuProxy::setUserInfo(QJsonObject info)
 {
-    qDebug() << "setUserInfo" << info;
     emit this->userInfoUpdated(info);
 }
 

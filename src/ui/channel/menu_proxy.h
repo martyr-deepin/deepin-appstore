@@ -51,24 +51,12 @@ signals:
     void switchThemeRequested(QString themeName);
 
     /**
-     * Login state shall be updated. This signal is emitted on web page
-     * @param login
-     */
-    void loginStateUpdated(bool login);
-
-    /**
      * @brief notify user info change when user login/logout from web page
      * @param info
      */
     void userInfoUpdated(QJsonObject info);
 
 public slots:
-    /**
-     * Update menu item state.
-     * @param login true if user logged-in, false otherwise.
-     */
-    void setLoginState(bool login);
-
     /**
      * @brief update titlebar info
      * @param info

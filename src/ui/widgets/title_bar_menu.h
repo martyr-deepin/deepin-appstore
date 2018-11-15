@@ -19,21 +19,16 @@
 #define DEEPIN_APPSTORE_UI_WIDGETS_TOOL_BAR_MENU_H
 
 #include <QMenu>
+#include <QJsonObject>
 
 namespace dstore {
 
 class TitleBarMenu : public QMenu {
   Q_OBJECT
-  Q_PROPERTY(bool loginState
-                 READ isLoggedIn
-                 WRITE setLoginState
-                 NOTIFY loginRequested)
 
  public:
   explicit TitleBarMenu(bool support_sign_in, QWidget* parent = nullptr);
   ~TitleBarMenu() override;
-
-  bool isLoggedIn() const;
 
  signals:
   void loginRequested(bool login);
@@ -43,7 +38,7 @@ class TitleBarMenu : public QMenu {
   void clearCacheRequested();
 
  public slots:
-  void setLoginState(bool login);
+  void setUserInfo(const QJsonObject& info);
   void setRegion(bool is_china);
   void setThemeName(QString themeName);
 

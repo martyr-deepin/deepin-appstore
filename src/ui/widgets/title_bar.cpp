@@ -57,9 +57,15 @@ void TitleBar::setForwardButtonActive(bool active)
 
 void TitleBar::setUserInfo(const QJsonObject &info)
 {
+    if (info.value("name").toString().isEmpty()) {
+        setUserAvatar(QImage(":/common/images/default.jpeg"));
+        return;
+    }
+
     auto base64Data = QByteArray::fromStdString(info.value("profile_image").toString().toStdString());
     auto imageData = QByteArray::fromBase64(base64Data);
     auto image = QImage::fromData(imageData);
+
     setUserAvatar(image);
 }
 

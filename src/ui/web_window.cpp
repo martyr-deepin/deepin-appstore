@@ -231,8 +231,8 @@ void WebWindow::initConnections()
     connect(tool_bar_menu_, &TitleBarMenu::clearCacheRequested,
             store_daemon_proxy_, &StoreDaemonProxy::clearArchives);
 
-    connect(menu_proxy_, &MenuProxy::loginStateUpdated,
-            tool_bar_menu_, &TitleBarMenu::setLoginState);
+    connect(menu_proxy_, &MenuProxy::userInfoUpdated,
+            tool_bar_menu_, &TitleBarMenu::setUserInfo);
     connect(menu_proxy_, &MenuProxy::userInfoUpdated,
             title_bar_, &TitleBar::setUserInfo);
 

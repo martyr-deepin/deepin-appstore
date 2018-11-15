@@ -34,16 +34,12 @@ TitleBarMenu::~TitleBarMenu() {
 
 }
 
-bool TitleBarMenu::isLoggedIn() const {
-  return is_signed_in_;
-}
-
-void TitleBarMenu::setLoginState(bool login) {
+void TitleBarMenu::setUserInfo(const QJsonObject& info) {
   Q_ASSERT(support_sign_in_);
-
-  is_signed_in_ = login;
+  auto username = info.value("name").toString();
+  is_signed_in_ = !username.isEmpty();
   if (support_sign_in_) {
-    if (login) {
+    if (is_signed_in_) {
       sign_in_action_->setText(QObject::tr("Sign Out"));
     } else {
       sign_in_action_->setText(QObject::tr("Sign In"));
