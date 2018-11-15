@@ -1,13 +1,14 @@
-<dialog #dialog [class.loaded]="loaded">
-  <ng-container>
-    <iframe
-      [src]="loginURL"
-      frameborder="0"
-      (load)="load($event.target)"
-      [hidden]="!loaded"
-    ></iframe>
-  </ng-container>
-  <ng-container *ngIf="dialog.open && !loaded">
-    <div><app-wait></app-wait></div>
-  </ng-container>
+<dialog #dialog
+        [class.loaded]="loaded">
+  <div class="container"
+       [class.loaded]="loaded">
+    <iframe [src]="loginURL"
+            frameborder="0"
+            (load)="load($event.target)"
+            [hidden]="!loaded"></iframe>
+
+    <ng-container *ngIf="dialog.open && !loaded">
+      <app-wait></app-wait>
+    </ng-container>
+  </div>
 </dialog>
