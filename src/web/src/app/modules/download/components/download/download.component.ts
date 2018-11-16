@@ -42,7 +42,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
 
-  loadCount = 0;
+  loaded = false;
   apps = new Map<string, App>();
   jobs: StoreJobInfo[] = [];
   cancels = new Set<string>();
@@ -50,18 +50,10 @@ export class DownloadComponent implements OnInit, OnDestroy {
   fixing = false;
 
   ngOnInit() {
-    this.appService.list().subscribe(apps => {
-      apps.forEach(app => {
-        this.apps.set(app.name, app);
-      });
-      this.loadCount++;
-    });
-
     this.jobs$ = this.jobService.jobsInfo().subscribe(jobs => {
       jobs = jobs.filter(
         job => job.type === StoreJobType.download || job.type === StoreJobType.install,
       );
-      this.loadCount++;
       const list = jobs.map(job => job.id);
       this.jobs.forEach((job, index) => {
         if (!list.includes(job.id)) {
@@ -76,6 +68,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
           this.jobs.unshift(job);
         }
       });
+      this.loaded = true;
     });
   }
 
