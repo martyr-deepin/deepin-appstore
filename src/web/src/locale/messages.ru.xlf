@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<?xml version="1.0" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="ru">
     <body>
       <trans-unit datatype="html" id="ac0f81713a84217c9bd1d9bb460245d8190b073f">
@@ -155,6 +156,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b1b2b24fabda7cb53e6a74d24392a039be91412b">
         <source>Processing <x equiv-text="{{ jobs.length }}" id="INTERPOLATION"/> <x equiv-text="{jobs.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/></source>
+        <target>Processing <x equiv-text="{{ jobs.length }}" id="INTERPOLATION"/> <x equiv-text="{jobs.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.html</context>
           <context context-type="linenumber">6</context>
@@ -194,6 +196,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fd8d9206d63a691d04bdd851d22964f53766fc56">
         <source><x equiv-text="{{ $m }}" id="INTERPOLATION"/> min</source>
+        <target><x equiv-text="{{ $m }}" id="INTERPOLATION"/> min</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.html</context>
           <context context-type="linenumber">33</context>
@@ -201,6 +204,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="5f3f34164b80472eaee0ca86922ec70aabd55cc5">
         <source><x equiv-text="{{ $s }}" id="INTERPOLATION"/> sec</source>
+        <target><x equiv-text="{{ $s }}" id="INTERPOLATION"/> sec</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/download/download.component.html</context>
           <context context-type="linenumber">39</context>
@@ -267,7 +271,8 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="20e22f4036925fa2e52647490881b0065e27d3d3">
-        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/> <x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed</source>
+        <source><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed</source>
+        <target><x equiv-text="{{$installedApps.length}}" id="INTERPOLATION"/><x equiv-text="{$installedApps.length, plural, =0 {...} =1 {...} other {...}}" id="ICU"/> installed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.html</context>
           <context context-type="linenumber">2</context>
@@ -311,6 +316,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="68e710782ccb5398b3acb8844caf0b199da2c3da">
         <source>Confirm</source>
+        <target>Confirm</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.html</context>
           <context context-type="linenumber">22</context>
@@ -326,6 +332,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1dfba504a0d0bf41da961d89d402dedecde5e30d">
         <source>Uninstall</source>
+        <target>Uninstall</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/app-manage/uninstall/uninstall.component.html</context>
           <context context-type="linenumber">42</context>
@@ -819,6 +826,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c90f2020a642251ec9f32c9c0819debe259dbd6a">
         <source><x equiv-text="{{ app.downloads }}" id="INTERPOLATION"/> downloads</source>
+        <target><x equiv-text="{{ app.downloads }}" id="INTERPOLATION"/> downloads</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">44</context>
@@ -826,6 +834,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="559ef07ad230381fe687930c511aa150c4d8332c">
         <source><x equiv-text="{{ app.ratings }}" id="INTERPOLATION"/> ratings</source>
+        <target><x equiv-text="{{ app.ratings }}" id="INTERPOLATION"/> ratings</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">45</context>
@@ -985,6 +994,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="19a5a4f5540f3675280e26e0fd7b79d780c8b470">
         <source>RMB ￥<x equiv-text="{{ amount }}" id="INTERPOLATION"/></source>
+        <target>RMB ￥<x equiv-text="{{ amount }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">73</context>
@@ -1152,6 +1162,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="974891dfc181600b3a12ce2669232b840b1a7a6b">
         <source>Searching results for <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></source>
+        <target>Searching results for <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
           <context context-type="linenumber">1</context>
@@ -1167,6 +1178,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0de16eb573f8aae4372d579566e71ddc4bc09b2f">
         <source>Welcome to <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</source>
+        <target>Welcome to <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>recommend<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> this application</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
           <context context-type="linenumber">15</context>
