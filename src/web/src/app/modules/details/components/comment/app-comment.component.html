@@ -198,7 +198,8 @@
     <app-wait></app-wait>
   </ng-template>
 </div>
-<div class="bottom">
+<div class="bottom"
+     *ngIf="!loading">
   <a (click)="scrollToTop()"
      i18n>Back to top</a>
   <app-paginator *ngIf="total[select]>page.size"

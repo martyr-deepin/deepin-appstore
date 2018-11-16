@@ -33,6 +33,10 @@ const routes: Routes = [
     loadChildren: 'app/modules/uninstall/uninstall.module#UninstallModule',
   },
   {
+    path: 'my/app',
+    loadChildren: 'app/modules/my-app/my-app.module#MyAppModule',
+  },
+  {
     path: 'search',
     loadChildren: 'app/modules/search/search.module#SearchModule',
   },

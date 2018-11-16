@@ -20,7 +20,7 @@ const DSTORE_VERSION = '5.1.2.1';
 @Injectable()
 export class AppService {
   private readonly apiURL = `${environment.metadataServer}/api/app`;
-  private readonly appMap$ = new BehaviorSubject<AppMap>(null);
+  private readonly appMap$ = new BehaviorSubject<AppMap>({});
   private readonly store = localForage.createInstance({ name: 'apps' });
   categoryList$ = this.categoryServer.getList().toPromise();
   constructor(private http: HttpClient, private categoryServer: CategoryService) {
@@ -40,6 +40,7 @@ export class AppService {
     const appMap = apps.reduce((acc, app) => Object.assign(acc, { [app.name]: app }), {} as AppMap);
     // 添加快捷访问
     Object.values(appMap).forEach(app => {
+      app.icon = environment.metadataServer + '/' + app.icon;
       app.localCategory = categoryList[app.category].LocalName;
       if (get(app, ['locale', Locale.getUnixLocale(), 'description', 'name'])) {
         app.localInfo = app.locale[Locale.getUnixLocale()];
@@ -99,22 +100,19 @@ export class AppService {
     if (!apps) {
       apps = await this.getApps('/assets/app.json');
     }
-    await this.setApps(apps);
+    this.setApps(apps);
 
     apps = await this.getApps(this.apiURL);
     if (apps) {
       apps.sort((a, b) => a.name.localeCompare(b.name));
-      this.store.setItem('apps', apps);
+      await this.store.setItem('apps', apps);
       await this.setApps(apps);
     }
   }
 
   // 获取全部应用列表
   getAppList(): Observable<App[]> {
-    return this.appMap$.pipe(
-      filter(Boolean),
-      map(m => compact(Object.values(m))),
-    );
+    return this.appMap$.pipe(map(m => Object.values(m).filter(Boolean)));
   }
 
   // 根据应用名获取应用

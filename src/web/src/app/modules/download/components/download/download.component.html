@@ -15,7 +15,7 @@
         <tr *ngIf="appName|appInfo|async as $app"
             @flyInOut>
           <td><img class="icon"
-                 [src]="$app | icon"
+                 [src]="$app.icon"
                  [routerLink]="$app.name" /></td>
           <td>
             <div class="appInfo"

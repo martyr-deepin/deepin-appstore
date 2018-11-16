@@ -9,6 +9,7 @@ import { App as DstoreApp } from '../dstore/services/app';
 import { AppVersion } from 'app/modules/client/models/app-version';
 import { AppStatService, AppStat } from './stat.service';
 import { StoreService } from 'app/modules/client/services/store.service';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',

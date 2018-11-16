@@ -11,7 +11,6 @@ import { DonorsComponent } from './components/donors/donors.component';
 import { ScreenshotComponent } from './components/screenshot/screenshot.component';
 import { StatementComponent } from './components/statement/statement.component';
 import { AppCommentComponent } from './components/comment/app-comment.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     StatementComponent,
     ScreenshotComponent,
     AppCommentComponent,
-    PaginatorComponent,
   ],
   imports: [CommonModule, DetailsRoutingModule, ShareModule, FormsModule, ReactiveFormsModule],
 })

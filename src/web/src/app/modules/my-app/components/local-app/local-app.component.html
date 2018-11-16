@@ -1,0 +1,46 @@
+<div class="localAppList">
+  <dstore-center-title>
+    <span title
+          i18n>Local App</span>
+    <button routerLink="../local"
+            routerLinkActive="active"
+            i18n>Local App</button>
+    <button routerLink="../remote"
+            routerLinkActive="active"
+            i18n>Remote App</button>
+  </dstore-center-title>
+
+  <ng-container *ngIf="installedList$|async as installedList">
+    <ng-container *ngFor="let installed of installedList[pageIndex$|async]">
+      <div class="installedApp">
+        <img class="icon"
+             [routerLink]="['/app',installed.name]"
+             [src]="installed.app.icon">
+        <div class="info">
+          <span>{{installed.app.localInfo.description.name}}</span>
+          <span>{{installed.size|sizeHuman}}</span>
+        </div>
+        <div class="installed">
+          <div class="time">
+            <span i18n>Date installed:</span>
+            {{installed.time*1000|date:'yyyy-MM-dd'}}
+          </div>
+          <div class="version">
+            <span i18n>Version:</span>
+            {{installed.version}}
+          </div>
+        </div>
+        <div class="control">
+          <ng-container>
+            <button>Uninstall</button>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+    <div class="paginator">
+      <app-paginator [count]="installedList.length"
+                     [pageIndex]="pageIndex$|async"
+                     (pageIndexChange)="gotoPage($event+1)"></app-paginator>
+    </div>
+  </ng-container>
+</div>

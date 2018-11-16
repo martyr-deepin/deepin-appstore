@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  border-bottom: 1px solid var(--main-title-hr-color);
+}
+.title {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.button-group {
+  /deep/ {
+    button {
+      width: 100px;
+      &:not(:first-child) {
+        margin-left: -1px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      &:not(:last-child) {
+        margin-right: -1px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+}

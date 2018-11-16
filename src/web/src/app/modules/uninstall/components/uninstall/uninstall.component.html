@@ -6,7 +6,7 @@
        *ngFor="let $installedApp of $installedApps">
     <ng-container *ngIf="$installedApp.info as $app">
       <img class="icon"
-           [src]="$app | icon"
+           [src]="$app.icon"
            [routerLink]="$app.name" />
       <div class="content">
         <div class="base">
