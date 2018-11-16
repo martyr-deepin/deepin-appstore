@@ -26,7 +26,6 @@ import { JobService } from 'app/services/job.service';
 })
 export class UninstallComponent implements OnInit, OnDestroy {
   constructor(
-    private sanitizer: DomSanitizer,
     private storeService: StoreService,
     private appService: AppService,
     private jobService: JobService,
@@ -38,7 +37,7 @@ export class UninstallComponent implements OnInit, OnDestroy {
     'deepin-appstore',
     'deepin-manual',
   ];
-  installedApps: InstalledApp[];
+  installedApps: InstalledAppInfo[];
   uninstallingApps = new Set<string>();
   select = '';
   job: Subscription;
@@ -55,13 +54,26 @@ export class UninstallComponent implements OnInit, OnDestroy {
         switchMap(() => {
           return this.storeService.getInstalledApps();
         }),
+        switchMap(
+          list => {
+            return this.appService.getApps(list.map(app => app.name));
+          },
+          (installedApps: InstalledAppInfo[], infos) => {
+            return installedApps.map(app => {
+              app.info = infos.find(info => info.name === app.name);
+              return app;
+            });
+          },
+        ),
       )
       .subscribe(list => {
         this.installedApps = _.sortBy(list, 'time').reverse();
       });
   }
   ngOnDestroy() {
-    this.job.unsubscribe();
+    if (this.job) {
+      this.job.unsubscribe();
+    }
   }
 
   uninstall(appName: string, localName: string) {
@@ -70,4 +82,8 @@ export class UninstallComponent implements OnInit, OnDestroy {
       this.uninstallingApps.add(appName);
     });
   }
+}
+
+interface InstalledAppInfo extends InstalledApp {
+  info: App;
 }
