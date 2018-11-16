@@ -1,8 +1,13 @@
-<ng-container *ngIf="(timeout$ | async); else: water">
-  <img class="failed" src="/assets/icons/failed.svg" />
-  <span class="timeout" i18n>Network error</span>
+<ng-container *ngIf="timeout$|async; else: water">
+  <img class="failed"
+       src="/assets/icons/failed.svg" />
+  <span class="timeout"
+        i18n>Network error</span>
 </ng-container>
 <ng-template #water>
-  <div class="water"></div>
-  <div class="title" i18n>Loading...</div>
+  <ng-container *ngIf="delay$|async">
+    <div class="water"></div>
+    <div class="title"
+         i18n>Loading...</div>
+  </ng-container>
 </ng-template>

@@ -130,15 +130,16 @@
     </div>
   </div>
   <br>
-  <div class="body">
+  <div class="body"
+       *ngIf="!loading; else loadWait">
     <ng-container [ngSwitch]="true">
       <div class="empty error"
-           *ngIf="!list"
+           *ngSwitchCase="!list"
            i18n>Failed to load comments</div>
       <div class="empty"
-           *ngIf="list && list.length===0"
+           *ngSwitchCase="list && list.length===0"
            i18n>There are not any user comments</div>
-      <ng-container *ngIf="list && list.length>0">
+      <ng-container *ngSwitchCase="list && list.length>0">
         <table class="list">
           <ng-container *ngFor="let c of list">
             <tr [@myComment]="(haveNewComment && c.userID===info?.userID) ? 'in' : ''">
@@ -193,6 +194,9 @@
       </ng-container>
     </ng-container>
   </div>
+  <ng-template #loadWait>
+    <app-wait></app-wait>
+  </ng-template>
 </div>
 <div class="bottom">
   <a (click)="scrollToTop()"

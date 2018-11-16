@@ -43,6 +43,7 @@ export class AppCommentComponent implements OnInit, OnChanges {
   @Input()
   version: string;
 
+  loading = true;
   info: UserInfo;
   own: Comment;
 
@@ -53,7 +54,6 @@ export class AppCommentComponent implements OnInit, OnChanges {
     error: null,
   };
   haveNewComment = false;
-
   total = [0, 0];
   CommentType = CommentType;
   select = CommentType.News;
@@ -95,22 +95,29 @@ export class AppCommentComponent implements OnInit, OnChanges {
   }
 
   getList() {
+    this.loading = true;
     this.commentService
       .list(this.appName, {
         page: this.page.index + 1,
         count: this.page.size,
         [this.select === CommentType.News ? 'version' : 'excludeVersion']: this.version,
       })
-      .subscribe(result => {
-        if (this.page.index === 0 && result.hot) {
-          const hot = _.sortBy(result.hot, ['likeCount', 'createTime']).reverse();
-          hot.forEach(c => (c.hot = true));
-          this.list = [...hot, ...result.comments];
-        } else {
-          this.list = result.comments;
-        }
-        this.total[this.select] = result.totalCount;
-      });
+      .subscribe(
+        result => {
+          if (this.page.index === 0 && result.hot) {
+            const hot = _.sortBy(result.hot, ['likeCount', 'createTime']).reverse();
+            hot.forEach(c => (c.hot = true));
+            this.list = [...hot, ...result.comments];
+          } else {
+            this.list = result.comments;
+          }
+          this.total[this.select] = result.totalCount;
+        },
+        null,
+        () => {
+          this.loading = false;
+        },
+      );
   }
 
   getCommentTotal() {
