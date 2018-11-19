@@ -56,6 +56,16 @@ async function main() {
       }
     }
   }
-  return await platformBrowserDynamic().bootstrapModule(AppModule, opts);
+  return await bootstrap(opts);
 }
-main();
+function bootstrap(opts = null) {
+  return platformBrowserDynamic().bootstrapModule(AppModule, opts);
+}
+main()
+  .catch(err => {
+    console.error('load locale fail', err);
+    bootstrap();
+  })
+  .finally(() => {
+    console.log('bootstrap');
+  });
