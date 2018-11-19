@@ -24,15 +24,21 @@ export class LocalAppService {
       switchMap(
         installed => this.appService.getApps(installed.map(app => app.name)),
         (installed: LocalAppInfo[], appInfos) => {
-          installed.forEach(app => {
-            app.app = appInfos.find(info => info.name === app.name);
-          });
+          installed = installed
+            .reduce((acc: LocalAppInfo[], app) => {
+              app.app = appInfos.find(info => info.packageURI.includes(app.dpk));
+              if (app.app) {
+                acc.push(app);
+              }
+              return acc;
+            }, [])
+            .sort((a, b) => b.time - a.time);
           return installed;
         },
       ),
     );
   }
-  RemoveList() {
+  RemovingList() {
     return this.jobService.jobsInfo().pipe(
       map(jobs => {
         return jobs
@@ -45,8 +51,10 @@ export class LocalAppService {
       }),
     );
   }
-  RemoveLocalApp() {}
+  RemoveLocalApp(app: LocalAppInfo) {
+    this.storeService.removePackage(app.name, app.app.localInfo.description.name);
+  }
 }
-interface LocalAppInfo extends InstalledApp {
+export interface LocalAppInfo extends InstalledApp {
   app: App;
 }

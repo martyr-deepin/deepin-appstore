@@ -29,6 +29,10 @@
       align-items: center;
       color: gray;
     }
+    .confirm {
+      display: flex;
+      align-items: center;
+    }
   }
   .control {
     flex: 1;
@@ -36,6 +40,10 @@
     align-items: center;
     justify-content: flex-end;
     padding-right: 0.5rem;
+    button {
+      width: 5rem;
+      margin: 0 0.5rem;
+    }
   }
 }
 .paginator {

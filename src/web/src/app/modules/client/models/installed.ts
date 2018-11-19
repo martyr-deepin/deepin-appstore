@@ -3,4 +3,5 @@ export interface InstalledApp {
   version: string;
   size: number;
   time: number;
+  dpk: string;
 }

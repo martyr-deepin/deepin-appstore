@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { chunk } from 'lodash';
+import { chunk, get } from 'lodash';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, shareReplay } from 'rxjs/operators';
 
-import { LocalAppService } from '../../services/local-app.service';
+import { LocalAppService, LocalAppInfo } from '../../services/local-app.service';
 import { BrowserService } from 'app/modules/share/services/browser.service';
 
 @Component({
@@ -19,20 +19,47 @@ export class LocalAppComponent implements OnInit {
     private localAppService: LocalAppService,
     private browserService: BrowserService,
   ) {}
+  select: string;
   installedList$ = this.chunkList();
-  removeList$ = this.localAppService.RemoveList();
-  pageIndex$ = this.route.queryParamMap.pipe(map(query => Number(query.get('page') || 1) - 1));
-  ngOnInit() {}
-  gotoPage(page: number) {
-    this.router.navigate([], { queryParams: { page: page } });
+  removing: string[] = [];
+  removingList$ = this.localAppService.RemovingList().pipe(
+    tap(list => {
+      if (list.includes(this.select)) {
+        this.select = null;
+      }
+    }),
+    map(list => list.concat(this.removing)),
+    shareReplay(),
+  );
+
+  gotoPage(pageIndex: number) {
+    this.router.navigate([], { queryParams: { page: pageIndex + 1 } });
   }
+
   chunkList() {
-    return combineLatest(this.browserService.windowSize$, this.localAppService.LocalAppList()).pipe(
-      map(([size, list]) => {
+    return combineLatest(
+      this.browserService.windowSize$,
+      this.localAppService.LocalAppList(),
+      this.route.queryParamMap,
+    ).pipe(
+      map(([size, list, query]) => {
+        const pageIndex = Number(query.get('page') || 1) - 1;
         // 使用窗口高度减去标题和分页宽度,再除于列表元素高度,计算出分页大小
         const pageSize = Math.floor((size.height - 64 - 20) / 64);
-        return chunk(list, pageSize);
+        const chunks = chunk(list, pageSize);
+        return {
+          list: chunks[pageIndex] || chunks[chunks.length - 1],
+          page: pageIndex,
+          total: chunks.length,
+        };
       }),
     );
   }
+
+  remove(app: LocalAppInfo) {
+    this.removing.push(app.app.name);
+    this.localAppService.RemoveLocalApp(app);
+  }
+
+  ngOnInit() {}
 }

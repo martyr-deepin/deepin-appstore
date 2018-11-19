@@ -9,9 +9,13 @@
             routerLinkActive="active"
             i18n>Remote App</button>
   </dstore-center-title>
-
-  <ng-container *ngIf="installedList$|async as installedList">
-    <ng-container *ngFor="let installed of installedList[pageIndex$|async]">
+  <ng-template #loadingContainer>
+    <div class="loadingContainer">
+      <app-wait></app-wait>
+    </div>
+  </ng-template>
+  <ng-container *ngIf="installedList$|async as installedPage; else loadingContainer">
+    <ng-container *ngFor="let installed of installedPage.list">
       <div class="installedApp">
         <img class="icon"
              [routerLink]="['/app',installed.name]"
@@ -20,27 +24,49 @@
           <span>{{installed.app.localInfo.description.name}}</span>
           <span>{{installed.size|sizeHuman}}</span>
         </div>
-        <div class="installed">
-          <div class="time">
-            <span i18n>Date installed:</span>
-            {{installed.time*1000|date:'yyyy-MM-dd'}}
+        <ng-container *ngIf="removingList$|async as removingList">
+          <div class="installed">
+            <ng-template #confirm>
+              <div class="confirm"
+                   i18n>Are you sure to uninstall this application?</div>
+            </ng-template>
+            <ng-container *ngIf="select != installed.app.name;else confirm">
+              <div class="time">
+                <span i18n>Date installed:</span>
+                {{installed.time*1000|date:'yyyy-MM-dd'}}
+              </div>
+              <div class="version">
+                <span i18n>Version:</span>
+                {{installed.version}}
+              </div>
+            </ng-container>
           </div>
-          <div class="version">
-            <span i18n>Version:</span>
-            {{installed.version}}
+          <div class="control">
+            <ng-template #confirmBtn>
+              <button (click)="select=null"
+                      i18n>Cancel</button>
+              <button class="primary"
+                      (click)="remove(installed)"
+                      i18n>Confirm</button>
+            </ng-template>
+            <ng-container *ngIf="select != installed.app.name;else confirmBtn">
+              <ng-template #uninstall>
+                <button (click)="select=installed.app.name"
+                        i18n>Uninstall</button>
+              </ng-template>
+              <button *ngIf="removingList.includes(installed.app.name);else uninstall"
+                      disabled
+                      i18n>Uninstalling</button>
+
+            </ng-container>
           </div>
-        </div>
-        <div class="control">
-          <ng-container>
-            <button>Uninstall</button>
-          </ng-container>
-        </div>
+        </ng-container>
       </div>
     </ng-container>
     <div class="paginator">
-      <app-paginator [count]="installedList.length"
-                     [pageIndex]="pageIndex$|async"
-                     (pageIndexChange)="gotoPage($event+1)"></app-paginator>
+      <app-paginator [count]="installedPage.total"
+                     [pageIndex]="installedPage.page"
+                     (pageIndexChange)="gotoPage($event)"></app-paginator>
     </div>
   </ng-container>
 </div>
