@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as _ from 'lodash';
 import { Observable, Subscription, merge, timer, of } from 'rxjs';
@@ -30,6 +30,8 @@ export class AssembleComponent implements OnInit, OnDestroy {
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
 
+  @Output()
+  loaded = new EventEmitter<Boolean>();
   @Input()
   section: Section;
   @Input()
@@ -106,6 +108,7 @@ export class AssembleComponent implements OnInit, OnDestroy {
         }),
       )
       .subscribe(vs => {
+        this.loaded.emit(true);
         this.versions = new Map(vs.map(v => [v.name, v] as [string, AppVersion]));
       });
   }

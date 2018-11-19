@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
@@ -61,6 +61,8 @@ export class CarouselComponent implements OnInit, OnDestroy {
     private appService: AppService,
   ) {}
   operationServer = BaseService.serverHosts.operationServer;
+  @Output()
+  loaded = new EventEmitter<Boolean>();
   @Input() carouselList: SectionCarousel[];
   @Input() appFilter: AppFilterFunc = Allowed;
   get _carouselList() {
@@ -104,6 +106,7 @@ export class CarouselComponent implements OnInit, OnDestroy {
     this.timer$ = timer(4000, 4000).subscribe(() => {
       this._click(this.selectIndex + 1);
     });
+    this.loaded.emit(true);
   }
   ngOnDestroy() {
     this.align$.unsubscribe();

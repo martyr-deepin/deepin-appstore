@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
 
 import { BaseService } from '../../services/base.service';
 import { Section, SectionTopic } from '../../services/section';
@@ -11,6 +11,8 @@ import { Section, SectionTopic } from '../../services/section';
 export class TopicComponent implements OnInit {
   constructor() {}
   server = BaseService.serverHosts.operationServer;
+  @Output()
+  loaded = new EventEmitter<Boolean>();
   @Input() sectionIndex: number;
   @Input() section: Section;
   _topicList: SectionTopic[];
@@ -22,5 +24,7 @@ export class TopicComponent implements OnInit {
     return this._topicList;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loaded.emit(true);
+  }
 }
