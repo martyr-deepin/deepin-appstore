@@ -206,6 +206,11 @@ public Q_SLOTS:
         return "this is test";
     }
 
+    void updateAppList(const SearchMetaList &app_list)
+    {
+        return manager_->updateAppList(app_list);
+    }
+
 private:
     void initConnections();
 
