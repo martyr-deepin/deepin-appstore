@@ -14,7 +14,8 @@ Build-Depends:
  pkg-config,
  qttools5-dev-tools,
  qttools5-dev,
- nodejs
+ nodejs,
+ python3-lxml
 Standards-Version: 3.9.5
 Homepage: https://deepin.org
 Vcs-Git: https://cr.deepin.io/dstore/deepin-appstore

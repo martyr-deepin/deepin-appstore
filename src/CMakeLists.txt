@@ -29,7 +29,7 @@ set(CMAKE_AUTORCC ON)
 
 add_definitions("-DQT_MESSAGELOGCONTEXT")
 
-if(CMAKE_BUILD_TYPE MATCHES Debug1)
+if(CMAKE_BUILD_TYPE MATCHES Debug)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -Werror -Wextra")
   # -fno-rtti, Disable real-time type information -fno-exceptions Disable
   # exceptions -fsanitize=address Enable memory sanitize plugin
@@ -193,7 +193,7 @@ add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 if(BUILD_WEB_RESOURCES)
   add_custom_command(OUTPUT npm-update-web-dist
                      COMMAND sh -c
-		             "PATH=./node_modules/.bin:$PATH npm run build; PATH=./node_modules/.bin:$PATH npm run build-aot; "
+		             "python3 fix-i18n.py; PATH=./node_modules/.bin:$PATH npm run build; PATH=./node_modules/.bin:$PATH npm run build-aot; "
 			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
 		     VERBATIM)
 else()
