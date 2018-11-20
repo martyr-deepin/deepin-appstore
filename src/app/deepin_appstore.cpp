@@ -84,7 +84,10 @@ int main(int argc, char** argv) {
     return 0;
   }
 
+#ifndef DSTORE_NO_DXCB
   Dtk::Widget::DApplication::loadDXcbPlugin();
+#endif
+
   Dtk::Widget::DApplication app(argc, argv);
   if (!Dtk::Widget::DPlatformWindowHandle::pluginVersion().isEmpty()) {
     app.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);

@@ -15,7 +15,7 @@ override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON -DCONFIG_VERSION=$(CONFIG_VERSION)
 else
 override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON -DBUILD_WEB_RESOURCES=OFF -DCONFIG_VERSION=$(CONFIG_VERSION)
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_RESOURCES=ON -DBUILD_WEB_RESOURCES=OFF  -DDISABLE_DXCB=ON -DCONFIG_VERSION=$(CONFIG_VERSION) 
 endif
 
 override_dh_auto_build:
