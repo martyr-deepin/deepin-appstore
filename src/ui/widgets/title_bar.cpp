@@ -171,6 +171,7 @@ void TitleBar::initUI()
     main_layout->addSpacing(170);
     this->setLayout(main_layout);
     this->setAttribute(Qt::WA_TranslucentBackground, true);
+    avatar_button_->hide();
 
     Dtk::Widget::DThemeManager::instance()->registerWidget(this);
 

@@ -34,9 +34,9 @@ MenuProxy::~MenuProxy()
 
 }
 
-void MenuProxy::setUserInfo(QVariant info)
+void MenuProxy::setUserInfo(QVariant)
 {
-    emit this->userInfoUpdated(info.toJsonValue().toObject());
+//    emit this->userInfoUpdated(info.toJsonValue().toObject());
 }
 
 }  // namespace dstore
