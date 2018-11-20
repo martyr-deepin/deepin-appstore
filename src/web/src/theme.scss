@@ -34,6 +34,10 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --random-icon: url('/assets/buttons/light/random_normal.svg'),
     url('/assets/buttons/light/random_hover.svg'), url('/assets/buttons/light/random_press.svg');
   --dialog-close-icon: url('/assets/buttons/light/close_light.svg');
+  --checkbox-button-icon: url('/assets/buttons/light/checkbox-checked.svg'),
+    url('/assets/buttons/light/checkbox-checked-hover.svg'),
+    url('/assets/buttons/light/checkbox-checked-press.svg'),
+    url('/assets/buttons/light/checkbox-checked-insensitive.svg');
 
   --wechat-icon: url('/assets/icons/light/wechat.svg');
   --alipay-icon: url('/assets/icons/light/alipay.svg');
@@ -103,6 +107,10 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --random-icon: url('/assets/buttons/dark/random_normal.svg'),
     url('/assets/buttons/dark/random_hover.svg'), url('/assets/buttons/dark/random_press.svg');
   --dialog-close-icon: url('/assets/buttons/dark/close_dark.svg');
+  --checkbox-button-icon: url('/assets/buttons/dark/checkbox-checked.svg'),
+    url('/assets/buttons/dark/checkbox-checked-hover.svg'),
+    url('/assets/buttons/dark/checkbox-checked-press.svg'),
+    url('/assets/buttons/dark/checkbox-checked-insensitive.svg');
 
   --wechat-icon: url('/assets/icons/dark/wechat.svg');
   --alipay-icon: url('/assets/icons/dark/alipay.svg');

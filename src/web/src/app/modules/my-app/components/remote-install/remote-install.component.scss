@@ -1,0 +1,17 @@
+.remote-install {
+  display: flex;
+  height: 64px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--main-title-hr-color);
+  .auto-install {
+    display: flex;
+    .subtitle {
+      margin-right: 1rem;
+    }
+  }
+  button {
+    width: 100px;
+    height: 50%;
+  }
+}

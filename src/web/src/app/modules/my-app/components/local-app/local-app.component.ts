@@ -6,6 +6,7 @@ import { map, tap, shareReplay } from 'rxjs/operators';
 
 import { LocalAppService, LocalAppInfo } from '../../services/local-app.service';
 import { BrowserService } from 'app/modules/share/services/browser.service';
+import { App } from 'app/services/app.service';
 
 @Component({
   selector: 'dstore-local-app',
@@ -19,6 +20,7 @@ export class LocalAppComponent implements OnInit {
     private localAppService: LocalAppService,
     private browserService: BrowserService,
   ) {}
+  apps: App[] = [];
   select: string;
   installedList$ = this.chunkList();
   removing: string[] = [];
@@ -43,6 +45,7 @@ export class LocalAppComponent implements OnInit {
       this.route.queryParamMap,
     ).pipe(
       map(([size, list, query]) => {
+        this.apps = list.map(installed => installed.app);
         const pageIndex = Number(query.get('page') || 1) - 1;
         // 使用窗口高度减去标题和分页宽度,再除于列表元素高度,计算出分页大小
         const pageSize = Math.floor((size.height - 64 - 20) / 64);

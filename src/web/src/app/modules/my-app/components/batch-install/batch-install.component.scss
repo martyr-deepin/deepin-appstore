@@ -1,0 +1,61 @@
+dialog {
+  padding: 0;
+}
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  padding-top: 1rem;
+}
+.container {
+  width: 800px;
+  margin: 1rem;
+  height: 500px;
+  border: 1px solid var(--main-title-hr-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.app-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 1rem;
+  .app {
+    &:nth-child(odd) {
+      background-color: var(--main-item-bg-color-hover);
+    }
+    cursor: pointer;
+    height: 30px;
+    flex: 30%;
+    display: flex;
+    align-items: center;
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin: 0 5px;
+    }
+  }
+}
+.paginator {
+  border-top: 1px solid var(--main-item-hr-color);
+  margin: 0 1rem;
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+}
+.select-control {
+  a,
+  span {
+    padding: 0 0.5rem;
+  }
+}
+.text-align {
+  text-align: center;
+}
+button {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  width: 100px;
+  height: 50px;
+}

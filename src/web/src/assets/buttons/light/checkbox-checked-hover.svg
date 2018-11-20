@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+    <defs>
+        <linearGradient id="c" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFF"/>
+            <stop offset="100%" stop-color="#FDFDFD"/>
+        </linearGradient>
+        <path id="b" d="M9.364 0H2.337A2.342 2.342 0 0 0 0 2.343v9.314A2.345 2.345 0 0 0 2.343 14h9.314A2.339 2.339 0 0 0 14 11.669V4.66"/>
+        <filter id="a" width="128.6%" height="128.6%" x="-14.3%" y="-7.1%" filterUnits="objectBoundingBox">
+            <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0.45482337 0 0 0 0 1 0 0 0 0.05 0"/>
+        </filter>
+        <filter id="d" width="128.6%" height="128.6%" x="-14.3%" y="-7.1%" filterUnits="objectBoundingBox">
+            <feOffset dy="2" in="SourceAlpha" result="shadowOffsetInner1"/>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"/>
+            <feColorMatrix in="shadowInnerInner1" result="shadowMatrixInner1" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0"/>
+            <feOffset dy="-1" in="SourceAlpha" result="shadowOffsetInner2"/>
+            <feComposite in="shadowOffsetInner2" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner2"/>
+            <feColorMatrix in="shadowInnerInner2" result="shadowMatrixInner2" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+            <feMerge>
+                <feMergeNode in="shadowMatrixInner1"/>
+                <feMergeNode in="shadowMatrixInner2"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="translate(1 1)">
+            <use fill="#000" filter="url(#a)" xlink:href="#b"/>
+            <use fill="url(#c)" xlink:href="#b"/>
+            <use fill="#000" filter="url(#d)" xlink:href="#b"/>
+            <path stroke="#0084FF" stroke-opacity=".4" d="M9.156.5H2.337A1.842 1.842 0 0 0 .5 2.343v9.314c0 1.017.827 1.843 1.843 1.843h9.314a1.839 1.839 0 0 0 1.843-1.831V4.868L9.156.5z"/>
+        </g>
+        <path stroke="#0699FF" stroke-width="1.5" d="M3.884 8.015L7.125 11l7.722-9.888"/>
+    </g>
+</svg>

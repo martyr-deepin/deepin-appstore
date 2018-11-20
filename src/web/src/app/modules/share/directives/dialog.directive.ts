@@ -8,8 +8,12 @@ export class DialogDirective {
 
   @HostListener('mousedown', ['$event'])
   click(e: Event) {
-    if (e.srcElement.nodeName === 'DIALOG' && this.elementRef.nativeElement.open) {
+    if (e.srcElement === this.elementRef.nativeElement && this.elementRef.nativeElement.open) {
       this.elementRef.nativeElement.close();
     }
+  }
+  @HostListener('mousewheel', ['$event'])
+  wheel(e: Event) {
+    e.stopPropagation();
   }
 }

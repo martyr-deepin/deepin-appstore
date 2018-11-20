@@ -18,6 +18,9 @@
     flex-direction: column;
     justify-content: center;
     padding-left: 0.5rem;
+    .size {
+      color: gray;
+    }
   }
   .installed {
     flex: 2;

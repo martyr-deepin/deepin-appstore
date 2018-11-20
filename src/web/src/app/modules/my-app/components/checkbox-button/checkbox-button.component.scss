@@ -1,0 +1,22 @@
+.checkbox-button {
+  width: 16px;
+  height: 16px;
+  background-image: var(--checkbox-button-icon);
+  background-repeat: no-repeat;
+  background-position-x: 0px, 16px, 16px, 16px;
+  &.hover,
+  &:hover {
+    background-position-x: 16px, 0px, 16px, 16px;
+  }
+  &.active {
+    background-position-x: 16px, 16px, 0px, 16px;
+  }
+  &.disabled {
+    background-position-x: 16px, 16px, 16px, 0px;
+  }
+}
+:host.hover {
+  .checkbox-button:not(.active) {
+    background-position-x: 16px, 0px, 16px, 16px;
+  }
+}

@@ -3,13 +3,12 @@ import {
   HttpRequest,
   HttpInterceptor,
   HttpResponse,
-  HttpErrorResponse,
   HttpEvent,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as localforage from 'localforage';
 import { Observable, from, empty } from 'rxjs';
-import { switchMap, catchError, tap, startWith, debounceTime } from 'rxjs/operators';
+import { switchMap, catchError, tap, startWith, timeout } from 'rxjs/operators';
 
 @Injectable()
 export class CacheInterceptor implements HttpInterceptor {
@@ -28,13 +27,16 @@ export class CacheInterceptor implements HttpInterceptor {
           }
         });
         if (!body) {
-          return next.handle(req).pipe(saveCache);
+          return next.handle(req).pipe(
+            saveCache,
+            timeout(15000),
+          );
         }
         const cacheResp = new HttpResponse({ body, status: 200, statusText: 'OK', url: req.url });
         return next.handle(req).pipe(
           saveCache,
           startWith(cacheResp),
-          debounceTime(500),
+          timeout(5000),
           catchError(err => {
             console.error('http error', err);
             return empty();

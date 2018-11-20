@@ -12,6 +12,7 @@ import { AppTitleComponent } from './components/app-title/app-title.component';
 import { AppListComponent } from './components/app-list/app-list.component';
 import { CenterTitleComponent } from './components/center-title/center-title.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import { HoverDirective } from './directives/hover.directive';
 
 const components = [
   WaitComponent,
@@ -21,7 +22,7 @@ const components = [
   PaginatorComponent,
   CenterTitleComponent,
 ];
-const directives = [DialogDirective];
+const directives = [DialogDirective, HoverDirective];
 
 @NgModule({
   declarations: [...components, ...directives],

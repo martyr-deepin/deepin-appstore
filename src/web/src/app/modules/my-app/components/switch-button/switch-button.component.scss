@@ -1,0 +1,27 @@
+.switch-button {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 1px #cfd6e6;
+  background-color: #cfd6e6;
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 0;
+    transition: left 0.2s linear;
+  }
+  &.active {
+    background-color: #2ca7f8;
+    &::after {
+      left: calc(36px - 18px);
+    }
+  }
+}
