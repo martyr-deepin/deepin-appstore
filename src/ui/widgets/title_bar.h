@@ -28,6 +28,7 @@ namespace dstore
 {
 
 class SearchEdit;
+class UserMenu;
 
 // Customize widget in TitleBar.
 class TitleBar : public QFrame
@@ -40,7 +41,13 @@ public:
 
     QString getSearchText() const;
 
-signals:
+Q_SIGNALS:
+    void loginRequested(bool login);
+
+    void requestComment();
+    void requestReward();
+    void requestApps();
+
     void backwardButtonClicked();
     void forwardButtonClicked();
 
@@ -50,19 +57,21 @@ signals:
     void upKeyPressed();
     void focusOut();
 
-public slots:
+public Q_SLOTS:
     void setBackwardButtonActive(bool active);
     void setForwardButtonActive(bool active);
-    void setUserInfo(const QJsonObject& info);
+    void setUserInfo(const QJsonObject &info);
 
 private:
     void initUI();
     void initConnections();
-    void setUserAvatar(const QImage &image);
+    void saveUserAvatar(const QImage &image, const QString &filePath);
 
     Dtk::Widget::DImageButton *back_button_ = nullptr;
     Dtk::Widget::DImageButton *forward_button_ = nullptr;
     SearchEdit *search_edit_ = nullptr;
+    QString user_name_ = "";
+    UserMenu *user_menu_ = nullptr;
     QPushButton *avatar_button_ = nullptr;
 
 private slots:

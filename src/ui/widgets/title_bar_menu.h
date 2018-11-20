@@ -31,14 +31,12 @@ class TitleBarMenu : public QMenu {
   ~TitleBarMenu() override;
 
  signals:
-  void loginRequested(bool login);
   void switchThemeRequested(QString themeName);
   void recommendAppRequested();
   void regionChanged();
   void clearCacheRequested();
 
  public slots:
-  void setUserInfo(const QJsonObject& info);
   void setRegion(bool is_china);
   void setThemeName(QString themeName);
 
@@ -47,8 +45,6 @@ class TitleBarMenu : public QMenu {
 
   bool support_sign_in_ = false;
 
-  bool is_signed_in_ = false;
-  QAction* sign_in_action_ = nullptr;
   QActionGroup* region_group_ = nullptr;
   QAction* region_china_ = nullptr;
   QAction* region_international_ = nullptr;
@@ -56,7 +52,6 @@ class TitleBarMenu : public QMenu {
   QAction* switch_theme_action_ = nullptr;
 
  private slots:
-  void onSignInActionTriggered();
   void onThemeActionTriggered();
   void onRegionGroupTriggered(QAction* action);
 };

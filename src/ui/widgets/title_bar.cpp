@@ -19,11 +19,14 @@
 
 #include <QDebug>
 #include <QTimer>
+#include <QDir>
 #include <QPainter>
 #include <QJsonObject>
 #include <DThemeManager>
 
 #include "ui/widgets/search_edit.h"
+#include "ui/widgets/user_menu.h"
+#include "base/consts.h"
 
 namespace dstore
 {
@@ -57,19 +60,27 @@ void TitleBar::setForwardButtonActive(bool active)
 
 void TitleBar::setUserInfo(const QJsonObject &info)
 {
-    if (info.value("name").toString().isEmpty()) {
-        setUserAvatar(QImage(":/common/images/default.jpeg"));
+    user_name_ = info.value("name").toString();
+    user_menu_->setUsername(user_name_);
+    if (user_name_.isEmpty()) {
+        avatar_button_->setObjectName("AvatarButton");
+        avatar_button_->setStyleSheet(this->styleSheet());
         return;
     }
 
+    QDir cache_dir(dstore::GetCacheDir());
+    auto avatarPath = cache_dir.filePath("avatar.png");
+
+    avatar_button_->setObjectName("AvatarButtonUser");
     auto base64Data = QByteArray::fromStdString(info.value("profile_image").toString().toStdString());
     auto imageData = QByteArray::fromBase64(base64Data);
     auto image = QImage::fromData(imageData);
-
-    setUserAvatar(image);
+    saveUserAvatar(image, avatarPath);
+    auto style = QString("#AvatarButtonUser {border-image: url(%1);}").arg(avatarPath);
+    avatar_button_->setStyleSheet(style);
 }
 
-void TitleBar::setUserAvatar(const QImage &image)
+void TitleBar::saveUserAvatar(const QImage &image, const QString &filePath)
 {
     QSize sz = avatar_button_->size();
 
@@ -95,16 +106,18 @@ void TitleBar::setUserAvatar(const QImage &image)
                              Qt::SmoothTransformation));
     contentPainter.setCompositionMode(QPainter::CompositionMode_DestinationOver);
     contentPainter.end();
+    contentImage = contentImage.scaled(avatar_button_->size());
+    contentImage.save(filePath);
 
     QPixmap pixmap = QPixmap::fromImage(contentImage);
 
-    QPalette palette;
-    palette.setBrush(avatar_button_->backgroundRole(),
-                     QBrush(pixmap.scaled(avatar_button_->size())));
+//    QPalette palette;
+//    palette.setBrush(avatar_button_->backgroundRole(),
+//                     QBrush(pixmap));
 
     avatar_button_->setFlat(true);
     avatar_button_->setAutoFillBackground(true);
-    avatar_button_->setPalette(palette);
+//    avatar_button_->setPalette(palette);
 }
 
 void TitleBar::initConnections()
@@ -123,6 +136,28 @@ void TitleBar::initConnections()
             this, &TitleBar::enterPressed);
     connect(search_edit_, &SearchEdit::upKeyPressed,
             this, &TitleBar::upKeyPressed);
+
+    connect(avatar_button_, &QPushButton::clicked,
+    this, [&]() {
+        if (user_name_.isEmpty()) {
+            Q_EMIT loginRequested(true);
+        } else {
+            auto x = avatar_button_->rect().left();
+            auto y = avatar_button_->rect().bottom() + 10;
+            user_menu_->popup(avatar_button_->mapToGlobal(QPoint(x, y)));
+        }
+    });
+
+    connect(user_menu_, &UserMenu::requestLogout,
+    this, [&] {
+        Q_EMIT this->loginRequested(false);
+    });
+    connect(user_menu_, &UserMenu::requestComment,
+            this, &TitleBar::requestComment);
+    connect(user_menu_, &UserMenu::requestReward,
+            this, &TitleBar::requestReward);
+    connect(user_menu_, &UserMenu::requestApps,
+            this, &TitleBar::requestApps);
 }
 
 void TitleBar::initUI()
@@ -140,7 +175,11 @@ void TitleBar::initUI()
     forward_button_->setFixedSize(26, 26);
 
     avatar_button_ = new QPushButton();
+    avatar_button_->setObjectName("AvatarButton");
     avatar_button_->setFixedSize(20, 20);
+    avatar_button_->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    user_menu_ = new UserMenu();
 
     QHBoxLayout *left_layout = new QHBoxLayout();
     left_layout->setSpacing(0);
@@ -173,8 +212,6 @@ void TitleBar::initUI()
     this->setAttribute(Qt::WA_TranslucentBackground, true);
 
     Dtk::Widget::DThemeManager::instance()->registerWidget(this);
-
-    setUserAvatar(QImage(":/common/images/default.jpeg"));
 }
 
 void TitleBar::onSearchTextChanged()

@@ -220,8 +220,6 @@ void WebWindow::initConnections()
 
     connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
             menu_proxy_, &MenuProxy::recommendAppRequested);
-    connect(tool_bar_menu_, &TitleBarMenu::loginRequested,
-            menu_proxy_, &MenuProxy::loginRequested);
     connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
             menu_proxy_, &MenuProxy::switchThemeRequested);
     connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
@@ -231,8 +229,14 @@ void WebWindow::initConnections()
     connect(tool_bar_menu_, &TitleBarMenu::clearCacheRequested,
             store_daemon_proxy_, &StoreDaemonProxy::clearArchives);
 
-    connect(menu_proxy_, &MenuProxy::userInfoUpdated,
-            tool_bar_menu_, &TitleBarMenu::setUserInfo);
+    connect(title_bar_, &TitleBar::loginRequested,
+            menu_proxy_, &MenuProxy::loginRequested);
+    connect(title_bar_, &TitleBar::requestComment,
+            menu_proxy_, &MenuProxy::requestComment);
+    connect(title_bar_, &TitleBar::requestReward,
+            menu_proxy_, &MenuProxy::requestReward);
+    connect(title_bar_, &TitleBar::requestApps,
+            menu_proxy_, &MenuProxy::requestApps);
     connect(menu_proxy_, &MenuProxy::userInfoUpdated,
             title_bar_, &TitleBar::setUserInfo);
 

@@ -176,6 +176,8 @@ set(UI_FILES
     ui/widgets/search_edit.h
     ui/widgets/title_bar.cpp
     ui/widgets/title_bar.h
+    ui/widgets/user_menu.h
+    ui/widgets/user_menu.cpp
     ui/widgets/title_bar_menu.cpp
     ui/widgets/title_bar_menu.h)
 

@@ -16,3 +16,19 @@
   qproperty-pressPic: url(:/light/images/forward_press.svg);
   qproperty-disabledPic: url(:/light/images/forward_insensitive.svg);
 }
+
+#AvatarButton {
+    border-image: url(:/common/images/login_normal.svg);
+}
+#AvatarButton:hover {
+    border-image: url(:/common/images/login_hover.svg);
+}
+#AvatarButton:pressed {
+    border-image: url(:/common/images/login_press.svg);
+}
+
+#AvatarButton::menu-indicator {
+ image: none;
+ width: 0px;
+ height: 0px;
+}

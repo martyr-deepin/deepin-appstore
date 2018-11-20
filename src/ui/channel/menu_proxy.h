@@ -19,7 +19,7 @@
 #define DEEPIN_APPSTORE_UI_CHANNEL_MENU_PROXY_H
 
 #include <QObject>
-#include <QVariant>
+#include <QVariantMap>
 
 namespace dstore
 {
@@ -40,6 +40,10 @@ signals:
      * @param login true if request to login, false for logout.
      */
     void loginRequested(bool login);
+
+    void requestComment();
+    void requestReward();
+    void requestApps();
 
     /**
      * This signal is emitted when RecommendApp menu item is activated.
@@ -62,7 +66,7 @@ public slots:
      * @brief update titlebar info
      * @param info
      */
-    void setUserInfo(QVariant info);
+    void setUserInfo(QVariantMap info);
 };
 
 }  // namespace dstore

@@ -34,19 +34,6 @@ TitleBarMenu::~TitleBarMenu() {
 
 }
 
-void TitleBarMenu::setUserInfo(const QJsonObject& info) {
-  Q_ASSERT(support_sign_in_);
-  auto username = info.value("name").toString();
-  is_signed_in_ = !username.isEmpty();
-  if (support_sign_in_) {
-    if (is_signed_in_) {
-      sign_in_action_->setText(QObject::tr("Sign Out"));
-    } else {
-      sign_in_action_->setText(QObject::tr("Sign In"));
-    }
-  }
-}
-
 void TitleBarMenu::setRegion(bool is_china) {
   if (!AllowSwitchRegion()) {
     qWarning() << "Do not allow switching regions";
@@ -71,10 +58,6 @@ void TitleBarMenu::setThemeName(QString theme_name) {
 
 void TitleBarMenu::initActions() {
   if (support_sign_in_) {
-    sign_in_action_ = this->addAction(QObject::tr("Sign In"));
-    connect(sign_in_action_, &QAction::triggered,
-            this, &TitleBarMenu::onSignInActionTriggered);
-
     this->addAction(QObject::tr("Recommend App"),
                     this, &TitleBarMenu::recommendAppRequested);
   }
@@ -117,10 +100,6 @@ void TitleBarMenu::initActions() {
   this->setThemeName(themeName);
 
   this->addSeparator();
-}
-
-void TitleBarMenu::onSignInActionTriggered() {
-  emit this->loginRequested(!is_signed_in_);
 }
 
 void TitleBarMenu::onThemeActionTriggered() {
