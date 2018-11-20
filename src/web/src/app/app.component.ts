@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
+import { timer } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { BaseService } from './dstore/services/base.service';
 import { AppService } from './services/app.service';

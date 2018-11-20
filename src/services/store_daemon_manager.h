@@ -75,6 +75,10 @@ public Q_SLOTS:
      */
     void openApp(const QString &app_name);
 
+    // TODO: remove
+    // update all list of app
+    void updateAppList(const SearchMetaList &app_list);
+
     QVariantMap installedPackages();
     /**
      * Get deb package size

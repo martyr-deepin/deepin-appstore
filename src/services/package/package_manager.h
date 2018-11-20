@@ -23,7 +23,7 @@ public Q_SLOTS:
 
     PackageManagerResult QueryInstalledTime(const QStringList &packageID);
 
-    PackageManagerResult ListInstalled();
+    PackageManagerResult ListInstalled(const QStringList &packageID);
 
     void Install(const QStringList &packageIDList);
 

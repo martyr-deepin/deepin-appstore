@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
 
 import { Observable, Subscription, merge, timer, of } from 'rxjs';
 import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
@@ -37,7 +37,8 @@ export class PhraseComponent implements OnInit, OnDestroy {
   isNative = BaseService.isNative;
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
-
+  @Output()
+  loaded = new EventEmitter<Boolean>();
   // input
   @Input()
   section: Section;
@@ -74,6 +75,7 @@ export class PhraseComponent implements OnInit, OnDestroy {
           './apps',
           { title: this.section.title, apps: appList.map(app => app.name) },
         ];
+        this.loaded.emit(true);
       });
     this.getJobs();
   }

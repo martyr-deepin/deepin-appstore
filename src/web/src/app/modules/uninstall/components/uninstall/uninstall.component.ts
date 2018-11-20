@@ -59,10 +59,13 @@ export class UninstallComponent implements OnInit, OnDestroy {
             return this.appService.getApps(list.map(app => app.name));
           },
           (installedApps: InstalledAppInfo[], infos) => {
-            return installedApps.map(app => {
+            return installedApps.reduce((acc, app) => {
               app.info = infos.find(info => info.name === app.name);
-              return app;
-            });
+              if (app.info) {
+                acc.push(app);
+              }
+              return acc;
+            }, []);
           },
         ),
       )

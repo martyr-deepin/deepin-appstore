@@ -19,6 +19,7 @@
 #define DEEPIN_APPSTORE_UI_CHANNEL_MENU_PROXY_H
 
 #include <QObject>
+#include <QVariant>
 
 namespace dstore
 {
@@ -61,7 +62,7 @@ public slots:
      * @brief update titlebar info
      * @param info
      */
-    void setUserInfo(QJsonObject info);
+    void setUserInfo(QVariant info);
 };
 
 }  // namespace dstore

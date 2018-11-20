@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
 import { Observable, Subscription, merge, timer, of } from 'rxjs';
@@ -37,6 +37,8 @@ export class CoverComponent implements OnInit, OnDestroy {
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
 
+  @Output()
+  loaded = new EventEmitter<Boolean>();
   @Input()
   section: Section;
   @Input()
@@ -68,6 +70,7 @@ export class CoverComponent implements OnInit, OnDestroy {
           './apps',
           { title: this.section.title, apps: appList.map(app => app.name) },
         ];
+        this.loaded.emit(true);
       });
     this.getJobs();
   }

@@ -45,18 +45,18 @@ public Q_SLOTS:
     /*!
      * \brief Query
      */
-    virtual PackageManagerResult QueryVersion(const QStringList &packageID) = 0;
+    virtual PackageManagerResult QueryVersion(const QStringList &packageIDs) = 0;
 
     /*!
      * \brief QueryRemote
      */
-    virtual PackageManagerResult QueryInstalledTime(const QStringList &packageID) = 0;
+    virtual PackageManagerResult QueryInstalledTime(const QStringList &packageIDs) = 0;
 
     /*!
      * \brief ListInstalled
      * \return
      */
-    virtual PackageManagerResult ListInstalled() = 0;
+    virtual PackageManagerResult ListInstalled(const QStringList &packageIDs) = 0;
 
     /*!
      * \brief Async install package, return immediately.

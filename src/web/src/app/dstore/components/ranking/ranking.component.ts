@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
 
 import { Observable, Subscription, merge, timer, of } from 'rxjs';
 import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
@@ -33,7 +33,8 @@ export class RankingComponent implements OnInit, OnDestroy {
   isNative = BaseService.isNative;
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
-
+  @Output()
+  loaded = new EventEmitter<Boolean>();
   @Input()
   section: Section;
   @Input()
@@ -91,6 +92,7 @@ export class RankingComponent implements OnInit, OnDestroy {
           }),
         )
         .subscribe(versions => {
+          this.loaded.emit(true);
           const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
           this.appList.forEach(app => {
             if (vMap.has(app.name)) {

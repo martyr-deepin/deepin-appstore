@@ -11,6 +11,7 @@ import { StoreService } from 'app/modules/client/services/store.service';
 import { AppService } from '../../services/app.service';
 import { StoreJobType } from 'app/modules/client/models/store-job-info';
 import { JobService } from 'app/services/job.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-side-nav',
@@ -30,6 +31,7 @@ export class SideNavComponent implements OnInit {
     private jobService: JobService,
     private appService: AppService,
   ) {}
+  production = environment.production;
   native = BaseService.isNative;
   @ViewChild('nav')
   nav: ElementRef<HTMLDivElement>;

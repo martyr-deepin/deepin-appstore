@@ -109,6 +109,8 @@ public:
     QThread *apt_worker_thread_ = nullptr;
     LastoreDebInterface *deb_interface_ = nullptr;
 
+    QMap<QString, QString> apps;
+
     StoreDaemonManager *q_ptr;
     Q_DECLARE_PUBLIC(StoreDaemonManager)
 };
@@ -149,6 +151,14 @@ void StoreDaemonManager::openApp(const QString &app_name)
 {
     Q_D(StoreDaemonManager);
     emit d->apt_worker_->openAppRequest(app_name);
+}
+
+void StoreDaemonManager::updateAppList(const SearchMetaList &app_list)
+{
+    Q_D(StoreDaemonManager);
+    for (auto &app : app_list) {
+        d->apps.insert(app.name, app.name);
+    }
 }
 
 bool StoreDaemonManager::isDBusConnected()
@@ -288,7 +298,7 @@ QVariantMap StoreDaemonManager::installedPackages()
 {
     // TODO: filter install list
     Q_D(StoreDaemonManager);
-    auto result = d->pm->ListInstalled();
+    auto result = d->pm->ListInstalled(d->apps.keys());
     return QVariantMap {
         { kResultOk, result.success },
         { kResultErrName, result.errName },
@@ -475,12 +485,13 @@ QVariantMap StoreDaemonManager::fixError(const QString &error_type)
 
 AppPackage AppPackage::fromJson(const QByteArray &json)
 {
-
+    Q_UNUSED(json);
+    return AppPackage();
 }
 
 QByteArray AppPackage::toJson() const
 {
-
+    return QByteArray();
 }
 
 }  // namespace dstore

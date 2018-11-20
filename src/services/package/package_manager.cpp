@@ -86,15 +86,15 @@ PackageManagerResult PackageManager::QueryInstalledTime(const QStringList &dpks)
     return  d->mergeRun(dpks, queryHandler);
 }
 
-PackageManagerResult PackageManager::ListInstalled()
+PackageManagerResult PackageManager::ListInstalled(const QStringList &packageID)
 {
 
     Q_D(PackageManager);
-    auto queryHandler = [ & ](const QString & key, const QStringList &) -> PackageManagerResult {
-        return d->pms.value(key)->ListInstalled();
+    auto queryHandler = [ & ](const QString & key, const QStringList &idList) -> PackageManagerResult {
+        return d->pms.value(key)->ListInstalled(idList);
     };
 
-    return  d->mergeRun({}, queryHandler);
+    return  d->mergeRun(packageID, queryHandler);
 }
 
 void PackageManager::Install(const QStringList &dpks)

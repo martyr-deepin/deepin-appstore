@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Observable, Subscription, merge, timer, of } from 'rxjs';
-import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
+import { map, tap, flatMap, delay, switchMap, concat, startWith } from 'rxjs/operators';
 
 import { SectionService } from './services/section.service';
 import { Section, SectionType } from 'app/dstore/services/section';
@@ -24,6 +24,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   SectionType = SectionType;
   sectionList$: Observable<Section[]>;
   appMap: Map<string, App>;
+  loadedCount = 0;
 
   // job
   jobs: { [key: string]: StoreJobInfo } = {};
@@ -40,6 +41,9 @@ export class IndexComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.jobs$.unsubscribe();
+  }
+  loaded() {
+    this.loadedCount++;
   }
 
   getJobs() {

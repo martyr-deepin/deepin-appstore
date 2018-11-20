@@ -102,6 +102,9 @@ export class AppService {
     }
     this.setApps(apps);
 
+    // 启动三秒后更新app
+    await new Promise(resolve => setTimeout(resolve, 10 * 1000));
+
     apps = await this.getApps(this.apiURL);
     if (apps) {
       apps.sort((a, b) => a.name.localeCompare(b.name));
