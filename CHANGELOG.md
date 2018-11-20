@@ -1,3 +1,43 @@
+<a name="5.1.2.4-loongson"></a>
+## 5.1.2.4-loongson (2018-11-20)
+
+
+#### Bug Fixes
+
+*   disable avatar ([f534fdd5](https://github.com/linuxdeepin/deepin-appstore/commit/f534fdd56b3f02c6d77e921da2a18641d7232fa0))
+*   not show all install package ([c31dcf49](https://github.com/linuxdeepin/deepin-appstore/commit/c31dcf490af591f6588d916fe3d15f86eaf6c494))
+*   icon url ([a466eebf](https://github.com/linuxdeepin/deepin-appstore/commit/a466eebf154e1f7fcb64fef3d1314624c7f4c769))
+*   fix broken translation before build ([f1e48d83](https://github.com/linuxdeepin/deepin-appstore/commit/f1e48d83088b66a69ee4ebbc94c5f793401baa05))
+*   local file fail ([95bd6c87](https://github.com/linuxdeepin/deepin-appstore/commit/95bd6c87dcbc1317f4c384f3c6d2be4eacdda207))
+*   download component do not show version ([dc555169](https://github.com/linuxdeepin/deepin-appstore/commit/dc555169d62de1e297844bababfb7efd68a1d5e5))
+*   i18n ([545aac25](https://github.com/linuxdeepin/deepin-appstore/commit/545aac25157b3b7dd02da33d9938059edb54997c))
+*   login style ([770fd7a6](https://github.com/linuxdeepin/deepin-appstore/commit/770fd7a6b7964fbefc975a9007fe103dda7e5769))
+*   login iframe ([e2476cbc](https://github.com/linuxdeepin/deepin-appstore/commit/e2476cbc6c14e6838792c931db1fa349cbd5db8e))
+*   remove multi thread warning ([cf95f872](https://github.com/linuxdeepin/deepin-appstore/commit/cf95f87242762366eaf296db4372a513159ba9d9))
+*   generate all meta ([e9ab33d9](https://github.com/linuxdeepin/deepin-appstore/commit/e9ab33d97dcbb2a3c16063d5c3ff6d85b9c30a63))
+*   enable the redirectContent mode only for WebWindow on dxcb platform ([4633656c](https://github.com/linuxdeepin/deepin-appstore/commit/4633656c7982fd6403cf169d51ba8f6301903653))
+
+#### Features
+
+*   disable dxcb on none amd64 ([506f09fd](https://github.com/linuxdeepin/deepin-appstore/commit/506f09fd44ab25da4a3bbc9c18dd4b08300a1db7))
+*   index delay load ([0b4a8216](https://github.com/linuxdeepin/deepin-appstore/commit/0b4a82166848dc7a7ea048076f65536aae87432c))
+*   installed list filter ([0a851770](https://github.com/linuxdeepin/deepin-appstore/commit/0a85177070e055d04a373249708a7f70bbafe388))
+*   add local app component ([719dad2a](https://github.com/linuxdeepin/deepin-appstore/commit/719dad2aa55552dba4be8227a7bd660fae5fe687))
+*   support multi package backend ([ec71cc82](https://github.com/linuxdeepin/deepin-appstore/commit/ec71cc82c5840cd619dd6ba20963e386855acb75))
+*   comment load ([7a658311](https://github.com/linuxdeepin/deepin-appstore/commit/7a658311f87e856aa0eef5ece09f4f188916829a))
+*   uninstall ([66843de9](https://github.com/linuxdeepin/deepin-appstore/commit/66843de99396528c94d2331a962594a58ed53fed))
+*   tags style ([4ac2d687](https://github.com/linuxdeepin/deepin-appstore/commit/4ac2d68792fc9b805c58a36bccdd337b318fed88))
+*   split ranking,uninstall,install module ([48d6bcc7](https://github.com/linuxdeepin/deepin-appstore/commit/48d6bcc7dab9b67bf2cea53c5d1c284b3bc4c140))
+*   support show user avatar ([2e8b5ae4](https://github.com/linuxdeepin/deepin-appstore/commit/2e8b5ae490c44c2ddb89ecce2e5fd5c80fad2e65))
+*   split ranking module ([dc39e9ff](https://github.com/linuxdeepin/deepin-appstore/commit/dc39e9ff470b663b9be6b8953f9e361bfecd07a7))
+*   use blob for image viewer ([f4b4d9f8](https://github.com/linuxdeepin/deepin-appstore/commit/f4b4d9f873eed6ca29c40952dbede1249825a1f1))
+*   title bar avatar ([65e7c59d](https://github.com/linuxdeepin/deepin-appstore/commit/65e7c59d1e75351eafd638e87f4b9a96c415eee1))
+*   add tag field ([d342de84](https://github.com/linuxdeepin/deepin-appstore/commit/d342de849a070868ef6a13fafdf64d52c5fc8dec))
+*   support titlebar avatar ([05330673](https://github.com/linuxdeepin/deepin-appstore/commit/05330673cb11b6d985bf0276612c9115c7b9f152))
+*   split client module ([97178110](https://github.com/linuxdeepin/deepin-appstore/commit/97178110c8a3a7c58a844fc30ab863006f2f8a7e))
+
+
+
 <a name="5.1.2.2"></a>
 ## 5.1.2.2 (2018-11-13)
 
