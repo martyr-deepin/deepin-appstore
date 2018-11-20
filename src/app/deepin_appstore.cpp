@@ -41,7 +41,6 @@ const char kLogLevel[] = "--log-level";
 
 }  // namespace
 
-
 int main(int argc, char **argv)
 {
     qputenv("DXCB_FAKE_PLATFORM_NAME_XCB", "true");
@@ -89,7 +88,10 @@ int main(int argc, char **argv)
         return 0;
     }
 
-    Dtk::Widget::DApplication::loadDXcbPlugin();
+#ifndef DSTORE_NO_DXCB
+  Dtk::Widget::DApplication::loadDXcbPlugin();
+#endif
+
     Dtk::Widget::DApplication app(argc, argv);
     if (!Dtk::Widget::DPlatformWindowHandle::pluginVersion().isEmpty()) {
         app.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);

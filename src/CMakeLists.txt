@@ -17,6 +17,10 @@ if(DISABLE_MULTI_THREAD)
   add_definitions(-DDSTORE_DISABLE_MULTI_THREAD="YES")
 endif()
 
+if (DISABLE_DXCB)
+    add_definitions(-DDSTORE_NO_DXCB)
+endif()
+
 if(CONFIG_VERSION)
   add_definitions(-DVERSION=${CONFIG_VERSION})
 endif()
