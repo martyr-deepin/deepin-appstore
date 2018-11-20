@@ -14,13 +14,7 @@ import { ClientModule } from 'app/modules/client/client.module';
 import { ShareModule } from 'app/modules/share/share.module';
 
 import { AuthInterceptor } from './services/auth-interceptor';
-
-import { AppService } from './services/app.service';
-import { AuthService } from './services/auth.service';
-import { AuthGuardService } from './services/auth-guard.service';
-import { SearchService } from './services/search.service';
-import { LoginService } from './services/login.service';
-import { RecommendService } from './services/recommend.service';
+import { CacheInterceptor } from './services/cache-interceptor';
 
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
@@ -47,7 +41,10 @@ import { NotifyComponent } from './components/notify/notify.component';
     ClientModule,
     ShareModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

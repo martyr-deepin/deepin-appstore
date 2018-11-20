@@ -10,8 +10,10 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class SectionService {
   url = `${environment.operationServer}/api/blob/section`;
-  list = this.http.get(this.url).pipe(
-    map((ss: Section[]) => ss),
+  list = this.http.get<Section[]>(this.url).pipe(
+    map(ss => {
+      return ss || [];
+    }),
     shareReplay(),
   );
   constructor(private http: HttpClient) {}

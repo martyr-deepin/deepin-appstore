@@ -59,7 +59,9 @@ export class AppDetailComponent implements OnInit {
         this.job$ = this.jobService.jobList().pipe(
           tap(() => {
             this.storeService.getVersion([app.name]).subscribe(v => (this.app.version = v[0]));
-            this.storeService.appDownloadSize(app.name).subscribe(size => (this.size = size));
+            setTimeout(() => {
+              this.storeService.appDownloadSize(app.name).subscribe(size => (this.size = size));
+            }, 100);
           }),
           switchMap(jobs => this.storeService.getJobsInfo(jobs)),
           map(jobs => jobs.find(job => job.names.includes(app.name))),
