@@ -248,13 +248,18 @@ void WebWindow::initConnections()
 
 void WebWindow::initProxy()
 {
+    bool useMultiThread = false;
+    auto parent = this;
+    if (useMultiThread) {
+        parent = nullptr;
+    }
     auto web_channel = web_view_->page()->webChannel();
-    store_daemon_proxy_ = new StoreDaemonProxy();
-    image_viewer_proxy_ = new ImageViewerProxy();
-    log_proxy_ = new LogProxy();
-    menu_proxy_ = new MenuProxy();
-    search_proxy_ = new SearchProxy();
-    settings_proxy_ = new SettingsProxy();
+    store_daemon_proxy_ = new StoreDaemonProxy(parent);
+    image_viewer_proxy_ = new ImageViewerProxy(parent);
+    log_proxy_ = new LogProxy(parent);
+    menu_proxy_ = new MenuProxy(parent);
+    search_proxy_ = new SearchProxy(parent);
+    settings_proxy_ = new SettingsProxy(parent);
 
     web_channel->registerObject("imageViewer", image_viewer_proxy_);
     web_channel->registerObject("log", log_proxy_);
@@ -263,15 +268,17 @@ void WebWindow::initProxy()
     web_channel->registerObject("settings", settings_proxy_);
     web_channel->registerObject("storeDaemon", store_daemon_proxy_);
 
-    proxy_thread_ = new QThread();
-    web_channel->moveToThread(proxy_thread_);
-    image_viewer_proxy_->moveToThread(proxy_thread_);
-    log_proxy_->moveToThread(proxy_thread_);
-    menu_proxy_->moveToThread(proxy_thread_);
-    search_proxy_->moveToThread(proxy_thread_);
-    settings_proxy_->moveToThread(proxy_thread_);
-    store_daemon_proxy_->moveToThread(proxy_thread_);
-    proxy_thread_->start();
+    if (useMultiThread) {
+        proxy_thread_ = new QThread(parent);
+        web_channel->moveToThread(proxy_thread_);
+        image_viewer_proxy_->moveToThread(proxy_thread_);
+        log_proxy_->moveToThread(proxy_thread_);
+        menu_proxy_->moveToThread(proxy_thread_);
+        search_proxy_->moveToThread(proxy_thread_);
+        settings_proxy_->moveToThread(proxy_thread_);
+        store_daemon_proxy_->moveToThread(proxy_thread_);
+        proxy_thread_->start();
+    }
 }
 
 void WebWindow::initUI()

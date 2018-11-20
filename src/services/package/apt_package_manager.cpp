@@ -1,5 +1,8 @@
 #include "apt_package_manager.h"
 
+#include <QEventLoop>
+#include <QCoreApplication>
+
 #include "dbus/dbus_consts.h"
 #include "dbus/dbus_variant/app_version.h"
 #include "dbus/dbus_variant/installed_app_info.h"
@@ -47,8 +50,13 @@ PackageManagerResult AptPackageManager::QueryVersion(const QStringList &packageI
 {
     Q_D(AptPackageManager);
 
+
     const QDBusPendingReply<AppVersionList> reply =
         d->deb_interface_->QueryVersion(packageIDs);
+
+    while (!reply.isFinished()) {
+        qApp->processEvents();
+    }
 
     if (reply.isError()) {
         return PackageManagerResult(false,
