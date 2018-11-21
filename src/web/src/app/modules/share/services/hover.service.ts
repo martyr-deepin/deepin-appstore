@@ -9,7 +9,6 @@ export class HoverService {
   constructor() {}
   private hover$ = fromEvent(window, 'mousemove').pipe(
     map(() => {
-      console.log('test');
       return Array.from(document.querySelectorAll(':hover'));
     }),
     share(),

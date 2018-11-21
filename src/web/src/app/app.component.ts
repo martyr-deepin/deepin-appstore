@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { timer } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 import { BaseService } from './dstore/services/base.service';
 import { AppService } from './services/app.service';
@@ -24,10 +22,11 @@ export class AppComponent implements OnInit {
     private themeService: ThemeService,
     private zone: NgZone,
   ) {}
-  @ViewChild('$context')
-  contentRef: ElementRef<HTMLDivElement>;
   updated = false;
   ngOnInit(): void {
+    this.connectToRouter('menu.appsRequested', '/my/app');
+    this.connectToRouter('menu.commentRequested', '/my/comment');
+    this.connectToRouter('menu.rewardRequested', '/my/reward');
     this.searchIndex();
     this.searchListen();
     this.screenshotPreview();
@@ -37,6 +36,14 @@ export class AppComponent implements OnInit {
     } else {
       this.waitUpdate();
     }
+  }
+
+  connectToRouter(signal: string, url: string) {
+    Channel.connect(signal).subscribe(() => {
+      this.zone.run(() => {
+        this.router.navigateByUrl(url);
+      });
+    });
   }
 
   switchTheme() {
@@ -63,12 +70,10 @@ export class AppComponent implements OnInit {
   }
   searchListen() {
     this.searchService.onOpenApp().subscribe(appName => {
-      console.log('open app', appName);
       this.router.navigate(['/app/', appName]);
     });
 
     this.searchService.onOpenAppList().subscribe(result => {
-      console.log('open app list', result.appNameList);
       this.router.navigate(['search'], {
         queryParams: { keyword: result.keyword, apps: result.appNameList },
       });
