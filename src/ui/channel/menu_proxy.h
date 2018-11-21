@@ -41,9 +41,20 @@ signals:
      */
     void loginRequested(bool login);
 
-    void requestComment();
-    void requestReward();
-    void requestApps();
+    /**
+     * This signal is emitted when My Comment menu item is activated.
+     */
+    void commentRequested();
+
+    /**
+     * This signal is emitted when My Reward menu item is activated.
+     */
+    void rewardRequested();
+
+    /**
+     * This signal is emitted when My Apps menu item is activated.
+     */
+    void appsRequested();
 
     /**
      * This signal is emitted when RecommendApp menu item is activated.
@@ -55,6 +66,10 @@ signals:
      */
     void switchThemeRequested(QString themeName);
 
+    /**
+     * This signal is emitted when Privacy Agreement menu item is activated.
+     */
+    void privacyAgreementRequested();
     /**
      * @brief notify user info change when user login/logout from web page
      * @param info

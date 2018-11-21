@@ -35,6 +35,7 @@ class TitleBarMenu : public QMenu {
   void recommendAppRequested();
   void regionChanged();
   void clearCacheRequested();
+  void privacyAgreementRequested();
 
  public slots:
   void setRegion(bool is_china);
@@ -50,6 +51,7 @@ class TitleBarMenu : public QMenu {
   QAction* region_international_ = nullptr;
   QString theme_name_ = "light";
   QAction* switch_theme_action_ = nullptr;
+  QAction* privacy_agreement_action_ = nullptr;
 
  private slots:
   void onThemeActionTriggered();

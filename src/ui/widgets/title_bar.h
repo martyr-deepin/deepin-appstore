@@ -44,7 +44,7 @@ public:
 Q_SIGNALS:
     void loginRequested(bool login);
 
-    void requestComment();
+    void commentRequested();
     void requestReward();
     void requestApps();
 

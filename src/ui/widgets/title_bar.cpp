@@ -152,8 +152,8 @@ void TitleBar::initConnections()
     this, [&] {
         Q_EMIT this->loginRequested(false);
     });
-    connect(user_menu_, &UserMenu::requestComment,
-            this, &TitleBar::requestComment);
+    connect(user_menu_, &UserMenu::commentRequested,
+            this, &TitleBar::commentRequested);
     connect(user_menu_, &UserMenu::requestReward,
             this, &TitleBar::requestReward);
     connect(user_menu_, &UserMenu::requestApps,

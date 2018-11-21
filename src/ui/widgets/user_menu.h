@@ -16,7 +16,7 @@ public:
 
 Q_SIGNALS:
     void requestLogout();
-    void requestComment();
+    void commentRequested();
     void requestReward();
     void requestApps();
 

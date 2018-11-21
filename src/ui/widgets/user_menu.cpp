@@ -16,7 +16,7 @@ public:
 
         comment = new QAction(UserMenu::tr("My comments"));
         parent->connect(comment, &QAction::triggered,
-                        parent, &UserMenu::requestComment);
+                        parent, &UserMenu::commentRequested);
         parent->addAction(comment);
 
         reward = new QAction(UserMenu::tr("My reward"));
