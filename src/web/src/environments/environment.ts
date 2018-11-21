@@ -9,5 +9,6 @@ export const environment = {
   // Default server address only used in browser mode.
   metadataServer: 'http://server-13:8000',
   operationServer: 'http://server-13:8100',
+  region: 0, // 0:China 1:International
   themeName: 'light',
 };

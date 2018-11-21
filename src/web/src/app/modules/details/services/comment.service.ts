@@ -2,18 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import * as _ from 'lodash';
-
-import { BaseService } from 'app/dstore/services/base.service';
 import { map } from 'rxjs/operators';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommentService {
-  private server: string;
-  constructor(private http: HttpClient) {
-    this.server = BaseService.serverHosts.operationServer;
-  }
+  private server = environment.operationServer;
+  constructor(private http: HttpClient) {}
 
   list(appName: string, query?: { [key: string]: any }) {
     const params = Object.entries(query)

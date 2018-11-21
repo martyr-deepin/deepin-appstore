@@ -30,11 +30,19 @@ const routes: Routes = [
   },
   {
     path: 'uninstall',
-    loadChildren: 'app/modules/uninstall/uninstall.module#UninstallModule',
+    redirectTo: 'my/apps',
   },
   {
-    path: 'my/app',
-    loadChildren: 'app/modules/my-app/my-app.module#MyAppModule',
+    path: 'my/apps',
+    loadChildren: 'app/modules/my-apps/my-apps.module#MyAppsModule',
+  },
+  {
+    path: 'my/comments',
+    loadChildren: 'app/modules/my-comments/my-comments.module#MyCommentsModule',
+  },
+  {
+    path: 'my/donates',
+    loadChildren: 'app/modules/my-donates/my-donates.module#MyDonatesModule',
   },
   {
     path: 'search',

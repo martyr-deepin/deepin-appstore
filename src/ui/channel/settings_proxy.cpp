@@ -47,6 +47,7 @@ const QVariantMap SettingsProxy::getServers() {
   return QVariantMap {
       { "metadataServer", GetMetadataServer() },
       { "operationServer", GetOperationServer() },
+      { "region", GetRegion() },
       { "themeName", GetThemeName() },
     };
 }

@@ -24,9 +24,9 @@ export class AppComponent implements OnInit {
   ) {}
   updated = false;
   ngOnInit(): void {
-    this.connectToRouter('menu.appsRequested', '/my/app');
-    this.connectToRouter('menu.commentRequested', '/my/comment');
-    this.connectToRouter('menu.rewardRequested', '/my/reward');
+    this.connectToRouter('menu.appsRequested', '/my/apps');
+    this.connectToRouter('menu.commentRequested', '/my/comments');
+    this.connectToRouter('menu.rewardRequested', '/my/donates');
     this.searchIndex();
     this.searchListen();
     this.screenshotPreview();

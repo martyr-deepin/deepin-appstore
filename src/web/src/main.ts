@@ -31,8 +31,10 @@ async function main() {
     const servers = await new Promise(resolve => {
       channel.objects.settings.getServers(resolve);
     });
-    environment.metadataServer = servers['metadataServer'];
-    environment.operationServer = servers['operationServer'];
+    if (environment.production) {
+      environment.metadataServer = servers['metadataServer'];
+      environment.operationServer = servers['operationServer'];
+    }
     environment.themeName = servers['themeName'];
     if (!Boolean(servers['aot'])) {
       // loading locale file

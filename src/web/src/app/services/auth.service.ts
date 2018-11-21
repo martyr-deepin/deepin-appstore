@@ -14,7 +14,7 @@ import { environment } from 'environments/environment';
 export class AuthService {
   constructor() {}
 
-  private tokenStorageKey = 'auth-token:' + BaseService.domainName;
+  private tokenStorageKey = 'auth-token:' + environment.region;
   private tokenSubject = new BehaviorSubject<string>(localStorage.getItem(this.tokenStorageKey));
   private loginSubject = new Subject<boolean>();
 
