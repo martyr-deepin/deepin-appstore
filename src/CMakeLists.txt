@@ -166,6 +166,7 @@ set(UI_FILES
     ui/channel/settings_proxy.h
     ui/channel/store_daemon_proxy.cpp
     ui/channel/store_daemon_proxy.h
+    ui/channel/channel_proxy.h
     ui/widgets/image_viewer.cpp
     ui/widgets/image_viewer.h
     ui/widgets/search_button.cpp

@@ -13,20 +13,34 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
+
 // use the require method provided by webpack
 declare const require;
 
 async function main() {
   let opts: CompilerOptions;
   // Native client mode.
-  if (window['QWebChannel']) {
-    const channel = await new Promise<any>(resolve => {
-      // noinspection TsLint
-      // tslint:disable-next-line:no-unused-expression
-      new window['QWebChannel'](window['qt'].webChannelTransport, resolve);
+  const QWebChannel = window['QWebChannel'];
+  if (QWebChannel) {
+    // proxy channel
+    const channelTransport = await new Promise<any>(resolve => {
+      return new QWebChannel(window['qt'].webChannelTransport, resolve);
     });
-    window['dstore'] = {};
-    window['dstore']['channel'] = channel;
+    // dstore channel
+    const channel = await new Promise<any>(resolve => {
+      const t = {
+        send(msg) {
+          channelTransport.objects.channelProxy.send(msg);
+        },
+        onmessage(msg) {},
+      };
+      channelTransport.objects.channelProxy.message.connect(msg => {
+        t.onmessage({ data: msg });
+      });
+      return new QWebChannel(t, resolve);
+    });
+
+    window['dstore'] = { channel };
 
     const servers = await new Promise(resolve => {
       channel.objects.settings.getServers(resolve);
@@ -36,6 +50,7 @@ async function main() {
       environment.operationServer = servers['operationServer'];
     }
     environment.themeName = servers['themeName'];
+
     if (!Boolean(servers['aot'])) {
       // loading locale file
       for (let language of navigator.languages) {

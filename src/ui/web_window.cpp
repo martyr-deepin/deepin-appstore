@@ -42,6 +42,7 @@
 #include "ui/channel/search_proxy.h"
 #include "ui/channel/settings_proxy.h"
 #include "ui/channel/store_daemon_proxy.h"
+#include "ui/channel/channel_proxy.h"
 #include "ui/widgets/image_viewer.h"
 #include "ui/widgets/search_completion_window.h"
 #include "ui/widgets/title_bar.h"
@@ -254,12 +255,17 @@ void WebWindow::initConnections()
 
 void WebWindow::initProxy()
 {
-    bool useMultiThread = false;
+    bool useMultiThread = true;
     auto parent = this;
     if (useMultiThread) {
         parent = nullptr;
     }
-    auto web_channel = web_view_->page()->webChannel();
+    auto page_channel = web_view_->page()->webChannel();
+    auto channel_proxy = new ChannelProxy(this);
+    page_channel->registerObject("channelProxy",channel_proxy);
+
+    auto web_channel = new QWebChannel(parent);
+    web_channel->connectTo(channel_proxy->transport);
     store_daemon_proxy_ = new StoreDaemonProxy(parent);
     image_viewer_proxy_ = new ImageViewerProxy(parent);
     log_proxy_ = new LogProxy(parent);
