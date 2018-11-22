@@ -1,0 +1,52 @@
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.app {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  .info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0.5rem;
+    .time,
+    .version {
+      color: gray;
+    }
+  }
+}
+.content {
+  border: 1px solid var(--main-item-hr-color);
+  textarea {
+    width: 25rem;
+    height: 10rem;
+    border: 0;
+    outline: none;
+    resize: none;
+    background-color: unset;
+  }
+  .rate {
+    display: flex;
+    font-size: 1rem;
+    margin: 0.5rem;
+    .star {
+      margin: 0 0.5rem;
+      color: #ff8a09;
+    }
+  }
+}
+
+.control {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+  button {
+    padding: 0 1rem;
+  }
+  .warn {
+    color: red;
+  }
+}

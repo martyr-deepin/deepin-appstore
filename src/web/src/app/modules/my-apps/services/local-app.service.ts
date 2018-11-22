@@ -23,17 +23,16 @@ export class LocalAppService {
       switchMap(() => this.storeService.getInstalledApps()),
       switchMap(
         installed => this.appService.getApps(installed.map(app => app.name)),
-        (installed: LocalAppInfo[], appInfos) => {
-          installed = installed
-            .reduce((acc: LocalAppInfo[], app) => {
-              app.app = appInfos.find(info => info.packageURI.includes(app.dpk));
-              if (app.app) {
-                acc.push(app);
-              }
-              return acc;
-            }, [])
+        (installed, appInfos) => {
+          return installed
+            .map(app => {
+              return this.appService.addApp(
+                app,
+                appInfos.find(info => info.packageURI.includes(app.dpk)),
+              );
+            })
+            .filter(app => Boolean(app.app))
             .sort((a, b) => b.time - a.time);
-          return installed;
         },
       ),
     );
@@ -51,10 +50,7 @@ export class LocalAppService {
       }),
     );
   }
-  RemoveLocalApp(app: LocalAppInfo) {
-    this.storeService.removePackage(app.name, app.app.localInfo.description.name);
+  RemoveLocalApp(app: App) {
+    this.storeService.removePackage(app.name, app.localInfo.description.name);
   }
-}
-export interface LocalAppInfo extends InstalledApp {
-  app: App;
 }

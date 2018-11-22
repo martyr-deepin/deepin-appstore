@@ -1,0 +1,55 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 0 1rem;
+}
+.comment-list {
+  flex: 1;
+  overflow: hidden;
+}
+.comment {
+  display: flex;
+  align-items: center;
+  .body {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-bottom: 1px solid var(--main-item-hr-color);
+    height: 60px;
+    padding-left: 0.5rem;
+  }
+  .info-line {
+    display: flex;
+    .name {
+      flex: 2;
+    }
+    .time,
+    .version {
+      flex: 1;
+      color: gray;
+    }
+  }
+  .content-line {
+    width: 100%;
+    display: flex;
+    color: gray;
+    span,
+    a {
+      white-space: nowrap;
+    }
+    .content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+      min-width: 0;
+    }
+  }
+}
+.paginator {
+  margin: 0.5rem 0;
+  text-align: right;
+}

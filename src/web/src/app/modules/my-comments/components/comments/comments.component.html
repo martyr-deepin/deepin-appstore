@@ -1,0 +1,57 @@
+<dstore-center-title>
+	<span title
+	      i18n>My Comments</span>
+	<button routerLink="/my/comments"
+	        routerLinkActive="active"
+	        i18n>My Comments</button>
+	<button routerLink="/my/donates"
+	        routerLinkActive="active"
+	        i18n>My Donates</button>
+</dstore-center-title>
+
+<dstore-edit *ngIf="edit$|async as comment"
+             [comment]="comment"
+             (close)="editClose()"></dstore-edit>
+
+<div class="comment-list"
+     dstoreResize
+     (resize)="listHeight$.next($event.height)">
+	<div class="comment"
+	     *ngFor="let comment of comments$|async">
+		<ng-container *ngIf="comment.app as app">
+			<img class="icon"
+			     [src]="app.icon"
+			     [routerLink]="['/app',app.name]">
+			<div class="body">
+				<div class="info-line">
+					<div class="name">
+						{{app.localInfo.description.name}}
+					</div>
+					<div class="time">
+						<span i18n>Time:</span>
+						{{comment.createTime|date}}
+					</div>
+					<div class="version">
+						<span i18n>Version:</span>
+						{{comment.version}}
+					</div>
+				</div>
+				<div class="content-line">
+					<span i18n>Comment:</span>
+					&nbsp;
+					<span class="content">{{comment.content}}</span>
+					<a i18n
+					   (click)="edit$.next(comment)">Edit</a>
+				</div>
+			</div>
+		</ng-container>
+	</div>
+</div>
+<div class="paginator">
+	<ng-container *ngIf="count$|async as count">
+		<app-paginator [count]="count"
+		               [pageIndex]="pageIndex$|async"
+		               [hidden]="count<=1"
+		               (pageIndexChange)="gotoPage($event)"></app-paginator>
+	</ng-container>
+</div>

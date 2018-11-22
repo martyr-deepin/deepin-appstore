@@ -41,7 +41,11 @@ export class PaginatorComponent implements OnInit, OnChanges {
         .range(this.pageCount)
         .value()
         .slice(0, this.brother);
-      this.pageIndexChange.emit(pls[pls.length - 1]);
+      if (pls.length > 0) {
+        this.pageIndexChange.emit(pls[pls.length - 1]);
+      } else {
+        this.pageIndexChange.emit(0);
+      }
     }
     if (pls.length < this.brother && !pls.includes(0)) {
       for (let i = pls.length; i < this.brother; i++) {

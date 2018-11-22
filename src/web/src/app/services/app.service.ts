@@ -78,6 +78,15 @@ export class AppService {
   getApp(appName: string): Observable<App> {
     return this.getApps([appName]).pipe(map(apps => apps[0]));
   }
+
+  // 附加app信息到一个对象
+  addApp<T extends Object>(obj: T, app: App): T & HasApp {
+    obj['app'] = app;
+    return obj as T & HasApp;
+  }
+}
+export interface HasApp {
+  app: App;
 }
 
 export class App extends DstoreApp {

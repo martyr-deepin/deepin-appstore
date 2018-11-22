@@ -7,9 +7,12 @@ export class DialogDirective {
   constructor(private elementRef: ElementRef<HTMLDialogElement>) {}
 
   @HostListener('mousedown', ['$event'])
-  click(e: Event) {
+  click(e: MouseEvent) {
     if (e.srcElement === this.elementRef.nativeElement && this.elementRef.nativeElement.open) {
-      this.elementRef.nativeElement.close();
+      const rect = this.elementRef.nativeElement.getBoundingClientRect();
+      if (e.x < rect.left || e.x > rect.right || e.y < rect.top || e.y > rect.bottom) {
+        this.elementRef.nativeElement.close();
+      }
     }
   }
   @HostListener('mousewheel', ['$event'])

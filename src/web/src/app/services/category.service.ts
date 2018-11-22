@@ -14,7 +14,6 @@ export class CategoryService {
 
   constructor(private http: HttpClient) {
     this.category$ = this.http.get<CustomCategory[]>(this.apiURL).pipe(
-      retry(3),
       map(ccs => {
         if (ccs) {
           return ccs

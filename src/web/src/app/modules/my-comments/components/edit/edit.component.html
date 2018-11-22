@@ -1,0 +1,49 @@
+<dialog #dialog>
+  <div class="title"
+       i18n>修改评论</div>
+  <div class="app"
+       *ngIf="appName|appInfo|async as app">
+    <img class="icon"
+         [src]="app.icon">
+    <div class="info">
+      <span class="name">{{app.localInfo.description.name}}</span>
+      <span class="time">
+        <span i18n>time:</span>
+        <span>{{_comment.createTime|date}}</span>
+      </span>
+      <span class="version">
+        <span i18n>Version:</span>
+        {{_comment.version}}
+      </span>
+    </div>
+  </div>
+  <div class="content">
+    <textarea [(ngModel)]="content"></textarea>
+    <div class="rate">
+      <span i18n>重新评分:</span>
+      <dstore-star [readonly]="false"
+                   [(rate)]="rate"
+                   #star></dstore-star>
+      <span class="star">{{star.rateHover||star.rate}}</span>
+      <span i18n>分</span>
+    </div>
+  </div>
+  <div class="control">
+    <ng-container *ngIf="!deleteConfirm;else Delete">
+      <button (click)="deleteConfirm=true">删除</button>
+      <div>
+        <button (click)="closed()">取消</button>
+        &nbsp;
+        <button class="primary">提交</button>
+      </div>
+    </ng-container>
+    <ng-template #Delete>
+      <div>确定要删除吗</div>
+      <div>
+        <button (click)="deleteConfirm=false">取消</button>
+        &nbsp;
+        <button class="primary warn">确定</button>
+      </div>
+    </ng-template>
+  </div>
+</dialog>

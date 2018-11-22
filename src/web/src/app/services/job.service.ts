@@ -19,10 +19,10 @@ export class JobService {
   private update(list: string[]) {
     this.zone.run(() => {
       this.jobList$.next(list);
+      if (this.interval) {
+        this.interval.unsubscribe();
+      }
       if (list.length > 0) {
-        if (this.interval) {
-          this.interval.unsubscribe();
-        }
         this.interval = timer(0, 1000)
           .pipe(switchMap(() => this.StoreServer.getJobsInfo(list)))
           .subscribe(infoList => this.jobInfoList$.next(infoList));

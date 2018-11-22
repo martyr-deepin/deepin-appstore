@@ -1,23 +1,25 @@
-<div class="localAppList">
-  <dstore-center-title>
-    <span title
-          i18n>Local App</span>
-    <button routerLink="../local"
-            routerLinkActive="active"
-            i18n>Local App</button>
-    <button routerLink="../remote"
-            routerLinkActive="active"
-            i18n>Remote App</button>
-  </dstore-center-title>
+<dstore-center-title>
+  <span title
+        i18n>Local App</span>
+  <button routerLink="../local"
+          routerLinkActive="active"
+          i18n>Local App</button>
+  <button routerLink="../remote"
+          routerLinkActive="active"
+          i18n>Remote App</button>
+</dstore-center-title>
 
-  <ng-template #loadingContainer>
-    <div class="loadingContainer">
-      <app-wait></app-wait>
-    </div>
-  </ng-template>
-  <ng-container *ngIf="installedList$|async as installedPage; else loadingContainer">
-    <ng-container *ngFor="let installed of installedPage.list">
-      <div class="installedApp">
+<ng-template #loadingContainer>
+  <div class="loadingContainer">
+    <app-wait></app-wait>
+  </div>
+</ng-template>
+<div class="installed-list"
+     dstoreResize
+     (resize)="listHeight$.next($event.height)">
+  <ng-container *ngIf="apps$|async as installedList; else loadingContainer">
+    <ng-container *ngFor="let installed of installedList">
+      <div class="installed-app">
         <img class="icon"
              [routerLink]="['/app',installed.name]"
              [src]="installed.app.icon">
@@ -47,7 +49,7 @@
               <button (click)="select=null"
                       i18n>Cancel</button>
               <button class="primary"
-                      (click)="remove(installed)"
+                      (click)="remove(installed.app)"
                       i18n>Confirm</button>
             </ng-template>
             <ng-container *ngIf="select != installed.app.name;else confirmBtn">
@@ -64,10 +66,12 @@
         </ng-container>
       </div>
     </ng-container>
-    <div class="paginator">
-      <app-paginator [count]="installedPage.total"
-                     [pageIndex]="installedPage.page"
-                     (pageIndexChange)="gotoPage($event)"></app-paginator>
-    </div>
+  </ng-container>
+</div>
+<div class="paginator">
+  <ng-container *ngIf="count$|async as count">
+    <app-paginator [count]="count"
+                   [pageIndex]="pageIndex$|async"
+                   (pageIndexChange)="gotoPage($event)"></app-paginator>
   </ng-container>
 </div>
