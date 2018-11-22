@@ -14,3 +14,6 @@ Terminal=false
 Type=Application
 X-MultipleArgs=false
 MimeType=x-scheme-handler/dpk;
+GenericName=Store
+X-Deepin-Vendor=deepin
+
