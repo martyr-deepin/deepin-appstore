@@ -255,7 +255,12 @@ void WebWindow::initConnections()
 
 void WebWindow::initProxy()
 {
+#ifdef DSTORE_DISABLE_MULTI_THREAD
+    bool useMultiThread = false;
+#else
     bool useMultiThread = true;
+#endif
+
     auto parent = this;
     if (useMultiThread) {
         parent = nullptr;

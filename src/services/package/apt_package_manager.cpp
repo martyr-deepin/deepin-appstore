@@ -10,6 +10,8 @@
 #include "dbus/lastore_deb_interface.h"
 #include "dbus/lastore_job_interface.h"
 
+#include "services/store_daemon_manager.h"
+
 namespace dstore
 {
 namespace
@@ -46,10 +48,102 @@ AptPackageManager::~AptPackageManager()
 
 }
 
+PackageManagerResult AptPackageManager::Query(const QStringList &packageIDs)
+{
+    Q_D(AptPackageManager);
+    qDebug() << packageIDs;
+
+    const QDBusPendingReply<AppVersionList> reply =
+        d->deb_interface_->QueryVersion(packageIDs);
+
+    while (!reply.isFinished()) {
+        qApp->processEvents();
+    }
+
+    if (reply.isError()) {
+        qDebug() << reply.error();
+        return PackageManagerResult(false,
+                                    reply.error().name(),
+                                    reply.error().message(),
+                                    "");
+    }
+
+    const AppVersionList version_list = reply.value();
+    QMap<QString, Package> result;
+    for (const AppVersion &version : version_list) {
+        auto package_name = version.pkg_name;
+        auto packageID =  package_name.split(":").first();
+        // TODO: remove name
+        Package pkg;
+        pkg.packageURI = "dpk://deb/" + packageID;
+        pkg.packageName = package_name;
+        pkg.localVersion = version.installed_version;
+        pkg.remoteVersion = version.remote_version;
+        pkg.upgradable = version.upgradable;
+        pkg.appName = packageID;
+        result.insert(packageID, pkg);
+    }
+
+    const QDBusPendingReply<InstalledAppTimestampList> installTimeReply =
+        d->deb_interface_->QueryInstallationTime(packageIDs);
+    if (installTimeReply.isError()) {
+        qDebug() << installTimeReply.error();
+        return PackageManagerResult(false,
+                                    installTimeReply.error().name(),
+                                    installTimeReply.error().message(),
+                                    "");
+    }
+
+    while (!installTimeReply.isFinished()) {
+        qApp->processEvents();
+    }
+
+    const InstalledAppTimestampList timestamp_list = installTimeReply.value();
+
+    for (const InstalledAppTimestamp &timestamp : timestamp_list) {
+        auto package_name = timestamp.pkg_name;
+        auto packageID =  package_name.split(":").first();
+        auto pkg = result.value(package_name);
+        pkg.installedTime =  timestamp.timestamp;
+        result.insert(package_name, pkg);
+    }
+
+    if (packageIDs.length() == 1) {
+        auto packageName = packageIDs.value(0);
+        const QDBusPendingReply<qlonglong> sizeReply =
+            d->deb_interface_->QueryDownloadSize(packageName);
+        while (!installTimeReply.isFinished()) {
+            qApp->processEvents();
+        }
+        if (sizeReply.isError()) {
+            qDebug() << sizeReply.error();
+            return PackageManagerResult(false,
+                                        sizeReply.error().name(),
+                                        sizeReply.error().message(),
+                                        "");
+        }
+
+
+        const qlonglong size = sizeReply.value();
+        auto pkg = result.value(packageName);
+        pkg.size = size;
+        result.insert(packageName, pkg);
+    }
+
+    QVariantMap data;
+    for (auto &p : result) {
+        data.insert(p.packageURI, p.toVariantMap());
+    }
+    qDebug() << data;
+    return PackageManagerResult(true,
+                                "",
+                                "",
+                                data);
+}
+
 PackageManagerResult AptPackageManager::QueryVersion(const QStringList &packageIDs)
 {
     Q_D(AptPackageManager);
-
 
     const QDBusPendingReply<AppVersionList> reply =
         d->deb_interface_->QueryVersion(packageIDs);
@@ -64,6 +158,7 @@ PackageManagerResult AptPackageManager::QueryVersion(const QStringList &packageI
                                     reply.error().message(),
                                     "");
     }
+
 
     const AppVersionList version_list = reply.value();
     QVariantList result;

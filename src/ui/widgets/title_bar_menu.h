@@ -19,7 +19,7 @@
 #define DEEPIN_APPSTORE_UI_WIDGETS_TOOL_BAR_MENU_H
 
 #include <QMenu>
-#include <QJsonObject>
+#include <QVariantMap>
 
 namespace dstore {
 

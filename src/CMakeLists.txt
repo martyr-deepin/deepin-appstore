@@ -13,6 +13,10 @@ else()
     -DSETTINGS_FILE="${CMAKE_CURRENT_SOURCE_DIR}/resources/settings.ini")
 endif()
 
+if (DISABLE_MULTI_THREAD)
+  add_definitions(-DDSTORE_DISABLE_MULTI_THREAD="YES")
+endif()
+
 if(CONFIG_VERSION)
   add_definitions(-DVERSION=${CONFIG_VERSION})
 endif()

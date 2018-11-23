@@ -74,7 +74,7 @@ signals:
      * @brief notify user info change when user login/logout from web page
      * @param info
      */
-    void userInfoUpdated(QJsonObject info);
+    void userInfoUpdated(QVariantMap info);
 
 public slots:
     /**

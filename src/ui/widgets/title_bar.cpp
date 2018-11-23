@@ -21,7 +21,7 @@
 #include <QTimer>
 #include <QDir>
 #include <QPainter>
-#include <QJsonObject>
+#include <QVariantMap>
 #include <DThemeManager>
 
 #include "ui/widgets/search_edit.h"
@@ -58,7 +58,7 @@ void TitleBar::setForwardButtonActive(bool active)
     forward_button_->setEnabled(active);
 }
 
-void TitleBar::setUserInfo(const QJsonObject &info)
+void TitleBar::setUserInfo(const QVariantMap &info)
 {
     user_name_ = info.value("name").toString();
     user_menu_->setUsername(user_name_);

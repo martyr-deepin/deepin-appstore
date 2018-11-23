@@ -60,7 +60,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void setBackwardButtonActive(bool active);
     void setForwardButtonActive(bool active);
-    void setUserInfo(const QJsonObject &info);
+    void setUserInfo(const QVariantMap &info);
 
 private:
     void initUI();

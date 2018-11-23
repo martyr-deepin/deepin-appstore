@@ -19,6 +19,7 @@ public:
 Q_SIGNALS:
 
 public Q_SLOTS:
+    virtual PackageManagerResult Query(const QStringList &packageIDs) override;
     virtual PackageManagerResult QueryVersion(const QStringList &packageIDs) override;
     virtual PackageManagerResult QueryInstalledTime(const QStringList &packageIDs) override;
     virtual PackageManagerResult ListInstalled(const QStringList &packageIDs) override;

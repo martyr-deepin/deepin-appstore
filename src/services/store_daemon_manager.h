@@ -25,23 +25,6 @@
 namespace dstore
 {
 
-struct Package {
-    QString packageURI;
-    QString localVersion;
-    QString remoteVersion;
-    bool upgradable;
-};
-
-struct AppPackage {
-    QString         name;
-    QString         localName;
-    QStringList     packageURI;
-    QList<Package>  packages;
-
-    static AppPackage fromJson(const QByteArray &json);
-    QByteArray toJson() const;
-};
-
 class StoreDaemonManagerPrivate;
 class StoreDaemonManager : public QObject
 {
@@ -86,6 +69,8 @@ public Q_SLOTS:
      */
     QVariantMap packageDownloadSize(const QString &app_name);
     QVariantMap queryInstalledTime(const QStringList &apps);
+
+    QVariantMap query(const QVariantList &apps);
 
     /**
      * apt-get install xxx

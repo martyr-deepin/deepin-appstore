@@ -18,8 +18,6 @@
 #include "ui/channel/menu_proxy.h"
 
 #include <QDebug>
-#include <QJsonValue>
-#include <QJsonObject>
 
 namespace dstore
 {
@@ -36,7 +34,7 @@ MenuProxy::~MenuProxy()
 
 void MenuProxy::setUserInfo(QVariantMap info)
 {
-    emit this->userInfoUpdated(QJsonObject::fromVariantMap(info));
+    emit this->userInfoUpdated(info);
 }
 
 }  // namespace dstore

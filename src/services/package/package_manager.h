@@ -3,7 +3,9 @@
 #include <QObject>
 #include <QScopedPointer>
 
+#include "services/store_daemon_manager.h"
 #include "package_manager_interface.h"
+
 namespace dstore
 {
 class PackageManagerInterface;
@@ -19,6 +21,8 @@ public:
 Q_SIGNALS:
 
 public Q_SLOTS:
+    PackageManagerResult Query(const AppPackageList &apps);
+
     PackageManagerResult QueryVersion(const QStringList &packageID);
 
     PackageManagerResult QueryInstalledTime(const QStringList &packageID);

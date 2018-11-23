@@ -18,9 +18,11 @@
 #ifndef DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
 #define DEEPIN_APPSTORE_UI_STORE_DAEMON_PROXY_H
 
+#include <QDebug>
 #include <QObject>
 #include <QThread>
 #include <QVariantMap>
+#include <QJsonArray>
 
 #include "services/search_result.h"
 #include "services/store_daemon_manager.h"
@@ -130,6 +132,15 @@ public Q_SLOTS:
     QVariantMap removePackage(const QString &app_name, const QString &app_local_name)
     {
         return manager_->removePackage(app_name, app_local_name);
+    }
+
+    /**
+     * Query application version information.
+     * @param apps
+     */
+    QVariantMap query(const QVariantList &apps)
+    {
+        return manager_->query(apps);
     }
 
     /**

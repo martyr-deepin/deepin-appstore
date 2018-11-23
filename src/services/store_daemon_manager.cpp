@@ -398,6 +398,23 @@ QVariantMap StoreDaemonManager::queryInstalledTime(const QStringList &apps)
     };
 }
 
+QVariantMap StoreDaemonManager::query(const QVariantList &apps)
+{
+    Q_D(StoreDaemonManager);
+
+    AppPackageList list;
+    for (auto v : apps) {
+        list.append(AppPackage::fromVariantMap(v.toMap()));
+    }
+    auto result = d->pm->Query(list);
+    return QVariantMap {
+        { kResultOk, result.success },
+        { kResultErrName, result.errName },
+        { kResultErrMsg, result.errMsg },
+        { kResult, result.data},
+    };
+}
+
 QVariantMap StoreDaemonManager::getJobInfo(const QString &job)
 {
     QVariantMap result;
@@ -483,15 +500,5 @@ QVariantMap StoreDaemonManager::fixError(const QString &error_type)
     };
 }
 
-AppPackage AppPackage::fromJson(const QByteArray &json)
-{
-    Q_UNUSED(json);
-    return AppPackage();
-}
-
-QByteArray AppPackage::toJson() const
-{
-    return QByteArray();
-}
 
 }  // namespace dstore

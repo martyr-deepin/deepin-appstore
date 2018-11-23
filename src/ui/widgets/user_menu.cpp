@@ -10,31 +10,26 @@ class UserMenuPrivate
 public:
     UserMenuPrivate(UserMenu *parent) : q_ptr(parent)
     {
-        userName = new QAction(UserMenu::tr("Username"));
+        userName = parent->addAction(UserMenu::tr("Username"));
         userName->setDisabled(true);
-        parent->addAction(userName);
 
-        comment = new QAction(UserMenu::tr("My comments"));
+        comment = parent->addAction(UserMenu::tr("My comments"));
         parent->connect(comment, &QAction::triggered,
                         parent, &UserMenu::commentRequested);
-        parent->addAction(comment);
 
-        reward = new QAction(UserMenu::tr("My reward"));
+        reward = parent->addAction(UserMenu::tr("My reward"));
         parent->connect(reward, &QAction::triggered,
                         parent, &UserMenu::requestReward);
-        parent->addAction(reward);
 
-        apps = new QAction(UserMenu::tr("My apps"));
+        apps = parent->addAction(UserMenu::tr("My apps"));
         parent->connect(apps, &QAction::triggered,
                         parent, &UserMenu::requestApps);
-        parent->addAction(apps);
 
         parent->addSeparator();
 
-        logout = new QAction(UserMenu::tr("Logout"));
+        logout = parent->addAction(UserMenu::tr("Logout"));
         parent->connect(logout, &QAction::triggered,
                         parent, &UserMenu::requestLogout);
-        parent->addAction(logout);
     }
 
     QAction *userName;

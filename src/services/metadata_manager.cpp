@@ -110,7 +110,7 @@ QString MetadataManager::getAppMetadataList(const QStringList &app_name_list)
 
 bool isExpired(const QFileInfo &fi)
 {
-    return fi.lastModified().secsTo(QDateTime::currentDateTime()) > 3600 * 3;
+    return fi.lastModified().secsTo(QDateTime::currentDateTime()) > 3600 * 24;
 }
 
 bool MetadataManager::downloadMetadata()

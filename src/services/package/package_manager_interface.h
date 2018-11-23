@@ -8,14 +8,32 @@
 namespace dstore
 {
 
-struct PackageMeta {
-    QString id;
-    QString name;
-    QString versoin;
-    int     size;
+struct Package {
+    QString packageURI;
+    QString packageName;
+    QString appName;
+    QString localVersion;
+    QString remoteVersion;
+    qlonglong installedTime;
+    qlonglong size;
+    bool upgradable;
+
+    static Package fromVariantMap(const QVariantMap &json);
+//    static Package fromJson(const QByteArray &json);
+    QVariantMap toVariantMap() const;
 };
 
-typedef QMap<QString, PackageMeta> PackageMetaMap;
+struct AppPackage {
+    QString         name;
+    QString         localName;
+//    QStringList     packageURI;
+    QList<Package>  packages;
+
+    static AppPackage fromVariantMap(const QVariantMap &json);
+    QVariantMap toVariantMap() const;
+};
+
+typedef QList<AppPackage> AppPackageList;
 
 struct PackageManagerResult {
     PackageManagerResult(bool success,
@@ -45,6 +63,7 @@ public Q_SLOTS:
     /*!
      * \brief Query
      */
+    virtual PackageManagerResult Query(const QStringList &packageIDs) = 0;
     virtual PackageManagerResult QueryVersion(const QStringList &packageIDs) = 0;
 
     /*!
