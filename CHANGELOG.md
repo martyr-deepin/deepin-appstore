@@ -1,3 +1,13 @@
+<a name="5.1.2.5"></a>
+## 5.1.2.5 (2018-11-26)
+
+
+#### Features
+
+*   support X-Deepin-Vendor ([999818ee](https://github.com/linuxdeepin/deepin-appstore/commit/999818eef5fe4f0903e187db117702988830135c))
+
+
+
 <a name="5.1.2.3"></a>
 ## 5.1.2.3 (2018-11-16)
 
