@@ -49,7 +49,9 @@
     }
   }
 }
-.paginator {
-  margin: 0.5rem 0;
-  text-align: right;
+.paginatorContainer {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }

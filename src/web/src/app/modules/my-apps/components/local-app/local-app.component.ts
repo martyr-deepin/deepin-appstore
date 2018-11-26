@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { chunk, get } from 'lodash';
-import { Subject, combineLatest } from 'rxjs';
-import { map, tap, share, shareReplay } from 'rxjs/operators';
+import { combineLatest, BehaviorSubject } from 'rxjs';
+import { map, tap, share, shareReplay, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 import { LocalAppService } from '../../services/local-app.service';
-import { BrowserService } from 'app/modules/share/services/browser.service';
 import { App } from 'app/services/app.service';
 
 @Component({
@@ -18,13 +16,16 @@ export class LocalAppComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private localAppService: LocalAppService,
-    private browserService: BrowserService,
   ) {}
 
   removing: string[] = [];
   select: string;
-  listHeight$ = new Subject<number>();
-  pageSize$ = this.listHeight$.pipe(map(height => Math.floor(height / 64)));
+  listHeight$ = new BehaviorSubject<number>(0);
+  pageSize$ = this.listHeight$.pipe(
+    debounceTime(100),
+    map(height => Math.floor(height / 64)),
+    distinctUntilChanged(),
+  );
   pageIndex$ = this.route.queryParamMap.pipe(map(query => Number(query.get('page') || 1) - 1));
   localApps$ = this.localAppService.LocalAppList().pipe(share());
   apps$ = combineLatest(this.localApps$, this.pageSize$, this.pageIndex$).pipe(

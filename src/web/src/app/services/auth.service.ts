@@ -25,6 +25,7 @@ export class AuthService {
   // 登录方法
   login(token: string) {
     localStorage.setItem(this.tokenStorageKey, token);
+    console.log('welcome', JwtDecode(token));
     this.tokenSubject.next(token);
   }
   // 登出方法

@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Subject, of, combineLatest } from 'rxjs';
-import { distinctUntilChanged, scan, startWith, switchMap, map, share } from 'rxjs/operators';
+import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
+import { distinctUntilChanged, startWith, tap, switchMap, map, share } from 'rxjs/operators';
 
 import { CommentsService, UserComment } from '../../services/comments.service';
-import { AppService } from 'app/services/app.service';
-import { App } from 'app/dstore/services/app';
-
 @Component({
   selector: 'dstore-comments',
   templateUrl: './comments.component.html',
@@ -19,16 +16,15 @@ export class CommentsComponent implements OnInit {
     private commentsService: CommentsService,
   ) {}
   edit$ = new Subject<UserComment>();
-  // 监听当前页
-  pageIndex$ = this.route.queryParamMap.pipe(map(query => Number(query.get('page') || 1) - 1));
   // 监听列表高度
-  listHeight$ = new Subject<number>();
+  listHeight$ = new BehaviorSubject<number>(0);
   // 根据列表高度计算列表行数
   pageSize$ = this.listHeight$.pipe(
     map(height => Math.floor(height / 60)),
     distinctUntilChanged(),
-    share(),
   );
+  // 监听当前页
+  pageIndex$ = this.route.queryParamMap.pipe(map(query => Number(query.get('page') || 1) - 1));
   // 根据列表行数和页数的变动,拉取列表数据
   result$ = combineLatest(
     this.pageIndex$.pipe(

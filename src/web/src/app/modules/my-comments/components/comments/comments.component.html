@@ -47,11 +47,10 @@
 		</ng-container>
 	</div>
 </div>
-<div class="paginator">
+<div class="paginatorContainer">
 	<ng-container *ngIf="count$|async as count">
 		<app-paginator [count]="count"
 		               [pageIndex]="pageIndex$|async"
-		               [hidden]="count<=1"
 		               (pageIndexChange)="gotoPage($event)"></app-paginator>
 	</ng-container>
 </div>

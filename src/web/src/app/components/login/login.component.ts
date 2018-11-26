@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
           );
         } else {
           this.loginURL = this.domSanitizer.bypassSecurityTrustResourceUrl(
-            'https://login.deepin.org/oauth2/logout',
+            'http://test.login.deepin.org/oauth2/logout',
           );
         }
         this.loaded = false;
@@ -78,7 +78,9 @@ export class LoginComponent implements OnInit {
     const closeButton = iframe.contentDocument.getElementById('close');
     if (closeButton) {
       closeButton.addEventListener('click', () => {
-        this.dialogRef.nativeElement.close();
+        if (this.dialogRef.nativeElement.open) {
+          this.dialogRef.nativeElement.close();
+        }
       });
     }
     for (const id of ['signup', 'forget']) {
@@ -94,21 +96,26 @@ export class LoginComponent implements OnInit {
   }
 
   finish(iframe: HTMLIFrameElement) {
+    console.log(iframe.contentDocument.cookie);
     const [, token] = iframe.contentDocument.cookie
       .split('; ')
       .map(c => c.split('='))
-      .find(([key, value]) => key === 'auth-token') || ['', ''];
+      .find(([key]) => key === 'auth-token') || ['', ''];
     if (token) {
-      if (this.dialogRef.nativeElement.open) {
-        this.dialogRef.nativeElement.close();
-      }
+      this.close();
       this.authService.login(token);
+    }
+  }
+
+  close() {
+    if (this.dialogRef.nativeElement.open) {
+      this.dialogRef.nativeElement.close();
     }
   }
 
   logout() {
     this.http.post(this.server + '/api/logout', null).subscribe(null, null, () => {
-      this.dialogRef.nativeElement.close();
+      this.close();
       this.authService.logout();
     });
   }

@@ -52,6 +52,6 @@ export class PaginatorComponent implements OnInit, OnChanges {
         pls.unshift(pls[0] - 1);
       }
     }
-    return pls || [];
+    return pls;
   }
 }

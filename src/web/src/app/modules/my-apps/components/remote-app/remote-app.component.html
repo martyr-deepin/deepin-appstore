@@ -1,15 +1,44 @@
-<div class="remoteAppList">
-  <dstore-center-title>
-    <span title
-          i18n>Remote App</span>
-    <button routerLink="../local"
-            routerLinkActive="active"
-            i18n>Local App</button>
-    <button routerLink="../remote"
-            routerLinkActive="active"
-            i18n>Remote App</button>
-  </dstore-center-title>
-
-  <dstore-remote-install [apps]="[]"></dstore-remote-install>
-
+<dstore-center-title>
+  <span title
+        i18n>Remote App</span>
+  <button routerLink="../local"
+          routerLinkActive="active"
+          i18n>Local App</button>
+  <button routerLink="../remote"
+          routerLinkActive="active"
+          i18n>Remote App</button>
+</dstore-center-title>
+<dstore-remote-install></dstore-remote-install>
+<div class="remote-apps"
+     dstoreResize
+     (resize)="listHeight$.next($event.height)">
+  <ng-container *ngFor="let remoteApp of apps$|async">
+    <div class="remote-app"
+         *ngIf="remoteApp.appName|appInfo|async as info">
+      <img class="icon"
+           [src]="info.icon"
+           [routerLink]="['/app',info.name]">
+      <div class="content">
+        <div class="info">{{info.localInfo.description.name}}</div>
+        <div class="time">
+          <span i18n>Date installed:</span>
+          {{remoteApp.time|date:"yyyy.MM.dd"}}
+        </div>
+        <div class="version">
+          <span i18n>Version:</span>
+          {{info.version.remoteVersion}}
+        </div>
+        <div class="control">
+          <button i18n>Install</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<div class="paginatorContainer">
+  <ng-container *ngIf="count$|async as count">
+    <app-paginator [count]="count"
+                   [pageIndex]="pageIndex$|async"
+                   (pageIndexChange)="gotoPage($event)"></app-paginator>
+  </ng-container>
 </div>

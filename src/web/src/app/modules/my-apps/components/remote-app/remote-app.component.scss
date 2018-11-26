@@ -2,4 +2,39 @@
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
+  height: 100vh;
+}
+
+.remote-apps {
+  flex: 1;
+  overflow: hidden;
+  .remote-app {
+    display: flex;
+    height: 64px;
+    align-items: center;
+    .content {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      padding-left: 0.5rem;
+      align-items: center;
+      border-bottom: 1px solid var(--main-item-hr-color);
+      .info {
+        flex: 1;
+      }
+      .version,
+      .time {
+        color: gray;
+        flex: 1;
+      }
+      .control {
+        flex: 1;
+        text-align: right;
+        margin: 1rem;
+        button {
+          min-width: 100px;
+        }
+      }
+    }
+  }
 }

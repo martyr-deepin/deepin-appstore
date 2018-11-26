@@ -1,5 +1,5 @@
 <ng-container *ngIf="pageCount">
-    <ng-container *ngIf="pageList as pageList">
+    <ng-container *ngIf="pageList.length>1">
         <button [disabled]="pageIndex===0"
                 (click)="pageIndexChange.emit(pageIndex-1)">&lt;</button>
         <ng-container *ngIf="!pageList.includes(0)">

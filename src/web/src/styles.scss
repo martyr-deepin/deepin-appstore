@@ -142,3 +142,10 @@ img {
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
+
+.paginatorContainer {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
