@@ -30,10 +30,13 @@
       .control {
         flex: 1;
         text-align: right;
-        margin: 1rem;
         button {
           min-width: 100px;
         }
+      }
+      .no-version {
+        flex: 2;
+        color: red;
       }
     }
   }

@@ -13,24 +13,30 @@
      dstoreResize
      (resize)="listHeight$.next($event.height)">
   <ng-container *ngFor="let remoteApp of apps$|async">
-    <div class="remote-app"
-         *ngIf="remoteApp.appName|appInfo|async as info">
+    <div class="remote-app">
       <img class="icon"
-           [src]="info.icon"
-           [routerLink]="['/app',info.name]">
+           [src]="remoteApp.app.icon"
+           [routerLink]="['/app',remoteApp.app.name]">
       <div class="content">
-        <div class="info">{{info.localInfo.description.name}}</div>
+        <div class="info">{{remoteApp.app.localInfo.description.name}}</div>
         <div class="time">
           <span i18n>Date installed:</span>
           {{remoteApp.time|date:"yyyy.MM.dd"}}
         </div>
-        <div class="version">
-          <span i18n>Version:</span>
-          {{info.version.remoteVersion}}
-        </div>
-        <div class="control">
-          <button i18n>Install</button>
-        </div>
+        <ng-container *ngIf="remoteApp.app.version; else noVersionError">
+          <div class="version">
+            <span i18n>Version:</span>
+            {{remoteApp.app.version.remoteVersion}}
+          </div>
+          <div class="control">
+            <button i18n>Install</button>
+          </div>
+        </ng-container>
+        <ng-template #noVersionError>
+          <div class="no-version">
+            应用暂不可用
+          </div>
+        </ng-template>
       </div>
     </div>
   </ng-container>

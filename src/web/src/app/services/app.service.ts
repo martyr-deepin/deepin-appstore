@@ -53,7 +53,7 @@ export class AppService {
   getAppListByCategory(category: string): Observable<App[]> {
     return this.list().pipe(map(apps => apps.filter(app => app.category === category)));
   }
-  getApps(appNameList: string[]): Observable<App[]> {
+  getApps(appNameList: string[], filterVersion = true): Observable<App[]> {
     if (!this.native) {
       return this.getAppMap().pipe(
         map(appMap => {
@@ -64,12 +64,15 @@ export class AppService {
     return combineLatest(this.getAppMap(), this.storeService.getVersionMap(appNameList)).pipe(
       map(([appMap, versionMap]) => {
         const apps = appNameList
-          .filter(name => versionMap.has(name) && appMap.has(name))
+          .filter(name => appMap.has(name))
           .map(name => {
             const app = appMap.get(name);
             app.version = versionMap.get(name);
             return app;
           });
+        if (filterVersion) {
+          return apps.filter(app => Boolean(app.version));
+        }
         return apps;
       }),
     );
