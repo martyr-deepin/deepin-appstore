@@ -210,6 +210,10 @@ else()
 		     VERBATIM)
 endif()
 
+add_custom_command(OUTPUT deepin-update-desktop
+COMMAND sh -c "deepin-desktop-ts-convert ts2desktop resources/deepin-appstore.desktop ../translations/desktop resources/deepin-appstore.desktop")
+
+add_custom_target(update-desktop DEPENDS deepin-update-desktop)
 add_custom_target(update-web-dist DEPENDS npm-update-web-dist)
 
 add_executable(deepin-appstore
@@ -230,7 +234,7 @@ target_link_libraries(deepin-appstore ${LibQCef_LIBDIR}/qcef/libcef.so
                       ${LINK_LIBS})
 
 if(CMAKE_BUILD_TYPE MATCHES Release)
-  add_dependencies(deepin-appstore update-qm update-web-dist)
+  add_dependencies(deepin-appstore update-qm update-web-dist update-desktop)
 endif()
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
