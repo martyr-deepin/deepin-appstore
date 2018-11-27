@@ -1,3 +1,17 @@
+<a name="5.1.2.6"></a>
+## 5.1.2.6 (2018-11-27)
+
+
+#### Bug Fixes
+
+*   missing desktop translations ([27eae5f9](https://github.com/linuxdeepin/deepin-appstore/commit/27eae5f9e872c9cd8036f2245ee01399241dee4f))
+
+#### Features
+
+*   add auto desktop create ([4e66047e](https://github.com/linuxdeepin/deepin-appstore/commit/4e66047e8b85bd1a7b816de8e5b96ced6ca81d61))
+
+
+
 <a name="5.1.2.5"></a>
 ## 5.1.2.5 (2018-11-26)
 
