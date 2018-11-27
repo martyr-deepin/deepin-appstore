@@ -12,6 +12,7 @@ Build-Depends:
  libqt5webchannel5-dev,
  libsass0,
  pkg-config,
+ deepin-gettext-tools,
  qttools5-dev-tools,
  qttools5-dev,
  nodejs-bin | nodejs

@@ -184,18 +184,30 @@ add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 
 # Update angular dist/. Works on x86 based platforms.
 if(BUILD_WEB_RESOURCES)
-  add_custom_command(OUTPUT npm-update-web-dist
-                     COMMAND sh -c
-                             "PATH=./node_modules/.bin:$PATH npm run build; PATH=./node_modules/.bin:$PATH npm run build-aot; "
-                     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
-                     VERBATIM)
+  add_custom_command(
+    OUTPUT npm-update-web-dist
+    COMMAND
+      sh -c
+      "PATH=./node_modules/.bin:$PATH npm run build; PATH=./node_modules/.bin:$PATH npm run build-aot; "
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/web"
+    VERBATIM)
 else()
   add_custom_command(OUTPUT npm-update-web-dist
-                     COMMAND sh -c "mkdir -p web_dist web_dist_aot/appstore || true"
+                     COMMAND sh -c
+                             "mkdir -p web_dist web_dist_aot/appstore || true"
                      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                      VERBATIM)
 endif()
 
+add_custom_command(
+  OUTPUT deepin-update-desktop
+  COMMAND
+    sh -c
+    "/usr/bin/deepin-desktop-ts-convert ts2desktop resources/deepin-appstore.desktop ./translations/desktop resources/deepin-appstore.desktop"
+  WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+  VERBATIM)
+
+add_custom_target(update-desktop DEPENDS deepin-update-desktop)
 add_custom_target(update-web-dist DEPENDS npm-update-web-dist)
 
 add_executable(deepin-appstore
@@ -216,7 +228,7 @@ target_link_libraries(deepin-appstore ${LibQCef_LIBDIR}/qcef/libcef.so
                       ${LINK_LIBS})
 
 if(CMAKE_BUILD_TYPE MATCHES Release)
-  add_dependencies(deepin-appstore update-qm update-web-dist)
+  add_dependencies(deepin-appstore update-qm update-web-dist update-desktop)
 endif()
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
