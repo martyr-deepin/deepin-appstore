@@ -1,25 +1,17 @@
-import { Injectable, NgZone, Version } from '@angular/core';
+import { DownloadTotalService } from './../../../services/download-total.service';
+import { Injectable } from '@angular/core';
 import { Channel } from '../utils/channel';
-import { Observable, from, of, BehaviorSubject } from 'rxjs';
-import { flatMap, map, first, skip } from 'rxjs/operators';
+import { Observable, from, of } from 'rxjs';
+import { flatMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from '../models/store-job-info';
 import { AppVersion } from '../models/app-version';
 import { InstalledApp } from '../models/installed';
-import { HttpClient } from '@angular/common/http';
-// import { BaseService } from '../../dstore/services/base.service';
-
-interface SignalObject {
-  connect: (any) => {};
-  disconnect: () => {};
-}
 
 @Injectable()
 export class StoreService {
-  // private server = BaseService.serverHosts.operationServer;
-
-  constructor(private zone: NgZone, private http: HttpClient) {}
+  constructor(private downloadTotalService: DownloadTotalService) {}
 
   getJobList(): Observable<string[]> {
     return this.execWithCallback('storeDaemon.jobList');
@@ -29,13 +21,6 @@ export class StoreService {
     return Channel.connect('storeDaemon.jobListChanged');
   }
 
-  // private downloadRecord(appName: string) {
-  //   this.http.post<void>(`${this.server}/api/downloading/app/${appName}`, null).subscribe();
-  // }
-  /**
-   * Check connectivity to backend lastore daemon.
-   * @returns {Observable<boolean>} If returns false, all methods in this class will not work.
-   */
   isDBusConnected(): Observable<boolean> {
     return this.execWithCallback('storeDaemon.isDBusConnected');
   }
@@ -52,23 +37,13 @@ export class StoreService {
     Channel.exec('storeDaemon.startJob', job);
   }
 
-  /**
-   * Install a specific package.
-   * @param {string} appName
-   * @returns {Observable<string>} path to job
-   */
   installPackage(appName: string, localName: string): Observable<string> {
-    // this.downloadRecord(appName);
+    this.downloadTotalService.installed(appName);
     return this.execWithCallback('storeDaemon.installPackage', appName, localName);
   }
 
-  /**
-   * Update a spcific package. Call getUpgradableApps() first.
-   * @param {string} appName
-   * @returns {Observable<string>}
-   */
   updatePackage(appName: string, localName: string): Observable<string> {
-    // this.downloadRecord(appName);
+    this.downloadTotalService.installed(appName);
     return this.execWithCallback('storeDaemon.updatePackage', appName, localName);
   }
 
@@ -76,37 +51,18 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.removePackage', appName, localName);
   }
 
-  /**
-   * Check whether application installed or not.
-   * @param {string} appName
-   * @returns {Observable<boolean>}
-   */
   appInstalled(appName: string): Observable<boolean> {
     return this.execWithCallback('storeDaemon.packageExists', appName);
   }
 
-  /**
-   * Check whether a package exists in local APT store and is able to be installed.
-   * @param {string} appName
-   * @returns {Observable<boolean>}
-   */
   appInstallable(appName: string): Observable<boolean> {
     return this.execWithCallback('storeDaemon.packageInstallable', appName);
   }
 
-  /**
-   * Get size of package to be downloaded.
-   * @param {string} appName
-   * @returns {Observable<number>}
-   */
   appDownloadSize(appName: string): Observable<number> {
     return this.execWithCallback('storeDaemon.packageDownloadSize', appName);
   }
 
-  /**
-   * Get application list which are ready to update.
-   * @returns {Observable<string[]>}
-   */
   getUpgradableApps(): Observable<string[]> {
     return this.execWithCallback('storeDaemon.upgradableApps');
   }
@@ -149,6 +105,7 @@ export class StoreService {
   getInstalledTimes(appNameList: string[]): Observable<{ app: string; time: number }[]> {
     return this.execWithCallback('storeDaemon.queryInstalledTime', appNameList);
   }
+
   getInstalledTimeMap(appNameList: string[]): Observable<Map<string, number>> {
     return this.getInstalledTimes(appNameList).pipe(
       map(
@@ -176,18 +133,9 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.getJobsInfo', jobs);
   }
 
-  /**
-   * Request to run application in background.
-   * @param {string} appName
-   */
   openApp(appName: string): void {
     Channel.exec('storeDaemon.openApp', appName);
   }
-
-  /**
-   * Get all of jobs in backend.
-   * @returns {Observable<string[]>}
-   */
 
   execWithCallback<T>(method: string, ...args: any[]): Observable<T> {
     return from(
