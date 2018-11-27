@@ -12,6 +12,7 @@ Build-Depends:
  libqt5webchannel5-dev,
  libsass0,
  pkg-config,
+ deepin-gettext-tools,
  qttools5-dev-tools,
  qttools5-dev,
  python3-lxml,
@@ -27,7 +28,6 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  lastore-daemon (>=0.9.62),
  libqt5dbus5,
  libqt5sql5-sqlite,
- deepin-gettext-tools,
  deepin-appstore-data [!mips64el],
  deepin-appstore-data-aot [mips64el]
 Replaces: dstore-client
