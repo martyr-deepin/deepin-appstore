@@ -203,7 +203,7 @@ add_custom_command(
   OUTPUT deepin-update-desktop
   COMMAND
     sh -c
-    "/usr/bin/deepin-desktop-ts-convert ts2desktop resources/deepin-appstore.desktop ./translations/desktop resources/deepin-appstore.desktop"
+    "/usr/bin/deepin-desktop-ts-convert ts2desktop resources/deepin-appstore.desktop ../translations/desktop resources/deepin-appstore.desktop"
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
   VERBATIM)
 
