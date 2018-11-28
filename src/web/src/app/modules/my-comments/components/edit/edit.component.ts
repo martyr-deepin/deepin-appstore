@@ -7,7 +7,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { UserComment } from '../../services/comments.service';
+import { UserComment, CommentsService } from '../../services/comments.service';
 
 @Component({
   selector: 'dstore-edit',
@@ -36,7 +36,7 @@ export class EditComponent implements OnInit {
     this.rate = c.rate / 2;
     this.version = c.version;
   }
-  constructor() {}
+  constructor(private commentService: CommentsService) {}
 
   ngOnInit() {
     this.dialogRef.nativeElement.addEventListener('close', () => {
@@ -45,5 +45,19 @@ export class EditComponent implements OnInit {
   }
   closed(changed: boolean = false) {
     this.close.emit(changed);
+  }
+  submit() {
+    this.commentService.delete(this._comment.id).subscribe(() => {
+      this.commentService
+        .create(this._comment.appName, this.content, this.rate * 2, this._comment.version)
+        .subscribe(() => {
+          this.closed(true);
+        });
+    });
+  }
+  delete() {
+    this.commentService.delete(this._comment.id).subscribe(() => {
+      this.closed(true);
+    });
   }
 }

@@ -11,7 +11,7 @@
 
 <dstore-edit *ngIf="edit$|async as comment"
              [comment]="comment"
-             (close)="editClose()"></dstore-edit>
+             (close)="editClose($event)"></dstore-edit>
 
 <div class="comment-list"
      dstoreResize

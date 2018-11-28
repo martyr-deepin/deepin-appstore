@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
-import { distinctUntilChanged, startWith, tap, switchMap, map, share } from 'rxjs/operators';
+import { distinctUntilChanged, startWith, first, switchMap, map, share } from 'rxjs/operators';
 
 import { CommentsService, UserComment } from '../../services/comments.service';
 @Component({
@@ -15,7 +15,7 @@ export class CommentsComponent implements OnInit {
     private router: Router,
     private commentsService: CommentsService,
   ) {}
-  edit$ = new Subject<UserComment>();
+  edit$ = new BehaviorSubject<UserComment>(null);
   // 监听列表高度
   listHeight$ = new BehaviorSubject<number>(0);
   // 根据列表高度计算列表行数
@@ -32,6 +32,7 @@ export class CommentsComponent implements OnInit {
       distinctUntilChanged(),
     ),
     this.pageSize$,
+    this.edit$,
   ).pipe(
     switchMap(([pageIndex, pageSize]) => {
       return this.commentsService.getComments(pageIndex + 1, pageSize);
@@ -48,10 +49,8 @@ export class CommentsComponent implements OnInit {
     this.router.navigate([], { queryParams: { page: pageIndex + 1 } });
   }
   editClose(changed: boolean) {
-    if (changed) {
-    } else {
-    }
-    this.edit$.next();
+    this.gotoPage(0);
+    this.edit$.next(null);
   }
   ngOnInit() {}
 }

@@ -29,6 +29,18 @@ export class CommentsService {
         ),
       );
   }
+  create(appName: string, content: string, rate: number, version: string) {
+    const c = {
+      appName,
+      content,
+      rate,
+      version,
+    };
+    return this.http.post(this.server + `/api/comment/app/${appName}`, c);
+  }
+  delete(id: number) {
+    return this.http.delete(this.server + `/api/my/comment/${id}`);
+  }
 }
 
 interface Result {
