@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-app-title',
@@ -8,16 +8,17 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AppTitleComponent implements OnInit {
   constructor() {}
   SortOrder = SortOrder;
-  log = console.log;
   @Input() title = '';
   @Input() top: number;
   @Input() count: number;
   @Input() sortBy = sessionStorage.getItem('sortBy') || SortOrder.Downloads;
+  @Output() sortByChange = new EventEmitter<SortOrder>();
   @Input() sortHidden = false;
   ngOnInit() {}
   change(order: SortOrder) {
     sessionStorage.setItem('sortBy', order);
     this.sortBy = order;
+    this.sortByChange.emit(order);
   }
 }
 

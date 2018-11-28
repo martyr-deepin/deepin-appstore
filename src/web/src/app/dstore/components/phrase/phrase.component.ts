@@ -49,7 +49,7 @@ export class PhraseComponent implements OnInit, OnDestroy {
 
   // data
   moreNav: any[] = [];
-  appList: App[] = [];
+  apps$: Observable<App[]>;
   jobs: { [key: string]: StoreJobInfo } = {};
   jobsNames = new Set<string>();
   jobs$: Subscription;
@@ -60,23 +60,13 @@ export class PhraseComponent implements OnInit, OnDestroy {
   openApp = this.storeService.openApp;
 
   ngOnInit() {
-    this.jobService
-      .jobList()
-      .pipe(
-        flatMap(() => {
-          return this.appService.getApps(
-            this.phraseList.filter(app => app.show).map(app => app.name),
-          );
-        }),
-      )
-      .subscribe(appList => {
-        this.appList = appList;
-        this.moreNav = [
-          './apps',
-          { title: this.section.title, apps: appList.map(app => app.name) },
-        ];
+    const appNameList = this.phraseList.filter(app => app.show).map(app => app.name);
+    this.apps$ = this.appService.getApps(appNameList).pipe(
+      tap(apps => {
+        this.moreNav = ['./apps', { title: this.section.title, apps: apps.map(app => app.name) }];
         this.loaded.emit(true);
-      });
+      }),
+    );
     this.getJobs();
   }
 
@@ -97,17 +87,5 @@ export class PhraseComponent implements OnInit, OnDestroy {
     if (this.jobs$) {
       this.jobs$.unsubscribe();
     }
-  }
-
-  installApp(app: App) {
-    this.storeService.installPackage(app.name, app.localInfo.description.name).subscribe();
-  }
-  updateApp(app: App) {
-    this.storeService.updatePackage(app.name, app.localInfo.description.name).subscribe();
-  }
-
-  // Show 'open' button only if app open method is 'desktop'.
-  appOpenable(app: App): boolean {
-    return app.extra.open === 'desktop';
   }
 }

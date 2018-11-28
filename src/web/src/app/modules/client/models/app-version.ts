@@ -3,4 +3,6 @@ export interface AppVersion {
   localVersion: string;
   remoteVersion: string;
   upgradable: boolean;
+  size: number;
+  installedTime: number;
 }

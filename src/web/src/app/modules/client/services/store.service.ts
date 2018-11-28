@@ -1,4 +1,5 @@
-import { DownloadTotalService } from './../../../services/download-total.service';
+import { App } from 'app/services/app.service';
+import { DownloadTotalService } from 'app/services/download-total.service';
 import { Injectable } from '@angular/core';
 import { Channel } from '../utils/channel';
 import { Observable, from, of } from 'rxjs';
@@ -59,29 +60,8 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.packageInstallable', appName);
   }
 
-  appDownloadSize(appName: string): Observable<number> {
-    return this.execWithCallback('storeDaemon.packageDownloadSize', appName);
-  }
-
   getUpgradableApps(): Observable<string[]> {
     return this.execWithCallback('storeDaemon.upgradableApps');
-  }
-
-  getVersion(appNameList: string[]): Observable<AppVersion[]> {
-    if (appNameList.length === 0) {
-      return of([]);
-    }
-    return this.execWithCallback<AppVersion[]>('storeDaemon.queryVersions', appNameList).pipe(
-      map(versionList => versionList.filter(v => v.remoteVersion)),
-    );
-  }
-
-  getVersionMap(appNameList: string[]): Observable<Map<string, AppVersion>> {
-    return this.getVersion(appNameList).pipe(
-      map((vs: AppVersion[]) => {
-        return new Map(vs.map(v => [v.name, v] as [string, AppVersion]));
-      }),
-    );
   }
 
   getInstalledApps(): Observable<InstalledApp[]> {
@@ -135,6 +115,44 @@ export class StoreService {
 
   openApp(appName: string): void {
     Channel.exec('storeDaemon.openApp', appName);
+  }
+
+  queryPackage(apps: App[]) {
+    interface AppPackage {
+      appName: string;
+      packageName: string;
+      packageURI: string;
+      localVersion: string;
+      remoteVersion: string;
+      upgradable: boolean;
+      installedTime: number;
+      size: number;
+    }
+    interface Result {
+      [key: string]: {
+        name: string;
+        packages: AppPackage[];
+      };
+    }
+    const query = apps.map(app => {
+      return {
+        name: app.name,
+        packages: app.packageURI.map(url => {
+          return { packageURI: url };
+        }),
+      };
+    });
+    return this.execWithCallback<Result>('storeDaemon.query', query).pipe(
+      map(result => {
+        const pkg = new Map<string, AppPackage>();
+        for (const r of Object.values(result)) {
+          if (r.packages.length > 0) {
+            pkg.set(r.name, r.packages[0]);
+          }
+        }
+        return pkg;
+      }),
+    );
   }
 
   execWithCallback<T>(method: string, ...args: any[]): Observable<T> {

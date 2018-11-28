@@ -41,7 +41,7 @@
 
                 <ng-template #controlBtn>
                   <div #ctlBtn>
-                    <dstore-job-button [version]="versions.get($app.name)"
+                    <dstore-job-button [version]="$app.version"
                                        [appName]="$app.name"
                                        [localName]="$app.localInfo.description.name"
                                        [openType]="$app.extra['open']"

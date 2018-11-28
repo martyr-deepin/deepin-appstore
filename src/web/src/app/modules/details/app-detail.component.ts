@@ -45,7 +45,6 @@ export class AppDetailComponent implements OnInit {
   StoreJobType = StoreJobType;
 
   app: App = null;
-  size: number = null;
   job$: Observable<StoreJobInfo>;
 
   openURL = DstoreObject.openURL;
@@ -56,24 +55,10 @@ export class AppDetailComponent implements OnInit {
       .pipe(switchMap(param => this.appService.getApp(param.get('appName'))))
       .subscribe(app => {
         this.app = app;
-        this.job$ = this.jobService.jobList().pipe(
-          tap(() => {
-            this.storeService.getVersion([app.name]).subscribe(v => (this.app.version = v[0]));
-            setTimeout(() => {
-              this.storeService.appDownloadSize(app.name).subscribe(size => (this.size = size));
-            }, 100);
+        this.job$ = this.jobService.jobsInfo().pipe(
+          map(jobs => {
+            return jobs.find(job => job.names.includes(app.name));
           }),
-          switchMap(jobs => this.storeService.getJobsInfo(jobs)),
-          map(jobs => jobs.find(job => job.names.includes(app.name))),
-          switchMap(job =>
-            !job
-              ? of(undefined)
-              : timer(1000, 1000).pipe(
-                  switchMap(() => this.storeService.getJobInfo(job.job)),
-                  startWith(job),
-                ),
-          ),
-          tap(job => console.log(job)),
         );
       });
   }

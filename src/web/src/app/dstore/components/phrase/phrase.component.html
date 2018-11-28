@@ -1,11 +1,12 @@
 <dstore-title [title]="section.title | fitLanguage"
               [more]="moreNav"></dstore-title>
-<div class="list">
+<div class="list"
+     *ngIf="apps$|async as $apps">
   <ng-container *ngFor="let $index of (section.colSpan * section.rowSpan | range)">
     <div class="item"
          [class.job]="jobs[$app.name] || jobsNames.has($app.name)"
          [routerLink]="['app', $app.name]"
-         *ngIf="appList[$index] as $app; else: $empty">
+         *ngIf="$apps[$index] as $app; else: $empty">
       <div><img class="icon"
              [src]="$app.icon" /></div>
       <div class="info">

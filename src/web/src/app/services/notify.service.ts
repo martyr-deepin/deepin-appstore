@@ -1,5 +1,4 @@
 import { Injectable, NgZone } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 
 import { ReplaySubject } from 'rxjs';
@@ -7,25 +6,17 @@ import { ReplaySubject } from 'rxjs';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { Notify, NotifyType, NotifyStatus } from './notify.model';
 import { BaseService } from '../dstore/services/base.service';
-import { StoreService } from 'app/modules/client/services/store.service';
-
 @Injectable({
   providedIn: 'root',
 })
 export class NotifyService {
   private notify$ = new ReplaySubject<Notify>(1);
-  constructor(
-    private sanitized: DomSanitizer,
-    private http: HttpClient,
-    private zone: NgZone,
-    private storeService: StoreService,
-  ) {
+  constructor(private http: HttpClient, private zone: NgZone) {
     this.getBulletin();
     if (BaseService.isNative) {
       DstoreObject.clearArchives().subscribe(() => {
         this.zone.run(() => {
           this.success(NotifyType.Clear);
-          this.storeService.appDownloadSize('gedit').subscribe();
         });
       });
     }

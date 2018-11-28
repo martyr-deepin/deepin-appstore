@@ -12,6 +12,7 @@ export class JobService {
   private jobList$ = new BehaviorSubject<string[]>([]);
   private jobInfoList$ = new BehaviorSubject<StoreJobInfo[]>([]);
   private interval: Subscription;
+  private cache = new Map<string, StoreJobInfo>();
   constructor(private zone: NgZone, private StoreServer: StoreService) {
     this.StoreServer.getJobList().subscribe(list => this.update(list));
     this.StoreServer.jobListChange().subscribe(list => this.update(list));
@@ -22,12 +23,26 @@ export class JobService {
       if (this.interval) {
         this.interval.unsubscribe();
       }
+      const defer = Array.from(this.cache.values())
+        .filter(job => !list.includes(job.job))
+        .map(job => job.id);
+      if (defer.length > 0) {
+        setTimeout(() => {
+          defer.forEach(id => this.cache.delete(id));
+          this.jobInfoList$.next(Array.from(this.cache.values()));
+        }, 500);
+      }
       if (list.length > 0) {
         this.interval = timer(0, 1000)
           .pipe(switchMap(() => this.StoreServer.getJobsInfo(list)))
-          .subscribe(infoList => this.jobInfoList$.next(infoList));
+          .subscribe(infoList => {
+            infoList.forEach(job => {
+              this.cache.set(job.id, job);
+            });
+            this.jobInfoList$.next(Array.from(this.cache.values()));
+          });
       } else {
-        this.jobInfoList$.next([]);
+        this.jobInfoList$.next(Array.from(this.cache.values()));
       }
     });
   }

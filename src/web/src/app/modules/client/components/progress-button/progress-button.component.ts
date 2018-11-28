@@ -48,10 +48,6 @@ const animateTime = 250;
         ),
       ]),
     ]),
-    // trigger('fadeRight', [
-    //   transition(':enter', [style({ paddingLeft: '30px' }), animate(1000)]),
-    //   transition(':leave', [animate(1000, style({ paddingLeft: '30px' }))]),
-    // ]),
   ],
 })
 export class ProgressButtonComponent implements OnInit {

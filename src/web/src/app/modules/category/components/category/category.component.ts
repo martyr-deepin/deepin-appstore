@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of, forkJoin, Subject } from 'rxjs';
-import { flatMap, tap, map } from 'rxjs/operators';
+import { flatMap, tap, map, switchMap } from 'rxjs/operators';
 
 import { find, defaults } from 'lodash';
 
@@ -20,28 +20,30 @@ export class CategoryComponent implements OnInit {
     private appService: AppService,
   ) {}
   title: string;
-  apps$: Observable<App[]>;
-
-  list$: Observable<{ title: string; apps$: Observable<App[]> }>;
-
-  ngOnInit() {
-    this.list$ = this.route.paramMap.pipe(
-      flatMap(param => {
-        setTimeout(() => {
-          this.title = document.querySelector('.navItem.active').textContent;
-        }, 0);
-        const id = param.get('id');
-        return this.categoryService.list().pipe(
-          map(cs => {
-            const c = find(cs, { id });
-            if (c) {
-              return { title: c.title, apps$: this.appService.getApps(c.apps) };
-            } else {
-              return { title: id, apps$: this.appService.getAppListByCategory(id) };
-            }
-          }),
-        );
-      }),
-    );
-  }
+  loaded = false;
+  apps$ = this.route.paramMap.pipe(
+    tap(() => {
+      this.loaded = false;
+      setTimeout(() => {
+        this.title = document.querySelector('.navItem.active').textContent;
+      }, 0);
+    }),
+    map(param => param.get('id')),
+    switchMap(id => {
+      return this.categoryService.list().pipe(
+        switchMap(cs => {
+          const c = find(cs, { id });
+          if (c) {
+            return this.appService.getApps(c.apps);
+          } else {
+            return this.appService.getAppListByCategory(id);
+          }
+        }),
+      );
+    }),
+    tap(() => {
+      this.loaded = true;
+    }),
+  );
+  ngOnInit() {}
 }

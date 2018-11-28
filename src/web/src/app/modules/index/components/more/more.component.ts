@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 import { App, AppService } from 'app/services/app.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ export class MoreComponent implements OnInit {
   apps$: Observable<App[]>;
   ngOnInit() {
     this.apps$ = this.route.paramMap.pipe(
-      flatMap(paramMap => {
+      switchMap(paramMap => {
         this.title = paramMap.get('title').split(',');
         return this.appService.getApps(paramMap.get('apps').split(','));
       }),

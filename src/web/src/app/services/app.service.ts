@@ -1,3 +1,4 @@
+import { JobService } from 'app/services/job.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, combineLatest, Subject } from 'rxjs';
@@ -20,6 +21,7 @@ export class AppService {
     private appService: DstoreAppService,
     private appStatService: AppStatService,
     private storeService: StoreService,
+    private jobService: JobService,
   ) {}
   private native = Boolean(window['dstore']);
   private server = BaseService.serverHosts.operationServer;
@@ -49,10 +51,15 @@ export class AppService {
   list(): Observable<App[]> {
     return this.getAppMap().pipe(map(appMap => Array.from(appMap.values())));
   }
+
   // 根据分类获取应用列表
   getAppListByCategory(category: string): Observable<App[]> {
-    return this.list().pipe(map(apps => apps.filter(app => app.category === category)));
+    return this.list().pipe(
+      map(apps => apps.filter(app => app.category === category).map(app => app.name)),
+      switchMap(appNameList => this.getApps(appNameList)),
+    );
   }
+
   getApps(appNameList: string[], filterVersion = true): Observable<App[]> {
     if (!this.native) {
       return this.getAppMap().pipe(
@@ -61,20 +68,27 @@ export class AppService {
         }),
       );
     }
-    return combineLatest(this.getAppMap(), this.storeService.getVersionMap(appNameList)).pipe(
-      map(([appMap, versionMap]) => {
-        const apps = appNameList
-          .filter(name => appMap.has(name))
-          .map(name => {
-            const app = appMap.get(name);
-            app.version = versionMap.get(name);
-            return app;
+    return this.getAppMap().pipe(
+      map(appMap => appNameList.map(name => appMap.get(name)).filter(Boolean)),
+      switchMap(() => this.jobService.jobList(), apps => apps),
+      switchMap(
+        apps => this.storeService.queryPackage(apps),
+        (apps, pkgMap) => {
+          apps.forEach(app => {
+            const pkg = pkgMap.get(app.name);
+            if (pkg) {
+              app.version = {
+                name: app.name,
+                ...pkg,
+              };
+            }
           });
-        if (filterVersion) {
-          return apps.filter(app => Boolean(app.version));
-        }
-        return apps;
-      }),
+          if (filterVersion) {
+            return apps.filter(app => Boolean(app.version));
+          }
+          return apps;
+        },
+      ),
     );
   }
 

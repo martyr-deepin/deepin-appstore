@@ -87,15 +87,4 @@ export class IconComponent implements OnInit, OnDestroy {
       this.jobs$.unsubscribe();
     }
   }
-  installApp(app: App) {
-    this.storeService.installPackage(app.name, app.localInfo.description.name).subscribe();
-  }
-  updateApp(app: App) {
-    this.storeService.updatePackage(app.name, app.localInfo.description.name).subscribe();
-  }
-
-  // Show 'open' button only if app open method is 'desktop'.
-  appOpenable(app: App): boolean {
-    return app.extra.open === 'desktop';
-  }
 }

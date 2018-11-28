@@ -1,14 +1,14 @@
 <ng-container *ngIf="topic">
-    <div class="topicContainer"
-         [style.backgroundColor]="topic.backgroundColor"
-         hidden
-         #topicContainer>
-        <img class="bgImg"
-             [src]="server+'/images/'+ ([topic.backgroundImage,topic.backgroundImageHD]|fitImage)">
-        <app-app-list class="apps"
-                      [apps$]="apps$"
-                      (appListLength)="loaded()"></app-app-list>
-    </div>
-    <app-wait *ngIf="topicContainer.hidden"
-              [style.height.vh]="100"></app-wait>
+  <div class="topicContainer"
+       [style.backgroundColor]="topic.backgroundColor"
+       hidden
+       #topicContainer>
+    <img class="bgImg"
+         [src]="server+'/images/'+ ([topic.backgroundImage,topic.backgroundImageHD]|fitImage)">
+    <app-app-list class="apps"
+                  [appList]="apps$|async"
+                  (appListLength)="loaded()"></app-app-list>
+  </div>
+  <app-wait *ngIf="topicContainer.hidden"
+            [style.height.vh]="100"></app-wait>
 </ng-container>

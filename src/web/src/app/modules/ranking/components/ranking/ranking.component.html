@@ -1,12 +1,13 @@
-<ng-container *ngIf="apps$;else loading">
-    <app-app-title #$title
-                   i18n>Rankings</app-app-title>
-    <app-app-list [apps$]="apps$"
+<app-app-title #$title
+               i18n>Rankings</app-app-title>
+<ng-container *ngIf="apps$|async as apps;else loading">
+    <app-app-list [appList]="apps"
                   [sortBy]="$title.sortBy"
-                  [maxCount]="100"
                   [rankIndex]="true"
                   (appListLength)="$title.top=$event"></app-app-list>
 </ng-container>
 <ng-template #loading>
-    <app-wait></app-wait>
+    <div class="loadingContainer">
+        <app-wait></app-wait>
+    </div>
 </ng-template>

@@ -40,7 +40,7 @@ export class RankingComponent implements OnInit, OnDestroy {
   @Input()
   appFilter: AppFilterFunc = Allowed;
 
-  appList: App[];
+  apps$: Observable<App[]>;
   jobs: { [key: string]: StoreJobInfo } = {};
   jobsNames = new Set<string>();
   jobs$: Subscription;
@@ -53,21 +53,20 @@ export class RankingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const category = this.section.ranking.category;
-    this.appService.list().subscribe(async apps => {
-      if (category) {
-        apps = apps.filter(app => app.category === category);
-      }
-      apps = apps.sort((a, b) => b.downloads - a.downloads).slice(0, this.section.ranking.count);
-      if (BaseService.isNative) {
-        const versionMap = await this.storeService
-          .getVersionMap(apps.map(app => app.name))
-          .toPromise();
-        apps = apps.filter(app => versionMap.has(app.name));
-      }
-      this.appList = apps;
-      this.getJobs();
-      this.getVersion();
-    });
+    this.getJobs();
+    this.apps$ = this.appService.list().pipe(
+      map(apps => {
+        if (category) {
+          apps = apps.filter(app => app.category === category);
+        }
+        return apps
+          .sort((a, b) => b.downloads - a.downloads)
+          .slice(0, this.section.ranking.count + 10)
+          .map(app => app.name);
+      }),
+      switchMap(appNameList => this.appService.getApps(appNameList)),
+      tap(() => this.loaded.emit(true)),
+    );
   }
 
   getJobs() {
@@ -82,44 +81,10 @@ export class RankingComponent implements OnInit, OnDestroy {
       this.jobs = jobs;
     });
   }
-  getVersion() {
-    if (this.appList) {
-      this.version$ = this.jobService
-        .jobList()
-        .pipe(
-          flatMap(() => {
-            return this.storeService.getVersion(this.appList.map(app => app.name));
-          }),
-        )
-        .subscribe(versions => {
-          this.loaded.emit(true);
-          const vMap = new Map(versions.map(v => [v.name, v] as [string, AppVersion]));
-          this.appList.forEach(app => {
-            if (vMap.has(app.name)) {
-              app.version = vMap.get(app.name);
-            }
-          });
-        });
-    }
-  }
+
   ngOnDestroy() {
     if (this.jobs$) {
       this.jobs$.unsubscribe();
     }
-    if (this.version$) {
-      this.version$.unsubscribe();
-    }
-  }
-
-  installApp(app: App) {
-    this.storeService.installPackage(app.name, app.localInfo.description.name).subscribe();
-  }
-  updateApp(app: App) {
-    this.storeService.updatePackage(app.name, app.localInfo.description.name).subscribe();
-  }
-
-  // Show 'open' button only if app open method is 'desktop'.
-  appOpenable(app: App): boolean {
-    return app.extra.open === 'desktop';
   }
 }

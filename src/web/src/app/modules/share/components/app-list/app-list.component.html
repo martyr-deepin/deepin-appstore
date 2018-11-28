@@ -34,7 +34,7 @@
       <div class="hover">
         <div class="base">
           <div class="name"
-               [attr.index]="$index+1">{{$app.localInfo.description.name}}</div>
+               [attr.index]="$index+1">{{$app.localInfo.description.name}}{{$app.version.localVersion}}</div>
           <div class="subtitle"
                [ngSwitch]="subtitle">
             <span *ngSwitchCase="'category'"

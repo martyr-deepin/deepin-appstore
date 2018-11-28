@@ -2,7 +2,7 @@
               [more]="'/ranking'"></dstore-title>
 
 <div class="rankingList"
-     *ngIf="appList as $apps">
+     *ngIf="apps$|async as $apps">
   <ng-container *ngFor="let $index of (this.section.ranking.count | range)">
     <div class="ranking"
          [routerLink]="['app', $app.name]"

@@ -1,63 +1,61 @@
-<dstore-title [title]="section.title | fitLanguage" [more]="moreNav">
+<dstore-title [title]="section.title | fitLanguage"
+              [more]="moreNav">
   <a href="/"></a>
 </dstore-title>
-<div class="list">
+<div class="list"
+     *ngIf="apps$|async as $apps">
   <ng-container *ngFor="let $index of (section.rowSpan * section.colSpan | range)">
-    <div
-      class="item"
-      [class.client]="isNative"
-      [class.job]="jobs[$app.name] || jobsNames.has($app.name)"
-      [routerLink]="['app', $app.name]"
-      *ngIf="appList[$index] as $app; else: $empty"
-    >
+    <div class="item"
+         [class.client]="isNative"
+         [class.job]="jobs[$app.name] || jobsNames.has($app.name)"
+         [routerLink]="['app', $app.name]"
+         *ngIf="$apps[$index] as $app; else: $empty">
       <div class="cover">
-        <img
-          [src]="
+        <img [src]="
             server + '/' + ([$app.localInfo.images.cover, $app.localInfo.images.coverHD] | fitImage)
-          "
-        />
+          " />
       </div>
       <div class="info">
         <div class="appTitle">{{ $app.localInfo.description.name }}</div>
         <div>
-          <span class="subtitle" [routerLink]="['/category', $app.category]">{{
+          <span class="subtitle"
+                [routerLink]="['/category', $app.category]">{{
             $app.localCategory
-          }}</span>
-          <dstore-star class="star" [rate]="$app.rate"></dstore-star>
+            }}</span>
+          <dstore-star class="star"
+                       [rate]="$app.rate"></dstore-star>
         </div>
       </div>
       <div class="hover">
         <div>
           <div class="appTitle">{{ $app.localInfo.description.name }}</div>
-          <span class="subtitle" [routerLink]="['/category', $app.category]">{{
+          <span class="subtitle"
+                [routerLink]="['/category', $app.category]">{{
             $app.localCategory
-          }}</span>
+            }}</span>
         </div>
         <div>
           <ng-container *ngIf="jobs[$app.name] as job; else: controlBtn">
-            <dstore-circle-button
-              [running]="
+            <dstore-circle-button [running]="
                 [StoreJobStatus.running, StoreJobStatus.ready, StoreJobStatus.end].includes(
                   job.status
                 )
               "
-              [progress]="job.progress"
-              [disabled]="!job.cancelable"
-              (runningChange)="$event ? start(job.job) : pause(job.job)"
-            ></dstore-circle-button>
+                                  [progress]="job.progress"
+                                  [disabled]="!job.cancelable"
+                                  (runningChange)="$event ? start(job.job) : pause(job.job)"></dstore-circle-button>
           </ng-container>
 
           <ng-template #controlBtn>
             <div #ctlBtn>
-              <dstore-job-button
-                [version]="$app.version"
-                [appName]="$app.name"
-                [localName]="$app.localInfo.description.name"
-                [openType]="$app.extra['open']"
-                (start)="ctlBtn.hidden = true"
-              ></dstore-job-button>
+              <dstore-job-button [version]="$app.version"
+                                 [appName]="$app.name"
+                                 [localName]="$app.localInfo.description.name"
+                                 [openType]="$app.extra['open']"
+                                 (start)="ctlBtn.hidden = true"></dstore-job-button>
             </div>
-            <dstore-circle-button [running]="true" *ngIf="ctlBtn.hidden"></dstore-circle-button>
+            <dstore-circle-button [running]="true"
+                                  *ngIf="ctlBtn.hidden"></dstore-circle-button>
           </ng-template>
         </div>
       </div>

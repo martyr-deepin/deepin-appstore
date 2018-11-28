@@ -1,3 +1,4 @@
 <app-app-title #$title>{{title|fitLanguage}}</app-app-title>
-<app-app-list [apps$]="apps$"
+<app-app-list [appList]="apps$|async"
+              [routePrefix]="'/index/app'"
               [sortBy]="$title.sortBy"></app-app-list>

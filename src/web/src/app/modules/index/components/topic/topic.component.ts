@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { get, parseInt } from 'lodash';
 import { Observable, forkJoin, iif, of } from 'rxjs';
-import { map, flatMap, tap } from 'rxjs/operators';
+import { map, flatMap, tap, switchMap } from 'rxjs/operators';
 
 import { SectionTopic } from 'app/dstore/services/section';
 import { BaseService } from 'app/dstore/services/base.service';
@@ -32,10 +32,8 @@ export class TopicComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap
       .pipe(
-        flatMap(
-          param => {
-            return this.sectionService.getList();
-          },
+        switchMap(
+          () => this.sectionService.getList(),
           (param, sectionList) => {
             const sectionIndex = parseInt(param.get('section'), 10);
             const topicIndex = parseInt(param.get('topic'), 10);
