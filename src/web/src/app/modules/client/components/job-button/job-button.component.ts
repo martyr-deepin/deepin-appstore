@@ -1,3 +1,4 @@
+import { AppService } from 'app/services/app.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AppVersion } from '../../models/app-version';
 import { StoreService } from '../../services/store.service';
@@ -8,7 +9,7 @@ import { StoreService } from '../../services/store.service';
   styleUrls: ['./job-button.component.scss'],
 })
 export class JobButtonComponent implements OnInit {
-  constructor(private storeService: StoreService) {}
+  constructor(private storeService: StoreService, private appService: AppService) {}
   @Input()
   appName: string;
   @Input()
@@ -35,6 +36,7 @@ export class JobButtonComponent implements OnInit {
 
   installApp(e: Event) {
     e.stopPropagation();
+    console.log(this.version);
     this.storeService.installPackage(this.appName, this.localName).subscribe(job => {
       this.disabled = true;
       this.start.emit(job);

@@ -35,6 +35,9 @@ dialog {
       margin: 0 5px;
     }
   }
+  .empty {
+    flex: 30%;
+  }
 }
 .paginator {
   border-top: 1px solid var(--main-item-hr-color);

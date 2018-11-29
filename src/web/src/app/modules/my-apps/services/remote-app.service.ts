@@ -20,7 +20,6 @@ export class RemoteAppService {
       switchMap(
         result => this.appService.getApps(result.apps.map(app => app.appName), false),
         (result, apps) => {
-          console.log(result, apps);
           result.apps.forEach(remoteApp => {
             remoteApp.app = apps.find(app => app.name === remoteApp.appName);
           });

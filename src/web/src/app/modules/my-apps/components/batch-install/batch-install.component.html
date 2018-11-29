@@ -2,32 +2,37 @@
   <ng-container *ngIf="dialog.open">
     <div class="title">请选择安装应用</div>
     <div class="container">
-      <div class="app-list">
-        <div class="app"
-             dstoreHover
-             #dstoreHover="dstoreHover"
-             *ngFor="let app of chunks[page]"
-             (click)="click(app.name)">
-          <dstore-checkbox-button disabled
-                                  [class.hover]="dstoreHover.hover"
-                                  [value]="batchInstall.has(app.name)"></dstore-checkbox-button>
-          <img [src]="app.icon">
-          {{app.localInfo.description.name}}
+      <ng-container *ngIf="apps$|async as apps">
+        <div class="app-list">
+          <div class="app"
+               dstoreHover
+               #dstoreHover="dstoreHover"
+               *ngFor="let app of apps"
+               (click)="touch(app)">
+            <dstore-checkbox-button [class.hover]="dstoreHover.hover"
+                                    [disabled]="!app.version"
+                                    [value]="batchInstall.has(app.name)"></dstore-checkbox-button>
+            <img [src]="app.icon">
+            {{app.localInfo.description.name}}
+          </div>
+          <div class="empty"></div>
+          <div class="empty"></div>
         </div>
-      </div>
-      <div class="paginator">
-        <div class="select-control">
-          <a (click)="addAll()">全选</a>
-          <a (click)="clickAll()">反选</a>
-          <span>{{batchInstall.size}}/{{length}}款</span>
+        <div class="paginator">
+          <div class="select-control">
+            <a (click)="selectPage(apps)">全选</a>
+            <a (click)="touchPage(apps)">反选</a>
+            <span>{{batchInstall.size}}款</span>
+          </div>
+          <app-paginator [length]="length$|async"
+                         [size]="pageSize"
+                         (pageIndexChange)="pageIndex$.next($event)"></app-paginator>
         </div>
-        <app-paginator [length]="length"
-                       [(pageIndex)]="page"
-                       [size]="45"></app-paginator>
-      </div>
+      </ng-container>
     </div>
     <div class="text-align">
-      <button class="primary">开始安装</button>
+      <button class="primary"
+              (click)="installAll()">开始安装</button>
     </div>
   </ng-container>
 </dialog>
