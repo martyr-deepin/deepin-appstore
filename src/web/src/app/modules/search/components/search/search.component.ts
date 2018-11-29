@@ -22,7 +22,6 @@ export class SearchComponent implements OnInit {
   keyword$: Observable<string>;
   title$: Observable<string>;
   apps$: Observable<App[]>;
-  loaded = false;
 
   ngOnInit() {
     this.title$ = this.route.queryParamMap.pipe(
@@ -31,12 +30,8 @@ export class SearchComponent implements OnInit {
 
     this.apps$ = this.route.queryParamMap.pipe(
       switchMap(param => {
-        this.loaded = false;
         const appNameList = param.getAll('apps');
         return this.appService.getApps(appNameList);
-      }),
-      tap(() => {
-        this.loaded = true;
       }),
     );
   }

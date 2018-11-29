@@ -31,6 +31,9 @@ export class LocalAppService {
         },
       ),
       switchMap(appNameList => this.appService.getApps(appNameList)),
+      map(apps => {
+        return apps.sort((a, b) => b.version.installedTime - a.version.installedTime);
+      }),
     );
   }
 

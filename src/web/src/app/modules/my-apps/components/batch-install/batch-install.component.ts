@@ -50,8 +50,11 @@ export class BatchInstallComponent implements OnInit {
   hide() {
     this.dialogRef.nativeElement.close();
   }
+  upgrade(app: App): boolean {
+    return app.version && (!app.version.localVersion || app.version.upgradable);
+  }
   touch(app: App) {
-    if (!app.version) {
+    if (!this.upgrade(app)) {
       return;
     }
     if (this.batchInstall.has(app.name)) {
@@ -66,7 +69,7 @@ export class BatchInstallComponent implements OnInit {
     });
   }
   selectPage(apps: App[]) {
-    apps.filter(app => app.version).forEach(app => this.batchInstall.set(app.name, app));
+    apps.filter(app => this.upgrade(app)).forEach(app => this.batchInstall.set(app.name, app));
   }
 
   installAll() {

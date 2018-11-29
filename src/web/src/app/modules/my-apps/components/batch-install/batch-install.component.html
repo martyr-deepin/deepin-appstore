@@ -10,7 +10,7 @@
                *ngFor="let app of apps"
                (click)="touch(app)">
             <dstore-checkbox-button [class.hover]="dstoreHover.hover"
-                                    [disabled]="!app.version"
+                                    [disabled]="!upgrade(app)"
                                     [value]="batchInstall.has(app.name)"></dstore-checkbox-button>
             <img [src]="app.icon">
             {{app.localInfo.description.name}}

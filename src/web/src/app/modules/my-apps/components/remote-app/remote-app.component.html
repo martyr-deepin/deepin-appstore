@@ -12,8 +12,9 @@
 <div class="remote-apps"
      dstoreResize
      (resize)="listHeight$.next($event.height)">
-  <ng-container *ngFor="let remoteApp of apps$|async">
-    <div class="remote-app">
+  <ng-container *ngIf="apps$|async as apps;else loading">
+    <div class="remote-app"
+         *ngFor="let remoteApp of apps">
       <img class="icon"
            [src]="remoteApp.app.icon"
            [routerLink]="['/app',remoteApp.app.name]">
@@ -29,7 +30,28 @@
             {{remoteApp.app.version.remoteVersion}}
           </div>
           <div class="control">
-            <button i18n>Install</button>
+            <button i18n
+                    *ngIf="remoteApp.app.version.upgradable;else installed">Update</button>
+            <ng-template #installed>
+              <button i18n
+                      disabled
+                      *ngIf="remoteApp.app.version.localVersion!=''; else install">Installed</button>
+            </ng-template>
+            <ng-template #install>
+              <button i18n>Install</button>
+            </ng-template>
+            <!-- <button i18n
+                    *ngIf="remoteApp.app.version.upgradable;">Update</button>
+            <ng-template #Installed>
+              <button i18n
+                      *ngSwitchCase="remoteApp.app.version.localVersion!=''">Installed</button>
+            </ng-template>
+            <button i18n
+                    *ngSwitchCase="remoteApp.app.version.upgradable">Update</button>
+            <button i18n
+                    *ngSwitchCase="remoteApp.app.version.localVersion!=''">Installed</button>
+            <button i18n
+                    *ngSwitchDefault>Install</button> -->
           </div>
         </ng-container>
         <ng-template #noVersionError>
@@ -48,3 +70,8 @@
                    (pageIndexChange)="gotoPage($event)"></app-paginator>
   </ng-container>
 </div>
+<ng-template #loading>
+  <div class="loadingContainer">
+    <app-wait></app-wait>
+  </div>
+</ng-template>
