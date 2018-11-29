@@ -18,25 +18,22 @@ export class LocalAppService {
     private storeService: StoreService,
     private appService: AppService,
   ) {}
+
   LocalAppList() {
     return this.jobService.jobList().pipe(
-      switchMap(() => this.storeService.getInstalledApps()),
+      switchMap(() => this.storeService.InstalledPackages()),
       switchMap(
-        installed => this.appService.getApps(installed.map(app => app.name)),
-        (installed, appInfos) => {
-          return installed
-            .map(app => {
-              return this.appService.addApp(
-                app,
-                appInfos.find(info => info.packageURI.includes(app.dpk)),
-              );
-            })
-            .filter(app => Boolean(app.app))
-            .sort((a, b) => b.time - a.time);
+        () => this.appService.list(),
+        (installed, apps) => {
+          return apps
+            .filter(app => app.packageURI.some(url => installed.includes(url)))
+            .map(app => app.name);
         },
       ),
+      switchMap(appNameList => this.appService.getApps(appNameList)),
     );
   }
+
   RemovingList() {
     return this.jobService.jobsInfo().pipe(
       map(jobs => {

@@ -1,15 +1,10 @@
-<div class="loading"
-     *ngIf="loading">
-  <app-wait></app-wait>
-</div>
-
 <div class="appList"
      [hidden]="loading"
      *ngIf="apps as $apps">
   <div class="app"
        [routerLink]="routePrefix?[routePrefix,$app.name]:$app.name"
        [class.index]="rankIndex"
-       [class.job]="jobs[$app.name] || jobNames.has($app.name)"
+       [class.job]="(jobs$|async)?.has($app.name) || jobEndList.has($app.name)"
        *ngFor="let $app of $apps;index as $index">
     <div class="cover"
          [attr.index]="$index+1">
@@ -34,7 +29,7 @@
       <div class="hover">
         <div class="base">
           <div class="name"
-               [attr.index]="$index+1">{{$app.localInfo.description.name}}{{$app.version.localVersion}}</div>
+               [attr.index]="$index+1">{{$app.localInfo.description.name}}</div>
           <div class="subtitle"
                [ngSwitch]="subtitle">
             <span *ngSwitchCase="'category'"
@@ -45,7 +40,7 @@
           </div>
         </div>
         <div class="control">
-          <ng-container *ngIf="jobs[$app.name] as job;else controlBtn">
+          <ng-container *ngIf="(jobs$|async)?.get($app.name) as job;else controlBtn">
             <dstore-circle-button [running]="[StoreJobStatus.running,StoreJobStatus.ready,StoreJobStatus.end].includes(job.status)"
                                   [progress]="job.progress"
                                   [disabled]="!job.cancelable"

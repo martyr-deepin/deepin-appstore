@@ -1,3 +1,5 @@
+import { map, share } from 'rxjs/operators';
+import { StoreJobStatus } from './../../../client/models/store-job-info';
 import {
   Component,
   OnInit,
@@ -23,10 +25,11 @@ import { JobService } from 'app/services/job.service';
   templateUrl: './app-list.component.html',
   styleUrls: ['./app-list.component.scss'],
 })
-export class AppListComponent implements OnInit, OnChanges, OnDestroy {
+export class AppListComponent implements OnInit, OnChanges {
   constructor(private storeService: StoreService, private jobService: JobService) {}
   // const
   server = BaseService.serverHosts.metadataServer;
+  StoreJobStatus = StoreJobStatus;
 
   @Input()
   appList: App[];
@@ -42,34 +45,29 @@ export class AppListComponent implements OnInit, OnChanges, OnDestroy {
   appListLength = new EventEmitter<number>(true);
 
   apps: App[];
-  jobs: { [key: string]: StoreJobInfo } = {};
-  jobNames = new Set<string>();
+  jobEndList = new Set<string>();
   installApps = new Set<string>();
-  jobs$: Subscription;
-  loading = false;
 
   // job control
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
   openApp = this.storeService.openApp;
 
-  ngOnInit() {
-    this.jobs$ = this.jobService.jobsInfo().subscribe(jobInfos => {
-      const jobs: { [key: string]: StoreJobInfo } = {};
-      console.log(jobInfos);
-      jobInfos.forEach(job => {
+  jobs$ = this.jobService.jobsInfo().pipe(
+    map(jobs => {
+      const jobMap = new Map<string, StoreJobInfo>();
+      jobs.forEach(job =>
         job.names.forEach(name => {
-          jobs[name] = job;
-          this.jobNames.add(name);
-        });
-      });
-    });
+          this.jobEndList.add(name);
+          jobMap.set(name, job);
+        }),
+      );
+      return jobMap;
+    }),
+    share(),
+  );
+  ngOnInit() {
     this.changeList();
-  }
-  ngOnDestroy() {
-    if (this.jobs$) {
-      this.jobs$.unsubscribe();
-    }
   }
   changeList() {
     if (this.appList) {

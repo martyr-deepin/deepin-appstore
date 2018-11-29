@@ -237,12 +237,7 @@ PackageManagerResult AptPackageManager::ListInstalled(const QStringList &package
         auto packageID =  package_name.split(":").first();
         // TODO: remove name
         if (apps.contains(packageID)) {
-            result.append(QVariantMap {
-                { "dpk", "dpk://deb/" + packageID },
-                { "name", packageID },
-                { "version", info.version },
-                { "size", info.size },
-            });
+            result.append("dpk://deb/" + packageID);
         }
     }
     return PackageManagerResult(true,

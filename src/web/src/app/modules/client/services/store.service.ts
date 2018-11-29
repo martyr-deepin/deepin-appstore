@@ -7,23 +7,29 @@ import { flatMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from '../models/store-job-info';
-import { AppVersion } from '../models/app-version';
-import { InstalledApp } from '../models/installed';
 
 @Injectable()
 export class StoreService {
   constructor(private downloadTotalService: DownloadTotalService) {}
 
+  isDBusConnected(): Observable<boolean> {
+    return this.execWithCallback('storeDaemon.isDBusConnected');
+  }
+
   getJobList(): Observable<string[]> {
     return this.execWithCallback('storeDaemon.jobList');
   }
 
-  jobListChange(): Observable<string[]> {
-    return Channel.connect('storeDaemon.jobListChanged');
+  getJobInfo(jobPath: string): Observable<StoreJobInfo> {
+    return this.execWithCallback('storeDaemon.getJobInfo', jobPath);
   }
 
-  isDBusConnected(): Observable<boolean> {
-    return this.execWithCallback('storeDaemon.isDBusConnected');
+  getJobsInfo(jobs: string[]): Observable<StoreJobInfo[]> {
+    return this.execWithCallback('storeDaemon.getJobsInfo', jobs);
+  }
+
+  jobListChange(): Observable<string[]> {
+    return Channel.connect('storeDaemon.jobListChanged');
   }
 
   clearJob(job: string): void {
@@ -52,65 +58,16 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.removePackage', appName, localName);
   }
 
-  appInstalled(appName: string): Observable<boolean> {
-    return this.execWithCallback('storeDaemon.packageExists', appName);
-  }
-
   appInstallable(appName: string): Observable<boolean> {
     return this.execWithCallback('storeDaemon.packageInstallable', appName);
   }
 
-  getUpgradableApps(): Observable<string[]> {
-    return this.execWithCallback('storeDaemon.upgradableApps');
-  }
-
-  getInstalledApps(): Observable<InstalledApp[]> {
-    return this.execWithCallback<InstalledApp[]>('storeDaemon.installedPackages').pipe(
-      flatMap(
-        apps => this.getInstalledTimes(apps.map(app => app.name)),
-        (apps, times) => {
-          apps.forEach(
-            app =>
-              (app.time = _.chain(times)
-                .find({ app: app.name })
-                .get('time')
-                .value()),
-          );
-          return apps;
-        },
-      ),
-    );
-  }
-
-  getInstalledTimes(appNameList: string[]): Observable<{ app: string; time: number }[]> {
-    return this.execWithCallback('storeDaemon.queryInstalledTime', appNameList);
-  }
-
-  getInstalledTimeMap(appNameList: string[]): Observable<Map<string, number>> {
-    return this.getInstalledTimes(appNameList).pipe(
-      map(
-        installedTime =>
-          new Map(
-            _.chain(installedTime)
-              .keyBy('app')
-              .mapValues('time')
-              .entries()
-              .value(),
-          ),
-      ),
-    );
+  InstalledPackages(): Observable<string[]> {
+    return this.execWithCallback<string[]>('storeDaemon.installedPackages');
   }
 
   fixError(errorType: string): Observable<string> {
     return this.execWithCallback('storeDaemon.fixError', errorType);
-  }
-
-  getJobInfo(jobPath: string): Observable<StoreJobInfo> {
-    return this.execWithCallback('storeDaemon.getJobInfo', jobPath);
-  }
-
-  getJobsInfo(jobs: string[]): Observable<StoreJobInfo[]> {
-    return this.execWithCallback('storeDaemon.getJobsInfo', jobs);
   }
 
   openApp(appName: string): void {
@@ -126,7 +83,8 @@ export class StoreService {
       remoteVersion: string;
       upgradable: boolean;
       installedTime: number;
-      size: number;
+      packageSize: number;
+      downloadSize: number;
     }
     interface Result {
       [key: string]: {

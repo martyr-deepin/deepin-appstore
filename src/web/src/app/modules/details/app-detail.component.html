@@ -50,11 +50,11 @@
           <ng-container *ngIf="app.version">
             <div>{{ app.version.remoteVersion || app.version.localVersion }}</div>
             <div>
-              <ng-container *ngIf="app.version.size === null"
+              <ng-container *ngIf="app.version.downloadSize === null"
                             i18n>Calculating</ng-container>
-              <ng-container *ngIf="app.version.size === 0"
+              <ng-container *ngIf="app.version.downloadSize === 0"
                             i18n>Downloaded</ng-container>
-              <ng-container *ngIf="app.version.size > 0">{{ app.version.size | sizeHuman }}</ng-container>
+              <ng-container *ngIf="app.version.downloadSize > 0">{{ app.version.downloadSize | sizeHuman }}</ng-container>
             </div>
           </ng-container>
           <div>
