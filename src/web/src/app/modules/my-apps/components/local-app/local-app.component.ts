@@ -38,21 +38,14 @@ export class LocalAppComponent implements OnInit {
       return Math.ceil(apps.length / size);
     }),
   );
-  removingList$ = this.localAppService.RemovingList().pipe(
-    tap(list => {
-      if (list.includes(this.select)) {
-        this.select = null;
-      }
-    }),
-    map(list => list.concat(this.removing)),
-    shareReplay(),
-  );
+  removingList$ = this.localAppService.RemovingList().pipe(shareReplay());
 
   gotoPage(pageIndex: number) {
     this.router.navigate([], { queryParams: { page: pageIndex + 1 } });
   }
 
   remove(app: App) {
+    this.select = null;
     this.removing.push(app.name);
     this.localAppService.RemoveLocalApp(app);
   }

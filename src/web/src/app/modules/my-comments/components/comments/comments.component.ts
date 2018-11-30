@@ -49,7 +49,9 @@ export class CommentsComponent implements OnInit {
     this.router.navigate([], { queryParams: { page: pageIndex + 1 } });
   }
   editClose(changed: boolean) {
-    this.gotoPage(0);
+    if (changed) {
+      this.gotoPage(0);
+    }
     this.edit$.next(null);
   }
   ngOnInit() {}

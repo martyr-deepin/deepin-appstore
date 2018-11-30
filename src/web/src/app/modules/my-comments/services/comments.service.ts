@@ -19,8 +19,9 @@ export class CommentsService {
       })
       .pipe(
         switchMap(
-          result => this.appService.getApps(result.comment.map(c => c.appName)),
+          result => this.appService.getApps(result.comment.map(c => c.appName), false, false),
           (result, apps) => {
+            console.log(result, apps);
             result.comment = result.comment.map(c =>
               this.appService.addApp(c, apps.find(app => app.name === c.appName)),
             );

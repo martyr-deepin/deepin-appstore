@@ -47,19 +47,6 @@ export class SideNavComponent implements OnInit {
     );
   }
 
-  mousewheel(event: WheelEvent) {
-    const nav = this.nav.nativeElement;
-    if (event.wheelDeltaY > 0) {
-      if (nav.scrollTop === 0) {
-        event.preventDefault();
-      }
-    } else {
-      if (nav.scrollTop + nav.clientHeight === nav.scrollHeight) {
-        event.preventDefault();
-      }
-    }
-  }
-
   getStyle(icons: string[]) {
     return this.sanitizer.bypassSecurityTrustStyle(icons.map(url => `url(${url})`).join(','));
   }

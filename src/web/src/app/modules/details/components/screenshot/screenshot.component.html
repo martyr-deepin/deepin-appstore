@@ -3,8 +3,9 @@
     <ng-container *ngFor="let screenshot of screenshotList;index as $index">
       <img id="screenshot-{{$index}}"
            name="screenshot"
-           src="{{metadataServer}}/{{screenshot}}!small"
-           (load)="$event.target.style.minWidth='auto'"
+           [src]="metadataServer+'/'+screenshot+cdnSuffix"
+           (load)="loaded($event.target)"
+           (error)="error($event.target)"
            (click)="previewImage($index)">
     </ng-container>
 

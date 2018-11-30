@@ -2,27 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 
-import { BehaviorSubject, Observable, forkJoin, Subject } from 'rxjs';
-import {
-  map,
-  first,
-  throttleTime,
-  exhaustMap,
-  catchError,
-  take,
-  shareReplay,
-} from 'rxjs/operators';
-
 @Injectable({
   providedIn: 'root',
 })
 export class AppStatService {
   private apiURL = environment.operationServer + '/api/appstat';
-
-  appStatMap: Promise<Map<string, AppStat>>;
-  constructor(private http: HttpClient) {
-    this.appStatMap = this.getStatMap();
-  }
+  private appStatMap = this.getStatMap();
+  constructor(private http: HttpClient) {}
   private async getStatMap() {
     const result = await this.http.get<Result>(this.apiURL).toPromise();
     const stat = new Map<string, AppStat>();
@@ -44,6 +30,9 @@ export class AppStatService {
       }
     });
     return stat;
+  }
+  getAppStat() {
+    return this.appStatMap;
   }
 }
 

@@ -29,7 +29,7 @@ export class BatchInstallComponent implements OnInit {
   result$ = this.pageIndex$.pipe(
     distinctUntilChanged(),
     switchMap(pageIndex => this.remoteAppService.RemoteAppList(pageIndex + 1, this.pageSize)),
-    shareReplay(),
+    shareReplay(1),
   );
   length$ = this.result$.pipe(map(result => result.totalCount));
   apps$ = this.result$.pipe(

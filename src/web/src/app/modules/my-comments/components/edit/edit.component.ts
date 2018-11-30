@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import {
   Component,
   OnInit,
@@ -7,6 +8,8 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+
+import { AppService, App } from 'app/services/app.service';
 import { UserComment, CommentsService } from '../../services/comments.service';
 
 @Component({
@@ -18,7 +21,7 @@ export class EditComponent implements OnInit {
   @ViewChild('dialog')
   dialogRef: ElementRef<HTMLDialogElement>;
   deleteConfirm: boolean;
-  appName: string;
+  app$: Observable<App>;
   content: string;
   rate: number;
   version: string;
@@ -31,12 +34,12 @@ export class EditComponent implements OnInit {
       this.dialogRef.nativeElement.showModal();
     }
     this._comment = c;
-    this.appName = c.appName;
     this.content = c.content;
     this.rate = c.rate / 2;
     this.version = c.version;
+    this.app$ = this.appService.getApp(c.appName, false, false);
   }
-  constructor(private commentService: CommentsService) {}
+  constructor(private commentService: CommentsService, private appService: AppService) {}
 
   ngOnInit() {
     this.dialogRef.nativeElement.addEventListener('close', () => {
@@ -57,7 +60,7 @@ export class EditComponent implements OnInit {
   }
   delete() {
     this.commentService.delete(this._comment.id).subscribe(() => {
-      this.closed(true);
+      this.closed();
     });
   }
 }

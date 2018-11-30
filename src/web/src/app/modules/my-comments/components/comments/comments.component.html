@@ -35,9 +35,13 @@
 						<span i18n>Version:</span>
 						{{comment.version}}
 					</div>
+					<div class="removed">
+						<span *ngIf="!app.active"
+						      i18n>Removed</span>
+					</div>
 				</div>
 				<div class="content-line">
-					<span i18n>Comment:</span>
+					<span i18n>Content:</span>
 					&nbsp;
 					<span class="content">{{comment.content}}</span>
 					<a i18n

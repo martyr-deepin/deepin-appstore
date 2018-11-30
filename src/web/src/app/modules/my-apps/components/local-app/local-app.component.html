@@ -52,15 +52,14 @@
                       (click)="remove(installed)"
                       i18n>Confirm</button>
             </ng-template>
-            <ng-container *ngIf="select != installed.name;else confirmBtn">
+            <ng-container *ngIf="select != installed.name; else confirmBtn">
               <ng-template #uninstall>
                 <button (click)="select=installed.name"
                         i18n>Uninstall</button>
               </ng-template>
-              <button *ngIf="removingList.includes(installed.name);else uninstall"
+              <button *ngIf="removingList.includes(installed.name) || removing.includes(installed.name);else uninstall"
                       disabled
                       i18n>Uninstalling</button>
-
             </ng-container>
           </div>
         </ng-container>

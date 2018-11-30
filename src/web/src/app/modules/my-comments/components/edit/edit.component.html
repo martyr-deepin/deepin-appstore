@@ -1,5 +1,5 @@
 <dialog #dialog>
-  <ng-container *ngIf="appName|appInfo|async as app;else loading">
+  <ng-container *ngIf="app$|async as app;else loading">
     <div class="title"
          i18n>修改评论</div>
     <div class="app">
@@ -30,21 +30,26 @@
     </div>
     <div class="control">
       <ng-container *ngIf="!deleteConfirm;else Delete">
-        <button (click)="deleteConfirm=true">删除</button>
-        <div>
-          <button (click)="closed()">取消</button>
+        <button (click)="deleteConfirm=true"
+                i18n>Delete</button>
+        <div *ngIf="app.active">
+          <button (click)="closed()"
+                  i18n>Cancel</button>
           &nbsp;
           <button class="primary"
-                  (click)="submit()">提交</button>
+                  i18n
+                  (click)="submit()">Submit</button>
         </div>
       </ng-container>
       <ng-template #Delete>
         <div>确定要删除吗</div>
         <div>
-          <button (click)="deleteConfirm=false">取消</button>
+          <button (click)="deleteConfirm=false"
+                  i18n>Cancel</button>
           &nbsp;
           <button class="primary warn"
-                  (click)="delete()">确定</button>
+                  (click)="delete()"
+                  i18n>Confirm</button>
         </div>
       </ng-template>
     </div>

@@ -36,7 +36,7 @@ export class CacheInterceptor implements HttpInterceptor {
         return next.handle(req).pipe(
           saveCache,
           startWith(cacheResp),
-          timeout(5000),
+          timeout(15000),
           catchError(err => {
             console.error('http error', err);
             return empty();

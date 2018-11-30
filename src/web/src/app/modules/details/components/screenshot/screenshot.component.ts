@@ -12,7 +12,8 @@ import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 })
 export class ScreenshotComponent implements OnInit {
   constructor() {}
-  metadataServer = BaseService.serverHosts.metadataServer;
+  readonly cdnSuffix = '!small';
+  readonly metadataServer = BaseService.serverHosts.metadataServer;
   @Input()
   screenshotList: string[];
   select = 0;
@@ -29,6 +30,14 @@ export class ScreenshotComponent implements OnInit {
         inline: 'center',
         block: 'nearest',
       });
+    }
+  }
+  loaded(el: HTMLImageElement) {
+    el.style.minWidth = 'auto';
+  }
+  error(el: HTMLImageElement) {
+    if (el.src.endsWith(this.cdnSuffix)) {
+      el.src = el.src.slice(0, el.src.indexOf(this.cdnSuffix));
     }
   }
   previewImage(index: number) {

@@ -30,15 +30,6 @@ export class DownloadingService {
     return zip(this.appService.getAppList(), this.downloadList$).pipe(
       map(([apps, downloads]) => {
         return apps.sort((a, b) => downloads.get(a.name) - downloads.get(b.name));
-        // return _
-        //   .chain(apps)
-        //   .forEach(app => {
-        //     app.downloadCount = downloadList[app.name] ? downloadList[app.name].count : 0;
-        //   })
-        //   .orderBy([(app: App) => app.downloadCount, (app: App) => app.name], ['desc', 'desc'])
-        //   .each((app, key) => (app.downloadRanking = key + 1))
-        //   .filter(app => !search || appSearch(app, search))
-        //   .value();
       }),
     );
   }

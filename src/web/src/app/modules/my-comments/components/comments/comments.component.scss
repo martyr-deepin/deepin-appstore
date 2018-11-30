@@ -32,6 +32,15 @@
       flex: 1;
       color: gray;
     }
+    .removed {
+      flex: 0.5;
+      text-align: right;
+      span {
+        border-radius: 3px;
+        color: #ff8a09;
+        border: 1px solid #ff8a09;
+      }
+    }
   }
   .content-line {
     width: 100%;

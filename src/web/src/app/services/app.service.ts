@@ -2,7 +2,7 @@ import { JobService } from 'app/services/job.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, combineLatest, Subject } from 'rxjs';
-import { map, scan, share, debounceTime, switchMap } from 'rxjs/operators';
+import { map, scan, share, debounceTime, switchMap, shareReplay } from 'rxjs/operators';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
@@ -23,33 +23,40 @@ export class AppService {
     private storeService: StoreService,
     private jobService: JobService,
   ) {}
-  private native = Boolean(window['dstore']);
+  private client = Boolean(window['dstore']);
   private server = BaseService.serverHosts.operationServer;
-  activeList = this.http.get<{ apps: string[] }>(`${this.server}/api/app`).toPromise();
+
+  private activeList = this.http
+    .get<{ apps: string[] }>(`${this.server}/api/app`)
+    .toPromise()
+    .then(result => result.apps || []);
+
+  private appMap$ = combineLatest(
+    this.appService.getAppList(),
+    this.appStatService.getAppStat(),
+    this.activeList,
+  ).pipe(
+    map(([apps, stats, actives]) => {
+      return new Map(
+        apps.map((app: App) => {
+          const stat = stats.get(app.name) || new AppStat();
+          app.downloads = stat.downloads;
+          app.rate = stat.rate;
+          app.ratings = stat.votes;
+          app.active = actives.includes(app.name);
+          return [app.name, app] as [string, App];
+        }),
+      );
+    }),
+    shareReplay(1),
+  );
 
   getAppMap() {
-    return combineLatest(
-      this.appService.getAppList(),
-      this.activeList,
-      this.appStatService.appStatMap,
-    ).pipe(
-      map(([dstoreApps, { apps }, statMap]) => {
-        const list = dstoreApps
-          .filter(app => apps.includes(app.name))
-          .map((app: App) => {
-            const stat = statMap.get(app.name) || new AppStat();
-            app.downloads = stat.downloads;
-            app.rate = stat.rate;
-            app.ratings = stat.votes;
-            return [app.name, app];
-          }) as Array<[string, App]>;
-        return new Map(list);
-      }),
-    );
+    return this.appMap$;
   }
 
   list(): Observable<App[]> {
-    return this.getAppMap().pipe(map(appMap => Array.from(appMap.values())));
+    return this.getAppMap().pipe(map(appMap => [...appMap.values()]));
   }
 
   // 根据分类获取应用列表
@@ -60,16 +67,41 @@ export class AppService {
     );
   }
 
-  getApps(appNameList: string[], filterVersion = true): Observable<App[]> {
-    if (!this.native) {
-      return this.getAppMap().pipe(
+  getApps(appNameList: string[], filterVersion = true, filterActive = true): Observable<App[]> {
+    const appMap$ = this.getAppMap();
+
+    if (!this.client) {
+      return appMap$.pipe(
         map(appMap => {
-          return appNameList.map(name => appMap.get(name)).filter(Boolean);
+          return appNameList
+            .map(name => appMap.get(name))
+            .filter(app => {
+              if (!app) {
+                return false;
+              }
+              if (filterActive && !app.active) {
+                return false;
+              }
+              return true;
+            });
         }),
       );
     }
-    return this.getAppMap().pipe(
-      map(appMap => appNameList.map(name => appMap.get(name)).filter(Boolean)),
+
+    return appMap$.pipe(
+      map(appMap =>
+        appNameList
+          .map(name => appMap.get(name))
+          .filter(app => {
+            if (!app) {
+              return false;
+            }
+            if (filterActive && !app.active) {
+              return false;
+            }
+            return true;
+          }),
+      ),
       switchMap(() => this.jobService.jobList(), apps => apps),
       switchMap(
         apps => this.storeService.queryPackage(apps),
@@ -92,8 +124,8 @@ export class AppService {
     );
   }
 
-  getApp(appName: string): Observable<App> {
-    return this.getApps([appName]).pipe(map(apps => apps[0]));
+  getApp(appName: string, filterVersion = true, filterActive = true): Observable<App> {
+    return this.getApps([appName], filterVersion, filterActive).pipe(map(apps => apps[0]));
   }
 
   // 附加app信息到一个对象
@@ -106,9 +138,10 @@ export interface HasApp {
   app: App;
 }
 
-export class App extends DstoreApp {
-  downloads = 0;
-  rate = 0;
-  ratings = 0;
+export interface App extends DstoreApp {
+  downloads: number;
+  rate: number;
+  ratings: number;
+  active: boolean;
   version: AppVersion;
 }
