@@ -1,3 +1,4 @@
+import { debounceTime, filter } from 'rxjs/operators';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -54,10 +55,16 @@ export class AppComponent implements OnInit {
   // 添加搜索查询索引
   searchIndex() {
     if (BaseService.isNative) {
-      this.appService.list().subscribe((apps: App[]) => {
-        const appStringList = JSON.stringify(apps);
-        Channel.exec('search.updateAppList', appStringList);
-      });
+      this.appService
+        .list()
+        .pipe(
+          debounceTime(1000),
+          filter(Boolean),
+        )
+        .subscribe((apps: App[]) => {
+          const appStringList = JSON.stringify(apps);
+          Channel.exec('search.updateAppList', appStringList);
+        });
     }
   }
   // 等待后台添加索引

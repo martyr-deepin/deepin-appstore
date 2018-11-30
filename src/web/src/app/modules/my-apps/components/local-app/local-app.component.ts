@@ -38,7 +38,7 @@ export class LocalAppComponent implements OnInit {
       return Math.ceil(apps.length / size);
     }),
   );
-  removingList$ = this.localAppService.RemovingList().pipe(shareReplay());
+  removingList$ = this.localAppService.RemovingList();
 
   gotoPage(pageIndex: number) {
     this.router.navigate([], { queryParams: { page: pageIndex + 1 } });

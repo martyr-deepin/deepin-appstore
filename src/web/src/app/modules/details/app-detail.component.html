@@ -1,4 +1,4 @@
-<div *ngIf="app; else: $loading">
+<div *ngIf="app$|async as app; else: $loading">
   <div class="appInfo">
     <div class="info-left">
       <img class="icon"
@@ -58,7 +58,7 @@
           <div>
             {{ app.updateTime | date: 'yyyy-MM-dd HH:mm' }} <span class="toRight">&lt;</span>
             <button class="reminder"
-                    (click)="reminder(app.name)"
+                    (click)="reminder(app)"
                     i18n>Ask for update</button>
           </div>
           <div class="webSite"
@@ -99,7 +99,7 @@
 <ng-template #$loading
              let-$app>
   <div class="loadingContainer"
-       *ngIf="app === null; else: $DropOff">
+       *ngIf="$app === null; else: $DropOff">
     <app-wait></app-wait>
   </div>
 

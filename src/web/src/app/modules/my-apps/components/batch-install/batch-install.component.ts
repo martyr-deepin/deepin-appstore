@@ -9,6 +9,8 @@ import {
   publish,
   retry,
   shareReplay,
+  publishReplay,
+  refCount,
 } from 'rxjs/operators';
 
 import { AppService, App } from 'app/services/app.service';
@@ -29,12 +31,12 @@ export class BatchInstallComponent implements OnInit {
   result$ = this.pageIndex$.pipe(
     distinctUntilChanged(),
     switchMap(pageIndex => this.remoteAppService.RemoteAppList(pageIndex + 1, this.pageSize)),
-    shareReplay(1),
+    publishReplay(1),
+    refCount(),
   );
   length$ = this.result$.pipe(map(result => result.totalCount));
   apps$ = this.result$.pipe(
     map(result => {
-      console.log(result);
       return result.apps.map(apps => apps.app);
     }),
     share(),

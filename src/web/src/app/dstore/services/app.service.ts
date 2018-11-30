@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 
-import { Observable, from, BehaviorSubject } from 'rxjs';
-import { retry, map, tap, filter } from 'rxjs/operators';
+import { Observable, from, Subject } from 'rxjs';
+import { retry, map, tap, last, shareReplay } from 'rxjs/operators';
 
-import { compact, get } from 'lodash';
+import { compact, get, cloneDeep } from 'lodash';
 
 import * as localForage from 'localforage';
 
@@ -15,27 +15,43 @@ import { App, appReviver } from './app';
 import { Error } from './errno';
 import { Locale } from '../utils/locale';
 
-const DSTORE_VERSION = '5.1.2.1';
+const DSTORE_VERSION = '5.1.2.2';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AppService {
   private readonly apiURL = `${environment.metadataServer}/api/app`;
-  private readonly appMap$ = new BehaviorSubject<AppMap>({});
+  private readonly appMap$ = new Subject<AppMap>();
   private readonly store = localForage.createInstance({ name: 'apps' });
   categoryList$ = this.categoryServer.getList().toPromise();
   constructor(private http: HttpClient, private categoryServer: CategoryService) {
     this.syncAppMap();
   }
-  private getApps(url: string) {
+  private getApps(url: string, old: App[] = null, since: string = '') {
     return this.http
       .get(url, { responseType: 'text' })
-      .pipe(
-        map(body => JSON.parse(body, appReviver) as Result),
-        map(result => result.apps),
-      )
-      .toPromise();
+      .toPromise()
+      .then(body => JSON.parse(body, appReviver) as Result)
+      .then(result => {
+        if (old && old.length > 0) {
+          if (since === result.lastModified) {
+            return old;
+          }
+          localStorage.setItem('since', result.lastModified);
+          if (result.deleted && result.deleted.length > 0) {
+            old = old.filter(app => !result.deleted.includes(app.id));
+          }
+          if (result.apps && result.apps.length > 0) {
+            old = old.concat(result.apps);
+          }
+          return old;
+        }
+        return result.apps;
+      });
   }
   private async setApps(apps: App[]) {
+    apps = cloneDeep(apps);
     const categoryList = await this.categoryList$;
     const appMap = apps.reduce((acc, app) => Object.assign(acc, { [app.name]: app }), {} as AppMap);
     // 添加快捷访问
@@ -92,40 +108,60 @@ export class AppService {
     this.appMap$.next(appMap);
   }
   private async syncAppMap() {
+    console.log('sync app list');
     if (localStorage.getItem('DSTORE_VERSION') !== DSTORE_VERSION) {
       localStorage.setItem('DSTORE_VERSION', DSTORE_VERSION);
       await this.store.clear();
     }
-    let apps = await this.store.getItem<App[]>('apps');
-    if (!apps) {
-      apps = await this.getApps('/assets/app.json');
+    try {
+      // 从缓存获取应用列表
+      let apps = await this.store.getItem<App[]>('apps');
+      if (!apps) {
+        // 从预存文件获取应用列表
+        apps = await this.getApps('/assets/app.json');
+      }
+      this.setApps(apps);
+      // 增量更新应用列表
+      const since = localStorage.getItem('since');
+      if (since) {
+        apps = await this.getApps(this.apiURL + '?since=' + since, apps, since);
+        this.setApps(apps);
+      }
+    } catch (err) {
+      console.error(err);
     }
-    this.setApps(apps);
 
-    // 启动三秒后更新app
-    await new Promise(resolve => setTimeout(resolve, 10 * 1000));
+    try {
+      // 启动10秒后全量更新apps
+      await new Promise(resolve => setTimeout(resolve, 10 * 1000));
 
-    apps = await this.getApps(this.apiURL);
-    if (apps) {
-      apps.sort((a, b) => a.name.localeCompare(b.name));
-      await this.store.setItem('apps', apps);
-      await this.setApps(apps);
+      const apps = await this.getApps(this.apiURL);
+      if (apps) {
+        apps.sort((a, b) => a.name.localeCompare(b.name));
+        await this.store.setItem('apps', apps);
+        await this.setApps(apps);
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
 
+  getAppMap() {
+    return this.appMap$.pipe(shareReplay(1));
+  }
   // 获取全部应用列表
   getAppList(): Observable<App[]> {
-    return this.appMap$.pipe(map(m => Object.values(m).filter(Boolean)));
+    return this.getAppMap().pipe(map(m => Object.values(m).filter(Boolean)));
   }
 
   // 根据应用名获取应用
   getAppByName(name: string): Observable<App> {
-    return this.appMap$.pipe(map(m => m[name]));
+    return this.getAppMap().pipe(map(m => m[name]));
   }
 
   // 根据应用名列表获取应用列表
   getAppListByNames(appNames: string[]): Observable<App[]> {
-    return this.appMap$.pipe(map(m => appNames.map(appName => m[appName]).filter(Boolean)));
+    return this.getAppMap().pipe(map(m => appNames.map(appName => m[appName]).filter(Boolean)));
   }
 }
 

@@ -2,7 +2,7 @@ import { JobService } from 'app/services/job.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, combineLatest, Subject } from 'rxjs';
-import { map, scan, share, debounceTime, switchMap, shareReplay } from 'rxjs/operators';
+import { map, scan, share, debounceTime, switchMap, shareReplay, tap } from 'rxjs/operators';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
@@ -102,7 +102,7 @@ export class AppService {
             return true;
           }),
       ),
-      switchMap(() => this.jobService.jobList(), apps => apps),
+      switchMap(() => this.jobService.jobList().pipe(debounceTime(100)), apps => apps),
       switchMap(
         apps => this.storeService.queryPackage(apps),
         (apps, pkgMap) => {

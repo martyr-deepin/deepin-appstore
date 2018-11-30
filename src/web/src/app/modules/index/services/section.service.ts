@@ -14,7 +14,7 @@ export class SectionService {
     map(ss => {
       return ss || [];
     }),
-    shareReplay(),
+    shareReplay(1),
   );
   constructor(private http: HttpClient) {}
   getList() {

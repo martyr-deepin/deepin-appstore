@@ -7,7 +7,9 @@ import { retry, map, shareReplay } from 'rxjs/operators';
 import { BaseService } from './base.service';
 import { Locale } from '../utils/locale';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CategoryService {
   metadataServer = BaseService.serverHosts.metadataServer;
 
@@ -24,7 +26,7 @@ export class CategoryService {
           c => c.Name,
         );
       }),
-      shareReplay(),
+      shareReplay(1),
     );
   }
 }

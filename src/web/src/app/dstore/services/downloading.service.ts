@@ -14,7 +14,9 @@ export class AppDownloading {
   count: number;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class DownloadingService {
   operationServer: string;
   constructor(private http: HttpClient, private appService: AppService) {}
@@ -22,7 +24,7 @@ export class DownloadingService {
     .get<{ apps: AppDownloading[] }>(`${this.operationServer}/api/downloading`)
     .pipe(
       map(result => new Map(result.apps.map(app => [app.appName, app.count] as [string, number]))),
-      shareReplay(),
+      shareReplay(1),
     );
 
   getList(search?: string) {

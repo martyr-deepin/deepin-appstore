@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientModule } from 'app/modules/client/client.module';
 
-import { AppService } from './services/app.service';
 import { CategoryService } from './services/category.service';
 import { DownloadingService } from './services/downloading.service';
 
@@ -38,7 +37,7 @@ import { IconPipe } from './pipes/icon.pipe';
 
 @NgModule({
   imports: [CommonModule, HttpModule, RouterModule, FormsModule, ReactiveFormsModule, ClientModule],
-  providers: [AppService, CategoryService, DownloadingService],
+  providers: [],
   declarations: [
     TitleComponent,
     CarouselComponent,

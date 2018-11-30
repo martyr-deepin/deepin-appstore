@@ -1,5 +1,10 @@
+import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { has, get } from 'lodash';
+
+@Injectable({
+  providedIn: 'root',
+})
 export class BaseService {
   constructor() {}
 

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
-import { flatMap, map, tap, concat, switchMap, startWith } from 'rxjs/operators';
+import { flatMap, map, tap, share, switchMap, startWith, first, shareReplay } from 'rxjs/operators';
 
 import { App, AppService } from 'app/services/app.service';
 import { BaseService } from 'app/dstore/services/base.service';
@@ -44,31 +44,30 @@ export class AppDetailComponent implements OnInit {
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
 
-  app: App = null;
-  job$: Observable<StoreJobInfo>;
-
   openURL = DstoreObject.openURL;
   pause = this.storeService.pauseJob;
   start = this.storeService.resumeJob;
-  ngOnInit() {
-    this.route.paramMap
-      .pipe(switchMap(param => this.appService.getApp(param.get('appName'))))
-      .subscribe(app => {
-        this.app = app;
-        this.job$ = this.jobService.jobsInfo().pipe(
-          map(jobs => {
-            return jobs.find(job => job.names.includes(app.name));
-          }),
-        );
-      });
-  }
 
-  reminder() {
-    this.reminderService.reminder(this.app.name, this.app.version.remoteVersion).subscribe(
+  app$ = this.route.paramMap.pipe(
+    switchMap(param => this.appService.getApp(param.get('appName'))),
+    share(),
+  );
+  job$ = this.app$.pipe(
+    switchMap(
+      () => this.jobService.jobsInfo(),
+      (app, jobs) => {
+        return jobs.find(job => job.names.includes(app.name));
+      },
+    ),
+  );
+  ngOnInit() {}
+
+  reminder(app: App) {
+    this.reminderService.reminder(app.name, app.version.remoteVersion).subscribe(
       () => {
         this.notifyService.success(NotifyType.Reminder);
       },
-      err => {
+      () => {
         this.notifyService.error(NotifyType.Reminder);
       },
     );
