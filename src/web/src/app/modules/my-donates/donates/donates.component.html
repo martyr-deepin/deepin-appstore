@@ -1,10 +1,56 @@
 <dstore-center-title>
-  <span title
-        i18n>My Donates</span>
-  <button routerLink="/my/comments"
-          routerLinkActive="active"
-          i18n>My Comments</button>
-  <button routerLink="/my/donates"
-          routerLinkActive="active"
-          i18n>My Donates</button>
+	<span title
+	      i18n>My Donates</span>
+	<button routerLink="/my/comments"
+	        routerLinkActive="active"
+	        i18n>My Comments</button>
+	<button routerLink="/my/donates"
+	        routerLinkActive="active"
+	        i18n>My Donates</button>
 </dstore-center-title>
+<div class="donate-list"
+     dstoreResize
+     (resize)="listHeight$.next($event.height)">
+	<ng-template #loading>
+		<div class="loadingContainer">
+			<app-wait></app-wait>
+		</div>
+	</ng-template>
+	<ng-container *ngIf="donates$|async as donates">
+		<ng-container *ngIf="loaded; else loading">
+			<div class="donate-item"
+			     *ngFor="let donate of donates">
+				<img class="icon"
+				     [src]="donate.app.icon"
+				     [routerLink]="['/app',donate.app.name]">
+				<div class="info">
+					<span>{{donate.app.localInfo.description.name}}</span>
+					<span></span>
+				</div>
+				<div class="time">
+					<span i18n>Donation date:</span>
+					&nbsp;
+					{{donate.createTime|date:"yyyy.MM.dd"}}
+				</div>
+				<div class="source"
+				     [ngSwitch]="donate.source">
+					<ng-container *ngSwitchCase="Payment.AliPay"
+					              i18n>AliPay</ng-container>
+					<ng-container *ngSwitchCase="Payment.WeChat"
+					              i18n>WeChat</ng-container>
+					<ng-container *ngSwitchCase="Payment.PayPal"
+					              i18n>PayPal</ng-container>
+				</div>
+				<div class="amount">
+					<span>{{donate.currency===''?'￥':'$'}}</span>
+					<span i18n>{{donate.amount/100}}元</span>
+				</div>
+			</div>
+		</ng-container>
+	</ng-container>
+</div>
+<div class="paginatorContainer">
+	<app-paginator [length]="length$|async"
+	               [size]="pageSize$|async"
+	               (pageIndexChange)="gotoPage($event)"></app-paginator>
+</div>
