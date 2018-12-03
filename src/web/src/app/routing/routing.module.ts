@@ -1,3 +1,4 @@
+import { AuthGuardService } from './../services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -39,10 +40,12 @@ const routes: Routes = [
   {
     path: 'my/comments',
     loadChildren: 'app/modules/my-comments/my-comments.module#MyCommentsModule',
+    canActivate: [AuthGuardService],
   },
   {
     path: 'my/donates',
     loadChildren: 'app/modules/my-donates/my-donates.module#MyDonatesModule',
+    canActivate: [AuthGuardService],
   },
   {
     path: 'search',

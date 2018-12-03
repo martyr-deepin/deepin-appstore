@@ -1,3 +1,4 @@
+import { AuthGuardService } from 'app/services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LocalAppComponent } from './components/local-app/local-app.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'remote',
     component: RemoteAppComponent,
+    canActivate: [AuthGuardService],
   },
 ];
 
