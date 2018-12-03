@@ -30,10 +30,6 @@ export class RecommendComponent implements OnInit {
     }
   }
 
-  close() {
-    this.dialogRef.nativeElement.close();
-  }
-
   submit() {
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach(control => control.markAsDirty());
@@ -41,7 +37,9 @@ export class RecommendComponent implements OnInit {
     }
     this.recommendService.recommendSubmit(this.recommend).subscribe(
       () => {
-        this.dialogRef.nativeElement.close();
+        if (this.dialogRef.nativeElement.open) {
+          this.dialogRef.nativeElement.close();
+        }
         this.recommend = new Recommend();
         this.notifyService.success(NotifyType.Recommend);
       },

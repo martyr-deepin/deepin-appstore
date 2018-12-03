@@ -1,4 +1,5 @@
 <dialog #dialog>
+  <dstore-close-button [dialog]="dialog"></dstore-close-button>
   <ng-container *ngIf="dialog.open">
     <div class="title">请选择安装应用</div>
     <div class="container">

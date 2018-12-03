@@ -1,8 +1,9 @@
 <dialog #myDialog>
-  <img class="close" (click)="close()" />
+  <dstore-close-button [dialog]="myDialog"></dstore-close-button>
   <form #myForm="ngForm">
     <table *ngIf="myDialog.open">
-      <caption class="title" i18n>Recommend App</caption>
+      <caption class="title"
+               i18n>Recommend App</caption>
       <tr>
         <td>
           <span>*</span>
@@ -10,18 +11,16 @@
         </td>
         <td>
           <div class="input-field">
-            <input
-              type="text"
-              name="appName"
-              [(ngModel)]="recommend.name"
-              required
-              i18n-placeholder
-              placeholder="Official name"
-              #appName="ngModel"
-            />
-            <label class="input-error" *ngIf="appName.hasError('required')" i18n
-              >Official name cannot be empty</label
-            >
+            <input type="text"
+                   name="appName"
+                   [(ngModel)]="recommend.name"
+                   required
+                   i18n-placeholder
+                   placeholder="Official name"
+                   #appName="ngModel" />
+            <label class="input-error"
+                   *ngIf="appName.hasError('required')"
+                   i18n>Official name cannot be empty</label>
           </div>
         </td>
       </tr>
@@ -31,16 +30,18 @@
           <ng-container i18n>Type:</ng-container>
         </td>
         <td>
-          <select
-            name="appType"
-            [ngModel]="recommend.type"
-            (ngModelChange)="recommend.type = $event - 0"
-            required
-          >
-            <option [value]="1" i18n>Linux App</option>
-            <option [value]="2" i18n>Windows App</option>
-            <option [value]="3" i18n>Web App</option>
-            <option [value]="4" i18n>Android App</option>
+          <select name="appType"
+                  [ngModel]="recommend.type"
+                  (ngModelChange)="recommend.type = $event - 0"
+                  required>
+            <option [value]="1"
+                    i18n>Linux App</option>
+            <option [value]="2"
+                    i18n>Windows App</option>
+            <option [value]="3"
+                    i18n>Web App</option>
+            <option [value]="4"
+                    i18n>Android App</option>
           </select>
         </td>
       </tr>
@@ -51,18 +52,16 @@
         </td>
         <td>
           <div class="input-field">
-            <input
-              type="text"
-              name="authorization"
-              [(ngModel)]="recommend.authorization"
-              required
-              i18n-placeholder
-              placeholder="Input No if no license is required"
-              #authorization="ngModel"
-            />
-            <label class="input-error" *ngIf="authorization.hasError('required')" i18n
-              >License cannot be empty</label
-            >
+            <input type="text"
+                   name="authorization"
+                   [(ngModel)]="recommend.authorization"
+                   required
+                   i18n-placeholder
+                   placeholder="Input No if no license is required"
+                   #authorization="ngModel" />
+            <label class="input-error"
+                   *ngIf="authorization.hasError('required')"
+                   i18n>License cannot be empty</label>
           </div>
         </td>
       </tr>
@@ -73,22 +72,20 @@
         </td>
         <td>
           <div class="input-field">
-            <input
-              type="url"
-              name="homePage"
-              pattern="https?://.+"
-              [(ngModel)]="recommend.homePage"
-              required
-              i18n-placeholder
-              placeholder="Official website"
-              #homePage="ngModel"
-            />
-            <label class="input-error" *ngIf="homePage.hasError('required')" i18n
-              >Official website cannot be empty</label
-            >
-            <label class="input-error" *ngIf="homePage.hasError('pattern')" i18n
-              >Official website is not a correct format</label
-            >
+            <input type="url"
+                   name="homePage"
+                   pattern="https?://.+"
+                   [(ngModel)]="recommend.homePage"
+                   required
+                   i18n-placeholder
+                   placeholder="Official website"
+                   #homePage="ngModel" />
+            <label class="input-error"
+                   *ngIf="homePage.hasError('required')"
+                   i18n>Official website cannot be empty</label>
+            <label class="input-error"
+                   *ngIf="homePage.hasError('pattern')"
+                   i18n>Official website is not a correct format</label>
           </div>
         </td>
       </tr>
@@ -99,22 +96,20 @@
         </td>
         <td>
           <div class="input-field">
-            <input
-              type="url"
-              name="downloadURL"
-              pattern="https?://.+"
-              [(ngModel)]="recommend.downloadURL"
-              required
-              i18n-placeholder
-              placeholder="Official download address"
-              #downloadURL="ngModel"
-            />
-            <label class="input-error" *ngIf="downloadURL.hasError('required')" i18n
-              >Download Site cannot be empty</label
-            >
-            <label class="input-error" *ngIf="downloadURL.hasError('pattern')" i18n
-              >Download Site is not a correct format</label
-            >
+            <input type="url"
+                   name="downloadURL"
+                   pattern="https?://.+"
+                   [(ngModel)]="recommend.downloadURL"
+                   required
+                   i18n-placeholder
+                   placeholder="Official download address"
+                   #downloadURL="ngModel" />
+            <label class="input-error"
+                   *ngIf="downloadURL.hasError('required')"
+                   i18n>Download Site cannot be empty</label>
+            <label class="input-error"
+                   *ngIf="downloadURL.hasError('pattern')"
+                   i18n>Download Site is not a correct format</label>
           </div>
         </td>
       </tr>
@@ -124,17 +119,16 @@
           <ng-container i18n>Others:</ng-container>
         </td>
         <td>
-          <textarea
-            name="extra"
-            maxlength="255"
-            [(ngModel)]="recommend.extraInfo"
-            i18n-placeholder
-            placeholder="Introduction or other info"
-          ></textarea>
+          <textarea name="extra"
+                    maxlength="255"
+                    [(ngModel)]="recommend.extraInfo"
+                    i18n-placeholder
+                    placeholder="Introduction or other info"></textarea>
         </td>
       </tr>
       <tr>
-        <td colspan="2"><button (click)="submit()" i18n>Submit</button></td>
+        <td colspan="2"><button (click)="submit()"
+                  i18n>Submit</button></td>
       </tr>
     </table>
   </form>

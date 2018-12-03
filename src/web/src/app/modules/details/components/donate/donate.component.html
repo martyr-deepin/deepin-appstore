@@ -1,57 +1,72 @@
 <div class="donateBtn">
-  <button class="primary" (click)="dialog.showModal()" i18n>Donate</button>
-  <span class="statement" (click)="statement.showModal()" i18n
-    >Statement for Delivery and Donation</span
-  >
+  <button class="primary"
+          (click)="dialog.showModal()"
+          i18n>Donate</button>
+  <span class="statement"
+        (click)="statement.showModal()"
+        i18n>Statement for Delivery and Donation</span>
 </div>
-<dialog class="statementDialog" #statement>
-  <img class="close" (click)="statement.close()" />
+<dialog class="statementDialog"
+        #statement>
+  <dstore-close-button [dialog]="statement"></dstore-close-button>
   <app-statement></app-statement>
 </dialog>
-<dialog class="donateDialog" (close)="close()" #dialog>
+<dialog class="donateDialog"
+        (close)="close()"
+        #dialog>
+  <dstore-close-button [dialog]="dialog"></dstore-close-button>
   <div class="container">
     <ng-container *ngIf="dialog.open">
-      <img class="close" (click)="dialog.close()" />
+      <img class="close"
+           (click)="dialog.close()" />
       <ng-container *ngIf="!waitPay$ && !loading; else: paying">
         <div class="donateForm">
           <h2 i18n>Donate</h2>
           <div class="formField">
             <label i18n>Amount:</label>
             <div class="amount">
-              <input
-                type="text"
-                [value]="amount"
-                (input)="inputChange($event)"
-                (keyup.enter)="pay()"
-              />
-              <div class="rand" (click)="rand()" i18n>Random</div>
+              <input type="text"
+                     [value]="amount"
+                     (input)="inputChange($event)"
+                     (keyup.enter)="pay()" />
+              <div class="rand"
+                   (click)="rand()"
+                   i18n>Random</div>
             </div>
           </div>
           <div class="formField">
-            <label class="paymentLabel" i18n>Payment:</label>
+            <label class="paymentLabel"
+                   i18n>Payment:</label>
             <div class="payment">
               <label>
-                <input type="radio" name="payment" [(ngModel)]="payment" [value]="Payment.WeChat" />
+                <input type="radio"
+                       name="payment"
+                       [(ngModel)]="payment"
+                       [value]="Payment.WeChat" />
                 <img class="paymentIcon wechat" />
               </label>
               <label>
-                <input type="radio" name="payment" [(ngModel)]="payment" [value]="Payment.AliPay" />
+                <input type="radio"
+                       name="payment"
+                       [(ngModel)]="payment"
+                       [value]="Payment.AliPay" />
                 <img class="paymentIcon alipay" />
               </label>
               <br />
               <label>
-                <input type="radio" name="payment" [(ngModel)]="payment" [value]="Payment.PayPal" />
+                <input type="radio"
+                       name="payment"
+                       [(ngModel)]="payment"
+                       [value]="Payment.PayPal" />
                 <img class="paymentIcon paypal" />
               </label>
             </div>
           </div>
 
-          <button
-            class="btn"
-            [disabled]="amount <= 0"
-            (click)="pay(); $event.target.disabled = true"
-            i18n
-          >Pay Now</button>
+          <button class="btn"
+                  [disabled]="amount <= 0"
+                  (click)="pay(); $event.target.disabled = true"
+                  i18n>Pay Now</button>
         </div>
       </ng-container>
 
@@ -63,14 +78,16 @@
         <ng-container *ngIf="(waitPay$ | async) as check; else: loading">
           <div class="waitPay">
             <ng-container *ngIf="check.isExist; else: $wait">
-              <img class="icon" src="/assets/icons/ok.svg" /> <br />
+              <img class="icon"
+                   src="/assets/icons/ok.svg" /> <br />
               <div i18n>Payment Succeeded!</div>
             </ng-container>
             <ng-template #$wait>
               <ng-container *ngIf="qrImg; else: $msg">
                 <div>
                   <ng-container i18n>WeChat Pay:</ng-container>
-                  &nbsp; <span class="amount" i18n>RMB ￥{{ amount }}</span>
+                  &nbsp; <span class="amount"
+                        i18n>RMB ￥{{ amount }}</span>
                 </div>
                 <img [src]="qrImg" />
                 <ng-container *ngIf="check.isPaying">
@@ -79,7 +96,8 @@
                 </ng-container>
               </ng-container>
               <ng-template #$msg>
-                <img class="wait" [style.width.rem]="4" />
+                <img class="wait"
+                     [style.width.rem]="4" />
                 <div i18n>Paying, please wait...</div>
               </ng-template>
             </ng-template>

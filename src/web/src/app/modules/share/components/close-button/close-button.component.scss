@@ -1,0 +1,22 @@
+div.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 1px;
+  color: red;
+  $url: '/assets/buttons/close';
+  background: var(--dialog-close-icon), url($url+'_hover.svg'), url($url+'_press.svg');
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center, -100px, -100px;
+  &:hover {
+    background-position-y: -100px, center, -100px;
+  }
+  &:active {
+    background-position-y: -100px, -100px, center;
+  }
+}

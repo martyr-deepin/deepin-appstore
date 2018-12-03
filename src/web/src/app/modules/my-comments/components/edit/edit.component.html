@@ -1,4 +1,5 @@
 <dialog #dialog>
+  <dstore-close-button [dialog]="dialog"></dstore-close-button>
   <ng-container *ngIf="app$|async as app;else loading">
     <div class="title"
          i18n>修改评论</div>
