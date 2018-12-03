@@ -75,6 +75,7 @@ int main(int argc, char** argv) {
   settings.setLogFile(cache_dir.filePath("web-console.log"));
   settings.addCommandLineSwitch(kEnableLogging, "");
   settings.addCommandLineSwitch(kLogLevel, "0");
+  settings.addCommandLineSwitch("--use-views", "");
 
   settings.setCustomSchemeHandler(dstore::RccSchemeHandler);
   settings.addCustomScheme(QUrl("rcc://web"));

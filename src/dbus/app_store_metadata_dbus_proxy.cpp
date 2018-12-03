@@ -17,7 +17,7 @@
 
 #include "dbus/app_store_metadata_dbus_proxy.h"
 
-#include "services/apt_util_worker.h"
+#include "services/package/apt_util_worker.h"
 #include "services/metadata_manager.h"
 
 namespace dstore {

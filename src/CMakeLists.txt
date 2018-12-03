@@ -121,8 +121,6 @@ set(RESOURCES_FILES
     resources/themes/themes.qrc)
 
 set(SERVICES_FILES
-    services/apt_util_worker.cpp
-    services/apt_util_worker.h
     services/dbus_manager.cpp
     services/dbus_manager.h
     services/metadata_manager.cpp
@@ -150,6 +148,8 @@ set(SERVICES_FILES
     services/package/package_manager.cpp
     services/package/apt_package_manager.h
     services/package/apt_package_manager.cpp
+    services/package/apt_util_worker.cpp
+    services/package/apt_util_worker.h
     services/package/dpk_url.h
     services/package/dpk_url.cpp)
 

@@ -25,7 +25,6 @@
 #include "dbus/dbus_variant/installed_app_timestamp.h"
 #include "dbus/lastore_deb_interface.h"
 #include "dbus/lastore_job_interface.h"
-#include "services/apt_util_worker.h"
 
 #include "package/package_manager.h"
 #include "package/apt_package_manager.h"
@@ -78,8 +77,6 @@ class StoreDaemonManagerPrivate
 {
 public:
     StoreDaemonManagerPrivate(StoreDaemonManager *parent) :
-        apt_worker_(new AptUtilWorker()),
-        apt_worker_thread_(new QThread(parent)),
         deb_interface_(new LastoreDebInterface(
                            kLastoreDebDbusService,
                            kLastoreDebDbusPath,
@@ -90,23 +87,13 @@ public:
         auto aptPM = new AptPackageManager(parent);
         pm = new PackageManager(parent);
         pm->registerDpk("deb", aptPM);
-
-        apt_worker_thread_->start();
-        apt_worker_->moveToThread(apt_worker_thread_);
     }
 
-    ~StoreDaemonManagerPrivate()
-    {
-        apt_worker_thread_->quit();
-        apt_worker_thread_->wait(3);
-    }
 
     void initConnections();
 
 
     PackageManager *pm = nullptr;
-    AptUtilWorker *apt_worker_ = nullptr;
-    QThread *apt_worker_thread_ = nullptr;
     LastoreDebInterface *deb_interface_ = nullptr;
 
     QMap<QString, QString> apps;
@@ -147,10 +134,10 @@ void StoreDaemonManager::clearArchives()
     d->deb_interface_->CleanArchives();
 }
 
-void StoreDaemonManager::openApp(const QString &app_name)
+void StoreDaemonManager::openApp(const QVariant &app)
 {
     Q_D(StoreDaemonManager);
-    emit d->apt_worker_->openAppRequest(app_name);
+    d->pm->Open(AppPackage::fromVariantMap(app.toMap()));
 }
 
 void StoreDaemonManager::updateAppList(const SearchMetaList &app_list)
@@ -269,31 +256,6 @@ QVariantMap StoreDaemonManager::startJob(const QString &job)
     }
 }
 
-QVariantMap StoreDaemonManager::installPackage(const QString &app_name,
-        const QString &app_local_name)
-{
-    // NOTE(Shaohua): package name is also set as job_name so that `name`
-    // property in JobInfo is referred to package_name.
-    Q_D(StoreDaemonManager);
-    const QDBusPendingReply<QDBusObjectPath> reply =
-        d->deb_interface_->Install(app_local_name, app_name);
-    if (reply.isError()) {
-        return QVariantMap {
-            { kResultOk, false },
-            { kResultErrName, reply.error().name() },
-            { kResultErrMsg, reply.error().message() },
-            { kResult, app_name},
-        };
-    } else {
-        return QVariantMap {
-            { kResultOk, true },
-            { kResultErrName, "" },
-            { kResultErrMsg, "" },
-            { kResult, reply.value().path()},
-        };
-    }
-}
-
 QVariantMap StoreDaemonManager::installedPackages()
 {
     // TODO: filter install list
@@ -307,54 +269,67 @@ QVariantMap StoreDaemonManager::installedPackages()
     };
 }
 
-QVariantMap StoreDaemonManager::packageDownloadSize(const QString &app_name)
+//QVariantMap StoreDaemonManager::packageDownloadSize(const QString &app_name)
+//{
+//    Q_D(StoreDaemonManager);
+//    const QDBusPendingReply<qlonglong> reply =
+//        d->deb_interface_->QueryDownloadSize(app_name);
+//    if (reply.isError()) {
+//        return QVariantMap {
+//            { kResultOk, false },
+//            { kResultErrName, reply.error().name() },
+//            { kResultErrMsg, reply.error().message() },
+//        };
+//    } else {
+//        const qlonglong size = reply.value();
+//        return QVariantMap {
+//            { kResultOk, true },
+//            { kResultErrName, reply.error().name() },
+//            { kResultErrMsg, reply.error().message() },
+//            { kResult, size },
+//        };
+//    }
+//}
+
+QVariantMap StoreDaemonManager::installPackage(const QVariantList &apps)
 {
     Q_D(StoreDaemonManager);
-    const QDBusPendingReply<qlonglong> reply =
-        d->deb_interface_->QueryDownloadSize(app_name);
-    if (reply.isError()) {
-        return QVariantMap {
-            { kResultOk, false },
-            { kResultErrName, reply.error().name() },
-            { kResultErrMsg, reply.error().message() },
-        };
-    } else {
-        const qlonglong size = reply.value();
-        return QVariantMap {
-            { kResultOk, true },
-            { kResultErrName, reply.error().name() },
-            { kResultErrMsg, reply.error().message() },
-            { kResult, size },
-        };
+
+    AppPackageList list;
+    for (auto v : apps) {
+        list.append(AppPackage::fromVariantMap(v.toMap()));
     }
+    auto result = d->pm->Install(list);
+
+    return QVariantMap {
+        { kResultOk, result.success },
+        { kResultErrName, result.errName },
+        { kResultErrMsg, result.errMsg },
+        { kResult, result.data},
+    };
 }
 
-QVariantMap StoreDaemonManager::updatePackage(const QString &app_name,
-        const QString &app_local_name)
+QVariantMap StoreDaemonManager::updatePackage(const QVariantList &apps)
 {
-    return this->installPackage(app_name, app_local_name);
+    return this->installPackage(apps);
 }
 
-QVariantMap StoreDaemonManager::removePackage(const QString &app_name,
-        const QString &app_local_name)
+QVariantMap StoreDaemonManager::removePackage(const QVariantList &apps)
 {
     Q_D(StoreDaemonManager);
-    const QDBusPendingReply<QDBusObjectPath> reply =
-        d->deb_interface_->Remove(app_local_name, app_name);
-    if (reply.isError()) {
-        return QVariantMap {
-            { kResultOk, false },
-            { kResultErrName, reply.error().name() },
-            { kResultErrMsg, reply.error().message() },
-        };
-    } else {
-        return QVariantMap {
-            { kResultOk, true },
-            { kResultErrName, "" },
-            { kResultErrMsg, "" },
-            { kResult, reply.value().path() },
-        };
+
+    AppPackageList list;
+    for (auto v : apps) {
+        list.append(AppPackage::fromVariantMap(v.toMap()));
     }
+    auto result = d->pm->Remove(list);
+
+    return QVariantMap {
+        { kResultOk, result.success },
+        { kResultErrName, result.errName },
+        { kResultErrMsg, result.errMsg },
+        { kResult, result.data},
+    };
 }
 
 QVariantMap StoreDaemonManager::jobList()
@@ -386,17 +361,17 @@ QVariantMap StoreDaemonManager::queryVersions(const QStringList &apps)
     };
 }
 
-QVariantMap StoreDaemonManager::queryInstalledTime(const QStringList &apps)
-{
-    Q_D(StoreDaemonManager);
-    auto result = d->pm->QueryInstalledTime(apps);
-    return QVariantMap {
-        { kResultOk, result.success },
-        { kResultErrName, result.errName },
-        { kResultErrMsg, result.errMsg },
-        { kResult, result.data},
-    };
-}
+//QVariantMap StoreDaemonManager::queryInstalledTime(const QStringList &apps)
+//{
+//    Q_D(StoreDaemonManager);
+//    auto result = d->pm->QueryInstalledTime(apps);
+//    return QVariantMap {
+//        { kResultOk, result.success },
+//        { kResultErrName, result.errName },
+//        { kResultErrMsg, result.errMsg },
+//        { kResult, result.data},
+//    };
+//}
 
 QVariantMap StoreDaemonManager::query(const QVariantList &apps)
 {
@@ -413,6 +388,24 @@ QVariantMap StoreDaemonManager::query(const QVariantList &apps)
         { kResultErrMsg, result.errMsg },
         { kResult, result.data},
     };
+}
+
+QVariantMap StoreDaemonManager::queryDownloadSize(const QVariantList &apps)
+{
+    Q_D(StoreDaemonManager);
+
+    AppPackageList list;
+    for (auto v : apps) {
+        list.append(AppPackage::fromVariantMap(v.toMap()));
+    }
+    auto result = d->pm->QueryDownloadSize(list);
+    return QVariantMap {
+        { kResultOk, result.success },
+        { kResultErrName, result.errName },
+        { kResultErrMsg, result.errMsg },
+        { kResult, result.data},
+    };
+
 }
 
 QVariantMap StoreDaemonManager::getJobInfo(const QString &job)

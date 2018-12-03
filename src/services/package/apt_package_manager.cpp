@@ -3,6 +3,9 @@
 #include <QEventLoop>
 #include <QCoreApplication>
 
+#include "base/command.h"
+#include "base/launcher.h"
+
 #include "dbus/dbus_consts.h"
 #include "dbus/dbus_variant/app_version.h"
 #include "dbus/dbus_variant/installed_app_info.h"
@@ -12,11 +15,23 @@
 
 #include "services/store_daemon_manager.h"
 
+#include "apt_util_worker.h"
+
 namespace dstore
 {
+
 namespace
 {
 
+static QStringList getIDs(const QList<Package> &packages)
+{
+    QStringList packageIDs;
+    for (auto &package : packages) {
+        packageIDs << package.dpk.getID();
+    }
+//    qDebug() << packageIDs;
+    return packageIDs;
+}
 
 }  // namespace
 
@@ -28,8 +43,24 @@ public:
                            kLastoreDebDbusService,
                            kLastoreDebDbusPath,
                            QDBusConnection::sessionBus(),
-                           parent)), q_ptr(parent) {}
+                           parent)), q_ptr(parent)
+    {
+        apt_worker_ = new AptUtilWorker();
+        apt_worker_thread_ = new QThread();
 
+        apt_worker_thread_->start();
+        apt_worker_->moveToThread(apt_worker_thread_);
+    }
+
+    ~AptPackageManagerPrivate()
+    {
+        apt_worker_thread_->quit();
+        apt_worker_thread_->wait(3);
+    }
+
+
+    AptUtilWorker *apt_worker_ = nullptr;
+    QThread *apt_worker_thread_ = nullptr;
 
     LastoreDebInterface *deb_interface_ = nullptr;
 
@@ -48,10 +79,17 @@ AptPackageManager::~AptPackageManager()
 
 }
 
-PackageManagerResult AptPackageManager::Query(const QStringList &packageIDs)
+PMResult AptPackageManager::Open(const QString &packageID)
 {
     Q_D(AptPackageManager);
-    qDebug() << packageIDs;
+    emit d->apt_worker_->openAppRequest(packageID);
+    return PMResult::warp({});
+}
+
+PMResult AptPackageManager::Query(const QList<Package> &packages)
+{
+    Q_D(AptPackageManager);
+    auto packageIDs = getIDs(packages);
 
     const QDBusPendingReply<AppVersionList> reply =
         d->deb_interface_->QueryVersion(packageIDs);
@@ -61,11 +99,8 @@ PackageManagerResult AptPackageManager::Query(const QStringList &packageIDs)
     }
 
     if (reply.isError()) {
-        qDebug() << reply.error();
-        return PackageManagerResult(false,
-                                    reply.error().name(),
-                                    reply.error().message(),
-                                    "");
+        qWarning() << reply.error();
+        return PMResult::dbusError(reply.error());
     }
 
     const AppVersionList version_list = reply.value();
@@ -88,10 +123,7 @@ PackageManagerResult AptPackageManager::Query(const QStringList &packageIDs)
         d->deb_interface_->QueryInstallationTime(packageIDs);
     if (installTimeReply.isError()) {
         qDebug() << installTimeReply.error();
-        return PackageManagerResult(false,
-                                    installTimeReply.error().name(),
-                                    installTimeReply.error().message(),
-                                    "");
+        return PMResult::dbusError(installTimeReply.error());
     }
 
     while (!installTimeReply.isFinished()) {
@@ -108,42 +140,59 @@ PackageManagerResult AptPackageManager::Query(const QStringList &packageIDs)
         result.insert(package_name, pkg);
     }
 
-    if (packageIDs.length() == 1) {
-        auto packageName = packageIDs.value(0);
+    QVariantMap data;
+    for (auto &p : result) {
+        data.insert(p.packageURI, p.toVariantMap());
+    }
+
+    return PMResult::warp(data);
+}
+
+PMResult AptPackageManager::QueryDownloadSize(const QList<Package> &packages)
+{
+    Q_D(AptPackageManager);
+
+    auto packageIDs = getIDs(packages);
+
+    QMap<QString, Package> result;
+    for (auto &packageName : packageIDs) {
         const QDBusPendingReply<qlonglong> sizeReply =
             d->deb_interface_->QueryDownloadSize(packageName);
-        while (!installTimeReply.isFinished()) {
+
+        while (!sizeReply.isFinished()) {
             qApp->processEvents();
         }
+
         if (sizeReply.isError()) {
             qDebug() << sizeReply.error();
-            return PackageManagerResult(false,
-                                        sizeReply.error().name(),
-                                        sizeReply.error().message(),
-                                        "");
+            return PMResult::dbusError(sizeReply.error());
         }
 
-
+        Package pkg;
+        auto packageID =  packageName.split(":").first();
+        pkg.packageURI = "dpk://deb/" + packageID;
+        pkg.packageName = packageName;
         const qlonglong size = sizeReply.value();
-        auto pkg = result.value(packageName);
-        pkg.size = size;
+        pkg.size = 0;
+        pkg.downloadSize = size;
+
         result.insert(packageName, pkg);
     }
+
 
     QVariantMap data;
     for (auto &p : result) {
         data.insert(p.packageURI, p.toVariantMap());
     }
+
     qDebug() << data;
-    return PackageManagerResult(true,
-                                "",
-                                "",
-                                data);
+    return PMResult::warp(data);
 }
 
-PackageManagerResult AptPackageManager::QueryVersion(const QStringList &packageIDs)
+PMResult AptPackageManager::QueryVersion(const QList<Package> &packages)
 {
     Q_D(AptPackageManager);
+    auto packageIDs = getIDs(packages);
 
     const QDBusPendingReply<AppVersionList> reply =
         d->deb_interface_->QueryVersion(packageIDs);
@@ -153,10 +202,8 @@ PackageManagerResult AptPackageManager::QueryVersion(const QStringList &packageI
     }
 
     if (reply.isError()) {
-        return PackageManagerResult(false,
-                                    reply.error().name(),
-                                    reply.error().message(),
-                                    "");
+        qDebug() << reply.error();
+        return PMResult::dbusError(reply.error());
     }
 
 
@@ -175,23 +222,19 @@ PackageManagerResult AptPackageManager::QueryVersion(const QStringList &packageI
         });
     }
 
-    return PackageManagerResult(true,
-                                "",
-                                "",
-                                result);
+    return PMResult::warp(result);
 }
 
-PackageManagerResult AptPackageManager::QueryInstalledTime(const QStringList &packageIDs)
+PMResult AptPackageManager::QueryInstalledTime(const QList<Package> &packages)
 {
     Q_D(AptPackageManager);
+    auto packageIDs = getIDs(packages);
+
     const QDBusPendingReply<InstalledAppTimestampList> reply =
         d->deb_interface_->QueryInstallationTime(packageIDs);
     if (reply.isError()) {
-        return PackageManagerResult(false,
-                                    reply.error().name(),
-                                    reply.error().message(),
-                                    "");
-
+        qDebug() << reply.error();
+        return PMResult::dbusError(reply.error());
     }
 
     const InstalledAppTimestampList timestamp_list = reply.value();
@@ -206,88 +249,101 @@ PackageManagerResult AptPackageManager::QueryInstalledTime(const QStringList &pa
         });
     }
 
-    return PackageManagerResult(true,
-                                "",
-                                "",
-                                result);
+    return PMResult::warp(result);
 }
 
-PackageManagerResult AptPackageManager::ListInstalled(const QStringList &packageIDs)
+PMResult AptPackageManager::ListInstalled(const QList<QString> &packageIDs)
 {
+    Q_D(AptPackageManager);
+//    auto packageIDs = getIDs(packages);
+
     //TODO: remove
     QMap<QString, int> apps;
     for (auto id : packageIDs) {
         apps.insert(id, 1);
     }
 
-    Q_D(AptPackageManager);
     const QDBusPendingReply<InstalledAppInfoList> reply =
         d->deb_interface_->ListInstalled();
     if (reply.isError()) {
-        return PackageManagerResult(false,
-                                    reply.error().name(),
-                                    reply.error().message(),
-                                    "");
+        qDebug() << reply.error();
+        return PMResult::dbusError(reply.error());
     }
 
     const InstalledAppInfoList list = reply.value();
     QVariantList result;
     for (const InstalledAppInfo &info : list) {
-        auto package_name = info.pkg_name;
-        auto packageID =  package_name.split(":").first();
+        Package pkg;
+        pkg.packageName = info.pkg_name;
+        auto packageID =   pkg.packageName.split(":").first();
+        pkg.localVersion = info.version;
+        pkg.size = info.size;
+        pkg.packageURI = "dpk://deb/" + packageID;
+
         // TODO: remove name
         if (apps.contains(packageID)) {
-            result.append("dpk://deb/" + packageID);
+            result.append(pkg.toVariantMap());
+//            qDebug() << info.pkg_name << info.size << info.version;
+//            break; // for debug
         }
     }
-    return PackageManagerResult(true,
-                                "",
-                                "",
-                                result);
+
+    return PMResult::warp(result);
+}
+
+PMResult AptPackageManager::Install(const QList<Package> &packages)
+{
+    Q_D(AptPackageManager);
+
+    QMap<QString, QVariant> result;
+
+    for (auto &package : packages) {
+        qDebug() << package.packageURI << package.dpk.getID() << package.localName;
+        const QDBusPendingReply<QDBusObjectPath> reply =
+            d->deb_interface_->Install(package.localName, package.dpk.getID());
+
+        while (!reply.isFinished()) {
+            qApp->processEvents();
+        }
+
+        if (reply.isError()) {
+            qDebug() << reply.error();
+            return PMResult::dbusError(reply.error());
+        }
+
+        result.insert(package.packageURI, reply.value().path());
+    }
+
+    qDebug() << result;
+    return PMResult::warp(result);
 
 }
 
-void AptPackageManager::Install(const QStringList &packageIDList)
+PMResult AptPackageManager::Remove(const QList<Package> &packages)
 {
-    Q_UNUSED(packageIDList);
-}
+    Q_D(AptPackageManager);
 
-void AptPackageManager::Remove(const QStringList &packageIDList)
-{
-    Q_UNUSED(packageIDList);
-//    Q_D(AptPackageManager);
+    QMap<QString, QVariant> result;
 
-//    const QDBusPendingReply<QDBusObjectPath> reply =
-//        d->deb_interface_->Remove(app_local_name, app_name);
+    for (auto &package : packages) {
+        qDebug() << package.packageURI << package.dpk.getID() << package.localName;
+        const QDBusPendingReply<QDBusObjectPath> reply =
+            d->deb_interface_->Remove(package.localName, package.dpk.getID());
 
-//    if (reply.isError()) {
-//        return PackageManagerResult(false,
-//                                    reply.error().name(),
-//                                    reply.error().message(),
-//                                    "");
-//    }
+        while (!reply.isFinished()) {
+            qApp->processEvents();
+        }
 
-//    if (reply.isError()) {
-//        return QVariantMap {
-//            { kResultOk, false },
-//            { kResultErrName, reply.error().name() },
-//            { kResultErrMsg, reply.error().message() },
-//        };
-//    } else {
-//        return QVariantMap {
-//            { kResultOk, true },
-//            { kResultErrName, "" },
-//            { kResultErrMsg, "" },
-//            { kResult, reply.value().path() },
-//        };
-//    }
-//}
-//    qCritical() << Q_FUNC_INFO << "Invalid app: " << app_name;
-//    return QVariantMap {
-//        { kResultOk, false },
-//        { kResultErrName, "Invalid app_name" },
-//        { kResultErrMsg, "Invalid app_name" },
-//    };
+        if (reply.isError()) {
+            qDebug() << reply.error();
+            return PMResult::dbusError(reply.error());
+        }
+
+        result.insert(package.packageURI, reply.value().path());
+    }
+
+    qDebug() << result;
+    return PMResult::warp(result);
 }
 
 }

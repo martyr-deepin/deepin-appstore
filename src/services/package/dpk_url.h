@@ -30,6 +30,7 @@ dpk://flatpak/org.deepin.flatdeb.dde-calendar
 class DpkURI
 {
 public:
+    DpkURI() {}
     DpkURI(const QString &dpk);
     bool isValid() const;
     QString getType() const;

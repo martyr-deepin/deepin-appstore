@@ -17,7 +17,9 @@ AppPackage AppPackage::fromVariantMap(const QVariantMap &json)
     auto packages = json.value("packages").toList();
     for (const auto &v : packages) {
         Package pkg;
+        pkg.localName = app.localName;
         pkg.packageURI = v.toMap().value("packageURI").toString();
+        pkg.dpk = DpkURI(pkg.packageURI);
         app.packages.append(pkg);
     }
 
@@ -47,6 +49,7 @@ Package Package::fromVariantMap(const QVariantMap &obj)
     pkg.remoteVersion = obj.value("remoteVersion").toString();
     pkg.installedTime = static_cast<qlonglong>(obj.value("installedTime").toInt());
     pkg.size = static_cast<qlonglong>(obj.value("size").toInt());
+    pkg.downloadSize = static_cast<qlonglong>(obj.value("downloadSize").toInt());
     pkg.upgradable = obj.value("upgradable").toBool();
     return pkg;
 }
@@ -62,7 +65,18 @@ QVariantMap Package::toVariantMap() const
     obj.insert("installedTime", installedTime);
     obj.insert("upgradable", upgradable);
     obj.insert("size", size);
+    obj.insert("downloadSize", downloadSize);
     return obj;
+}
+
+PMResult PMResult::warp(const QVariant &data)
+{
+    return PMResult(true, "", "", data);
+}
+
+PMResult PMResult::dbusError(const QDBusError &err)
+{
+    return PMResult(false, err.name(), err.message(), "");
 }
 
 }

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QtDBus/QtDBus>
-#include "services/apt_util_worker.h"
+#include "apt_util_worker.h"
 
 #include <QDebug>
+#include <QtDBus/QtDBus>
 
 #include "base/command.h"
 #include "base/launcher.h"

@@ -3,7 +3,6 @@
 #include <QObject>
 #include <QScopedPointer>
 
-#include "services/store_daemon_manager.h"
 #include "package_manager_interface.h"
 
 namespace dstore
@@ -21,17 +20,21 @@ public:
 Q_SIGNALS:
 
 public Q_SLOTS:
-    PackageManagerResult Query(const AppPackageList &apps);
+    void Open(const AppPackage &app);
 
-    PackageManagerResult QueryVersion(const QStringList &packageID);
+    PMResult Query(const AppPackageList &apps);
 
-    PackageManagerResult QueryInstalledTime(const QStringList &packageID);
+    PMResult QueryDownloadSize(const AppPackageList &apps);
 
-    PackageManagerResult ListInstalled(const QStringList &packageID);
+    PMResult ListInstalled(const QStringList &packageID);
 
-    void Install(const QStringList &packageIDList);
+    PMResult Install(const AppPackageList &apps);
 
-    void Remove(const QStringList &packageIDList);
+    PMResult Remove(const AppPackageList &apps);
+
+    //TODO remove
+    PMResult QueryVersion(const QStringList &packageID);
+    PMResult QueryInstalledTime(const QStringList &packageID);
 
 private:
     QScopedPointer<PackageManagerPrivate> dd_ptr;

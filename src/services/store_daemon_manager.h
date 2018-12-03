@@ -56,41 +56,45 @@ public Q_SLOTS:
      * @brief openApp by app_name
      * @param app_name: TODO, open by packageURI
      */
-    void openApp(const QString &app_name);
+    void openApp(const QVariant &app);
 
     // TODO: remove
     // update all list of app
     void updateAppList(const SearchMetaList &app_list);
 
     QVariantMap installedPackages();
+
     /**
      * Get deb package size
      * @param app_name
      */
-    QVariantMap packageDownloadSize(const QString &app_name);
-    QVariantMap queryInstalledTime(const QStringList &apps);
+//    QVariantMap packageDownloadSize(const QString &app_name);
+
+//    QVariantMap queryInstalledTime(const QStringList &apps);
 
     QVariantMap query(const QVariantList &apps);
+
+    QVariantMap queryDownloadSize(const QVariantList &apps);
 
     /**
      * apt-get install xxx
      * @param app_name
      * @param app_local_name
      */
-    QVariantMap installPackage(const QString &app_name, const QString &app_local_name);
+    QVariantMap installPackage(const QVariantList &apps);
 
     /**
      * apt-get upgrade xxx
      * @param app_name
      * @param app_local_name
      */
-    QVariantMap updatePackage(const QString &app_name, const QString &app_local_name);
+    QVariantMap updatePackage(const QVariantList &apps);
     /**
      * apt-get remove xxx
      * @param app_name
      * @param app_local_name
      */
-    QVariantMap removePackage(const QString &app_name, const QString &app_local_name);
+    QVariantMap removePackage(const QVariantList &apps);
 
     QVariantMap queryVersions(const QStringList &apps);
 

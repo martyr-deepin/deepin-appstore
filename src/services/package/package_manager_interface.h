@@ -4,11 +4,24 @@
 #include <QVariant>
 #include <QObject>
 #include <QScopedPointer>
+#include <QDBusError>
+
+#include "dpk_url.h"
 
 namespace dstore
 {
 
-struct Package {
+class Package
+{
+public:
+    ~Package()
+    {
+        installedTime = 0;
+        size = 0;
+        downloadSize = 0;
+        upgradable = false;
+    }
+
     QString packageURI;
     QString packageName;
     QString appName;
@@ -16,12 +29,18 @@ struct Package {
     QString remoteVersion;
     qlonglong installedTime;
     qlonglong size;
+    qlonglong downloadSize;
     bool upgradable;
 
     static Package fromVariantMap(const QVariantMap &json);
-//    static Package fromJson(const QByteArray &json);
     QVariantMap toVariantMap() const;
+
+//private:
+    QString localName;
+    DpkURI dpk;
 };
+
+typedef QMap<QString, Package> PackageMap;
 
 struct AppPackage {
     QString         name;
@@ -35,14 +54,17 @@ struct AppPackage {
 
 typedef QList<AppPackage> AppPackageList;
 
-struct PackageManagerResult {
-    PackageManagerResult(bool success,
-                         QString errName,
-                         QString errMsg,
-                         QVariant data):
+struct PMResult {
+    PMResult(bool success,
+             QString errName,
+             QString errMsg,
+             QVariant data):
         success(success), errName(errName), errMsg(errMsg), data(data)
     {
     }
+
+    static PMResult warp(const QVariant &data);
+    static PMResult dbusError(const QDBusError &err);
 
     bool success;
     QString errName;
@@ -50,6 +72,7 @@ struct PackageManagerResult {
     QVariant data;
 };
 
+typedef QMap<QString, PMResult> PMResultMap;
 
 class PackageManagerInterface : public QObject
 {
@@ -60,34 +83,43 @@ public:
 Q_SIGNALS:
 
 public Q_SLOTS:
+
+    virtual PMResult Open(const QString &packageID) = 0;
+
     /*!
      * \brief Query
      */
-    virtual PackageManagerResult Query(const QStringList &packageIDs) = 0;
-    virtual PackageManagerResult QueryVersion(const QStringList &packageIDs) = 0;
+    virtual PMResult Query(const QList<Package> &packageIDs) = 0;
+
+    /*!
+     * \brief QueryDownloadSize
+     */
+    virtual PMResult QueryDownloadSize(const QList<Package> &packageIDs) = 0;
+
+    virtual PMResult QueryVersion(const QList<Package> &packageIDs) = 0;
 
     /*!
      * \brief QueryRemote
      */
-    virtual PackageManagerResult QueryInstalledTime(const QStringList &packageIDs) = 0;
+    virtual PMResult QueryInstalledTime(const QList<Package> &packageIDs) = 0;
 
     /*!
      * \brief ListInstalled
      * \return
      */
-    virtual PackageManagerResult ListInstalled(const QStringList &packageIDs) = 0;
+    virtual PMResult ListInstalled(const QList<QString> &packageIDs) = 0;
 
     /*!
      * \brief Async install package, return immediately.
      * \param packageIDList
      */
-    virtual void Install(const QStringList &packageIDList) = 0;
+    virtual PMResult Install(const QList<Package> &packageIDList) = 0;
 
     /*!
      * \brief Remove
      * \param packageIDList
      */
-    virtual void Remove(const QStringList &packageIDList) = 0;
+    virtual PMResult Remove(const QList<Package> &packageIDList) = 0;
 };
 
 }

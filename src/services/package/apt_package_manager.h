@@ -19,13 +19,16 @@ public:
 Q_SIGNALS:
 
 public Q_SLOTS:
-    virtual PackageManagerResult Query(const QStringList &packageIDs) override;
-    virtual PackageManagerResult QueryVersion(const QStringList &packageIDs) override;
-    virtual PackageManagerResult QueryInstalledTime(const QStringList &packageIDs) override;
-    virtual PackageManagerResult ListInstalled(const QStringList &packageIDs) override;
+    virtual PMResult Open(const QString &packageID) override;
+    virtual PMResult Query(const QList<Package> &packages) override;
+    virtual PMResult QueryDownloadSize(const QList<Package> &packages) override;
+    virtual PMResult QueryVersion(const QList<Package> &packages) override;
+    virtual PMResult QueryInstalledTime(const QList<Package> &packages) override;
 
-    virtual void Install(const QStringList &packageIDList) override;
-    virtual void Remove(const QStringList &packageIDList) override;
+    virtual PMResult ListInstalled(const QList<QString> &packageIDs) override;
+
+    virtual PMResult Install(const QList<Package> &packages) override;
+    virtual PMResult Remove(const QList<Package> &packages) override;
 
 private:
     QScopedPointer<AptPackageManagerPrivate> dd_ptr;

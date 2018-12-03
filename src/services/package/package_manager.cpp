@@ -14,9 +14,10 @@ class PackageManagerPrivate
 public:
     PackageManagerPrivate(PackageManager *parent) : q_ptr(parent) {}
 
-    typedef PackageManagerResult PMHandler(const QString &, const QStringList &);
+    typedef PMResult PMHandler(const QString &, const QStringList &);
+    typedef PMResult PMPackageHandler(const QString &, const QList<Package> &);
 
-    PackageManagerResult mergeRun(const QStringList &list, std::function<PMHandler> callback)
+    PMResult mergeRun(const QStringList &list, std::function<PMHandler> callback)
     {
         QStringList dpks;
         for (auto appName : list) {
@@ -36,36 +37,54 @@ public:
             pkgList.append(data);
         }
         // TODO: error handle
-        return PackageManagerResult(true,
-                                    "",
-                                    "",
-                                    pkgList);
+        return PMResult(true,
+                        "",
+                        "",
+                        pkgList);
     }
 
-    PackageManagerResult mapRun(const QStringList &list, std::function<PMHandler> callback)
+    QMap<QString, QVariant> mapRun(QList<Package> list, std::function<PMPackageHandler> callback)
     {
         QMultiHash<QString, QString> ids;
-        for (auto &packageURI : list) {
-            DpkURI dpk(packageURI);
-//            qDebug() << packageURI << dpk.getType() << dpk.getID();
-            ids.insert(dpk.getType(), dpk.getID());
+        for (auto &package : list) {
+            ids.insert(package.dpk.getType(), package.dpk.getID());
         }
-//        qDebug() << pms.keys();
-        QVariantMap pkgList;
+
+        QMap<QString, QVariant> results;
         for (auto &key : pms.keys()) {
-            auto idList = ids.values(key);
-            auto result = callback(key, idList);
-            auto data = result.data.toMap();
-            for (auto k : data.keys()) {
-//                pkgList.insert(QString("dpk://%1/%2").arg(key).arg(k), data.value(k));
-                pkgList.insert(k, data.value(k));
+            auto packageList = ids.values(key);
+            auto result = callback(key, list);
+            auto packageMap = result.data.toMap();
+            for (auto k : packageMap.keys()) {
+                results.insert(k, packageMap.value(k));
             }
         }
-        // TODO: error handle
-        return PackageManagerResult(true,
-                                    "",
-                                    "",
-                                    pkgList);
+        return results;
+    }
+
+    PMResult run(const AppPackageList &apps, std::function<PMPackageHandler> callback)
+    {
+        QList<Package> packages;
+        for (const auto &v : apps) {
+            for (auto p : v.packages) {
+                packages.append(p);
+            }
+        }
+
+        auto results = mapRun(packages, callback);
+
+        QVariantMap appResults;
+        for (auto v : apps) {
+            QList<Package> packageResultList;
+            for (auto package : v.packages) {
+                auto packageResult = results.value(package.packageURI);
+                packageResultList.append(Package::fromVariantMap(packageResult.toMap()));
+            }
+            v.packages = packageResultList;
+            appResults.insert(v.name, v.toVariantMap());
+        }
+
+        return PMResult::warp(appResults);
     }
 
     QMap<QString, PackageManagerInterface *> pms;
@@ -91,99 +110,126 @@ void PackageManager::registerDpk(const QString &type, PackageManagerInterface *i
     d->pms.insert(type, ifc);
 }
 
-PackageManagerResult PackageManager::Query(const AppPackageList &apps)
+void PackageManager::Open(const AppPackage &app)
 {
     Q_D(PackageManager);
+    if (app.packages.length() < 1) {
+        qWarning() << "app package is empty!" << app.toVariantMap();
+        return;
+    }
 
-    // unpack apps
-    QMap<QString, QString> package2app;
+    DpkURI dpk(app.packages.value(0).packageURI);
+    auto pm = d->pms.value(dpk.getType());
+    if (!pm) {
+        qWarning() << "app package manager can not find!" << app.toVariantMap();
+        return;
+    }
+
+    pm->Open(dpk.getID());
+}
+
+PMResult PackageManager::Query(const AppPackageList &apps)
+{
+    Q_D(PackageManager);
+    return d->run(apps, [ & ](const QString & type, const QList<Package> &packages)-> PMResult {
+        return d->pms.value(type)->Query(packages);
+    });
+}
+
+PMResult PackageManager::QueryDownloadSize(const AppPackageList &apps)
+{
+    Q_D(PackageManager);
+    return d->run(apps, [ & ](const QString & type, const QList<Package> &packages)-> PMResult {
+        return d->pms.value(type)->QueryDownloadSize(packages);
+    });
+}
+
+PMResult PackageManager::Install(const AppPackageList &apps)
+{
+    Q_D(PackageManager);
+    QList<Package> packages;
     for (const auto &v : apps) {
-        for (auto p : v.packages) {
-            package2app.insert(p.packageURI, v.name);
+        for (auto package : v.packages) {
+            packages.append(package);
+            qDebug() << package.packageURI << package.dpk.getID() << package.localName;
         }
     }
-    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PackageManagerResult {
-        auto data = d->pms.value(key)->Query(idList);
-        qDebug() << data.errMsg << data.data;
-        return data;
-    };
 
-    auto result = d->mapRun(package2app.keys(), queryHandler);
+    auto results = d->mapRun(packages,
+    [ & ](const QString & type, const QList<Package> &packages)-> PMResult {
+        return d->pms.value(type)->Install(packages);
+    });
 
-    auto packages = result.data.toMap();
-    QMap<QString, AppPackage> retApps;
-    for (auto v : apps) {
-        v.packages.clear();
-        retApps.insert(v.name, v);
+    QStringList paths;
+    for (auto v : results) {
+        paths << v.toString();
     }
 
-    for (auto k : packages.keys()) {
-        auto pkg = Package::fromVariantMap(packages.value(k).toMap());
-        auto appName = package2app.value(pkg.packageURI);
-        auto app = retApps.value(appName);
-        app.packages.append(pkg);
-        retApps.insert(app.name, app);
-    }
-
-    QVariantMap data;
-    for (auto k : retApps.keys()) {
-        data.insert(k, retApps.value(k).toVariantMap());
-    }
-
-    result.data = data;
-    return result;
+    return PMResult::warp(paths);
 }
 
-PackageManagerResult PackageManager::QueryVersion(const QStringList &dpks)
+PMResult PackageManager::Remove(const AppPackageList &apps)
+{
+
+    Q_D(PackageManager);
+    QList<Package> packages;
+    for (const auto &v : apps) {
+        for (auto package : v.packages) {
+            packages.append(package);
+            qDebug() << package.packageURI << package.dpk.getID() << package.localName;
+        }
+    }
+
+    auto results = d->mapRun(packages,
+    [ & ](const QString & type, const QList<Package> &packages)-> PMResult {
+        return d->pms.value(type)->Remove(packages);
+    });
+
+    QStringList paths;
+    for (auto v : results) {
+        paths << v.toString();
+    }
+
+    return PMResult::warp(paths);
+}
+
+
+PMResult PackageManager::QueryVersion(const QStringList &dpks)
 {
     Q_D(PackageManager);
 
-    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PackageManagerResult {
-        return d->pms.value(key)->QueryVersion(idList);
+    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PMResult {
+//        return d->pms.value(key)->QueryVersion(idList);
+        Q_UNUSED(key);
+        Q_UNUSED(idList);
+
+        return PMResult::warp({});
     };
 
     return  d->mergeRun(dpks, queryHandler);
 }
 
-PackageManagerResult PackageManager::QueryInstalledTime(const QStringList &dpks)
+PMResult PackageManager::QueryInstalledTime(const QStringList &dpks)
 {
     Q_D(PackageManager);
-    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PackageManagerResult {
-        return d->pms.value(key)->QueryInstalledTime(idList);
+    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PMResult {
+//        return d->pms.value(key)->QueryInstalledTime(idList);  Q_UNUSED(key);
+        Q_UNUSED(key);
+        Q_UNUSED(idList);
+        return PMResult::warp({});
     };
 
     return  d->mergeRun(dpks, queryHandler);
 }
 
-PackageManagerResult PackageManager::ListInstalled(const QStringList &packageID)
+PMResult PackageManager::ListInstalled(const QStringList &packageID)
 {
-
     Q_D(PackageManager);
-    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PackageManagerResult {
+    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PMResult {
         return d->pms.value(key)->ListInstalled(idList);
     };
 
     return  d->mergeRun(packageID, queryHandler);
-}
-
-void PackageManager::Install(const QStringList &dpks)
-{
-    Q_D(PackageManager);
-    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PackageManagerResult {
-        d->pms.value(key)->Install(idList);
-        return PackageManagerResult(true, "", "", "");
-    };
-    d->mergeRun(dpks, queryHandler);
-}
-
-void PackageManager::Remove(const QStringList &dpks)
-{
-    Q_D(PackageManager);
-    auto queryHandler = [ & ](const QString & key, const QStringList & idList) -> PackageManagerResult {
-        d->pms.value(key)->Remove(idList);
-        return PackageManagerResult(true, "", "", "");
-    };
-    d->mergeRun(dpks, queryHandler);
 }
 
 }

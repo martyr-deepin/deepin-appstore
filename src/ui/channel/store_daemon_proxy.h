@@ -61,42 +61,22 @@ public Q_SLOTS:
     }
 
     // Store Manager methods:
-
     /**
-     * Clean up a specific job.
-     * @param job
+     * Query application version information.
+     * @param apps
      */
-    QVariantMap cleanJob(const QString &job)
+    QVariantMap query(const QVariantList &apps)
     {
-        return manager_->cleanJob(job);
+        return manager_->query(apps);
     }
 
     /**
-     * Pause a running job
-     * @param job
-     */
-    QVariantMap pauseJob(const QString &job)
-    {
-        return manager_->pauseJob(job);
-    }
-
-    /**
-     * Resume a paused job
-     * @param job
-     */
-    QVariantMap startJob(const QString &job)
-    {
-        return manager_->startJob(job);
-    }
-
-    /**
-     * apt-get install xxx, to install or upgrade a program.
+     * Get deb package size
      * @param app_name
-     * @param app_local_name App local name is used by lastore daemon
      */
-    QVariantMap installPackage(const QString &app_name, const QString &app_local_name)
+    QVariantMap queryDownloadSize(const QVariantList &apps)
     {
-        return manager_->installPackage(app_name, app_local_name);
+        return manager_->queryDownloadSize(apps);
     }
 
     /**
@@ -108,58 +88,40 @@ public Q_SLOTS:
     }
 
     /**
-     * Get deb package size
+     * Request to open installed application.
      * @param app_name
      */
-    QVariantMap packageDownloadSize(const QString &app_name)
+    void openApp(const QVariant &app)
     {
-        return manager_->packageDownloadSize(app_name);
+        return manager_->openApp(app);
+    }
+
+    /**
+     * apt-get install xxx, to install or upgrade a program.
+     * @param app_name
+     * @param app_local_name App local name is used by lastore daemon
+     */
+    QVariantMap installPackages(const QVariantList &apps)
+    {
+        return manager_->installPackage(apps);
     }
 
     /**
      * apt-get upgrade xxx
      * @param app_name
      */
-    QVariantMap updatePackage(const QString &app_name, const QString &app_local_name)
+    QVariantMap updatePackages(const QVariantList &apps)
     {
-        return manager_->updatePackage(app_name, app_local_name);
+        return manager_->updatePackage(apps);
     }
 
     /**
      * apt-get remove xxx
      * @param app_name
      */
-    QVariantMap removePackage(const QString &app_name, const QString &app_local_name)
+    QVariantMap removePackages(const QVariantList &apps)
     {
-        return manager_->removePackage(app_name, app_local_name);
-    }
-
-    /**
-     * Query application version information.
-     * @param apps
-     */
-    QVariantMap query(const QVariantList &apps)
-    {
-        return manager_->query(apps);
-    }
-
-    /**
-     * Query application version information.
-     * @param apps
-     */
-    QVariantMap queryVersions(const QStringList &apps)
-    {
-        return manager_->queryVersions(apps);
-    }
-
-    /**
-     * Query installed timestamp of apps.
-     * @param task_id
-     * @param apps
-     */
-    QVariantMap queryInstalledTime(const QStringList &apps)
-    {
-        return manager_->queryInstalledTime(apps);
+        return manager_->removePackage(apps);
     }
 
     /**
@@ -194,6 +156,34 @@ public Q_SLOTS:
         return manager_->getJobsInfo(jobs);
     }
 
+
+    /**
+     * Clean up a specific job.
+     * @param job
+     */
+    QVariantMap cleanJob(const QString &job)
+    {
+        return manager_->cleanJob(job);
+    }
+
+    /**
+     * Pause a running job
+     * @param job
+     */
+    QVariantMap pauseJob(const QString &job)
+    {
+        return manager_->pauseJob(job);
+    }
+
+    /**
+     * Resume a paused job
+     * @param job
+     */
+    QVariantMap startJob(const QString &job)
+    {
+        return manager_->startJob(job);
+    }
+
     /**
      * Try to fix installation error.
      */
@@ -202,21 +192,13 @@ public Q_SLOTS:
         return manager_->fixError(error_type);
     }
 
-    /**
-     * Request to open installed application.
-     * @param app_name
-     */
-    void openApp(const QString &app_name)
-    {
-        return manager_->openApp(app_name);
-    }
-
     QString test()
     {
         QThread::sleep(3);
         return "this is test";
     }
 
+    // TODO: just for search
     void updateAppList(const SearchMetaList &app_list)
     {
         return manager_->updateAppList(app_list);
