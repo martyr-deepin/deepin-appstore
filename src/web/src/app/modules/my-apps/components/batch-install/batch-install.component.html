@@ -23,7 +23,7 @@
           <div class="select-control">
             <a (click)="selectPage(apps)">全选</a>
             <a (click)="touchPage(apps)">反选</a>
-            <span>{{batchInstall.size}}款</span>
+            <span>{{batchInstall.size}}/{{length$|async}}款</span>
           </div>
           <app-paginator [length]="length$|async"
                          [size]="pageSize"

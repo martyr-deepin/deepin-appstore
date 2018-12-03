@@ -1,3 +1,4 @@
+import { AppSource } from './../../dstore/services/source';
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -43,6 +44,7 @@ export class AppDetailComponent implements OnInit {
 
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
+  AppSource = AppSource;
 
   openURL = DstoreObject.openURL;
   pause = this.storeService.pauseJob;

@@ -29,14 +29,14 @@
         white-space: nowrap;
       }
       .control {
-        flex: 1;
+        flex: 0.5;
         text-align: right;
         button {
           min-width: 100px;
         }
       }
       .no-version {
-        flex: 2;
+        flex: 1.5;
         color: red;
       }
     }

@@ -14,6 +14,7 @@ export class App {
   category: string;
   homePage: string;
   icon: string;
+  source: number;
   packageURI: string[];
   extra: { [key: string]: any };
   locale: { [key: string]: LocalInfo };
