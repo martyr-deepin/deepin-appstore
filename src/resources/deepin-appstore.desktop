@@ -6,7 +6,7 @@ Comment[zh_TW]=Linux 的通用軟體管理器
 Encoding=UTF-8
 Exec=deepin-appstore %U
 Icon=deepin-appstore
-Name=Deepin Store
+Name=Deepin App Store
 Name[zh_CN]=深度商店
 Name[zh_TW]=深度商店
 StartupNotify=false
@@ -14,6 +14,6 @@ Terminal=false
 Type=Application
 X-MultipleArgs=false
 MimeType=x-scheme-handler/dpk;
-GenericName=Store
+GenericName=App Store
 X-Deepin-Vendor=deepin
 
