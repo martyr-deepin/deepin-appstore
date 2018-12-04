@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/co
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
-import { flatMap, map, tap, share, switchMap, startWith, first, shareReplay } from 'rxjs/operators';
+import { flatMap, publishReplay, tap, publish, refCount, switchMap, share } from 'rxjs/operators';
 
 import { App, AppService } from 'app/services/app.service';
 import { BaseService } from 'app/dstore/services/base.service';
@@ -51,7 +51,13 @@ export class AppDetailComponent implements OnInit {
   start = this.storeService.resumeJob;
 
   app$ = this.route.paramMap.pipe(
+    tap(() => console.log('test')),
     switchMap(param => this.appService.getApp(param.get('appName'))),
+    publishReplay(1),
+    refCount(),
+  );
+  size$ = this.app$.pipe(
+    switchMap(app => this.storeService.queryDownloadSize([app])),
     share(),
   );
   job$ = this.app$.pipe(

@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, of, timer } from 'rxjs';
-import { switchMap, share, map } from 'rxjs/operators';
+import { switchMap, share, debounceTime } from 'rxjs/operators';
 
 import { StoreService } from 'app/modules/client/services/store.service';
 import { StoreJobInfo } from 'app/modules/client/models/store-job-info';
@@ -14,7 +14,9 @@ export class JobService {
   private interval: Subscription;
   private cache = new Map<string, StoreJobInfo>();
   constructor(private zone: NgZone, private StoreServer: StoreService) {
-    this.StoreServer.getJobList().subscribe(list => this.update(list));
+    this.StoreServer.getJobList()
+      .pipe(debounceTime(100))
+      .subscribe(list => this.update(list));
     this.StoreServer.jobListChange().subscribe(list => this.update(list));
   }
   private update(list: string[]) {

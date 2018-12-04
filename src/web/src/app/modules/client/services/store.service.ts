@@ -16,6 +16,10 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.isDBusConnected');
   }
 
+  fixError(errorType: string): Observable<string> {
+    return this.execWithCallback('storeDaemon.fixError', errorType);
+  }
+
   getJobList(): Observable<string[]> {
     return this.execWithCallback('storeDaemon.jobList');
   }
@@ -24,8 +28,8 @@ export class StoreService {
     return this.execWithCallback('storeDaemon.getJobInfo', jobPath);
   }
 
-  getJobsInfo(jobs: string[]): Observable<StoreJobInfo[]> {
-    return this.execWithCallback('storeDaemon.getJobsInfo', jobs);
+  getJobsInfo(jobPaths: string[]): Observable<StoreJobInfo[]> {
+    return this.execWithCallback('storeDaemon.getJobsInfo', jobPaths);
   }
 
   jobListChange(): Observable<string[]> {
@@ -44,71 +48,67 @@ export class StoreService {
     Channel.exec('storeDaemon.startJob', job);
   }
 
-  installPackage(appName: string, localName: string): Observable<string> {
-    this.downloadTotalService.installed(appName);
-    return this.execWithCallback('storeDaemon.installPackage', appName, localName);
+  openApp(app: App): void {
+    Channel.exec('storeDaemon.openApp', this.toQuery(app));
   }
 
-  updatePackage(appName: string, localName: string): Observable<string> {
-    this.downloadTotalService.installed(appName);
-    return this.execWithCallback('storeDaemon.updatePackage', appName, localName);
+  installPackages(apps: App[]): Observable<string> {
+    apps.forEach(app => this.downloadTotalService.installed(app.name));
+    return this.execWithCallback('storeDaemon.installPackages', apps.map(this.toQuery));
   }
 
-  removePackage(appName: string, localName: string): Observable<string> {
-    return this.execWithCallback('storeDaemon.removePackage', appName, localName);
+  updatePackages(apps: App[]): Observable<string> {
+    apps.forEach(app => this.downloadTotalService.installed(app.name));
+    return this.execWithCallback('storeDaemon.updatePackages', apps.map(this.toQuery));
   }
 
-  appInstallable(appName: string): Observable<boolean> {
-    return this.execWithCallback('storeDaemon.packageInstallable', appName);
+  removePackages(apps: App[]): Observable<string> {
+    return this.execWithCallback('storeDaemon.removePackages', apps.map(this.toQuery));
   }
 
-  InstalledPackages(): Observable<string[]> {
-    return this.execWithCallback<string[]>('storeDaemon.installedPackages');
-  }
-
-  fixError(errorType: string): Observable<string> {
-    return this.execWithCallback('storeDaemon.fixError', errorType);
-  }
-
-  openApp(appName: string): void {
-    Channel.exec('storeDaemon.openApp', appName);
-  }
-
-  queryPackage(apps: App[]) {
-    interface AppPackage {
-      appName: string;
-      packageName: string;
+  InstalledPackages() {
+    interface InstalledPackage {
       packageURI: string;
-      localVersion: string;
-      remoteVersion: string;
-      upgradable: boolean;
-      installedTime: number;
-      packageSize: number;
-      downloadSize: number;
+      size: number;
     }
-    interface Result {
-      [key: string]: {
-        name: string;
-        packages: AppPackage[];
-      };
-    }
-    const query = apps.map(app => {
-      return {
-        name: app.name,
-        packages: app.packageURI.map(url => {
-          return { packageURI: url };
-        }),
-      };
-    });
-    return this.execWithCallback<Result>('storeDaemon.query', query).pipe(
+    return this.execWithCallback<InstalledPackage[]>('storeDaemon.installedPackages').pipe(
+      map(result =>
+        result.reduce((m, pkg) => m.set(pkg.packageURI, pkg), new Map<string, InstalledPackage>()),
+      ),
+    );
+  }
+
+  toQuery(app: App) {
+    return {
+      name: app.name,
+      localName: app.localInfo.description.name,
+      packages: app.packageURI.map(packageURI => ({ packageURI })),
+    };
+  }
+
+  queryDownloadSize(apps: App[]) {
+    return this.execWithCallback<QueryResult>(
+      'storeDaemon.queryDownloadSize',
+      apps.map(this.toQuery),
+    ).pipe(
       map(result => {
-        const pkg = new Map<string, AppPackage>();
-        for (const r of Object.values(result)) {
-          if (r.packages.length > 0) {
-            pkg.set(r.name, r.packages[0]);
-          }
-        }
-        return pkg;
+        const arr = Object.values(result)
+          .filter(Boolean)
+          .filter(r => r.packages && r.packages.length > 0)
+          .map(r => [r.name, r.packages[0].downloadSize] as [string, number]);
+        return new Map(arr);
+      }),
+    );
+  }
+  queryPackage(apps: App[]) {
+    return this.execWithCallback<QueryResult>('storeDaemon.query', apps.map(this.toQuery)).pipe(
+      map(result => {
+        const arr = Object.values(result)
+          .filter(Boolean)
+          .map(r => r.packages.find(pkg => Boolean(pkg.appName)))
+          .filter(Boolean)
+          .map(pkg => [pkg.appName, pkg] as [string, AppPackage]);
+        return new Map(arr);
       }),
     );
   }
@@ -130,4 +130,22 @@ class StoreResponse {
   errorName: string;
   errorMsg: string;
   result: any;
+}
+
+interface QueryResult {
+  [key: string]: {
+    name: string;
+    packages: AppPackage[];
+  };
+}
+interface AppPackage {
+  appName: string;
+  packageName: string;
+  packageURI: string;
+  localVersion: string;
+  remoteVersion: string;
+  upgradable: boolean;
+  installedTime: number;
+  downloadSize: number;
+  packageSize: number;
 }

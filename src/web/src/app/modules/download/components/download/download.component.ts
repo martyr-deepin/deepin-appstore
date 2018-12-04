@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Observable, of, forkJoin, timer, iif, merge, Subscription } from 'rxjs';
-import { switchMap, map, tap, filter } from 'rxjs/operators';
+import { switchMap, map, tap, filter, publishReplay, refCount } from 'rxjs/operators';
 
 import { AppService, App } from 'app/services/app.service';
 import { StoreService } from 'app/modules/client/services/store.service';
@@ -43,38 +43,52 @@ export class DownloadComponent implements OnInit, OnDestroy {
   pause = this.storeService.pauseJob;
 
   loaded = false;
+  result$ = this.jobService.jobsInfo().pipe(
+    map(jobs => {
+      return jobs
+        .filter(job => job.type === StoreJobType.download || job.type === StoreJobType.install)
+        .sort((a, b) => b.createTime - a.createTime);
+    }),
+    switchMap(
+      jobs => {
+        const names = [].concat(...jobs.map(job => job.names));
+        return this.appService.getApps(names);
+      },
+      (jobs, apps) => {
+        return apps.map(app => ({ app, job: jobs.find(job => job.names.includes(app.name)) }));
+      },
+    ),
+  );
+
   apps = new Map<string, App>();
   jobs: StoreJobInfo[] = [];
   cancels = new Set<string>();
-  jobs$: Subscription;
   fixing = false;
 
   ngOnInit() {
-    this.jobs$ = this.jobService.jobsInfo().subscribe(jobs => {
-      jobs = jobs.filter(
-        job => job.type === StoreJobType.download || job.type === StoreJobType.install,
-      );
-      const list = jobs.map(job => job.id);
-      this.jobs.forEach((job, index) => {
-        if (!list.includes(job.id)) {
-          this.jobs.splice(index, 1);
-        }
-      });
-      jobs.forEach(job => {
-        const old = this.jobs.find(j => j.id === job.id);
-        if (old) {
-          Object.assign(old, job);
-        } else {
-          this.jobs.unshift(job);
-        }
-      });
-      this.loaded = true;
-    });
+    // this.jobs$ = this.jobService.jobsInfo().subscribe(jobs => {
+    //   jobs = jobs.filter(
+    //     job => job.type === StoreJobType.download || job.type === StoreJobType.install,
+    //   );
+    //   const list = jobs.map(job => job.id);
+    //   this.jobs.forEach((job, index) => {
+    //     if (!list.includes(job.id)) {
+    //       this.jobs.splice(index, 1);
+    //     }
+    //   });
+    //   jobs.forEach(job => {
+    //     const old = this.jobs.find(j => j.id === job.id);
+    //     if (old) {
+    //       Object.assign(old, job);
+    //     } else {
+    //       this.jobs.unshift(job);
+    //     }
+    //   });
+    //   this.loaded = true;
+    // });
   }
 
-  ngOnDestroy() {
-    this.jobs$.unsubscribe();
-  }
+  ngOnDestroy() {}
   retry(job: StoreJobInfo) {
     let err: StoreJobError;
     try {

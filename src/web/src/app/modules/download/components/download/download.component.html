@@ -4,16 +4,16 @@
   </div>
 </ng-template>
 
+
 <div class="list"
-     *ngIf="loaded; else: loading">
+     *ngIf="result$|async as result; else: loading">
   <div class="title"
        i18n>Processing {{ jobs.length }} {jobs.length, plural,=0 {task} =1 {task} other {tasks}}</div>
 
   <table>
-    <ng-container *ngFor="let job of jobs">
-      <ng-container *ngFor="let appName of job.names">
-        <tr *ngIf="appName|appInfo|async as $app"
-            @flyInOut>
+    <ng-container *ngFor="let r of result">
+      <ng-container *ngIf="r.job as job">
+        <tr *ngIf="r.app as $app">
           <td><img class="icon"
                  [src]="$app.icon"
                  [routerLink]="$app.name" /></td>

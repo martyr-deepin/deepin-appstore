@@ -1,3 +1,4 @@
+import { StoreService } from 'app/modules/client/services/store.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
@@ -10,7 +11,11 @@ import { App, AppService } from 'app/services/app.service';
 })
 export class RemoteAppService {
   url = environment.operationServer + '/api/my/app';
-  constructor(private http: HttpClient, private appService: AppService) {}
+  constructor(
+    private http: HttpClient,
+    private appService: AppService,
+    private storeService: StoreService,
+  ) {}
   RemoteAppList(page: number, pageSize: number) {
     const params = {
       page: page.toString(),
@@ -27,6 +32,9 @@ export class RemoteAppService {
         },
       ),
     );
+  }
+  installApps(apps: App[]) {
+    this.storeService.installPackages(apps);
   }
 }
 

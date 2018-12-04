@@ -1,3 +1,4 @@
+import { first, switchMap } from 'rxjs/operators';
 import { AppService } from 'app/services/app.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AppVersion } from '../../models/app-version';
@@ -29,7 +30,10 @@ export class JobButtonComponent implements OnInit {
     e.stopPropagation();
     switch (this.openType) {
       case 'desktop':
-        this.storeService.openApp(this.appName);
+        this.appService
+          .getApp(this.appName)
+          .pipe(first())
+          .subscribe(app => this.storeService.openApp(app));
         break;
     }
   }
@@ -37,18 +41,30 @@ export class JobButtonComponent implements OnInit {
   installApp(e: Event) {
     e.stopPropagation();
     console.log(this.version);
-    this.storeService.installPackage(this.appName, this.localName).subscribe(job => {
-      this.disabled = true;
-      this.start.emit(job);
-    });
+    this.appService
+      .getApp(this.appName)
+      .pipe(
+        first(),
+        switchMap(app => this.storeService.installPackages([app])),
+      )
+      .subscribe(job => {
+        this.disabled = true;
+        this.start.emit(job);
+      });
   }
 
   updateApp(e: Event) {
     e.stopPropagation();
-    this.storeService.updatePackage(this.appName, this.localName).subscribe(job => {
-      this.disabled = true;
-      this.start.emit(job);
-    });
+    this.appService
+      .getApp(this.appName)
+      .pipe(
+        first(),
+        switchMap(app => this.storeService.updatePackages([app])),
+      )
+      .subscribe(job => {
+        this.disabled = true;
+        this.start.emit(job);
+      });
   }
 }
 

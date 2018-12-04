@@ -25,15 +25,23 @@ export class LocalAppService {
       switchMap(
         () => this.appService.list(),
         (installed, apps) => {
-          return apps
-            .filter(app => app.packageURI.some(url => installed.includes(url)))
+          const appNameList = apps
+            .filter(app => app.packageURI.some(url => installed.has(url)))
             .map(app => app.name);
+          return { appNameList, installed };
         },
       ),
-      switchMap(appNameList => this.appService.getApps(appNameList)),
-      map(apps => {
-        return apps.sort((a, b) => b.version.installedTime - a.version.installedTime);
-      }),
+      switchMap(
+        ({ appNameList }) => this.appService.getApps(appNameList),
+        ({ installed }, apps) => {
+          apps = apps.sort((a, b) => b.version.installedTime - a.version.installedTime);
+          apps.forEach(app => {
+            const pkgURL = app.packageURI.find(url => installed.has(url));
+            app.version.packageSize = installed.get(pkgURL).size;
+          });
+          return apps;
+        },
+      ),
     );
   }
 
@@ -51,6 +59,6 @@ export class LocalAppService {
     );
   }
   RemoveLocalApp(app: App) {
-    this.storeService.removePackage(app.name, app.localInfo.description.name);
+    this.storeService.removePackages([app]);
   }
 }
