@@ -3,7 +3,11 @@ import { BehaviorSubject, Observable, Subscription, of, timer } from 'rxjs';
 import { switchMap, share, debounceTime } from 'rxjs/operators';
 
 import { StoreService } from 'app/modules/client/services/store.service';
-import { StoreJobInfo } from 'app/modules/client/models/store-job-info';
+import {
+  StoreJobInfo,
+  StoreJobType,
+  StoreJobStatus,
+} from 'app/modules/client/models/store-job-info';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +42,12 @@ export class JobService {
         this.interval = timer(0, 1000)
           .pipe(switchMap(() => this.StoreServer.getJobsInfo(list)))
           .subscribe(infoList => {
+            infoList = infoList.filter(job => {
+              if (job.type === StoreJobType.uninstall && job.status === StoreJobStatus.failed) {
+                return false;
+              }
+              return true;
+            });
             infoList.forEach(job => {
               this.cache.set(job.id, job);
             });
