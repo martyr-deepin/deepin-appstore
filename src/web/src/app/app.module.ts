@@ -21,6 +21,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { LoginComponent } from './components/login/login.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
 import { NotifyComponent } from './components/notify/notify.component';
+import { PrivacyAgreementComponent } from './components/privacy-agreement/privacy-agreement.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NotifyComponent } from './components/notify/notify.component';
     LoginComponent,
     RecommendComponent,
     NotifyComponent,
+    PrivacyAgreementComponent,
   ],
   imports: [
     BrowserModule,
