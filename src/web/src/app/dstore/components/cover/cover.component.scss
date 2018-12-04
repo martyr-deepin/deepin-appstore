@@ -40,7 +40,7 @@
 
 .info {
   display: flex;
-  height: 35px;
+  height: 36px;
   flex-direction: column;
   justify-content: space-between;
   div:first-child {
@@ -59,7 +59,7 @@
 }
 .hover {
   display: flex;
-  height: 35px;
+  height: 36px;
   flex-direction: row;
   justify-content: space-between;
   div:first-child {
@@ -67,6 +67,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
   div:last-child {
     margin-left: 4px;
