@@ -2,7 +2,15 @@ import { JobService } from 'app/services/job.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, combineLatest, Subject } from 'rxjs';
-import { map, scan, share, debounceTime, switchMap, shareReplay, tap } from 'rxjs/operators';
+import {
+  map,
+  scan,
+  publishReplay,
+  debounceTime,
+  switchMap,
+  shareReplay,
+  tap,
+} from 'rxjs/operators';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
@@ -10,7 +18,6 @@ import { App as DstoreApp } from '../dstore/services/app';
 import { AppVersion } from 'app/modules/client/models/app-version';
 import { AppStatService, AppStat } from './stat.service';
 import { StoreService } from 'app/modules/client/services/store.service';
-import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',

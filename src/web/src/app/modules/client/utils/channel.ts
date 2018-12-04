@@ -2,14 +2,19 @@ import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 export class Channel {
   static getSlot(path: string): Function {
-    return _.get(window, 'dstore.channel.objects.' + path);
+    const emptySlot = () => null;
+    return _.get(window, 'dstore.channel.objects.' + path, emptySlot);
   }
   static getSignal(path: string) {
     interface Signal {
       connect: (callback: Function) => void;
       disconnect: (callback: Function) => void;
     }
-    return _.get(window, 'dstore.channel.objects.' + path) as Signal;
+    const emptySignal: Signal = {
+      connect(callback) {},
+      disconnect(callback) {},
+    };
+    return _.get(window, 'dstore.channel.objects.' + path, emptySignal) as Signal;
   }
 
   static exec<T>(method: string, ...args: any[]): Promise<T> {

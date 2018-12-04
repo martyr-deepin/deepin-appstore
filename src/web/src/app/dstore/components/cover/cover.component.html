@@ -1,5 +1,6 @@
 <dstore-title [title]="section.title | fitLanguage"
-              [more]="moreNav">
+              [more]="moreNav"
+              *ngIf="moreNav">
   <a href="/"></a>
 </dstore-title>
 <div class="list"

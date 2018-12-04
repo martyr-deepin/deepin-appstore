@@ -56,6 +56,7 @@ export class CoverComponent implements OnInit, OnDestroy {
   start = this.storeService.resumeJob;
   pause = this.storeService.pauseJob;
   openApp = this.storeService.openApp;
+
   ngOnInit() {
     this.getJobs();
     this.apps$ = this.appService
@@ -67,6 +68,7 @@ export class CoverComponent implements OnInit, OnDestroy {
         }),
       );
   }
+
   getJobs() {
     return this.jobService.jobsInfo().subscribe(jobInfos => {
       const jobs = {};
@@ -79,6 +81,7 @@ export class CoverComponent implements OnInit, OnDestroy {
       this.jobs = jobs;
     });
   }
+
   ngOnDestroy() {
     if (this.jobs$) {
       this.jobs$.unsubscribe();

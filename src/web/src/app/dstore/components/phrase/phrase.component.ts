@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
 
 import { Observable, Subscription, merge, timer, of } from 'rxjs';
-import { map, tap, flatMap, shareReplay, switchMap, concat, startWith } from 'rxjs/operators';
+import { map, tap, publishReplay, refCount } from 'rxjs/operators';
 
 import { BaseService } from '../../services/base.service';
 import { AppService, App } from '../../../services/app.service';
@@ -48,7 +48,7 @@ export class PhraseComponent implements OnInit, OnDestroy {
   appFilter: AppFilterFunc = Allowed;
 
   // data
-  moreNav: any[] = [];
+  more$: Observable<any[]>;
   apps$: Observable<App[]>;
   jobs: { [key: string]: StoreJobInfo } = {};
   jobsNames = new Set<string>();
@@ -62,9 +62,15 @@ export class PhraseComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const appNameList = this.phraseList.filter(app => app.show).map(app => app.name);
     this.apps$ = this.appService.getApps(appNameList).pipe(
-      tap(apps => {
-        this.moreNav = ['./apps', { title: this.section.title, apps: apps.map(app => app.name) }];
+      tap(() => {
         this.loaded.emit(true);
+      }),
+      publishReplay(1),
+      refCount(),
+    );
+    this.more$ = this.apps$.pipe(
+      map(apps => {
+        return ['./apps', { title: this.section.title, apps: apps.map(app => app.name) }];
       }),
     );
     this.getJobs();

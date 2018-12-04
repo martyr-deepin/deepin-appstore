@@ -1,5 +1,5 @@
 <dstore-title [title]="section.title | fitLanguage"
-              [more]="moreNav"></dstore-title>
+              [more]="more$|async"></dstore-title>
 <div class="list"
      *ngIf="apps$|async as $apps">
   <ng-container *ngFor="let $index of (section.colSpan * section.rowSpan | range)">

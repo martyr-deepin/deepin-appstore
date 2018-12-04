@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 
-import { Observable, from, Subject } from 'rxjs';
-import { retry, map, tap, last, shareReplay } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 import { compact, get, cloneDeep } from 'lodash';
 
@@ -22,7 +22,7 @@ const DSTORE_VERSION = '5.1.2.2';
 })
 export class AppService {
   private readonly apiURL = `${environment.metadataServer}/api/app`;
-  private readonly appMap$ = new Subject<AppMap>();
+  private readonly appMap$ = new BehaviorSubject<AppMap>({});
   private readonly store = localForage.createInstance({ name: 'apps' });
   categoryList$ = this.categoryServer.getList().toPromise();
   constructor(private http: HttpClient, private categoryServer: CategoryService) {
@@ -34,11 +34,11 @@ export class AppService {
       .toPromise()
       .then(body => JSON.parse(body, appReviver) as Result)
       .then(result => {
+        localStorage.setItem('since', result.lastModified);
         if (old && old.length > 0) {
           if (since === result.lastModified) {
             return old;
           }
-          localStorage.setItem('since', result.lastModified);
           if (result.deleted && result.deleted.length > 0) {
             old = old.filter(app => !result.deleted.includes(app.id));
           }
@@ -147,7 +147,7 @@ export class AppService {
   }
 
   getAppMap() {
-    return this.appMap$.pipe(shareReplay(1));
+    return this.appMap$;
   }
   // 获取全部应用列表
   getAppList(): Observable<App[]> {
