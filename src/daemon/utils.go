@@ -1,0 +1,121 @@
+package main
+
+import (
+	"compress/gzip"
+	"encoding/json"
+	"io"
+	"net/http"
+	"os"
+	"path/filepath"
+	"time"
+)
+
+var cacheFolder string
+var configFolder string
+var iconFolder string
+
+func init() {
+	if os.Getenv("XDG_CACHE_HOME") != "" {
+		cacheFolder = os.Getenv("XDG_CACHE_HOME")
+	} else {
+		cacheFolder = filepath.Join(os.Getenv("HOME"), ".cache")
+	}
+	cacheFolder += "/deepin/deepin-appstore-daemon"
+	os.MkdirAll(cacheFolder, 0755)
+
+	iconFolder = cacheFolder + "/icons"
+	os.MkdirAll(iconFolder, 0755)
+
+	if os.Getenv("XDG_CONFIG_HOME") != "" {
+		configFolder = os.Getenv("XDG_CONFIG_HOME")
+	} else {
+		configFolder = filepath.Join(os.Getenv("HOME"), ".config")
+	}
+	configFolder += "/deepin/deepin-appstore"
+	os.MkdirAll(configFolder, 0755)
+}
+
+func cacheFetch(url, cacheFilepath string, expire time.Duration) error {
+	fi, _ := os.Stat(cacheFilepath)
+	if (fi != nil) && (fi.Size() > 0) && (time.Now().Sub(fi.ModTime()) < expire) {
+		return nil
+	}
+
+	client := http.DefaultClient
+	request, err := http.NewRequest("GET", url, nil)
+	request.Header.Add("Accept-Encoding", "gzip")
+	resp, err := client.Do(request)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	gzipReader, err := gzip.NewReader(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	f, err := os.OpenFile(cacheFilepath, os.O_WRONLY|os.O_CREATE, 0644)
+	defer f.Close()
+	if err != nil {
+		return err
+	}
+	_, err = io.Copy(f, gzipReader)
+	return err
+}
+
+// Check file in cache
+func cacheFetchJSON(v interface{}, url, cacheFilepath string, expire time.Duration) error {
+	fi, _ := os.Stat(cacheFilepath)
+	if (fi != nil) && (time.Now().Sub(fi.ModTime()) < expire) {
+		f, err := os.Open(cacheFilepath)
+		if err != nil {
+			logger.Error("open cache file %v failed: %v", cacheFilepath, err)
+			return err
+		}
+
+		jsonDec := json.NewDecoder(f)
+		return jsonDec.Decode(v)
+	}
+
+	client := http.DefaultClient
+	request, err := http.NewRequest("GET", url, nil)
+	request.Header.Add("Accept-Encoding", "gzip")
+	resp, err := client.Do(request)
+	if err != nil {
+		logger.Error("GET %v failed: %v", url, err)
+		return err
+	}
+	defer resp.Body.Close()
+
+	gzipReader, err := gzip.NewReader(resp.Body)
+	if err != nil {
+		logger.Error("gzip data read failed: %v", err)
+		return err
+	}
+
+	jsonDec := json.NewDecoder(gzipReader)
+	err = jsonDec.Decode(v)
+	if err != nil {
+		logger.Error("json decode failed: %v", err)
+		return err
+	}
+
+	data, err := json.Marshal(v)
+	if err != nil {
+		logger.Error("json marshal failed: %v", err)
+		return err
+	}
+
+	f, err := os.OpenFile(cacheFilepath, os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		logger.Error("create cache %v failed: %v", cacheFilepath, err)
+		return err
+	}
+	_, err = f.Write(data)
+	if err != nil {
+		logger.Error("write cache %v failed: %v", cacheFilepath, err)
+		return err
+	}
+	return err
+}

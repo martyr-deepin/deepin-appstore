@@ -16,6 +16,10 @@ Build-Depends:
  qttools5-dev-tools,
  qttools5-dev,
  python3-lxml,
+ golang-go,
+ golang-dlib-dev,
+ golang-github-linuxdeepin-go-dbus-factory-dev,
+ golang-github-go-ini-ini-dev,
  nodejs-bin | nodejs
 Standards-Version: 3.9.5
 Homepage: https://deepin.org
