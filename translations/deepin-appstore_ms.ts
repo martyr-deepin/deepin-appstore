@@ -26,7 +26,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="117"/>
         <source>Dark Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tema Gelap</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
@@ -92,12 +92,12 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="103"/>
         <source>Deepin Store</source>
-        <translation type="unfinished"/>
+        <translation>Kedai Deepin</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="104"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation type="unfinished"/>
+        <translation>Kedai Deepin ialah Kedai Apl yang mengandungi banyak aplikasi yang berkualiti. Saranan terkenal, apl baharu dikemaskini dan topik panas yang tersedia. Ia juga menyokong sekali klik untuk muat turun, pasang, kemaskini, nyahpasang dan banyak lagi.</translation>
     </message>
 </context>
 </TS>
