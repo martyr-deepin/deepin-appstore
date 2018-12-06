@@ -128,6 +128,7 @@ int main(int argc, char** argv) {
     QObject::connect(&dbus_manager, &dstore::DBusManager::showDetailRequested,
                      &window, &dstore::WebWindow::showAppDetail);
 
+    app.installEventFilter(&window);
 
     window.loadPage();
     window.showWindow();

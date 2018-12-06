@@ -18,7 +18,6 @@
     }
     .item {
       display: flex;
-      align-items: center;
       &:hover {
         cursor: pointer;
         background-color: var(--main-item-bg-color-hover);
@@ -47,7 +46,7 @@
           display: none;
         }
         .info {
-          height: 46px;
+          height: 5rem;
           justify-content: space-between;
           .base {
             padding-top: 0.5rem;
@@ -55,9 +54,12 @@
         }
       }
       &:not(:nth-child(2)) {
-        height: 73px;
+        height: 7rem;
         .cover {
           display: none;
+        }
+        .icon {
+          padding-top: 1rem;
         }
         .base {
           padding-top: 1rem;
@@ -75,7 +77,11 @@
         height: 100%;
         border-bottom: 1px solid var(--main-item-hr-color);
         justify-content: space-between;
+        flex-grow: 1;
+        min-width: 0;
         .base {
+          flex-grow: 1;
+          min-width: 0;
           display: flex;
           flex-direction: column;
         }

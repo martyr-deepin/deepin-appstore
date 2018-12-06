@@ -8,7 +8,7 @@
   flex-grow: 0;
 }
 .subtitle {
-  font-size: 10px;
+  font-size: calc(1rem - 2px);
   color: #787878;
   cursor: pointer;
   word-wrap: break-word;
@@ -17,11 +17,6 @@
   @media (max-width: 1024px) {
     font-size: 11px;
   }
-}
-
-.icon {
-  width: 48px;
-  height: 48px;
 }
 
 .cover {

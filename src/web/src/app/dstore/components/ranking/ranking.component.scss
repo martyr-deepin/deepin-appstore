@@ -1,13 +1,20 @@
 @import '../style';
 
+:host {
+  display: flex;
+  flex-direction: column;
+}
 .rankingList {
   display: flex;
   flex-direction: column;
   width: 225px;
+  flex: 1;
+  justify-content: space-between;
   .ranking {
     display: flex;
-    margin-bottom: 16px;
     padding: 0 5px;
+    padding: 0 5px;
+    align-items: center;
     &:hover {
       cursor: pointer;
       border-radius: 4px;
@@ -31,7 +38,7 @@
       flex-direction: row;
       flex-grow: 1;
       min-width: 0;
-      margin-left: 1rem;
+      margin-left: calc(20px - 1rem);
       border-bottom: solid 1px var(--main-item-hr-color);
       padding-top: 4px;
       .no {
@@ -40,6 +47,7 @@
       .base {
         flex-grow: 1;
         min-width: 0;
+        margin-bottom: calc(20px - 1rem);
         .appTitle {
           white-space: nowrap;
           overflow: hidden;

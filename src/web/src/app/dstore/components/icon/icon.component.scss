@@ -3,10 +3,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: -10px;
   .iconItem {
     width: 226px;
     padding: 5px;
-    margin-bottom: 10px;
+    margin-top: 10px;
     display: flex;
     &:hover {
       cursor: pointer;

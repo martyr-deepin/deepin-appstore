@@ -27,6 +27,8 @@
         color: gray;
         flex: 1;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .control {
         flex: 0.5;

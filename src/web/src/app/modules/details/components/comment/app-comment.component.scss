@@ -109,7 +109,6 @@
     justify-content: space-between;
     .select {
       button {
-        font-size: 10px;
         border-radius: 4px;
         box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
         padding: 0.3rem 1rem;
@@ -121,8 +120,6 @@
         &:last-child {
           border-left: none;
           border-radius: 0 4px 4px 0;
-        }
-        &.active {
         }
       }
     }
@@ -196,6 +193,8 @@
           visibility: hidden;
         }
         .thumbUp {
+          width: 1rem;
+          height: 1rem;
           content: url('/assets/buttons/thumbup_normal.svg');
           &:hover {
             content: url('/assets/buttons/thumbup_hover.svg');

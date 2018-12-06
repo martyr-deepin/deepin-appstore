@@ -4,21 +4,23 @@
     <div class="title">请选择安装应用</div>
     <div class="container">
       <ng-container *ngIf="apps$|async as apps">
-        <div class="app-list">
-          <div class="app"
-               dstoreHover
-               #dstoreHover="dstoreHover"
-               *ngFor="let app of apps"
-               (click)="touch(app)">
-            <dstore-checkbox-button [class.hover]="dstoreHover.hover"
-                                    [disabled]="!upgrade(app)"
-                                    [value]="batchInstall.has(app.name)"></dstore-checkbox-button>
-            <img [src]="app.icon">
-            {{app.localInfo.description.name}}
+        <dstore-scrollbar class="scrollbar">
+          <div class="app-list">
+            <div class="app"
+                 dstoreHover
+                 #dstoreHover="dstoreHover"
+                 *ngFor="let app of apps"
+                 (click)="touch(app)">
+              <dstore-checkbox-button [class.hover]="dstoreHover.hover"
+                                      [disabled]="!upgrade(app)"
+                                      [value]="batchInstall.has(app.name)"></dstore-checkbox-button>
+              <img [src]="app.icon">
+              {{app.localInfo.description.name}}
+            </div>
+            <div class="empty"></div>
+            <div class="empty"></div>
           </div>
-          <div class="empty"></div>
-          <div class="empty"></div>
-        </div>
+        </dstore-scrollbar>
         <div class="paginator">
           <div class="select-control">
             <a (click)="selectPage(apps)">全选</a>

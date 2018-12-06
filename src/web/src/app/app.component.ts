@@ -1,14 +1,15 @@
-import { debounceTime, filter } from 'rxjs/operators';
+import { debounceTime, filter, retry } from 'rxjs/operators';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BaseService } from './dstore/services/base.service';
-import { AppService } from './services/app.service';
-import { SearchService } from './services/search.service';
 import { Channel } from 'app/modules/client/utils/channel';
-import { App } from './dstore/services/app';
+import { BaseService } from 'app/dstore/services/base.service';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
-import { ThemeService } from './services/theme.service';
+
+import { ThemeService } from 'app/services/theme.service';
+import { App, AppService } from 'app/services/app.service';
+import { SearchService } from 'app/services/search.service';
+import { SysFontService } from 'app/services/sys-font.service';
 
 @Component({
   selector: 'dstore-root',
@@ -21,10 +22,15 @@ export class AppComponent implements OnInit {
     private appService: AppService,
     private searchService: SearchService,
     private themeService: ThemeService,
+    private sysFontService: SysFontService,
     private zone: NgZone,
   ) {}
   updated = false;
   ngOnInit(): void {
+    if (!BaseService.isNative) {
+      this.updated = true;
+      return;
+    }
     this.connectToRouter('menu.appsRequested', '/my/apps');
     this.connectToRouter('menu.commentRequested', '/my/comments');
     this.connectToRouter('menu.rewardRequested', '/my/donates');
@@ -32,11 +38,8 @@ export class AppComponent implements OnInit {
     this.searchListen();
     this.screenshotPreview();
     this.switchTheme();
-    if (!BaseService.isNative) {
-      this.updated = true;
-    } else {
-      this.waitUpdate();
-    }
+    this.switchFont();
+    this.waitUpdate();
   }
 
   connectToRouter(signal: string, url: string) {
@@ -50,6 +53,13 @@ export class AppComponent implements OnInit {
   switchTheme() {
     this.themeService.getTheme().subscribe(theme => {
       document.body.className = theme;
+    });
+  }
+  switchFont() {
+    this.sysFontService.fontChange$.subscribe(([fontFamily, fontSize]) => {
+      const HTMLGlobal = document.querySelector('html');
+      HTMLGlobal.style.fontFamily = fontFamily;
+      HTMLGlobal.style.fontSize = fontSize + 'px';
     });
   }
   // 添加搜索查询索引

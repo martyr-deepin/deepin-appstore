@@ -3,11 +3,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: 0.9px;
   .item {
     display: flex;
     width: 226px;
     padding: 5px;
-    margin-bottom: 10px;
+    margin-top: 0.9rem;
     &:hover {
       cursor: pointer;
       border-radius: 4px;

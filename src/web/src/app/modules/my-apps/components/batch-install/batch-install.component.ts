@@ -24,7 +24,7 @@ import { RemoteAppService } from './../../services/remote-app.service';
 export class BatchInstallComponent implements OnInit {
   @ViewChild('dialog')
   dialogRef: ElementRef<HTMLDialogElement>;
-  pageSize = 45;
+  pageSize = 36;
   batchInstall = new Map<string, App>();
 
   pageIndex$ = new BehaviorSubject<number>(0);

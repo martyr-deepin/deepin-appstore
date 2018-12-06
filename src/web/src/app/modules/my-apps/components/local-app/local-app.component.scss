@@ -31,12 +31,20 @@
   .installed {
     flex: 2;
     display: flex;
+    overflow: hidden;
     .time,
     .version {
       flex: 1;
       display: flex;
       align-items: center;
       color: gray;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .versionText {
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .confirm {
       display: flex;

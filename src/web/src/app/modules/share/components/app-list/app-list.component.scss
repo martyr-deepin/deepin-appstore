@@ -101,11 +101,16 @@
         flex-direction: column;
         justify-content: space-between;
         min-width: 0;
+        .name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
         .subtitle {
           display: flex;
           justify-content: space-between;
           color: gray;
-          font-size: 10px;
+          font-size: 0.9rem;
 
           min-width: 0;
           flex-grow: 1;
@@ -132,7 +137,7 @@
           }
           .subtitle {
             color: gray;
-            font-size: 10px;
+            font-size: 0.9rem;
             overflow: hidden;
             text-overflow: ellipsis;
           }

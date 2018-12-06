@@ -32,10 +32,11 @@ class SettingsProxy : public QObject {
   explicit SettingsProxy(QObject* parent = nullptr);
   ~SettingsProxy() override;
 
- signals:
+ Q_SIGNALS:
   void raiseWindowRequested();
+  void fontChangeRequested(const QString& fontFamily, int pixelSize);
 
- public slots:
+ public Q_SLOTS:
   const QString getMetadataServer();
   const QString getOperationServer();
 

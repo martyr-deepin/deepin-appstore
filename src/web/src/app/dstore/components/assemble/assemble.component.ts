@@ -64,6 +64,7 @@ export class AssembleComponent implements OnInit, OnDestroy {
       this.categoryList = cs;
     });
     this.jobs$ = this.getJobs();
+    this.loaded.emit(true);
   }
   ngOnDestroy() {
     if (this.jobs$) {

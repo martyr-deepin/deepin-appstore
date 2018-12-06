@@ -267,7 +267,7 @@ void WebWindow::initProxy()
     }
     auto page_channel = web_view_->page()->webChannel();
     auto channel_proxy = new ChannelProxy(this);
-    page_channel->registerObject("channelProxy",channel_proxy);
+    page_channel->registerObject("channelProxy", channel_proxy);
 
     auto web_channel = new QWebChannel(parent);
     web_channel->connectTo(channel_proxy->transport);
@@ -321,6 +321,9 @@ void WebWindow::initUI()
     settings->setMinimumFontSize(8);
     settings->setWebSecurity(QCefWebSettings::StateDisabled);
 
+    // init default font size
+    settings->setDefaultFontSize(this->fontInfo().pixelSize());
+
     web_event_delegate_ = new WebEventDelegate(this);
     web_view_->page()->setEventDelegate(web_event_delegate_);
 
@@ -354,6 +357,14 @@ bool WebWindow::eventFilter(QObject *watched, QEvent *event)
         }
         }
     }
+
+    if (event->type() == QEvent::FontChange && watched == this) {
+        if (this->settings_proxy_) {
+            auto fontInfo = this->fontInfo();
+            Q_EMIT this->settings_proxy_->fontChangeRequested(fontInfo.family(), fontInfo.pixelSize());
+        }
+    }
+
     return QObject::eventFilter(watched, event);
 }
 

@@ -3,8 +3,6 @@
 @import 'theme';
 body {
   margin: 0;
-  font-family: 'Noto Sans CJK SC';
-  font-size: 12px;
   user-select: none;
   cursor: default;
 }
@@ -29,8 +27,8 @@ body {
 input,
 textarea,
 select {
-  font-family: 'Noto Sans CJK SC';
-  font-size: 12px;
+  font-size: 1rem;
+  font-family: unset;
 }
 
 // ::-webkit-scrollbar {
@@ -59,6 +57,7 @@ select {
   width: 48px;
   height: 48px;
   min-width: 48px;
+  min-height: 48px;
   &::before {
     position: absolute;
     content: '';
@@ -92,11 +91,9 @@ button {
   outline: none;
   user-select: none;
   border: none;
-  font-size: 12px;
+  font-size: 1rem;
   white-space: nowrap;
-
-  font-family: 'Noto Sans CJK SC';
-  height: 24px;
+  height: 2rem;
 }
 
 dialog {
@@ -130,7 +127,7 @@ img {
 }
 
 .paginatorContainer {
-  height: 30px;
+  height: calc(3rem - 4px);
   display: flex;
   align-items: center;
   justify-content: flex-end;

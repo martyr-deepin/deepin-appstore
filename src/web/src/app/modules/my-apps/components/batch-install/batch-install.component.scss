@@ -10,25 +10,30 @@ dialog {
 .container {
   width: 800px;
   margin: 1rem;
-  height: 500px;
+  height: 480px;
   border: 1px solid var(--main-title-hr-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+.scrollbar {
+  height: 100%;
+  display: flex;
+}
 .app-list {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 1rem;
   .app {
-    &:nth-child(odd) {
-      background-color: var(--main-item-bg-color-hover);
-    }
+    white-space: nowrap;
+    overflow: hidden;
     cursor: pointer;
-    height: 30px;
+    height: 3rem;
     flex: 30%;
     display: flex;
     align-items: center;
+    &:nth-child(odd) {
+      background-color: var(--main-item-bg-color-hover);
+    }
     img {
       width: 1.5rem;
       height: 1.5rem;
