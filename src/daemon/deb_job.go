@@ -29,7 +29,7 @@ type Job struct {
 	DownloadSize int64
 
 	// dbusutil-gen: ignore-below
-	Id         string
+	ID         string
 	Name       string
 	Packages   []string
 	CreateTime int64
@@ -41,7 +41,7 @@ func (*Job) GetInterfaceName() string {
 }
 
 func (j *Job) getPath() dbus.ObjectPath {
-	return dbus.ObjectPath(dbusJobPathPrefix + j.Id)
+	return dbus.ObjectPath(dbusJobPathPrefix + j.ID)
 }
 
 func newJob(backend *Backend, path dbus.ObjectPath) (*Job, error) {
@@ -56,8 +56,8 @@ func newJob(backend *Backend, path dbus.ObjectPath) (*Job, error) {
 		core:    core,
 	}
 
-	job.Id, _ = core.Id().Get(0)
-	if job.Id == "" {
+	job.ID, _ = core.Id().Get(0)
+	if job.ID == "" {
 		return nil, errors.New("job id empty")
 	}
 	job.Name, _ = core.Name().Get(0)
@@ -130,19 +130,19 @@ func newJob(backend *Backend, path dbus.ObjectPath) (*Job, error) {
 
 // Start this job
 func (j *Job) Start() *dbus.Error {
-	err := j.backend.lastore.StartJob(dbus.FlagNoAutoStart, j.Id)
+	err := j.backend.lastore.StartJob(dbus.FlagNoAutoStart, j.ID)
 	return dbusutil.ToError(err)
 }
 
 // Pause this job
 func (j *Job) Pause() *dbus.Error {
-	err := j.backend.lastore.PauseJob(dbus.FlagNoAutoStart, j.Id)
+	err := j.backend.lastore.PauseJob(dbus.FlagNoAutoStart, j.ID)
 	return dbusutil.ToError(err)
 }
 
 // Clean job cache
 func (j *Job) Clean() *dbus.Error {
-	err := j.backend.lastore.CleanJob(dbus.FlagNoAutoStart, j.Id)
+	err := j.backend.lastore.CleanJob(dbus.FlagNoAutoStart, j.ID)
 	return dbusutil.ToError(err)
 }
 

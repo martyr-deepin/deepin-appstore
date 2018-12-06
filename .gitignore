@@ -18,3 +18,5 @@ debian/.debhelper/
 src/web_dist
 src/web_dist_aot
 debian/deepin-appstore-data-aot
+src/daemon/deepin-appstore-daemon
+src/daemon/daemon

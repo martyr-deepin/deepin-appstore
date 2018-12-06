@@ -296,6 +296,9 @@ install(TARGETS deepin-appstore deepin-appstore-metadata
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/daemon/deepin-appstore-daemon
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/daemon/data/com.deepin.appstore.json
+        DESTINATION /etc/deepin/pusher/handler.d)
+
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist
         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/)
 

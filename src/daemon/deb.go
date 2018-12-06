@@ -96,7 +96,7 @@ func (b *Backend) handleDaemonOffline() {
 		job.destroy()
 		err := b.service.StopExport(job)
 		if err != nil {
-			log.Printf("failed to stop export job %s: %v", job.Id, err)
+			log.Printf("failed to stop export job %s: %v", job.ID, err)
 		}
 	}
 
@@ -179,7 +179,7 @@ func (b *Backend) addJob(jobPath dbus.ObjectPath) (dbus.ObjectPath, error) {
 	defer b.PropsMu.Unlock()
 	job, ok := b.jobs[jobPath]
 	if ok {
-		log.Printf("job %s exist", job.Id)
+		log.Printf("job %s exist", job.ID)
 		return job.getPath(), nil
 	}
 
@@ -191,7 +191,7 @@ func (b *Backend) addJob(jobPath dbus.ObjectPath) (dbus.ObjectPath, error) {
 	myJobPath := job.getPath()
 	err = b.service.Export(myJobPath, job)
 	if err != nil {
-		log.Printf("warning: failed to export job %s: %v", job.Id, err)
+		log.Printf("warning: failed to export job %s: %v", job.ID, err)
 		return "/", err
 	}
 

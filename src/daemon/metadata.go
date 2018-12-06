@@ -31,6 +31,7 @@ type Metadata struct {
 		GetAppIcon         func() `in:"appName" out:"path"`
 		GetAppMetadataList func() `in:"appNameList" out:"json"`
 		OpenApp            func() `in:"appName"`
+		OnMessage          func() `in:"playload"`
 	}
 }
 
@@ -164,5 +165,11 @@ func (m *Metadata) OpenApp(appName string) *dbus.Error {
 		logger.Errorf("call dbus failed: %v", err)
 		return dbus.NewError(err.Error(), nil)
 	}
+	return nil
+}
+
+// OnMessage handle push message
+func (m *Metadata) OnMessage(playload map[string]interface{}) *dbus.Error {
+	logger.Info(playload)
 	return nil
 }

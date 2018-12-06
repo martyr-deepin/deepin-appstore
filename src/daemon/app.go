@@ -4,15 +4,15 @@ import "time"
 
 // form metadata server file model/app.go
 
-// ImageType is int8
+// ImgType is int8
 type ImgType int8
 
 // AppBody parse app info
 type AppBody struct {
 	*AppInfo
 
-	Id         uint      `json:"id,omitempty"`
-	UserId     uint      `json:"userID,omitempty"`
+	ID         uint      `json:"id,omitempty"`
+	UserID     uint      `json:"userID,omitempty"`
 	Name       string    `json:"name"`
 	UpdateTime time.Time `json:"updateTime"`
 	Putway     bool      `json:"putway"`
@@ -32,21 +32,21 @@ type AppLocale struct {
 
 // AppInfo is ORM object
 type AppInfo struct {
-	Id         uint   `json:"-"`
-	AppId      uint   `json:"-"`
+	ID         uint   `json:"-"`
+	AppID      uint   `json:"-"`
 	Author     string `json:"author"`
 	Packager   string `json:"packager"`
 	Category   string `json:"category" binding:"required" gorm:"not null"`
 	HomePage   string `json:"homePage"`
 	Icon       string `json:"icon" binding:"required" gorm:"not null"`
-	PackageUri string `json:"packageURI" binding:"required,checkPackageUri" gorm:"not null"`
+	PackageURI string `json:"packageURI" binding:"required,checkPackageUri" gorm:"not null"`
 	Extra      string `json:"extra" gorm:"type:text"`
 }
 
 // AppDescription is ORM object
 type AppDescription struct {
-	Id          uint   `json:"-"`
-	AppId       uint   `json:"-" gorm:"not null"`
+	ID          uint   `json:"-"`
+	AppID       uint   `json:"-" gorm:"not null"`
 	Locale      string `json:"-" gorm:"not null"`
 	Name        string `json:"name" binding:"required,max=64" gorm:"not null"` // Localized application display name.
 	Description string `json:"description" binding:"required" gorm:"not null;type:text"`
@@ -55,8 +55,8 @@ type AppDescription struct {
 
 // AppVersion is ORM object
 type AppVersion struct {
-	Id        uint   `json:"-"`
-	AppId     uint   `json:"-" gorm:"not null;unique_index:version"`
+	ID        uint   `json:"-"`
+	AppID     uint   `json:"-" gorm:"not null;unique_index:version"`
 	Locale    string `json:"-" gorm:"not null;unique_index:version"`
 	Version   string `json:"version" binding:"required,max=64,checkVersion" gorm:"not null;unique_index:version"` // Human readable version name.
 	Order     int    `json:"order" gorm:"not null"`
@@ -66,16 +66,16 @@ type AppVersion struct {
 // AppTag is ORM object
 // TODO: Should not support json.
 type AppTag struct {
-	Id     uint
-	AppId  uint   `gorm:"unique_index:tag"`
+	ID     uint
+	AppID  uint   `gorm:"unique_index:tag"`
 	Locale string `gorm:"unique_index:tag"`
 	Tag    string `gorm:"unique_index:tag"`
 }
 
 // AppImage is ORM object
 type AppImage struct {
-	Id     uint    `json:"-"`
-	AppId  uint    `json:"-"`
+	ID     uint    `json:"-"`
+	AppID  uint    `json:"-"`
 	Locale string  `json:"-"`
 	Path   string  `json:"path" binding:"required" gorm:"not null"`
 	Type   ImgType `json:"type" binding:"required" gorm:"not null"`

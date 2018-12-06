@@ -38,18 +38,22 @@ func main() {
 	}
 	m.updateCache()
 
+	// caller := service.Conn().Object("com.deepin.pusher", "/com/deepin/pusher")
+	// err = caller.Call("com.deepin.pusher.Register", 0, "store", dbusServiceName, dbusMetadataPath, dbusMetadataInterface).Store()
+	// if nil != err {
+	// 	logger.Errorf("register message handler failed: %v", err)
+	// }
+
 	err = service.RequestName(dbusServiceName)
 	if err != nil {
 		logger.Fatal(err)
 	}
 
 	service.SetAutoQuitHandler(3*time.Minute, func() bool {
-		// b.PropsMu.Lock()
-		// jobCount := len(b.jobs)
-		// b.PropsMu.Unlock()
-		// DO NOT auto quit
-		return false
-		// return jobCount == 0
+		b.PropsMu.Lock()
+		jobCount := len(b.jobs)
+		b.PropsMu.Unlock()
+		return jobCount == 0
 	})
 
 	service.Wait()

@@ -1,0 +1,6 @@
+{
+    "msg_type": "store",
+    "service": "com.deepin.AppStore.Daemon",
+    "path": "/com/deepin/AppStore/Metadata",
+    "interface": "com.deepin.AppStore.Metadata"
+}
