@@ -25,6 +25,7 @@ type Metadata struct {
 	cfg     *ini.File
 	userCfg *ini.File
 
+	block      *blocklist
 	debBackend *Backend
 
 	apps map[string]*AppBody

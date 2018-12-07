@@ -100,10 +100,6 @@ set(DBUS_FILES
     dbus/app_store_dbus_adapter.h
     dbus/app_store_dbus_interface.cpp
     dbus/app_store_dbus_interface.h
-    dbus/app_store_metadata_dbus_adapter.cpp
-    dbus/app_store_metadata_dbus_adapter.h
-    dbus/app_store_metadata_dbus_proxy.cpp
-    dbus/app_store_metadata_dbus_proxy.h
     dbus/dbus_consts.cpp
     dbus/dbus_consts.h
     dbus/dbus_extended_abstract_interface.cpp
@@ -282,16 +278,6 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
                  resources/themes/themes.qrc)
   target_link_libraries(test-image-viewer ${LINK_LIBS})
 endif()
-
-add_executable(deepin-appstore-metadata
-               app/deepin_appstore_metadata.cpp
-               ${BASE_FILES}
-               ${DBUS_FILES}
-               ${SERVICES_FILES})
-target_link_libraries(deepin-appstore-metadata ${Qt_LIBS})
-
-install(TARGETS deepin-appstore deepin-appstore-metadata
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/daemon/deepin-appstore-daemon
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

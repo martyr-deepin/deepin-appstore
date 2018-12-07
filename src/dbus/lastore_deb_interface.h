@@ -32,7 +32,7 @@ class LastoreDebInterface: public DbusExtendedAbstractInterface
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
-    { return "com.deepin.AppStore.Backend"; }
+    { return "com.deepin.AppStore.Backend.Deb"; }
 
 public:
     LastoreDebInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);

@@ -22,13 +22,9 @@ namespace dstore {
 const char kAppStoreDbusPath[] = "/com/deepin/AppStore";
 const char kAppStoreDbusService[] = "com.deepin.AppStore";
 
-extern const char kAppStoreMetadataDbusPath[] = "/com/deepin/AppStore/Metadata";
-extern const char kAppStoreMetadataDbusService[] =
-    "com.deepin.AppStore.Metadata";
-
 const char kLastoreDebDbusPath[] = "/com/deepin/AppStore/Backend";
-const char kLastoreDebDbusService[] = "com.deepin.AppStore.Backend.Deb";
+const char kLastoreDebDbusService[] = "com.deepin.AppStore.Daemon";
 
-const char kLastoreDebJobService[] = "com.deepin.AppStore.Backend.Deb";
+const char kLastoreDebJobService[] = "com.deepin.AppStore.Daemon";
 
 }  // namespace dstore

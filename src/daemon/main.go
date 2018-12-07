@@ -20,11 +20,14 @@ func main() {
 		logger.Fatal(err)
 	}
 
+	block := newBlocklist()
+
 	b, err := newBackend(service)
 	if err != nil {
 		logger.Fatal(err)
 	}
 	b.init()
+	b.block = block
 
 	err = service.Export(dbusBackendPath, b)
 	if err != nil {
@@ -33,6 +36,8 @@ func main() {
 
 	m := NewMetadata()
 	m.debBackend = b
+	m.block = block
+
 	err = service.Export(dbusMetadataPath, m)
 	if err != nil {
 		logger.Fatal(err)

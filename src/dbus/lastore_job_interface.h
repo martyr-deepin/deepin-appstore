@@ -28,7 +28,7 @@ class LastoreJobInterface: public QDBusAbstractInterface
     Q_OBJECT
 public:
     static inline const char *staticInterfaceName()
-    { return "com.deepin.AppStore.Backend.Job"; }
+    { return "com.deepin.AppStore.Backend.Deb.Job"; }
 
 public:
     LastoreJobInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);

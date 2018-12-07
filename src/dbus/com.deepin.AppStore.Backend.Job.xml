@@ -1,4 +1,4 @@
-<interface name="com.deepin.AppStore.Backend.Job">
+<interface name="com.deepin.AppStore.Backend.Deb.Job">
     <method name="Clean"></method>
     <method name="Pause"></method>
     <method name="Start"></method>

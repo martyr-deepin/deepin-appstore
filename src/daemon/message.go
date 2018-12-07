@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"strings"
 
 	"github.com/mitchellh/mapstructure"
@@ -40,9 +42,49 @@ func (m *Metadata) handleInstall(playload map[string]interface{}) error {
 
 	for _, app := range msg.Apps {
 		packageName := strings.Replace(app.PackageURI, "dpk://deb/", "", -1)
+		if _, ok := m.block.list[packageName]; ok {
+			logger.Infof("skip user remove package")
+			continue
+		}
 		logger.Infof("install %v %v", app.Name, packageName)
 		m.debBackend.Install(app.Name, packageName)
 	}
 
 	return nil
+}
+
+type blocklist struct {
+	blockFilepath string
+	list          map[string]string
+}
+
+func newBlocklist() *blocklist {
+	b := &blocklist{
+		blockFilepath: configFolder + "/block.list",
+		list:          make(map[string]string),
+	}
+	b.loadBlocklist()
+	return b
+}
+
+func (b *blocklist) add(id string) {
+	b.list[id] = ""
+	b.saveBlocklist()
+}
+
+func (b *blocklist) remove(id string) {
+	delete(b.list, id)
+	b.saveBlocklist()
+}
+
+// if user remove and package, save it to block list
+func (b *blocklist) loadBlocklist() {
+	data, _ := ioutil.ReadFile(b.blockFilepath)
+	json.Unmarshal(data, &b.list)
+	return
+}
+
+func (b *blocklist) saveBlocklist() {
+	data, _ := json.Marshal(b.list)
+	ioutil.WriteFile(b.blockFilepath, data, 0644)
 }

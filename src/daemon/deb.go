@@ -49,6 +49,9 @@ type Backend struct {
 		QueryInstallationTime func() `in:"idList" out:"installationTimeList"`
 		FixError              func() `in:"errType" out:"job"`
 	}
+
+	// TODO: move to all install
+	block *blocklist
 }
 
 func newBackend(service *dbusutil.Service) (*Backend, error) {
@@ -213,6 +216,9 @@ func (b *Backend) QueryDownloadSize(id string) (int64, *dbus.Error) {
 func (b *Backend) Install(localizedName, id string) (dbus.ObjectPath, *dbus.Error) {
 	b.service.DelayAutoQuit()
 	log.Printf("install %q %q\n", localizedName, id)
+
+	b.block.remove(id)
+
 	jobPath, err := b.lastore.InstallPackage(0, localizedName, id)
 	if err != nil {
 		return "/", dbusutil.ToError(err)
@@ -229,6 +235,9 @@ func (b *Backend) Install(localizedName, id string) (dbus.ObjectPath, *dbus.Erro
 func (b *Backend) Remove(localizedName, id string) (dbus.ObjectPath, *dbus.Error) {
 	b.service.DelayAutoQuit()
 	log.Printf("remove %q %q\n", localizedName, id)
+
+	b.block.add(id)
+
 	jobPath, err := b.lastore.RemovePackage(0, localizedName, id)
 	if err != nil {
 		return "/", dbusutil.ToError(err)
