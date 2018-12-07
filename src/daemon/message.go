@@ -27,8 +27,8 @@ import (
 type msgInstall struct {
 	Action string `json:"action"`
 	Apps   []struct {
-		Name       string `json:"name"`
-		PackageURI string `json:"packageURI"`
+		Name           string   `json:"name"`
+		PackageURIList []string `json:"package_uri_list"`
 	} `json:"apps"`
 }
 
@@ -40,14 +40,17 @@ func (m *Metadata) handleInstall(playload map[string]interface{}) error {
 		return err
 	}
 
+	// TODO: support flatpak or multi format
 	for _, app := range msg.Apps {
-		packageName := strings.Replace(app.PackageURI, "dpk://deb/", "", -1)
-		if _, ok := m.block.list[packageName]; ok {
-			logger.Infof("skip user remove package")
-			continue
+		for _, dpk := range app.PackageURIList {
+			packageName := strings.Replace(dpk, "dpk://deb/", "", -1)
+			if _, ok := m.block.list[packageName]; ok {
+				logger.Infof("skip user remove package")
+				continue
+			}
+			logger.Infof("install %v %v", app.Name, packageName)
+			m.debBackend.Install(app.Name, packageName)
 		}
-		logger.Infof("install %v %v", app.Name, packageName)
-		m.debBackend.Install(app.Name, packageName)
 	}
 
 	return nil
