@@ -1,19 +1,51 @@
 [Desktop Entry]
 Categories=Application;System;Settings
 Comment=A general Linux software manager
-Comment[zh_CN]=Linux 通用软件管理器
-Comment[zh_TW]=Linux 的通用軟體管理器
 Encoding=UTF-8
 Exec=deepin-appstore %U
+GenericName=App Store
 Icon=deepin-appstore
+MimeType=x-scheme-handler/dpk;
 Name=Deepin App Store
-Name[zh_CN]=深度商店
-Name[zh_TW]=深度商店
 StartupNotify=false
 Terminal=false
 Type=Application
-X-MultipleArgs=false
-MimeType=x-scheme-handler/dpk;
-GenericName=App Store
 X-Deepin-Vendor=deepin
+X-MultipleArgs=false
+
+# Translations:
+# Do not manually modify!
+Comment[am_ET]=የ ሊነክስ ሶፍትዌር አስተዳዳሪ ባጠቃላይ
+Comment[ar]=المدير العام لبرمجيات لينوكس
+Comment[ast]=Un xestor de software pa GNU/Linux
+Comment[az]=Ümumi Linux proqram meneceri
+Comment[bg]=Основен мениджър на софтуер в Линукс
+Comment[ca]=Un gestor de programari general de Linux
+Comment[da]=En generel Linux-software-håndtering
+Comment[de]=Ein gewöhnlicher Linux Software-Manager
+Comment[el]=Ένας γενικός διαχειριστής εφαρμογών Linux
+Comment[es]=Un gestor de software general de Linux
+Comment[es_419]=Un gestor de software general de Linux
+Comment[et]=Linuxi tarkvarahaldur
+Comment[fr]=Un gestionnaire de logiciels Linux
+Comment[gl_ES]=Un xestor xeral de software para Linux
+Comment[hr]=Općeniti Linux upravitelj softverom
+Comment[hu]=Egy általános Linux csomagkezelő
+Comment[it]=Un gestione software per Linux. Localizzazione italiana a cura di Massimo A. Carofano.
+Comment[lt]=Bendrinė Linux programinės įrangos tvarkytuvė
+Comment[ms]=Merupakan sebuah pengurus perisian Linux
+Comment[nl]=Een algemene Linux-softwarebeheerder
+Comment[pl]=Ogólny zarządca oprogramowania linuksowego
+Comment[pt]=Um gestor de software geral de Linux
+Comment[pt_BR]=Um gerenciador geral de software Linux
+Comment[ru]=Общий менеджер программного обеспечения Linux
+Comment[sk]=Všeobecný softvérový manažér pre Linux
+Comment[sr]=Општи управник софтвера за Линукс
+Comment[tr]=Genel bir Linux yazılım yöneticisi
+Comment[uk]=Загальна програма для керування програмами Linux
+Comment[zh_CN]=Linux通用软件管理器
+Comment[zh_TW]=一個通用的 Linux 軟體管理程式
+GenericName[zh_CN]=应用商店
+Name[cs]=Deepin Store
+Name[zh_CN]=深度应用商店
 
