@@ -25,6 +25,8 @@ type Metadata struct {
 	cfg     *ini.File
 	userCfg *ini.File
 
+	debBackend *Backend
+
 	apps map[string]*AppBody
 
 	methods *struct {
@@ -170,6 +172,20 @@ func (m *Metadata) OpenApp(appName string) *dbus.Error {
 
 // OnMessage handle push message
 func (m *Metadata) OnMessage(playload map[string]interface{}) *dbus.Error {
-	logger.Info(playload)
+	action, ok := playload["action"]
+	if !ok {
+		logger.Errorf("unknown message %v", playload)
+	}
+
+	var err error
+	switch action {
+	case "install":
+		err = m.handleInstall(playload)
+	}
+
+	if nil != err {
+		logger.Errorf("process message failed: %v", playload)
+	}
+
 	return nil
 }

@@ -32,6 +32,7 @@ func main() {
 	}
 
 	m := NewMetadata()
+	m.debBackend = b
 	err = service.Export(dbusMetadataPath, m)
 	if err != nil {
 		logger.Fatal(err)
