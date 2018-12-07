@@ -1,3 +1,13 @@
+<a name="5.1.2.7"></a>
+## 5.1.2.7 (2018-12-07)
+
+
+#### Features
+
+*   support default settings ([00e4a699](https://github.com/linuxdeepin/deepin-appstore/commit/00e4a699537a51c78971e08c4a3d14d6ef2fa0c9))
+
+
+
 <a name="5.1.2.6"></a>
 ## 5.1.2.6 (2018-11-27)
 
