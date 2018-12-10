@@ -53,12 +53,12 @@ export class StoreService {
   }
 
   installPackages(apps: App[]): Observable<string> {
-    apps.forEach(app => this.downloadTotalService.installed(app.name));
+    this.downloadTotalService.installed(apps);
     return this.execWithCallback('storeDaemon.installPackages', apps.map(this.toQuery));
   }
 
   updatePackages(apps: App[]): Observable<string> {
-    apps.forEach(app => this.downloadTotalService.installed(app.name));
+    this.downloadTotalService.installed(apps);
     return this.execWithCallback('storeDaemon.updatePackages', apps.map(this.toQuery));
   }
 
