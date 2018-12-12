@@ -67,14 +67,16 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5LinguistTools REQUIRED)
 
 pkg_search_module(DtkWidget REQUIRED dtkwidget)
+pkg_search_module(DtkFrameWorkDBus REQUIRED dframeworkdbus)
 pkg_search_module(LibQCef REQUIRED libqcef)
 
+include_directories(${DtkFrameWorkDBus_INCLUDE_DIRS})
 include_directories(${DtkWidget_INCLUDE_DIRS})
 include_directories(${LibQCef_INCLUDE_DIRS})
 
 set(Qt_LIBS Qt5::Core Qt5::DBus Qt5::Sql Qt5::Widgets Qt5::WebChannel)
 
-set(LINK_LIBS ${Qt_LIBS} ${DtkWidget_LDFLAGS} ${LibQCef_LDFLAGS})
+set(LINK_LIBS ${Qt_LIBS} ${DtkWidget_LDFLAGS}   ${DtkFrameWorkDBus_LDFLAGS} ${LibQCef_LDFLAGS})
 
 set(BASE_FILES
     base/command.cpp
@@ -102,6 +104,8 @@ set(DBUS_FILES
     dbus/app_store_dbus_interface.h
     dbus/dbus_consts.cpp
     dbus/dbus_consts.h
+    dbus/deepinid_interface.h
+    dbus/deepinid_interface.cpp
     dbus/dbus_extended_abstract_interface.cpp
     dbus/dbus_extended_abstract_interface.h
     dbus/lastore_deb_interface.cpp
@@ -119,8 +123,6 @@ set(RESOURCES_FILES
 set(SERVICES_FILES
     services/dbus_manager.cpp
     services/dbus_manager.h
-    services/metadata_manager.cpp
-    services/metadata_manager.h
     services/rcc_scheme_handler.cpp
     services/rcc_scheme_handler.h
     services/search_manager.cpp
@@ -131,12 +133,12 @@ set(SERVICES_FILES
     services/session_manager.h
     services/settings_manager.cpp
     services/settings_manager.h
+    services/account_manager.h
+    services/account_manager.cpp
     services/store_daemon_manager.cpp
     services/store_daemon_manager.h
     services/backend/chinese2pinyin.cpp
     services/backend/chinese2pinyin.h
-    services/backend/metadata_cache_worker.cpp
-    services/backend/metadata_cache_worker.h
     services/backend/backend.qrc
     services/package/package_manager_interface.h
     services/package/package_manager_interface.cpp
@@ -167,6 +169,8 @@ set(UI_FILES
     ui/channel/store_daemon_proxy.cpp
     ui/channel/store_daemon_proxy.h
     ui/channel/channel_proxy.h
+    ui/channel/account_proxy.h
+    ui/channel/account_proxy.cpp
     ui/widgets/image_viewer.cpp
     ui/widgets/image_viewer.h
     ui/widgets/search_button.cpp
@@ -187,8 +191,8 @@ file(GLOB DMAN_TRANSLATION_TS
           ${CMAKE_SOURCE_DIR}/translations/deepin-appstore*.ts)
 set_source_files_properties(${DMAN_TRANSLATION_TS}
                             PROPERTIES
-                            OUTPUT_LOCATION
-                            ${CMAKE_BINARY_DIR}/translations)
+			    OUTPUT_LOCATION
+			    ${CMAKE_BINARY_DIR}/translations)
 qt5_add_translation(DMAN_TRANSLATION_QM ${DMAN_TRANSLATION_TS})
 add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 
@@ -204,9 +208,9 @@ if(BUILD_WEB_RESOURCES)
 else()
   add_custom_command(OUTPUT npm-update-web-dist
                      COMMAND sh -c
-                             "mkdir -p web_dist web_dist_aot/appstore || true"
-                     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-                     VERBATIM)
+		             "mkdir -p web_dist web_dist_aot/appstore || true"
+			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+		     VERBATIM)
 endif()
 
 add_custom_command(
@@ -229,11 +233,11 @@ add_custom_target(update-web-dist DEPENDS npm-update-web-dist)
 
 add_executable(deepin-appstore
                app/deepin_appstore.cpp
-               ${BASE_FILES}
-               ${DBUS_FILES}
-               ${RESOURCES_FILES}
-               ${SERVICES_FILES}
-               ${UI_FILES})
+	       ${BASE_FILES}
+	       ${DBUS_FILES}
+	       ${RESOURCES_FILES}
+	       ${SERVICES_FILES}
+	       ${UI_FILES})
 
 set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
@@ -247,9 +251,9 @@ target_link_libraries(deepin-appstore ${LibQCef_LIBDIR}/qcef/libcef.so
 if(CMAKE_BUILD_TYPE MATCHES Release)
   add_dependencies(deepin-appstore
                    update-qm
-                   update-web-dist
-                   update-desktop
-                   appstore-daemon)
+		   update-web-dist
+		   update-desktop
+		   appstore-daemon)
 else()
   add_dependencies(deepin-appstore appstore-daemon)
 endif()
@@ -257,13 +261,13 @@ endif()
 if(CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(test-launcher
                  app/test_launcher.cpp
-                 base/launcher.cpp
-                 base/launcher.h)
+		 base/launcher.cpp
+		 base/launcher.h)
   target_link_libraries(test-launcher ${LINK_LIBS})
   add_executable(test-base64-image
                  app/base64_image.cpp
-                 base/file_util.cpp
-                 base/file_util.h)
+		 base/file_util.cpp
+		 base/file_util.h)
   target_link_libraries(test-base64-image ${LINK_LIBS})
 
   add_executable(qurl-demo app/qurl_demo.cpp)
@@ -271,11 +275,11 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
 
   add_executable(test-image-viewer
                  app/test_image_viewer.cpp
-                 base/file_util.cpp
-                 base/file_util.h
-                 ui/widgets/image_viewer.cpp
-                 ui/widgets/image_viewer.h
-                 resources/themes/themes.qrc)
+		 base/file_util.cpp
+		 base/file_util.h
+		 ui/widgets/image_viewer.cpp
+		 ui/widgets/image_viewer.h
+		 resources/themes/themes.qrc)
   target_link_libraries(test-image-viewer ${LINK_LIBS})
 endif()
 
@@ -293,5 +297,5 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist_aot
 
 install(DIRECTORY ${CMAKE_BINARY_DIR}/translations
         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/
-        FILES_MATCHING
-        PATTERN "*")
+	FILES_MATCHING
+	PATTERN "*")

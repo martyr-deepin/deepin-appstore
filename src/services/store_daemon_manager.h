@@ -40,6 +40,13 @@ Q_SIGNALS:
      */
     void jobListChanged(const QStringList &jobs);
 
+
+    /*
+        system login state change
+        info: Map(("AccessToken", QVariant(QString, "EIhuP262Qi2vyaPSG_196Q"))("Expiry", QVariant(qlonglong, 1544583742))("HardwareID", QVariant(QString, "bdb3ff930e39c8726b29f2252b132b82da494f492ba41fa2f4b157951069b470"))("Token", QVariant(QString, "0cb068641e132fcba475276f0a0e590b"))("UserID", QVariant(qlonglong, 17898))("loggedIn", QVariant(bool, true))) or {}
+    */
+    void loginStateChanged(QVariantMap info);
+
 public Q_SLOTS:
     /**
      * @brief clearArchives clean apt arvhives

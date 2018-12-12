@@ -38,6 +38,7 @@ class SearchManager;
 class SearchProxy;
 class SettingsProxy;
 class StoreDaemonProxy;
+class AccountProxy;
 class TitleBar;
 class TitleBarMenu;
 class WebEventDelegate;
@@ -84,6 +85,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   SearchCompletionWindow* completion_window_ = nullptr;
   SearchManager* search_manager_ = nullptr;
   SearchProxy* search_proxy_ = nullptr;
+  AccountProxy* account_proxy_ = nullptr;
   QTimer* search_timer_ = nullptr;
   QThread* proxy_thread_ = nullptr;
   SettingsProxy* settings_proxy_ = nullptr;

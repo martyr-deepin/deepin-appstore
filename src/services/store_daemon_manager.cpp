@@ -40,7 +40,6 @@ const char kResultErrMsg[] = "errorMsg";
 const char kResult[] = "result";
 const char kResultName[] = "name";
 
-
 bool ReadJobInfo(LastoreJobInterface &job_interface,
                  const QString &job,
                  QVariantMap &result)
@@ -87,13 +86,14 @@ public:
         auto aptPM = new AptPackageManager(parent);
         pm = new PackageManager(parent);
         pm->registerDpk("deb", aptPM);
+
     }
 
 
     void initConnections();
 
 
-    PackageManager *pm = nullptr;
+    PackageManager      *pm = nullptr;
     LastoreDebInterface *deb_interface_ = nullptr;
 
     QMap<QString, QString> apps;

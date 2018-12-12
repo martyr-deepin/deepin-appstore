@@ -37,4 +37,5 @@ void MenuProxy::setUserInfo(QVariantMap info)
     emit this->userInfoUpdated(info);
 }
 
+
 }  // namespace dstore

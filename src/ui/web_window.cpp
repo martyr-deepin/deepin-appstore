@@ -42,6 +42,7 @@
 #include "ui/channel/search_proxy.h"
 #include "ui/channel/settings_proxy.h"
 #include "ui/channel/store_daemon_proxy.h"
+#include "ui/channel/account_proxy.h"
 #include "ui/channel/channel_proxy.h"
 #include "ui/widgets/image_viewer.h"
 #include "ui/widgets/search_completion_window.h"
@@ -144,6 +145,10 @@ WebWindow::~WebWindow()
         store_daemon_proxy_->deleteLater();
         store_daemon_proxy_ = nullptr;
     }
+    if (account_proxy_ != nullptr) {
+        account_proxy_->deleteLater();
+        account_proxy_ = nullptr;
+    }
 }
 
 void WebWindow::loadPage()
@@ -218,6 +223,14 @@ void WebWindow::initConnections()
             completion_window_, &SearchCompletionWindow::goUp);
     connect(title_bar_, &TitleBar::focusOut,
             this, &WebWindow::onSearchEditFocusOut);
+    connect(title_bar_, &TitleBar::loginRequested,
+    this, [&](bool login) {
+        if (login) {
+            account_proxy_->login();
+        } else {
+            account_proxy_->logout();
+        }
+    });
 
     connect(tool_bar_menu_, &TitleBarMenu::recommendAppRequested,
             menu_proxy_, &MenuProxy::recommendAppRequested);
@@ -232,8 +245,7 @@ void WebWindow::initConnections()
     connect(tool_bar_menu_, &TitleBarMenu::clearCacheRequested,
             store_daemon_proxy_, &StoreDaemonProxy::clearArchives);
 
-    connect(title_bar_, &TitleBar::loginRequested,
-            menu_proxy_, &MenuProxy::loginRequested);
+
     connect(title_bar_, &TitleBar::commentRequested,
             menu_proxy_, &MenuProxy::commentRequested);
     connect(title_bar_, &TitleBar::requestReward,
@@ -277,6 +289,7 @@ void WebWindow::initProxy()
     menu_proxy_ = new MenuProxy(parent);
     search_proxy_ = new SearchProxy(parent);
     settings_proxy_ = new SettingsProxy(parent);
+    account_proxy_ = new AccountProxy(parent);
 
     web_channel->registerObject("imageViewer", image_viewer_proxy_);
     web_channel->registerObject("log", log_proxy_);
@@ -284,6 +297,7 @@ void WebWindow::initProxy()
     web_channel->registerObject("search", search_proxy_);
     web_channel->registerObject("settings", settings_proxy_);
     web_channel->registerObject("storeDaemon", store_daemon_proxy_);
+    web_channel->registerObject("account", account_proxy_);
 
     if (useMultiThread) {
         proxy_thread_ = new QThread(parent);
@@ -294,6 +308,7 @@ void WebWindow::initProxy()
         search_proxy_->moveToThread(proxy_thread_);
         settings_proxy_->moveToThread(proxy_thread_);
         store_daemon_proxy_->moveToThread(proxy_thread_);
+        account_proxy_->moveToThread(proxy_thread_);
         proxy_thread_->start();
     }
 }

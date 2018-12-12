@@ -39,7 +39,7 @@ signals:
      * This signal is emitted when Login/Logout menu item is activated.
      * @param login true if request to login, false for logout.
      */
-    void loginRequested(bool login);
+//    void loginRequested(bool login);
 
     /**
      * This signal is emitted when My Comment menu item is activated.
@@ -70,18 +70,23 @@ signals:
      * This signal is emitted when Privacy Agreement menu item is activated.
      */
     void privacyAgreementRequested();
+
+
+public slots:
+    /**
+     * @brief update titlebar info, like avatar and user name
+     * @param info
+     */
+    void setUserInfo(QVariantMap info);
+
+
+// signals for ui
+Q_SIGNALS:
     /**
      * @brief notify user info change when user login/logout from web page
      * @param info
      */
     void userInfoUpdated(QVariantMap info);
-
-public slots:
-    /**
-     * @brief update titlebar info
-     * @param info
-     */
-    void setUserInfo(QVariantMap info);
 };
 
 }  // namespace dstore
