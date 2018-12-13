@@ -40,6 +40,10 @@ AccountManager::AccountManager(QObject *parent)
 
     connect(d->deepinid_interface_, &com::deepin::deepinid::UserInfoChanged,
             this, &AccountManager::userInfoChanged);
+    connect(d->deepinid_interface_, &com::deepin::deepinid::UserInfoChanged,
+            this,[&](){
+                qDebug()<<"userInfoChange";
+            });
 }
 
 AccountManager::~AccountManager() {}

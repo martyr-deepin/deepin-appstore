@@ -1,42 +1,51 @@
-import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
-import * as JwtDecode from 'jwt-decode';
-import { map, first, distinctUntilChanged } from 'rxjs/operators';
+import { Injectable, NgZone } from '@angular/core';
+import { concat } from 'rxjs';
+import { map, publishReplay, refCount, share, switchMap } from 'rxjs/operators';
 
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
-import { LoginService } from './login.service';
-import { BaseService } from '../dstore/services/base.service';
-import { environment } from 'environments/environment';
+import { Channel } from 'app/modules/client/utils/channel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor(private zone: NgZone) {}
 
-  private tokenStorageKey = 'auth-token:' + environment.region;
-  private tokenSubject = new BehaviorSubject<string>(localStorage.getItem(this.tokenStorageKey));
-  private loginSubject = new Subject<boolean>();
+  info$ = concat(
+    Channel.exec<UserInfo>('account.getUserInfo'),
+    Channel.connect<UserInfo>('account.userInfoChanged'),
+  ).pipe(
+    map(info => {
+      this.zone.run(() => {});
+      if (info && info.UserID) {
+        console.log('welcome', info.UserID);
+        return info;
+      }
+      return null;
+    }),
+    publishReplay(1),
+    refCount(),
+  );
+  logged$ = this.info$.pipe(map(info => info && info.IsLoggedIn));
+  token$ = this.logged$.pipe(
+    switchMap(() => {
+      return Channel.exec<string>('account.getToken');
+    }),
+    share(),
+  );
 
-  token$ = this.tokenSubject.pipe(distinctUntilChanged());
-  logged$ = this.token$.pipe(map(Boolean));
-  info$ = this.token$.pipe(map(token => (token ? JwtDecode<UserInfo>(token) : null)));
-  auth$ = this.loginSubject.asObservable();
   // 登录方法
-  login(token: string) {
-    localStorage.setItem(this.tokenStorageKey, token);
-    console.log('welcome', JwtDecode(token));
-    this.tokenSubject.next(token);
+  login() {
+    console.log('login');
+    Channel.exec('account.login');
   }
   // 登出方法
   logout() {
-    localStorage.removeItem(this.tokenStorageKey);
-    this.tokenSubject.next(null);
+    console.log('logout');
+    Channel.exec('account.logout');
   }
   // 需要验证事件
-  authorized() {
-    this.logged$.pipe(first()).subscribe(logged => this.loginSubject.next(logged));
-  }
+  authorized() {}
   // 打开注册页面
   register() {
     DstoreObject.openURL(`https://account.deepin.org/register`);
@@ -44,6 +53,10 @@ export class AuthService {
 }
 
 export interface UserInfo {
-  username: string;
-  userID: number;
+  AccessToken: string;
+  Expiry: number;
+  HardwareID: string;
+  IsLoggedIn: boolean;
+  Token: string;
+  UserID: number;
 }

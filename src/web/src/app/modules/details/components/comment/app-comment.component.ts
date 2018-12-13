@@ -1,5 +1,18 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnChanges } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  OnChanges,
+} from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable, concat, forkJoin } from 'rxjs';
 import * as _ from 'lodash';
@@ -7,7 +20,6 @@ import * as _ from 'lodash';
 import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 import { AuthService, UserInfo } from 'app/services/auth.service';
-import { LoginService } from 'app/services/login.service';
 import { BaseService } from 'app/dstore/services/base.service';
 import { CommentService, Comment } from '../../services/comment.service';
 import { encodeUriQuery } from '@angular/router/src/url_tree';
@@ -33,7 +45,6 @@ import { SizeHuman } from 'app/dstore/pipes/size-human';
 })
 export class AppCommentComponent implements OnInit, OnChanges {
   constructor(
-    private loginService: LoginService,
     private domSanitizer: DomSanitizer,
     private authService: AuthService,
     private commentService: CommentService,
@@ -61,8 +72,8 @@ export class AppCommentComponent implements OnInit, OnChanges {
   hot: Comment[];
   page = { index: 0, size: 20 };
 
-  login = () => this.loginService.OpenLogin();
-  logout = () => this.loginService.OpenLogout();
+  login = this.authService.login;
+  logout = this.authService.logout;
   register = () => this.authService.register();
 
   ngOnInit() {}
@@ -100,12 +111,16 @@ export class AppCommentComponent implements OnInit, OnChanges {
       .list(this.appName, {
         page: this.page.index + 1,
         count: this.page.size,
-        [this.select === CommentType.News ? 'version' : 'excludeVersion']: this.version,
+        [this.select === CommentType.News ? 'version' : 'excludeVersion']: this
+          .version,
       })
       .subscribe(
         result => {
           if (this.page.index === 0 && result.hot) {
-            const hot = _.sortBy(result.hot, ['likeCount', 'createTime']).reverse();
+            const hot = _.sortBy(result.hot, [
+              'likeCount',
+              'createTime',
+            ]).reverse();
             hot.forEach(c => (c.hot = true));
             this.list = [...hot, ...result.comments];
           } else {
@@ -122,8 +137,16 @@ export class AppCommentComponent implements OnInit, OnChanges {
 
   getCommentTotal() {
     forkJoin(
-      this.commentService.list(this.appName, { page: 1, count: 1, version: this.version }),
-      this.commentService.list(this.appName, { page: 1, count: 1, excludeVersion: this.version }),
+      this.commentService.list(this.appName, {
+        page: 1,
+        count: 1,
+        version: this.version,
+      }),
+      this.commentService.list(this.appName, {
+        page: 1,
+        count: 1,
+        excludeVersion: this.version,
+      }),
     ).subscribe(([news, history]) => {
       this.total = [news.totalCount, history.totalCount];
     });
@@ -150,7 +173,12 @@ export class AppCommentComponent implements OnInit, OnChanges {
       return;
     }
     this.commentService
-      .create(this.appName, this.comment.content, this.comment.rate * 2, this.version)
+      .create(
+        this.appName,
+        this.comment.content,
+        this.comment.rate * 2,
+        this.version,
+      )
       .subscribe(
         () => {
           this.getOwn();
@@ -183,7 +211,9 @@ export class AppCommentComponent implements OnInit, OnChanges {
   }
 
   scrollToTop() {
-    smoothScrollIntoView(document.querySelector('.appInfo'), { block: 'start' });
+    smoothScrollIntoView(document.querySelector('.appInfo'), {
+      block: 'start',
+    });
   }
 }
 enum CommentType {

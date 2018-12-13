@@ -1,20 +1,13 @@
 <div class="app">
-  <div class="nav">
-    <app-side-nav></app-side-nav>
-  </div>
-  <div class="context"
-       #$context>
-    <dstore-scrollbar *ngIf="updated;else wait"
-                      [savePosition]="true">
+  <div class="nav"><app-side-nav></app-side-nav></div>
+  <div class="context" #$context>
+    <dstore-scrollbar *ngIf="updated; else: wait" [savePosition]="true">
       <router-outlet></router-outlet>
     </dstore-scrollbar>
     <ng-template #wait>
-      <div class="loadingContainer">
-        <app-wait></app-wait>
-      </div>
+      <div class="loadingContainer"><app-wait></app-wait></div>
     </ng-template>
   </div>
-  <app-login></app-login>
   <app-recommend></app-recommend>
   <app-notify></app-notify>
   <dstore-privacy-agreement></dstore-privacy-agreement>

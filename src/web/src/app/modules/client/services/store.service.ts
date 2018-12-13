@@ -1,6 +1,6 @@
+import { Injectable } from '@angular/core';
 import { App } from 'app/services/app.service';
 import { DownloadTotalService } from 'app/services/download-total.service';
-import { Injectable } from '@angular/core';
 import { Channel } from '../utils/channel';
 import { Observable, from, of } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
@@ -8,7 +8,9 @@ import * as _ from 'lodash';
 
 import { StoreJobInfo } from '../models/store-job-info';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class StoreService {
   constructor(private downloadTotalService: DownloadTotalService) {}
 

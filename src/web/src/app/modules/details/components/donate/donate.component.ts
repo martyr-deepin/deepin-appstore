@@ -11,7 +11,15 @@ import {
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { Observable, of, iif, timer } from 'rxjs';
-import { map, catchError, switchMap, tap, find, takeWhile, pairwise } from 'rxjs/operators';
+import {
+  map,
+  catchError,
+  switchMap,
+  tap,
+  find,
+  takeWhile,
+  pairwise,
+} from 'rxjs/operators';
 import { debounce } from 'lodash';
 
 import * as QRCode from 'qrcode';
@@ -78,7 +86,7 @@ export class DonateComponent implements OnInit {
             amount: this.amount * 100,
           };
           if (info) {
-            req.userID = info.userID;
+            req.userID = info.UserID;
           }
           return req;
         }),
@@ -99,7 +107,8 @@ export class DonateComponent implements OnInit {
             return;
           }
           QRCode.toDataURL(resp.shortURL).then(
-            url => (this.qrImg = this.sanitizer.bypassSecurityTrustResourceUrl(url)),
+            url =>
+              (this.qrImg = this.sanitizer.bypassSecurityTrustResourceUrl(url)),
           );
         } else {
           DstoreObject.openURL(resp.url);

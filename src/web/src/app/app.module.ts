@@ -18,7 +18,6 @@ import { CacheInterceptor } from './services/cache-interceptor';
 
 import { AppComponent } from './app.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { LoginComponent } from './components/login/login.component';
 import { RecommendComponent } from './components/recommend/recommend.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { PrivacyAgreementComponent } from './components/privacy-agreement/privacy-agreement.component';
@@ -27,7 +26,6 @@ import { PrivacyAgreementComponent } from './components/privacy-agreement/privac
   declarations: [
     AppComponent,
     SideNavComponent,
-    LoginComponent,
     RecommendComponent,
     NotifyComponent,
     PrivacyAgreementComponent,
