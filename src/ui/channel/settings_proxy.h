@@ -40,6 +40,13 @@ class SettingsProxy : public QObject {
   const QString getMetadataServer();
   const QString getOperationServer();
 
+  bool getAutoInstall();
+
+  /**
+   * Allow auto install software
+   */
+  void setAutoInstall(bool autoinstall);
+
   /**
    * Request to open url in external web browser.
    * @param url

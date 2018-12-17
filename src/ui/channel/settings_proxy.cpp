@@ -36,7 +36,17 @@ const QString SettingsProxy::getMetadataServer() {
 }
 
 const QString SettingsProxy::getOperationServer() {
-  return GetOperationServer();
+    return GetOperationServer();
+}
+
+bool SettingsProxy::getAutoInstall()
+{
+    return GetAutoInstall();
+}
+
+void SettingsProxy::setAutoInstall(bool autoInstall)
+{
+    SetAutoInstall(autoInstall);
 }
 
 void SettingsProxy::openUrl(const QString& url) {

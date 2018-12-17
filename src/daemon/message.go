@@ -33,6 +33,11 @@ type msgInstall struct {
 }
 
 func (m *Metadata) handleInstall(playload map[string]interface{}) error {
+	if !m.getAutoInstall() {
+		logger.Infof("auto install disabled, skip %v playload", playload)
+		return nil
+	}
+
 	var msg msgInstall
 	err := mapstructure.Decode(playload, &msg)
 	if nil != err {

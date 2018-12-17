@@ -188,7 +188,7 @@ func main() {
 			}
 		}
 
-		needSync := false
+		// needSync := false
 		for localeStr, detail := range locale {
 			manifestChangeLog := make(map[string]string, 0)
 			manifestLocal := m.Locales[localeStr]
@@ -200,8 +200,12 @@ func main() {
 				}
 			}
 
+			if nil == manifestLocal.ChangeLog {
+				manifestLocal.ChangeLog = manifestChangeLog
+			}
+
 			for _, changeLog := range detail.Version {
-				needSync = true
+				// needSync = true
 				manifestLocal.ChangeLog[changeLog.Version] = changeLog.ChangeLog
 			}
 

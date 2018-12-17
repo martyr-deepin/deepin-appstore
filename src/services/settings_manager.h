@@ -28,6 +28,10 @@ QString GetMetadataServer();
 
 QString GetOperationServer();
 
+bool GetAutoInstall();
+
+void SetAutoInstall(bool autoInstall);
+
 enum OperationType {
   OperationCommunity = 0,
   OperationProfessional = 1,

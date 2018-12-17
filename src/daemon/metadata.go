@@ -77,6 +77,13 @@ func (m *Metadata) getOperationServer() string {
 	return ""
 }
 
+func (m *Metadata) getAutoInstall() bool {
+	if nil != m.userCfg {
+		return m.userCfg.Section("General").Key("autoInstall").MustBool()
+	}
+	return false
+}
+
 func (m *Metadata) getAppIcon(appName string) string {
 	iconFilepath := iconFolder + "/" + appName
 	app, ok := m.apps[appName]

@@ -30,6 +30,7 @@ namespace
 
 const char kSupportSigninName[] = "supportSignIn";
 const char kMetaServerName[] = "metadataServer";
+const char kAutoInstall[] = "autoInstall";
 
 const char kOperationType[] = "operationType";
 const char kOperationPrimaryServer[] = "operationPrimary";
@@ -137,6 +138,18 @@ bool UpyunBannerVisible()
 bool AllowSwitchRegion()
 {
     return GetOperationType() == OperationType::OperationCommunity;
+}
+
+bool GetAutoInstall()
+{
+    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+    return settings.value(kAutoInstall).toBool();
+}
+
+void SetAutoInstall(bool autoInstall)
+{
+    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
+    settings.setValue(kAutoInstall,autoInstall);
 }
 
 }  // namespace dstore
