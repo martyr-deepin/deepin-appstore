@@ -1,9 +1,11 @@
 <div class="remote-install">
   <div class="auto-install">
     <span class="subtitle">自动安装新软件</span>
-    <dstore-switch-button></dstore-switch-button>
+    <dstore-switch-button
+      [value]="autoInstall | async"
+      (valueChange)="change($event)"
+    ></dstore-switch-button>
   </div>
   <dstore-batch-install #batchInstall></dstore-batch-install>
-  <button class="primary"
-          (click)="batchInstall.show()">一键安装</button>
+  <button class="primary" (click)="batchInstall.show()">一键安装</button>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { App } from 'app/services/app.service';
+import { AutoInstallService } from '../../services/auto-install.service';
 
 @Component({
   selector: 'dstore-remote-install',
@@ -7,9 +8,10 @@ import { App } from 'app/services/app.service';
   styleUrls: ['./remote-install.component.scss'],
 })
 export class RemoteInstallComponent implements OnInit {
-  @Input()
-  apps: App[] = [];
-  constructor() {}
-
+  constructor(private autoInstallService: AutoInstallService) {}
+  autoInstall = this.autoInstallService.getAutoInstall();
   ngOnInit() {}
+  change(auto: boolean) {
+    this.autoInstallService.setAutoInstall(auto);
+  }
 }

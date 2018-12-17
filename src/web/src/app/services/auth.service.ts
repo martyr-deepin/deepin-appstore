@@ -17,7 +17,6 @@ export class AuthService {
   ).pipe(
     map(info => {
       this.zone.run(() => {});
-      return null;
       if (info && info.UserID) {
         console.log('welcome', info.UserID);
         return info;
