@@ -14,16 +14,23 @@ export class CommentsService {
   constructor(private http: HttpClient, private appService: AppService) {}
   getComments(page: number, pageSize: number) {
     return this.http
-      .get<Result>(this.server + '/api/my/comment', {
+      .get<Result>(this.server + '/api/user/my/comment', {
         params: { page: page.toString(), count: pageSize.toString() },
       })
       .pipe(
         switchMap(
-          result => this.appService.getApps(result.comment.map(c => c.appName), false, false),
+          result =>
+            this.appService.getApps(
+              result.comment.map(c => c.appName),
+              false,
+              false,
+            ),
           (result, apps) => {
-            console.log(result, apps);
             result.comment = result.comment.map(c =>
-              this.appService.addApp(c, apps.find(app => app.name === c.appName)),
+              this.appService.addApp(
+                c,
+                apps.find(app => app.name === c.appName),
+              ),
             );
             return result;
           },
@@ -37,10 +44,10 @@ export class CommentsService {
       rate,
       version,
     };
-    return this.http.post(this.server + `/api/comment/app/${appName}`, c);
+    return this.http.post(this.server + `/api/user/comment/app/${appName}`, c);
   }
   delete(id: number) {
-    return this.http.delete(this.server + `/api/my/comment/${id}`);
+    return this.http.delete(this.server + `/api/user/my/comment/${id}`);
   }
 }
 

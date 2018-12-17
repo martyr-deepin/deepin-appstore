@@ -9,7 +9,7 @@ import { environment } from 'environments/environment';
   providedIn: 'root',
 })
 export class DonatesService {
-  apiURL = environment.operationServer + '/api/my/donate';
+  apiURL = environment.operationServer + '/api/user/my/donate';
   constructor(private http: HttpClient, private appService: AppService) {}
   donateList(page: number, count: number) {
     return this.http

@@ -24,7 +24,7 @@ export class DownloadTotalService {
         return;
       }
       if (apps.length === 1) {
-        const url = this.server + '/api/my/app/' + apps[0].name;
+        const url = this.server + '/api/user/my/app/' + apps[0].name;
         this.http.put(url, null).subscribe();
       }
       const apiURL = this.server + '/api/user/app/install';

@@ -10,6 +10,7 @@ import { ThemeService } from 'app/services/theme.service';
 import { App, AppService } from 'app/services/app.service';
 import { SearchService } from 'app/services/search.service';
 import { SysFontService } from 'app/services/sys-font.service';
+import { MenuService } from './services/menu.service';
 
 @Component({
   selector: 'dstore-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
     private themeService: ThemeService,
     private sysFontService: SysFontService,
     private zone: NgZone,
+    private menu: MenuService,
   ) {}
   updated = false;
   ngOnInit(): void {
@@ -31,23 +33,13 @@ export class AppComponent implements OnInit {
       this.updated = true;
       return;
     }
-    this.connectToRouter('menu.appsRequested', '/my/apps');
-    this.connectToRouter('menu.commentRequested', '/my/comments');
-    this.connectToRouter('menu.rewardRequested', '/my/donates');
     this.searchIndex();
     this.searchListen();
     this.screenshotPreview();
     this.switchTheme();
     this.switchFont();
     this.waitUpdate();
-  }
-
-  connectToRouter(signal: string, url: string) {
-    Channel.connect(signal).subscribe(() => {
-      this.zone.run(() => {
-        this.router.navigateByUrl(url);
-      });
-    });
+    this.menu.serve();
   }
 
   switchTheme() {

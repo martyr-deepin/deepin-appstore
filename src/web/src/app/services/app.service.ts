@@ -1,16 +1,8 @@
 import { JobService } from 'app/services/job.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, combineLatest, Subject } from 'rxjs';
-import {
-  map,
-  scan,
-  publishReplay,
-  debounceTime,
-  switchMap,
-  shareReplay,
-  tap,
-} from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { map, debounceTime, switchMap, shareReplay } from 'rxjs/operators';
 
 import { BaseService } from '../dstore/services/base.service';
 import { AppService as DstoreAppService } from '../dstore/services/app.service';
@@ -69,12 +61,18 @@ export class AppService {
   // 根据分类获取应用列表
   getAppListByCategory(category: string): Observable<App[]> {
     return this.list().pipe(
-      map(apps => apps.filter(app => app.category === category).map(app => app.name)),
+      map(apps =>
+        apps.filter(app => app.category === category).map(app => app.name),
+      ),
       switchMap(appNameList => this.getApps(appNameList)),
     );
   }
 
-  getApps(appNameList: string[], filterVersion = true, filterActive = true): Observable<App[]> {
+  getApps(
+    appNameList: string[],
+    filterVersion = true,
+    filterActive = true,
+  ): Observable<App[]> {
     const appMap$ = this.getAppMap();
 
     if (!this.client) {
@@ -109,7 +107,10 @@ export class AppService {
             return true;
           }),
       ),
-      switchMap(() => this.jobService.jobList().pipe(debounceTime(100)), apps => apps),
+      switchMap(
+        () => this.jobService.jobList().pipe(debounceTime(100)),
+        apps => apps,
+      ),
       switchMap(
         apps => this.storeService.queryPackage(apps),
         (apps, pkgMap) => {
@@ -131,8 +132,14 @@ export class AppService {
     );
   }
 
-  getApp(appName: string, filterVersion = true, filterActive = true): Observable<App> {
-    return this.getApps([appName], filterVersion, filterActive).pipe(map(apps => apps[0]));
+  getApp(
+    appName: string,
+    filterVersion = true,
+    filterActive = true,
+  ): Observable<App> {
+    return this.getApps([appName], filterVersion, filterActive).pipe(
+      map(apps => apps[0]),
+    );
   }
 
   // 附加app信息到一个对象

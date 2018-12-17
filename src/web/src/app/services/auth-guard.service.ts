@@ -13,7 +13,7 @@ export class AuthGuardService implements CanActivate {
     return this.authService.logged$.pipe(
       tap(logged => {
         if (!logged) {
-          this.authService.logout();
+          this.authService.login();
         }
       }),
     );

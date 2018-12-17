@@ -10,7 +10,7 @@ import { App, AppService } from 'app/services/app.service';
   providedIn: 'root',
 })
 export class RemoteAppService {
-  url = environment.operationServer + '/api/my/app';
+  url = environment.operationServer + '/api/user/my/app';
   constructor(
     private http: HttpClient,
     private appService: AppService,
@@ -23,7 +23,8 @@ export class RemoteAppService {
     };
     return this.http.get<Result>(this.url, { params }).pipe(
       switchMap(
-        result => this.appService.getApps(result.apps.map(app => app.appName), false),
+        result =>
+          this.appService.getApps(result.apps.map(app => app.appName), false),
         (result, apps) => {
           result.apps.forEach(remoteApp => {
             remoteApp.app = apps.find(app => app.name === remoteApp.appName);

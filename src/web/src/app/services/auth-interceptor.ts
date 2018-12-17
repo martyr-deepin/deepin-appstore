@@ -18,16 +18,28 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    return this.authService.token$.pipe(
+    return this.authService.logged$.pipe(
       first(),
-      map(token =>
-        !token ? req : req.clone({ setHeaders: { 'Access-Token': token } }),
-      ),
+      switchMap(async logged => {
+        if (!logged) {
+          return req;
+        }
+        const token = await this.authService.getToken();
+        return req.clone({ setHeaders: { 'Access-Token': token } });
+      }),
       switchMap(authReq => next.handle(authReq)),
       catchError((err: HttpErrorResponse) => {
         console.error('AuthInterceptor', err);
         throw err;
       }),
     );
+  }
+  async clone(req: HttpRequest<any>) {
+    const logged = await this.authService.logged$.pipe(first()).toPromise();
+    if (!logged) {
+      return req;
+    }
+    const token = await this.authService.getToken();
+    return req.clone({ setHeaders: { 'Access-Token': token } });
   }
 }

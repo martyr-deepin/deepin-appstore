@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { concat } from 'rxjs';
-import { map, publishReplay, refCount, share, switchMap } from 'rxjs/operators';
+import { map, switchMap, shareReplay, filter, share } from 'rxjs/operators';
 
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { Channel } from 'app/modules/client/utils/channel';
@@ -17,23 +17,20 @@ export class AuthService {
   ).pipe(
     map(info => {
       this.zone.run(() => {});
+      return null;
       if (info && info.UserID) {
         console.log('welcome', info.UserID);
         return info;
       }
       return null;
     }),
-    publishReplay(1),
-    refCount(),
+    shareReplay(1),
   );
   logged$ = this.info$.pipe(map(info => info && info.IsLoggedIn));
-  token$ = this.logged$.pipe(
-    switchMap(() => {
-      return Channel.exec<string>('account.getToken');
-    }),
-    share(),
-  );
-
+  // get token
+  getToken() {
+    return Channel.exec<string>('account.getToken');
+  }
   // 登录方法
   login() {
     console.log('login');

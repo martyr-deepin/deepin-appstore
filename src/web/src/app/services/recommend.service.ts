@@ -30,7 +30,7 @@ export class RecommendService {
   }
 
   recommendSubmit(r: Recommend) {
-    return this.http.post(this.server + '/api/recommend', r);
+    return this.http.post(this.server + '/api/user/recommend', r);
   }
 }
 

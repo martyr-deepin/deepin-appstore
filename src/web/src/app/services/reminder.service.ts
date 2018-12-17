@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { BaseService } from '../dstore/services/base.service';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReminderService {
   constructor(private http: HttpClient) {}
-  server = BaseService.serverHosts.operationServer;
+  api = `${environment.operationServer}/api/user/updating/`;
   reminder(appName: string, version: string): Observable<void> {
-    return this.http.post<void>(`${this.server}/api/updating/${appName}`, { appName, version });
+    return this.http.post<void>(this.api + appName, {
+      appName,
+      version,
+    });
   }
 }
