@@ -47,9 +47,9 @@ signals:
     void commentRequested();
 
     /**
-     * This signal is emitted when My Reward menu item is activated.
+     * This signal is emitted when My Donates menu item is activated.
      */
-    void rewardRequested();
+    void donateRequested();
 
     /**
      * This signal is emitted when My Apps menu item is activated.

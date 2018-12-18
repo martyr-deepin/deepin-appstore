@@ -17,9 +17,9 @@ public:
         parent->connect(comment, &QAction::triggered,
                         parent, &UserMenu::commentRequested);
 
-        reward = parent->addAction(UserMenu::tr("My reward"));
-        parent->connect(reward, &QAction::triggered,
-                        parent, &UserMenu::requestReward);
+        Donates = parent->addAction(UserMenu::tr("My donates"));
+        parent->connect(Donates, &QAction::triggered,
+                        parent, &UserMenu::requestDonates);
 
         apps = parent->addAction(UserMenu::tr("My apps"));
         parent->connect(apps, &QAction::triggered,
@@ -34,7 +34,7 @@ public:
 
     QAction *userName;
     QAction *comment;
-    QAction *reward;
+    QAction *Donates;
     QAction *apps;
     QAction *logout;
 

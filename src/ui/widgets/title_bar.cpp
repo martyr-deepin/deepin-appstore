@@ -154,8 +154,8 @@ void TitleBar::initConnections()
     });
     connect(user_menu_, &UserMenu::commentRequested,
             this, &TitleBar::commentRequested);
-    connect(user_menu_, &UserMenu::requestReward,
-            this, &TitleBar::requestReward);
+    connect(user_menu_, &UserMenu::requestDonates,
+            this, &TitleBar::requestDonates);
     connect(user_menu_, &UserMenu::requestApps,
             this, &TitleBar::requestApps);
 }

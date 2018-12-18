@@ -38,7 +38,7 @@ export class MenuService {
     // bind route
     this.connectToRouter('menu.appsRequested', '/my/apps');
     this.connectToRouter('menu.commentRequested', '/my/comments');
-    this.connectToRouter('menu.rewardRequested', '/my/donates');
+    this.connectToRouter('menu.donateRequested', '/my/donates');
   }
 
   connectToRouter(signal: string, url: string) {

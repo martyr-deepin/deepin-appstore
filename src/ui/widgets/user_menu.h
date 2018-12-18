@@ -17,7 +17,7 @@ public:
 Q_SIGNALS:
     void requestLogout();
     void commentRequested();
-    void requestReward();
+    void requestDonates();
     void requestApps();
 
 public Q_SLOTS:

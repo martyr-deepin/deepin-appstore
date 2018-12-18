@@ -76,7 +76,11 @@ include_directories(${LibQCef_INCLUDE_DIRS})
 
 set(Qt_LIBS Qt5::Core Qt5::DBus Qt5::Sql Qt5::Widgets Qt5::WebChannel)
 
-set(LINK_LIBS ${Qt_LIBS} ${DtkWidget_LDFLAGS}   ${DtkFrameWorkDBus_LDFLAGS} ${LibQCef_LDFLAGS})
+set(LINK_LIBS
+    ${Qt_LIBS}
+    ${DtkWidget_LDFLAGS}
+    ${DtkFrameWorkDBus_LDFLAGS}
+    ${LibQCef_LDFLAGS})
 
 set(BASE_FILES
     base/command.cpp
@@ -191,8 +195,8 @@ file(GLOB DMAN_TRANSLATION_TS
           ${CMAKE_SOURCE_DIR}/translations/deepin-appstore*.ts)
 set_source_files_properties(${DMAN_TRANSLATION_TS}
                             PROPERTIES
-			    OUTPUT_LOCATION
-			    ${CMAKE_BINARY_DIR}/translations)
+                            OUTPUT_LOCATION
+                            ${CMAKE_BINARY_DIR}/translations)
 qt5_add_translation(DMAN_TRANSLATION_QM ${DMAN_TRANSLATION_TS})
 add_custom_target(update-qm DEPENDS ${DMAN_TRANSLATION_QM})
 
@@ -208,9 +212,9 @@ if(BUILD_WEB_RESOURCES)
 else()
   add_custom_command(OUTPUT npm-update-web-dist
                      COMMAND sh -c
-		             "mkdir -p web_dist web_dist_aot/appstore || true"
-			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-		     VERBATIM)
+                             "mkdir -p web_dist web_dist_aot/appstore || true"
+                     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+                     VERBATIM)
 endif()
 
 add_custom_command(
@@ -233,11 +237,11 @@ add_custom_target(update-web-dist DEPENDS npm-update-web-dist)
 
 add_executable(deepin-appstore
                app/deepin_appstore.cpp
-	       ${BASE_FILES}
-	       ${DBUS_FILES}
-	       ${RESOURCES_FILES}
-	       ${SERVICES_FILES}
-	       ${UI_FILES})
+               ${BASE_FILES}
+               ${DBUS_FILES}
+               ${RESOURCES_FILES}
+               ${SERVICES_FILES}
+               ${UI_FILES})
 
 set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
@@ -251,9 +255,9 @@ target_link_libraries(deepin-appstore ${LibQCef_LIBDIR}/qcef/libcef.so
 if(CMAKE_BUILD_TYPE MATCHES Release)
   add_dependencies(deepin-appstore
                    update-qm
-		   update-web-dist
-		   update-desktop
-		   appstore-daemon)
+                   update-web-dist
+                   update-desktop
+                   appstore-daemon)
 else()
   add_dependencies(deepin-appstore appstore-daemon)
 endif()
@@ -261,13 +265,13 @@ endif()
 if(CMAKE_BUILD_TYPE MATCHES Debug)
   add_executable(test-launcher
                  app/test_launcher.cpp
-		 base/launcher.cpp
-		 base/launcher.h)
+                 base/launcher.cpp
+                 base/launcher.h)
   target_link_libraries(test-launcher ${LINK_LIBS})
   add_executable(test-base64-image
                  app/base64_image.cpp
-		 base/file_util.cpp
-		 base/file_util.h)
+                 base/file_util.cpp
+                 base/file_util.h)
   target_link_libraries(test-base64-image ${LINK_LIBS})
 
   add_executable(qurl-demo app/qurl_demo.cpp)
@@ -275,13 +279,15 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
 
   add_executable(test-image-viewer
                  app/test_image_viewer.cpp
-		 base/file_util.cpp
-		 base/file_util.h
-		 ui/widgets/image_viewer.cpp
-		 ui/widgets/image_viewer.h
-		 resources/themes/themes.qrc)
+                 base/file_util.cpp
+                 base/file_util.h
+                 ui/widgets/image_viewer.cpp
+                 ui/widgets/image_viewer.h
+                 resources/themes/themes.qrc)
   target_link_libraries(test-image-viewer ${LINK_LIBS})
 endif()
+
+install(TARGETS deepin-appstore DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/daemon/deepin-appstore-daemon
         DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
@@ -297,5 +303,5 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/web_dist_aot
 
 install(DIRECTORY ${CMAKE_BINARY_DIR}/translations
         DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-appstore/
-	FILES_MATCHING
-	PATTERN "*")
+        FILES_MATCHING
+        PATTERN "*")
