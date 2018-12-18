@@ -1,159 +1,178 @@
 <div class="commentInput">
   <div class="title">
-    <ng-container *ngIf="!info;else logged">
+    <ng-container *ngIf="!info; else: logged">
       <span i18n>Please post a comment after signed in</span>
-      <a (click)="register()"
-         i18n>Sign Up</a>
+      <a (click)="register()" i18n>Sign Up</a>
     </ng-container>
     <ng-template #logged>
-      <ng-container *ngIf="own;else starEdit">
+      <ng-container *ngIf="own; else: starEdit">
         <span class="star">
           <div i18n>Your Rating:</div>
           <dstore-star [rate]="own.rate"></dstore-star>
-          <div>{{own.rate}}</div>
+          <div>{{ own.rate }}</div>
         </span>
       </ng-container>
       <ng-template #starEdit>
         <span class="star">
           <div i18n>Please rate:</div>
-          <dstore-star [(rate)]="comment.rate"
-                       #$star
-                       [readonly]="false"></dstore-star>
-          <div>{{$star.rateHover}}</div>
+          <dstore-star
+            [(rate)]="comment.rate"
+            #$star
+            [readonly]="false"
+          ></dstore-star>
+          <div>{{ $star.rateHover }}</div>
         </span>
       </ng-template>
 
-      <span class="myInfo"
-            (click)="$dropMenu.hidden=false;$dropMenu.focus()"
-            *ngIf="info.userID|deepinInfo|async as info;else myInfoDefault">
-        <span class="name">{{info.username}}</span>
-        <div class="dropdown-menu"
-             tabIndex="-1"
-             #$dropMenu
-             hidden
-             (blur)="$dropMenu.hidden=true">
-          <a (click)="logout()"
-             i18n>Sign Out</a>
+      <span
+        class="myInfo"
+        (click)="$dropMenu.hidden = false; $dropMenu.focus()"
+        *ngIf="(info.UserID | deepinInfo | async) as info; else: myInfoDefault"
+      >
+        <span class="name">{{ info.username }}</span>
+        <div
+          class="dropdown-menu"
+          tabindex="-1"
+          #$dropMenu
+          hidden
+          (blur)="$dropMenu.hidden = true"
+        >
+          <a (click)="logout()" i18n>Sign Out</a>
         </div>
-        <img [src]="info.profile_image"
-             class="profile min">
+        <img [src]="info.profile_image" class="profile min" />
       </span>
       <ng-template #myInfoDefault>
-        <span class="myInfo"
-              (click)="$dropMenu.hidden=false;$dropMenu.focus()">
-          <span class="name">{{info.username}}</span>
-          <div class="dropdown-menu"
-               tabIndex="-1"
-               #$dropMenu
-               hidden
-               (blur)="$dropMenu.hidden=true">
-            <a (click)="logout()"
-               i18n>Sign Out</a>
+        <span
+          class="myInfo"
+          (click)="$dropMenu.hidden = false; $dropMenu.focus()"
+        >
+          <span class="name">{{ info.username }}</span>
+          <div
+            class="dropdown-menu"
+            tabindex="-1"
+            #$dropMenu
+            hidden
+            (blur)="$dropMenu.hidden = true"
+          >
+            <a (click)="logout()" i18n>Sign Out</a>
           </div>
-          <img src="/assets/images/default.jpeg"
-               class="profile min">
+          <img src="/assets/images/default.jpeg" class="profile min" />
         </span>
       </ng-template>
-
     </ng-template>
   </div>
 
   <div class="edit">
-    <textarea [readOnly]="!info || own"
-              [(ngModel)]="comment.content"
-              (keyup.control.enter)="submitComment()"></textarea>
+    <textarea
+      [readOnly]="!info || own"
+      [(ngModel)]="comment.content"
+      (keyup.control.enter)="submitComment()"
+    ></textarea>
   </div>
   <div class="fixed">
-    <button class="loginBtn"
-            *ngIf="!info;else loggedMsg"
-            (click)="login()"
-            i18n>Sign In</button>
+    <button
+      class="loginBtn"
+      *ngIf="!info; else: loggedMsg"
+      (click)="login()"
+      i18n
+    >
+      Sign In
+    </button>
     <ng-template #loggedMsg>
-      <div class="placeholder"
-           *ngIf="own;else please"
-           i18n>You have posted a comment</div>
+      <div class="placeholder" *ngIf="own; else: please" i18n>
+        You have posted a comment
+      </div>
       <ng-template #please>
-        <div class="placeholder"
-             [hidden]="comment.content"
-             i18n>Please input a comment</div>
+        <div class="placeholder" [hidden]="comment.content" i18n>
+          Please input a comment
+        </div>
       </ng-template>
     </ng-template>
   </div>
 </div>
 
-<div class="submit"
-     *ngIf="info">
+<div class="submit" *ngIf="info">
   <ng-container [ngSwitch]="comment.error">
-    <span class="submitError"
-          *ngSwitchCase="CommentError.AllInvalid"
-          i18n>Please rate and input your comment</span>
-    <span class="submitError"
-          *ngSwitchCase="CommentError.CommentInvalid"
-          i18n>Please input your comment</span>
-    <span class="submitError"
-          *ngSwitchCase="CommentError.RateInvalid"
-          i18n>Please rate</span>
-    <span class="submitError"
-          *ngSwitchCase="CommentError.Failed"
-          i18n>Failed to submit</span>
+    <span class="submitError" *ngSwitchCase="CommentError.AllInvalid" i18n
+      >Please rate and input your comment</span
+    >
+    <span class="submitError" *ngSwitchCase="CommentError.CommentInvalid" i18n
+      >Please input your comment</span
+    >
+    <span class="submitError" *ngSwitchCase="CommentError.RateInvalid" i18n
+      >Please rate</span
+    >
+    <span class="submitError" *ngSwitchCase="CommentError.Failed" i18n
+      >Failed to submit</span
+    >
   </ng-container>
   &nbsp;
-  <button class="submitBtn"
-          [disabled]="own"
-          (click)="submitComment()"
-          i18n>Submit</button>
+  <button class="submitBtn" [disabled]="own" (click)="submitComment()" i18n>
+    Submit
+  </button>
 </div>
-<br>
+<br />
 
 <div class="commentList">
   <div class="header">
     <div class="select">
       <ng-container i18n>User Comments</ng-container>
       &nbsp;
-      <button [class.active]="select===CommentType.News"
-              (click)="selectType(CommentType.News)">
+      <button
+        [class.active]="select === CommentType.News"
+        (click)="selectType(CommentType.News)"
+      >
         <ng-container i18n>Current Version</ng-container>
-        ({{total[CommentType.News]}})
+        ({{ total[CommentType.News] }})
       </button>
-      <button [class.active]="select===CommentType.History"
-              (click)="selectType(CommentType.History)">
+      <button
+        [class.active]="select === CommentType.History"
+        (click)="selectType(CommentType.History)"
+      >
         <ng-container i18n>History Versions</ng-container>
-        ({{total[CommentType.History]}})
+        ({{ total[CommentType.History] }})
       </button>
     </div>
-    <div class="paginator"
-         *ngIf="total[select]>page.size">
-      <app-paginator [length]="total[select]"
-                     [size]="page.size"
-                     [(pageIndex)]="page.index"
-                     (pageIndexChange)="getList()"></app-paginator>
+    <div class="paginator" *ngIf="total[select] > page.size">
+      <app-paginator
+        [length]="total[select]"
+        [size]="page.size"
+        [(pageIndex)]="page.index"
+        (pageIndexChange)="getList()"
+      ></app-paginator>
     </div>
   </div>
-  <br>
-  <div class="body"
-       *ngIf="!loading; else loadWait">
+  <br />
+  <div class="body" *ngIf="!loading; else: loadWait">
     <ng-container [ngSwitch]="true">
-      <div class="empty error"
-           *ngSwitchCase="!list"
-           i18n>Failed to load comments</div>
-      <div class="empty"
-           *ngSwitchCase="list && list.length===0"
-           i18n>There are not any user comments</div>
-      <ng-container *ngSwitchCase="list && list.length>0">
+      <div class="empty error" *ngSwitchCase="!list" i18n>
+        Failed to load comments
+      </div>
+      <div class="empty" *ngSwitchCase="list && list.length === 0" i18n>
+        There are not any user comments
+      </div>
+      <ng-container *ngSwitchCase="list && list.length > 0">
         <table class="list">
           <ng-container *ngFor="let c of list">
-            <tr [@myComment]="(haveNewComment && c.userID===info?.userID) ? 'in' : ''">
+            <tr
+              [@myComment]="
+                haveNewComment && c.userID === info?.userID ? 'in' : ''
+              "
+            >
               <td rowspan="2">
-                <div class="head"
-                     *ngIf="c.userID|deepinInfo|async as $userInfo;else deepinInfoDefault">
-                  <img [src]="$userInfo.profile_image"
-                       class="profile">
-                  <span>{{$userInfo.username}}</span>
+                <div
+                  class="head"
+                  *ngIf="
+                    (c.userID | deepinInfo | async) as $userInfo;
+                    else: deepinInfoDefault
+                  "
+                >
+                  <img [src]="$userInfo.profile_image" class="profile" />
+                  <span>{{ $userInfo.username }}</span>
                 </div>
                 <ng-template #deepinInfoDefault>
                   <div class="head">
-                    <img src="/assets/images/default.jpeg"
-                         class="profile">
+                    <img src="/assets/images/default.jpeg" class="profile" />
                     <span>&nbsp;</span>
                   </div>
                 </ng-template>
@@ -161,22 +180,26 @@
               <td>
                 <div class="top">
                   <div class="rate">
-                    <dstore-star [rate]="c.rate/2"></dstore-star>
+                    <dstore-star [rate]="c.rate / 2"></dstore-star>
                     &nbsp;
-                    <span [style.color]="'red'">{{c.rate/2}}</span>
-                    &nbsp;
-                    <img src="/assets/icons/hot.svg"
-                         *ngIf="c.hot">
+                    <span [style.color]="'red'">{{ c.rate / 2 }}</span> &nbsp;
+                    <img src="/assets/icons/hot.svg" *ngIf="c.hot" />
                   </div>
                   <div class="right">
-                    <div class="time">{{c.createTime |date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                    <div class="time">
+                      {{ c.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}
+                    </div>
                     &nbsp;&nbsp;
                     <div class="like">
-                      <span [class.hidden]="c.likeCount<=0">({{c.likeCount}})</span>
-                      <img class="thumbUp"
-                           [class.hidden]="info && c.userID===info.userID"
-                           [class.active]="c.likeByMe"
-                           (click)="thumbUpClick(c)">
+                      <span [class.hidden]="c.likeCount <= 0"
+                        >({{ c.likeCount }})</span
+                      >
+                      <img
+                        class="thumbUp"
+                        [class.hidden]="info && c.userID === info.userID"
+                        [class.active]="c.likeByMe"
+                        (click)="thumbUpClick(c)"
+                      />
                     </div>
                   </div>
                 </div>
@@ -184,9 +207,7 @@
             </tr>
             <tr>
               <td>
-                <div class="content">
-                  {{c.content}}
-                </div>
+                <div class="content">{{ c.content }}</div>
               </td>
             </tr>
           </ng-container>
@@ -194,18 +215,16 @@
       </ng-container>
     </ng-container>
   </div>
-  <ng-template #loadWait>
-    <app-wait></app-wait>
-  </ng-template>
+  <ng-template #loadWait> <app-wait></app-wait> </ng-template>
 </div>
-<div class="bottom"
-     *ngIf="!loading">
-  <a (click)="scrollToTop()"
-     i18n>Back to top</a>
-  <app-paginator *ngIf="total[select]>page.size"
-                 [(pageIndex)]="page.index"
-                 [length]="total[select]"
-                 [size]="page.size"
-                 (pageIndexChange)="getList()"></app-paginator>
+<div class="bottom" *ngIf="!loading">
+  <a (click)="scrollToTop()" i18n>Back to top</a>
+  <app-paginator
+    *ngIf="total[select] > page.size"
+    [(pageIndex)]="page.index"
+    [length]="total[select]"
+    [size]="page.size"
+    (pageIndexChange)="getList()"
+  ></app-paginator>
 </div>
-<br>
+<br />

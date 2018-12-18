@@ -1,20 +1,16 @@
 <dialog #dialog>
   <dstore-close-button [dialog]="dialog"></dstore-close-button>
-  <ng-container *ngIf="app$|async as app;else loading">
-    <div class="title"
-         i18n>修改评论</div>
+  <ng-container *ngIf="(app$ | async) as app; else: loading">
+    <div class="title" i18n>修改评论</div>
     <div class="app">
-      <img class="icon"
-           [src]="app.icon">
+      <img class="icon" [src]="app.icon" />
       <div class="info">
-        <span class="name">{{app.localInfo.description.name}}</span>
+        <span class="name">{{ app.localInfo.description.name }}</span>
         <span class="time">
-          <span i18n>time:</span>
-          <span>{{_comment.createTime|date}}</span>
+          <span i18n>time:</span> <span>{{ _comment.createTime | date }}</span>
         </span>
         <span class="version">
-          <span i18n>Version:</span>
-          {{_comment.version}}
+          <span i18n>Version:</span> {{ _comment.version }}
         </span>
       </div>
     </div>
@@ -22,44 +18,30 @@
       <textarea [(ngModel)]="content"></textarea>
       <div class="rate">
         <span i18n>重新评分:</span>
-        <dstore-star [readonly]="false"
-                     [(rate)]="rate"
-                     #star></dstore-star>
-        <span class="star">{{star.rateHover||star.rate}}</span>
-        <span i18n>分</span>
+        <dstore-star [readonly]="false" [(rate)]="rate" #star></dstore-star>
+        <span class="star">{{ star.rateHover }}</span>
       </div>
     </div>
     <div class="control">
-      <ng-container *ngIf="!deleteConfirm;else Delete">
-        <button (click)="deleteConfirm=true"
-                i18n>Delete</button>
+      <ng-container *ngIf="!deleteConfirm; else: Delete">
+        <button (click)="deleteConfirm = true" i18n>Delete</button>
         <div *ngIf="app.active">
-          <button (click)="closed()"
-                  i18n>Cancel</button>
-          &nbsp;
-          <button class="primary"
-                  i18n
-                  (click)="submit()">Submit</button>
+          <button (click)="closed()" i18n>Cancel</button> &nbsp;
+          <button class="primary" i18n (click)="submit()">Submit</button>
         </div>
       </ng-container>
       <ng-template #Delete>
         <div>确定要删除吗</div>
         <div>
-          <button (click)="deleteConfirm=false"
-                  i18n>Cancel</button>
-          &nbsp;
-          <button class="primary warn"
-                  (click)="delete()"
-                  i18n>Confirm</button>
+          <button (click)="deleteConfirm = false" i18n>Cancel</button> &nbsp;
+          <button class="primary warn" (click)="delete()" i18n>Confirm</button>
         </div>
       </ng-template>
     </div>
   </ng-container>
   <ng-template #loading>
     <div class="empty">
-      <div class="loadingContainer">
-        <app-wait></app-wait>
-      </div>
+      <div class="loadingContainer"><app-wait></app-wait></div>
     </div>
   </ng-template>
 </dialog>

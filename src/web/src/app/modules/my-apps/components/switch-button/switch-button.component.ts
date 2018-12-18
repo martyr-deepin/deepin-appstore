@@ -12,7 +12,9 @@ export class SwitchButtonComponent implements OnInit {
   value = false;
 
   constructor() {}
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.value);
+  }
   change() {
     this.value = !this.value;
     this.valueChange.emit(this.value);

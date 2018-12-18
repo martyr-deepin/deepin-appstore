@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { concat } from 'rxjs';
-import { map, switchMap, shareReplay, filter, share } from 'rxjs/operators';
+import { concat, BehaviorSubject } from 'rxjs';
+import { map, shareReplay, tap } from 'rxjs/operators';
 
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { Channel } from 'app/modules/client/utils/channel';
@@ -9,26 +9,36 @@ import { Channel } from 'app/modules/client/utils/channel';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private zone: NgZone) {}
-
-  info$ = concat(
-    Channel.exec<UserInfo>('account.getUserInfo'),
-    Channel.connect<UserInfo>('account.userInfoChanged'),
-  ).pipe(
+  constructor(private zone: NgZone) {
+    Channel.exec<UserInfo>('account.getUserInfo').then(info => {
+      this.zone.run(() => {
+        this.userInfo$.next(info);
+      });
+    });
+    Channel.connect<UserInfo>('account.userInfoChanged').subscribe(info => {
+      console.log('userinfo', info);
+      this.zone.run(() => {
+        this.userInfo$.next(info);
+      });
+    });
+  }
+  private userInfo$ = new BehaviorSubject<UserInfo>(null);
+  info$ = this.userInfo$.pipe(
     map(info => {
-      this.zone.run(() => {});
-      if (info && info.UserID) {
-        console.log('welcome', info.UserID);
-        return info;
+      if (!info || !info.UserID) {
+        return null;
       }
-      return null;
+      return info;
     }),
-    shareReplay(1),
   );
   logged$ = this.info$.pipe(map(info => info && info.IsLoggedIn));
   // get token
   getToken() {
-    return Channel.exec<string>('account.getToken');
+    return Channel.exec<string>('account.getToken').then(token => {
+      return this.zone.run(() => {
+        return token;
+      });
+    });
   }
   // 登录方法
   login() {

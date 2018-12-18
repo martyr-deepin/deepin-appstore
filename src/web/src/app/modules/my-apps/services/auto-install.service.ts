@@ -10,8 +10,8 @@ export class AutoInstallService {
     return Channel.exec('settings.setAutoInstall', auto);
   }
   getAutoInstall() {
-    return Channel.exec('settings.getAutoInstall').then(() =>
-      this.zone.run(() => {}),
+    return Channel.exec('settings.getAutoInstall').then(auto =>
+      this.zone.run(() => auto),
     );
   }
 }
