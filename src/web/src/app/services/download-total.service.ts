@@ -19,22 +19,38 @@ export class DownloadTotalService {
     }
     this.auth.logged$.pipe(first()).subscribe(logged => {
       if (!logged) {
-        const url = this.server + '/downloading/app/' + apps[0].name;
-        this.http.post(url, null).subscribe();
+        this.downloadTotal(apps[0]);
         return;
       }
-      if (apps.length === 1) {
-        const url = this.server + '/api/user/my/app/' + apps[0].name;
-        this.http.put(url, null).subscribe();
-      }
-      const apiURL = this.server + '/api/user/app/install';
-      const install = apps.map(app => {
-        return {
-          appName: app.name,
-          packageURLs: app.packageURI,
-        };
-      });
-      this.http.post(apiURL, { install }).subscribe();
+      this.addUserApps(apps);
+      this.installApps(apps);
     });
+  }
+  // 访客下载统计
+  private downloadTotal(app: App) {
+    const url = this.server + '/downloading/app/' + app.name;
+    this.http.post(url, null).subscribe();
+  }
+  // 记录云端应用
+  private addUserApps(apps: App[]) {
+    const userApps = apps.map(app => {
+      return {
+        appName: app.name,
+        version: app.version.remoteVersion,
+      };
+    });
+    const url = this.server + '/api/user/my/app/';
+    this.http.post(url, userApps).subscribe();
+  }
+  // 同步安装
+  private installApps(apps: App[]) {
+    const url = this.server + '/api/user/app/install';
+    const install = apps.map(app => {
+      return {
+        appName: app.name,
+        packageURLs: app.packageURI,
+      };
+    });
+    this.http.post(url, { install }).subscribe();
   }
 }

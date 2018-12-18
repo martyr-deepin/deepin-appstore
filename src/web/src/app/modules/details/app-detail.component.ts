@@ -1,13 +1,10 @@
 import { AppSource } from './../../dstore/services/source';
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, timer, of, iif, forkJoin, merge, combineLatest } from 'rxjs';
-import { flatMap, publishReplay, tap, publish, refCount, switchMap, share } from 'rxjs/operators';
+import { publishReplay, tap, refCount, switchMap, share } from 'rxjs/operators';
 
 import { App, AppService } from 'app/services/app.service';
 import { BaseService } from 'app/dstore/services/base.service';
-import { CanvasUtil } from 'app/utils/canvas-util';
 import { StoreService } from 'app/modules/client/services/store.service';
 import {
   StoreJobInfo,
@@ -15,10 +12,8 @@ import {
   StoreJobStatus,
 } from 'app/modules/client/models/store-job-info';
 import { ReminderService } from 'app/services/reminder.service';
-import { DownloadService } from 'app/services/download.service';
 import { NotifyService } from 'app/services/notify.service';
-import { NotifyType, NotifyStatus } from 'app/services/notify.model';
-import { AppVersion } from 'app/modules/client/models/app-version';
+import { NotifyType } from 'app/services/notify.model';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { JobService } from 'app/services/job.service';
 
@@ -30,11 +25,9 @@ import { JobService } from 'app/services/job.service';
 export class AppDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
     private appService: AppService,
     private storeService: StoreService,
     private reminderService: ReminderService,
-    private downloadService: DownloadService,
     private notifyService: NotifyService,
     private jobService: JobService,
   ) {}
@@ -71,14 +64,16 @@ export class AppDetailComponent implements OnInit {
   ngOnInit() {}
 
   reminder(app: App) {
-    this.reminderService.reminder(app.name, app.version.remoteVersion).subscribe(
-      () => {
-        this.notifyService.success(NotifyType.Reminder);
-      },
-      () => {
-        this.notifyService.error(NotifyType.Reminder);
-      },
-    );
+    this.reminderService
+      .reminder(app.name, app.version.remoteVersion)
+      .subscribe(
+        () => {
+          this.notifyService.success(NotifyType.Reminder);
+        },
+        () => {
+          this.notifyService.error(NotifyType.Reminder);
+        },
+      );
   }
 
   // Show 'open' button only if app open method is 'desktop'.
