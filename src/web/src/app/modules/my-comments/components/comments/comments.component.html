@@ -1,60 +1,56 @@
 <dstore-center-title>
-	<span title
-	      i18n>My Comments</span>
-	<button routerLink="/my/comments"
-	        routerLinkActive="active"
-	        i18n>My Comments</button>
-	<button routerLink="/my/donates"
-	        routerLinkActive="active"
-	        i18n>My Donates</button>
+  <span title i18n>My Comments</span>
+  <button routerLink="/my/comments" routerLinkActive="active">
+    <ng-container i18n>My Comments</ng-container>
+  </button>
+  <button routerLink="/my/donates" routerLinkActive="active">
+    <ng-container i18n>My Donates</ng-container>
+  </button>
 </dstore-center-title>
 
-<dstore-edit *ngIf="edit$|async as comment"
-             [comment]="comment"
-             (close)="editClose($event)"></dstore-edit>
+<dstore-edit
+  *ngIf="(edit$ | async) as comment"
+  [comment]="comment"
+  (close)="editClose($event)"
+></dstore-edit>
 
-<div class="comment-list"
-     dstoreResize
-     (resize)="listHeight$.next($event.height)">
-	<div class="comment"
-	     *ngFor="let comment of comments$|async">
-		<ng-container *ngIf="comment.app as app">
-			<img class="icon"
-			     [src]="app.icon"
-			     [routerLink]="['/app',app.name]">
-			<div class="body">
-				<div class="info-line">
-					<div class="name">
-						{{app.localInfo.description.name}}
-					</div>
-					<div class="time">
-						<span i18n>Comment date:</span>
-						{{comment.createTime|date:"yyyy.MM.dd"}}
-					</div>
-					<div class="version">
-						<span i18n>Version:</span>
-						{{comment.version}}
-					</div>
-					<div class="removed">
-						<span *ngIf="!app.active"
-						      i18n>Removed</span>
-					</div>
-				</div>
-				<div class="content-line">
-					<span i18n>Content:</span>
-					&nbsp;
-					<span class="content">{{comment.content}}</span>
-					<a i18n
-					   (click)="edit$.next(comment)">Edit</a>
-				</div>
-			</div>
-		</ng-container>
-	</div>
+<div
+  class="comment-list"
+  dstoreResize
+  (resize)="listHeight$.next($event.height)"
+>
+  <div class="comment" *ngFor="let comment of (comments$ | async)">
+    <ng-container *ngIf="comment.app as app">
+      <img class="icon" [src]="app.icon" [routerLink]="['/app', app.name]" />
+      <div class="body">
+        <div class="info-line">
+          <div class="name">{{ app.localInfo.description.name }}</div>
+          <div class="time">
+            <span i18n>Comment date:</span>
+            {{ comment.createTime | date: 'yyyy.MM.dd' }}
+          </div>
+          <div class="version">
+            <span i18n>Version:</span> {{ comment.version }}
+          </div>
+          <div class="removed">
+            <span *ngIf="!app.active" i18n>Removed</span>
+          </div>
+        </div>
+        <div class="content-line">
+          <span i18n>Content:</span> &nbsp;
+          <span class="content">{{ comment.content }}</span>
+          <a i18n (click)="edit$.next(comment)">Edit</a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>
 <div class="paginatorContainer">
-	<ng-container *ngIf="count$|async as count">
-		<app-paginator [count]="count"
-		               [pageIndex]="pageIndex$|async"
-		               (pageIndexChange)="gotoPage($event)"></app-paginator>
-	</ng-container>
+  <ng-container *ngIf="(count$ | async) as count">
+    <app-paginator
+      [count]="count"
+      [pageIndex]="pageIndex$ | async"
+      (pageIndexChange)="gotoPage($event)"
+    ></app-paginator>
+  </ng-container>
 </div>

@@ -1,11 +1,11 @@
 <ng-container *ngIf="(list$ | async) as list; else: loading">
-  <app-app-title #$title>包含"{{ list.tag }}"的应用</app-app-title>
-  <app-app-list [appList]="list.apps"
-                [sortBy]="$title.sortBy"
-                [routePrefix]="'/app'"></app-app-list>
+  <app-app-title #$title i18n>Apps with tag {{ list.tag }}</app-app-title>
+  <app-app-list
+    [appList]="list.apps"
+    [sortBy]="$title.sortBy"
+    [routePrefix]="'/app'"
+  ></app-app-list>
 </ng-container>
 <ng-template #loading>
-  <div class="loadingContainer">
-    <app-wait></app-wait>
-  </div>
+  <div class="loadingContainer"><app-wait></app-wait></div>
 </ng-template>

@@ -27,7 +27,7 @@
       <span
         class="myInfo"
         (click)="$dropMenu.hidden = false; $dropMenu.focus()"
-        *ngIf="(info.UserID | deepinInfo | async) as info; else: myInfoDefault"
+        *ngIf="(info.UserID | deepinInfo | async) as info"
       >
         <span class="name">{{ info.username }}</span>
         <div
@@ -41,24 +41,6 @@
         </div>
         <img [src]="info.profile_image" class="profile min" />
       </span>
-      <ng-template #myInfoDefault>
-        <span
-          class="myInfo"
-          (click)="$dropMenu.hidden = false; $dropMenu.focus()"
-        >
-          <span class="name">{{ info.username }}</span>
-          <div
-            class="dropdown-menu"
-            tabindex="-1"
-            #$dropMenu
-            hidden
-            (blur)="$dropMenu.hidden = true"
-          >
-            <a (click)="logout()" i18n>Sign Out</a>
-          </div>
-          <img src="/assets/images/default.jpeg" class="profile min" />
-        </span>
-      </ng-template>
     </ng-template>
   </div>
 
@@ -70,21 +52,16 @@
     ></textarea>
   </div>
   <div class="fixed">
-    <button
-      class="loginBtn"
-      *ngIf="!info; else: loggedMsg"
-      (click)="login()"
-      i18n
-    >
-      Sign In
+    <button class="loginBtn" *ngIf="!info; else: loggedMsg" (click)="login()">
+      <ng-container i18n>Sign In</ng-container>
     </button>
     <ng-template #loggedMsg>
-      <div class="placeholder" *ngIf="own; else: please" i18n>
-        You have posted a comment
+      <div class="placeholder" *ngIf="own; else: please">
+        <ng-container i18n>You have posted a comment</ng-container>
       </div>
       <ng-template #please>
-        <div class="placeholder" [hidden]="comment.content" i18n>
-          Please input a comment
+        <div class="placeholder" [hidden]="comment.content">
+          <ng-container i18n>Please input a comment</ng-container>
         </div>
       </ng-template>
     </ng-template>
@@ -107,8 +84,8 @@
     >
   </ng-container>
   &nbsp;
-  <button class="submitBtn" [disabled]="own" (click)="submitComment()" i18n>
-    Submit
+  <button class="submitBtn" [disabled]="own" (click)="submitComment()">
+    <ng-container i18n>Submit</ng-container>
   </button>
 </div>
 <br />
@@ -145,11 +122,11 @@
   <br />
   <div class="body" *ngIf="!loading; else: loadWait">
     <ng-container [ngSwitch]="true">
-      <div class="empty error" *ngSwitchCase="!list" i18n>
-        Failed to load comments
+      <div class="empty error" *ngSwitchCase="!list">
+        <ng-container i18n>Failed to load comments</ng-container>
       </div>
-      <div class="empty" *ngSwitchCase="list && list.length === 0" i18n>
-        There are not any user comments
+      <div class="empty" *ngSwitchCase="list && list.length === 0">
+        <ng-container i18n>There are not any user comments</ng-container>
       </div>
       <ng-container *ngSwitchCase="list && list.length > 0">
         <table class="list">

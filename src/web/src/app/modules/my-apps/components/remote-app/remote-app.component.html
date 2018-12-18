@@ -1,65 +1,66 @@
 <dstore-center-title>
-  <span title
-        i18n>Remote App</span>
-  <button routerLink="../local"
-          routerLinkActive="active"
-          i18n>Local App</button>
-  <button routerLink="../remote"
-          routerLinkActive="active"
-          i18n>Remote App</button>
+  <span title i18n>Remote App</span>
+  <button routerLink="../local" routerLinkActive="active">
+    <ng-container i18n>Local App</ng-container>
+  </button>
+  <button routerLink="../remote" routerLinkActive="active">
+    <ng-container i18n>Remote App</ng-container>
+  </button>
 </dstore-center-title>
 <dstore-remote-install></dstore-remote-install>
-<div class="remote-apps"
-     dstoreResize
-     (resize)="listHeight$.next($event.height)">
-  <ng-container *ngIf="apps$|async as apps;else loading">
-    <div class="remote-app"
-         *ngFor="let remoteApp of apps">
-      <img class="icon"
-           [src]="remoteApp.app.icon"
-           [routerLink]="['/app',remoteApp.app.name]">
+<div
+  class="remote-apps"
+  dstoreResize
+  (resize)="listHeight$.next($event.height)"
+>
+  <ng-container *ngIf="(apps$ | async) as apps; else: loading">
+    <div class="remote-app" *ngFor="let remoteApp of apps">
+      <img
+        class="icon"
+        [src]="remoteApp.app.icon"
+        [routerLink]="['/app', remoteApp.app.name]"
+      />
       <div class="content">
-        <div class="info">{{remoteApp.app.localInfo.description.name}}</div>
+        <div class="info">{{ remoteApp.app.localInfo.description.name }}</div>
         <div class="time">
           <span i18n>Date installed:</span>
-          {{remoteApp.time|date:"yyyy.MM.dd"}}
+          {{ remoteApp.time | date: 'yyyy.MM.dd' }}
         </div>
-        <ng-container *ngIf="remoteApp.app.version; else noVersionError">
+        <ng-container *ngIf="remoteApp.app.version; else: noVersionError">
           <div class="version">
-            <span i18n>Version:</span>
-            {{remoteApp.app.version.remoteVersion}}
+            <span i18n>Version:</span> {{ remoteApp.app.version.remoteVersion }}
           </div>
           <div class="control">
-            <button i18n
-                    *ngIf="remoteApp.app.version.upgradable;else installed">Update</button>
+            <button *ngIf="remoteApp.app.version.upgradable; else: installed">
+              <ng-container i18n>Update</ng-container>
+            </button>
             <ng-template #installed>
-              <button i18n
-                      disabled
-                      *ngIf="remoteApp.app.version.localVersion!=''; else install">Installed</button>
+              <button
+                disabled
+                *ngIf="remoteApp.app.version.localVersion != ''; else: install"
+              >
+                <ng-container i18n>Installed</ng-container>
+              </button>
             </ng-template>
-            <ng-template #install>
-              <button i18n>Install</button>
-            </ng-template>
+            <ng-template #install> <button i18n>Install</button> </ng-template>
           </div>
         </ng-container>
         <ng-template #noVersionError>
-          <div class="no-version">
-            应用暂不可用
-          </div>
+          <div class="no-version" i18n>not available</div>
         </ng-template>
       </div>
     </div>
   </ng-container>
 </div>
 <div class="paginatorContainer">
-  <ng-container *ngIf="count$|async as count">
-    <app-paginator [count]="count"
-                   [pageIndex]="pageIndex$|async"
-                   (pageIndexChange)="gotoPage($event)"></app-paginator>
+  <ng-container *ngIf="(count$ | async) as count">
+    <app-paginator
+      [count]="count"
+      [pageIndex]="pageIndex$ | async"
+      (pageIndexChange)="gotoPage($event)"
+    ></app-paginator>
   </ng-container>
 </div>
 <ng-template #loading>
-  <div class="loadingContainer">
-    <app-wait></app-wait>
-  </div>
+  <div class="loadingContainer"><app-wait></app-wait></div>
 </ng-template>
