@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 import { App } from 'app/services/app.service';
 import { AuthService } from './auth.service';
+import { Channel } from 'app/modules/client/utils/channel';
 
 @Injectable({
   providedIn: 'root',
@@ -42,15 +43,20 @@ export class DownloadTotalService {
     const url = this.server + '/api/user/my/app/';
     this.http.post(url, userApps).subscribe();
   }
-  // 同步安装
-  private installApps(apps: App[]) {
+  // 同步安装,记录软件下载统计
+  private async installApps(apps: App[]) {
     const url = this.server + '/api/user/app/install';
+    const params = {};
+    const auto = await Channel.exec<Boolean>('settings.getAutoInstall');
+    if (auto) {
+      params['sync'] = 'true';
+    }
     const install = apps.map(app => {
       return {
         appName: app.name,
         packageURLs: app.packageURI,
       };
     });
-    this.http.post(url, { install }).subscribe();
+    return this.http.post(url, { install }, { params }).toPromise();
   }
 }
