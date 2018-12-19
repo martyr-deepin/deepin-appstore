@@ -27,6 +27,7 @@
 #include <QResizeEvent>
 #include <QSettings>
 #include <QTimer>
+#include <QBuffer>
 #include <QWebChannel>
 #include <qcef_web_page.h>
 #include <qcef_web_settings.h>
@@ -57,7 +58,6 @@ namespace
 
 const int kSearchDelay = 200;
 
-const char kSettingsGrpName[] = "WebWindow";
 const char kSettingsWinSize[] = "size";
 const char kSettingsWinPos[] = "pos";
 const char kSettingsWinMax[] = "isMaximized";
@@ -65,19 +65,29 @@ const char kSettingsWinMax[] = "isMaximized";
 void BackupWindowState(QWidget *widget)
 {
     Q_ASSERT(widget != nullptr);
-    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-    settings.beginGroup(kSettingsGrpName);
-    settings.setValue(kSettingsWinPos, widget->pos());
-    settings.setValue(kSettingsWinSize, widget->size());
-    settings.setValue(kSettingsWinMax, widget->isMaximized());
-    settings.endGroup();
+
+    QVariantMap windowState;
+    windowState.insert(kSettingsWinPos, widget->pos());
+    windowState.insert(kSettingsWinSize, widget->size());
+    windowState.insert(kSettingsWinMax, widget->isMaximized());
+
+    QByteArray data;
+    QDataStream dataStream(&data, QIODevice::WriteOnly);
+    dataStream << windowState;
+
+    SettingsManager::instance()->setWindowState(data);
 }
 
 void RestoreWindowState(QWidget *widget)
 {
     Q_ASSERT(widget != nullptr);
-    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-    settings.beginGroup(kSettingsGrpName);
+    QByteArray data = SettingsManager::instance()->getWindowState();
+    QBuffer readBuffer(&data);
+    readBuffer.open(QIODevice::ReadOnly);
+    QDataStream in(&readBuffer);
+    QVariantMap settings;
+    in >> settings;
+
     if (settings.contains(kSettingsWinSize)) {
         widget->resize(settings.value(kSettingsWinSize).toSize());
     }
@@ -87,7 +97,6 @@ void RestoreWindowState(QWidget *widget)
     if (settings.value(kSettingsWinMax, false).toBool()) {
         widget->showMaximized();
     }
-    settings.endGroup();
 }
 
 }  // namespace
@@ -328,7 +337,7 @@ void WebWindow::initUI()
     title_bar_ = new TitleBar();
     this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
     this->titlebar()->setSeparatorVisible(true);
-    tool_bar_menu_ = new TitleBarMenu(IsSignInSupported(), this);
+    tool_bar_menu_ = new TitleBarMenu(SettingsManager::instance()->supportSignIn(), this);
     this->titlebar()->setMenu(tool_bar_menu_);
 
     // Disable web security.

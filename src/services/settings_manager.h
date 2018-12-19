@@ -18,58 +18,67 @@
 #ifndef DEEPIN_APPSTORE_SERVICES_SETTINGS_MANAGER_H
 #define DEEPIN_APPSTORE_SERVICES_SETTINGS_MANAGER_H
 
-#include <QString>
+#include <QObject>
+#include <DSingleton>
 
-namespace dstore {
+class QDBusInterface;
 
-bool IsSignInSupported();
-
-QString GetMetadataServer();
-
-QString GetOperationServer();
-
-bool GetAutoInstall();
-
-void SetAutoInstall(bool autoInstall);
-
-enum OperationType {
-  OperationCommunity = 0,
-  OperationProfessional = 1,
-  OperationLoongson = 2,
-};
+namespace dstore
+{
 
 enum OperationServerRegion {
-  RegionChina = 0,
-  RegionInternational = 1,
+    RegionChina = 0,
+    RegionInternational = 1,
 };
 
-/**
- * Set operation server address.
- * @param region
- */
-void SetRegion(OperationServerRegion region);
+class SettingsManager : public QObject, public Dtk::Core::DSingleton<SettingsManager>
+{
+    Q_OBJECT
+    friend class Dtk::Core::DSingleton<SettingsManager>;
 
-// Get current operation server region.
-// Always returns the primary server on professional and loongson.
-OperationServerRegion GetRegion();
+private:
+    explicit SettingsManager(QObject *parent = nullptr);
+    ~SettingsManager() override;
 
-QString GetThemeName();
-void SetThemeName (const QString &themeName);
+Q_SIGNALS:
 
-QString GetSessionSettingsFile();
+public Q_SLOTS:
+    QString getMetadataServer() const;
+    QString getOperationServer() const;
 
-OperationType GetOperationType();
+    OperationServerRegion getRegion() const;
+    void setRegion(OperationServerRegion region);
 
-// Show upyun banner or not in app-detail page.
-// * community
-//   * China, true
-//   * International, false
-// * professional, false
-// * loongson, false
-bool UpyunBannerVisible();
+    bool getAutoInstall() const;
+    /**
+     * Allow auto install software
+     */
+    void setAutoInstall(bool autoinstall);
 
-// Only allow switch-region in community version.
-bool AllowSwitchRegion();
+    QString getThemeName() const;
+    void setThemeName(const QString &themeName) const;
+
+    QByteArray getWindowState() const;
+    void setWindowState(QByteArray data);
+
+    bool supportSignIn() const;
+    bool allowSwitchRegion() const;
+
+    // Show upyun banner or not in app-detail page.
+    // * community
+    //   * China, true
+    //   * International, false
+    // * professional, false
+    // * loongson, false
+    bool getUpyunBannerVisible() const;
+
+private:
+    // TODO: use interface from dbus to xml
+    QVariant getSettings(const QString &key) const;
+    void setSettings(const QString &key, const QVariant &value) const;
+
+    QDBusInterface *dbus_interface_;
+};
 
 }  // namespace dstore
 

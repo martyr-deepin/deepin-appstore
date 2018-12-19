@@ -21,53 +21,62 @@
 
 #include "services/settings_manager.h"
 
-namespace dstore {
+namespace dstore
+{
 
-SettingsProxy::SettingsProxy(QObject* parent) : QObject(parent) {
-  this->setObjectName("SettingsProxy");
+SettingsProxy::SettingsProxy(QObject *parent) : QObject(parent)
+{
+    this->setObjectName("SettingsProxy");
 }
 
-SettingsProxy::~SettingsProxy() {
+SettingsProxy::~SettingsProxy()
+{
 
 }
 
-const QString SettingsProxy::getMetadataServer() {
-  return GetMetadataServer();
+const QString SettingsProxy::getMetadataServer()
+{
+    return SettingsManager::instance()->getMetadataServer();
 }
 
-const QString SettingsProxy::getOperationServer() {
-    return GetOperationServer();
+const QString SettingsProxy::getOperationServer()
+{
+    return SettingsManager::instance()->getOperationServer();
 }
 
 bool SettingsProxy::getAutoInstall()
 {
-    return GetAutoInstall();
+    return SettingsManager::instance()->getAutoInstall();
 }
 
 void SettingsProxy::setAutoInstall(bool autoInstall)
 {
-    SetAutoInstall(autoInstall);
+    SettingsManager::instance()->setAutoInstall(autoInstall);
 }
 
-void SettingsProxy::openUrl(const QString& url) {
-  QDesktopServices::openUrl(QUrl(url));
+void SettingsProxy::openUrl(const QString &url)
+{
+    QDesktopServices::openUrl(QUrl(url));
 }
 
-const QVariantMap SettingsProxy::getServers() {
-  return QVariantMap {
-      { "metadataServer", GetMetadataServer() },
-      { "operationServer", GetOperationServer() },
-      { "region", GetRegion() },
-      { "themeName", GetThemeName() },
+const QVariantMap SettingsProxy::getServers()
+{
+    return QVariantMap {
+        { "metadataServer", SettingsManager::instance()->getMetadataServer() },
+        { "operationServer", SettingsManager::instance()->getOperationServer()},
+        { "region", SettingsManager::instance()->getRegion() },
+        { "themeName", SettingsManager::instance()->getThemeName() },
     };
 }
 
-void SettingsProxy::raiseWindow() {
-  emit this->raiseWindowRequested();
+void SettingsProxy::raiseWindow()
+{
+    emit this->raiseWindowRequested();
 }
 
-bool SettingsProxy::upyunBannerVisible() {
-  return UpyunBannerVisible();
+bool SettingsProxy::upyunBannerVisible()
+{
+    return SettingsManager::instance()->getUpyunBannerVisible();
 }
 
 }  // namespace dstore

@@ -30,7 +30,8 @@
 #include "services/rcc_scheme_handler.h"
 #include "ui/web_window.h"
 
-namespace {
+namespace
+{
 
 const char kEnableDomStorageFlush[] = "--enable-aggressive-domstorage-flushing";
 
@@ -40,99 +41,101 @@ const char kLogLevel[] = "--log-level";
 
 }  // namespace
 
-int main(int argc, char** argv) {
-  qputenv("DXCB_FAKE_PLATFORM_NAME_XCB", "true");
+int main(int argc, char **argv)
+{
+    qputenv("DXCB_FAKE_PLATFORM_NAME_XCB", "true");
 
-  QCefGlobalSettings settings;
-  // Do not use sandbox.
-  settings.setNoSandbox(true);
+    QCefGlobalSettings settings;
+    // Do not use sandbox.
+    settings.setNoSandbox(true);
 
-  if (qEnvironmentVariableIntValue("QCEF_DEBUG") == 1) {
-    // Open http://localhost:9222 in chromium browser to see dev tools.
-    settings.setRemoteDebug(true);
-    settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Verbose);
-  } else {
-    settings.setRemoteDebug(false);
-    settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
-  }
+    if (qEnvironmentVariableIntValue("QCEF_DEBUG") == 1) {
+        // Open http://localhost:9222 in chromium browser to see dev tools.
+        settings.setRemoteDebug(true);
+        settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Verbose);
+    } else {
+        settings.setRemoteDebug(false);
+        settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
+    }
 
-  settings.setIgnoresCertificateErrors(true);
+    settings.setIgnoresCertificateErrors(true);
 
-  // Disable GPU process.
-  settings.addCommandLineSwitch(kDisableGpu, "");
+    // Disable GPU process.
+    settings.addCommandLineSwitch(kDisableGpu, "");
 
-  // Enable aggressive storage commit to minimize data loss.
-  // See public/common/content_switches.cc.
-  settings.addCommandLineSwitch(kEnableDomStorageFlush, "");
+    // Enable aggressive storage commit to minimize data loss.
+    // See public/common/content_switches.cc.
+    settings.addCommandLineSwitch(kEnableDomStorageFlush, "");
 
-  // Set web cache folder.
-  QDir cache_dir(dstore::GetCacheDir());
-  cache_dir.mkpath(".");
-  settings.setCachePath(cache_dir.filePath("cache"));
-  settings.setUserDataPath(cache_dir.filePath("cef-storage"));
+    // Set web cache folder.
+    QDir cache_dir(dstore::GetCacheDir());
+    cache_dir.mkpath(".");
+    settings.setCachePath(cache_dir.filePath("cache"));
+    settings.setUserDataPath(cache_dir.filePath("cef-storage"));
 
-  // TODO(Shaohua): Rotate console log.
-  settings.setLogFile(cache_dir.filePath("web-console.log"));
-  settings.addCommandLineSwitch(kEnableLogging, "");
-  settings.addCommandLineSwitch(kLogLevel, "0");
-  settings.addCommandLineSwitch("--use-views", "");
+    // TODO(Shaohua): Rotate console log.
+    settings.setLogFile(cache_dir.filePath("web-console.log"));
+    settings.addCommandLineSwitch(kEnableLogging, "");
+    settings.addCommandLineSwitch(kLogLevel, "0");
+    settings.addCommandLineSwitch("--use-views", "");
 
-  settings.setCustomSchemeHandler(dstore::RccSchemeHandler);
-  settings.addCustomScheme(QUrl("rcc://web"));
-  settings.setBackgroundColor(dstore::BackgroundColor(dstore::GetThemeName()));
+    auto themName = dstore::SettingsManager::instance()->getThemeName();
+    settings.setCustomSchemeHandler(dstore::RccSchemeHandler);
+    settings.addCustomScheme(QUrl("rcc://web"));
+    settings.setBackgroundColor(dstore::BackgroundColor(themName));
 
-  if (QCefInit(argc, argv, settings) >= 0) {
-    return 0;
-  }
+    if (QCefInit(argc, argv, settings) >= 0) {
+        return 0;
+    }
 
-  Dtk::Widget::DApplication::loadDXcbPlugin();
-  Dtk::Widget::DApplication app(argc, argv);
-  if (!Dtk::Widget::DPlatformWindowHandle::pluginVersion().isEmpty()) {
-    app.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);
-  }
+    Dtk::Widget::DApplication::loadDXcbPlugin();
+    Dtk::Widget::DApplication app(argc, argv);
+    if (!Dtk::Widget::DPlatformWindowHandle::pluginVersion().isEmpty()) {
+        app.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings, true);
+    }
 
-  app.setTheme(dstore::GetThemeName());
-  app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
-  app.setWindowIcon(QIcon(dstore::kImageDeepinAppStore));
-  app.setProductIcon(QIcon(dstore::kImageDeepinAppStore));
-  app.setOrganizationName("deepin");
-  app.setOrganizationDomain("deepin.org");
-  app.setApplicationVersion(Dtk::Widget::DApplication::buildVersion("5.0.0.0"));
-  app.setApplicationName(dstore::kAppName);
-  app.loadTranslator();
-  app.setApplicationDisplayName(QObject::tr("Deepin Store"));
-  app.setApplicationDescription(QObject::tr(
-      "Deepin Store is an Appstore with quality and rich applications. "
-      "Popular recommendation, new updated apps and hot topics are available. "
-      "It supports one click to download, install, update, "
-      "uninstall and so on."));
-  app.setApplicationAcknowledgementPage(
-      "https://www.deepin.org/acknowledgments/deepin-appstore/");
+    app.setTheme(themName);
+    app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
+    app.setWindowIcon(QIcon(dstore::kImageDeepinAppStore));
+    app.setProductIcon(QIcon(dstore::kImageDeepinAppStore));
+    app.setOrganizationName("deepin");
+    app.setOrganizationDomain("deepin.org");
+    app.setApplicationVersion(Dtk::Widget::DApplication::buildVersion("5.0.0.0"));
+    app.setApplicationName(dstore::kAppName);
+    app.loadTranslator();
+    app.setApplicationDisplayName(QObject::tr("Deepin Store"));
+    app.setApplicationDescription(QObject::tr(
+                                      "Deepin Store is an Appstore with quality and rich applications. "
+                                      "Popular recommendation, new updated apps and hot topics are available. "
+                                      "It supports one click to download, install, update, "
+                                      "uninstall and so on."));
+    app.setApplicationAcknowledgementPage(
+        "https://www.deepin.org/acknowledgments/deepin-appstore/");
 
-  Dtk::Core::DLogManager::registerConsoleAppender();
-  Dtk::Core::DLogManager::registerFileAppender();
+    Dtk::Core::DLogManager::registerConsoleAppender();
+    Dtk::Core::DLogManager::registerFileAppender();
 
-  dstore::DBusManager dbus_manager;
-  if (dbus_manager.parseArguments()) {
-    // Exit process after 1000ms.
-    QTimer::singleShot(1000, [&]() {
-      app.quit();
-    });
-    return app.exec();
-  } else {
-    QCefBindApp(&app);
+    dstore::DBusManager dbus_manager;
+    if (dbus_manager.parseArguments()) {
+        // Exit process after 1000ms.
+        QTimer::singleShot(1000, [&]() {
+            app.quit();
+        });
+        return app.exec();
+    } else {
+        QCefBindApp(&app);
 
-    dstore::WebWindow window;
-    QObject::connect(&dbus_manager, &dstore::DBusManager::raiseRequested,
-                     &window, &dstore::WebWindow::raiseWindow);
-    QObject::connect(&dbus_manager, &dstore::DBusManager::showDetailRequested,
-                     &window, &dstore::WebWindow::showAppDetail);
+        dstore::WebWindow window;
+        QObject::connect(&dbus_manager, &dstore::DBusManager::raiseRequested,
+                         &window, &dstore::WebWindow::raiseWindow);
+        QObject::connect(&dbus_manager, &dstore::DBusManager::showDetailRequested,
+                         &window, &dstore::WebWindow::showAppDetail);
 
-    app.installEventFilter(&window);
+        app.installEventFilter(&window);
 
-    window.loadPage();
-    window.showWindow();
+        window.loadPage();
+        window.showWindow();
 
-    return app.exec();
-  }
+        return app.exec();
+    }
 }

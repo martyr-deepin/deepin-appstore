@@ -19,7 +19,10 @@
 
 #include <QDebug>
 #include <QSettings>
+#include <QDBusReply>
+#include <QDBusInterface>
 
+#include "dbus/dbus_consts.h"
 #include "base/file_util.h"
 
 namespace dstore
@@ -28,128 +31,117 @@ namespace dstore
 namespace
 {
 
-const char kSupportSigninName[] = "supportSignIn";
-const char kMetaServerName[] = "metadataServer";
-const char kAutoInstall[] = "autoInstall";
+const char kGroupGeneral[] = "General";
 
-const char kOperationType[] = "operationType";
-const char kOperationPrimaryServer[] = "operationPrimary";
-const char kOperationSecondaryServer[] = "operationSecondary";
-const char kOperationDefault[] = "operationDefault";
-const char kRegionName[] = "currentRegion";
-const char kThemeName[] = "themeName";
+const char kSupportSignin[] = "SupportSignIn";
+const char kMetadataServer[] = "MetadataServer";
+const char kOperationServer[] = "OperationServer";
+const char kRegion[] = "Region";
+const char kAutoInstall[] = "AutoInstall";
+const char kThemeName[] = "ThemeName";
+const char kWindowState[] = "WindowState";
+const char kAllowSwitchRegion[] = "AllowSwitchRegion";
+const char kUpyunBannerVisible[] = "UpyunBannerVisible";
 
-QVariant GetSystemSettingsValue(const QString &key)
+}
+
+SettingsManager::SettingsManager(QObject *parent)
 {
-    QString settingsFilePath = SETTINGS_FILE;
-    if (!QFile::exists(SETTINGS_FILE)) {
-        settingsFilePath += ".default";
+    dbus_interface_ = new QDBusInterface(
+        kAppstoreDaemonService,
+        kAppstoreDaemonPath,
+        kAppstoreDaemonInterface,
+        QDBusConnection::sessionBus(),
+        parent);
+    qDebug() << "connect" << kAppstoreDaemonInterface << dbus_interface_->isValid();
+}
+
+SettingsManager::~SettingsManager()
+{
+
+}
+
+QString SettingsManager::getMetadataServer() const
+{
+    return getSettings(kMetadataServer).toString();
+}
+
+QString SettingsManager::getOperationServer() const
+{
+    return getSettings(kOperationServer).toString();
+}
+
+OperationServerRegion SettingsManager::getRegion() const
+{
+    return static_cast<OperationServerRegion>(getSettings(kRegion).toInt());
+}
+
+void SettingsManager::setRegion(OperationServerRegion region)
+{
+    setSettings(kRegion, region);
+}
+
+bool SettingsManager::getAutoInstall() const
+{
+    return getSettings(kAutoInstall).toBool();
+}
+
+void SettingsManager::setAutoInstall(bool autoinstall)
+{
+    setSettings(kAutoInstall, autoinstall);
+}
+
+QString SettingsManager::getThemeName() const
+{
+    return getSettings(kThemeName).toString();
+}
+
+void SettingsManager::setThemeName(const QString &themeName) const
+{
+    setSettings(kThemeName, themeName);
+}
+
+QByteArray SettingsManager::getWindowState() const
+{
+    auto base64str = getSettings(kWindowState).toString();
+    return QByteArray::fromBase64(base64str.toLatin1());
+}
+
+void SettingsManager::setWindowState(QByteArray data)
+{
+    setSettings(kWindowState, QString(data.toBase64()));
+}
+
+bool SettingsManager::supportSignIn() const
+{
+    return getSettings(kSupportSignin).toBool();
+}
+
+bool SettingsManager::allowSwitchRegion() const
+{
+    return getSettings(kAllowSwitchRegion).toBool();
+}
+
+bool SettingsManager::getUpyunBannerVisible() const
+{
+    return getSettings(kUpyunBannerVisible).toBool();
+}
+
+QVariant SettingsManager::getSettings(const QString &key) const
+{
+    QDBusReply<QVariant> reply = dbus_interface_->call("GetSettings", key);
+    if (reply.error().isValid()) {
+        qWarning()<<"getSettings failed"<< key << reply.error();
     }
-    QSettings settings(settingsFilePath, QSettings::IniFormat);
-    return settings.value(key);
+    return reply.value();
 }
 
-}  // namespace
-
-QString GetSessionSettingsFile()
+void SettingsManager::setSettings(const QString &key, const QVariant &value) const
 {
-    QDir dir = QDir::home().absoluteFilePath(
-                   ".config/deepin/deepin-appstore");
-    if (!dir.mkpath(".")) {
-        qCritical() << Q_FUNC_INFO << "Failed to create settings folder";
+    QDBusReply<void> reply = dbus_interface_->call("SetSettings", key, value);
+    if (reply.error().isValid()) {
+        qWarning()<<"setSettings failed"<< key << reply.error() << value;
     }
-    return dir.filePath("settings.ini");
-}
-
-bool IsSignInSupported()
-{
-    return GetSystemSettingsValue(kSupportSigninName).toBool();
-}
-
-QString GetMetadataServer()
-{
-    return GetSystemSettingsValue(kMetaServerName).toString();
-}
-
-QString GetOperationServer()
-{
-    if (GetRegion() == RegionInternational) {
-        return GetSystemSettingsValue(kOperationSecondaryServer).toString();
-    } else {
-        return GetSystemSettingsValue(kOperationPrimaryServer).toString();
-    }
-}
-
-void SetThemeName(const QString &themeName)
-{
-    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-    settings.setValue(kThemeName, themeName);
-}
-
-QString GetThemeName()
-{
-    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-    QString themeName = settings.value(kThemeName, "light").toString();
-    return themeName;
-}
-
-void SetRegion(OperationServerRegion region)
-{
-    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-    settings.setValue(kRegionName, static_cast<int>(region));
-}
-
-OperationServerRegion GetRegion()
-{
-    if (GetOperationType() == OperationType::OperationCommunity) {
-        const int default_region = GetSystemSettingsValue(kOperationDefault).toInt();
-        QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-        const int region = settings.value(kRegionName, default_region).toInt();
-        return static_cast<OperationServerRegion>(region);
-    } else {
-        return OperationServerRegion::RegionChina;
-    }
-}
-
-OperationType GetOperationType()
-{
-    const int type = GetSystemSettingsValue(kOperationType).toInt();
-    return static_cast<OperationType>(type);
-}
-
-bool UpyunBannerVisible()
-{
-    switch (GetOperationType()) {
-    case OperationType::OperationCommunity: {
-        return GetRegion() == OperationServerRegion::RegionChina;
-    }
-    case OperationType::OperationProfessional: {
-        return false;
-    }
-    case OperationType::OperationLoongson: {
-        return false;
-    }
-    default: {
-    }
-    }
-    return false;
-}
-
-bool AllowSwitchRegion()
-{
-    return GetOperationType() == OperationType::OperationCommunity;
-}
-
-bool GetAutoInstall()
-{
-    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-    return settings.value(kAutoInstall).toBool();
-}
-
-void SetAutoInstall(bool autoInstall)
-{
-    QSettings settings(GetSessionSettingsFile(), QSettings::IniFormat);
-    settings.setValue(kAutoInstall,autoInstall);
 }
 
 }  // namespace dstore

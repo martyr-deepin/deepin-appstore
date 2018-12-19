@@ -327,6 +327,10 @@ func (b *Backend) QueryVersion(idList []string) (result []PackageVersionInfo,
 	busErr *dbus.Error) {
 	b.service.DelayAutoQuit()
 
+	if 0 == len(idList) {
+		return
+	}
+
 	args := append([]string{"policy", "--"}, idList...)
 	cmd := exec.Command("/usr/bin/apt-cache", args...)
 	cmd.Env = []string{"LC_ALL=C"}
@@ -362,6 +366,7 @@ func (b *Backend) QueryVersion(idList []string) (result []PackageVersionInfo,
 			const installed = "Installed: "
 			localVersion, err := scanVersion(scanner, installed)
 			if err != nil {
+				log.Println("can not find localVersion", string(line), idList)
 				return nil, dbusutil.ToError(err)
 			}
 
@@ -369,6 +374,7 @@ func (b *Backend) QueryVersion(idList []string) (result []PackageVersionInfo,
 			const candidate = "Candidate: "
 			remoteVersion, err := scanVersion(scanner, candidate)
 			if err != nil {
+				log.Println("can not find remoteVersion", string(line))
 				return nil, dbusutil.ToError(err)
 			}
 
@@ -441,7 +447,7 @@ func (b *Backend) QueryInstallationTime(idList []string) (result []PackageInstal
 				InstallationTime: t,
 			})
 		} else {
-			log.Printf("warning: failed to get installation time of %q\n", id)
+			// log.Printf("warning: failed to get installation time of %q\n", id)
 		}
 	}
 	return

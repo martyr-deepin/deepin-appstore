@@ -25,6 +25,10 @@ const char kAppStoreDbusService[] = "com.deepin.AppStore";
 const char kLastoreDebDbusPath[] = "/com/deepin/AppStore/Backend";
 const char kLastoreDebDbusService[] = "com.deepin.AppStore.Daemon";
 
+const char kAppstoreDaemonService[] = "com.deepin.AppStore.Daemon";
+const char kAppstoreDaemonPath[] = "/com/deepin/AppStore/Metadata";
+const char kAppstoreDaemonInterface[] = "com.deepin.AppStore.Metadata";
+
 const char kLastoreDebJobService[] = "com.deepin.AppStore.Daemon";
 
 }  // namespace dstore

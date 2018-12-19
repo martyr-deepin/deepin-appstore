@@ -33,6 +33,8 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  lastore-daemon (>=0.9.62),
  libqt5dbus5,
  libqt5sql5-sqlite,
+ deepin-sync-daemon,
+ deepin-deepinid-client,
  deepin-appstore-data [!mips64el],
  deepin-appstore-data-aot [mips64el]
 Replaces: dstore-client

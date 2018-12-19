@@ -1,28 +1,20 @@
 package main
 
 import (
-	"encoding/json"
-	"os"
-	"strings"
+	"fmt"
 	"time"
 
 	"github.com/go-ini/ini"
-	dbus "pkg.deepin.io/lib/dbus1"
-	"pkg.deepin.io/lib/utils"
 )
 
 const (
-	dbusMetadataInterface = "com.deepin.AppStore.Metadata"
-	dbusMetadataPath      = "/com/deepin/AppStore/Metadata"
-)
-
-const (
-	appstoreConfPath = "/usr/share/deepin-appstore/settings.ini"
+	appstoreConfPath        = "/usr/share/deepin-appstore/settings.ini"
+	appstoreConfPathDefault = "/usr/share/deepin-appstore/settings.ini.default"
 )
 
 // Metadata store appstore server info
 type Metadata struct {
-	cfg     *ini.File
+	sysCfg  *ini.File
 	userCfg *ini.File
 
 	block      *blocklist
@@ -35,6 +27,8 @@ type Metadata struct {
 		GetAppMetadataList func() `in:"appNameList" out:"json"`
 		OpenApp            func() `in:"appName"`
 		OnMessage          func() `in:"playload"`
+		GetSettings        func() `in:"key" out:"value"`
+		SetSettings        func() `in:"key,value"`
 	}
 }
 
@@ -45,43 +39,133 @@ func NewMetadata() *Metadata {
 
 	m.apps = make(map[string]*AppBody)
 
-	m.cfg, err = ini.Load(appstoreConfPath)
+	m.sysCfg, err = ini.Load(appstoreConfPath)
 	if err != nil {
-		logger.Fatalf("Fail to read file: %v", err)
-		os.Exit(1)
+		logger.Info("fail to read file: %v", err)
+		m.sysCfg, err = ini.Load(appstoreConfPathDefault)
+		if err != nil {
+			logger.Fatalf("fail to read file: %v", err)
+		}
 	}
 	m.userCfg, err = ini.Load(configFolder + "/settings.ini")
 	if err != nil {
-		logger.Infof("Fail to read user config file: %v", err)
+		logger.Infof("fail to read user config file: %v", err)
+		m.userCfg = ini.Empty()
 	}
 	return m
 }
 
+const (
+	groupGeneral   = "General"
+	groupWebWindow = "WebWindow"
+
+	keyAutoInstall   = "autoInstall"
+	keyCurrentRegion = "currentRegion"
+	keyThemeName     = "themeName"
+	keyWindowState   = "windowState"
+
+	metadataServer  = "metadataServer"
+	operationServer = "operationServer"
+
+	operationType            = "operationType"
+	keySupportSigninName     = "supportSignIn"
+	operationPrimaryServer   = "operationPrimary"
+	operationSecondaryServer = "operationSecondary"
+	keyOperationDefault      = "operationDefault"
+)
+
+const (
+	regionChina         = 0
+	regionInternational = 1
+)
+
+func (m *Metadata) getSystemSettings(key string) *ini.Key {
+	return m.sysCfg.Section("General").Key(key)
+}
+
 func (m *Metadata) getMetadataServer() string {
-	return m.cfg.Section("General").Key("metadataServer").String()
+	return m.sysCfg.Section("General").Key("metadataServer").String()
+}
+
+const (
+	operationCommunity    = 0
+	operationProfessional = 1
+	operationLoongson     = 2
+)
+
+// Supported operation server types are:
+//  * 0 - community
+//  * 1 - professional
+//  * 2 - loongson
+func (m *Metadata) getOperationType() int {
+	return m.sysCfg.Section(groupGeneral).Key("operationType").MustInt()
 }
 
 func (m *Metadata) getOperationServer() string {
-	currentRegion := 0
+	currentRegion := regionChina
 
 	if m.userCfg != nil {
 		currentRegion = m.userCfg.Section("General").Key("currentRegion").MustInt()
 	}
 
 	switch currentRegion {
-	case 0:
-		return m.cfg.Section("General").Key("operationPrimary").String()
-	case 1:
-		return m.cfg.Section("General").Key("operationSecondary").String()
+	case regionChina:
+		return m.sysCfg.Section("General").Key("operationPrimary").String()
+	case regionInternational:
+		return m.sysCfg.Section("General").Key("operationSecondary").String()
 	}
 	return ""
 }
 
-func (m *Metadata) getAutoInstall() bool {
-	if nil != m.userCfg {
-		return m.userCfg.Section("General").Key("autoInstall").MustBool()
+func (m *Metadata) getSupportSignIn() bool {
+	return m.sysCfg.Section(groupGeneral).Key(keySupportSigninName).MustBool()
+}
+
+func (m *Metadata) getUpyunBannerVisible() bool {
+	switch m.getOperationType() {
+	case operationCommunity:
+		return m.getRegion() == regionChina
+	case operationLoongson:
+		return false
+	case operationProfessional:
+		return false
 	}
 	return false
+}
+
+func (m *Metadata) getAllowSwitchRegion() bool {
+	return m.getOperationType() == operationCommunity
+}
+
+func (m *Metadata) getWindowState() string {
+	return m.userCfg.Section(groupWebWindow).Key(keyWindowState).MustString("")
+}
+
+func (m *Metadata) setUserSettings(group, key string, value interface{}) error {
+	m.userCfg.Section(group).Key(key).SetValue(fmt.Sprint(value))
+	m.userCfg.SaveTo(configFolder + "/settings.ini")
+	return nil
+}
+
+func (m *Metadata) getUserSettings(group, key string) *ini.Key {
+	return m.userCfg.Section(group).Key(key)
+}
+
+func (m *Metadata) getAutoInstall() bool {
+	return m.getUserSettings("General", "autoInstall").MustBool()
+}
+
+func (m *Metadata) getRegion() int {
+	switch m.getOperationType() {
+	case operationCommunity:
+		defaultRegion := m.getSystemSettings(keyOperationDefault).MustInt()
+		return m.getUserSettings(groupGeneral, keyCurrentRegion).MustInt(defaultRegion)
+	}
+	return regionChina
+}
+
+func (m *Metadata) getThemeName() string {
+	return m.getUserSettings(groupGeneral, keyThemeName).MustString("light")
 }
 
 func (m *Metadata) getAppIcon(appName string) string {
@@ -119,81 +203,4 @@ func (m *Metadata) updateCache() {
 		_, app.Putway = putwayApps[app.Name]
 		m.apps[app.Name] = app
 	}
-}
-
-// GetInterfaceName return dbus interface name
-func (*Metadata) GetInterfaceName() string {
-	return dbusMetadataInterface
-}
-
-// GetAppIcon return app local icon path
-func (m *Metadata) GetAppIcon(appName string) (string, *dbus.Error) {
-	m.updateCache()
-
-	return m.getAppIcon(appName), nil
-}
-
-// GetAppMetadataList return app info with changelog
-func (m *Metadata) GetAppMetadataList(appNameList []string) (string, *dbus.Error) {
-	m.updateCache()
-
-	appList := make([]*AppBody, 0)
-
-	for _, name := range appNameList {
-		appList = append(appList, m.apps[name])
-	}
-
-	data, _ := json.Marshal(appList)
-
-	return string(data), nil
-}
-
-// OpenApp call lastore open app
-func (m *Metadata) OpenApp(appName string) *dbus.Error {
-	m.updateCache()
-
-	output, _, err := utils.ExecAndWait(3600, "lastore-tools", "querydesktop", appName)
-	if nil != err {
-		logger.Errorf("call lastore-tools failed: %v", err)
-		return dbus.NewError(err.Error(), nil)
-	}
-	output = strings.TrimSpace(output)
-
-	if "" == output {
-		logger.Infof("can not find desktop file")
-		return dbus.NewError("no desktop file", nil)
-	}
-
-	sysBus, err := dbus.SessionBus()
-	if nil != err {
-		logger.Errorf("get dbus failed: %v", err)
-		return dbus.NewError(err.Error(), nil)
-	}
-	startManager := sysBus.Object("com.deepin.SessionManager", "/com/deepin/StartManager")
-	err = startManager.Call("com.deepin.StartManager.LaunchApp", 0, output, uint32(0), []string{}).Store()
-	if nil != err {
-		logger.Errorf("call dbus failed: %v", err)
-		return dbus.NewError(err.Error(), nil)
-	}
-	return nil
-}
-
-// OnMessage handle push message
-func (m *Metadata) OnMessage(playload map[string]interface{}) *dbus.Error {
-	action, ok := playload["action"]
-	if !ok {
-		logger.Errorf("unknown message %v", playload)
-	}
-
-	var err error
-	switch action {
-	case "install":
-		err = m.handleInstall(playload)
-	}
-
-	if nil != err {
-		logger.Errorf("process message failed: %v", playload)
-	}
-
-	return nil
 }
