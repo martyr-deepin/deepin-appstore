@@ -18,9 +18,9 @@ export class MenuService {
     // menu user info
     this.auth.info$.subscribe(async userInfo => {
       if (!userInfo) {
+        Channel.exec('menu.setUserInfo', {});
         return;
       }
-      console.log('setUserInfo');
       const dInfo = await this.dService.getDeepinUserInfo(userInfo.UserID);
       const avatar = await fetch(dInfo.profile_image).then(resp => resp.blob());
       const data = await new Promise<string>((resolve, reject) => {
@@ -43,9 +43,7 @@ export class MenuService {
 
   connectToRouter(signal: string, url: string) {
     Channel.connect(signal).subscribe(() => {
-      this.zone.run(() => {
-        this.router.navigateByUrl(url);
-      });
+      this.router.navigateByUrl(url);
     });
   }
 }

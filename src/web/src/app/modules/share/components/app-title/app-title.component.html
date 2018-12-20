@@ -1,36 +1,29 @@
 <div class="titleGroup">
   <div class="title">
     <ng-content></ng-content>
-    <span class="number"
-          *ngIf="count"
-          i18n>{{count}} applications</span>
-    <span class="number"
-          *ngIf="top"
-          i18n>Top {{top}}</span>
+    <span class="number" *ngIf="count" i18n>{{ count }} applications</span>
+    <span class="number" *ngIf="top" i18n>Top {{ top }}</span>
   </div>
-  <div class="dropdown"
-       tabIndex="-1"
-       (click)="dropMenu.hidden=!dropMenu.hidden;dorpBtn.focus()"
-       [hidden]="sortHidden"
-       (blur)="dropMenu.hidden=true"
-       #dorpBtn>
-
-    <ng-container *ngIf="sortBy===SortOrder.Downloads"
-                  i18n>Downloads</ng-container>
-    <ng-container *ngIf="sortBy===SortOrder.Score"
-                  i18n>Rating</ng-container>
+  <div
+    class="dropdown"
+    tabIndex="-1"
+    (click)="dropMenu.hidden = !dropMenu.hidden; dorpBtn.focus()"
+    [hidden]="sortHidden"
+    (blur)="dropMenu.hidden = true"
+    #dorpBtn
+  >
+    <ng-container *ngIf="sortBy === SortOrder.Downloads" i18n
+      >Downloads</ng-container
+    >
+    <ng-container *ngIf="sortBy === SortOrder.Score" i18n>Rating</ng-container>
   </div>
-  <ul class="dropdown-menu"
-      hidden
-      #dropMenu>
+  <ul class="dropdown-menu" hidden #dropMenu>
     <li (mousedown)="change(SortOrder.Downloads)">
-      <div class="select"
-           [class.ok]="sortBy===SortOrder.Downloads"></div>
+      <div class="select" [class.ok]="sortBy === SortOrder.Downloads"></div>
       <ng-container i18n>Downloads</ng-container>
     </li>
     <li (mousedown)="change(SortOrder.Score)">
-      <div class="select"
-           [class.ok]="sortBy===SortOrder.Score"></div>
+      <div class="select" [class.ok]="sortBy === SortOrder.Score"></div>
       <ng-container i18n>Rating</ng-container>
     </li>
   </ul>

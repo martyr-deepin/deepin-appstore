@@ -39,10 +39,7 @@ export class AppComponent implements OnInit {
   }
 
   switchTheme() {
-    console.log('test');
-    this.themeService.getTheme().subscribe(console.log);
     this.themeService.getTheme().subscribe(theme => {
-      console.log('getTheme', theme);
       document.body.className = theme;
     });
   }

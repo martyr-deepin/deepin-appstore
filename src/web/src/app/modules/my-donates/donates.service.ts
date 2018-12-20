@@ -9,7 +9,7 @@ import { environment } from 'environments/environment';
   providedIn: 'root',
 })
 export class DonatesService {
-  apiURL = environment.operationServer + '/api/user/my/donate';
+  apiURL = environment.metadataServer + '/api/donation/user';
   constructor(private http: HttpClient, private appService: AppService) {}
   donateList(page: number, count: number) {
     return this.http
@@ -19,7 +19,6 @@ export class DonatesService {
       .pipe(
         switchMap(
           result => {
-            console.log('switchMap');
             const names = result.donations.map(d => d.appName);
             return this.appService.getApps(names, false, false);
           },

@@ -4,19 +4,20 @@ import {
   TRANSLATIONS_FORMAT,
   MissingTranslationStrategy,
   CompilerOptions,
+  NgZone,
 } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
-
 // use the require method provided by webpack
 declare const require;
-
+//  qt web channel run ng zone
+let zone: NgZone = null;
 async function main() {
   let opts: CompilerOptions;
   // Native client mode.
@@ -35,6 +36,12 @@ async function main() {
         onmessage(msg) {},
       };
       channelTransport.objects.channelProxy.message.connect(msg => {
+        if (zone) {
+          zone.run(() => {
+            t.onmessage({ data: msg });
+          });
+          return;
+        }
         t.onmessage({ data: msg });
       });
       return new QWebChannel(t, resolve);
@@ -73,7 +80,7 @@ async function main() {
       }
     }
   }
-  return await bootstrap(opts);
+  return bootstrap(opts);
 }
 function bootstrap(opts = null) {
   return platformBrowserDynamic().bootstrapModule(AppModule, opts);
@@ -81,7 +88,10 @@ function bootstrap(opts = null) {
 main()
   .catch(err => {
     console.error('load locale fail', err);
-    bootstrap();
+    return bootstrap();
+  })
+  .then(app => {
+    zone = app.injector.get(NgZone);
   })
   .finally(() => {
     console.log('bootstrap');

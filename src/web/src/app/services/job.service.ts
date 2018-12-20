@@ -24,39 +24,40 @@ export class JobService {
     this.StoreServer.jobListChange().subscribe(list => this.update(list));
   }
   private update(list: string[]) {
-    this.zone.run(() => {
-      this.jobList$.next(list);
-      if (this.interval) {
-        this.interval.unsubscribe();
-      }
-      const defer = Array.from(this.cache.values())
-        .filter(job => !list.includes(job.job))
-        .map(job => job.id);
-      if (defer.length > 0) {
-        setTimeout(() => {
-          defer.forEach(id => this.cache.delete(id));
-          this.jobInfoList$.next(Array.from(this.cache.values()));
-        }, 500);
-      }
-      if (list.length > 0) {
-        this.interval = timer(0, 1000)
-          .pipe(switchMap(() => this.StoreServer.getJobsInfo(list)))
-          .subscribe(infoList => {
-            infoList = infoList.filter(job => {
-              if (job.type === StoreJobType.uninstall && job.status === StoreJobStatus.failed) {
-                return false;
-              }
-              return true;
-            });
-            infoList.forEach(job => {
-              this.cache.set(job.id, job);
-            });
-            this.jobInfoList$.next(Array.from(this.cache.values()));
-          });
-      } else {
+    this.jobList$.next(list);
+    if (this.interval) {
+      this.interval.unsubscribe();
+    }
+    const defer = Array.from(this.cache.values())
+      .filter(job => !list.includes(job.job))
+      .map(job => job.id);
+    if (defer.length > 0) {
+      setTimeout(() => {
+        defer.forEach(id => this.cache.delete(id));
         this.jobInfoList$.next(Array.from(this.cache.values()));
-      }
-    });
+      }, 500);
+    }
+    if (list.length > 0) {
+      this.interval = timer(0, 1000)
+        .pipe(switchMap(() => this.StoreServer.getJobsInfo(list)))
+        .subscribe(infoList => {
+          infoList = infoList.filter(job => {
+            if (
+              job.type === StoreJobType.uninstall &&
+              job.status === StoreJobStatus.failed
+            ) {
+              return false;
+            }
+            return true;
+          });
+          infoList.forEach(job => {
+            this.cache.set(job.id, job);
+          });
+          this.jobInfoList$.next(Array.from(this.cache.values()));
+        });
+    } else {
+      this.jobInfoList$.next(Array.from(this.cache.values()));
+    }
   }
   jobList(): Observable<string[]> {
     return this.jobList$.asObservable();

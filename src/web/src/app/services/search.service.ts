@@ -10,23 +10,14 @@ export class SearchService {
   constructor(private zone: NgZone) {}
 
   onOpenApp(): Observable<string> {
-    return new Observable(obs => {
-      Channel.connect<string>('search.openApp').subscribe(app =>
-        this.zone.run(() => {
-          obs.next(app);
-        }),
-      );
-    });
+    return Channel.connect<string>('search.openApp');
   }
 
   onOpenAppList(): Observable<SearchResult> {
     return new Observable(obs => {
       Channel.connect<[string, string[]]>('search.openAppList').subscribe(
         ([keyword, appNameList]) => {
-          console.log(keyword, appNameList);
-          this.zone.run(() => {
-            obs.next({ keyword, appNameList });
-          });
+          obs.next({ keyword, appNameList });
         },
       );
     });

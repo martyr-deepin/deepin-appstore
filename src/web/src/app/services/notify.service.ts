@@ -15,19 +15,20 @@ export class NotifyService {
     this.getBulletin();
     if (BaseService.isNative) {
       DstoreObject.clearArchives().subscribe(() => {
-        this.zone.run(() => {
-          this.success(NotifyType.Clear);
-        });
+        this.success(NotifyType.Clear);
       });
     }
   }
 
   private getBulletin() {
     this.http
-      .get(BaseService.serverHosts.operationServer + '/api/bulletin', { responseType: 'text' })
+      .get(BaseService.serverHosts.operationServer + '/api/bulletin', {
+        responseType: 'text',
+      })
       .subscribe(body => {
-        const { bulletin }: { bulletin: Bulletin } = JSON.parse(body, (k: string, v) =>
-          k.includes('Time') ? new Date(v) : v,
+        const { bulletin }: { bulletin: Bulletin } = JSON.parse(
+          body,
+          (k: string, v) => (k.includes('Time') ? new Date(v) : v),
         );
         const t = new Date();
         if (bulletin.startTime <= t && bulletin.endTime > t) {

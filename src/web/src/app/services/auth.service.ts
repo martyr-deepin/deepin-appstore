@@ -11,15 +11,11 @@ import { Channel } from 'app/modules/client/utils/channel';
 export class AuthService {
   constructor(private zone: NgZone) {
     Channel.exec<UserInfo>('account.getUserInfo').then(info => {
-      this.zone.run(() => {
-        this.userInfo$.next(info);
-      });
+      this.userInfo$.next(info);
     });
     Channel.connect<UserInfo>('account.userInfoChanged').subscribe(info => {
       console.log('userinfo', info);
-      this.zone.run(() => {
-        this.userInfo$.next(info);
-      });
+      this.userInfo$.next(info);
     });
   }
   private userInfo$ = new BehaviorSubject<UserInfo>(null);
@@ -34,11 +30,7 @@ export class AuthService {
   logged$ = this.info$.pipe(map(info => info && info.IsLoggedIn));
   // get token
   getToken() {
-    return Channel.exec<string>('account.getToken').then(token => {
-      return this.zone.run(() => {
-        return token;
-      });
-    });
+    return Channel.exec<string>('account.getToken');
   }
   // 登录方法
   login() {

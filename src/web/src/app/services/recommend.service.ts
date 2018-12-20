@@ -12,9 +12,7 @@ import { BaseService } from '../dstore/services/base.service';
 export class RecommendService {
   constructor(private zone: NgZone, private http: HttpClient) {
     Channel.connect<void>('menu.recommendAppRequested').subscribe(() => {
-      zone.run(() => {
-        this.openRecommend();
-      });
+      this.openRecommend();
     });
   }
 

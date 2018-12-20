@@ -3,7 +3,11 @@
   <button routerLink="../local" routerLinkActive="active">
     <ng-container i18n>Local App</ng-container>
   </button>
-  <button routerLink="../remote" routerLinkActive="active">
+  <button
+    *ngIf="(logged | async)"
+    routerLink="../remote"
+    routerLinkActive="active"
+  >
     <ng-container i18n>Remote App</ng-container>
   </button>
 </dstore-center-title>
@@ -16,9 +20,7 @@
   dstoreResize
   (resize)="listHeight$.next($event.height)"
 >
-  <ng-container
-    *ngIf="(apps$ | async) as installedList; else: loadingContainer"
-  >
+  <ng-container *ngIf="(apps$ | async) as installedList; else loadingContainer">
     <ng-container *ngFor="let installed of installedList">
       <div class="installed-app">
         <img
@@ -41,7 +43,7 @@
                 >
               </div>
             </ng-template>
-            <ng-container *ngIf="select != installed.name; else: confirm">
+            <ng-container *ngIf="select != installed.name; else confirm">
               <div class="time">
                 <span i18n>Date installed:</span>
                 {{
@@ -63,7 +65,7 @@
                 <ng-container i18n>Confirm</ng-container>
               </button>
             </ng-template>
-            <ng-container *ngIf="select != installed.name; else: confirmBtn">
+            <ng-container *ngIf="select != installed.name; else confirmBtn">
               <ng-template #uninstall>
                 <button (click)="select = installed.name">
                   <ng-container i18n>Uninstall</ng-container>
@@ -73,7 +75,7 @@
                 *ngIf="
                   removingList.includes(installed.name) ||
                     removing.includes(installed.name);
-                  else: uninstall
+                  else uninstall
                 "
                 disabled
               >

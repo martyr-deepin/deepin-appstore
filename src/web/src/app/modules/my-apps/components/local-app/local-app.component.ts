@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { combineLatest, BehaviorSubject } from 'rxjs';
-import { map, tap, share, shareReplay, distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import {
+  map,
+  tap,
+  share,
+  shareReplay,
+  distinctUntilChanged,
+  debounceTime,
+} from 'rxjs/operators';
 
 import { LocalAppService } from '../../services/local-app.service';
 import { App } from 'app/services/app.service';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'dstore-local-app',
@@ -16,8 +24,9 @@ export class LocalAppComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private localAppService: LocalAppService,
+    private authService: AuthService,
   ) {}
-
+  logged = this.authService.logged$;
   removing: string[] = [];
   select: string;
   listHeight$ = new BehaviorSubject<number>(0);
@@ -26,7 +35,9 @@ export class LocalAppComponent implements OnInit {
     map(height => Math.floor(height / 64)),
     distinctUntilChanged(),
   );
-  pageIndex$ = this.route.queryParamMap.pipe(map(query => Number(query.get('page') || 1) - 1));
+  pageIndex$ = this.route.queryParamMap.pipe(
+    map(query => Number(query.get('page') || 1) - 1),
+  );
   localApps$ = this.localAppService.LocalAppList().pipe(share());
   apps$ = combineLatest(this.localApps$, this.pageSize$, this.pageIndex$).pipe(
     map(([apps, size, index]) => {
