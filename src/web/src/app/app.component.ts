@@ -24,23 +24,25 @@ export class AppComponent implements OnInit {
     private searchService: SearchService,
     private themeService: ThemeService,
     private sysFontService: SysFontService,
-    private zone: NgZone,
     private menu: MenuService,
   ) {}
   ngOnInit(): void {
+    this.switchTheme();
     if (!BaseService.isNative) {
       return;
     }
     this.searchIndex();
     this.searchListen();
     this.screenshotPreview();
-    this.switchTheme();
     this.switchFont();
     this.menu.serve();
   }
 
   switchTheme() {
+    console.log('test');
+    this.themeService.getTheme().subscribe(console.log);
     this.themeService.getTheme().subscribe(theme => {
+      console.log('getTheme', theme);
       document.body.className = theme;
     });
   }
