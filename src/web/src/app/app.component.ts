@@ -27,10 +27,8 @@ export class AppComponent implements OnInit {
     private zone: NgZone,
     private menu: MenuService,
   ) {}
-  updated = false;
   ngOnInit(): void {
     if (!BaseService.isNative) {
-      this.updated = true;
       return;
     }
     this.searchIndex();
@@ -38,7 +36,6 @@ export class AppComponent implements OnInit {
     this.screenshotPreview();
     this.switchTheme();
     this.switchFont();
-    this.waitUpdate();
     this.menu.serve();
   }
 
@@ -69,14 +66,7 @@ export class AppComponent implements OnInit {
         });
     }
   }
-  // 等待后台添加索引
-  waitUpdate() {
-    Channel.connect('search.onAppListUpdated').subscribe(resp => {
-      this.zone.run(() => {
-        this.updated = true;
-      });
-    });
-  }
+  // 搜索结果显示
   searchListen() {
     this.searchService.onOpenApp().subscribe(appName => {
       this.router.navigate(['/app/', appName]);

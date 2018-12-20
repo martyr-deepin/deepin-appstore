@@ -44,7 +44,6 @@ export class AppDetailComponent implements OnInit {
   start = this.storeService.resumeJob;
 
   app$ = this.route.paramMap.pipe(
-    tap(() => console.log('test')),
     switchMap(param => this.appService.getApp(param.get('appName'))),
     publishReplay(1),
     refCount(),

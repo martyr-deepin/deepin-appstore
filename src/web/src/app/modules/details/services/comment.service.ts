@@ -26,7 +26,6 @@ export class CommentService {
         return `${this.server}/api/comment/app/${appName}`;
       }),
       switchMap(url => {
-        console.log(params);
         return this.http.get<CommentList>(url + '?' + params);
       }),
     );
