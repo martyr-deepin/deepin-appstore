@@ -16,7 +16,7 @@
     <div class="loadingContainer"><app-wait></app-wait></div>
   </ng-template>
   <ng-container *ngIf="(donates$ | async) as donates">
-    <ng-container *ngIf="loaded; else: loading">
+    <ng-container *ngIf="loaded; else loading">
       <div class="donate-item" *ngFor="let donate of donates">
         <img
           class="icon"
@@ -27,7 +27,7 @@
           <span>{{ donate.app.localInfo.description.name }}</span> <span></span>
         </div>
         <div class="time">
-          <span i18n>Donation date:</span> &nbsp;
+          <span i18n>Donation Date:</span> &nbsp;
           {{ donate.createTime | date: 'yyyy.MM.dd' }}
         </div>
         <div class="source" [ngSwitch]="donate.source">
@@ -43,7 +43,7 @@
         </div>
         <div class="amount">
           <span>{{ donate.currency === '' ? '￥' : '$' }}</span>
-          <span i18n>{{ donate.amount / 100 }}</span>
+          <span>{{ donate.amount / 100 }}</span>
         </div>
       </div>
     </ng-container>

@@ -13,7 +13,7 @@
   dstoreResize
   (resize)="listHeight$.next($event.height)"
 >
-  <ng-container *ngIf="(apps$ | async) as apps; else: loading">
+  <ng-container *ngIf="(apps$ | async) as apps; else loading">
     <div class="remote-app" *ngFor="let remoteApp of apps">
       <img
         class="icon"
@@ -26,18 +26,18 @@
           <span i18n>Date installed:</span>
           {{ remoteApp.time | date: 'yyyy.MM.dd' }}
         </div>
-        <ng-container *ngIf="remoteApp.app.version; else: noVersionError">
+        <ng-container *ngIf="remoteApp.app.version; else noVersionError">
           <div class="version">
             <span i18n>Version:</span> {{ remoteApp.app.version.remoteVersion }}
           </div>
           <div class="control">
-            <button *ngIf="remoteApp.app.version.upgradable; else: installed">
+            <button *ngIf="remoteApp.app.version.upgradable; else installed">
               <ng-container i18n>Update</ng-container>
             </button>
             <ng-template #installed>
               <button
                 disabled
-                *ngIf="remoteApp.app.version.localVersion != ''; else: install"
+                *ngIf="remoteApp.app.version.localVersion != ''; else install"
               >
                 <ng-container i18n>Installed</ng-container>
               </button>
@@ -46,7 +46,7 @@
           </div>
         </ng-container>
         <ng-template #noVersionError>
-          <div class="no-version" i18n>not available</div>
+          <div class="no-version" i18n>Not available</div>
         </ng-template>
       </div>
     </div>
