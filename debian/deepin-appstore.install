@@ -3,3 +3,4 @@ usr/share/applications
 usr/share/dbus-1/services
 usr/share/deepin-appstore/settings.ini.default
 usr/share/deepin-appstore/translations
+etc/deepin/pusher/handler.d

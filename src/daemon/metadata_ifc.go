@@ -72,6 +72,7 @@ func (m *Metadata) OpenApp(appName string) *dbus.Error {
 
 // OnMessage handle push message
 func (m *Metadata) OnMessage(playload map[string]interface{}) *dbus.Error {
+	logger.Infof("receive message: %v", playload)
 	action, ok := playload["action"]
 	if !ok {
 		logger.Errorf("unknown message %v", playload)

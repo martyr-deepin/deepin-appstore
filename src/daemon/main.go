@@ -55,6 +55,7 @@ func main() {
 		logger.Fatal(err)
 	}
 
+	logger.Infof("start deepin-appstore-daemon")
 	service.SetAutoQuitHandler(3*time.Minute, func() bool {
 		b.PropsMu.Lock()
 		jobCount := len(b.jobs)

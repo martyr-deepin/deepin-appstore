@@ -27,8 +27,8 @@ import (
 type msgInstall struct {
 	Action string `json:"action"`
 	Apps   []struct {
-		Name           string   `json:"name"`
-		PackageURIList []string `json:"package_uri_list"`
+		Name           string   `mapstructure:"name"`
+		PackageURIList []string `mapstructure:"package_uri_list"`
 	} `json:"apps"`
 }
 
