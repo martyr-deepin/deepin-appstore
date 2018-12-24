@@ -17,6 +17,7 @@ export class TagAppsComponent implements OnInit {
       () => this.appService.list(),
       (tag, apps) => {
         apps = apps.filter(app => app.localInfo.tags.includes(tag));
+        tag = `"${tag}"`;
         return { tag, apps };
       },
     ),

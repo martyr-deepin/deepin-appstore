@@ -1,5 +1,5 @@
 <ng-container *ngIf="(list$ | async) as list; else loading">
-  <app-app-title #$title i18n>Apps with tag "{{ list.tag }}"</app-app-title>
+  <app-app-title #$title i18n>Apps with tag {{ list.tag }}</app-app-title>
   <app-app-list
     [appList]="list.apps"
     [sortBy]="$title.sortBy"

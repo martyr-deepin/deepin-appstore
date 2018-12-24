@@ -68,8 +68,8 @@
           <div>
             {{ app.updateTime | date: 'yyyy-MM-dd HH:mm' }}
             <span class="toRight">&lt;</span>
-            <button class="reminder" (click)="reminder(app)" i18n>
-              Ask for update
+            <button class="reminder" (click)="reminder(app)">
+              <ng-container i18n>Ask for update</ng-container>
             </button>
           </div>
           <div
@@ -120,8 +120,8 @@
       [appName]="app.name"
       [version]="app.version.remoteVersion || app.version.localVersion"
     ></dstore-app-comment>
-    <div class="ad" *ngIf="(adVisible | async)" i18n>
-      CDN supported by UPYUN
+    <div class="ad" *ngIf="(adVisible | async)">
+      <ng-container i18n>CDN supported by UPYUN</ng-container>
     </div>
   </ng-container>
 </div>
