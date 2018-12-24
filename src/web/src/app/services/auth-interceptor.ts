@@ -29,6 +29,9 @@ export class AuthInterceptor implements HttpInterceptor {
       }),
       switchMap(authReq => next.handle(authReq)),
       catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) {
+          this.authService.login();
+        }
         console.error('AuthInterceptor', err);
         throw err;
       }),
