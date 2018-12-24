@@ -1,6 +1,6 @@
 <dialog #dialog>
   <dstore-close-button [dialog]="dialog"></dstore-close-button>
-  <ng-container *ngIf="(app$ | async) as app; else: loading">
+  <ng-container *ngIf="(app$ | async) as app; else loading">
     <div class="title" i18n>Edit Comment</div>
     <div class="app">
       <img class="icon" [src]="app.icon" />
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="control">
-      <ng-container *ngIf="!deleteConfirm; else: Delete">
+      <ng-container *ngIf="!deleteConfirm; else Delete">
         <button (click)="deleteConfirm = true" i18n>Delete</button>
         <div *ngIf="app.active">
           <button (click)="closed()" i18n>Cancel</button> &nbsp;

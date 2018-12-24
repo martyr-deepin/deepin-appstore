@@ -173,7 +173,6 @@ void WebWindow::showWindow()
     } else {
         this->setMinimumSize(960, 716);
     }
-        this->setMinimumSize(960, 716);
     this->show();
 }
 

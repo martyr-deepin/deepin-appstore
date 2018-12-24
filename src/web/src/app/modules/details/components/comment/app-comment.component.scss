@@ -178,11 +178,16 @@
         }
       }
       .content {
-        min-height: 4rem;
-        max-height: 8rem;
+        /* autoprefixer: off */
+        // autoprefixer remove -webkit-box-orient
+        min-height: 4.5rem;
         overflow: hidden;
         word-wrap: break-word;
         user-select: text;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
       }
       .like {
         display: flex;
