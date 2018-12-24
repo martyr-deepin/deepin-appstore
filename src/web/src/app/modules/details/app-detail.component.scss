@@ -4,6 +4,7 @@
   .info-left {
     flex: 3;
     display: flex;
+    min-width: 20%;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -26,29 +27,23 @@
       font-size: 2em;
     }
     .content {
-      display: flex;
-      .desc {
-        div {
-          height: 2rem;
-          line-height: 2rem;
+      display: grid;
+      grid-template-columns: min-content auto;
+      & > div {
+        min-height: 2rem;
+        line-height: 2rem;
+        &:nth-child(odd) {
           color: gray;
-          text-align: left;
           white-space: nowrap;
-          margin-right: 0.5rem;
+          margin-right: 1rem;
         }
       }
-      .info {
-        div {
-          min-height: 2rem;
-          line-height: 2rem;
-        }
-        .webSite {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 20rem;
-          cursor: pointer;
-        }
+      .webSite {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 20rem;
+        cursor: pointer;
       }
     }
   }
@@ -125,7 +120,10 @@
 }
 
 .tags {
+  display: flex;
+  flex-wrap: wrap;
   .tag {
+    white-space: nowrap;
     padding: 0 0.5rem;
     border-radius: 4px;
     margin-right: 0.5rem;

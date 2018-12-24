@@ -26,78 +26,69 @@
     <div class="info-right">
       <div class="title selectable">{{ app.localInfo.description.name }}</div>
       <div class="content">
-        <div class="desc">
-          <div i18n>Rating:</div>
-          <div i18n>Category:</div>
-          <ng-container *ngIf="app.version">
-            <div i18n>Version:</div>
-            <div i18n>Size:</div>
-          </ng-container>
-          <div i18n>Updated Date:</div>
-          <div *ngIf="app.homePage" i18n>Website:</div>
-          <div *ngIf="app.source" i18n>Source:</div>
-          <div *ngIf="app.localInfo.tags.length > 0" i18n>Tag:</div>
-          <div i18n>Description:</div>
+        <div i18n>Rating:</div>
+        <div class="rate">
+          <dstore-star [rate]="app.rate"></dstore-star>
+          <span class="details">{{ app.rate.toFixed(1) }}</span>
+          <span class="details" i18n>{{ app.downloads }} downloads</span>
+          <span class="details" i18n>{{ app.ratings }} ratings</span>
         </div>
-        <div class="info">
-          <div class="rate">
-            <dstore-star [rate]="app.rate"></dstore-star>
-            <span class="details">{{ app.rate.toFixed(1) }}</span>
-            <span class="details" i18n>{{ app.downloads }} downloads</span>
-            <span class="details" i18n>{{ app.ratings }} ratings</span>
-          </div>
-          <div>{{ app.localCategory }}</div>
-          <ng-container *ngIf="app.version">
-            <div>
-              {{ app.version.remoteVersion || app.version.localVersion }}
-            </div>
-            <div>
-              <ng-container
-                *ngIf="(size$ | async)?.get(app.name) as size; else calculating"
-              >
-                {{ size | sizeHuman }}
-              </ng-container>
-              <ng-template #calculating let-size>
-                <ng-container *ngIf="size === null" i18n
-                  >Calculating</ng-container
-                >
-                <ng-container *ngIf="size === 0" i18n>Downloaded</ng-container>
-              </ng-template>
-            </div>
-          </ng-container>
+        <div i18n>Category:</div>
+        <div>{{ app.localCategory }}</div>
+        <ng-container *ngIf="app.version">
+          <div i18n>Version:</div>
+          <div>{{ app.version.remoteVersion || app.version.localVersion }}</div>
+          <div i18n>Size:</div>
           <div>
-            {{ app.updateTime | date: 'yyyy-MM-dd HH:mm' }}
-            <span class="toRight">&lt;</span>
-            <button class="reminder" (click)="reminder(app)">
-              <ng-container i18n>Ask for update</ng-container>
-            </button>
+            <ng-container
+              *ngIf="(size$ | async)?.get(app.name) as size; else calculating"
+            >
+              {{ size | sizeHuman }}
+            </ng-container>
+            <ng-template #calculating let-size>
+              <ng-container *ngIf="size === null" i18n
+                >Calculating</ng-container
+              >
+              <ng-container *ngIf="size === 0" i18n>Downloaded</ng-container>
+            </ng-template>
           </div>
-          <div
-            class="webSite"
-            *ngIf="app.homePage"
-            (click)="openURL(app.homePage)"
+        </ng-container>
+        <div i18n>Updated Date:</div>
+        <div>
+          {{ app.updateTime | date: 'yyyy-MM-dd HH:mm' }}
+          <span class="toRight">&lt;</span>
+          <button class="reminder" (click)="reminder(app)">
+            <ng-container i18n>Ask for update</ng-container>
+          </button>
+        </div>
+        <div *ngIf="app.homePage" i18n>Website:</div>
+        <div
+          class="webSite"
+          *ngIf="app.homePage"
+          (click)="openURL(app.homePage)"
+        >
+          {{ app.homePage }}
+        </div>
+        <div *ngIf="app.source" i18n>Source:</div>
+        <div class="source" *ngIf="app.source" [ngSwitch]="app.source">
+          <ng-container *ngSwitchCase="AppSource.Official" i18n
+            >Official</ng-container
           >
-            {{ app.homePage }}
-          </div>
-          <div class="source" *ngIf="app.source" [ngSwitch]="app.source">
-            <ng-container *ngSwitchCase="AppSource.Official"
-              >Official</ng-container
-            >
-            <ng-container *ngSwitchCase="AppSource.ThirdParty"
-              >Third-party</ng-container
-            >
-          </div>
+          <ng-container *ngSwitchCase="AppSource.ThirdParty" i18n
+            >Third-party</ng-container
+          >
+        </div>
+        <ng-container *ngIf="app.localInfo.tags?.length">
+          <div i18n>Tag:</div>
           <div class="tags" *ngIf="app.localInfo.tags.length > 0">
-            <span
-              class="tag"
-              *ngFor="let tag of app.localInfo.tags"
-              [routerLink]="['/tag', tag]"
-              >{{ tag }}</span
-            >
-          </div>
-          <div class="pre selectable">
-            {{ app.localInfo.description.description }}
-          </div>
+            <div *ngFor="let tag of app.localInfo.tags">
+              <span class="tag" [routerLink]="['/tag', tag]">{{ tag }}</span>
+            </div>
+          </div></ng-container
+        >
+        <div i18n>Description:</div>
+        <div class="pre selectable">
+          {{ app.localInfo.description.description }}
         </div>
       </div>
     </div>
