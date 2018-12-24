@@ -1,22 +1,25 @@
-<div *ngIf="app$|async as app; else: $loading">
+<div *ngIf="(app$ | async) as app; else $loading">
   <div class="appInfo">
     <div class="info-left">
-      <img class="icon"
-           [src]="app.icon" /> <br />
+      <img class="icon" [src]="app.icon" /> <br />
       <ng-container *ngIf="app.version">
-        <ng-container *ngIf="(job$ | async) as job; else: cltButton">
-          <dstore-progress-button [job]="job.job"
-                                  [type]="job.type"
-                                  [status]="job.status"
-                                  [progress]="job.progress"
-                                  [disabled]="!job.cancelable || job.status === StoreJobStatus.failed"></dstore-progress-button>
+        <ng-container *ngIf="(job$ | async) as job; else cltButton">
+          <dstore-progress-button
+            [job]="job.job"
+            [type]="job.type"
+            [status]="job.status"
+            [progress]="job.progress"
+            [disabled]="!job.cancelable || job.status === StoreJobStatus.failed"
+          ></dstore-progress-button>
         </ng-container>
         <ng-template #cltButton>
-          <dstore-job-button class="jobButton"
-                             [version]="app.version"
-                             [appName]="app.name"
-                             [localName]="app.localInfo.description.name"
-                             [openType]="app.extra['open']"></dstore-job-button>
+          <dstore-job-button
+            class="jobButton"
+            [version]="app.version"
+            [appName]="app.name"
+            [localName]="app.localInfo.description.name"
+            [openType]="app.extra['open']"
+          ></dstore-job-button>
         </ng-template>
       </ng-container>
     </div>
@@ -31,63 +34,70 @@
             <div i18n>Size:</div>
           </ng-container>
           <div i18n>Updated Date:</div>
-          <div *ngIf="app.homePage"
-               i18n>Website:</div>
-          <div *ngIf="app.source"
-               i18n>Source:</div>
-          <div *ngIf="app.localInfo.tags.length>0"
-               i18n>Tags:</div>
+          <div *ngIf="app.homePage" i18n>Website:</div>
+          <div *ngIf="app.source" i18n>Source:</div>
+          <div *ngIf="app.localInfo.tags.length > 0" i18n>Tag:</div>
           <div i18n>Description:</div>
         </div>
         <div class="info">
           <div class="rate">
             <dstore-star [rate]="app.rate"></dstore-star>
             <span class="details">{{ app.rate.toFixed(1) }}</span>
-            <span class="details"
-                  i18n>{{ app.downloads }} downloads</span>
-            <span class="details"
-                  i18n>{{ app.ratings }} ratings</span>
+            <span class="details" i18n>{{ app.downloads }} downloads</span>
+            <span class="details" i18n>{{ app.ratings }} ratings</span>
           </div>
           <div>{{ app.localCategory }}</div>
           <ng-container *ngIf="app.version">
-            <div>{{ app.version.remoteVersion || app.version.localVersion }}</div>
             <div>
-              <ng-container *ngIf="(size$|async)?.get(app.name) as size;else calculating">
+              {{ app.version.remoteVersion || app.version.localVersion }}
+            </div>
+            <div>
+              <ng-container
+                *ngIf="(size$ | async)?.get(app.name) as size; else calculating"
+              >
                 {{ size | sizeHuman }}
               </ng-container>
-              <ng-template #calculating
-                           let-size>
-                <ng-container *ngIf="size===null"
-                              i18n>Calculating</ng-container>
-                <ng-container *ngIf="size===0"
-                              i18n>Downloaded</ng-container>
+              <ng-template #calculating let-size>
+                <ng-container *ngIf="size === null" i18n
+                  >Calculating</ng-container
+                >
+                <ng-container *ngIf="size === 0" i18n>Downloaded</ng-container>
               </ng-template>
             </div>
           </ng-container>
           <div>
-            {{ app.updateTime | date: 'yyyy-MM-dd HH:mm' }} <span class="toRight">&lt;</span>
-            <button class="reminder"
-                    (click)="reminder(app)"
-                    i18n>Ask for update</button>
+            {{ app.updateTime | date: 'yyyy-MM-dd HH:mm' }}
+            <span class="toRight">&lt;</span>
+            <button class="reminder" (click)="reminder(app)" i18n>
+              Ask for update
+            </button>
           </div>
-          <div class="webSite"
-               *ngIf="app.homePage"
-               (click)="openURL(app.homePage)">
+          <div
+            class="webSite"
+            *ngIf="app.homePage"
+            (click)="openURL(app.homePage)"
+          >
             {{ app.homePage }}
           </div>
-          <div class="source"
-               *ngIf="app.source"
-               [ngSwitch]="app.source">
-            <ng-container *ngSwitchCase="AppSource.Official">Official</ng-container>
-            <ng-container *ngSwitchCase="AppSource.ThirdParty">Third-party</ng-container>
+          <div class="source" *ngIf="app.source" [ngSwitch]="app.source">
+            <ng-container *ngSwitchCase="AppSource.Official"
+              >Official</ng-container
+            >
+            <ng-container *ngSwitchCase="AppSource.ThirdParty"
+              >Third-party</ng-container
+            >
           </div>
-          <div class="tags"
-               *ngIf="app.localInfo.tags.length>0">
-            <span class="tag"
-                  *ngFor="let tag of app.localInfo.tags"
-                  [routerLink]="['/tag',tag]">{{tag}}</span>
+          <div class="tags" *ngIf="app.localInfo.tags.length > 0">
+            <span
+              class="tag"
+              *ngFor="let tag of app.localInfo.tags"
+              [routerLink]="['/tag', tag]"
+              >{{ tag }}</span
+            >
           </div>
-          <div class="pre selectable">{{ app.localInfo.description.description }}</div>
+          <div class="pre selectable">
+            {{ app.localInfo.description.description }}
+          </div>
         </div>
       </div>
     </div>
@@ -95,36 +105,38 @@
   <br />
   <br />
 
-  <app-screenshot [screenshotList]="
-      [app.localInfo.images.screenshot, app.localInfo.images.screenshotHD] | fitImage
-    "></app-screenshot>
+  <app-screenshot
+    [screenshotList]="
+      [app.localInfo.images.screenshot, app.localInfo.images.screenshotHD]
+        | fitImage
+    "
+  ></app-screenshot>
 
   <ng-container *ngIf="app.version">
     <app-donate [appName]="app.name"></app-donate>
     <div class="hr"></div>
     <br />
-    <dstore-app-comment [appName]="app.name"
-                        [version]="app.version.remoteVersion || app.version.localVersion"></dstore-app-comment>
-    <div class="ad"
-         *ngIf="(adVisible | async)"
-         i18n>CDN supported by UPYUN</div>
+    <dstore-app-comment
+      [appName]="app.name"
+      [version]="app.version.remoteVersion || app.version.localVersion"
+    ></dstore-app-comment>
+    <div class="ad" *ngIf="(adVisible | async)" i18n>
+      CDN supported by UPYUN
+    </div>
   </ng-container>
 </div>
 
-<ng-template #$loading
-             let-$app>
-  <div class="loadingContainer"
-       *ngIf="$app === null; else: $DropOff">
+<ng-template #$loading let-$app>
+  <div class="loadingContainer" *ngIf="$app === null; else $DropOff">
     <app-wait></app-wait>
   </div>
 
   <ng-template #$DropOff>
     <div class="dropOff">
-      <img class="tips_bg"
-           src="/assets/icons/tips_bg.svg" /> <span i18n>Sorry</span>
+      <img class="tips_bg" src="/assets/icons/tips_bg.svg" />
+      <span i18n>Sorry</span>
       <span i18n>It's in adjustment, you can return to</span>
-      <a href="javascript:history.go(-1)"
-         i18n>Previous</a>
+      <a href="javascript:history.go(-1)" i18n>Previous</a>
     </div>
   </ng-template>
 
