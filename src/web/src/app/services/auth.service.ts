@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { concat, BehaviorSubject } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { Channel } from 'app/modules/client/utils/channel';
@@ -9,13 +10,19 @@ import { Channel } from 'app/modules/client/utils/channel';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private zone: NgZone) {
+  constructor(private router: Router) {
     Channel.exec<UserInfo>('account.getUserInfo').then(info => {
       this.userInfo$.next(info);
     });
     Channel.connect<UserInfo>('account.userInfoChanged').subscribe(info => {
       console.log('userinfo', info);
       this.userInfo$.next(info);
+    });
+    // 退出登录后,刷新当前页面,以进行路由守卫验证
+    this.logged$.subscribe(logged => {
+      if (!logged) {
+        this.router.navigate(['./']);
+      }
     });
   }
   private userInfo$ = new BehaviorSubject<UserInfo>(null);
