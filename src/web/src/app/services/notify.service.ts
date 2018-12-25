@@ -2,16 +2,18 @@ import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { ReplaySubject } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { Notify, NotifyType, NotifyStatus } from './notify.model';
 import { BaseService } from '../dstore/services/base.service';
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class NotifyService {
   private notify$ = new ReplaySubject<Notify>(1);
-  constructor(private http: HttpClient, private zone: NgZone) {
+  constructor(private http: HttpClient, private auth: AuthService) {
     this.getBulletin();
     if (BaseService.isNative) {
       DstoreObject.clearArchives().subscribe(() => {
@@ -61,7 +63,14 @@ export class NotifyService {
     return this.notify({ status: NotifyStatus.Success, type: t, delay: 2000 });
   }
   error(t: NotifyType) {
-    return this.notify({ status: NotifyStatus.Error, type: t, delay: 3000 });
+    const n = { status: NotifyStatus.Error, type: t, delay: 3000 };
+    if (t === NotifyType.Recommend || t === NotifyType.Reminder) {
+      this.auth.logged$
+        .pipe(first())
+        .subscribe(logged => logged && this.notify(n));
+      return;
+    }
+    return this.notify(n);
   }
 
   obs() {
