@@ -152,7 +152,7 @@ func (m *Metadata) getUserSettings(group, key string) *ini.Key {
 }
 
 func (m *Metadata) getAutoInstall() bool {
-	return m.getUserSettings("General", "autoInstall").MustBool()
+	return m.getUserSettings(groupGeneral, keyAutoInstall).MustBool()
 }
 
 func (m *Metadata) getRegion() int {

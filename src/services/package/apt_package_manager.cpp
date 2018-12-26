@@ -252,16 +252,16 @@ PMResult AptPackageManager::QueryInstalledTime(const QList<Package> &packages)
     return PMResult::warp(result);
 }
 
-PMResult AptPackageManager::ListInstalled(const QList<QString> &packageIDs)
+PMResult AptPackageManager::ListInstalled(const QList<QString> &/*packageIDs*/)
 {
     Q_D(AptPackageManager);
 //    auto packageIDs = getIDs(packages);
 
     //TODO: remove
-    QMap<QString, int> apps;
-    for (auto id : packageIDs) {
-        apps.insert(id, 1);
-    }
+//    QMap<QString, int> apps;
+//    for (auto id : packageIDs) {
+//        apps.insert(id, 1);
+//    }
 
     const QDBusPendingReply<InstalledAppInfoList> reply =
         d->deb_interface_->ListInstalled();
@@ -281,11 +281,11 @@ PMResult AptPackageManager::ListInstalled(const QList<QString> &packageIDs)
         pkg.packageURI = "dpk://deb/" + packageID;
 
         // TODO: remove name
-        if (apps.contains(packageID)) {
-            result.append(pkg.toVariantMap());
+//        if (apps.contains(packageID)) {
+        result.append(pkg.toVariantMap());
 //            qDebug() << info.pkg_name << info.size << info.version;
 //            break; // for debug
-        }
+//        }
     }
 
     return PMResult::warp(result);
