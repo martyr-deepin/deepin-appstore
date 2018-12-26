@@ -12,6 +12,7 @@
   class="remote-apps"
   dstoreResize
   (resize)="listHeight$.next($event.height)"
+  *ngIf="(installing$ | async) as installing"
 >
   <ng-container *ngIf="(apps$ | async) as apps; else loading">
     <div class="remote-app" *ngFor="let remoteApp of apps">
@@ -31,9 +32,15 @@
             <span i18n>Version:</span> {{ remoteApp.app.version.remoteVersion }}
           </div>
           <div class="control">
-            <button *ngIf="remoteApp.app.version.upgradable; else installed">
-              <ng-container i18n>Update</ng-container>
-            </button>
+            <ng-container
+              *ngIf="installing.includes(remoteApp.app.name); else update"
+              ><button i18n disabled>Installing</button></ng-container
+            >
+            <ng-template #update>
+              <button *ngIf="remoteApp.app.version.upgradable; else installed">
+                <ng-container i18n>Update</ng-container>
+              </button>
+            </ng-template>
             <ng-template #installed>
               <button
                 disabled

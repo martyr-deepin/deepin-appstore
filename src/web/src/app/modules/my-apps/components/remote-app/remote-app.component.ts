@@ -36,6 +36,7 @@ export class RemoteAppComponent implements OnInit {
       return Math.ceil(result.totalCount / size);
     }),
   );
+  installing$ = this.remoteAppService.installingList();
   gotoPage = (page: number) =>
     this.router.navigate([], { queryParams: { page: page + 1 } });
 

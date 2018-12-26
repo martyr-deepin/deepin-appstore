@@ -103,13 +103,16 @@ export class DownloadComponent implements OnInit, OnDestroy {
     } catch (e) {
       err = { ErrType: StoreJobErrorType.unknown, ErrDetail: job.description };
     }
+
+    this.storeService.resumeJob(job.job);
+
     if (CanFixError.includes(err.ErrType)) {
       this.fixing = true;
       this.storeService
         .fixError(err.ErrType.toString().split('::')[1])
         .pipe(
           switchMap(
-            jobPath => this.storeService.jobListChange(),
+            () => this.storeService.jobListChange(),
             (jobPath, jobList) => jobList.includes(jobPath),
           ),
           filter(exists => !exists),
@@ -118,8 +121,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
           this.fixing = false;
           this.storeService.resumeJob(job.job);
         });
-    } else {
-      this.storeService.resumeJob(job.job);
     }
   }
   cancel(job: string) {

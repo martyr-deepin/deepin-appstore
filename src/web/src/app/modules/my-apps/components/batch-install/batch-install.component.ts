@@ -80,5 +80,6 @@ export class BatchInstallComponent implements OnInit {
 
   installAll() {
     this.remoteAppService.installApps([...this.batchInstall.values()]);
+    this.hide();
   }
 }
