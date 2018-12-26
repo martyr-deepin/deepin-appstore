@@ -1,16 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, BehaviorSubject } from 'rxjs';
-import {
-  map,
-  switchMap,
-  share,
-  tap,
-  debounceTime,
-  filter,
-  distinctUntilChanged,
-} from 'rxjs/operators';
+import { map, switchMap, share, distinctUntilChanged } from 'rxjs/operators';
 import { RemoteAppService } from './../../services/remote-app.service';
+import { App } from 'app/services/app.service';
 
 @Component({
   selector: 'dstore-remote-app',
@@ -28,9 +21,13 @@ export class RemoteAppComponent implements OnInit {
     map(height => Math.floor(height / 64)),
     distinctUntilChanged(),
   );
-  pageIndex$ = this.route.queryParamMap.pipe(map(query => Number(query.get('page') || 1) - 1));
+  pageIndex$ = this.route.queryParamMap.pipe(
+    map(query => Number(query.get('page') || 1) - 1),
+  );
   result$ = combineLatest(this.pageIndex$, this.pageSize$).pipe(
-    switchMap(([index, size]) => this.remoteAppService.RemoteAppList(index + 1, size)),
+    switchMap(([index, size]) =>
+      this.remoteAppService.RemoteAppList(index + 1, size),
+    ),
     share(),
   );
   apps$ = this.result$.pipe(map(result => result.apps));
@@ -39,6 +36,12 @@ export class RemoteAppComponent implements OnInit {
       return Math.ceil(result.totalCount / size);
     }),
   );
-  gotoPage = (page: number) => this.router.navigate([], { queryParams: { page: page + 1 } });
+  gotoPage = (page: number) =>
+    this.router.navigate([], { queryParams: { page: page + 1 } });
+
   ngOnInit() {}
+
+  installApp(app: App) {
+    this.remoteAppService.installApps([app]);
+  }
 }

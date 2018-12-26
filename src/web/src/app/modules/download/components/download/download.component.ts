@@ -1,7 +1,28 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { Observable, of, forkJoin, timer, iif, merge, Subscription } from 'rxjs';
-import { switchMap, map, tap, filter, publishReplay, refCount } from 'rxjs/operators';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
+import {
+  Observable,
+  of,
+  forkJoin,
+  timer,
+  iif,
+  merge,
+  Subscription,
+} from 'rxjs';
+import {
+  switchMap,
+  map,
+  tap,
+  filter,
+  publishReplay,
+  refCount,
+} from 'rxjs/operators';
 
 import { AppService, App } from 'app/services/app.service';
 import { StoreService } from 'app/modules/client/services/store.service';
@@ -46,7 +67,11 @@ export class DownloadComponent implements OnInit, OnDestroy {
   result$ = this.jobService.jobsInfo().pipe(
     map(jobs => {
       return jobs
-        .filter(job => job.type === StoreJobType.download || job.type === StoreJobType.install)
+        .filter(
+          job =>
+            job.type === StoreJobType.download ||
+            job.type === StoreJobType.install,
+        )
         .sort((a, b) => b.createTime - a.createTime);
     }),
     switchMap(
@@ -55,7 +80,10 @@ export class DownloadComponent implements OnInit, OnDestroy {
         return this.appService.getApps(names);
       },
       (jobs, apps) => {
-        return apps.map(app => ({ app, job: jobs.find(job => job.names.includes(app.name)) }));
+        return apps.map(app => ({
+          app,
+          job: jobs.find(job => job.names.includes(app.name)),
+        }));
       },
     ),
   );
@@ -65,30 +93,9 @@ export class DownloadComponent implements OnInit, OnDestroy {
   cancels = new Set<string>();
   fixing = false;
 
-  ngOnInit() {
-    // this.jobs$ = this.jobService.jobsInfo().subscribe(jobs => {
-    //   jobs = jobs.filter(
-    //     job => job.type === StoreJobType.download || job.type === StoreJobType.install,
-    //   );
-    //   const list = jobs.map(job => job.id);
-    //   this.jobs.forEach((job, index) => {
-    //     if (!list.includes(job.id)) {
-    //       this.jobs.splice(index, 1);
-    //     }
-    //   });
-    //   jobs.forEach(job => {
-    //     const old = this.jobs.find(j => j.id === job.id);
-    //     if (old) {
-    //       Object.assign(old, job);
-    //     } else {
-    //       this.jobs.unshift(job);
-    //     }
-    //   });
-    //   this.loaded = true;
-    // });
-  }
-
+  ngOnInit() {}
   ngOnDestroy() {}
+
   retry(job: StoreJobInfo) {
     let err: StoreJobError;
     try {
@@ -121,5 +128,8 @@ export class DownloadComponent implements OnInit, OnDestroy {
   }
   floor(n: number): number {
     return Math.floor(n);
+  }
+  trackByFn(index, item) {
+    return item.job.job;
   }
 }

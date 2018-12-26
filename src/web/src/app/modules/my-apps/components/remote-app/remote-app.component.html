@@ -42,7 +42,9 @@
                 <ng-container i18n>Installed</ng-container>
               </button>
             </ng-template>
-            <ng-template #install> <button i18n>Install</button> </ng-template>
+            <ng-template #install>
+              <button (click)="installApp(remoteApp.app)" i18n>Install</button>
+            </ng-template>
           </div>
         </ng-container>
         <ng-template #noVersionError>

@@ -30,7 +30,7 @@ export class JobService {
     }
     const defer = Array.from(this.cache.values())
       .filter(job => !list.includes(job.job))
-      .map(job => job.id);
+      .map(job => job.job);
     if (defer.length > 0) {
       setTimeout(() => {
         defer.forEach(id => this.cache.delete(id));
@@ -51,7 +51,7 @@ export class JobService {
             return true;
           });
           infoList.forEach(job => {
-            this.cache.set(job.id, job);
+            this.cache.set(job.job, job);
           });
           this.jobInfoList$.next(Array.from(this.cache.values()));
         });
