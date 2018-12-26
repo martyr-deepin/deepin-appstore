@@ -69,15 +69,20 @@
         >
           {{ app.homePage }}
         </div>
-        <div *ngIf="app.source" i18n>Source:</div>
-        <div class="source" *ngIf="app.source" [ngSwitch]="app.source">
-          <ng-container *ngSwitchCase="AppSource.Official" i18n
-            >Official</ng-container
-          >
-          <ng-container *ngSwitchCase="AppSource.ThirdParty" i18n
-            >Third-party</ng-container
-          >
-        </div>
+        <ng-container *ngIf="app.source">
+          <div i18n>Source:</div>
+          <div class="source" [ngSwitch]="app.source">
+            <ng-container *ngSwitchCase="AppSource.ThirdParty" i18n
+              >Third-party</ng-container
+            >
+            <ng-container *ngSwitchCase="AppSource.Official" i18n
+              >Official</ng-container
+            >
+            <ng-container *ngSwitchCase="AppSource.Collaborative" i18n
+              >Collaborative</ng-container
+            >
+          </div>
+        </ng-container>
         <ng-container *ngIf="app.localInfo.tags?.length">
           <div i18n>Tag:</div>
           <div class="tags" *ngIf="app.localInfo.tags.length > 0">
