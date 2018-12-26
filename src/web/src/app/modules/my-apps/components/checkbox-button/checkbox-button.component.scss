@@ -1,18 +1,27 @@
 .checkbox-button {
   width: 16px;
   height: 16px;
-  background-image: var(--checkbox-button-icon);
   background-repeat: no-repeat;
-  background-position-x: 0px, 16px, 16px, 16px;
+  background-image: var(--checkbox-button-icon);
+  background-position-x: 0px, -100px, -100px;
+  &:hover {
+    background-position-x: -100px, 0px, -100px;
+  }
+  &:active {
+    background-position-x: -100px, -100px, 0px;
+  }
   &.active {
-    background-position-x: 16px, 16px, 0px, 16px;
+    background-image: var(--checkbox-button-checked-icon);
   }
   &.disabled {
-    background-position-x: 16px, 16px, 16px, 0px;
+    background-image: var(--checkbox-disabled-icon);
+    background-position: unset;
   }
 }
-:host.hover {
-  .checkbox-button:not(.active):not(.disabled) {
-    background-position-x: 16px, 0px, 16px, 16px;
-  }
-}
+// :host {
+//   &.hover {
+//     .checkbox-button:not(.active):not(.disabled) {
+//       background-position-x: 16px, 0px, 16px, 16px, -100px;
+//     }
+//   }
+// }

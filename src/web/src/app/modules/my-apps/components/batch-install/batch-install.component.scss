@@ -31,9 +31,7 @@ dialog {
     flex: 30%;
     display: flex;
     align-items: center;
-    &:nth-child(odd) {
-      background-color: var(--main-item-bg-color-hover);
-    }
+    padding-left: 1rem;
     img {
       width: 1.5rem;
       height: 1.5rem;
@@ -65,4 +63,5 @@ button {
   margin-bottom: 1rem;
   font-size: 1rem;
   height: 50px;
+  padding: 0 2rem;
 }

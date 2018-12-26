@@ -1,5 +1,5 @@
-$category-list: homepage ranking internet chat music video graphics game office reading development
-  system others downloads uninstall;
+$category-list: homepage ranking internet chat music video graphics game office
+  reading development system others downloads uninstall;
 
 $control-button: ('cancel' 'pause' 'restart' 'start');
 
@@ -16,7 +16,8 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --scrollbar-color-active: rgba(0, 0, 0, 0.8);
 
   @each $v in $category-list {
-    --nav-icon-#{$v}: url('/assets/icons/light/#{$v}.svg'), url('/assets/icons/#{$v}_active.svg');
+    --nav-icon-#{$v}: url('/assets/icons/light/#{$v}.svg'),
+      url('/assets/icons/#{$v}_active.svg');
   }
 
   --main-color: black;
@@ -30,14 +31,20 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --start-icon: url('/assets/buttons/light/start.svg');
   --pause-icon: url('/assets/buttons/light/pause.svg');
   --down-icon: url('/assets/buttons/light/down_normal.svg'),
-    url('/assets/buttons/light/down_hover.svg'), url('/assets/buttons/light/down_press.svg');
+    url('/assets/buttons/light/down_hover.svg'),
+    url('/assets/buttons/light/down_press.svg');
   --random-icon: url('/assets/buttons/light/random_normal.svg'),
-    url('/assets/buttons/light/random_hover.svg'), url('/assets/buttons/light/random_press.svg');
+    url('/assets/buttons/light/random_hover.svg'),
+    url('/assets/buttons/light/random_press.svg');
   --dialog-close-icon: url('/assets/buttons/light/close_light.svg');
-  --checkbox-button-icon: url('/assets/buttons/light/checkbox-checked.svg'),
+
+  --checkbox-disabled-icon: url('/assets/buttons/light/checkbox-checked-insensitive.svg');
+  --checkbox-button-icon: url('/assets/buttons/light/checkbox-unchecked.svg'),
+    url('/assets/buttons/light/checkbox-unchecked-hover.svg'),
+    url('/assets/buttons/light/checkbox-unchecked-press.svg');
+  --checkbox-button-checked-icon: url('/assets/buttons/light/checkbox-checked.svg'),
     url('/assets/buttons/light/checkbox-checked-hover.svg'),
-    url('/assets/buttons/light/checkbox-checked-press.svg'),
-    url('/assets/buttons/light/checkbox-checked-insensitive.svg');
+    url('/assets/buttons/light/checkbox-checked-press.svg');
 
   --wechat-icon: url('/assets/icons/light/wechat.svg');
   --alipay-icon: url('/assets/icons/light/alipay.svg');
@@ -45,7 +52,8 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
 
   @each $v in $control-button {
     --control-icon-#{$v}: url('/assets/buttons/light/#{$v}_normal.svg'),
-      url('/assets/buttons/light/#{$v}_hover.svg'), url('/assets/buttons/light/#{$v}_press.svg'),
+      url('/assets/buttons/light/#{$v}_hover.svg'),
+      url('/assets/buttons/light/#{$v}_press.svg'),
       url('/assets/buttons/light/#{$v}_insensitive.svg');
   }
   button {
@@ -102,21 +110,28 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
   --start-icon: url('/assets/buttons/dark/start.svg');
   --pause-icon: url('/assets/buttons/dark/pause.svg');
   --down-icon: url('/assets/buttons/dark/down_normal.svg'),
-    url('/assets/buttons/dark/down_hover.svg'), url('/assets/buttons/dark/down_press.svg');
+    url('/assets/buttons/dark/down_hover.svg'),
+    url('/assets/buttons/dark/down_press.svg');
   --random-icon: url('/assets/buttons/dark/random_normal.svg'),
-    url('/assets/buttons/dark/random_hover.svg'), url('/assets/buttons/dark/random_press.svg');
+    url('/assets/buttons/dark/random_hover.svg'),
+    url('/assets/buttons/dark/random_press.svg');
   --dialog-close-icon: url('/assets/buttons/dark/close_dark.svg');
-  --checkbox-button-icon: url('/assets/buttons/dark/checkbox-checked.svg'),
+
+  --checkbox-disabled-icon: url('/assets/buttons/dark/checkbox-checked-insensitive.svg');
+  --checkbox-button-icon: url('/assets/buttons/dark/checkbox-unchecked.svg'),
+    url('/assets/buttons/dark/checkbox-unchecked-hover.svg'),
+    url('/assets/buttons/dark/checkbox-unchecked-press.svg');
+  --checkbox-button-checked-icon: url('/assets/buttons/dark/checkbox-checked.svg'),
     url('/assets/buttons/dark/checkbox-checked-hover.svg'),
-    url('/assets/buttons/dark/checkbox-checked-press.svg'),
-    url('/assets/buttons/dark/checkbox-checked-insensitive.svg');
+    url('/assets/buttons/dark/checkbox-checked-press.svg');
 
   --wechat-icon: url('/assets/icons/dark/wechat.svg');
   --alipay-icon: url('/assets/icons/dark/alipay.svg');
   --paypal-icon: url('/assets/icons/dark/paypal.svg');
 
   @each $v in $category-list {
-    --nav-icon-#{$v}: url('/assets/icons/dark/#{$v}.svg'), url('/assets/icons/#{$v}_active.svg');
+    --nav-icon-#{$v}: url('/assets/icons/dark/#{$v}.svg'),
+      url('/assets/icons/#{$v}_active.svg');
   }
 
   --main-color: rgba(255, 255, 255, 0.8);
@@ -127,7 +142,8 @@ $control-button: ('cancel' 'pause' 'restart' 'start');
 
   @each $v in $control-button {
     --control-icon-#{$v}: url('/assets/buttons/dark/#{$v}_normal.svg'),
-      url('/assets/buttons/dark/#{$v}_hover.svg'), url('/assets/buttons/dark/#{$v}_press.svg'),
+      url('/assets/buttons/dark/#{$v}_hover.svg'),
+      url('/assets/buttons/dark/#{$v}_press.svg'),
       url('/assets/buttons/dark/#{$v}_insensitive.svg');
   }
 

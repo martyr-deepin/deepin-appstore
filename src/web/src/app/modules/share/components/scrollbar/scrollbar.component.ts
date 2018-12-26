@@ -1,8 +1,12 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
-import { Router, RouterEvent, NavigationStart, NavigationEnd } from '@angular/router';
+import { Component, OnInit, OnDestroy, ElementRef, Input } from '@angular/core';
+import {
+  Router,
+  RouterEvent,
+  NavigationStart,
+  NavigationEnd,
+} from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { Subscription } from 'rxjs';
-import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'dstore-scrollbar',
@@ -10,11 +14,14 @@ import { filter, pairwise } from 'rxjs/operators';
   styleUrls: ['./scrollbar.component.scss'],
 })
 export class ScrollbarComponent implements OnInit, OnDestroy {
-  constructor(private router: Router) {}
-  @ViewChild('scrollbar')
-  scrollbarEl: ElementRef<HTMLDivElement>;
+  constructor(
+    private scrollbarEl: ElementRef<HTMLDivElement>,
+    private router: Router,
+  ) {}
   @Input()
   savePosition: boolean;
+  @Input()
+  full = false;
   position = new Map<number, [number, number]>();
   restored: Subscription;
 

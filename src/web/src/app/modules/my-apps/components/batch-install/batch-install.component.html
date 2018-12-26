@@ -4,7 +4,7 @@
     <div class="title" i18n>Please select the apps to install</div>
     <div class="container">
       <ng-container *ngIf="(apps$ | async) as apps">
-        <dstore-scrollbar class="scrollbar">
+        <dstore-scrollbar [full]="true">
           <div class="app-list">
             <div
               class="app"
@@ -39,7 +39,7 @@
       </ng-container>
     </div>
     <div class="text-align">
-      <button class="primary" (click)="installAll()">
+      <button class="primary installAll" (click)="installAll()">
         <ng-container i18n>Start Installation</ng-container>
       </button>
     </div>

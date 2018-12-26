@@ -24,13 +24,15 @@ import { RemoteAppService } from './../../services/remote-app.service';
 export class BatchInstallComponent implements OnInit {
   @ViewChild('dialog')
   dialogRef: ElementRef<HTMLDialogElement>;
-  pageSize = 36;
+  pageSize = 33;
   batchInstall = new Map<string, App>();
 
   pageIndex$ = new BehaviorSubject<number>(0);
   result$ = this.pageIndex$.pipe(
     distinctUntilChanged(),
-    switchMap(pageIndex => this.remoteAppService.RemoteAppList(pageIndex + 1, this.pageSize)),
+    switchMap(pageIndex =>
+      this.remoteAppService.RemoteAppList(pageIndex + 1, this.pageSize),
+    ),
     publishReplay(1),
     refCount(),
   );
@@ -71,7 +73,9 @@ export class BatchInstallComponent implements OnInit {
     });
   }
   selectPage(apps: App[]) {
-    apps.filter(app => this.upgrade(app)).forEach(app => this.batchInstall.set(app.name, app));
+    apps
+      .filter(app => this.upgrade(app))
+      .forEach(app => this.batchInstall.set(app.name, app));
   }
 
   installAll() {
