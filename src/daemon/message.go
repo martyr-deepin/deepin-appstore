@@ -32,6 +32,32 @@ type msgInstall struct {
 	} `json:"apps"`
 }
 
+func (m *Metadata) shouldInstall(packageName string) bool {
+	if _, ok := m.block.list[packageName]; ok {
+		logger.Infof("skip by user remove package")
+		return false
+	}
+
+	// check if install
+	infos, _ := m.debBackend.QueryVersion([]string{packageName})
+	if len(infos) < 1 {
+		logger.Warningf("can not find package: %v", packageName)
+		return true
+	}
+
+	info := infos[0]
+	if info.Upgradable {
+		return true
+	}
+
+	if "" == info.LocalVersion {
+		return true
+	}
+
+	logger.Infof("skip by user has install package")
+	return false
+}
+
 func (m *Metadata) handleInstall(playload map[string]interface{}) error {
 	if !m.getAutoInstall() {
 		logger.Infof("auto install disabled, skip %v playload", playload)
@@ -49,8 +75,7 @@ func (m *Metadata) handleInstall(playload map[string]interface{}) error {
 	for _, app := range msg.Apps {
 		for _, dpk := range app.PackageURIList {
 			packageName := strings.Replace(dpk, "dpk://deb/", "", -1)
-			if _, ok := m.block.list[packageName]; ok {
-				logger.Infof("skip user remove package")
+			if !m.shouldInstall(packageName) {
 				continue
 			}
 			logger.Infof("install %v %v", app.Name, packageName)

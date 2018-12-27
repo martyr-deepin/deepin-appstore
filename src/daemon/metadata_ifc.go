@@ -82,6 +82,8 @@ func (m *Metadata) OnMessage(playload map[string]interface{}) *dbus.Error {
 	switch action {
 	case "install":
 		err = m.handleInstall(playload)
+	default:
+		logger.Warning("unknown action %v", playload)
 	}
 
 	if nil != err {
