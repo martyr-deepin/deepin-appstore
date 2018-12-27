@@ -26,6 +26,7 @@ export class LocalAppComponent implements OnInit {
     private localAppService: LocalAppService,
     private authService: AuthService,
   ) {}
+  DisabledList = DisabledList;
   logged = this.authService.logged$;
   removing: string[] = [];
   select: string;
@@ -63,3 +64,11 @@ export class LocalAppComponent implements OnInit {
 
   ngOnInit() {}
 }
+
+const DisabledList = [
+  'dde-control-center',
+  'dde-introduction',
+  'dde-file-manager',
+  'deepin-appstore',
+  'deepin-manual',
+];

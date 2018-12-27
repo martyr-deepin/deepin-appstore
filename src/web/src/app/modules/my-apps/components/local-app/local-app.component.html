@@ -67,7 +67,10 @@
             </ng-template>
             <ng-container *ngIf="select != installed.name; else confirmBtn">
               <ng-template #uninstall>
-                <button (click)="select = installed.name">
+                <button
+                  (click)="select = installed.name"
+                  [disabled]="DisabledList.includes(installed.name)"
+                >
                   <ng-container i18n>Uninstall</ng-container>
                 </button>
               </ng-template>
