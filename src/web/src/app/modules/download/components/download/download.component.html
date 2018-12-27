@@ -3,7 +3,7 @@
 </ng-template>
 
 <div class="list" *ngIf="(result$ | async) as result; else loading">
-  <div class="title">
+  <div class="title" *ngIf="result as jobs">
     <ng-container i18n
       >Processing {{ jobs.length }} {jobs.length, plural,=0 {task} =1 {task}
       other {tasks}}</ng-container
