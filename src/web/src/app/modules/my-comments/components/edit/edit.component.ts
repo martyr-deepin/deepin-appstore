@@ -25,6 +25,7 @@ export class EditComponent implements OnInit {
   content: string;
   rate: number;
   version: string;
+  error: boolean;
   _comment: UserComment;
   @Output()
   close = new EventEmitter<boolean>();
@@ -39,7 +40,10 @@ export class EditComponent implements OnInit {
     this.version = c.version;
     this.app$ = this.appService.getApp(c.appName, false, false);
   }
-  constructor(private commentService: CommentsService, private appService: AppService) {}
+  constructor(
+    private commentService: CommentsService,
+    private appService: AppService,
+  ) {}
 
   ngOnInit() {
     this.dialogRef.nativeElement.addEventListener('close', () => {
@@ -50,13 +54,20 @@ export class EditComponent implements OnInit {
     this.close.emit(changed);
   }
   submit() {
-    this.commentService.delete(this._comment.id).subscribe(() => {
-      this.commentService
-        .create(this._comment.appName, this.content, this.rate * 2, this._comment.version)
-        .subscribe(() => {
-          this.closed(true);
-        });
-    });
+    this.commentService
+      .update(this._comment.id, {
+        appName: this._comment.appName,
+        content: this.content,
+        rate: this.rate * 2,
+        version: this._comment.version,
+      })
+      .toPromise()
+      .then(() => {
+        this.closed();
+      })
+      .catch(() => {
+        this.error = true;
+      });
   }
   delete() {
     this.commentService.delete(this._comment.id).subscribe(() => {

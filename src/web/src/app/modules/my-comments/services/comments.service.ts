@@ -37,23 +37,30 @@ export class CommentsService {
         ),
       );
   }
-  create(appName: string, content: string, rate: number, version: string) {
-    const c = {
-      appName,
-      content,
-      rate,
-      version,
-    };
-    return this.http.post(this.server + `/api/user/comment/app/${appName}`, c);
+  create(c: CommentRequest) {
+    return this.http.post(
+      this.server + `/api/user/comment/app/${c.appName}`,
+      c,
+    );
   }
   delete(id: number) {
     return this.http.delete(this.server + `/api/user/my/comment/${id}`);
+  }
+  update(id: number, c: CommentRequest) {
+    return this.http.patch(this.server + `/api/user/my/comment/${id}`, c);
   }
 }
 
 interface Result {
   comment: (UserComment & HasApp)[];
   totalCount: number;
+}
+
+interface CommentRequest {
+  appName: string;
+  content: string;
+  rate: number;
+  version: string;
 }
 
 export interface UserComment {

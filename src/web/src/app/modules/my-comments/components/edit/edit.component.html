@@ -27,6 +27,9 @@
       <ng-container *ngIf="!deleteConfirm; else Delete">
         <button (click)="deleteConfirm = true" i18n>Delete</button>
         <div *ngIf="app.active">
+          <span class="error" *ngIf="error">
+            <ng-container i18n>Failed to submit</ng-container>
+          </span>
           <button (click)="closed()" i18n>Cancel</button> &nbsp;
           <button class="primary" i18n (click)="submit()">Submit</button>
         </div>
