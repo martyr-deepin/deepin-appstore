@@ -1,3 +1,38 @@
+<a name="5.2.0.1"></a>
+## 5.2.0.1 (2019-01-02)
+
+
+#### Features
+
+*   disabled uninstall list ([a57815af](https://github.com/linuxdeepin/deepin-appstore/commit/a57815af2bbf9b5f726637076be06cec4dd96b55))
+*   add app source ([553c0058](https://github.com/linuxdeepin/deepin-appstore/commit/553c0058d6c9de62fd1aae7212dde6f6e2ff7582))
+*   desktop i18n ([d28690ea](https://github.com/linuxdeepin/deepin-appstore/commit/d28690eaf8b845d556404ec3f2d480362b9fd161))
+*   web channel run in angular zone ([3555abc6](https://github.com/linuxdeepin/deepin-appstore/commit/3555abc6367f309cab00ce5a5d224887f4b56e1b))
+*   auto install switch ([3b890956](https://github.com/linuxdeepin/deepin-appstore/commit/3b890956514889decabfc0bbb42498ee3e984403))
+*   performance ([1672e358](https://github.com/linuxdeepin/deepin-appstore/commit/1672e35875741a23aa1417e2537dc816efe7f76c))
+
+#### Bug Fixes
+
+*   skip install package ([b16b5999](https://github.com/linuxdeepin/deepin-appstore/commit/b16b5999046e20d107de35d070096d5953428f17))
+*   update comment ([d70c2829](https://github.com/linuxdeepin/deepin-appstore/commit/d70c2829124fef3257c8dfeeb4c9b5db0368ec0e))
+*   download task count ([ffe8d8cd](https://github.com/linuxdeepin/deepin-appstore/commit/ffe8d8cdf1ff113c30c10f3f4305649d5d16519e))
+*   remote app list button state ([cb13b96c](https://github.com/linuxdeepin/deepin-appstore/commit/cb13b96ca042deef79205870c405d840c31fa518))
+*   do not filter apps ([27805161](https://github.com/linuxdeepin/deepin-appstore/commit/27805161aca7408c00b051cef1f6add5286650d5))
+*   job id ([9296d093](https://github.com/linuxdeepin/deepin-appstore/commit/9296d093c82903fee1b73d6a9f026fb961fe4fc0))
+*   batch install style ([79795e0f](https://github.com/linuxdeepin/deepin-appstore/commit/79795e0f504546332e756896a6b7af3a4040f3cf))
+*   not logged in without notify ([721c92ee](https://github.com/linuxdeepin/deepin-appstore/commit/721c92ee2de9b734e83f65087569652fd32481df))
+*   comment content text ellipsis ([fed88a52](https://github.com/linuxdeepin/deepin-appstore/commit/fed88a52f586c6d795597690f5675246c177bc85))
+*   auth error call login ([04a34a21](https://github.com/linuxdeepin/deepin-appstore/commit/04a34a21970378e717895eb466913d9eb449eec3))
+*   refresh router at after logout ([a3125f00](https://github.com/linuxdeepin/deepin-appstore/commit/a3125f00d4192d9069baf5a564126c6f921637d9))
+*   tag list warp ([9694e128](https://github.com/linuxdeepin/deepin-appstore/commit/9694e128905d673086987bcd072411a34b668fba))
+*   i18n ([73a4c479](https://github.com/linuxdeepin/deepin-appstore/commit/73a4c47963f48ba3e478d30f03f1e2740462a897))
+*   i18n ([6019b31e](https://github.com/linuxdeepin/deepin-appstore/commit/6019b31e435ad2e82e57ffe7f55bb22baedee7fe))
+*   i18n ([91816a91](https://github.com/linuxdeepin/deepin-appstore/commit/91816a914973b3e4e6798cfa451ef8953f012843))
+*   add missing hook ([7c3ee4dc](https://github.com/linuxdeepin/deepin-appstore/commit/7c3ee4dca4b1beb1a6ebdaafd8e0acf34c318683))
+*   web dstore default theme ([c331ff8e](https://github.com/linuxdeepin/deepin-appstore/commit/c331ff8e5c000c22ad0603fd5c2adaad3a7a618d))
+
+
+
 <a name="5.2.0.0"></a>
 ## 5.2.0.0 (2018-12-18)
 
