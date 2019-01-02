@@ -105,7 +105,7 @@
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
-        <source>My donates</source>
+        <source>My donations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -115,7 +115,7 @@
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>
-        <source>Logout</source>
+        <source>Sign out</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

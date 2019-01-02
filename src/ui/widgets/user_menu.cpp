@@ -7,7 +7,7 @@ namespace dstore
 
 class UserMenuPrivate
 {
-public:
+  public:
     UserMenuPrivate(UserMenu *parent) : q_ptr(parent)
     {
         userName = parent->addAction(UserMenu::tr("Username"));
@@ -17,7 +17,7 @@ public:
         parent->connect(comment, &QAction::triggered,
                         parent, &UserMenu::commentRequested);
 
-        Donates = parent->addAction(UserMenu::tr("My donates"));
+        Donates = parent->addAction(UserMenu::tr("My donations"));
         parent->connect(Donates, &QAction::triggered,
                         parent, &UserMenu::requestDonates);
 
@@ -27,7 +27,7 @@ public:
 
         parent->addSeparator();
 
-        logout = parent->addAction(UserMenu::tr("Logout"));
+        logout = parent->addAction(UserMenu::tr("Sign out"));
         parent->connect(logout, &QAction::triggered,
                         parent, &UserMenu::requestLogout);
     }
@@ -42,14 +42,12 @@ public:
     Q_DECLARE_PUBLIC(UserMenu)
 };
 
-UserMenu::UserMenu(QWidget *parent) :
-    QMenu(parent), dd_ptr(new UserMenuPrivate(this))
+UserMenu::UserMenu(QWidget *parent) : QMenu(parent), dd_ptr(new UserMenuPrivate(this))
 {
 }
 
 UserMenu::~UserMenu()
 {
-
 }
 
 void UserMenu::setUsername(const QString &username)
@@ -58,4 +56,4 @@ void UserMenu::setUsername(const QString &username)
     d->userName->setText(username);
 }
 
-}
+} // namespace dstore
