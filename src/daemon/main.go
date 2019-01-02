@@ -42,7 +42,7 @@ func main() {
 	if err != nil {
 		logger.Fatal(err)
 	}
-	m.updateCache()
+	go m.updateCache()
 
 	// caller := service.Conn().Object("com.deepin.pusher", "/com/deepin/pusher")
 	// err = caller.Call("com.deepin.pusher.Register", 0, "store", dbusServiceName, dbusMetadataPath, dbusMetadataInterface).Store()

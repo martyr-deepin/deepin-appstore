@@ -88,13 +88,20 @@ func cacheFetchJSON(v interface{}, url, cacheFilepath string, expire time.Durati
 	}
 	defer resp.Body.Close()
 
-	gzipReader, err := gzip.NewReader(resp.Body)
-	if err != nil {
-		logger.Error("gzip data read failed: %v", err)
-		return err
+	var reader io.ReadCloser
+	switch resp.Header.Get("Content-Encoding") {
+	case "gzip":
+		reader, err = gzip.NewReader(resp.Body)
+		if err != nil {
+			logger.Errorf("gzip data read %q failed: %v", url, err)
+			return err
+		}
+		defer reader.Close()
+	default:
+		reader = resp.Body
 	}
 
-	jsonDec := json.NewDecoder(gzipReader)
+	jsonDec := json.NewDecoder(reader)
 	err = jsonDec.Decode(v)
 	if err != nil {
 		logger.Error("json decode failed: %v", err)

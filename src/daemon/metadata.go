@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/go-ini/ini"
@@ -20,7 +21,8 @@ type Metadata struct {
 	block      *blocklist
 	debBackend *Backend
 
-	apps map[string]*AppBody
+	mutex sync.Mutex
+	apps  map[string]*AppBody
 
 	methods *struct {
 		GetAppIcon         func() `in:"appName" out:"path"`
@@ -179,6 +181,9 @@ func (m *Metadata) getAppIcon(appName string) string {
 }
 
 func (m *Metadata) updateCache() {
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+
 	if len(m.apps) > 0 {
 		return
 	}
