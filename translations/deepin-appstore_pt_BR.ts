@@ -31,7 +31,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>Recommend App</source>
-        <translation>Aplicativos Recomendados</translation>
+        <translation>Recomendar Aplicativos</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>

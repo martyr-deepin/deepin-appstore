@@ -26,7 +26,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="117"/>
         <source>Dark Theme</source>
-        <translation type="unfinished"/>
+        <translation>Тъмна тема</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
@@ -92,12 +92,12 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="103"/>
         <source>Deepin Store</source>
-        <translation type="unfinished"/>
+        <translation>Deepin магазин</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="104"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation type="unfinished"/>
+        <translation>Deepin магазин е приложение с качествени и богати приложения. Предлагат се популярни препоръки, нови актуализирани приложения и горещи теми. Той поддържа едно щракване за изтегляне, инсталиране, актуализиране, деинсталиране и т.н.</translation>
     </message>
 </context>
 </TS>

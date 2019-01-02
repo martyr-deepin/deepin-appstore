@@ -5,7 +5,7 @@
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>在Deepin 商店中搜尋 &quot;%1&quot;</translation>
+        <translation>在 Deepin 商店中搜尋「%1」</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
@@ -31,7 +31,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>Recommend App</source>
-        <translation>推薦的應用程式</translation>
+        <translation>建議應用程式</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="94"/>
         <source>China</source>
-        <translation>中國大陸</translation>
+        <translation>中國</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="96"/>
@@ -56,7 +56,7 @@
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
         <source>Undo</source>
-        <translation>撤銷</translation>
+        <translation>復原</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="78"/>

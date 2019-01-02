@@ -92,12 +92,12 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="103"/>
         <source>Deepin Store</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Winkel</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="104"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Winkel is een app-winkel met kwalitatief goede applicaties. Er is o.a. ondersteuning voor aanbevelingen, nieuw bijgewerkte apps en populaire apps. Ook kunnen apps met één muisklik worden gedownload, geïnstalleerd, bijgewerkt, verwijderd, etc.</translation>
     </message>
 </context>
 </TS>
