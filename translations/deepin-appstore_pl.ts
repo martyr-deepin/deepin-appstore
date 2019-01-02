@@ -8,48 +8,37 @@
         <translation>Wyszukaj &quot;%1&quot; w Sklepie Deepin</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar.cpp" line="96"/>
+        <location filename="../src/ui/widgets/title_bar.cpp" line="201"/>
         <source>Search</source>
         <translation>Wyszukaj</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="47"/>
-        <source>Sign Out</source>
-        <translation>Wyloguj się</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="49"/>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="78"/>
-        <source>Sign In</source>
-        <translation>Zaloguj się</translation>
-    </message>
-    <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="117"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
         <source>Dark Theme</source>
         <translation>Ciemny motyw</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
         <source>Recommend App</source>
         <translation>Poleć program</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="88"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select Region</source>
         <translation>Wybierz region</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="94"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
         <source>China</source>
         <translation>Chiny</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="96"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>International</source>
         <translation>Międzynarodowy</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="113"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
         <source>Clear Cache</source>
         <translation>Wyczyść pamięć podręczną</translation>
     </message>
@@ -90,14 +79,42 @@
         <translation>Wybierz wszystkie</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="103"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="106"/>
         <source>Deepin Store</source>
         <translation>Sklep Deepin</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="104"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
         <translation>Sklep Deepin to sklep z programami cechujący się wysoką jakością i bogactwem wyboru. Rekomendacje w oparciu o popularność, nowozaktualizowane programy i popularne kategorie - to jego funkcje. Obsługuje także pobieranie za pomocą jednego kliknięcia, instalacje, aktualizacje, odinstalowywanie itd.</translation>
+    </message>
+</context>
+<context>
+    <name>dstore::UserMenu</name>
+    <message>
+        <location filename="../src/ui/widgets/user_menu.cpp" line="13"/>
+        <source>Username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/user_menu.cpp" line="16"/>
+        <source>My comments</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
+        <source>My donations</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/user_menu.cpp" line="24"/>
+        <source>My apps</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>
+        <source>Sign out</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
