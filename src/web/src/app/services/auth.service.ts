@@ -28,13 +28,13 @@ export class AuthService {
   private userInfo$ = new BehaviorSubject<UserInfo>(null);
   info$ = this.userInfo$.pipe(
     map(info => {
-      if (!info || !info.UserID) {
+      if (!info || !info.UserID || !info.IsLoggedIn) {
         return null;
       }
       return info;
     }),
   );
-  logged$ = this.info$.pipe(map(info => info && info.IsLoggedIn));
+  logged$ = this.info$.pipe(map(Boolean));
   // get token
   getToken() {
     return Channel.exec<string>('account.getToken');
