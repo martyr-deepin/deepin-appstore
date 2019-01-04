@@ -110,6 +110,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   void onThemeChaged(const QString theme_name);
 
   void onWebViewUrlChanged(const QUrl& url);
+  void onFullscreenRequest(bool fullscreen);
 
   void onLoadingStateChanged(bool is_loading,
                              bool can_go_back,

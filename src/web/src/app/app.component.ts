@@ -11,6 +11,7 @@ import { App, AppService } from 'app/services/app.service';
 import { SearchService } from 'app/services/search.service';
 import { SysFontService } from 'app/services/sys-font.service';
 import { MenuService } from './services/menu.service';
+import { KeyboardService } from './services/keyboard.service';
 
 @Component({
   selector: 'dstore-root',
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
     private themeService: ThemeService,
     private sysFontService: SysFontService,
     private menu: MenuService,
+    private keyboard: KeyboardService,
   ) {}
   ngOnInit(): void {
     this.switchTheme();
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit {
     this.screenshotPreview();
     this.switchFont();
     this.menu.serve();
+    this.keyboard.server();
   }
 
   switchTheme() {

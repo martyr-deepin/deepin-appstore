@@ -267,6 +267,9 @@ void WebWindow::initConnections()
     connect(web_view_->page(), &QCefWebPage::urlChanged,
             this, &WebWindow::onWebViewUrlChanged);
 
+    connect(web_view_->page(), &QCefWebPage::fullscreenRequested,
+            this, &WebWindow::onFullscreenRequest);
+
     connect(web_view_->page(), &QCefWebPage::loadingStateChanged,
             this, &WebWindow::onLoadingStateChanged);
 
@@ -537,6 +540,15 @@ void WebWindow::webViewGoForward()
     auto page = web_view_->page();
     if (page->canGoForward()) {
         page->forward();
+    }
+}
+void WebWindow::onFullscreenRequest(bool fullscreen) {
+    if (fullscreen) {
+        this->titlebar()->hide();
+        this->showFullScreen();
+    } else {
+        this->titlebar()->show();
+        this->showNormal();
     }
 }
 
