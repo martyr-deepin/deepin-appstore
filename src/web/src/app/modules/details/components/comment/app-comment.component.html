@@ -1,11 +1,11 @@
 <div class="commentInput">
   <div class="title">
-    <ng-container *ngIf="!info; else: logged">
+    <ng-container *ngIf="!info; else logged">
       <span i18n>Please post a comment after signed in</span>
       <a (click)="register()" i18n>Sign Up</a>
     </ng-container>
     <ng-template #logged>
-      <ng-container *ngIf="own; else: starEdit">
+      <ng-container *ngIf="own; else starEdit">
         <span class="star">
           <div i18n>Your Rating:</div>
           <dstore-star [rate]="own.rate"></dstore-star>
@@ -52,11 +52,11 @@
     ></textarea>
   </div>
   <div class="fixed">
-    <button class="loginBtn" *ngIf="!info; else: loggedMsg" (click)="login()">
+    <button class="loginBtn" *ngIf="!info; else loggedMsg" (click)="login()">
       <ng-container i18n>Sign In</ng-container>
     </button>
     <ng-template #loggedMsg>
-      <div class="placeholder" *ngIf="own; else: please">
+      <div class="placeholder" *ngIf="own; else please">
         <ng-container i18n>You have posted a comment</ng-container>
       </div>
       <ng-template #please>
@@ -120,7 +120,7 @@
     </div>
   </div>
   <br />
-  <div class="body" *ngIf="!loading; else: loadWait">
+  <div class="body" *ngIf="!loading; else loadWait">
     <ng-container [ngSwitch]="true">
       <div class="empty error" *ngSwitchCase="!list">
         <ng-container i18n>Failed to load comments</ng-container>
@@ -133,7 +133,7 @@
           <ng-container *ngFor="let c of list">
             <tr
               [@myComment]="
-                haveNewComment && c.userID === info?.userID ? 'in' : ''
+                haveNewComment && c.userID === info?.UserID ? 'in' : ''
               "
             >
               <td rowspan="2">
@@ -141,7 +141,7 @@
                   class="head"
                   *ngIf="
                     (c.userID | deepinInfo | async) as $userInfo;
-                    else: deepinInfoDefault
+                    else deepinInfoDefault
                   "
                 >
                   <img [src]="$userInfo.profile_image" class="profile" />
@@ -173,7 +173,7 @@
                       >
                       <img
                         class="thumbUp"
-                        [class.hidden]="info && c.userID === info.userID"
+                        [class.hidden]="info && c.userID === info.UserID"
                         [class.active]="c.likeByMe"
                         (click)="thumbUpClick(c)"
                       />
