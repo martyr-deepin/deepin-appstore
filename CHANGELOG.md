@@ -1,3 +1,21 @@
+<a name="5.2.0.2"></a>
+## 5.2.0.2 (2019-01-07)
+
+
+#### Features
+
+*   f11 screen full mode ([4031c261](https://github.com/linuxdeepin/deepin-appstore/commit/4031c26111f670f428daa918ebb6d329a550bed7))
+
+#### Bug Fixes
+
+*   comment ([af8192d7](https://github.com/linuxdeepin/deepin-appstore/commit/af8192d73b3aa8d741e9d20acfbdc3e4412f09d1))
+*   user info logged status ([c416d06f](https://github.com/linuxdeepin/deepin-appstore/commit/c416d06f1aafb1faf5110a77831985dd206f9cc7))
+*   stock on startup ([42601fcc](https://github.com/linuxdeepin/deepin-appstore/commit/42601fcc54ab7f5d0c7a7c93dc32ef7bd41e20d8))
+*   i18n ([367bb7c8](https://github.com/linuxdeepin/deepin-appstore/commit/367bb7c853b8dc2c10a6ab5dfe1555834893e8af))
+*   toolbar i18n ([8459287b](https://github.com/linuxdeepin/deepin-appstore/commit/8459287bf4905b1c2dd93cfbac6adf4660afa848))
+
+
+
 <a name="5.2.0.1"></a>
 ## 5.2.0.1 (2019-01-02)
 
