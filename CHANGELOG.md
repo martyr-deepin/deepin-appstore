@@ -1,3 +1,14 @@
+<a name="5.1.2.8"></a>
+## 5.1.2.8 (2019-01-07)
+
+
+#### Bug Fixes
+
+*   style ([0fb7d9c1](https://github.com/linuxdeepin/deepin-appstore/commit/0fb7d9c1b2396d21a945dda265168008f6fdc227))
+*   i18n format ([94468764](https://github.com/linuxdeepin/deepin-appstore/commit/944687642986d6a5f15b0c771bbce4e1f1a1fe99))
+
+
+
 <a name="5.1.2.7"></a>
 ## 5.1.2.7 (2018-12-07)
 
