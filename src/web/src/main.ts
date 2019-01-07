@@ -56,6 +56,11 @@ async function main() {
       }
     }
   }
-  return await platformBrowserDynamic().bootstrapModule(AppModule, opts);
+  return bootstrap(opts);
 }
-main();
+function bootstrap(opts?: any) {
+  return platformBrowserDynamic().bootstrapModule(AppModule, opts);
+}
+main().catch(() => {
+  return bootstrap();
+});
