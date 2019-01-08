@@ -77,7 +77,7 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("QueryDownloadSize"), argumentList);
     }
 
-    inline QDBusPendingReply<InstalledAppTimestamp> QueryInstallationTime(const QStringList &idList)
+    inline QDBusPendingReply<InstalledAppTimestampList> QueryInstallationTime(const QStringList &idList)
     {
         QList<QVariant> argumentList;
         argumentList << QVariant::fromValue(idList);
