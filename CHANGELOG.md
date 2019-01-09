@@ -1,3 +1,13 @@
+<a name="5.2.0.3"></a>
+## 5.2.0.3 (2019-01-09)
+
+
+#### Bug Fixes
+
+*   result of deb backend ([2bf9280f](https://github.com/linuxdeepin/deepin-appstore/commit/2bf9280f00615f99630ef9a81a92fe1d204bab67))
+
+
+
 <a name="5.2.0.2"></a>
 ## 5.2.0.2 (2019-01-07)
 
