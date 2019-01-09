@@ -15,7 +15,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
         <source>Dark Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tamsi tema</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
@@ -81,12 +81,12 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="106"/>
         <source>Deepin Store</source>
-        <translation type="unfinished"/>
+        <translation>Deepin parduotuvė</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation type="unfinished"/>
+        <translation>Deepin parduotuvė yra programų parduotuvė su kokybiškomis ir funkcionaliomis programomis. Yra prieinamos populiarios rekomendacijos, naujos atnaujintos programos ir įdomios temos. Parduotuvėje vienu spustelėjimu yra prieinamas atsiuntimas, įdiegimas, atnaujinimas, šalinimas ir t.t.</translation>
     </message>
 </context>
 <context>
@@ -94,27 +94,27 @@
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="13"/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojo vardas</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="16"/>
         <source>My comments</source>
-        <translation type="unfinished"/>
+        <translation>Mano komentarai</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
         <source>My donations</source>
-        <translation type="unfinished"/>
+        <translation>Mano paaukojimai</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="24"/>
         <source>My apps</source>
-        <translation type="unfinished"/>
+        <translation>Mano programos</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>
         <source>Sign out</source>
-        <translation type="unfinished"/>
+        <translation>Atsijungti</translation>
     </message>
 </context>
 </TS>

@@ -650,7 +650,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="535ed5b1faa4fb391623e885e7b752bb90b1c473">
         <source>Ask for update</source>
-        <target>Ask for update</target>
+        <target>Güncelleme isteği</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">61</context>
@@ -674,7 +674,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="05f57eae1951b6b813d2306e9931485e0eca00b1">
         <source>Third-party</source>
-        <target>Third-party</target>
+        <target>Üçüncü taraf</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">76</context>
@@ -682,7 +682,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="d06df58d8b33f2fb3bf532b12b0d091388d2ae6b">
         <source>Official</source>
-        <target>Official</target>
+        <target>Resmi</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">79</context>
@@ -690,7 +690,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="3630022091d1044a60591f58536cfff54b241eaa">
         <source>Collaboration</source>
-        <target>Collaboration</target>
+        <target>İş birliği</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">82</context>
@@ -698,7 +698,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="15cab428492d4f8b8bc528a93cf1fdd2dc65328e">
         <source>Tag:</source>
-        <target>Tag:</target>
+        <target>Etiket:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">87</context>
@@ -714,7 +714,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c0331aa0a5a4589294b7826d8613515c597812a8">
         <source>CDN supported by UPYUN</source>
-        <target>CDN supported by UPYUN</target>
+        <target>UPYUN tarafından desteklenen CDN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">120</context>
@@ -1262,7 +1262,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="546c55a0ee20cd25a559582f5eb54e05592a9a12">
         <source>Not available</source>
-        <target>Mevcut değil</target>
+        <target>Kullanılamıyor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
           <context context-type="linenumber">58</context>
@@ -1270,7 +1270,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0b2e98d9b35d8849ed9a5a6532bbcaeac2d95d1f">
         <source>Auto install new app</source>
-        <target>Yeni uygulamayı otomatik kur</target>
+        <target>Yeni uygulama otomatik kurulsun</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-install/remote-install.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1278,7 +1278,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0c5beac3fe2c2731a51956b0d828195499bed15d">
         <source>Install All</source>
-        <target>Hepsini Kur</target>
+        <target>Tümünü Kur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-install/remote-install.component.html</context>
           <context context-type="linenumber">11</context>
@@ -1286,7 +1286,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="195fccff33fa0a6c78b03d270f294a1bfc600e42">
         <source>Please select the apps to install</source>
-        <target>Lütfen kurmak için uygulama seçiniz</target>
+        <target>Lütfen kurulacak uygulamaları seçin</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/batch-install/batch-install.component.html</context>
           <context context-type="linenumber">4</context>
@@ -1294,7 +1294,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="dfc3c34e182ea73c5d784ff7c8135f087992dac1">
         <source>All</source>
-        <target>Hepsi</target>
+        <target>Tümü</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/batch-install/batch-install.component.html</context>
           <context context-type="linenumber">29</context>
@@ -1302,7 +1302,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1604a7d0a6c7974c2fb70d578cea9341083b3634">
         <source>Inverse</source>
-        <target>Ters</target>
+        <target>Tersine Çevir</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/batch-install/batch-install.component.html</context>
           <context context-type="linenumber">30</context>
@@ -1310,7 +1310,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a3c032ffde230f7037db8e9e21c50fa3b1448f38">
         <source>Start Installation</source>
-        <target>Kurmayı Başlat</target>
+        <target>Kurulumu Başlat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/batch-install/batch-install.component.html</context>
           <context context-type="linenumber">43</context>
@@ -1318,7 +1318,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="2415e1d10667078d7c7a52970880f2930717febe">
         <source>My comments</source>
-        <target>My comments</target>
+        <target>Yorumlarım</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/comments/comments.component.html</context>
           <context context-type="linenumber">2</context>
@@ -1334,7 +1334,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f5999c28f2807bba5dfad57acb1685f31106e30a">
         <source>My donations</source>
-        <target>My donations</target>
+        <target>Bağışlarım</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/comments/comments.component.html</context>
           <context context-type="linenumber">7</context>
@@ -1386,7 +1386,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f49c37418e5cb06f226bc7b3afc5f1a3c04fea21">
         <source>Rate:</source>
-        <target>Değer:</target>
+        <target>Değerlendirme:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
           <context context-type="linenumber">21</context>
@@ -1466,7 +1466,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="43f5b941e881b11137db8844b6c0bf2aae5619b7">
         <source>Apps with tag <x equiv-text="{{ list.tag }}" id="INTERPOLATION"/></source>
-        <target>Apps with tag <x equiv-text="{{ list.tag }}" id="INTERPOLATION"/></target>
+        <target><x equiv-text="{{ list.tag }}" id="INTERPOLATION"/> etiketli uygulamalar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/tags/components/tag-apps/tag-apps.component.html</context>
           <context context-type="linenumber">2</context>
