@@ -47,9 +47,10 @@ export class DonatesComponent implements OnInit {
     }),
   );
   donates$ = this.result$.pipe(map(result => result.donations));
-  length$ = this.result$.pipe(map(result => result.totalCount));
+  length$ = this.result$.pipe(map(result => result.total));
 
   ngOnInit() {}
+
   gotoPage(pageIndex: number) {
     this.router.navigate([], { queryParams: { page: pageIndex + 1 } });
   }

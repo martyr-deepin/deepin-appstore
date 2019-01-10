@@ -1,45 +1,62 @@
-import { App } from './../../services/app.service';
 import { AppService } from 'app/services/app.service';
 import { switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
+import { DstoreApp, RawApp } from 'app/model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DonatesService {
-  apiURL = environment.metadataServer + '/api/donation/user';
+  server = environment.metadataServer;
+  apiURL = environment.metadataServer + '/api/v2/user/donation';
   constructor(private http: HttpClient, private appService: AppService) {}
   donateList(page: number, count: number) {
-    return this.http
-      .get<Result>(this.apiURL, {
-        params: { page: page.toString(), count: count.toString() },
-      })
-      .pipe(
-        switchMap(
-          result => {
-            const names = result.donations.map(d => d.appName);
-            return this.appService.getApps(names, false, false);
-          },
-          (result, apps) => {
-            result.donations.forEach(d => {
-              d.app = apps.find(app => app.name === d.appName);
-            });
-            return result;
-          },
-        ),
-      );
+    const split = `${(page - 1) * count}:${page * count}`;
+    return this.http.get<Result>(this.apiURL, { params: { split } }).pipe(
+      switchMap(
+        result => {
+          const names = result.donations.map(d => d.appName);
+          return this.appService.getApps(names, false, false);
+        },
+        (result, apps) => {
+          const deletedApps = !result.apps
+            ? []
+            : result.apps.map(app => {
+                app = app as RawApp;
+                const dstoreApp = new DstoreApp(app);
+                dstoreApp.icon =
+                  environment.metadataServer + '/images/' + dstoreApp.icon;
+                return dstoreApp;
+              });
+          result.donations = result.donations.map(d => {
+            d = this.appService.addApp(
+              d,
+              apps.find(app => app.name === d.appName),
+            );
+            const dApp = deletedApps.find(
+              app => app.name === d.appName,
+            ) as DstoreApp;
+            if (dApp) {
+              d = dApp.AttachTo(d);
+            }
+            return d;
+          });
+          return result;
+        },
+      ),
+    );
   }
 }
 
 interface Result {
+  apps: (RawApp | DstoreApp)[];
   donations: Donation[];
-  totalCount: number;
+  total: number;
 }
 
 interface Donation {
-  app: App;
   id: number;
   createTime: string;
   donator: number;

@@ -18,14 +18,25 @@
   <ng-container *ngIf="(donates$ | async) as donates">
     <ng-container *ngIf="loaded; else loading">
       <div class="donate-item" *ngFor="let donate of donates">
-        <img
-          class="icon"
-          [src]="donate.app.icon"
-          [routerLink]="['/app', donate.app.name]"
-        />
-        <div class="info">
-          <span>{{ donate.app.localInfo.description.name }}</span> <span></span>
-        </div>
+        <ng-container *ngIf="donate.app; else deleted">
+          <img
+            class="icon"
+            [src]="donate.app.icon"
+            [routerLink]="['/app', donate.app.name]"/>
+          <div class="info">
+            <span>{{ donate.app.localInfo.description.name }}</span>
+            <span></span></div
+        ></ng-container>
+        <ng-template #deleted>
+          <img
+            class="icon"
+            [src]="donate.dstoreApp.icon"
+            [routerLink]="['/app', donate.dstoreApp.name]"
+          />
+          <div class="info">
+            <span>{{ donate.dstoreApp.LocalName }}</span> <span></span>
+          </div>
+        </ng-template>
         <div class="time">
           <span i18n>Donation Date:</span> &nbsp;
           {{ donate.createTime | date: 'yyyy.MM.dd' }}
