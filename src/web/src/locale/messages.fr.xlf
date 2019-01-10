@@ -1,5 +1,4 @@
-<?xml version="1.0" ?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="fr">
     <body>
       <trans-unit datatype="html" id="ac0f81713a84217c9bd1d9bb460245d8190b073f">
@@ -502,7 +501,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="7adf474dce2df967c3c8a4f03627e51c3930de14">
         <source>Urge successfully</source>
-        <target>Urge successfully</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">14</context>
@@ -526,7 +524,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="91b4e447c0ebefd9b2e867ee923998b825219b9c">
         <source>Urge failed</source>
-        <target>Urge failed</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">26</context>
@@ -674,7 +671,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="05f57eae1951b6b813d2306e9931485e0eca00b1">
         <source>Third-party</source>
-        <target>Third-party</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">76</context>
@@ -690,7 +686,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="3630022091d1044a60591f58536cfff54b241eaa">
         <source>Collaboration</source>
-        <target>Collaboration</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">82</context>
