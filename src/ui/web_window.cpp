@@ -32,6 +32,7 @@
 #include <qcef_web_page.h>
 #include <qcef_web_settings.h>
 #include <qcef_web_view.h>
+#include <qcef_global_settings.h>
 
 #include "base/consts.h"
 #include "services/search_manager.h"
@@ -158,6 +159,11 @@ WebWindow::~WebWindow()
         account_proxy_->deleteLater();
         account_proxy_ = nullptr;
     }
+}
+
+void WebWindow::setQCefSettings(QCefGlobalSettings *settings)
+{
+    SettingsManager::instance()->setQCefSettings(settings);
 }
 
 void WebWindow::loadPage()

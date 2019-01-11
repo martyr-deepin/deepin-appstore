@@ -41,6 +41,8 @@ Q_SIGNALS:
     void fontChangeRequested(const QString &fontFamily, int pixelSize);
 
 public Q_SLOTS:
+    bool remoteDebug();
+
     const QString getMetadataServer();
     const QString getOperationServer();
 

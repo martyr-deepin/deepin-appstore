@@ -41,6 +41,7 @@ const char kLogLevel[] = "--log-level";
 
 }  // namespace
 
+
 int main(int argc, char **argv)
 {
     qputenv("DXCB_FAKE_PLATFORM_NAME_XCB", "true");
@@ -133,6 +134,7 @@ int main(int argc, char **argv)
 
         app.installEventFilter(&window);
 
+        window.setQCefSettings(&settings);
         window.loadPage();
         window.showWindow();
 

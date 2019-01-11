@@ -34,6 +34,11 @@ SettingsProxy::~SettingsProxy()
 
 }
 
+bool SettingsProxy::remoteDebug()
+{
+    return SettingsManager::instance()->remoteDebug();
+}
+
 const QString SettingsProxy::getMetadataServer()
 {
     return SettingsManager::instance()->getMetadataServer();

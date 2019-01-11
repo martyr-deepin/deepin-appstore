@@ -22,6 +22,8 @@
 #include <QDBusReply>
 #include <QDBusInterface>
 
+#include <qcef_global_settings.h>
+
 #include "dbus/dbus_consts.h"
 #include "base/file_util.h"
 
@@ -59,6 +61,16 @@ SettingsManager::SettingsManager(QObject *parent)
 SettingsManager::~SettingsManager()
 {
 
+}
+
+void SettingsManager::setQCefSettings(QCefGlobalSettings *settings)
+{
+    qcef_settings_ = settings;
+}
+
+bool SettingsManager::remoteDebug()
+{
+    return  qcef_settings_->remoteDebug();
 }
 
 QString SettingsManager::getMetadataServer() const
@@ -131,7 +143,7 @@ QVariant SettingsManager::getSettings(const QString &key) const
 {
     QDBusReply<QVariant> reply = dbus_interface_->call("GetSettings", key);
     if (reply.error().isValid()) {
-        qWarning()<<"getSettings failed"<< key << reply.error();
+        qWarning() << "getSettings failed" << key << reply.error();
     }
     return reply.value();
 }
@@ -140,7 +152,7 @@ void SettingsManager::setSettings(const QString &key, const QVariant &value) con
 {
     QDBusReply<void> reply = dbus_interface_->call("SetSettings", key, value);
     if (reply.error().isValid()) {
-        qWarning()<<"setSettings failed"<< key << reply.error() << value;
+        qWarning() << "setSettings failed" << key << reply.error() << value;
     }
 }
 

@@ -22,6 +22,7 @@
 #include <DSingleton>
 
 class QDBusInterface;
+class QCefGlobalSettings;
 
 namespace dstore
 {
@@ -43,6 +44,9 @@ private:
 Q_SIGNALS:
 
 public Q_SLOTS:
+    void setQCefSettings(QCefGlobalSettings *settings);
+    bool remoteDebug();
+
     QString getMetadataServer() const;
     QString getOperationServer() const;
 
@@ -78,6 +82,7 @@ private:
     void setSettings(const QString &key, const QVariant &value) const;
 
     QDBusInterface *dbus_interface_;
+    QCefGlobalSettings *qcef_settings_;
 };
 
 }  // namespace dstore

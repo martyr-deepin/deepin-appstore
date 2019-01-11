@@ -23,6 +23,7 @@
 #include <QMenu>
 #include <QRegularExpression>
 class QCefWebView;
+class QCefGlobalSettings;
 class QTimer;
 
 #include "services/search_result.h"
@@ -52,6 +53,7 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   explicit WebWindow(QWidget* parent = nullptr);
   ~WebWindow() override;
 
+  void setQCefSettings(QCefGlobalSettings *settings);
   /**
    * Load app store main web page.
    */
