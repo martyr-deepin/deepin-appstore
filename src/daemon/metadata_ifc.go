@@ -94,15 +94,16 @@ func (m *Metadata) OnMessage(playload map[string]interface{}) *dbus.Error {
 }
 
 const (
-	MetadataServer     = "MetadataServer"
-	OperationServer    = "OperationServer"
-	Region             = "Region"
-	AutoInstall        = "AutoInstall"
-	ThemeName          = "ThemeName"
-	SupportSignIn      = "SupportSignIn"
-	UpyunBannerVisible = "UpyunBannerVisible"
-	AllowSwitchRegion  = "AllowSwitchRegion"
-	WindowState        = "WindowState"
+	MetadataServer       = "MetadataServer"
+	OperationServer      = "OperationServer"
+	Region               = "Region"
+	AutoInstall          = "AutoInstall"
+	ThemeName            = "ThemeName"
+	SupportSignIn        = "SupportSignIn"
+	UpyunBannerVisible   = "UpyunBannerVisible"
+	AllowSwitchRegion    = "AllowSwitchRegion"
+	WindowState          = "WindowState"
+	AllowShowPackageName = "AllowShowPackageName"
 )
 
 // SetSettings update dstore settings
@@ -142,6 +143,8 @@ func (m *Metadata) GetSettings(key string) (dbus.Variant, *dbus.Error) {
 		ret = dbus.MakeVariant(m.getAllowSwitchRegion())
 	case WindowState:
 		ret = dbus.MakeVariant(m.getWindowState())
+	case AllowShowPackageName:
+		ret = dbus.MakeVariant(m.getAllowShowPackageName())
 	}
 	// if ret.Value() == nil {
 	// 	return dbus.Variant{}, dbus.NewError("GetSettings", []interface{}{"invalid key"})

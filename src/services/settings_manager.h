@@ -67,6 +67,7 @@ public Q_SLOTS:
 
     bool supportSignIn() const;
     bool allowSwitchRegion() const;
+    bool allowShowPackageName() const;
 
     // Show upyun banner or not in app-detail page.
     // * community

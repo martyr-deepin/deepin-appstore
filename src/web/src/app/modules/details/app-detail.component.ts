@@ -60,6 +60,7 @@ export class AppDetailComponent implements OnInit {
       },
     ),
   );
+  allowName$ = this.storeService.getAllowShowPackageName();
   ngOnInit() {}
 
   reminder(app: App) {

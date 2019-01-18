@@ -44,6 +44,7 @@ const char kThemeName[] = "ThemeName";
 const char kWindowState[] = "WindowState";
 const char kAllowSwitchRegion[] = "AllowSwitchRegion";
 const char kUpyunBannerVisible[] = "UpyunBannerVisible";
+const char kAllowShowPackageName[] = "AllowShowPackageName";
 
 }
 
@@ -132,6 +133,10 @@ bool SettingsManager::supportSignIn() const
 bool SettingsManager::allowSwitchRegion() const
 {
     return getSettings(kAllowSwitchRegion).toBool();
+}
+
+bool SettingsManager::allowShowPackageName() const {
+    return getSettings(kAllowShowPackageName).toBool();
 }
 
 bool SettingsManager::getUpyunBannerVisible() const

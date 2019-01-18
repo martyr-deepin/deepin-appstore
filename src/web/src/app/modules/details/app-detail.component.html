@@ -38,6 +38,10 @@
         <ng-container *ngIf="app.version">
           <div i18n>Version:</div>
           <div>{{ app.version.remoteVersion || app.version.localVersion }}</div>
+          <ng-container *ngIf="(allowName$ | async)">
+            <div i18n>Package:</div>
+            <div>{{ app.version.packageName }}</div>
+          </ng-container>
           <div i18n>Size:</div>
           <div>
             <ng-container

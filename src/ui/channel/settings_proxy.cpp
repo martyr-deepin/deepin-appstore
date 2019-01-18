@@ -54,6 +54,10 @@ bool SettingsProxy::getAutoInstall()
     return SettingsManager::instance()->getAutoInstall();
 }
 
+bool SettingsProxy::allowShowPackageName() {
+    return SettingsManager::instance()->allowShowPackageName();
+}
+
 void SettingsProxy::setAutoInstall(bool autoInstall)
 {
     SettingsManager::instance()->setAutoInstall(autoInstall);

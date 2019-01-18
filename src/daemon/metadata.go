@@ -61,10 +61,11 @@ const (
 	groupGeneral   = "General"
 	groupWebWindow = "WebWindow"
 
-	keyAutoInstall   = "autoInstall"
-	keyCurrentRegion = "currentRegion"
-	keyThemeName     = "themeName"
-	keyWindowState   = "windowState"
+	keyAutoInstall          = "autoInstall"
+	keyCurrentRegion        = "currentRegion"
+	keyThemeName            = "themeName"
+	keyWindowState          = "windowState"
+	keyAllowShowPackageName = "allowShowPackageName"
 
 	metadataServer  = "metadataServer"
 	operationServer = "operationServer"
@@ -168,6 +169,10 @@ func (m *Metadata) getRegion() int {
 
 func (m *Metadata) getThemeName() string {
 	return m.getUserSettings(groupGeneral, keyThemeName).MustString("light")
+}
+
+func (m *Metadata) getAllowShowPackageName() bool {
+	return m.getUserSettings(groupGeneral, keyAllowShowPackageName).MustBool();
 }
 
 func (m *Metadata) getAppIcon(appName string) string {

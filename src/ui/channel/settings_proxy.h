@@ -48,6 +48,8 @@ public Q_SLOTS:
 
     bool getAutoInstall();
 
+    bool allowShowPackageName();
+
     /**
      * Allow auto install software
      */

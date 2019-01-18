@@ -54,6 +54,10 @@ export class StoreService {
     Channel.exec('storeDaemon.openApp', this.toQuery(app));
   }
 
+  getAllowShowPackageName(): Promise<boolean> {
+    return Channel.exec('settings.allowShowPackageName');
+  }
+
   installPackages(apps: App[]): Observable<string> {
     this.downloadTotalService.installed(apps);
     return this.execWithCallback('storeDaemon.installPackages', apps.map(this.toQuery));
