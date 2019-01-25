@@ -1,3 +1,19 @@
+<a name="5.2.0.5"></a>
+##  (2019-01-25)
+
+
+#### Features
+
+*   add yarn dev dependency ([5e400adb](https://github.com/linuxdeepin/deepin-appstore/commit/5e400adbb44f59afac677aa757f9f6e0dcef873a))
+*   support show package name ([c3d57fed](https://github.com/linuxdeepin/deepin-appstore/commit/c3d57fed93c8bcf1c61c3ccf5fcc6e64add6a6f1))
+*   add remoteDebug interface ([893ce31a](https://github.com/linuxdeepin/deepin-appstore/commit/893ce31a4819ced6585630c3824589e9a89be861))
+
+#### Bug Fixes
+
+*   donate app deleted ([3852ec7f](https://github.com/linuxdeepin/deepin-appstore/commit/3852ec7fe39033c3e799e9d33734212b5a4ca9b4))
+
+
+
 <a name="5.2.0.4"></a>
 ## 5.2.0.4 (2019-01-09)
 
