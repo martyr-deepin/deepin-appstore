@@ -1,8 +1,8 @@
 import { Error } from 'app/dstore/services/errno';
 
 export enum Payment {
-  WeChat = 1,
-  AliPay,
+  AliPay = 1,
+  WeChat,
   PayPal,
 }
 export interface PayReq {
