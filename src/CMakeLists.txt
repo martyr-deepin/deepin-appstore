@@ -228,7 +228,7 @@ add_custom_command(
   OUTPUT deepin-appstore-daemon
   COMMAND
     sh -c
-    "GOPATH=\"${CMAKE_CURRENT_SOURCE_DIR}/daemon/vendor:/usr/share/gocode:${GOPATH}\" go build -o deepin-appstore-daemon ."
+    "GOPATH=\"${CMAKE_CURRENT_SOURCE_DIR}/daemon/vendor:/usr/share/gocode\" go build -o deepin-appstore-daemon ."
   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/daemon")
 
 add_custom_target(appstore-daemon DEPENDS deepin-appstore-daemon)
