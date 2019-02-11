@@ -1,3 +1,14 @@
+<a name="5.2.0.6"></a>
+## 5.2.0.6 (2019-02-11)
+
+
+#### Bug Fixes
+
+*   build failed on go 1.7 ([9d4e1fa7](https://github.com/linuxdeepin/deepin-appstore/commit/9d4e1fa7a94cff655f1daf7f0935e447e07c1e24))
+*   payment enum error ([41f7fce7](https://github.com/linuxdeepin/deepin-appstore/commit/41f7fce7b3f5e4ce837b032a139190fadcdd54dd))
+
+
+
 <a name="5.2.0.5"></a>
 ##  (2019-01-25)
 
