@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { parse } from 'marked';
-
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { bindCallback, bindNodeCallback } from 'rxjs';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,17 +8,10 @@ import { bindCallback, bindNodeCallback } from 'rxjs';
 export class StatementService {
   constructor(private http: HttpClient) {}
   getStatement() {
-    return this.http
-      .get(`/assets/markdowns/Donation.${navigator.language}.md`, { responseType: 'text' })
-      .pipe(
-        catchError(() => {
-          return this.http.get(`/assets/markdowns/Donation.en-US.md`, { responseType: 'text' });
-        }),
-        switchMap(body => {
-          return new Promise<string>((resolve, reject) => {
-            parse(body, { breaks: true }, (e, result) => (e ? reject(e) : resolve(result)));
-          });
-        }),
-      );
+    const language = navigator.language.replace('-', '_');
+    return this.http.get(environment.metadataServer + `/api/v2/agreement`, {
+      responseType: 'text',
+      params: { language },
+    });
   }
 }
