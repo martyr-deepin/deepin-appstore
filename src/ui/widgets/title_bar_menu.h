@@ -52,7 +52,7 @@ class TitleBarMenu : public QMenu {
   QString theme_name_ = "light";
   QAction* switch_theme_action_ = nullptr;
   // TODO: just hide it now
-  //QAction* privacy_agreement_action_ = nullptr;
+  QAction* privacy_agreement_action_ = nullptr;
 
  private slots:
   void onThemeActionTriggered();

@@ -18,13 +18,13 @@
 }
 
 #AvatarButton {
-    border-image: url(:/common/images/login_normal.svg);
+    border-image: url(:/dark/images/login_normal.svg);
 }
 #AvatarButton:hover {
-    border-image: url(:/common/images/login_hover.svg);
+    border-image: url(:/dark/images/login_hover.svg);
 }
 #AvatarButton:pressed {
-    border-image: url(:/common/images/login_press.svg);
+    border-image: url(:/dark/images/login_press.svg);
 }
 
 #AvatarButton::menu-indicator {

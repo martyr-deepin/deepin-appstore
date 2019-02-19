@@ -48,8 +48,11 @@
         <file>dark/dstore--WebWindow.theme</file>
         <file>dark/DTitlebar.theme</file>
         <file>light/DTitlebar.theme</file>
-        <file>common/images/login_hover.svg</file>
-        <file>common/images/login_normal.svg</file>
-        <file>common/images/login_press.svg</file>
+        <file>light/images/login_hover.svg</file>
+        <file>light/images/login_normal.svg</file>
+        <file>light/images/login_press.svg</file>
+        <file>dark/images/login_hover.svg</file>
+        <file>dark/images/login_normal.svg</file>
+        <file>dark/images/login_press.svg</file>
     </qresource>
 </RCC>

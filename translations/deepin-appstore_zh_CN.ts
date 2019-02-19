@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_CN" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="zh_CN">
 <context>
     <name>QObject</name>
     <message>
@@ -43,6 +45,11 @@
         <translation>清除缓存</translation>
     </message>
     <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="109"/>
+        <source>Privacy agreement</source>
+        <translation>隐私协议</translation>
+    </message>
+    <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
         <source>Undo</source>
         <translation>撤销</translation>
@@ -79,12 +86,12 @@
         <translation>全选</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="106"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store</source>
         <translation>深度商店</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
         <translation>深度商店是一款品质精良、内容丰富的应用商店。精选热门推荐、新品应用和专题介绍。支持一键式下载安装、更新、卸载等功能。</translation>
     </message>
