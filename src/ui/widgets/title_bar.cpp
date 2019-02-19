@@ -162,6 +162,8 @@ void TitleBar::initConnections()
 
 void TitleBar::initUI()
 {
+
+
     QLabel *app_icon = new QLabel();
     app_icon->setObjectName("AppIcon");
     app_icon->setFixedSize(26, 26);
@@ -211,6 +213,8 @@ void TitleBar::initUI()
     this->setLayout(main_layout);
     this->setAttribute(Qt::WA_TranslucentBackground, true);
 
+    // TODO: fixme, why avatar_button_ not update???
+    Dtk::Widget::DThemeManager::instance()->registerWidget(avatar_button_, "dstore--TitleBar.theme");
     Dtk::Widget::DThemeManager::instance()->registerWidget(this);
 }
 
