@@ -71,7 +71,7 @@ void TitleBarMenu::initActions()
 
     QMenu *region_menu = nullptr;
     if (SettingsManager::instance()->allowSwitchRegion()) {
-        region_menu = this->addMenu(QObject::tr("Select Region"));
+        region_menu = this->addMenu(QObject::tr("Select region"));
     } else {
         region_menu = new QMenu();
         connect(this, &QObject::destroyed,
@@ -96,11 +96,11 @@ void TitleBarMenu::initActions()
     connect(region_group_, &QActionGroup::triggered,
             this, &TitleBarMenu::onRegionGroupTriggered);
 
-    this->addAction(QObject::tr("Clear Cache"),
+    this->addAction(QObject::tr("Clear cache"),
                     this, &TitleBarMenu::clearCacheRequested);
 
     theme_name_ = SettingsManager::instance()->getThemeName();
-    switch_theme_action_ = this->addAction(QObject::tr("Dark Theme"));
+    switch_theme_action_ = this->addAction(QObject::tr("Dark theme"));
     switch_theme_action_->setCheckable(true);
     connect(switch_theme_action_, &QAction::triggered,
             this, &TitleBarMenu::onThemeActionTriggered);

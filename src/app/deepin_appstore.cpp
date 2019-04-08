@@ -106,10 +106,9 @@ int main(int argc, char **argv)
     app.loadTranslator();
     app.setApplicationDisplayName(QObject::tr("Deepin Store"));
     app.setApplicationDescription(QObject::tr(
-                                      "Deepin Store is an Appstore with quality and rich applications. "
-                                      "Popular recommendation, new updated apps and hot topics are available. "
-                                      "It supports one click to download, install, update, "
-                                      "uninstall and so on."));
+                                      "Deepin Store is an App Store with diverse and quality applications. "
+                                      "It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, "
+                                      "updating and uninstalling."));
     app.setApplicationAcknowledgementPage(
         "https://www.deepin.org/acknowledgments/deepin-appstore/");
 
