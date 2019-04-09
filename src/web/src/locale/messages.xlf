@@ -181,93 +181,91 @@
         <source>Internet</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5adf337be1ad12c915ae18012f1bfa1f2ca4628b" datatype="html">
         <source>Chat</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="06a9c25174be5c4e9fca4e8b423410b1900d5a55" datatype="html">
         <source>Music</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2d1ea268a6a9f483dbc2cbfe19bf4256a57a6af4" datatype="html">
         <source>Video</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b8685c2f51906a91fd8e282f25c7fd9b36b27c77" datatype="html">
         <source>Graphics</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="71249314fa72f5f9e0d93b8c59f9e148e0ff617f" datatype="html">
         <source>Games</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1908513266d3ce2dc37135be38ac4baef11a3a0b" datatype="html">
         <source>Office</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="440387abefa7c51156990554beb9f5f18576decb" datatype="html">
         <source>Reading</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7f3f6a4fb2545cacf800f0623582b6d41d1f8791" datatype="html">
         <source>Development</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8011e20c5bbe51602d459a860fbf29b599b55edd" datatype="html">
         <source>System</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c2a9de3714f5767b174d0424bc8abe2dc37acc41" datatype="html">
         <source>Other</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="dc75033a5238fdc4f462212c847a45ba8018a3fd" datatype="html">
         <source>Download</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3fc5aed3953c88941d072c0faf622bcae598338f" datatype="html">
-        <source>
-          Uninstall
-        </source>
+      <trans-unit id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee" datatype="html">
+        <source>Uninstall</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">154</context>
+          <context context-type="linenumber">79</context>
         </context-group>
         <note priority="1" from="description">Uninstall applications</note>
         <note priority="1" from="meaning">uninstall-app</note>
@@ -545,13 +543,6 @@
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="80d0c6054248e80b968874af35d469767c9b3702" datatype="html">
-        <source>Package:</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">42</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="04380b03179685f28fc991c2ae855696d7f6ca44" datatype="html">
         <source>Size:</source>
         <context-group purpose="location">
@@ -563,14 +554,14 @@
         <source>Calculating</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e8c021c9d36ccd882cb337c19cbca3067c249d41" datatype="html">
         <source>Downloaded</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">52</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/download/download.component.html</context>
@@ -585,85 +576,85 @@
         <source>Updated Date:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="535ed5b1faa4fb391623e885e7b752bb90b1c473" datatype="html">
         <source>Ask for update</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="055d47bb1af14fe2aebd1733bf30d5bf4add46f5" datatype="html">
         <source>Website:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2f2d3537be5ad6783862d60ec1e4b6a034714783" datatype="html">
         <source>Source:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="05f57eae1951b6b813d2306e9931485e0eca00b1" datatype="html">
         <source>Third-party</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="d06df58d8b33f2fb3bf532b12b0d091388d2ae6b" datatype="html">
         <source>Official</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3630022091d1044a60591f58536cfff54b241eaa" datatype="html">
         <source>Collaboration</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="15cab428492d4f8b8bc528a93cf1fdd2dc65328e" datatype="html">
         <source>Tag:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4a22c6843133f0b0d7dc0d28f864f2f90c1de7ad" datatype="html">
         <source>Description:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c0331aa0a5a4589294b7826d8613515c597812a8" datatype="html">
         <source>CDN supported by UPYUN</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b9905b17f853f79045218f2d43f572029e54fd5b" datatype="html">
         <source>Sorry</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">137</context>
+          <context context-type="linenumber">120</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">145</context>
+          <context context-type="linenumber">128</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">134</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
@@ -674,28 +665,28 @@
         <source>It&apos;s in adjustment, you can return to</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="680d5c75b7fd8d37961083608b9fcdc4167b4c43" datatype="html">
         <source>Previous</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6dd070f6eb99a4e300bce2af82d76f3d01c61edd" datatype="html">
         <source>Connection failed, please check your network and refresh</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2631d08f671cb06e269dfe7ce2268ab52ef73375" datatype="html">
         <source>Something goes wrong.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8de08a808857e4c16e239c7a661e05a5824e407a" datatype="html">
@@ -713,76 +704,74 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="568c82e4dd743c0218ca10fb434e537a17a22d6c" datatype="html">
         <source>Statement for Delivery and Donation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="91ce116be6e8df104128f339912c9207f01265cd" datatype="html">
         <source>Amount:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3efbc55094b3e633835a1866fcfb14b0601376dc" datatype="html">
         <source>Random</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fb3545e97e371069768103e01599f35e789d556c" datatype="html">
         <source>Payment:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="c2d62c4389807a226180e5611413933abe196e1b" datatype="html">
-        <source>
-          Pay Now
-        </source>
+      <trans-unit id="53d20cc6953546db5373b1ae5a686aa655a715bb" datatype="html">
+        <source>Pay Now</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6cf236d79ba814bc7cd38814d46c588c43079ddb" datatype="html">
         <source>Payment Successful!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f" datatype="html">
         <source>WeChat Pay:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="19a5a4f5540f3675280e26e0fd7b79d780c8b470" datatype="html">
         <source>RMB ￥<x id="INTERPOLATION" equiv-text="{{ amount }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="e2c9907de2386d2f5c27a0370fbaf416b4f4e41c" datatype="html">
         <source>Processing payment, please wait...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="f0b3887d752a5aa2e68c083304f31959fe662bb9" datatype="html">

@@ -1,8 +1,6 @@
 <div class="donateBtn">
   <button class="primary" (click)="dialog.showModal()" i18n>Donate</button>
-  <span class="statement" (click)="statement.showModal()" i18n
-    >Statement for Delivery and Donation</span
-  >
+  <span class="statement" (click)="statement.showModal()" i18n>Statement for Delivery and Donation</span>
 </div>
 <dialog class="statementDialog" #statement>
   <dstore-close-button [dialog]="statement"></dstore-close-button>
@@ -17,12 +15,7 @@
         <div class="formField">
           <label i18n>Amount:</label>
           <div class="amount">
-            <input
-              type="text"
-              [value]="amount"
-              (input)="inputChange($event)"
-              (keyup.enter)="pay()"
-            />
+            <input type="text" [value]="amount" (input)="inputChange($event)" (keyup.enter)="pay()" />
             <div class="rand" (click)="rand()" i18n>Random</div>
           </div>
         </div>
@@ -30,43 +23,23 @@
           <label class="paymentLabel" i18n>Payment:</label>
           <div class="payment">
             <label>
-              <input
-                type="radio"
-                name="payment"
-                [(ngModel)]="payment"
-                [value]="Payment.WeChat"
-              />
+              <input type="radio" name="payment" [(ngModel)]="payment" [value]="Payment.WeChat" />
               <img class="paymentIcon wechat" />
             </label>
             <label>
-              <input
-                type="radio"
-                name="payment"
-                [(ngModel)]="payment"
-                [value]="Payment.AliPay"
-              />
+              <input type="radio" name="payment" [(ngModel)]="payment" [value]="Payment.AliPay" />
               <img class="paymentIcon alipay" />
             </label>
             <br />
             <label>
-              <input
-                type="radio"
-                name="payment"
-                [(ngModel)]="payment"
-                [value]="Payment.PayPal"
-              />
+              <input type="radio" name="payment" [(ngModel)]="payment" [value]="Payment.PayPal" />
               <img class="paymentIcon paypal" />
             </label>
           </div>
         </div>
 
-        <button
-          class="btn"
-          [disabled]="amount <= 0"
-          (click)="pay(); $event.target.disabled = true"
-          i18n
-        >
-          Pay Now
+        <button class="btn" [disabled]="amount <= 0" (click)="pay(); $event.target.disabled = true">
+          <ng-container i18n>Pay Now</ng-container>
         </button>
       </div>
     </ng-container>
