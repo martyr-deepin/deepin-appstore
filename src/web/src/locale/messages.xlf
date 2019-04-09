@@ -99,7 +99,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="c81780f921c4ded2a45dadd68238f428bb5e5308" datatype="html">
@@ -528,7 +528,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
@@ -1062,7 +1062,7 @@
         <source>Remote App</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
@@ -1073,19 +1073,18 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="65101c7d867d7c766a31e76aabbb4db931db05ba" datatype="html">
-        <source>Are you sure you want to uninstall this
-                  application??</source>
+      <trans-unit id="96f4e3dedbf0d1b3fffa16f2e5341c6719b8cfb0" datatype="html">
+        <source>Are you sure you want to uninstall this application?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="b03f424e22c3eb9799167ac85fd8473a784ddd40" datatype="html">
         <source>Date installed:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
@@ -1096,7 +1095,7 @@
         <source>Cancel</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
@@ -1111,7 +1110,7 @@
         <source>Confirm</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
@@ -1122,7 +1121,7 @@
         <source>Uninstall</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="546c55a0ee20cd25a559582f5eb54e05592a9a12" datatype="html">
