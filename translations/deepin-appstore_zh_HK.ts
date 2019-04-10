@@ -1,21 +1,21 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="ne" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_HK" version="2.1">
 <context>
     <name>QObject</name>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>डिपिन स्टोरमा &quot;% 1&quot; खोज्नुहोस्</translation>
+        <translation>於 Deepin 商店搜尋「%1」</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="201"/>
         <source>Search</source>
-        <translation>खोजी गर्नुहोस्</translation>
+        <translation>搜尋</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
         <source>Recommend App</source>
-        <translation>अनुप्रयोग सिफारिस गर्नुहोस्</translation>
+        <translation>推薦程式</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
@@ -25,12 +25,12 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
         <source>China</source>
-        <translation>चीन</translation>
+        <translation>中國</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>International</source>
-        <translation>अन्तर्राष्ट्रिय</translation>
+        <translation>國際</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
@@ -45,43 +45,43 @@
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
         <source>Undo</source>
-        <translation>पूर्ववत गर्नुहोस्</translation>
+        <translation>復原</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="78"/>
         <source>Redo</source>
-        <translation>फेरि गर्नुहोस्</translation>
+        <translation>重做</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="84"/>
         <source>Cut</source>
-        <translation>काट्नुहोस् </translation>
+        <translation>剪下</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="89"/>
         <location filename="../src/ui/web_event_delegate.cpp" line="113"/>
         <source>Copy</source>
-        <translation>कपी</translation>
+        <translation>複製</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="94"/>
         <source>Paste</source>
-        <translation>टाँस्नुहोस्</translation>
+        <translation>貼上</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="99"/>
         <source>Delete</source>
-        <translation>मेटाउनुहोस </translation>
+        <translation>刪除</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="105"/>
         <source>Select all</source>
-        <translation>सबै छान्नु</translation>
+        <translation>全選</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store</source>
-        <translation>डिपिन स्टोर</translation>
+        <translation>Deepin 商店</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
@@ -94,27 +94,27 @@
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="13"/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>使用者名稱</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="16"/>
         <source>My comments</source>
-        <translation type="unfinished"/>
+        <translation>我的評論</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
         <source>My donations</source>
-        <translation type="unfinished"/>
+        <translation>我的捐獻</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="24"/>
         <source>My apps</source>
-        <translation type="unfinished"/>
+        <translation>我的程式</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>
         <source>Sign out</source>
-        <translation type="unfinished"/>
+        <translation>登出</translation>
     </message>
 </context>
 </TS>
