@@ -13,19 +13,14 @@
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
-        <source>Dark Theme</source>
-        <translation>Тёмная Тема</translation>
-    </message>
-    <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
         <source>Recommend App</source>
         <translation>Рекомендованные Приложения</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
-        <source>Select Region</source>
-        <translation>Выберите Регион</translation>
+        <source>Select region</source>
+        <translation>Выберите регион</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
@@ -39,8 +34,13 @@
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
-        <source>Clear Cache</source>
-        <translation>Очистить Кэш</translation>
+        <source>Clear cache</source>
+        <translation>Очистить кэш</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <source>Dark theme</source>
+        <translation>Тёмная тема</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -79,14 +79,14 @@
         <translation>Выбрать всё</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="106"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store</source>
         <translation>Магазин Приложений Deepin</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
-        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Магазин Deepin - это Магазин Приложений с качественными и богатыми приложениями. Популярные рекомендации для доступа к новым обновлениям приложений и горячим темам. Он поддерживает загрузку, обновления и удаление в один клик и прочее.</translation>
+        <location filename="../src/app/deepin_appstore.cpp" line="108"/>
+        <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
+        <translation>Deepin Store - это магазин приложений с разнообразными и качественными приложениями. Он содержит популярные рекомендации, недавно обновленные приложения и актуальные темы, а также поддерживает установку, обновление и удаление в один клик.</translation>
     </message>
 </context>
 <context>
