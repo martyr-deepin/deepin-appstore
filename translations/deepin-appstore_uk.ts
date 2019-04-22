@@ -20,7 +20,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
-        <translation type="unfinished"/>
+        <translation>Виберіть регіон</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
@@ -35,12 +35,12 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
         <source>Clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Спорожнити кеш</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
         <source>Dark theme</source>
-        <translation type="unfinished"/>
+        <translation>Темна тема</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -86,7 +86,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation type="unfinished"/>
+        <translation>Крамниця Deepin — це магазин додатків з якісними та цікавими програмами. Рекомендації за популярністю, оновлені програми та гарячі теми, а також підтримка встановлення у одне клацання, оновлення та вилучення програм.</translation>
     </message>
 </context>
 <context>
