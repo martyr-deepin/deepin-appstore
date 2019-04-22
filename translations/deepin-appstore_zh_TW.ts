@@ -20,7 +20,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
-        <translation type="unfinished"/>
+        <translation>選擇區域</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
@@ -35,12 +35,12 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
         <source>Clear cache</source>
-        <translation type="unfinished"/>
+        <translation>清除快取</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
         <source>Dark theme</source>
-        <translation type="unfinished"/>
+        <translation>深色主題</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -86,7 +86,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation type="unfinished"/>
+        <translation>Deepin 商店是一個品質精良、內容豐富的應用程式商店。它有著熱門推薦、新更新的應用程式和熱門專題介紹，並支援一點安裝、更新或解除安裝。</translation>
     </message>
 </context>
 <context>
