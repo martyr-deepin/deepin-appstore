@@ -1,3 +1,13 @@
+<a name="5.2.1"></a>
+## 5.2.1 (2019-04-23)
+
+
+#### Bug Fixes
+
+*   delete comment text i18n ([24088cba](https://github.com/linuxdeepin/deepin-appstore/commit/24088cba6398606748ca8321f8e56ce58b1320e2))
+
+
+
 <a name="5.2.0.7"></a>
 ## 5.2.0.7 (2019-04-10)
 
