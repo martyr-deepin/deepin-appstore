@@ -421,7 +421,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="38c184ee2325949ed3e428f373637c2fb914b5de">
         <source>Official website is not in a correct format</source>
-        <target>O site da Web oficial não é um formato correto</target>
+        <target>O site da Web oficial não está num formato correto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">98</context>
@@ -453,7 +453,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="cc6d76692556d846fb1439e5f229df225263f5b6">
         <source>Download Site is not in a correct format</source>
-        <target>O site de transferências não é um formato correto</target>
+        <target>O site de transferência não está num formato correto</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">130</context>
@@ -491,35 +491,36 @@
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="1b736ccac6f697a48dbc1368f153c3d643fc2f61">
-        <source>Announcement：<x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></source>
-        <target>Anúncio：<x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
+      <trans-unit datatype="html" id="10b5e1355fe307af84b97e91cf5bdc1d04ce28f1">
+        <source>Announcement: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></source>
+        <target>Anúncio: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="f38cdabbc1d33c5153a307c4f0c8f4f22df4276f">
         <source>Request successful</source>
+        <target>Solicitação bem sucedida</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="231e7766e41f05396b33e9798d628f8d1b0f46f9">
         <source>Cache cleared</source>
-        <target>Cache limpa com sucesso</target>
+        <target>Cache limpa</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="07ab431232dac11b93d5366ab540d780dca2ff5b">
         <source>Submit successful</source>
-        <target>Submissão bem--sucedida</target>
+        <target>Submissão bem sucedida</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="e33d805f0c1ce97c92b68fc882084fef23cca646">
@@ -527,7 +528,7 @@
         <target>Instalação falhada</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9adf078da8da4a1f22687e15f76dae2369a603df">
@@ -535,7 +536,7 @@
         <target>Falha ao limpar a cache</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a4ebb29f3e25de97f36a395cf50585b89251806f">
@@ -543,7 +544,7 @@
         <target>Submissão falhou</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="758496ccd0c37659b18828f3234eac3915c1a32f">
@@ -832,7 +833,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6cf236d79ba814bc7cd38814d46c588c43079ddb">
         <source>Payment Successful!</source>
-        <target>Pagamento bem-sucedido!</target>
+        <target>Pagamento bem sucedido!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">56</context>
@@ -856,7 +857,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e2c9907de2386d2f5c27a0370fbaf416b4f4e41c">
         <source>Processing payment, please wait...</source>
-        <target>A pagar, por favor, aguarde...</target>
+        <target>A processar o pagamento, por favor aguarde...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">67</context>
@@ -892,6 +893,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="dd7b5d4f4ea6e43932e87bc7d48812eef3f0dbb4">
         <source>Rate this app:</source>
+        <target>Avalie esta aplicação:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">17</context>
@@ -983,7 +985,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9e5ce729ba1ff21c6bed9417bca2d16cd6b8e1fd">
         <source>History Versions</source>
-        <target>Versões do Histórico</target>
+        <target>Versões do histórico</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">109</context>
@@ -999,6 +1001,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="82182068adfbb019055ef30eff0fc438275441fa">
         <source>No user comments available</source>
+        <target>Nenhum comentário de utilizador disponível</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">129</context>
@@ -1436,12 +1439,12 @@
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="974891dfc181600b3a12ce2669232b840b1a7a6b">
-        <source>Searching results for <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></source>
-        <target>A pesquisar resultados para <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></target>
+      <trans-unit datatype="html" id="215dd3cd357a0777dc534741bd6d0f11682f42d7">
+        <source>Search results for <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></source>
+        <target>Procurar resultados para <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3a2c86e43bad2e779a341feec8f1246fdf048d3a">
@@ -1449,7 +1452,7 @@
         <target>Não foram encontrados resultados da pesquisa</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="0de16eb573f8aae4372d579566e71ddc4bc09b2f">
