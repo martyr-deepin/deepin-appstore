@@ -491,12 +491,12 @@
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="1b736ccac6f697a48dbc1368f153c3d643fc2f61">
-        <source>Announcement：<x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></source>
-        <target>Annunci：<x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
+      <trans-unit datatype="html" id="10b5e1355fe307af84b97e91cf5bdc1d04ce28f1">
+        <source>Announcement: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></source>
+        <target>Announcio: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="f38cdabbc1d33c5153a307c4f0c8f4f22df4276f">
@@ -504,7 +504,7 @@
         <target>Richiesta inviata</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="231e7766e41f05396b33e9798d628f8d1b0f46f9">
@@ -512,7 +512,7 @@
         <target>Cache ripulita</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="07ab431232dac11b93d5366ab540d780dca2ff5b">
@@ -520,7 +520,7 @@
         <target>Richiesta inviata</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="e33d805f0c1ce97c92b68fc882084fef23cca646">
@@ -528,7 +528,7 @@
         <target>Richiesta fallita</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9adf078da8da4a1f22687e15f76dae2369a603df">
@@ -536,7 +536,7 @@
         <target>Pulizia cache fallita</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a4ebb29f3e25de97f36a395cf50585b89251806f">
@@ -544,7 +544,7 @@
         <target>Sottoscrizione fallita</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="758496ccd0c37659b18828f3234eac3915c1a32f">
@@ -1439,12 +1439,12 @@
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="974891dfc181600b3a12ce2669232b840b1a7a6b">
-        <source>Searching results for <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></source>
+      <trans-unit datatype="html" id="215dd3cd357a0777dc534741bd6d0f11682f42d7">
+        <source>Search results for <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></source>
         <target>Risultati di ricerca per <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3a2c86e43bad2e779a341feec8f1246fdf048d3a">
@@ -1452,7 +1452,7 @@
         <target>Nessun risultato disponibile</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="0de16eb573f8aae4372d579566e71ddc4bc09b2f">

@@ -20,7 +20,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
-        <translation type="unfinished"/>
+        <translation>Selecione a região</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
@@ -35,12 +35,12 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
         <source>Clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Limpar cache</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
         <source>Dark theme</source>
-        <translation type="unfinished"/>
+        <translation>Tema escuro</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -86,7 +86,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation type="unfinished"/>
+        <translation>A Loja Deepin é uma Loja de aplicações com diversas aplicações de qualidade. Ela apresenta recomendações populares, aplicações atualizadas recentemente e tópicos ativos e suporta instalação, atualização e desinstalação com apenas um clique.</translation>
     </message>
 </context>
 <context>
