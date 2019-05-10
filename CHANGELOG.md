@@ -1,3 +1,13 @@
+<a name="5.2.2"></a>
+## 5.2.2 (2019-05-10)
+
+
+#### Bug Fixes
+
+*   search and announccment text ([934185a3](https://github.com/linuxdeepin/deepin-appstore/commit/934185a3a22f1dadb351f6273dddfd2ede767b66))
+
+
+
 <a name="5.2.1"></a>
 ## 5.2.1 (2019-04-23)
 
