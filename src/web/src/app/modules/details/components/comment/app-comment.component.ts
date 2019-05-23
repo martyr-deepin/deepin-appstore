@@ -6,6 +6,7 @@ import {
   ElementRef,
   OnChanges,
 } from '@angular/core';
+
 import {
   trigger,
   state,
@@ -13,6 +14,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable, concat, forkJoin } from 'rxjs';
 import * as _ from 'lodash';
@@ -49,6 +51,7 @@ export class AppCommentComponent implements OnInit, OnChanges {
     private authService: AuthService,
     private commentService: CommentService,
   ) {}
+  @ViewChild('commentRef') commentRef: ElementRef<HTMLDivElement>;
   @Input()
   appName: string;
   @Input()
@@ -103,6 +106,12 @@ export class AppCommentComponent implements OnInit, OnChanges {
       .subscribe(own => {
         this.own = own;
       });
+  }
+
+  commentTop() {
+    smoothScrollIntoView(this.commentRef.nativeElement, {
+      block: 'start',
+    });
   }
 
   getList() {
