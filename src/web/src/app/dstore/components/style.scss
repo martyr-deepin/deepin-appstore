@@ -1,14 +1,14 @@
 .appTitle {
     cursor: pointer;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: visible;
     min-width: 0;
     text-overflow: ellipsis;
     flex-grow: 0;
 }
 
 .star {
-    height: 22px;
+    height: 1.25rem;
 }
 
 .subtitle {
