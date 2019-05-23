@@ -2,33 +2,33 @@
 
 @import 'theme';
 body {
-  margin: 0;
-  user-select: none;
-  cursor: default;
+    margin: 0;
+    user-select: none;
+    cursor: default;
 }
 
 // 滚动条
 @import '~perfect-scrollbar/css/perfect-scrollbar.css';
 .ps {
-  .ps__rail-y {
-    background-color: transparent !important;
-    .ps__thumb-y {
-      width: 4px;
+    .ps__rail-y {
+        background-color: transparent !important;
+        .ps__thumb-y {
+            width: 4px;
+        }
+        &:hover,
+        &.ps--clicking {
+            .ps__thumb-y {
+                width: 8px;
+            }
+        }
     }
-    &:hover,
-    &.ps--clicking {
-      .ps__thumb-y {
-        width: 8px;
-      }
-    }
-  }
 }
 
 input,
 textarea,
 select {
-  font-size: 1rem;
-  font-family: unset;
+    font-size: 1rem;
+    font-family: unset;
 }
 
 // ::-webkit-scrollbar {
@@ -53,82 +53,90 @@ select {
 //   border: 2px solid $color;
 // }
 .icon {
-  position: relative;
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
-  &::before {
-    position: absolute;
-    content: '';
-    background-color: white;
-    background-image: url('/assets/images/default_icon.svg');
-    background-size: 100%;
-    width: 100%;
-    height: 100%;
-  }
+    position: relative;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    &::before {
+        position: absolute;
+        content: '';
+        background-color: white;
+        background-image: url('/assets/images/default_icon.svg');
+        background-size: 100%;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .tips_bg {
-  width: 8rem;
+    width: 8rem;
 }
 
 a {
-  text-decoration: none;
-  color: unset;
-  cursor: pointer;
-  color: #0082fa;
+    text-decoration: none;
+    color: unset;
+    cursor: pointer;
+    color: #0082fa;
 }
+
 [hidden] {
-  display: none !important;
+    display: none !important;
 }
+
 [tabindex] {
-  outline: none;
+    outline: none;
 }
+
 button {
-  cursor: pointer;
-  border-radius: 4px;
-  outline: none;
-  user-select: none;
-  border: none;
-  font-size: 1rem;
-  white-space: nowrap;
-  height: 2rem;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: none;
+    user-select: none;
+    border: none;
+    font-size: 1rem;
+    white-space: nowrap;
+    height: 2rem;
 }
 
 dialog {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-
-  border-radius: 5px;
-  color: var(--main-color);
-  border: 1px solid var(--main-title-hr-color);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 16px 40px rgba(0, 0, 0, 0.4);
-  background-color: var(--main-bg-color);
-  body {
-    background-color: red;
-  }
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    color: var(--main-color);
+    border: 1px solid var(--main-title-hr-color);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 16px 40px rgba(0, 0, 0, 0.4);
+    background-color: var(--main-bg-color);
+    body {
+        background-color: red;
+    }
 }
+
 img {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 @media (max-width: 600px) {
-  .co-star {
-    display: none;
-  }
+    .co-star {
+        display: none;
+    }
 }
+
 .loadingContainer {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 .paginatorContainer {
-  height: calc(3rem - 4px);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+    height: calc(3rem - 4px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.appList>.app {
+    cursor: pointer !important;
 }
