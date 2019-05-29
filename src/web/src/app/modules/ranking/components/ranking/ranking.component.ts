@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject, timer } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
@@ -18,10 +12,7 @@ import { RankingService, ResolveModel } from '../../ranking.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RankingComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private rankingService: RankingService,
-  ) {}
+  constructor(private route: ActivatedRoute, private rankingService: RankingService) {}
   readonly maxLimit = 500;
   @ViewChild('footerRef') footer: ElementRef<HTMLElement>;
 
