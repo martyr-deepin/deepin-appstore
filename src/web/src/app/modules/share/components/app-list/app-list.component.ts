@@ -8,6 +8,10 @@ import {
   EventEmitter,
   Output,
   OnDestroy,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+  ElementRef,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import * as _ from 'lodash';
@@ -26,7 +30,11 @@ import { JobService } from 'app/services/job.service';
   styleUrls: ['./app-list.component.scss'],
 })
 export class AppListComponent implements OnInit, OnChanges {
-  constructor(private storeService: StoreService, private jobService: JobService) {}
+  constructor(
+    private storeService: StoreService,
+    private jobService: JobService,
+  ) {}
+  @ViewChildren('empty') emptyListRef: QueryList<ElementRef<HTMLDivElement>>;
   // const
   server = BaseService.serverHosts.metadataServer;
   StoreJobStatus = StoreJobStatus;
@@ -43,6 +51,8 @@ export class AppListComponent implements OnInit, OnChanges {
   subtitle = 'category';
   @Output()
   appListLength = new EventEmitter<number>(true);
+  @Output()
+  showBottom = new EventEmitter<boolean>(false);
 
   apps: App[];
   jobEndList = new Set<string>();
@@ -68,6 +78,14 @@ export class AppListComponent implements OnInit, OnChanges {
   );
   ngOnInit() {
     this.changeList();
+
+    setTimeout(() => {
+      console.log(this.emptyListRef);
+      new IntersectionObserver(([e]) => {
+        console.log('isIntersecting', e.isIntersecting);
+        this.showBottom.emit(e.isIntersecting);
+      }).observe(this.emptyListRef.first.nativeElement);
+    });
   }
   changeList() {
     if (this.appList) {
