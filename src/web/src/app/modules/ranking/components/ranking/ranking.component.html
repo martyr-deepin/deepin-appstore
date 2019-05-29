@@ -1,7 +1,7 @@
 <app-app-title #$title [useRouterQuery]="true" i18n>Rankings</app-app-title>
 <ng-container *ngIf="apps$ | async as apps; else loading">
   <app-app-list
-    [appList]="apps"
+    [appList]="apps | slice: 0:100"
     [rankIndex]="true"
     (showBottom)="$event ? load() : null"
     (appListLength)="$title.top = $event"
