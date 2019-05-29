@@ -28,19 +28,28 @@ export class RankingComponent implements OnInit {
     private rankingService: RankingService,
     private appService: AppService,
   ) {}
+  readonly limit = 100;
 
   list = new BehaviorSubject(this.route.snapshot.data.data);
-  apps$ = this.list.pipe(
-    mergeMap(list =>
-      this.appService.getApps(list.map(app => app.name)).pipe(first()),
-    ),
-    scan((acc, value) => [...acc, ...value], []),
+  apps$ = this.route.data.pipe(
+    switchMap(data => {
+      this.list = new BehaviorSubject(data.data);
+      return this.list.pipe(
+        mergeMap(list =>
+          this.appService.getApps(list.map(app => app.name)).pipe(first()),
+        ),
+        scan((acc, value) => [...acc, ...value], []),
+      );
+    }),
   );
 
   ngOnInit() {}
 
   async load() {
     const last = await this.list.pipe(first()).toPromise();
+    if (last.end >= this.limit) {
+      return;
+    }
     const list = await this.rankingService
       .list({
         order: this.route.snapshot.queryParamMap.get('order') as any,
