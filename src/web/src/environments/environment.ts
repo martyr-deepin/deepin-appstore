@@ -11,4 +11,5 @@ export const environment = {
   operationServer: 'http://test.dstore-operation-china.deepin.cn',
   region: 0, // 0:China 1:International
   themeName: 'light',
+  locale: 'zh_CN',
 };
