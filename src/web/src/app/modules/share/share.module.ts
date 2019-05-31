@@ -15,6 +15,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { HoverDirective } from './directives/hover.directive';
 import { ResizeDirective } from './directives/resize.directive';
 import { CloseButtonComponent } from './components/close-button/close-button.component';
+import { ListComponent } from './components/list/list.component';
 
 const components = [
   WaitComponent,
@@ -24,6 +25,7 @@ const components = [
   PaginatorComponent,
   CenterTitleComponent,
   CloseButtonComponent,
+  ListComponent,
 ];
 const directives = [DialogDirective, HoverDirective, ResizeDirective];
 

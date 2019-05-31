@@ -12,4 +12,5 @@ export const environment = {
   region: 0, // 0:China 1:International
   themeName: 'light',
   supportSignIn: false,
+  locale: 'zh_CN',
 };
