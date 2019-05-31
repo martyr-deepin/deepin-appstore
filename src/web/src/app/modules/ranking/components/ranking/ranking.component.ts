@@ -1,62 +1,61 @@
-import { Component, OnInit } from '@angular/core';
-import { fromEvent, merge, Subject, BehaviorSubject } from 'rxjs';
-
-import { AppService } from 'app/services/app.service';
-import { ActivatedRoute } from '@angular/router';
 import {
-  startWith,
-  switchMap,
-  pairwise,
-  filter,
-  map,
-  tap,
-  first,
-  scan,
-  skip,
-  mergeMap,
-} from 'rxjs/operators';
-import { RankingService, ResourceList, App } from '../../ranking.service';
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ChangeDetectionStrategy,
+  AfterViewChecked,
+  AfterViewInit,
+} from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+import { ActivatedRoute } from '@angular/router';
+import { switchMap, first, scan, mergeMap, tap } from 'rxjs/operators';
+import { RankingService, ResolveModel } from '../../ranking.service';
 
 @Component({
   selector: 'dstore-ranking',
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RankingComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private rankingService: RankingService,
-    private appService: AppService,
   ) {}
-  readonly limit = 100;
+  readonly maxLimit = 100;
+  @ViewChild('footerRef') footer: ElementRef<HTMLElement>;
 
-  list = new BehaviorSubject(this.route.snapshot.data.data);
-  apps$ = this.route.data.pipe(
-    switchMap(data => {
-      this.list = new BehaviorSubject(data.data);
-      return this.list.pipe(
-        mergeMap(list =>
-          this.appService.getApps(list.map(app => app.name)).pipe(first()),
-        ),
-        scan((acc, value) => [...acc, ...value], []),
+  offset$: BehaviorSubject<number>;
+
+  // 无限加载
+  result$ = this.route.queryParamMap.pipe(
+    switchMap(query => {
+      const order = (query.get('order') as any) || 'download';
+      const data = this.route.snapshot.data.data as ResolveModel[];
+      this.offset$ = new BehaviorSubject(data.length);
+      return this.offset$.pipe(
+        mergeMap(offset => this.rankingService.list({ order, offset })),
+        scan((acc, value) => [...acc, ...value], data),
+        tap(() => this.intersection.observe(this.footer.nativeElement)),
       );
     }),
   );
 
-  ngOnInit() {}
+  // 监听是否到达底部
+  intersection = new IntersectionObserver(
+    ([e]: IntersectionObserverEntry[]) => {
+      if (e.isIntersecting) {
+        this.offset$.pipe(first()).subscribe(offset => {
+          if (offset >= this.maxLimit) {
+            return;
+          }
+          this.offset$.next(offset + this.rankingService.limit);
+        });
+      }
+    },
+  );
 
-  async load() {
-    const last = await this.list.pipe(first()).toPromise();
-    if (last.end >= this.limit) {
-      return;
-    }
-    const list = await this.rankingService
-      .list({
-        order: this.route.snapshot.queryParamMap.get('order') as any,
-        offset: last.end,
-        limit: 20,
-      })
-      .toPromise();
-    this.list.next(list);
-  }
+  ngOnInit() {}
 }

@@ -1,5 +1,11 @@
 import { debounceTime, filter, retry } from 'rxjs/operators';
-import { Component, OnInit, NgZone } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  NgZone,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Channel } from 'app/modules/client/utils/channel';
@@ -28,6 +34,7 @@ export class AppComponent implements OnInit {
     private menu: MenuService,
     private keyboard: KeyboardService,
   ) {}
+  @ViewChild('scrollbarRef') scrollbarRef: ElementRef<HTMLDivElement>;
   ngOnInit(): void {
     this.switchTheme();
     if (!BaseService.isNative) {
