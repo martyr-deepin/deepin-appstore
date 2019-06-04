@@ -9,7 +9,7 @@ import { map, tap } from 'rxjs/operators';
 })
 export class SoftwareService {
   constructor(private http: HttpClient) {}
-  readonly url = 'http://10.0.10.70:18000/api/v3/apps';
+  readonly url = environment.metadataServer + '/api/v3/apps';
 
   getSofts(names: string[]) {
     const preloads = ['info', 'desc', 'tags', 'images'];
@@ -32,8 +32,8 @@ export class SoftwareService {
     );
   }
 
-  attach<T>(soft: Software, obj: T) {
-    return { ...soft, ...obj } as Software & T;
+  attach<T extends object>(soft: Software, obj: T) {
+    return { ...soft, ...(obj as object) } as Software & T;
   }
 
   convertInfo(soft: Software): Software {

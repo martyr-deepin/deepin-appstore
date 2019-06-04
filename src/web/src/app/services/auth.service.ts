@@ -12,10 +12,11 @@ import { Channel } from 'app/modules/client/utils/channel';
 export class AuthService {
   constructor(private router: Router) {
     Channel.exec<UserInfo>('account.getUserInfo').then(info => {
+      console.log('get user info', info);
       this.userInfo$.next(info);
     });
     Channel.connect<UserInfo>('account.userInfoChanged').subscribe(info => {
-      console.log('userinfo', info);
+      console.log('user info changed', info);
       this.userInfo$.next(info);
     });
     // 退出登录后,刷新当前页面,以进行路由守卫验证

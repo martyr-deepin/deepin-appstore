@@ -4,13 +4,11 @@ import {
   ViewChild,
   ElementRef,
   ChangeDetectionStrategy,
-  AfterViewChecked,
-  AfterViewInit,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, first, scan, mergeMap, tap } from 'rxjs/operators';
+import { switchMap, first, scan, retryWhen } from 'rxjs/operators';
 import { RankingService, ResolveModel } from '../../ranking.service';
 
 @Component({
@@ -24,7 +22,7 @@ export class RankingComponent implements OnInit {
     private route: ActivatedRoute,
     private rankingService: RankingService,
   ) {}
-  readonly maxLimit = 100;
+  readonly maxLimit = 500;
   @ViewChild('footerRef') footer: ElementRef<HTMLElement>;
 
   offset$: BehaviorSubject<number>;
@@ -36,26 +34,18 @@ export class RankingComponent implements OnInit {
       const data = this.route.snapshot.data.data as ResolveModel[];
       this.offset$ = new BehaviorSubject(data.length);
       return this.offset$.pipe(
-        mergeMap(offset => this.rankingService.list({ order, offset })),
+        switchMap(offset => this.rankingService.list({ order, offset })),
+        retryWhen(errors => errors.pipe(switchMap(() => timer(1000)))),
         scan((acc, value) => [...acc, ...value], data),
-        tap(() => this.intersection.observe(this.footer.nativeElement)),
       );
     }),
   );
 
-  // 监听是否到达底部
-  intersection = new IntersectionObserver(
-    ([e]: IntersectionObserverEntry[]) => {
-      if (e.isIntersecting) {
-        this.offset$.pipe(first()).subscribe(offset => {
-          if (offset >= this.maxLimit) {
-            return;
-          }
-          this.offset$.next(offset + this.rankingService.limit);
-        });
-      }
-    },
-  );
-
   ngOnInit() {}
+
+  loading() {
+    this.offset$.pipe(first()).subscribe(offset => {
+      this.offset$.next(offset + 20);
+    });
+  }
 }
