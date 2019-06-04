@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map, tap, switchMap, first } from 'rxjs/operators';
 import { SoftwareService, Software } from 'app/services/software.service';
 import { environment } from 'environments/environment';
+import { PackageService } from 'app/services/package.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -72,6 +74,7 @@ export interface Stat {
   score_count: number;
   download: number;
 }
+
 interface StatListOption {
   order?: 'download' | 'score';
   offset?: number;
