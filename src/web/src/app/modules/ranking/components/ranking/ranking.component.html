@@ -2,37 +2,8 @@
   <header>
     <app-app-title [useRouterQuery]="true" i18n>Rankings</app-app-title>
   </header>
-  <main class="list">
-    <section
-      class="item"
-      *ngFor="let soft of result$ | async"
-      [routerLink]="[soft.name]"
-    >
-      <main>
-        <img
-          dstoreCover="cover"
-          src="http://10.0.10.70:8000/images/{{ soft?.info?.cover }}"
-        />
-      </main>
-      <footer>
-        <div class="info">
-          <div class="name">{{ soft?.info?.name }}</div>
-          <div class="subtitle">
-            <div class="category">{{ soft?.info?.category }}</div>
-            <dstore-star [rate]="soft.score / 2"></dstore-star>
-          </div>
-        </div>
-        <div class="control">
-          <button>操作</button>
-        </div>
-      </footer>
-    </section>
-    <section
-      class="app"
-      *ngFor="let empty of [1, 2, 3, 4, 5, 6, 7]"
-      [style.height]="0"
-      [style.padding]="0"
-    ></section>
+  <main>
+    <dstore-list [list]="result$ | async" (load)="loading()"></dstore-list>
   </main>
   <footer #footerRef></footer>
 </section>

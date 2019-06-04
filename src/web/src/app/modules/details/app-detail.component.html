@@ -79,7 +79,9 @@
           <div i18n>Tag:</div>
           <div class="tags" *ngIf="app.localInfo.tags.length > 0">
             <div *ngFor="let tag of app.localInfo.tags">
-              <span class="tag" [routerLink]="['/tag', tag]">{{ tag }}</span>
+              <span class="tag" [routerLink]="['/list', 'tag', tag]">
+                {{ tag }}
+              </span>
             </div>
           </div></ng-container
         >
