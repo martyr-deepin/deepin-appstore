@@ -1,9 +1,9 @@
-<div *ngIf="(app$ | async) as app; else $loading">
+<div *ngIf="app$ | async as app; else $loading">
   <div class="appInfo">
     <div class="info-left">
       <img class="icon" [src]="app.icon" /> <br />
       <ng-container *ngIf="app.version">
-        <ng-container *ngIf="(job$ | async) as job; else cltButton">
+        <ng-container *ngIf="job$ | async as job; else cltButton">
           <dstore-progress-button
             [job]="job.job"
             [type]="job.type"
@@ -38,7 +38,7 @@
         <ng-container *ngIf="app.version">
           <div i18n>Version:</div>
           <div>{{ app.version.remoteVersion || app.version.localVersion }}</div>
-          <ng-container *ngIf="(allowName$ | async)">
+          <ng-container *ngIf="allowName$ | async">
             <div i18n>Package:</div>
             <div>{{ app.version.packageName }}</div>
           </ng-container>
@@ -91,7 +91,9 @@
           <div i18n>Tag:</div>
           <div class="tags" *ngIf="app.localInfo.tags.length > 0">
             <div *ngFor="let tag of app.localInfo.tags">
-              <span class="tag" [routerLink]="['/tag', tag]">{{ tag }}</span>
+              <span class="tag" [routerLink]="['/list', 'tag', tag]">
+                {{ tag }}
+              </span>
             </div>
           </div></ng-container
         >
@@ -120,7 +122,7 @@
       [appName]="app.name"
       [version]="app.version.remoteVersion || app.version.localVersion"
     ></dstore-app-comment>
-    <div class="ad" *ngIf="(adVisible | async)">
+    <div class="ad" *ngIf="adVisible | async">
       <ng-container i18n>CDN supported by UPYUN</ng-container>
     </div>
   </ng-container>

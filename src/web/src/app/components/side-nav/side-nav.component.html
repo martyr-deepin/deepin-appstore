@@ -1,131 +1,164 @@
-<div class="nav"
-     #nav>
-	<dstore-scrollbar>
-		<div class="navItem"
-		     routerLinkActive="active"
-		     [routerLink]="['index']">
-			<div class="categoryIcon homepage"></div>
-			<div class="title"><span i18n>Home</span></div>
-		</div>
-		<div class="navItem"
-		     routerLinkActive="active"
-		     [routerLink]="['ranking']">
-			<div class="categoryIcon ranking"></div>
-			<div class="title"><span i18n>Rankings</span></div>
-		</div>
-		<ng-container *ngIf="cs$|async as $cs;else $default">
-			<ng-container *ngIf="$cs.length>0;else $default">
-				<div class="navItem"
-				     routerLinkActive="active"
-				     *ngFor="let c of $cs"
-				     [routerLink]="['category',c.id]">
-					<div class="categoryIcon"
-					     [style.background-image]="getStyle(c.icon)">
-					</div>
-					{{c.title}}
-				</div>
-			</ng-container>
-		</ng-container>
+<div class="nav" #nav>
+  <dstore-scrollbar>
+    <div class="navItem" routerLinkActive="active" [routerLink]="['index']">
+      <div class="categoryIcon homepage"></div>
+      <div class="title"><span i18n>Home</span></div>
+    </div>
+    <div
+      class="navItem"
+      routerLinkActive="active"
+      [routerLink]="['list', 'ranking', 'ranking']"
+    >
+      <div class="categoryIcon ranking"></div>
+      <div class="title"><span i18n>Rankings</span></div>
+    </div>
+    <ng-container *ngIf="cs$ | async as $cs; else $default">
+      <ng-container *ngIf="$cs.length > 0; else $default">
+        <div
+          class="navItem"
+          routerLinkActive="active"
+          *ngFor="let c of $cs"
+          [routerLink]="['list', 'category', c.id]"
+        >
+          <div
+            class="categoryIcon"
+            [style.background-image]="getStyle(c.icon)"
+          ></div>
+          {{ c.title }}
+        </div>
+      </ng-container>
+    </ng-container>
 
-		<ng-template #$default>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','internet']">
-				<div class="categoryIcon internet"></div>
-				<div class="title"><span i18n>Internet</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','chat']">
-				<div class="categoryIcon chat"></div>
-				<div class="title"><span i18n>Chat</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','music']">
-				<div class="categoryIcon music"></div>
-				<div class="title"><span i18n>Music</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','video']">
-				<div class="categoryIcon video"></div>
-				<div class="title"><span i18n>Video</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','graphics']">
-				<div class="categoryIcon graphics"></div>
-				<div class="title"><span i18n>Graphics</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','game']">
-				<div class="categoryIcon game"></div>
-				<div class="title"><span i18n>Game</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','office']">
-				<div class="categoryIcon office"></div>
-				<div class="title"><span i18n>Office</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','reading']">
-				<div class="categoryIcon reading"></div>
-				<div class="title"><span i18n>Reading</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','development']">
-				<div class="categoryIcon development"></div>
-				<div class="title"><span i18n>Development</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','system']">
-				<div class="categoryIcon system"></div>
-				<div class="title"><span i18n>System</span></div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     tabIndex="0"
-			     [routerLink]="['category','others']">
-				<div class="categoryIcon others"></div>
-				<div class="title"><span i18n>Others</span></div>
-			</div>
-		</ng-template>
+    <ng-template #$default>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'internet']"
+      >
+        <div class="categoryIcon internet"></div>
+        <div class="title"><span i18n>Internet</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'chat']"
+      >
+        <div class="categoryIcon chat"></div>
+        <div class="title"><span i18n>Chat</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'music']"
+      >
+        <div class="categoryIcon music"></div>
+        <div class="title"><span i18n>Music</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'video']"
+      >
+        <div class="categoryIcon video"></div>
+        <div class="title"><span i18n>Video</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'graphics']"
+      >
+        <div class="categoryIcon graphics"></div>
+        <div class="title"><span i18n>Graphics</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'game']"
+      >
+        <div class="categoryIcon game"></div>
+        <div class="title"><span i18n>Game</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'office']"
+      >
+        <div class="categoryIcon office"></div>
+        <div class="title"><span i18n>Office</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'reading']"
+      >
+        <div class="categoryIcon reading"></div>
+        <div class="title"><span i18n>Reading</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'development']"
+      >
+        <div class="categoryIcon development"></div>
+        <div class="title"><span i18n>Development</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'system']"
+      >
+        <div class="categoryIcon system"></div>
+        <div class="title"><span i18n>System</span></div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        tabIndex="0"
+        [routerLink]="['list', 'category', 'others']"
+      >
+        <div class="categoryIcon others"></div>
+        <div class="title"><span i18n>Others</span></div>
+      </div>
+    </ng-template>
 
-		<ng-container *ngIf="native">
-			<div class="hr"></div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     [routerLink]="['download']">
-				<div class="categoryIcon downloads"></div>
-				<div class="title"><span i18n>Download</span></div>
-				<div class="downloadCount"
-				     [class.rect]="$c>=10"
-				     [@dlcIn]
-				     *ngIf="dc$|async as $c">{{$c}}</div>
-			</div>
-			<div class="navItem"
-			     routerLinkActive="active"
-			     [routerLink]="['my','apps']">
-				<div class="categoryIcon uninstall"></div>
-				<div class="title"
-				     i18n="uninstall-app|Uninstall applications">Uninstall</div>
-			</div>
-		</ng-container>
-	</dstore-scrollbar>
+    <ng-container *ngIf="native">
+      <div class="hr"></div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        [routerLink]="['download']"
+      >
+        <div class="categoryIcon downloads"></div>
+        <div class="title"><span i18n>Download</span></div>
+        <div
+          class="downloadCount"
+          [class.rect]="$c >= 10"
+          [@dlcIn]
+          *ngIf="dc$ | async as $c"
+        >
+          {{ $c }}
+        </div>
+      </div>
+      <div
+        class="navItem"
+        routerLinkActive="active"
+        [routerLink]="['my', 'apps']"
+      >
+        <div class="categoryIcon uninstall"></div>
+        <div class="title" i18n="uninstall-app|Uninstall applications">
+          Uninstall
+        </div>
+      </div>
+    </ng-container>
+  </dstore-scrollbar>
 </div>

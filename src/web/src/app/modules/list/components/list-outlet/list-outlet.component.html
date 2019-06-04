@@ -1,0 +1,4 @@
+<app-app-title [useRouterQuery]="true">
+  <ng-container [ngSwitch]="type$ | async"> </ng-container>
+</app-app-title>
+<dstore-list [list]="result$ | async" (load)="load()"></dstore-list>

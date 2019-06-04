@@ -18,12 +18,12 @@ const routes: Routes = [
     loadChildren: 'app/modules/index/index.module#IndexModule',
   },
   {
-    path: 'category',
-    loadChildren: 'app/modules/category/category.module#CategoryModule',
+    path: 'list/:name/:value',
+    loadChildren: 'app/modules/list/list.module#ListModule',
   },
   {
-    path: 'ranking',
-    loadChildren: 'app/modules/ranking/ranking.module#RankingModule',
+    path: 'list/:name/:value/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
   {
     path: 'download',
