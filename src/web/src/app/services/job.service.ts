@@ -23,6 +23,7 @@ export class JobService {
       .subscribe(list => this.update(list));
     this.StoreServer.jobListChange().subscribe(list => this.update(list));
   }
+
   private update(list: string[]) {
     this.jobList$.next(list);
     if (this.interval) {
@@ -59,10 +60,18 @@ export class JobService {
       this.jobInfoList$.next(Array.from(this.cache.values()));
     }
   }
+
   jobList(): Observable<string[]> {
     return this.jobList$.asObservable();
   }
+
   jobsInfo(): Observable<StoreJobInfo[]> {
     return this.jobInfoList$.asObservable();
+  }
+  stopJob(jobID: string) {
+    this.StoreServer.pauseJob(jobID);
+  }
+  startJob(jobID: string) {
+    this.StoreServer.resumeJob(jobID);
   }
 }

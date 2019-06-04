@@ -2,16 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'environments/environment';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, switchMap } from 'rxjs/operators';
+import { StoreService } from 'app/modules/client/services/store.service';
+import { Category, CategoryService } from './category.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SoftwareService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private categoryService: CategoryService,
+    private storeService: StoreService,
+  ) {}
   readonly url = environment.metadataServer + '/api/v3/apps';
 
   getSofts(names: string[]) {
+    console.log('getSofts');
     const preloads = ['info', 'desc', 'tags', 'images'];
     const params = { names: [...names].sort(), preloads };
     return this.http.get<Software[]>(this.url, { params }).pipe(
@@ -27,6 +34,7 @@ export class SoftwareService {
           delete soft.images;
           delete soft.tags;
           delete soft.versions;
+          delete soft.info.packageURI;
         });
       }),
     );
@@ -37,7 +45,9 @@ export class SoftwareService {
   }
 
   convertInfo(soft: Software): Software {
-    soft.info.packageURI = JSON.parse((soft.info.packageURI as any) || '[]');
+    soft.info.packages = JSON.parse(soft.info.packageURI || '[]').map(url => ({
+      packageURI: url,
+    }));
     soft.info.extra = JSON.parse((soft.info.extra as any) || '{}');
     // locale desc
     soft.info = {
@@ -82,6 +92,25 @@ export class SoftwareService {
     }
     return soft;
   }
+  private toQuery(soft: Software) {
+    return {
+      name: soft.name,
+      localName: soft.info.name,
+      packages: soft.info.packages,
+    };
+  }
+  open(soft: Software) {
+    return this.storeService.execWithCallback(
+      'storeDaemon.openApp',
+      this.toQuery(soft),
+    );
+  }
+  install(...softs: Software[]) {
+    return this.storeService.execWithCallback(
+      'storeDaemon.installPackages',
+      softs.map(this.toQuery),
+    );
+  }
 }
 
 interface Locale {
@@ -107,7 +136,8 @@ interface Info extends Desc {
   category: string;
   homePage: string;
   icon: string;
-  packageURI: string[];
+  packages: { packageURI: string }[];
+  packageURI: string;
   source: number;
   extra: {};
   versions: any[];

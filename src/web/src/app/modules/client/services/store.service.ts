@@ -50,36 +50,46 @@ export class StoreService {
     Channel.exec('storeDaemon.startJob', job);
   }
 
-  openApp(app: App): void {
-    Channel.exec('storeDaemon.openApp', this.toQuery(app));
-  }
-
   getAllowShowPackageName(): Promise<boolean> {
     return Channel.exec('settings.allowShowPackageName');
   }
 
+  openApp(app: App): void {
+    Channel.exec('storeDaemon.openApp', this.toQuery(app));
+  }
   installPackages(apps: App[]): Observable<string> {
     this.downloadTotalService.installed(apps);
-    return this.execWithCallback('storeDaemon.installPackages', apps.map(this.toQuery));
+    return this.execWithCallback(
+      'storeDaemon.installPackages',
+      apps.map(this.toQuery),
+    );
   }
-
   updatePackages(apps: App[]): Observable<string> {
     this.downloadTotalService.installed(apps);
-    return this.execWithCallback('storeDaemon.updatePackages', apps.map(this.toQuery));
+    return this.execWithCallback(
+      'storeDaemon.updatePackages',
+      apps.map(this.toQuery),
+    );
   }
-
   removePackages(apps: App[]): Observable<string> {
-    return this.execWithCallback('storeDaemon.removePackages', apps.map(this.toQuery));
+    return this.execWithCallback(
+      'storeDaemon.removePackages',
+      apps.map(this.toQuery),
+    );
   }
-
   InstalledPackages() {
     interface InstalledPackage {
       packageURI: string;
       size: number;
     }
-    return this.execWithCallback<InstalledPackage[]>('storeDaemon.installedPackages').pipe(
+    return this.execWithCallback<InstalledPackage[]>(
+      'storeDaemon.installedPackages',
+    ).pipe(
       map(result =>
-        result.reduce((m, pkg) => m.set(pkg.packageURI, pkg), new Map<string, InstalledPackage>()),
+        result.reduce(
+          (m, pkg) => m.set(pkg.packageURI, pkg),
+          new Map<string, InstalledPackage>(),
+        ),
       ),
     );
   }
@@ -107,13 +117,37 @@ export class StoreService {
     );
   }
   queryPackage(apps: App[]) {
-    return this.execWithCallback<QueryResult>('storeDaemon.query', apps.map(this.toQuery)).pipe(
+    return this.execWithCallback<QueryResult>(
+      'storeDaemon.query',
+      apps.map(this.toQuery),
+    ).pipe(
       map(result => {
         const arr = Object.values(result)
           .filter(Boolean)
           .map(r => r.packages.find(pkg => Boolean(pkg.appName)))
           .filter(Boolean)
           .map(pkg => [pkg.appName, pkg] as [string, AppPackage]);
+        return new Map(arr);
+      }),
+    );
+  }
+
+  query(
+    opts: {
+      name: string;
+      localName: string;
+      packages: { packageURI: string }[];
+    }[],
+  ) {
+    return this.execWithCallback<QueryResult>('storeDaemon.query', opts).pipe(
+      map(results => {
+        const arr = opts.map(opt => {
+          const result = results[opt.name] || { packages: [null] };
+          return [
+            opt.name,
+            result.packages.find(pkg => Boolean(pkg.appName)),
+          ] as [string, AppPackage];
+        });
         return new Map(arr);
       }),
     );
