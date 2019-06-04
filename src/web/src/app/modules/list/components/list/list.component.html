@@ -3,7 +3,7 @@
   *ngFor="let soft of list"
   [routerLink]="[soft.name]"
   [hidden]="!(controlRef.package$ | async)"
-  [class.hover]="controlRef.job$ | async"
+  [class.hover]="controlRef.show"
 >
   <ng-container>
     <main>
