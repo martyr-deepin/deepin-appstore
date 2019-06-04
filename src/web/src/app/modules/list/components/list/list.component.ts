@@ -45,7 +45,10 @@ export class ListComponent implements OnInit, OnChanges {
       ) {
         return;
       }
-      this.intersection.observe(this.elRef.nativeElement);
+      setTimeout(
+        () => this.intersection.observe(this.elRef.nativeElement),
+        1000,
+      );
     }
   }
 }

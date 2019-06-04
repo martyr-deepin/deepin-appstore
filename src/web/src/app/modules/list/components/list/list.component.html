@@ -1,22 +1,30 @@
-<section class="item" *ngFor="let soft of list" [routerLink]="[soft.name]">
-  <main>
-    <img
-      dstoreCover="cover"
-      src="http://10.0.10.70:8000/images/{{ soft?.info?.cover }}"
-    />
-  </main>
-  <footer>
-    <div class="info">
-      <div class="name">{{ soft?.info?.name }}</div>
-      <div class="subtitle">
-        <div class="category">{{ soft?.info?.category }}</div>
-        <dstore-star [rate]="soft.score / 2"></dstore-star>
+<section
+  class="item"
+  *ngFor="let soft of list"
+  [routerLink]="[soft.name]"
+  [hidden]="!(controlRef.package$ | async)"
+  [class.hover]="controlRef.job$ | async"
+>
+  <ng-container>
+    <main>
+      <img
+        dstoreCover="cover"
+        src="http://10.0.10.70:8000/images/{{ soft?.info?.cover }}"
+      />
+    </main>
+    <footer>
+      <div class="info">
+        <div class="name">{{ soft?.info?.name }}</div>
+        <div class="subtitle">
+          <div class="category">{{ soft?.info?.category }}</div>
+          <dstore-star [rate]="soft.score / 2"></dstore-star>
+        </div>
       </div>
-    </div>
-    <div class="control">
-      <button>操作</button>
-    </div>
-  </footer>
+      <div class="control">
+        <dstore-control #controlRef [soft]="soft"></dstore-control>
+      </div>
+    </footer>
+  </ng-container>
 </section>
 <section #loadingRef class="item wait">
   <app-wait *ngIf="wait"></app-wait>

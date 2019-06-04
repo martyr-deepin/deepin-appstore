@@ -1,13 +1,20 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DomSanitizer, SafeUrl, SafeStyle } from '@angular/platform-browser';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Observable, timer, merge } from 'rxjs';
-import { tap, flatMap, map, switchMap } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { trigger, style, transition, animate } from '@angular/animations';
+import { RouterLinkActive, RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
 import { BaseService } from '../../dstore/services/base.service';
-import { AppService } from '../../services/app.service';
 import { StoreJobType } from 'app/modules/client/models/store-job-info';
 import { JobService } from 'app/services/job.service';
 
@@ -27,11 +34,8 @@ export class SideNavComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private categoryService: CategoryService,
     private jobService: JobService,
-    private appService: AppService,
   ) {}
   native = BaseService.isNative;
-  @ViewChild('nav')
-  nav: ElementRef<HTMLDivElement>;
   // category list
   cs$: Observable<Category[]>;
   // download count
@@ -48,6 +52,8 @@ export class SideNavComponent implements OnInit {
   }
 
   getStyle(icons: string[]) {
-    return this.sanitizer.bypassSecurityTrustStyle(icons.map(url => `url(${url})`).join(','));
+    return this.sanitizer.bypassSecurityTrustStyle(
+      icons.map(url => `url(${url})`).join(','),
+    );
   }
 }

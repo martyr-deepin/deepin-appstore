@@ -20,6 +20,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 5px;
     .info {
       flex: 1;
       overflow: hidden;
@@ -41,7 +42,8 @@
       display: none;
     }
   }
-  &:hover {
+  &:hover,
+  &.hover {
     background-color: var(--main-item-bg-color-hover);
     dstore-star {
       display: none;
