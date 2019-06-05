@@ -52,6 +52,7 @@ async function main() {
     const servers = await new Promise(resolve => {
       channel.objects.settings.getServers(resolve);
     });
+    environment.supportSignIn = servers['supportSignIn'];
     if (environment.production) {
       environment.metadataServer = servers['metadataServer'];
       environment.operationServer = servers['operationServer'];

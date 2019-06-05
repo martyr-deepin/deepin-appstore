@@ -36,7 +36,7 @@ class TitleBar : public QFrame
     Q_OBJECT
 
 public:
-    explicit TitleBar(QWidget *parent = nullptr);
+    explicit TitleBar(bool support_sign_in, QWidget *parent = nullptr);
     ~TitleBar() override;
 
     QString getSearchText() const;
@@ -63,7 +63,7 @@ public Q_SLOTS:
     void setUserInfo(const QVariantMap &info);
 
 private:
-    void initUI();
+    void initUI(bool support_sign_in);
     void initConnections();
     void saveUserAvatar(const QImage &image, const QString &filePath);
 

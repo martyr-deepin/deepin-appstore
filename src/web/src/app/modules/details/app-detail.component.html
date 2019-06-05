@@ -1,9 +1,9 @@
-<div *ngIf="(app$ | async) as app; else $loading">
+<div *ngIf="app$ | async as app; else $loading">
   <div class="appInfo">
     <div class="info-left">
       <img class="icon" [src]="app.icon" /> <br />
       <ng-container *ngIf="app.version">
-        <ng-container *ngIf="(job$ | async) as job; else cltButton">
+        <ng-container *ngIf="job$ | async as job; else cltButton">
           <dstore-progress-button
             [job]="job.job"
             [type]="job.type"
@@ -38,7 +38,7 @@
         <ng-container *ngIf="app.version">
           <div i18n>Version:</div>
           <div>{{ app.version.remoteVersion || app.version.localVersion }}</div>
-          <ng-container *ngIf="(allowName$ | async)">
+          <ng-container *ngIf="allowName$ | async">
             <div>Package:</div>
             <div>{{ app.version.packageName }}</div>
           </ng-container>
@@ -56,10 +56,12 @@
         <div i18n>Updated Date:</div>
         <div>
           {{ app.updateTime | date: 'yyyy-MM-dd HH:mm' }}
-          <span class="toRight">&lt;</span>
-          <button class="reminder" (click)="reminder(app)">
-            <ng-container i18n>Ask for update</ng-container>
-          </button>
+          <ng-container *ngIf="supportSignIn">
+            <span class="toRight">&lt;</span>
+            <button class="reminder" (click)="reminder(app)">
+              <ng-container i18n>Ask for update</ng-container>
+            </button>
+          </ng-container>
         </div>
         <div *ngIf="app.homePage" i18n>Website:</div>
         <div class="webSite" *ngIf="app.homePage" (click)="openURL(app.homePage)">
@@ -95,7 +97,7 @@
     [screenshotList]="[app.localInfo.images.screenshot, app.localInfo.images.screenshotHD] | fitImage"
   ></app-screenshot>
 
-  <ng-container *ngIf="app.version">
+  <ng-container *ngIf="supportSignIn && app.version">
     <app-donate [appName]="app.name"></app-donate>
     <div class="hr"></div>
     <br />
@@ -103,7 +105,7 @@
       [appName]="app.name"
       [version]="app.version.remoteVersion || app.version.localVersion"
     ></dstore-app-comment>
-    <div class="ad" *ngIf="(adVisible | async)">
+    <div class="ad" *ngIf="adVisible | async">
       <ng-container i18n>CDN supported by UPYUN</ng-container>
     </div>
   </ng-container>
