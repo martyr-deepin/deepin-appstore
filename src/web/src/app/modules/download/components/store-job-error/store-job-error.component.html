@@ -1,29 +1,33 @@
 <div [ngSwitch]="errType">
-  <ng-container *ngSwitchCase="StoreJobErrorType.dependenciesBroken"
-                i18n>Failed to install, broken dependencies, please retry</ng-container>
-  <ng-container *ngSwitchCase="StoreJobErrorType.dpkgInterrupted"
-                i18n>Failed to install, it was interrupted, please retry</ng-container>
-  <ng-container *ngSwitchCase="StoreJobErrorType.fetchFailed"
-                i18n>Failed to download, please retry</ng-container>
-  <ng-container *ngSwitchCase="StoreJobErrorType.dpkgError"
-                i18n>Failed to install, dpkg error</ng-container>
-  <ng-container *ngSwitchCase="StoreJobErrorType.unmetDependencies"
-                i18n>Failed to install, unmet dependencies</ng-container>
-  <ng-container *ngSwitchCase="StoreJobErrorType.insufficientSpace"
-                i18n>Failed to install, insufficient space, please clean and retry</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.dependenciesBroken" i18n
+    >Failed to install: broken dependencies, please retry</ng-container
+  >
+  <ng-container *ngSwitchCase="StoreJobErrorType.dpkgInterrupted" i18n
+    >Failed to install: it was interrupted, please retry</ng-container
+  >
+  <ng-container *ngSwitchCase="StoreJobErrorType.fetchFailed" i18n
+    >Failed to download, please retry</ng-container
+  >
+  <ng-container *ngSwitchCase="StoreJobErrorType.dpkgError" i18n
+    >Failed to install: dpkg error</ng-container
+  >
+  <ng-container *ngSwitchCase="StoreJobErrorType.unmetDependencies" i18n
+    >Failed to install: unmet dependencies</ng-container
+  >
+  <ng-container *ngSwitchCase="StoreJobErrorType.insufficientSpace" i18n
+    >Failed to install: insufficient space, please clean and retry</ng-container
+  >
   <ng-container *ngSwitchDefault>
     <ng-container i18n>Failed to install</ng-container>
   </ng-container>
-  <a class="details"
-     *ngIf="errDetail"
-     (click)="dialog.showModal()"
-     i18n>Details</a>
+  <a class="details" *ngIf="errDetail" (click)="dialog.showModal()" i18n
+    >Details</a
+  >
 </div>
 
-<dialog #dialog
-        (click)="dialog.close()">
+<dialog #dialog (click)="dialog.close()">
   <div (click)="click($event)">
     <h3 i18n>Details</h3>
-    <pre>{{errDetail}}</pre>
+    <pre>{{ errDetail }}</pre>
   </div>
 </dialog>

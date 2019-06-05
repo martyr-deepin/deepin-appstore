@@ -3,7 +3,7 @@
   <form #myForm="ngForm">
     <table *ngIf="myDialog.open">
       <caption class="title">
-        <ng-container i18n>Recommend App</ng-container>
+        <ng-container i18n>Recommend app</ng-container>
       </caption>
       <tr>
         <td>
@@ -95,7 +95,7 @@
               >Official website cannot be empty</label
             >
             <label class="input-error" *ngIf="homePage.hasError('pattern')" i18n
-              >Official website is not a correct format</label
+              >Official website is not in a correct format</label
             >
           </div>
         </td>
@@ -127,7 +127,7 @@
               class="input-error"
               *ngIf="downloadURL.hasError('pattern')"
               i18n
-              >Download Site is not a correct format</label
+              >Download Site is not in a correct format</label
             >
           </div>
         </td>

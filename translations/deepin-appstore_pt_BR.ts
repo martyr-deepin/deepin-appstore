@@ -13,19 +13,14 @@
         <translation>Pesquisar</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
-        <source>Dark Theme</source>
-        <translation>Tema escuro</translation>
-    </message>
-    <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
         <source>Recommend App</source>
         <translation>Recomendar Aplicativos</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
-        <source>Select Region</source>
-        <translation>Selecione a Região</translation>
+        <source>Select region</source>
+        <translation>Selecione a região</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
@@ -39,8 +34,13 @@
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
-        <source>Clear Cache</source>
-        <translation>Limpar Cache</translation>
+        <source>Clear cache</source>
+        <translation>Limpar o cache</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <source>Dark theme</source>
+        <translation>Tema escuro</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -79,14 +79,14 @@
         <translation>Selecionar tudo</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="106"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store</source>
         <translation>Deepin Store</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
-        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Deepin Store é uma Appstore com aplicativos de qualidade. Recomendação popular, novos aplicativos atualizados e tópicos quentes estão disponíveis. Suporta baixar, instalar, atualizar, desinstalar e assim por diante com um só clique.</translation>
+        <location filename="../src/app/deepin_appstore.cpp" line="108"/>
+        <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
+        <translation>Deepin Store é uma Loja de Aplicativos com qualidade e diversidade. Estão disponíveis recomendações dos usuários, aplicativos atualizados e tópicos populares. Ela suporta instalar, atualizar e desinstalar aplicativos com um clique.</translation>
     </message>
 </context>
 <context>

@@ -13,19 +13,14 @@
         <translation>Vyhledávání</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
-        <source>Dark Theme</source>
-        <translation>Tmavý vzhled</translation>
-    </message>
-    <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
         <source>Recommend App</source>
         <translation>Doporučená aplikace</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
-        <source>Select Region</source>
-        <translation>Vyberte oblast</translation>
+        <source>Select region</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
@@ -39,8 +34,13 @@
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
-        <source>Clear Cache</source>
-        <translation>Vyčistit mezipaměť</translation>
+        <source>Clear cache</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <source>Dark theme</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -79,13 +79,13 @@
         <translation>Vybrat vše</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="106"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store</source>
         <translation>Obchod Deepin</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
-        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
+        <location filename="../src/app/deepin_appstore.cpp" line="108"/>
+        <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -94,27 +94,27 @@
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="13"/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>Uživatelské jméno</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="16"/>
         <source>My comments</source>
-        <translation type="unfinished"/>
+        <translation>Moje poznámky</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
         <source>My donations</source>
-        <translation type="unfinished"/>
+        <translation>Moje dary</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="24"/>
         <source>My apps</source>
-        <translation type="unfinished"/>
+        <translation>Moje programy</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>
         <source>Sign out</source>
-        <translation type="unfinished"/>
+        <translation>Odhlásit se</translation>
     </message>
 </context>
 </TS>
