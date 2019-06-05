@@ -61,7 +61,12 @@ void TitleBar::setForwardButtonActive(bool active)
 void TitleBar::setUserInfo(const QVariantMap &info)
 {
     user_name_ = info.value("name").toString();
-    user_menu_->setUsername(user_name_);
+    auto name = info.value("nickname").toString();
+    if (name.isEmpty()) {
+        name = user_name_;
+    }
+    user_menu_->setUsername(name);
+
     if (user_name_.isEmpty()) {
         avatar_button_->setObjectName("AvatarButton");
         avatar_button_->setStyleSheet(this->styleSheet());

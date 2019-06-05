@@ -24,6 +24,6 @@ ifneq (,$(wildcard .git/config))
 	git submodule update --remote
 else
 	rm -rf src/web/node_modules src/web/vendor-deps
-	git clone -b deepin-appstore https://cr.deepin.io/vendor-deps src/web/vendor-deps
+	git clone -b deepin-appstore https://github.com/linuxdeepin/vendor-deps src/web/vendor-deps --depth 1
 	cd src/web; ln -s vendor-deps/node_modules node_modules
 endif
