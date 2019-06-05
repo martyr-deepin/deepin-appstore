@@ -1,3 +1,5 @@
+import { environment } from 'environments/environment.prod';
+
 export class DstoreApp {
   name = '';
   LocalName = '';
@@ -7,7 +9,7 @@ export class DstoreApp {
   constructor(private app: RawApp) {
     this.name = app.name;
     if (app.info) {
-      this.icon = app.info.icon;
+      this.icon = environment.metadataServer + '/images/' + app.info.icon;
       this.LocalName = app.description.sort((a, b) => {
         return descriptionEvaluate(b) - descriptionEvaluate(a);
       })[0].name;
