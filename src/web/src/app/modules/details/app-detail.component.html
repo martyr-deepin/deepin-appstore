@@ -39,20 +39,16 @@
           <div i18n>Version:</div>
           <div>{{ app.version.remoteVersion || app.version.localVersion }}</div>
           <ng-container *ngIf="(allowName$ | async)">
-            <div i18n>Package:</div>
+            <div>Package:</div>
             <div>{{ app.version.packageName }}</div>
           </ng-container>
           <div i18n>Size:</div>
           <div>
-            <ng-container
-              *ngIf="(size$ | async)?.get(app.name) as size; else calculating"
-            >
+            <ng-container *ngIf="(size$ | async)?.get(app.name) as size; else calculating">
               {{ size | sizeHuman }}
             </ng-container>
             <ng-template #calculating let-size>
-              <ng-container *ngIf="size === null" i18n
-                >Calculating</ng-container
-              >
+              <ng-container *ngIf="size === null" i18n>Calculating</ng-container>
               <ng-container *ngIf="size === 0" i18n>Downloaded</ng-container>
             </ng-template>
           </div>
@@ -66,25 +62,15 @@
           </button>
         </div>
         <div *ngIf="app.homePage" i18n>Website:</div>
-        <div
-          class="webSite"
-          *ngIf="app.homePage"
-          (click)="openURL(app.homePage)"
-        >
+        <div class="webSite" *ngIf="app.homePage" (click)="openURL(app.homePage)">
           {{ app.homePage }}
         </div>
         <ng-container *ngIf="app.source">
           <div i18n>Source:</div>
           <div class="source" [ngSwitch]="app.source">
-            <ng-container *ngSwitchCase="AppSource.ThirdParty" i18n
-              >Third-party</ng-container
-            >
-            <ng-container *ngSwitchCase="AppSource.Official" i18n
-              >Official</ng-container
-            >
-            <ng-container *ngSwitchCase="AppSource.Collaborative" i18n
-              >Collaboration</ng-container
-            >
+            <ng-container *ngSwitchCase="AppSource.ThirdParty" i18n>Third-party</ng-container>
+            <ng-container *ngSwitchCase="AppSource.Official" i18n>Official</ng-container>
+            <ng-container *ngSwitchCase="AppSource.Collaborative" i18n>Collaboration</ng-container>
           </div>
         </ng-container>
         <ng-container *ngIf="app.localInfo.tags?.length">
@@ -106,10 +92,7 @@
   <br />
 
   <app-screenshot
-    [screenshotList]="
-      [app.localInfo.images.screenshot, app.localInfo.images.screenshotHD]
-        | fitImage
-    "
+    [screenshotList]="[app.localInfo.images.screenshot, app.localInfo.images.screenshotHD] | fitImage"
   ></app-screenshot>
 
   <ng-container *ngIf="app.version">
