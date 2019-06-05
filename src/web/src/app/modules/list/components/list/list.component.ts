@@ -9,6 +9,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { BaseService } from 'app/dstore/services/base.service';
 
 @Component({
   selector: 'dstore-list',
@@ -16,7 +17,7 @@ import {
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, OnChanges {
-  constructor() {}
+  constructor(private base: BaseService) {}
   @ViewChild('loadingRef') elRef: ElementRef<HTMLDivElement>;
   @Input() list: [];
   @Output() load = new EventEmitter<void>();
