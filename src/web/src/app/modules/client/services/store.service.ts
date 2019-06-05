@@ -142,7 +142,10 @@ export class StoreService {
     return this.execWithCallback<QueryResult>('storeDaemon.query', opts).pipe(
       map(results => {
         const arr = opts.map(opt => {
-          const result = results[opt.name] || { packages: [null] };
+          const result = results[opt.name];
+          if (!result) {
+            return [opt.name, null] as [string, AppPackage];
+          }
           return [
             opt.name,
             result.packages.find(pkg => Boolean(pkg.appName)),
