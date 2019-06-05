@@ -16,6 +16,7 @@ import { NotifyService } from 'app/services/notify.service';
 import { NotifyType } from 'app/services/notify.model';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { JobService } from 'app/services/job.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'dstore-app-detail',
@@ -32,6 +33,7 @@ export class AppDetailComponent implements OnInit {
     private jobService: JobService,
   ) {}
   metadataServer = BaseService.serverHosts.metadataServer;
+  supportSignIn = environment.supportSignIn;
   adVisible = DstoreObject.AdVisible();
   open = this.storeService.openApp;
 

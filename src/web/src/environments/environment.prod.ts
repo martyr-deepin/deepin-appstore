@@ -6,4 +6,5 @@ export const environment = {
   operationServer: 'https://dstore-operation-china.deepin.cn',
   region: 0,
   themeName: '',
+  supportSignIn: true,
 };
