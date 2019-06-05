@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Software, SoftwareService } from 'app/services/software.service';
 import { PackageService } from 'app/services/package.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { share, map, pairwise, startWith, tap, first } from 'rxjs/operators';
 import { JobService } from 'app/services/job.service';
 import {
@@ -96,11 +96,14 @@ export class ControlComponent implements OnInit {
     private jobService: JobService,
   ) {}
   @Input() soft: Software;
-  package$ = new Subject();
+  package$ = new BehaviorSubject(null);
   @Output() job$: Observable<any>;
   JobStatus = StoreJobStatus;
   show = false;
   ngOnInit() {
+    this.package$.subscribe(v => {
+      console.log('pcakge ', v);
+    });
     this.queryPackage();
     this.job$ = this.jobService.jobsInfo().pipe(
       map(jobs => jobs.find(job => job.names.includes(this.soft.name))),

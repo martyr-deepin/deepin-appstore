@@ -45,10 +45,16 @@ export class ListOutletComponent implements OnInit {
         retryWhen(errors =>
           errors.pipe(
             tap(console.error),
-            switchMap(err => timer(1000)),
+            switchMap(err => timer(1500)),
           ),
         ),
         scan((acc, value) => [...acc, ...value], []),
+        map(list => {
+          if (routeName === 'ranking') {
+            return list.slice(0, 100);
+          }
+          return list;
+        }),
       );
     }),
     share(),
