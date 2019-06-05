@@ -31,10 +31,10 @@
 namespace dstore
 {
 
-TitleBar::TitleBar(QWidget *parent) : QFrame(parent)
+TitleBar::TitleBar(bool support_sign_in, QWidget *parent) : QFrame(parent)
 {
     this->setObjectName("TitleBar");
-    this->initUI();
+    this->initUI(support_sign_in);
     this->initConnections();
 }
 
@@ -160,10 +160,8 @@ void TitleBar::initConnections()
             this, &TitleBar::requestApps);
 }
 
-void TitleBar::initUI()
+void TitleBar::initUI(bool support_sign_in)
 {
-
-
     QLabel *app_icon = new QLabel();
     app_icon->setObjectName("AppIcon");
     app_icon->setFixedSize(26, 26);
@@ -216,6 +214,10 @@ void TitleBar::initUI()
     // TODO: fixme, why avatar_button_ not update???
     Dtk::Widget::DThemeManager::instance()->registerWidget(avatar_button_, "dstore--TitleBar.theme");
     Dtk::Widget::DThemeManager::instance()->registerWidget(this);
+
+    if (!support_sign_in) {
+        avatar_button_->hide();
+    }
 }
 
 void TitleBar::onSearchTextChanged()

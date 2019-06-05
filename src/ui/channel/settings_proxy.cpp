@@ -54,7 +54,8 @@ bool SettingsProxy::getAutoInstall()
     return SettingsManager::instance()->getAutoInstall();
 }
 
-bool SettingsProxy::allowShowPackageName() {
+bool SettingsProxy::allowShowPackageName()
+{
     return SettingsManager::instance()->allowShowPackageName();
 }
 
@@ -74,6 +75,7 @@ const QVariantMap SettingsProxy::getServers()
         { "metadataServer", SettingsManager::instance()->getMetadataServer() },
         { "operationServer", SettingsManager::instance()->getOperationServer()},
         { "region", SettingsManager::instance()->getRegion() },
+        { "supportSignIn", SettingsManager::instance()->supportSignIn() },
         { "themeName", SettingsManager::instance()->getThemeName() },
     };
 }

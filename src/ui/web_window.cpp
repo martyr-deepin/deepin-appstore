@@ -343,7 +343,7 @@ void WebWindow::initUI()
     completion_window_ = new SearchCompletionWindow();
     completion_window_->hide();
 
-    title_bar_ = new TitleBar();
+    title_bar_ = new TitleBar(SettingsManager::instance()->supportSignIn());
     this->titlebar()->setCustomWidget(title_bar_, Qt::AlignCenter, false);
     this->titlebar()->setSeparatorVisible(true);
     tool_bar_menu_ = new TitleBarMenu(SettingsManager::instance()->supportSignIn(), this);
