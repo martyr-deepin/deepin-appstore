@@ -13,19 +13,14 @@
         <translation>Rechercher</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
-        <source>Dark Theme</source>
-        <translation>Thème Sombre</translation>
-    </message>
-    <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
         <source>Recommend App</source>
         <translation>Applications recommandées</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
-        <source>Select Region</source>
-        <translation>Sélectionner la région</translation>
+        <source>Select region</source>
+        <translation> Sélectionner la région</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
@@ -39,8 +34,13 @@
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
-        <source>Clear Cache</source>
-        <translation>Vider le cache</translation>
+        <source>Clear cache</source>
+        <translation> Vider le cache</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <source>Dark theme</source>
+        <translation> Thème Sombre</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -79,14 +79,14 @@
         <translation>Tous sélectionner </translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="106"/>
+        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store</source>
         <translation>Deepin Store</translation>
     </message>
     <message>
-        <location filename="../src/app/deepin_appstore.cpp" line="107"/>
-        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
-        <translation>Deepin Store est un magasin riche d&apos;applications de qualité. Recommandations, nouvelles applications, mises à jour et applications vedettes sont disponibles. Simplement cliquez pour télécharger, installer, mettre à jour, désinstaller etc...</translation>
+        <location filename="../src/app/deepin_appstore.cpp" line="108"/>
+        <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
+        <translation>Deepin Store est un magasin proposant de nombreuses applications de qualité. Il propose des recommandations populaires, des applications récemment mises à jour et des sujets d&apos;actualité et prend en charge l&apos;installation, la mise à jour et la désinstallation en un clic.</translation>
     </message>
 </context>
 <context>
@@ -94,27 +94,27 @@
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="13"/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>Nom d&apos;utilisateur</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="16"/>
         <source>My comments</source>
-        <translation type="unfinished"/>
+        <translation>Mes commentaires</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
         <source>My donations</source>
-        <translation type="unfinished"/>
+        <translation>Mes donations</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="24"/>
         <source>My apps</source>
-        <translation type="unfinished"/>
+        <translation>Mes applications</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>
         <source>Sign out</source>
-        <translation type="unfinished"/>
+        <translation>Déconnexion</translation>
     </message>
 </context>
 </TS>

@@ -1,7 +1,7 @@
 <div class="commentInput">
   <div class="title">
     <ng-container *ngIf="!info; else logged">
-      <span i18n>Please post a comment after signed in</span>
+      <span i18n>Please post your comment after sign in</span>
       <a (click)="register()" i18n>Sign Up</a>
     </ng-container>
     <ng-template #logged>
@@ -14,7 +14,7 @@
       </ng-container>
       <ng-template #starEdit>
         <span class="star">
-          <div i18n>Please rate:</div>
+          <div i18n>Rate this app:</div>
           <dstore-star
             [(rate)]="comment.rate"
             #$star
@@ -61,7 +61,7 @@
       </div>
       <ng-template #please>
         <div class="placeholder" [hidden]="comment.content">
-          <ng-container i18n>Please input a comment</ng-container>
+          <ng-container i18n>Post your comment here</ng-container>
         </div>
       </ng-template>
     </ng-template>
@@ -71,7 +71,7 @@
 <div class="submit" *ngIf="info">
   <ng-container [ngSwitch]="comment.error">
     <span class="submitError" *ngSwitchCase="CommentError.AllInvalid" i18n
-      >Please rate and input your comment</span
+      >Please rate and post your comment</span
     >
     <span class="submitError" *ngSwitchCase="CommentError.CommentInvalid" i18n
       >Please input your comment</span
@@ -126,7 +126,7 @@
         <ng-container i18n>Failed to load comments</ng-container>
       </div>
       <div class="empty" *ngSwitchCase="list && list.length === 0">
-        <ng-container i18n>There are not any user comments</ng-container>
+        <ng-container i18n>No user comments available</ng-container>
       </div>
       <ng-container *ngSwitchCase="list && list.length > 0">
         <table class="list">
