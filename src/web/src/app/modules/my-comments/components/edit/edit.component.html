@@ -10,9 +10,7 @@
           <span i18n>Comment Date:</span>
           <span>{{ _comment.createTime | date: 'yyyy-MM-dd' }}</span>
         </span>
-        <span class="version">
-          <span i18n>Version:</span> {{ _comment.version }}
-        </span>
+        <span class="version"> <span i18n>Version:</span> {{ _comment.version }} </span>
       </div>
     </div>
     <div class="content">
@@ -35,7 +33,7 @@
         </div>
       </ng-container>
       <ng-template #Delete>
-        <div i18n>Are you sure to delete this comment?</div>
+        <div i18n>Are you sure you want to delete this comment?</div>
         <div>
           <button (click)="deleteConfirm = false" i18n>Cancel</button> &nbsp;
           <button class="primary warn" (click)="delete()" i18n>Confirm</button>

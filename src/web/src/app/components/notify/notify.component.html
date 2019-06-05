@@ -1,39 +1,27 @@
-<div class="notify"
-     *ngIf="notify$|async as $notify"
-     @flyInOut>
-    <span class="succeed"
-          *ngIf="$notify.type===NotifyType.Bulletin;else $others"
-          i18n>Announcement：{{$notify.content}}</span>
-    <ng-template #$others>
-        <ng-container [ngSwitch]="$notify.status">
-            <ng-container *ngSwitchCase="NotifyStatus.Success">
-                <img src="/assets/icons/ok.svg">
-                <span class="succeed"
-                      [ngSwitch]="$notify.type">
-                    <ng-container *ngSwitchCase="NotifyType.Reminder"
-                                  i18n>Urge successfully</ng-container>
-                    <ng-container *ngSwitchCase="NotifyType.Clear"
-                                  i18n>Cache was cleared successfully</ng-container>
-                    <ng-container *ngSwitchCase="NotifyType.Recommend"
-                                  i18n>Submit succeeded</ng-container>
-                </span>
-            </ng-container>
-            <ng-container *ngSwitchCase="NotifyStatus.Error">
-                <img src="/assets/icons/failed.svg">
-                <span class="failed"
-                      [ngSwitch]="$notify.type">
-                    <ng-container *ngSwitchCase="NotifyType.Reminder"
-                                  i18n>Urge failed</ng-container>
-                    <ng-container *ngSwitchCase="NotifyType.Clear"
-                                  i18n>Failed to clear cache</ng-container>
-                    <ng-container *ngSwitchCase="NotifyType.Recommend"
-                                  i18n>Submit failed</ng-container>
-                    <ng-container *ngSwitchCase="NotifyType.JobError">{{$notify.content}}</ng-container>
-                </span>
-            </ng-container>
-        </ng-container>
-    </ng-template>
-    <img class="close"
-         (click)="close()"
-         *ngIf="!$notify.delay">
+<div class="notify" *ngIf="(notify$ | async) as $notify" @flyInOut>
+  <span class="succeed" *ngIf="$notify.type === NotifyType.Bulletin; else $others" i18n
+    >Announcement: {{ $notify.content }}</span
+  >
+  <ng-template #$others>
+    <ng-container [ngSwitch]="$notify.status">
+      <ng-container *ngSwitchCase="NotifyStatus.Success">
+        <img src="/assets/icons/ok.svg" />
+        <span class="succeed" [ngSwitch]="$notify.type">
+          <ng-container *ngSwitchCase="NotifyType.Reminder" i18n>Request successful</ng-container>
+          <ng-container *ngSwitchCase="NotifyType.Clear" i18n>Cache cleared</ng-container>
+          <ng-container *ngSwitchCase="NotifyType.Recommend" i18n>Submit successful</ng-container>
+        </span>
+      </ng-container>
+      <ng-container *ngSwitchCase="NotifyStatus.Error">
+        <img src="/assets/icons/failed.svg" />
+        <span class="failed" [ngSwitch]="$notify.type">
+          <ng-container *ngSwitchCase="NotifyType.Reminder" i18n>Request failed</ng-container>
+          <ng-container *ngSwitchCase="NotifyType.Clear" i18n>Failed to clear cache</ng-container>
+          <ng-container *ngSwitchCase="NotifyType.Recommend" i18n>Submit failed</ng-container>
+          <ng-container *ngSwitchCase="NotifyType.JobError">{{ $notify.content }}</ng-container>
+        </span>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+  <img class="close" (click)="close()" *ngIf="!$notify.delay" />
 </div>

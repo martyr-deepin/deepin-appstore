@@ -106,7 +106,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="c81780f921c4ded2a45dadd68238f428bb5e5308">
@@ -117,9 +117,9 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="94516fa213706c67ce5a5b5765681d7fb032033a">
-        <source>Loading...</source>
-        <target>Учитавање...</target>
+      <trans-unit datatype="html" id="172fa0aab2cb9ffc177b03a45af1715e0b58997d">
+        <source>Loading... Please wait</source>
+        <target>Учитавање... Молимо сачекајте</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/wait/wait.component.html</context>
           <context context-type="linenumber">11</context>
@@ -175,10 +175,10 @@
       </trans-unit>
       <trans-unit datatype="html" id="92eee6be6de0b11c924e3ab27db30257159c0a7c">
         <source>Home</source>
-        <target>Почетак</target>
+        <target>Главно</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="c19df76e4d9f2ee2fec4aeca41fef6a087c8c542">
@@ -186,7 +186,7 @@
         <target>Рангирање</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">9</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/ranking/components/ranking/ranking.component.html</context>
@@ -198,7 +198,7 @@
         <target>Интернет</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="5adf337be1ad12c915ae18012f1bfa1f2ca4628b">
@@ -206,7 +206,7 @@
         <target>Ћаскање</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="06a9c25174be5c4e9fca4e8b423410b1900d5a55">
@@ -214,7 +214,7 @@
         <target>Музика</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="2d1ea268a6a9f483dbc2cbfe19bf4256a57a6af4">
@@ -222,7 +222,7 @@
         <target>Видео</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="b8685c2f51906a91fd8e282f25c7fd9b36b27c77">
@@ -230,15 +230,15 @@
         <target>Графика</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="0e6a93b6d39a899de3abb0cb10c51f19057fa547">
-        <source>Game</source>
+      <trans-unit datatype="html" id="71249314fa72f5f9e0d93b8c59f9e148e0ff617f">
+        <source>Games</source>
         <target>Игре</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="1908513266d3ce2dc37135be38ac4baef11a3a0b">
@@ -246,7 +246,7 @@
         <target>Канцеларија</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="440387abefa7c51156990554beb9f5f18576decb">
@@ -254,7 +254,7 @@
         <target>Читање</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="7f3f6a4fb2545cacf800f0623582b6d41d1f8791">
@@ -262,7 +262,7 @@
         <target>Развој</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="8011e20c5bbe51602d459a860fbf29b599b55edd">
@@ -270,15 +270,15 @@
         <target>Систем</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="2e77ab4db0c90cd71b6a0ef856724b21e4a53218">
-        <source>Others</source>
+      <trans-unit datatype="html" id="c2a9de3714f5767b174d0424bc8abe2dc37acc41">
+        <source>Other</source>
         <target>Остало</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">106</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="dc75033a5238fdc4f462212c847a45ba8018a3fd">
@@ -286,21 +286,21 @@
         <target>Преузимање</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee">
         <source>Uninstall</source>
-        <target>Деинсталирај</target>
+        <target>Уклони</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">79</context>
         </context-group>
         <note from="description" priority="1">Uninstall applications</note>
         <note from="meaning" priority="1">uninstall-app</note>
       </trans-unit>
-      <trans-unit datatype="html" id="8c9b06e0d7654df958e18a0ccf70b47edfb8ed62">
-        <source>Recommend App</source>
+      <trans-unit datatype="html" id="9b611771b26a4ff220c605ecffb454658cc7a163">
+        <source>Recommend app</source>
         <target>Препоручи програм</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
@@ -419,8 +419,8 @@
           <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="3ef3fab1d1ccff8068f5170321199ebe767b16ca">
-        <source>Official website is not a correct format</source>
+      <trans-unit datatype="html" id="38c184ee2325949ed3e428f373637c2fb914b5de">
+        <source>Official website is not in a correct format</source>
         <target>Званични сајт није у правилном формату</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
@@ -429,7 +429,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b07b1257a5086e577ec5b97b2143922e60578364">
         <source>Download Site:</source>
-        <target>Сајт преузмања:</target>
+        <target>Страница преузмања:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">106</context>
@@ -451,8 +451,8 @@
           <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="4f6a0916ec15413acb423f0a6e9253f082927ed6">
-        <source>Download Site is not a correct format</source>
+      <trans-unit datatype="html" id="cc6d76692556d846fb1439e5f229df225263f5b6">
+        <source>Download Site is not in a correct format</source>
         <target>Страница преузимања није у правилном формату</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
@@ -477,7 +477,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="71c77bb8cecdf11ec3eead24dd1ba506573fa9cd">
         <source>Submit</source>
-        <target>Пошаљи</target>
+        <target>Објави</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">151</context>
@@ -488,47 +488,47 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="248ac7083d6aeaba08df615c1af40aedb6df794a">
-        <source>Announcement：<x equiv-text="{{$notify.content}}" id="INTERPOLATION"/></source>
-        <target>Најава：<x equiv-text="{{$notify.content}}" id="INTERPOLATION"/></target>
+      <trans-unit datatype="html" id="10b5e1355fe307af84b97e91cf5bdc1d04ce28f1">
+        <source>Announcement: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></source>
+        <target>Најава: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">6</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="7adf474dce2df967c3c8a4f03627e51c3930de14">
-        <source>Urge successfully</source>
+      <trans-unit datatype="html" id="f38cdabbc1d33c5153a307c4f0c8f4f22df4276f">
+        <source>Request successful</source>
         <target>Захтев успешан</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="17652b0b4f68bee9645c241ef23c8471170b3e01">
-        <source>Cache was cleared successfully</source>
-        <target>Кеш успешно очишћен</target>
+      <trans-unit datatype="html" id="231e7766e41f05396b33e9798d628f8d1b0f46f9">
+        <source>Cache cleared</source>
+        <target>Кеш очишћен</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="bc94133fdad4a10cda0e971ffa5a5867c5ddf984">
-        <source>Submit succeeded</source>
+      <trans-unit datatype="html" id="07ab431232dac11b93d5366ab540d780dca2ff5b">
+        <source>Submit successful</source>
         <target>Успешно послано</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="91b4e447c0ebefd9b2e867ee923998b825219b9c">
-        <source>Urge failed</source>
+      <trans-unit datatype="html" id="e33d805f0c1ce97c92b68fc882084fef23cca646">
+        <source>Request failed</source>
         <target>Захтев неуспешан</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="9adf078da8da4a1f22687e15f76dae2369a603df">
@@ -536,15 +536,15 @@
         <target>Неуспешно чишћење кеша</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a4ebb29f3e25de97f36a395cf50585b89251806f">
         <source>Submit failed</source>
-        <target>Слање неуспело</target>
+        <target>Слање неуспешно</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="758496ccd0c37659b18828f3234eac3915c1a32f">
@@ -592,7 +592,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
@@ -604,7 +604,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="04380b03179685f28fc991c2ae855696d7f6ca44">
@@ -612,7 +612,7 @@
         <target>Величина:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="1a5b6d68dd00f96022a9781b03b407784b5090b0">
@@ -620,7 +620,7 @@
         <target>Рачунање</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="e8c021c9d36ccd882cb337c19cbca3067c249d41">
@@ -668,7 +668,7 @@
         <target>Извор:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="05f57eae1951b6b813d2306e9931485e0eca00b1">
@@ -676,7 +676,7 @@
         <target>Независан</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="d06df58d8b33f2fb3bf532b12b0d091388d2ae6b">
@@ -684,7 +684,7 @@
         <target>Званичан</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3630022091d1044a60591f58536cfff54b241eaa">
@@ -692,15 +692,15 @@
         <target>Сарадња</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">82</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="15cab428492d4f8b8bc528a93cf1fdd2dc65328e">
         <source>Tag:</source>
-        <target>Ознака:</target>
+        <target>Ознаке:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4a22c6843133f0b0d7dc0d28f864f2f90c1de7ad">
@@ -708,7 +708,7 @@
         <target>Опис:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="c0331aa0a5a4589294b7826d8613515c597812a8">
@@ -716,7 +716,7 @@
         <target>CDN подржан од UPYUN</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="b9905b17f853f79045218f2d43f572029e54fd5b">
@@ -724,15 +724,15 @@
         <target>Извините</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">120</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">128</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">134</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
@@ -744,7 +744,7 @@
         <target>На уређивању је, можете се вратити на</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="680d5c75b7fd8d37961083608b9fcdc4167b4c43">
@@ -752,7 +752,7 @@
         <target>Претходно</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="6dd070f6eb99a4e300bce2af82d76f3d01c61edd">
@@ -760,7 +760,7 @@
         <target>Веза је прекинута, молимо проверите вашу мрежу и освежите</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="2631d08f671cb06e269dfe7ce2268ab52ef73375">
@@ -768,7 +768,7 @@
         <target>Нешто је пошло наопако.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="8de08a808857e4c16e239c7a661e05a5824e407a">
@@ -784,11 +784,11 @@
         <target>Донирај</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">4</context>
+          <context context-type="linenumber">2</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="568c82e4dd743c0218ca10fb434e537a17a22d6c">
@@ -796,7 +796,7 @@
         <target>Изјава о достави и донацији</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="91ce116be6e8df104128f339912c9207f01265cd">
@@ -804,7 +804,7 @@
         <target>Сума:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3efbc55094b3e633835a1866fcfb14b0601376dc">
@@ -812,7 +812,7 @@
         <target>Насумично</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fb3545e97e371069768103e01599f35e789d556c">
@@ -820,7 +820,7 @@
         <target>Начин плаћања:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="53d20cc6953546db5373b1ae5a686aa655a715bb">
@@ -828,15 +828,15 @@
         <target>Плати</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="87c8bef501029e74fa6dd149dcad2d97a92ab762">
-        <source>Payment Succeeded!</source>
-        <target>Успешно Плаћено!</target>
+      <trans-unit datatype="html" id="6cf236d79ba814bc7cd38814d46c588c43079ddb">
+        <source>Payment Successful!</source>
+        <target>Успешно плаћено!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f">
@@ -844,7 +844,7 @@
         <target>WeChat Плаћање:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="19a5a4f5540f3675280e26e0fd7b79d780c8b470">
@@ -852,23 +852,23 @@
         <target>RMB ￥<x equiv-text="{{ amount }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="d6b9a958603b771efa6ec562f1411604c0089b79">
-        <source>Paying, please wait...</source>
-        <target>Плаћање у току, молимо сачекајте...</target>
+      <trans-unit datatype="html" id="e2c9907de2386d2f5c27a0370fbaf416b4f4e41c">
+        <source>Processing payment, please wait...</source>
+        <target>Обрада уплате, молимо сачекајте...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">92</context>
+          <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="980bde1b7ff971daf68b8bf06d947e09c062ad86">
-        <source>Please post a comment after signed in</source>
+      <trans-unit datatype="html" id="f0b3887d752a5aa2e68c083304f31959fe662bb9">
+        <source>Please post your comment after sign in</source>
         <target>Молимо унесите коментар након пријављивања</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
@@ -891,9 +891,9 @@
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="2a0a6ac772761620f2ffa35d76d8ef089efead44">
-        <source>Please rate:</source>
-        <target>Молимо оцените:</target>
+      <trans-unit datatype="html" id="dd7b5d4f4ea6e43932e87bc7d48812eef3f0dbb4">
+        <source>Rate this app:</source>
+        <target>Оцени овај програм:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">17</context>
@@ -923,17 +923,17 @@
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="8f32c151d28bb66bae4e4f6a248bdeb8a2b27cf1">
-        <source>Please input a comment</source>
-        <target>Молимо унесите коментар</target>
+      <trans-unit datatype="html" id="c5241f32ed2c3992142d16ddc32a7d7fddf1984c">
+        <source>Post your comment here</source>
+        <target>Објавите ваш коментар овде</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="3b49b13d9f6506617da72137d77aaf34a8527940">
-        <source>Please rate and input your comment</source>
-        <target>Молимо оцените и унесите ваш коментар</target>
+      <trans-unit datatype="html" id="4e0276c8e84978b2d250d9a8471dc1014fbee9f7">
+        <source>Please rate and post your comment</source>
+        <target>Молимо оцените и објавите ваш коментар</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">74</context>
@@ -964,7 +964,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="46105913be7e18027fbaf57f72c41147c49fc8e0">
@@ -999,9 +999,9 @@
           <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="b0b8edf5739046d6481de3de28d9e8bfbcee3757">
-        <source>There are not any user comments</source>
-        <target>Нема ниједног коментара корисника</target>
+      <trans-unit datatype="html" id="82182068adfbb019055ef30eff0fc438275441fa">
+        <source>No user comments available</source>
+        <target>Коментари корисника су недоступни</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">129</context>
@@ -1103,20 +1103,20 @@
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="12ffbefb7d9b1b9b8e2e48d13ec42f3235ca8338">
-        <source>Failed to install, broken dependencies, please retry</source>
-        <target>Неуспешна инсталација, оштећене зависности, молимо поновите</target>
+      <trans-unit datatype="html" id="fa7441de0e4fda8e4c4d6937e5c093aa656abf48">
+        <source>Failed to install: broken dependencies, please retry</source>
+        <target>Неуспешна инсталација: оштећене зависности, молимо поновите</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="1bfd1a0a6eebefb23765a85505d5238e9aedfa33">
-        <source>Failed to install, it was interrupted, please retry</source>
-        <target>Неуспешна инсталација, процес прекинут, молимо поновите</target>
+      <trans-unit datatype="html" id="e10cfabbbae00fe94397161536f247822572c9b4">
+        <source>Failed to install: it was interrupted, please retry</source>
+        <target>Неуспешна инсталација: процес прекинут, молимо поновите</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a8961af16111ab2b84a767b39eb12002ddf6a61d">
@@ -1124,31 +1124,31 @@
         <target>Неуспело преузимање, молимо поновите</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
-          <context context-type="linenumber">7</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="3115c600b33759a741314adeba4d9498304691d6">
-        <source>Failed to install, dpkg error</source>
-        <target>Неуспешна инсталација, dpkg грешка</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="79d1d2b0411af9ecb4539c544f486531eae2dfaa">
-        <source>Failed to install, unmet dependencies</source>
-        <target>Неуспешна инсталација, незадовољене зависности</target>
+      <trans-unit datatype="html" id="92f289b1cf7ccff5e1bf6d1fa679655272da2e95">
+        <source>Failed to install: dpkg error</source>
+        <target>Неуспешна инсталација: dpkg грешка</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="9355e83c7966d65637ae359cbe731471f659853e">
-        <source>Failed to install, insufficient space, please clean and retry</source>
-        <target>Неуспешна инсталација, недовољно простора, молимо очистите и поновите</target>
+      <trans-unit datatype="html" id="1d386f8cdde5844dd460714c47a20656ee8c9b23">
+        <source>Failed to install: unmet dependencies</source>
+        <target>Неуспешна инсталација: незадовољене зависности</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="e0369a4e4d997a4dec4862bafa8459c6d36089dc">
+        <source>Failed to install: insufficient space, please clean and retry</source>
+        <target>Неуспешна инсталација: недовољно простора, молимо очистите и поновите</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a5fab2ced13ebcd9ef9c0ce37990e7fc020f1be1">
@@ -1156,7 +1156,7 @@
         <target>Неуспешна инсталација</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="4f8b2bb476981727ab34ed40fde1218361f92c45">
@@ -1164,16 +1164,16 @@
         <target>Детаљи</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="f18edd28fd882aa06c6204ba6dadd0ed8cfa81ac">
         <source>Local App</source>
-        <target>Локални програм</target>
+        <target>Локални програми</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
           <context context-type="linenumber">2</context>
@@ -1189,10 +1189,10 @@
       </trans-unit>
       <trans-unit datatype="html" id="16655527bac0ef7c8338ed6091d9ebf8355259b7">
         <source>Remote App</source>
-        <target>Удаљени програм</target>
+        <target>Удаљени програми</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">11</context>
+          <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
@@ -1203,12 +1203,12 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="fdda54eda63b0d772c8639f52897d2bb1714b735">
-        <source>Are you sure to uninstall this application?</source>
+      <trans-unit datatype="html" id="96f4e3dedbf0d1b3fffa16f2e5341c6719b8cfb0">
+        <source>Are you sure you want to uninstall this application?</source>
         <target>Заиста желите да деинсталирате овај програм?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="b03f424e22c3eb9799167ac85fd8473a784ddd40">
@@ -1216,7 +1216,7 @@
         <target>Датум инсталирања:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
@@ -1228,15 +1228,15 @@
         <target>Откажи</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="68e710782ccb5398b3acb8844caf0b199da2c3da">
@@ -1244,19 +1244,19 @@
         <target>Потврди</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="1dfba504a0d0bf41da961d89d402dedecde5e30d">
         <source>Uninstall</source>
-        <target>Деинстал...</target>
+        <target>Уклони</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="546c55a0ee20cd25a559582f5eb54e05592a9a12">
@@ -1277,7 +1277,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0c5beac3fe2c2731a51956b0d828195499bed15d">
         <source>Install All</source>
-        <target>Инсрталирај све</target>
+        <target>Инсталирај све</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-install/remote-install.component.html</context>
           <context context-type="linenumber">11</context>
@@ -1285,7 +1285,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="195fccff33fa0a6c78b03d270f294a1bfc600e42">
         <source>Please select the apps to install</source>
-        <target>Одаберите програме за инсталацију</target>
+        <target>Изабери програме за инсталацију</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/batch-install/batch-install.component.html</context>
           <context context-type="linenumber">4</context>
@@ -1388,7 +1388,7 @@
         <target>Оцена:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="826b25211922a1b46436589233cb6f1a163d89b7">
@@ -1396,15 +1396,15 @@
         <target>Обриши</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="f951d1719785562ff9975d64585bd7927c668f1f">
-        <source>Are you sure to delete this comment?</source>
+      <trans-unit datatype="html" id="3fb74cf2ff5212dade6a7cd9a43371f3f0f56c7e">
+        <source>Are you sure you want to delete this comment?</source>
         <target>Заиста желите да обришете коментар?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="a673c003a4087c5e63321cc9f7f96688896ee72d">
@@ -1412,7 +1412,7 @@
         <target>Датум донације:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-donates/donates/donates.component.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="72d1017b7becbd9f94b44708129d2d92bbb52f70">
@@ -1420,7 +1420,7 @@
         <target>AliPay</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-donates/donates/donates.component.html</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="27c10b4cbfefae96b6b16db91c0fe520efb393f9">
@@ -1428,7 +1428,7 @@
         <target>WeChat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-donates/donates/donates.component.html</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="7b91a702d1a370fb73395068c225031722ea42bf">
@@ -1436,15 +1436,15 @@
         <target>PayPal</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-donates/donates/donates.component.html</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="974891dfc181600b3a12ce2669232b840b1a7a6b">
-        <source>Searching results for <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></source>
-        <target>Тражим резултате за <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></target>
+      <trans-unit datatype="html" id="215dd3cd357a0777dc534741bd6d0f11682f42d7">
+        <source>Search results for <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></source>
+        <target>Резултати претраге за <x equiv-text="{{ title$ | async }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
-          <context context-type="linenumber">3</context>
+          <context context-type="linenumber">1</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="3a2c86e43bad2e779a341feec8f1246fdf048d3a">
@@ -1452,7 +1452,7 @@
         <target>Нема резултата претраге</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/search/components/search/search.component.html</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="0de16eb573f8aae4372d579566e71ddc4bc09b2f">

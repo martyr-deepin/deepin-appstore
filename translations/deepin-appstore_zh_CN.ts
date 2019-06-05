@@ -15,18 +15,13 @@
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
-        <source>Dark Theme</source>
-        <translation>深色主题</translation>
-    </message>
-    <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
         <source>Recommend App</source>
         <translation>推荐应用</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
-        <source>Select Region</source>
+        <source>Select region</source>
         <translation>选择地区</translation>
     </message>
     <message>
@@ -41,13 +36,13 @@
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
-        <source>Clear Cache</source>
+        <source>Clear cache</source>
         <translation>清除缓存</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="109"/>
-        <source>Privacy agreement</source>
-        <translation>隐私协议</translation>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <source>Dark theme</source>
+        <translation>深色主题</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -92,7 +87,7 @@
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
-        <source>Deepin Store is an Appstore with quality and rich applications. Popular recommendation, new updated apps and hot topics are available. It supports one click to download, install, update, uninstall and so on.</source>
+        <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
         <translation>深度商店是一款品质精良、内容丰富的应用商店。精选热门推荐、新品应用和专题介绍。支持一键式下载安装、更新、卸载等功能。</translation>
     </message>
 </context>

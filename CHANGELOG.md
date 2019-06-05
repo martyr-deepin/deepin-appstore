@@ -1,3 +1,38 @@
+<a name="5.2.2"></a>
+## 5.2.2 (2019-05-10)
+
+
+#### Bug Fixes
+
+*   search and announccment text ([934185a3](https://github.com/linuxdeepin/deepin-appstore/commit/934185a3a22f1dadb351f6273dddfd2ede767b66))
+
+
+
+<a name="5.2.1"></a>
+## 5.2.1 (2019-04-23)
+
+
+#### Bug Fixes
+
+*   delete comment text i18n ([24088cba](https://github.com/linuxdeepin/deepin-appstore/commit/24088cba6398606748ca8321f8e56ce58b1320e2))
+
+
+
+<a name="5.2.0.7"></a>
+## 5.2.0.7 (2019-04-10)
+
+
+#### Bug Fixes
+
+*   i18n ([d50f4c87](https://github.com/linuxdeepin/deepin-appstore/commit/d50f4c874682475a49925e9c53f79e1dc7c9a32e))
+*   remove 'Package' ([df61b589](https://github.com/linuxdeepin/deepin-appstore/commit/df61b589602ee5f40ef0ee4e40b461a9c2b8d1a9))
+
+#### Features
+
+*   i18n ([756b99ec](https://github.com/linuxdeepin/deepin-appstore/commit/756b99ecfe3830f71d1f447795b1482f2def1ce3))
+
+
+
 <a name="5.2.0.6"></a>
 ## 5.2.0.6 (2019-02-11)
 
