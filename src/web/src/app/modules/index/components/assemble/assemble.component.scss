@@ -10,6 +10,7 @@
   width: 226px;
   .category {
     height: 2rem;
+    padding: 3px 0.5rem;
   }
 
   @for $var from 0 to 40 {

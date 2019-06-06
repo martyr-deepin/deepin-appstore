@@ -13,6 +13,7 @@ import { PhraseComponent } from './components/phrase/phrase.component';
 import { AssembleComponent } from './components/assemble/assemble.component';
 import { TitleComponent } from './components/title/title.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
+import { ListModule } from '../list/list.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,6 @@ import { CarouselComponent } from './components/carousel/carousel.component';
     TitleComponent,
     CarouselComponent,
   ],
-  imports: [CommonModule, IndexRoutingModule, ShareModule],
+  imports: [CommonModule, IndexRoutingModule, ShareModule, ListModule],
 })
 export class IndexModule {}

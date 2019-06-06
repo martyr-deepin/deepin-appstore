@@ -1,6 +1,9 @@
-<index-title [titles]="section.title" [more]="true"></index-title>
+<index-title
+  [titles]="section.title"
+  [more]="section.ranking.category ? '/list/category/' + section.ranking.category : '/list/ranking/ranking'"
+></index-title>
 <div class="list">
-  <section *ngFor="let soft of softs$ | async; index as index" [class.hover]="controlRef.show">
+  <section class="cursor" *ngFor="let soft of softs$ | async; index as index" [class.hover]="controlRef.show">
     <header>
       <img class="icon" [src]="soft.info.icon" />
     </header>

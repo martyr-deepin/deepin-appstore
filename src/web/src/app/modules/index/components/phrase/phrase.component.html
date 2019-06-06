@@ -1,6 +1,6 @@
-<index-title [titles]="section.title" [more]="true"></index-title>
+<index-title [titles]="section.title" [more]="more"></index-title>
 <div class="list count-{{ section.colSpan * section.rowSpan }}">
-  <section class="item" *ngFor="let soft of softs$ | async">
+  <section class="item cursor" *ngFor="let soft of softs$ | async">
     <header>
       <img class="icon" [src]="soft.info.icon" />
     </header>

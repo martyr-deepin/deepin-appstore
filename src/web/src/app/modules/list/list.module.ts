@@ -8,6 +8,7 @@ import { ShareModule } from '../share/share.module';
 
 @NgModule({
   declarations: [ListOutletComponent, ListComponent],
+  exports: [ListComponent],
   imports: [CommonModule, ListRoutingModule, ShareModule],
 })
 export class ListModule {}

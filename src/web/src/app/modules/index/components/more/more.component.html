@@ -1,4 +1,4 @@
-<app-app-title #$title>{{title|fitLanguage}}</app-app-title>
-<app-app-list [appList]="apps$|async"
-              [routePrefix]="'/index/app'"
-              [sortBy]="$title.sortBy"></app-app-list>
+<app-app-title [useRouterQuery]="true">
+  <ng-container>{{ title$ | async | fitLanguage }}</ng-container>
+</app-app-title>
+<dstore-list [list]="softs$ | async"></dstore-list>
