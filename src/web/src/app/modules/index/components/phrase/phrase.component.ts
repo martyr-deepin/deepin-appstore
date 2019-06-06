@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SectionItemBase } from '../section-item-base';
 import { SoftwareService } from 'app/services/software.service';
 import { SectionPhrase } from 'app/dstore/services/section';
+import { KeyvalueService } from 'app/services/keyvalue.service';
 
 @Component({
   selector: 'index-phrase',
@@ -9,11 +10,13 @@ import { SectionPhrase } from 'app/dstore/services/section';
   styleUrls: ['./phrase.component.scss'],
 })
 export class PhraseComponent extends SectionItemBase implements OnInit {
-  constructor(private softwareService: SoftwareService) {
+  constructor(private softwareService: SoftwareService, private keyvalue: KeyvalueService) {
     super();
   }
+  more: string;
   phrase = new Map<string, string>();
   ngOnInit() {
+    this.more = 'more/' + this.keyvalue.add(this.section);
     this.init();
   }
   async init() {

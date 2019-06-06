@@ -10,7 +10,7 @@ const routes: Routes = [
     component: IndexComponent,
   },
   {
-    path: 'apps',
+    path: 'more/:key',
     component: MoreComponent,
   },
   {

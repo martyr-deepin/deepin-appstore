@@ -1,6 +1,11 @@
-<index-title [titles]="section.title" [more]="true"></index-title>
+<index-title [titles]="section.title" [more]="more"></index-title>
 <div class="list count-{{ section.colSpan * section.rowSpan }}">
-  <section class="item" *ngFor="let soft of softs$ | async" [routerLink]="[soft.name]" [class.hover]="controlRef.show">
+  <section
+    class="item"
+    *ngFor="let soft of softs$ | async"
+    [routerLink]="['app', soft.name]"
+    [class.hover]="controlRef.show"
+  >
     <ng-container>
       <main>
         <img dstoreCover="cover" [src]="soft?.info?.cover" />

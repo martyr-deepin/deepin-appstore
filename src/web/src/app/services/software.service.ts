@@ -33,10 +33,11 @@ export class SoftwareService {
     filter = true,
   }) {
     if (names.length) {
-      const [stats, softs] = await Promise.all([
-        this.http.get<Stat[]>(this.operationURL, { params: { names } }).toPromise(),
-        this.getSofts(names).toPromise(),
-      ]);
+      const stats = await this.http.get<Stat[]>(this.operationURL, { params: { names } }).toPromise();
+      if (stats.length === 0) {
+        return [];
+      }
+      const softs = await this.getSofts(stats.map(stat => stat.name)).toPromise();
 
       if (filter && this.native) {
         const packages = await this.packageService.querys(softs.map(this.toQuery));
@@ -52,13 +53,16 @@ export class SoftwareService {
           }
           return soft;
         })
-        .filter(Boolean);
+        .filter(soft => soft && soft.stat);
     }
     let stats = await this.http
       .get<Stat[]>(this.operationURL, {
         params: { order, offset, limit, category, tag } as any,
       })
       .toPromise();
+    if (stats.length === 0) {
+      return [];
+    }
     const softs = await this.getSofts(stats.map(v => v.name)).toPromise();
 
     if (filter && this.native) {
