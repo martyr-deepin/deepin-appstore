@@ -1,0 +1,16 @@
+<section *ngFor="let soft of softs$ | async">
+  <header>
+    <img class="icon" [src]="soft.info.icon" />
+  </header>
+  <main>
+    <div class="info">
+      <span class="name">{{ soft.info.name }}</span>
+      <span class="subtitle">{{ phrase.get(soft.name) }}</span>
+    </div>
+    <div class="control">
+      <dstore-control #controlRef [soft]="soft"></dstore-control>
+    </div>
+  </main>
+</section>
+
+<section class="item empty" *ngFor="let empty of 7 | range"></section>

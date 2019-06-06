@@ -2,19 +2,10 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Software, SoftwareService } from 'app/services/software.service';
 import { PackageService } from 'app/services/package.service';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { share, map, pairwise, startWith, tap, first } from 'rxjs/operators';
+import { share, map, switchMap, pairwise, startWith, tap, first } from 'rxjs/operators';
 import { JobService } from 'app/services/job.service';
-import {
-  trigger,
-  animate,
-  style,
-  transition,
-  keyframes,
-} from '@angular/animations';
-import {
-  StoreJobInfo,
-  StoreJobStatus,
-} from 'app/modules/client/models/store-job-info';
+import { trigger, animate, style, transition, keyframes } from '@angular/animations';
+import { StoreJobInfo, StoreJobStatus } from 'app/modules/client/models/store-job-info';
 
 @Component({
   selector: 'dstore-control',
@@ -101,20 +92,17 @@ export class ControlComponent implements OnInit {
   JobStatus = StoreJobStatus;
   show = false;
   ngOnInit() {
-    this.package$.subscribe(v => {
-      console.log('pcakge ', v);
-    });
     this.queryPackage();
     this.job$ = this.jobService.jobsInfo().pipe(
       map(jobs => jobs.find(job => job.names.includes(this.soft.name))),
       startWith(null),
       pairwise(),
-      map(([old, job]) => {
+      switchMap(async ([old, job]) => {
         if (job) {
           this.show = true;
         }
         if (old && !job) {
-          this.queryPackage();
+          await this.queryPackage();
         }
         return job;
       }),
@@ -122,8 +110,8 @@ export class ControlComponent implements OnInit {
     );
   }
 
-  queryPackage() {
-    this.packageService
+  async queryPackage() {
+    const pkg = await this.packageService
       .query({
         name: this.soft.name,
         localName: this.soft.info.name,
@@ -133,7 +121,8 @@ export class ControlComponent implements OnInit {
         share(),
         first(),
       )
-      .subscribe(pkg => this.package$.next(pkg));
+      .toPromise();
+    this.package$.next(pkg);
   }
 
   openApp(e: Event) {
@@ -148,10 +137,7 @@ export class ControlComponent implements OnInit {
 
   trgger(e: Event, job: StoreJobInfo) {
     e.stopPropagation();
-    if (
-      job.status === this.JobStatus.paused ||
-      job.status === this.JobStatus.failed
-    ) {
+    if (job.status === this.JobStatus.paused || job.status === this.JobStatus.failed) {
       job.status = this.JobStatus.running;
       this.jobService.startJob(job.job);
     } else {
