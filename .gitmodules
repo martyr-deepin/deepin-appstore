@@ -1,4 +1,4 @@
 [submodule "src/web/vendor-deps"]
 	path = src/web/vendor-deps
-  url = https://gitlab.deepin.io/github-linuxdeepin-mirror/vendor-deps.git
+	url = https://github.com/linuxdeepin/vendor-deps
 	branch = deepin-appstore
