@@ -1,0 +1,24 @@
+<index-title [titles]="section.title"></index-title>
+<div class="list">
+  <section class="assemble" *ngFor="let assemble of this.assembles">
+    <header class="category">{{ assemble.category }}</header>
+    <main class="count-{{ section.rowSpan }}">
+      <section
+        class="item"
+        *ngFor="let soft of softs.get(assemble.category) | async; first as first"
+        [class.first]="first"
+      >
+        <header>
+          <img [src]="first ? soft.info.cover : soft.info.icon" [class.cover]="first" [class.icon]="!first" />
+        </header>
+        <main>
+          <div class="info">
+            <span class="name">{{ soft.info.name }}</span>
+            <div class="slogan">{{ soft.info.slogan }}</div>
+          </div>
+          <dstore-control class="control" [soft]="soft"></dstore-control>
+        </main>
+      </section>
+    </main>
+  </section>
+</div>

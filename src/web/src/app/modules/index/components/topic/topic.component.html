@@ -1,14 +1,10 @@
-<ng-container *ngIf="topic">
-  <div class="topicContainer"
-       [style.backgroundColor]="topic.backgroundColor"
-       hidden
-       #topicContainer>
-    <img class="bgImg"
-         [src]="server+'/images/'+ ([topic.backgroundImage,topic.backgroundImageHD]|fitImage)">
-    <app-app-list class="apps"
-                  [appList]="apps$|async"
-                  (appListLength)="loaded()"></app-app-list>
-  </div>
-  <app-wait *ngIf="topicContainer.hidden"
-            [style.height.vh]="100"></app-wait>
-</ng-container>
+<index-title [titles]="section.title"></index-title>
+<div class="list">
+  <section *ngFor="let topic of topics">
+    <header>{{ topic.name | fitLanguage }}</header>
+    <main>
+      <img [src]="[topic.cover, topic.coverHD] | fitImage" />
+    </main>
+  </section>
+  <section class="empty" *ngFor="let i of 5 | range"></section>
+</div>

@@ -22,7 +22,6 @@ export class SoftwareService {
   private readonly metadataURL = environment.metadataServer + '/api/v3/apps';
   // operation app url
   private readonly operationURL = environment.operationServer + '/api/v3/apps';
-  private readonly limit = 20;
 
   async list({
     order = 'download' as 'download' | 'score',
@@ -41,10 +40,7 @@ export class SoftwareService {
       ]);
 
       if (filter && this.native) {
-        const packages = await this.packageService
-          .querys(softs.map(this.toQuery))
-          .pipe(first())
-          .toPromise();
+        const packages = await this.packageService.querys(softs.map(this.toQuery));
         names = names.filter(name => packages.find(pkg => name === pkg.appName));
       }
 
@@ -67,10 +63,7 @@ export class SoftwareService {
     const softs = await this.getSofts(stats.map(v => v.name)).toPromise();
 
     if (filter && this.native) {
-      const packages = await this.packageService
-        .querys(softs.map(this.toQuery))
-        .pipe(first())
-        .toPromise();
+      const packages = await this.packageService.querys(softs.map(this.toQuery));
       stats = stats.filter(stat => packages.find(pkg => stat.name === pkg.appName));
     }
 

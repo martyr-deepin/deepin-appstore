@@ -1,15 +1,18 @@
-<section *ngFor="let soft of softs$ | async; index as index" [class.hover]="controlRef.show">
-  <header>
-    <img class="icon" [src]="soft.info.icon" />
-  </header>
-  <main>
-    <span class="number">{{ index + 1 }}.</span>
-    <div class="info">
-      <span class="name">{{ soft.info.name }}</span>
-      <span class="subtitle">{{ soft.info.category }}</span>
-    </div>
-    <div class="control">
-      <dstore-control #controlRef [soft]="soft"></dstore-control>
-    </div>
-  </main>
-</section>
+<index-title [titles]="section.title" [more]="true"></index-title>
+<div class="list">
+  <section *ngFor="let soft of softs$ | async; index as index" [class.hover]="controlRef.show">
+    <header>
+      <img class="icon" [src]="soft.info.icon" />
+    </header>
+    <main>
+      <span class="number">{{ index + 1 }}.</span>
+      <div class="info">
+        <span class="name">{{ soft.info.name }}</span>
+        <span class="subtitle">{{ soft.info.category }}</span>
+      </div>
+      <div class="control">
+        <dstore-control #controlRef [soft]="soft"></dstore-control>
+      </div>
+    </main>
+  </section>
+</div>
