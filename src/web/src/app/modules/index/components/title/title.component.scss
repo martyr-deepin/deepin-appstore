@@ -1,0 +1,16 @@
+section {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--main-color);
+  margin: 1rem 0;
+  padding-bottom: 4px;
+  border-bottom: solid 1px rgba(0, 96, 255, 0.3);
+}
+footer {
+  font-size: 1rem;
+  color: #0082fa;
+  text-decoration: none;
+}
