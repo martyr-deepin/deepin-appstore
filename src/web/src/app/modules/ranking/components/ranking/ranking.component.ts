@@ -3,7 +3,7 @@ import { BehaviorSubject, timer } from 'rxjs';
 
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, first, scan, retryWhen } from 'rxjs/operators';
-import { RankingService, ResolveModel } from '../../ranking.service';
+import { RankingService } from '../../ranking.service';
 
 @Component({
   selector: 'dstore-ranking',
