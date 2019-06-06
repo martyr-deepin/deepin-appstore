@@ -29,13 +29,7 @@ export class PackageService {
   }
   querys(opts: QueryOption[]) {
     setTimeout(() => opts.forEach(opt => this.query$.next(opt)));
-    return Promise.all(
-      opts.map(opt =>
-        this.query(opt)
-          .pipe(first())
-          .toPromise(),
-      ),
-    ).then(pkgs => pkgs.filter(Boolean));
+    return this.result$.pipe(map(results => opts.map(opt => results.get(opt.name)).filter(Boolean)));
   }
 }
 

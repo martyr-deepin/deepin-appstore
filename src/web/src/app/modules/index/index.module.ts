@@ -16,7 +16,15 @@ import { TitleComponent } from './components/title/title.component';
 const components = [IndexComponent, TopicComponent, MoreComponent];
 
 @NgModule({
-  declarations: [...components, CoverComponent, RankingComponent, PhraseComponent, AssembleComponent, TopicComponent, TitleComponent],
+  declarations: [
+    ...components,
+    CoverComponent,
+    RankingComponent,
+    PhraseComponent,
+    AssembleComponent,
+    TopicComponent,
+    TitleComponent,
+  ],
   imports: [CommonModule, IndexRoutingModule, ShareModule],
 })
 export class IndexModule {}
