@@ -23,13 +23,7 @@ import { NotifyComponent } from './components/notify/notify.component';
 import { PrivacyAgreementComponent } from './components/privacy-agreement/privacy-agreement.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SideNavComponent,
-    RecommendComponent,
-    NotifyComponent,
-    PrivacyAgreementComponent,
-  ],
+  declarations: [AppComponent, SideNavComponent, RecommendComponent, NotifyComponent, PrivacyAgreementComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

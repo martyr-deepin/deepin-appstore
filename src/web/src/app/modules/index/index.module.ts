@@ -12,18 +12,20 @@ import { RankingComponent } from './components/ranking/ranking.component';
 import { PhraseComponent } from './components/phrase/phrase.component';
 import { AssembleComponent } from './components/assemble/assemble.component';
 import { TitleComponent } from './components/title/title.component';
-
-const components = [IndexComponent, TopicComponent, MoreComponent];
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
-    ...components,
+    IndexComponent,
+    TopicComponent,
+    MoreComponent,
     CoverComponent,
     RankingComponent,
     PhraseComponent,
     AssembleComponent,
     TopicComponent,
     TitleComponent,
+    CarouselComponent,
   ],
   imports: [CommonModule, IndexRoutingModule, ShareModule],
 })

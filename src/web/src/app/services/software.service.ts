@@ -32,7 +32,6 @@ export class SoftwareService {
     names = [],
     filter = true,
   }) {
-    console.log(arguments);
     if (names.length) {
       const [stats, softs] = await Promise.all([
         this.http.get<Stat[]>(this.operationURL, { params: { names } }).toPromise(),
