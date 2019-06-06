@@ -1,0 +1,5 @@
+<ng-container *ngFor="let c of carousels; index as index">
+  <img [@carousel]="state[index] || 'hidden'" (click)="click$.next(state[index])" [src]="c.images | fitImage" />
+</ng-container>
+
+{{ running$ | async }}

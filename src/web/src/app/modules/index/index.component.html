@@ -1,6 +1,14 @@
 <ng-container *ngIf="sectionList$ | async as $sectionList; else $wait">
   <ng-container *ngFor="let section of $sectionList; index as $index" [ngSwitch]="section.type">
     <ng-container *ngIf="loadedCount >= $index">
+      <index-carousel
+        *ngSwitchCase="SectionType.Carousel"
+        [section]="section"
+        [style.gridColumnEnd]="'span ' + section.colSpan"
+        [style.gridRowEnd]="'span ' + section.rowSpan"
+        (loaded)="loaded()"
+      ></index-carousel>
+
       <index-cover
         *ngSwitchCase="SectionType.Cover"
         [section]="section"

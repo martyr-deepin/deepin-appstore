@@ -18,7 +18,7 @@ export class IndexComponent implements OnInit {
   SectionType = SectionType;
   sectionList$ = this.sectionService.getList();
   appMap: Map<string, App>;
-  loadedCount = 1;
+  loadedCount = 0;
 
   ngOnInit() {}
   loaded() {
