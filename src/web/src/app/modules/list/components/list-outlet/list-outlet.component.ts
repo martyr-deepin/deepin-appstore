@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, BehaviorSubject, timer } from 'rxjs';
-import {
-  switchMap,
-  retryWhen,
-  scan,
-  first,
-  map,
-  share,
-  tap,
-} from 'rxjs/operators';
-import { RankingService } from 'app/modules/ranking/ranking.service';
+import { switchMap, retryWhen, scan, first, map, share, tap } from 'rxjs/operators';
+import { SoftwareService } from 'app/services/software.service';
 
 @Component({
   selector: 'dstore-list-outlet',
@@ -18,10 +10,7 @@ import { RankingService } from 'app/modules/ranking/ranking.service';
   styleUrls: ['./list-outlet.component.scss'],
 })
 export class ListOutletComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private rankingService: RankingService,
-  ) {}
+  constructor(private route: ActivatedRoute, private softService: SoftwareService) {}
   title = '';
   name$ = this.route.paramMap.pipe(map(param => param.get('name')));
   // loading offset
@@ -39,9 +28,7 @@ export class ListOutletComponent implements OnInit {
       this.offset$ = new BehaviorSubject(0);
       this.offset$.subscribe(offset => console.log('offset', offset));
       return this.offset$.pipe(
-        switchMap(offset =>
-          this.rankingService.list({ order, offset, [routeName]: routeValue }),
-        ),
+        switchMap(offset => this.softService.list({ order, offset, [routeName]: routeValue, filter: false })),
         retryWhen(errors =>
           errors.pipe(
             tap(console.error),

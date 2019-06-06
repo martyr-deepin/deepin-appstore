@@ -19,6 +19,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { CloseButtonComponent } from './components/close-button/close-button.component';
 import { ControlComponent } from './components/control/control.component';
 import { CircleDirective } from './directives/circle.directive';
+import { RangePipe } from './pipes/range.pipe';
 
 const components = [
   WaitComponent,
@@ -30,16 +31,11 @@ const components = [
   CloseButtonComponent,
   ControlComponent,
 ];
-const directives = [
-  DialogDirective,
-  HoverDirective,
-  ResizeDirective,
-  CoverDirective,
-];
-
+const directives = [DialogDirective, HoverDirective, ResizeDirective, CoverDirective];
+const pipes = [RangePipe];
 @NgModule({
-  declarations: [...components, ...directives, CircleDirective],
-  exports: [...components, ...directives, DstoreModule, ClientModule],
+  declarations: [...components, ...directives, ...pipes, CircleDirective],
+  exports: [...components, ...directives, ...pipes, DstoreModule, ClientModule],
   imports: [CommonModule, RouterModule, DstoreModule, ClientModule],
 })
 export class ShareModule {}

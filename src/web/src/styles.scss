@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'theme';
+html {
+  font-size: 13px;
+}
 body {
   margin: 0;
   user-select: none;

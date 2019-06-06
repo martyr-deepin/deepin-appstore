@@ -1,9 +1,0 @@
-<section>
-  <header>
-    <app-app-title [useRouterQuery]="true" i18n>Rankings</app-app-title>
-  </header>
-  <main>
-    <dstore-list [list]="result$ | async" (load)="loading()"></dstore-list>
-  </main>
-  <footer #footerRef></footer>
-</section>

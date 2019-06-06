@@ -1,0 +1,52 @@
+:host {
+  width: 225px;
+}
+section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  main {
+    display: flex;
+    flex: 1;
+    margin-left: 1rem;
+    padding: 5px 0;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    .number {
+      width: 1.5rem;
+    }
+    .info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .name,
+    .category {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .subtitle {
+      color: gray;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .control {
+    display: none;
+  }
+  &.hover,
+  &:hover {
+    background-color: var(--main-item-bg-color-hover);
+    main {
+      border-bottom-color: transparent;
+    }
+    .control {
+      display: block;
+    }
+  }
+}
