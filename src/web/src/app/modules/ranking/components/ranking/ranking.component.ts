@@ -1,46 +1,42 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
-import { startWith, map, switchMap } from 'rxjs/operators';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { BehaviorSubject, timer } from 'rxjs';
 
-import {
-  SortOrder,
-  AppTitleComponent,
-} from 'app/modules/share/components/app-title/app-title.component';
-
-import { AppService, App } from 'app/services/app.service';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap, first, scan, retryWhen } from 'rxjs/operators';
+import { RankingService } from '../../ranking.service';
 
 @Component({
   selector: 'dstore-ranking',
   templateUrl: './ranking.component.html',
   styleUrls: ['./ranking.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RankingComponent implements OnInit {
-  constructor(private appService: AppService) {}
-  @ViewChild(AppTitleComponent)
-  appTitle: AppTitleComponent;
-  limit = 100;
-  apps$: Observable<App[]>;
+  constructor(private route: ActivatedRoute, private rankingService: RankingService) {}
+  readonly maxLimit = 500;
+  @ViewChild('footerRef') footer: ElementRef<HTMLElement>;
 
-  ngOnInit() {
-    this.apps$ = this.appTitle.sortByChange.pipe(
-      startWith(this.appTitle.sortBy),
-      switchMap(
-        () => {
-          return this.appService.list();
-        },
-        (sort: SortOrder, apps: App[]) => {
-          if (sort === SortOrder.Downloads) {
-            apps = apps.sort((a, b) => b.downloads - a.downloads);
-          } else if (sort === SortOrder.Score) {
-            apps = apps.sort((a, b) => b.rate * b.ratings - a.rate * a.ratings);
-          }
-          // 预防无效应用,预读10个
-          apps = apps.slice(0, this.limit + 10);
-          return apps.map(app => app.name);
-        },
-      ),
-      switchMap(appNameList => this.appService.getApps(appNameList)),
-      map(apps => apps.slice(0, this.limit)),
-    );
+  offset$: BehaviorSubject<number>;
+
+  // 无限加载
+  result$ = this.route.queryParamMap.pipe(
+    switchMap(query => {
+      const order = (query.get('order') as any) || 'download';
+      const data = this.route.snapshot.data.data as any[];
+      this.offset$ = new BehaviorSubject(data.length);
+      return this.offset$.pipe(
+        switchMap(offset => this.rankingService.list({ order, offset })),
+        retryWhen(errors => errors.pipe(switchMap(() => timer(1000)))),
+        scan((acc, value) => [...acc, ...value], data),
+      );
+    }),
+  );
+
+  ngOnInit() {}
+
+  loading() {
+    this.offset$.pipe(first()).subscribe(offset => {
+      this.offset$.next(offset + 20);
+    });
   }
 }

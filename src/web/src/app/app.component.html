@@ -1,7 +1,7 @@
 <div class="app">
   <div class="nav"><app-side-nav></app-side-nav></div>
   <div class="context" #$context>
-    <dstore-scrollbar [savePosition]="true">
+    <dstore-scrollbar id="scrollbar" #scrollbarRef [savePosition]="true">
       <router-outlet></router-outlet>
     </dstore-scrollbar>
     <ng-template #wait>

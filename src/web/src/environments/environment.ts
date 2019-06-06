@@ -7,9 +7,10 @@ export const environment = {
   production: false,
 
   // Default server address only used in browser mode.
-  metadataServer: 'http://10.0.10.70:8000',
-  operationServer: 'http://test.dstore-operation-china.deepin.cn',
+  metadataServer: 'http://10.0.10.70:18000',
+  operationServer: 'http://10.0.10.70:18100',
   region: 0, // 0:China 1:International
   themeName: 'light',
   supportSignIn: false,
+  locale: 'zh_CN',
 };

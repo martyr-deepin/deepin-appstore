@@ -7,4 +7,5 @@ export const environment = {
   region: 0,
   themeName: '',
   supportSignIn: true,
+  locale: 'zh_CN',
 };

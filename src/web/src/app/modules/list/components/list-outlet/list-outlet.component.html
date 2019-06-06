@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="name$ | async">
+  <app-app-title *ngSwitchCase="'category'" [useRouterQuery]="true">
+    <ng-container>{{ title }}</ng-container>
+  </app-app-title>
+  <app-app-title
+    *ngSwitchCase="'ranking'"
+    [useRouterQuery]="true"
+    [top]="(result$ | async)?.length"
+  >
+    <ng-container>{{ title }}</ng-container>
+  </app-app-title>
+</ng-container>
+<dstore-list [list]="result$ | async" (load)="load()"></dstore-list>
