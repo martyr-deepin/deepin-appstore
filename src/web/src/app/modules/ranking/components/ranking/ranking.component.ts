@@ -22,7 +22,7 @@ export class RankingComponent implements OnInit {
   result$ = this.route.queryParamMap.pipe(
     switchMap(query => {
       const order = (query.get('order') as any) || 'download';
-      const data = this.route.snapshot.data.data as ResolveModel[];
+      const data = this.route.snapshot.data.data as any[];
       this.offset$ = new BehaviorSubject(data.length);
       return this.offset$.pipe(
         switchMap(offset => this.rankingService.list({ order, offset })),
