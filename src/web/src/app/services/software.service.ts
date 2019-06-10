@@ -139,7 +139,7 @@ export class SoftwareService {
         soft.info.screenshot = groupByLocale
           .sort(sortByLocale)[0]
           .imgs.sort((a, b) => a.order - b.order)
-          .map(img => img.path);
+          .map(img => environment.metadataServer + '/images/' + img.path);
       }
     }
     return soft;

@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { DeepinInfo } from 'app/dstore/services/deepin-info.model';
-import { UserInfo } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DeepinUserInfoService {
+export class DeepinidInfoService {
   private apiURL = environment.metadataServer + '/api/deepin_user';
   constructor(private http: HttpClient) {}
 
@@ -27,4 +25,13 @@ export class DeepinUserInfoService {
         .then(users => users);
     }
   }
+}
+
+export interface DeepinInfo {
+  avatar: string;
+  nickname: string;
+  profile_image: string;
+  region: string;
+  uid: number;
+  username: string;
 }

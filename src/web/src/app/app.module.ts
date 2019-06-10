@@ -9,7 +9,6 @@ import localeZH from '@angular/common/locales/zh-Hans';
 registerLocaleData(localeZH, 'zh-Hans');
 
 import { RoutingModule } from './routing/routing.module';
-import { DstoreModule } from './dstore/dstore.module';
 import { ClientModule } from 'app/modules/client/client.module';
 import { ShareModule } from 'app/modules/share/share.module';
 
@@ -31,7 +30,6 @@ import { PrivacyAgreementComponent } from './components/privacy-agreement/privac
     ReactiveFormsModule,
     HttpClientModule,
     RoutingModule,
-    DstoreModule,
     ClientModule,
     ShareModule,
   ],

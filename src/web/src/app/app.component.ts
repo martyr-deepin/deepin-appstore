@@ -1,11 +1,5 @@
 import { debounceTime, filter, retry } from 'rxjs/operators';
-import {
-  Component,
-  OnInit,
-  NgZone,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Channel } from 'app/modules/client/utils/channel';
@@ -36,23 +30,22 @@ export class AppComponent implements OnInit {
   ) {}
   @ViewChild('scrollbarRef') scrollbarRef: ElementRef<HTMLDivElement>;
   ngOnInit(): void {
-    this.switchTheme();
     if (!BaseService.isNative) {
       return;
     }
-    this.searchIndex();
-    this.searchListen();
+    this.switchTheme();
     this.screenshotPreview();
     this.switchFont();
     this.menu.serve();
     this.keyboard.server();
   }
-
+  // switch theme dark or light
   switchTheme() {
     this.themeService.getTheme().subscribe(theme => {
       document.body.className = theme;
     });
   }
+  // switch font family and font size
   switchFont() {
     this.sysFontService.fontChange$.subscribe(([fontFamily, fontSize]) => {
       const HTMLGlobal = document.querySelector('html');
@@ -60,33 +53,7 @@ export class AppComponent implements OnInit {
       HTMLGlobal.style.fontSize = fontSize + 'px';
     });
   }
-  // 添加搜索查询索引
-  searchIndex() {
-    if (BaseService.isNative) {
-      this.appService
-        .list()
-        .pipe(
-          debounceTime(1000),
-          filter(Boolean),
-        )
-        .subscribe((apps: App[]) => {
-          const appStringList = JSON.stringify(apps);
-          Channel.exec('search.updateAppList', appStringList);
-        });
-    }
-  }
-  // 搜索结果显示
-  searchListen() {
-    this.searchService.onOpenApp().subscribe(appName => {
-      this.router.navigate(['/app/', appName]);
-    });
-
-    this.searchService.onOpenAppList().subscribe(result => {
-      this.router.navigate(['search'], {
-        queryParams: { keyword: result.keyword, apps: result.appNameList },
-      });
-    });
-  }
+  // preview software screenshot
   screenshotPreview() {
     DstoreObject.openOnlineImage().subscribe(src => {
       fetch(src)
