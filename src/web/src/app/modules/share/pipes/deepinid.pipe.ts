@@ -7,11 +7,7 @@ import { DeepinidInfoService, DeepinInfo } from '../services/deepinid.service';
   name: 'deepinid',
 })
 export class DeepinidPipe implements PipeTransform {
-  constructor(private deepinid: DeepinidInfoService) {
-    this.result$.subscribe(arr => {
-      console.log(arr);
-    });
-  }
+  constructor(private deepinid: DeepinidInfoService) {}
   query = new Subject<number>();
   result$ = this.query.pipe(
     bufferTime(100, -1, 20),

@@ -119,6 +119,9 @@ img {
 .cursor {
   cursor: pointer;
 }
+.select {
+  user-select: auto;
+}
 
 @media (max-width: 600px) {
   .co-star {
