@@ -24,7 +24,6 @@ export class DeepinidPipe implements PipeTransform {
           m.set(uid, null);
         }
       });
-      console.log(m);
       return m;
     }),
     share(),
