@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     private menu: MenuService,
     private keyboard: KeyboardService,
   ) {}
-  @ViewChild('scrollbarRef') scrollbarRef: ElementRef<HTMLDivElement>;
+  @ViewChild('scrollbarRef', { static: true }) scrollbarRef: ElementRef<HTMLDivElement>;
   ngOnInit(): void {
     if (!BaseService.isNative) {
       return;

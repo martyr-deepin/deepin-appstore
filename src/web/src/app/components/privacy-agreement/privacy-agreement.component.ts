@@ -9,7 +9,7 @@ import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
   styleUrls: ['./privacy-agreement.component.scss'],
 })
 export class PrivacyAgreementComponent implements OnInit {
-  @ViewChild('dialog')
+  @ViewChild('dialog', { static: true })
   dialogRef: ElementRef<HTMLDialogElement>;
   constructor(private privateAgreement: PrivacyAgreementService, private agreenment: AgreementService) {}
   private$ = this.agreenment.privacy();

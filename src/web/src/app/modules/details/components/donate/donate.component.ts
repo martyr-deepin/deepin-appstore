@@ -42,7 +42,7 @@ export class DonateComponent implements OnInit {
     private donateService: DonateService,
     private sanitizer: DomSanitizer,
   ) {}
-  @ViewChild(DonorsComponent)
+  @ViewChild(DonorsComponent, { static: true })
   donors: DonorsComponent;
   @Input()
   appName: string;
