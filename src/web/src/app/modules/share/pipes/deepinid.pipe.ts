@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Subject } from 'rxjs';
 import { bufferTime, mergeMap, filter, map, share } from 'rxjs/operators';
-import { DeepinidInfoService } from '../services/deepinid.service';
+import { DeepinidInfoService, DeepinInfo } from '../services/deepinid.service';
 
 @Pipe({
   name: 'deepinid',
@@ -18,7 +18,7 @@ export class DeepinidPipe implements PipeTransform {
     filter(arr => arr.length > 0),
     mergeMap(async arr => {
       const list = await this.deepinid.getDeepinUserInfo([...new Set(arr.sort())]);
-      const m = new Map(list.map(info => [info.uid, info]));
+      const m = new Map(list.map(info => [info.uid, info] as [number, DeepinInfo]));
       arr.forEach(uid => {
         if (!m.has(uid)) {
           m.set(uid, null);
