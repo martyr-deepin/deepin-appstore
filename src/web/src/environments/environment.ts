@@ -11,6 +11,6 @@ export const environment = {
   operationServer: 'http://10.0.10.70:18100',
   region: 0, // 0:China 1:International
   themeName: 'light',
-  supportSignIn: false,
+  supportSignIn: true,
   locale: 'zh_CN',
 };

@@ -15,10 +15,7 @@
           {{ soft?.info?.name }}
         </div>
         <div class="subtitle" [style.color]="subtitleColor">
-          <div class="slogan" *ngIf="slogan; else categoryRef">{{ soft?.info?.slogan }}</div>
-          <ng-template #categoryRef>
-            <div class="category">{{ soft?.info?.category }}</div>
-          </ng-template>
+          <div class="category">{{ slogan ? soft?.info?.slogan : soft?.info?.category }}</div>
           <dstore-star [rate]="soft?.stat?.score / 2"></dstore-star>
         </div>
       </div>
