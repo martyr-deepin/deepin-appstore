@@ -12,9 +12,11 @@
       </main>
       <footer>
         <div class="info">
-          <div class="name">{{ soft?.info?.name }} {{ soft?.stat?.score }}</div>
+          <div class="name">{{ soft?.info?.name }}</div>
           <div class="subtitle">
-            <div class="category">{{ soft?.info?.category }}</div>
+            <div class="category" [routerLink]="['/list', 'category', soft.info.category]">
+              {{ soft?.info?.category }}
+            </div>
             <dstore-star [rate]="soft?.stat?.score / 2"></dstore-star>
           </div>
         </div>

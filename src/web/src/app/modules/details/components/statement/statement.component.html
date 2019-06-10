@@ -1,4 +1,4 @@
 <dstore-scrollbar>
   <a href=""></a>
-  <div class="md" [innerHTML]="statement" #container></div>
+  <div class="md" [innerHTML]="statement$ | async" (click)="click($event)"></div>
 </dstore-scrollbar>

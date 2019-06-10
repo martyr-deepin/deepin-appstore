@@ -15,6 +15,10 @@ const routes: Routes = [
     component: MoreComponent,
   },
   {
+    path: 'more/:key/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
+  },
+  {
     path: 'topic/:key',
     component: TopicDetailComponent,
   },

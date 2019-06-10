@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
-import { StatementService } from 'app/services/statement.service';
+import { AgreementService } from 'app/services/agreement.service';
 
 @Component({
   selector: 'app-statement',
@@ -8,28 +8,16 @@ import { StatementService } from 'app/services/statement.service';
   styleUrls: ['./statement.component.scss'],
 })
 export class StatementComponent implements OnInit {
-  constructor(private statementService: StatementService) {}
-  @ViewChild('container') container: ElementRef<HTMLDivElement>;
+  constructor(private agreement: AgreementService) {}
 
-  statement: string;
+  statement$ = this.agreement.donation();
 
-  ngOnInit() {
-    this.statementService.getStatement().subscribe(html => {
-      this.statement = html;
-      setTimeout(() => {
-        Array.from(this.container.nativeElement.querySelectorAll<HTMLLinkElement>('a')).forEach(
-          a => {
-            a.addEventListener('click', e => {
-              this.open(a.href);
-              e.preventDefault();
-            });
-          },
-        );
-      });
-    });
-  }
-
-  open(url: string) {
-    DstoreObject.openURL(url);
+  ngOnInit() {}
+  click(e: Event) {
+    e.stopPropagation();
+    e.preventDefault();
+    if (e.target['href']) {
+      DstoreObject.openURL(e.target['href']);
+    }
   }
 }

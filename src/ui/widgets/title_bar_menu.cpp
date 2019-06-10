@@ -106,9 +106,9 @@ void TitleBarMenu::initActions()
             this, &TitleBarMenu::onThemeActionTriggered);
     this->setThemeName(theme_name_);
 
-    // privacy_agreement_action_ = this->addAction(QObject::tr("Privacy agreement"));
-    // connect(privacy_agreement_action_, &QAction::triggered,
-    //         this, &TitleBarMenu::privacyAgreementRequested);
+    privacy_agreement_action_ = this->addAction(QObject::tr("Privacy agreement"));
+    connect(privacy_agreement_action_, &QAction::triggered,
+            this, &TitleBarMenu::privacyAgreementRequested);
 
     this->addSeparator();
 }

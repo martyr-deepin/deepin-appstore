@@ -16,7 +16,7 @@
       <span class="number">{{ index + 1 }}.</span>
       <div class="info">
         <span class="name">{{ soft.info.name }}</span>
-        <span class="subtitle">{{ soft.info.category }}</span>
+        <span class="subtitle" [routerLink]="['/list', 'category', soft.info.category]">{{ soft.info.category }}</span>
       </div>
       <div class="control">
         <dstore-control #controlRef [soft]="soft"></dstore-control>

@@ -139,7 +139,7 @@ export class SoftwareService {
         soft.info.screenshot = groupByLocale
           .sort(sortByLocale)[0]
           .imgs.sort((a, b) => a.order - b.order)
-          .map(img => img.path);
+          .map(img => environment.metadataServer + '/images/' + img.path);
       }
     }
     return soft;
@@ -154,6 +154,9 @@ export class SoftwareService {
     };
   }
 
+  size(...softs: Software[]) {
+    return this.storeService.queryDownloadSize(softs.map(this.toQuery));
+  }
   // open software
   open(soft: Software) {
     return this.storeService.execWithCallback('storeDaemon.openApp', this.toQuery(soft));

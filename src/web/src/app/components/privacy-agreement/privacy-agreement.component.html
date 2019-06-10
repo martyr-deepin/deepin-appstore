@@ -1,8 +1,6 @@
 <dialog #dialog>
   <dstore-close-button [dialog]="dialog"></dstore-close-button>
-  <div>
-    <h3>隐私协议</h3>
-    balabalabala
-    olaolaolaola
-  </div>
+  <dstore-scrollbar class="private">
+    <div class="select" [innerHTML]="private$ | async" (click)="click($event)"></div>
+  </dstore-scrollbar>
 </dialog>

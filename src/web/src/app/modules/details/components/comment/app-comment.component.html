@@ -15,11 +15,7 @@
       <ng-template #starEdit>
         <span class="star">
           <div i18n>Rate this app:</div>
-          <dstore-star
-            [(rate)]="comment.rate"
-            #$star
-            [readonly]="false"
-          ></dstore-star>
+          <dstore-star [(rate)]="comment.rate" #$star [readonly]="false"></dstore-star>
           <div>{{ $star.rateHover }}</div>
         </span>
       </ng-template>
@@ -27,16 +23,10 @@
       <span
         class="myInfo"
         (click)="$dropMenu.hidden = false; $dropMenu.focus()"
-        *ngIf="(info.UserID | deepinInfo | async) as info"
+        *ngIf="info.UserID | deepinid | async as info"
       >
         <span class="name">{{ info.username }}</span>
-        <div
-          class="dropdown-menu"
-          tabindex="-1"
-          #$dropMenu
-          hidden
-          (blur)="$dropMenu.hidden = true"
-        >
+        <div class="dropdown-menu" tabindex="-1" #$dropMenu hidden (blur)="$dropMenu.hidden = true">
           <a (click)="logout()" i18n>Sign Out</a>
         </div>
         <img [src]="info.profile_image" class="profile min" />
@@ -70,18 +60,10 @@
 
 <div class="submit" *ngIf="info">
   <ng-container [ngSwitch]="comment.error">
-    <span class="submitError" *ngSwitchCase="CommentError.AllInvalid" i18n
-      >Please rate and post your comment</span
-    >
-    <span class="submitError" *ngSwitchCase="CommentError.CommentInvalid" i18n
-      >Please input your comment</span
-    >
-    <span class="submitError" *ngSwitchCase="CommentError.RateInvalid" i18n
-      >Please rate</span
-    >
-    <span class="submitError" *ngSwitchCase="CommentError.Failed" i18n
-      >Failed to submit</span
-    >
+    <span class="submitError" *ngSwitchCase="CommentError.AllInvalid" i18n>Please rate and post your comment</span>
+    <span class="submitError" *ngSwitchCase="CommentError.CommentInvalid" i18n>Please input your comment</span>
+    <span class="submitError" *ngSwitchCase="CommentError.RateInvalid" i18n>Please rate</span>
+    <span class="submitError" *ngSwitchCase="CommentError.Failed" i18n>Failed to submit</span>
   </ng-container>
   &nbsp;
   <button class="submitBtn" [disabled]="own" (click)="submitComment()">
@@ -90,22 +72,16 @@
 </div>
 <br />
 
-<div class="commentList">
+<div class="commentList" #commentRef>
   <div class="header">
     <div class="select">
       <ng-container i18n>User Comments</ng-container>
       &nbsp;
-      <button
-        [class.active]="select === CommentType.News"
-        (click)="selectType(CommentType.News)"
-      >
+      <button [class.active]="select === CommentType.News" (click)="selectType(CommentType.News)">
         <ng-container i18n>Current Version</ng-container>
         ({{ total[CommentType.News] }})
       </button>
-      <button
-        [class.active]="select === CommentType.History"
-        (click)="selectType(CommentType.History)"
-      >
+      <button [class.active]="select === CommentType.History" (click)="selectType(CommentType.History)">
         <ng-container i18n>History Versions</ng-container>
         ({{ total[CommentType.History] }})
       </button>
@@ -131,25 +107,15 @@
       <ng-container *ngSwitchCase="list && list.length > 0">
         <table class="list">
           <ng-container *ngFor="let c of list">
-            <tr
-              [@myComment]="
-                haveNewComment && c.userID === info?.UserID ? 'in' : ''
-              "
-            >
+            <tr [@myComment]="haveNewComment && c.userID === info?.UserID ? 'in' : ''">
               <td rowspan="2">
-                <div
-                  class="head"
-                  *ngIf="
-                    (c.userID | deepinInfo | async) as $userInfo;
-                    else deepinInfoDefault
-                  "
-                >
+                <div class="head" *ngIf="c.userID | deepinid | async as $userInfo; else deepinInfoDefault">
                   <img [src]="$userInfo.profile_image" class="profile" />
                   <span>{{ $userInfo.username }}</span>
                 </div>
                 <ng-template #deepinInfoDefault>
                   <div class="head">
-                    <img src="/assets/images/default.jpeg" class="profile" />
+                    <img src="/assets/images/default.jpeg" class="profile default" />
                     <span>&nbsp;</span>
                   </div>
                 </ng-template>
@@ -168,9 +134,7 @@
                     </div>
                     &nbsp;&nbsp;
                     <div class="like">
-                      <span [class.hidden]="c.likeCount <= 0"
-                        >({{ c.likeCount }})</span
-                      >
+                      <span [class.hidden]="c.likeCount <= 0">({{ c.likeCount }})</span>
                       <img
                         class="thumbUp"
                         [class.hidden]="info && c.userID === info.UserID"
@@ -201,7 +165,7 @@
     [(pageIndex)]="page.index"
     [length]="total[select]"
     [size]="page.size"
-    (pageIndexChange)="getList()"
+    (pageIndexChange)="getList(); commentTop()"
   ></app-paginator>
 </div>
 <br />

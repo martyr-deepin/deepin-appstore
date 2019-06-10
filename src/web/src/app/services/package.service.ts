@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StoreService } from 'app/modules/client/services/store.service';
-import { bufferTime, filter, share, map, mergeMap, first } from 'rxjs/operators';
+import { bufferTime, filter, share, map, mergeMap, first, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { JobService } from './job.service';
 
@@ -28,7 +28,6 @@ export class PackageService {
     );
   }
   querys(opts: QueryOption[]) {
-    setTimeout(() => opts.forEach(opt => this.query$.next(opt)));
     return Promise.all(
       opts.map(opt =>
         this.query(opt)

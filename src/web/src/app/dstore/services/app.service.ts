@@ -67,27 +67,20 @@ export class AppService {
       }
       // 填充图片
       if (!app.localInfo.images.cover) {
-        const l = Object.values(app.locale).find(
-          locale => Boolean(locale.images) && Boolean(locale.images.cover),
-        );
+        const l = Object.values(app.locale).find(locale => Boolean(locale.images) && Boolean(locale.images.cover));
         if (l) {
           app.localInfo.images.cover = l.images.cover;
         }
       }
       if (!app.localInfo.images.coverHD) {
-        const l = Object.values(app.locale).find(
-          locale => Boolean(locale.images) && Boolean(locale.images.coverHD),
-        );
+        const l = Object.values(app.locale).find(locale => Boolean(locale.images) && Boolean(locale.images.coverHD));
         if (l) {
           app.localInfo.images.cover = l.images.cover;
         }
       }
       if (!app.localInfo.images.screenshot || app.localInfo.images.screenshot.length === 0) {
         const l = Object.values(app.locale).find(
-          locale =>
-            Boolean(locale.images) &&
-            Boolean(locale.images.screenshot) &&
-            locale.images.screenshot.length > 0,
+          locale => Boolean(locale.images) && Boolean(locale.images.screenshot) && locale.images.screenshot.length > 0,
         );
         if (l) {
           app.localInfo.images.screenshot = l.images.screenshot;
@@ -96,9 +89,7 @@ export class AppService {
       if (!app.localInfo.images.screenshotHD || app.localInfo.images.screenshotHD.length === 0) {
         const l = Object.values(app.locale).find(
           locale =>
-            Boolean(locale.images) &&
-            Boolean(locale.images.screenshotHD) &&
-            locale.images.screenshotHD.length > 0,
+            Boolean(locale.images) && Boolean(locale.images.screenshotHD) && locale.images.screenshotHD.length > 0,
         );
         if (l) {
           app.localInfo.images.screenshotHD = l.images.screenshotHD;
@@ -130,7 +121,7 @@ export class AppService {
     } catch (err) {
       console.error(err);
     }
-
+    return;
     try {
       // 启动10秒后全量更新apps
       await new Promise(resolve => setTimeout(resolve, 10 * 1000));

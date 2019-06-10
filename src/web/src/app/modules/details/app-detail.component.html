@@ -1,46 +1,40 @@
 <div *ngIf="app$ | async as app; else $loading">
   <div class="appInfo">
     <div class="info-left">
-      <img class="icon" [src]="app.icon" /> <br />
-      <ng-container *ngIf="app.version">
-        <ng-container *ngIf="job$ | async as job; else cltButton">
-          <dstore-progress-button
-            [job]="job.job"
-            [type]="job.type"
-            [status]="job.status"
-            [progress]="job.progress"
-            [disabled]="!job.cancelable || job.status === StoreJobStatus.failed"
-          ></dstore-progress-button>
-        </ng-container>
-        <ng-template #cltButton>
-          <dstore-job-button
-            class="jobButton"
-            [version]="app.version"
-            [appName]="app.name"
-            [localName]="app.localInfo.description.name"
-            [openType]="app.extra['open']"
-          ></dstore-job-button>
-        </ng-template>
+      <img class="icon" dstoreCover="icon" [src]="app.info.icon" /> <br />
+      <div>
+        <dstore-control class="control" [soft]="app" #controlRef [hidden]="controlRef.job$ | async"></dstore-control>
+      </div>
+      <ng-container *ngIf="controlRef.job$ | async as job">
+        <dstore-progress-button
+          [job]="job.job"
+          [type]="job.type"
+          [status]="job.status"
+          [progress]="job.progress"
+          [disabled]="!job.cancelable || job.status === StoreJobStatus.failed"
+        ></dstore-progress-button>
       </ng-container>
     </div>
     <div class="info-right">
-      <div class="title selectable">{{ app.localInfo.description.name }}</div>
+      <div class="title selectable">{{ app.info.name }}</div>
       <div class="content">
         <div i18n>Rating:</div>
         <div class="rate">
-          <dstore-star [rate]="app.rate"></dstore-star>
-          <span class="details">{{ app.rate.toFixed(1) }}</span>
-          <span class="details" i18n>{{ app.downloads }} downloads</span>
-          <span class="details" i18n>{{ app.ratings }} ratings</span>
+          <ng-container *ngIf="app.stat as stat">
+            <dstore-star [rate]="stat.score"></dstore-star>
+            <span class="details">{{ stat.score.toFixed(1) }}</span>
+            <span class="details" i18n>{{ stat.download }} downloads</span>
+            <span class="details" i18n>{{ stat.score_count }} ratings</span>
+          </ng-container>
         </div>
         <div i18n>Category:</div>
-        <div>{{ app.localCategory }}</div>
-        <ng-container *ngIf="app.version">
+        <div>{{ app.info.category }}</div>
+        <ng-container *ngIf="controlRef.package$ | async as package">
           <div i18n>Version:</div>
-          <div>{{ app.version.remoteVersion || app.version.localVersion }}</div>
+          <div>{{ package.remoteVersion || package.localVersion }}</div>
           <ng-container *ngIf="allowName$ | async">
             <div>Package:</div>
-            <div>{{ app.version.packageName }}</div>
+            <div>{{ package.packageName }}</div>
           </ng-container>
           <div i18n>Size:</div>
           <div>
@@ -55,7 +49,7 @@
         </ng-container>
         <div i18n>Updated Date:</div>
         <div>
-          {{ app.updateTime | date: 'yyyy-MM-dd HH:mm' }}
+          {{ app.updated_at | date: 'yyyy-MM-dd HH:mm' }}
           <ng-container *ngIf="supportSignIn">
             <span class="toRight">&lt;</span>
             <button class="reminder" (click)="reminder(app)">
@@ -63,10 +57,21 @@
             </button>
           </ng-container>
         </div>
-        <div *ngIf="app.homePage" i18n>Website:</div>
-        <div class="webSite" *ngIf="app.homePage" (click)="openURL(app.homePage)">
-          {{ app.homePage }}
-        </div>
+        <ng-container *ngIf="app.info.author">
+          <div i18n>Author:</div>
+          <div>{{ app.info.author }}</div>
+        </ng-container>
+        <ng-container *ngIf="app.info.packager">
+          <div i18n>Packager:</div>
+          <div>{{ app.info.packager }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="app.homePage">
+          <div i18n>Website:</div>
+          <div class="webSite" (click)="openURL(app.homePage)">
+            {{ app.homePage }}
+          </div>
+        </ng-container>
         <ng-container *ngIf="app.source">
           <div i18n>Source:</div>
           <div class="source" [ngSwitch]="app.source">
@@ -75,10 +80,10 @@
             <ng-container *ngSwitchCase="AppSource.Collaborative" i18n>Collaboration</ng-container>
           </div>
         </ng-container>
-        <ng-container *ngIf="app.localInfo.tags?.length">
+        <ng-container *ngIf="app.info.tags?.length">
           <div i18n>Tag:</div>
-          <div class="tags" *ngIf="app.localInfo.tags.length > 0">
-            <div *ngFor="let tag of app.localInfo.tags">
+          <div class="tags" *ngIf="app.info.tags.length > 0">
+            <div *ngFor="let tag of app.info.tags">
               <span class="tag" [routerLink]="['/list', 'tag', tag]">
                 {{ tag }}
               </span>
@@ -87,7 +92,7 @@
         >
         <div i18n>Description:</div>
         <div class="pre selectable">
-          {{ app.localInfo.description.description }}
+          {{ app.info.description }}
         </div>
       </div>
     </div>
@@ -95,17 +100,15 @@
   <br />
   <br />
 
-  <app-screenshot
-    [screenshotList]="[app.localInfo.images.screenshot, app.localInfo.images.screenshotHD] | fitImage"
-  ></app-screenshot>
+  <app-screenshot [screenshotList]="app.info.screenshot"></app-screenshot>
 
-  <ng-container *ngIf="supportSignIn && app.version">
+  <ng-container *ngIf="supportSignIn && controlRef.package$ | async as package">
     <app-donate [appName]="app.name"></app-donate>
     <div class="hr"></div>
     <br />
     <dstore-app-comment
       [appName]="app.name"
-      [version]="app.version.remoteVersion || app.version.localVersion"
+      [version]="package.remoteVersion || package.localVersion"
     ></dstore-app-comment>
     <div class="ad" *ngIf="adVisible | async">
       <ng-container i18n>CDN supported by UPYUN</ng-container>
