@@ -59,38 +59,22 @@ export class StoreService {
   }
   installPackages(apps: App[]): Observable<string> {
     this.downloadTotalService.installed(apps);
-    return this.execWithCallback(
-      'storeDaemon.installPackages',
-      apps.map(this.toQuery),
-    );
+    return this.execWithCallback('storeDaemon.installPackages', apps.map(this.toQuery));
   }
   updatePackages(apps: App[]): Observable<string> {
     this.downloadTotalService.installed(apps);
-    return this.execWithCallback(
-      'storeDaemon.updatePackages',
-      apps.map(this.toQuery),
-    );
+    return this.execWithCallback('storeDaemon.updatePackages', apps.map(this.toQuery));
   }
   removePackages(apps: App[]): Observable<string> {
-    return this.execWithCallback(
-      'storeDaemon.removePackages',
-      apps.map(this.toQuery),
-    );
+    return this.execWithCallback('storeDaemon.removePackages', apps.map(this.toQuery));
   }
   InstalledPackages() {
     interface InstalledPackage {
       packageURI: string;
       size: number;
     }
-    return this.execWithCallback<InstalledPackage[]>(
-      'storeDaemon.installedPackages',
-    ).pipe(
-      map(result =>
-        result.reduce(
-          (m, pkg) => m.set(pkg.packageURI, pkg),
-          new Map<string, InstalledPackage>(),
-        ),
-      ),
+    return this.execWithCallback<InstalledPackage[]>('storeDaemon.installedPackages').pipe(
+      map(result => result.reduce((m, pkg) => m.set(pkg.packageURI, pkg), new Map<string, InstalledPackage>())),
     );
   }
 
@@ -102,25 +86,8 @@ export class StoreService {
     };
   }
 
-  queryDownloadSize(apps: App[]) {
-    return this.execWithCallback<QueryResult>(
-      'storeDaemon.queryDownloadSize',
-      apps.map(this.toQuery),
-    ).pipe(
-      map(result => {
-        const arr = Object.values(result)
-          .filter(Boolean)
-          .filter(r => r.packages && r.packages.length > 0)
-          .map(r => [r.name, r.packages[0].downloadSize] as [string, number]);
-        return new Map(arr);
-      }),
-    );
-  }
   queryPackage(apps: App[]) {
-    return this.execWithCallback<QueryResult>(
-      'storeDaemon.query',
-      apps.map(this.toQuery),
-    ).pipe(
+    return this.execWithCallback<QueryResult>('storeDaemon.query', apps.map(this.toQuery)).pipe(
       map(result => {
         const arr = Object.values(result)
           .filter(Boolean)
@@ -132,13 +99,18 @@ export class StoreService {
     );
   }
 
-  query(
-    opts: {
-      name: string;
-      localName: string;
-      packages: { packageURI: string }[];
-    }[],
-  ) {
+  queryDownloadSize(param: QueryParam[]) {
+    return this.execWithCallback<QueryResult>('storeDaemon.queryDownloadSize', param).pipe(
+      map(result => {
+        const arr = Object.values(result)
+          .filter(Boolean)
+          .filter(r => r.packages && r.packages.length > 0)
+          .map(r => [r.name, r.packages[0].downloadSize] as [string, number]);
+        return new Map(arr);
+      }),
+    );
+  }
+  query(opts: QueryParam[]) {
     return this.execWithCallback<QueryResult>('storeDaemon.query', opts).pipe(
       map(results => {
         const arr = opts.map(opt => {
@@ -146,10 +118,7 @@ export class StoreService {
           if (!result) {
             return [opt.name, null] as [string, AppPackage];
           }
-          return [
-            opt.name,
-            result.packages.find(pkg => Boolean(pkg.appName)),
-          ] as [string, AppPackage];
+          return [opt.name, result.packages.find(pkg => Boolean(pkg.appName))] as [string, AppPackage];
         });
         return new Map(arr);
       }),
@@ -191,4 +160,9 @@ interface AppPackage {
   installedTime: number;
   downloadSize: number;
   packageSize: number;
+}
+interface QueryParam {
+  name: string;
+  localName: string;
+  packages: { packageURI: string }[];
 }

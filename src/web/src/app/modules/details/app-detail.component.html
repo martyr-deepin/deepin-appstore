@@ -1,7 +1,7 @@
 <div *ngIf="app$ | async as app; else $loading">
   <div class="appInfo">
     <div class="info-left">
-      <img class="icon" dstoreCover="icon" [src]="app.icon" /> <br />
+      <img class="icon" dstoreCover="icon" [src]="app.info.icon" /> <br />
       <div>
         <dstore-control class="control" [soft]="app" #controlRef [hidden]="controlRef.job$ | async"></dstore-control>
       </div>
@@ -57,10 +57,21 @@
             </button>
           </ng-container>
         </div>
-        <div *ngIf="app.homePage" i18n>Website:</div>
-        <div class="webSite" *ngIf="app.homePage" (click)="openURL(app.homePage)">
-          {{ app.homePage }}
-        </div>
+        <ng-container *ngIf="app.info.author">
+          <div i18n>Author:</div>
+          <div>{{ app.info.author }}</div>
+        </ng-container>
+        <ng-container *ngIf="app.info.packager">
+          <div i18n>Packager:</div>
+          <div>{{ app.info.packager }}</div>
+        </ng-container>
+
+        <ng-container *ngIf="app.homePage">
+          <div i18n>Website:</div>
+          <div class="webSite" (click)="openURL(app.homePage)">
+            {{ app.homePage }}
+          </div>
+        </ng-container>
         <ng-container *ngIf="app.source">
           <div i18n>Source:</div>
           <div class="source" [ngSwitch]="app.source">

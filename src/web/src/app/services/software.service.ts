@@ -154,6 +154,9 @@ export class SoftwareService {
     };
   }
 
+  size(...softs: Software[]) {
+    return this.storeService.queryDownloadSize(softs.map(this.toQuery));
+  }
   // open software
   open(soft: Software) {
     return this.storeService.execWithCallback('storeDaemon.openApp', this.toQuery(soft));
