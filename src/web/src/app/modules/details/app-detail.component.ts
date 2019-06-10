@@ -23,7 +23,6 @@ import { SoftwareService } from 'app/services/software.service';
 export class AppDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private appService: AppService,
     private softwareService: SoftwareService,
     private storeService: StoreService,
     private reminderService: ReminderService,
@@ -48,20 +47,12 @@ export class AppDetailComponent implements OnInit {
     refCount(),
   );
   size$ = this.app$.pipe(
-    switchMap(app => this.storeService.queryDownloadSize([])),
+    switchMap(app => this.softwareService.size(app)),
     share(),
   );
-  job$ = this.app$.pipe(
-    switchMap(
-      () => this.jobService.jobsInfo(),
-      (app, jobs) => {
-        return jobs.find(job => job.names.includes(app.name));
-      },
-    ),
-  );
   allowName$ = this.storeService.getAllowShowPackageName();
-  ngOnInit() {}
 
+  ngOnInit() {}
   reminder(app: App) {
     this.reminderService.reminder(app.name, app.version.remoteVersion).subscribe(
       () => {
@@ -71,10 +62,5 @@ export class AppDetailComponent implements OnInit {
         this.notifyService.error(NotifyType.Reminder);
       },
     );
-  }
-
-  // Show 'open' button only if app open method is 'desktop'.
-  appOpenable(app: App): boolean {
-    return app.extra.open === 'desktop';
   }
 }

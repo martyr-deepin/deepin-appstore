@@ -41,6 +41,6 @@ export class ScreenshotComponent implements OnInit {
     }
   }
   previewImage(index: number) {
-    DstoreObject.imagesPreview(this.screenshotList.map(s => this.metadataServer + '/' + s), index);
+    DstoreObject.imagesPreview(this.screenshotList, index);
   }
 }

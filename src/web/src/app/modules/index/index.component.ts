@@ -14,7 +14,7 @@ import { AppService } from 'app/services/app.service';
   styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent implements OnInit {
-  constructor(private sectionService: SectionService, private appService: AppService) {}
+  constructor(private sectionService: SectionService) {}
   SectionType = SectionType;
   sectionList$ = this.sectionService.getList();
   appMap: Map<string, App>;
