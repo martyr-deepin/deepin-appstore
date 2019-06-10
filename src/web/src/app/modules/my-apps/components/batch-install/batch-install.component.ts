@@ -22,7 +22,7 @@ import { RemoteAppService } from './../../services/remote-app.service';
   styleUrls: ['./batch-install.component.scss'],
 })
 export class BatchInstallComponent implements OnInit {
-  @ViewChild('dialog')
+  @ViewChild('dialog', { static: true })
   dialogRef: ElementRef<HTMLDialogElement>;
   pageSize = 33;
   batchInstall = new Map<string, App>();

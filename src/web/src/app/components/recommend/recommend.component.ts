@@ -14,8 +14,8 @@ import { NgForm } from '@angular/forms';
 })
 export class RecommendComponent implements OnInit {
   constructor(private recommendService: RecommendService, private notifyService: NotifyService) {}
-  @ViewChild('myDialog') dialogRef: { nativeElement: HTMLDialogElement };
-  @ViewChild('myForm') form: NgForm;
+  @ViewChild('myDialog', { static: true }) dialogRef: { nativeElement: HTMLDialogElement };
+  @ViewChild('myForm', { static: true }) form: NgForm;
   recommend = new Recommend();
   openDialog$: Observable<void>;
 

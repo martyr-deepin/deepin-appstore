@@ -7,11 +7,8 @@ import * as _ from 'lodash';
 import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 import { AuthService, UserInfo } from 'app/services/auth.service';
-import { BaseService } from 'app/dstore/services/base.service';
 import { CommentService, Comment } from '../../services/comment.service';
-import { encodeUriQuery } from '@angular/router/src/url_tree';
 import { shareReplay, switchMap, filter, tap } from 'rxjs/operators';
-import { SizeHuman } from 'app/dstore/pipes/size-human';
 
 @Component({
   selector: 'dstore-app-comment',
@@ -36,7 +33,7 @@ export class AppCommentComponent implements OnInit, OnChanges {
     private authService: AuthService,
     private commentService: CommentService,
   ) {}
-  @ViewChild('commentRef') commentRef: ElementRef<HTMLDivElement>;
+  @ViewChild('commentRef', { static: true }) commentRef: ElementRef<HTMLDivElement>;
   @Input()
   appName: string;
   @Input()

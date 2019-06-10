@@ -9,20 +9,18 @@
   font-size: 1.3rem;
   font-weight: bold;
 }
-.button-group {
-  /deep/ {
-    button {
-      padding: 0 1rem;
-      &:not(:first-child) {
-        margin-left: -1px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-      }
-      &:not(:last-child) {
-        margin-right: -1px;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
+.button-group ::ng-deep {
+  button {
+    padding: 0 1rem;
+    &:not(:first-child) {
+      margin-left: -1px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    &:not(:last-child) {
+      margin-right: -1px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 }
