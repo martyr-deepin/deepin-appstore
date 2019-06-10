@@ -20,19 +20,21 @@ export class ListComponent implements OnInit, OnChanges {
   constructor(private base: BaseService) {}
   @ViewChild('loadingRef') elRef: ElementRef<HTMLDivElement>;
   @Input() list: [];
+  @Input() lazyload = false;
+  @Input() nameColor: string;
+  @Input() subtitleColor: string;
+  @Input() slogan = false;
   @Output() load = new EventEmitter<void>();
   wait = false;
 
   // 监听是否到达底部
-  intersection = new IntersectionObserver(
-    ([e]: IntersectionObserverEntry[]) => {
-      if (e.isIntersecting) {
-        this.wait = true;
-        this.load.next();
-        this.intersection.unobserve(this.elRef.nativeElement);
-      }
-    },
-  );
+  intersection = new IntersectionObserver(([e]: IntersectionObserverEntry[]) => {
+    if (e.isIntersecting) {
+      this.wait = true;
+      this.load.next();
+      this.intersection.unobserve(this.elRef.nativeElement);
+    }
+  });
 
   ngOnInit() {}
 
@@ -46,10 +48,9 @@ export class ListComponent implements OnInit, OnChanges {
       ) {
         return;
       }
-      setTimeout(
-        () => this.intersection.observe(this.elRef.nativeElement),
-        500,
-      );
+      if (this.lazyload) {
+        setTimeout(() => this.intersection.observe(this.elRef.nativeElement), 500);
+      }
     }
   }
 }

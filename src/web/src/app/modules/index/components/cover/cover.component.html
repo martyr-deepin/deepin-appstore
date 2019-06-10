@@ -1,0 +1,28 @@
+<index-title [titles]="section.title" [more]="more"></index-title>
+<div class="list count-{{ section.colSpan * section.rowSpan }}">
+  <section
+    class="item"
+    *ngFor="let soft of softs$ | async"
+    [routerLink]="['app', soft.name]"
+    [class.hover]="controlRef.show"
+  >
+    <ng-container>
+      <main>
+        <img dstoreCover="cover" [src]="soft?.info?.cover" />
+      </main>
+      <footer>
+        <div class="info">
+          <div class="name">{{ soft?.info?.name }} {{ soft?.stat?.score }}</div>
+          <div class="subtitle">
+            <div class="category">{{ soft?.info?.category }}</div>
+            <dstore-star [rate]="soft?.stat?.score / 2"></dstore-star>
+          </div>
+        </div>
+        <div class="control">
+          <dstore-control #controlRef [soft]="soft"></dstore-control>
+        </div>
+      </footer>
+    </ng-container>
+  </section>
+  <section class="item empty" *ngFor="let empty of 7 | range"></section>
+</div>

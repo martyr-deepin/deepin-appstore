@@ -16,13 +16,11 @@ import { AppService } from 'app/services/app.service';
 export class IndexComponent implements OnInit {
   constructor(private sectionService: SectionService, private appService: AppService) {}
   SectionType = SectionType;
-  sectionList$: Observable<Section[]>;
+  sectionList$ = this.sectionService.getList();
   appMap: Map<string, App>;
   loadedCount = 0;
 
-  ngOnInit() {
-    this.sectionList$ = this.sectionService.getList().pipe(map(ss => ss.filter(s => s.show)));
-  }
+  ngOnInit() {}
   loaded() {
     this.loadedCount++;
   }

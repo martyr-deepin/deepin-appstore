@@ -9,11 +9,7 @@ import { App, AppService } from 'app/services/app.service';
 import { Section } from '../../services/section';
 import { AppFilterFunc, Allowed } from '../appFilter';
 import { StoreService } from 'app/modules/client/services/store.service';
-import {
-  StoreJobInfo,
-  StoreJobStatus,
-  StoreJobType,
-} from 'app/modules/client/models/store-job-info';
+import { StoreJobInfo, StoreJobStatus, StoreJobType } from 'app/modules/client/models/store-job-info';
 import { AppVersion } from 'app/modules/client/models/app-version';
 import { JobService } from 'app/services/job.service';
 
@@ -23,11 +19,7 @@ import { JobService } from 'app/services/job.service';
   styleUrls: ['./ranking.component.scss'],
 })
 export class RankingComponent implements OnInit, OnDestroy {
-  constructor(
-    private appService: AppService,
-    private storeService: StoreService,
-    private jobService: JobService,
-  ) {}
+  constructor(private appService: AppService, private storeService: StoreService, private jobService: JobService) {}
 
   metadataServer = BaseService.serverHosts.metadataServer;
   isNative = BaseService.isNative;
