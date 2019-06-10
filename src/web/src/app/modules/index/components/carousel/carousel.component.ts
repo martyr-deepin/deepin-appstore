@@ -87,7 +87,7 @@ export class CarouselComponent extends SectionItemBase implements OnInit {
     const names = this.carousels.filter(c => c.type === CarouselType.App).map(c => c.link);
     const softs = await this.softwareService.list({ names });
     this.carousels = this.carousels.filter(c => {
-      if (c.type) {
+      if (c.type === CarouselType.Topic) {
         return true;
       }
       return softs.some(soft => soft.name === c.link);

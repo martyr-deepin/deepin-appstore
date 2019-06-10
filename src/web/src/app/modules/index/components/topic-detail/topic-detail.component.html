@@ -1,0 +1,8 @@
+<ng-container *ngIf="section$ | async as section">
+  <img [src]="[section.backgroundImage, section.backgroundImageHD] | fitImage" />
+  <dstore-list
+    [nameColor]="section.nameColor"
+    [subtitleColor]="section.subTitleColor"
+    [list]="softs$ | async"
+  ></dstore-list>
+</ng-container>

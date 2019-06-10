@@ -11,11 +11,14 @@
     </main>
     <footer>
       <div class="info">
-        <div class="name">
+        <div class="name" [style.color]="nameColor">
           {{ soft?.info?.name }}
         </div>
-        <div class="subtitle">
-          <div class="category">{{ soft?.info?.category }}</div>
+        <div class="subtitle" [style.color]="subtitleColor">
+          <div class="slogan" *ngIf="slogan; else categoryRef">{{ soft?.info?.slogan }}</div>
+          <ng-template #categoryRef>
+            <div class="category">{{ soft?.info?.category }}</div>
+          </ng-template>
           <dstore-star [rate]="soft?.stat?.score / 2"></dstore-star>
         </div>
       </div>

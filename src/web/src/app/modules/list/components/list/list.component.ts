@@ -21,6 +21,9 @@ export class ListComponent implements OnInit, OnChanges {
   @ViewChild('loadingRef') elRef: ElementRef<HTMLDivElement>;
   @Input() list: [];
   @Input() lazyload = false;
+  @Input() nameColor: string;
+  @Input() subtitleColor: string;
+  @Input() slogan = false;
   @Output() load = new EventEmitter<void>();
   wait = false;
 
