@@ -27,7 +27,6 @@ export class AppDetailComponent implements OnInit {
     private storeService: StoreService,
     private reminderService: ReminderService,
     private notifyService: NotifyService,
-    private jobService: JobService,
   ) {}
   supportSignIn = environment.supportSignIn;
   adVisible = DstoreObject.AdVisible();
