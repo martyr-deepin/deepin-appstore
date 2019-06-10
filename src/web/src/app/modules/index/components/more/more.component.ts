@@ -27,7 +27,6 @@ export class MoreComponent implements OnInit {
       const names = (<SectionApp[]>section.items).filter(app => app.show).map(app => app.name);
       let list = await this.softwareService.list({ names });
       list = list.filter(Boolean);
-      console.log(list);
       switch (query.get('order')) {
         case 'download':
           return list.sort((a, b) => a.stat.download - b.stat.download);

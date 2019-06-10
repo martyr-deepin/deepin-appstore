@@ -14,6 +14,7 @@ import { AssembleComponent } from './components/assemble/assemble.component';
 import { TitleComponent } from './components/title/title.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { ListModule } from '../list/list.module';
+import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ListModule } from '../list/list.module';
     TopicComponent,
     TitleComponent,
     CarouselComponent,
+    TopicDetailComponent,
   ],
   imports: [CommonModule, IndexRoutingModule, ShareModule, ListModule],
 })

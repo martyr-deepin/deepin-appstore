@@ -9,6 +9,7 @@
         class="item cursor"
         *ngFor="let soft of softs.get(assemble.category) | async; first as first"
         [class.first]="first"
+        [routerLink]="['app', soft.name]"
       >
         <header>
           <img [src]="first ? soft.info.cover : soft.info.icon" [class.cover]="first" [class.icon]="!first" />

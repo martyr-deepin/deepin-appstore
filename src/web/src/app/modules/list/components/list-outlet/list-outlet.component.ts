@@ -12,6 +12,7 @@ import { SoftwareService } from 'app/services/software.service';
 export class ListOutletComponent implements OnInit {
   constructor(private route: ActivatedRoute, private softService: SoftwareService) {}
   title = '';
+  slogan = false;
   name$ = this.route.paramMap.pipe(map(param => param.get('name')));
   // loading offset
   offset$ = new BehaviorSubject(0);
@@ -24,6 +25,7 @@ export class ListOutletComponent implements OnInit {
         }
       });
       const [routeName, routeValue] = [param.get('name'), param.get('value')];
+      this.slogan = routeName === 'category';
       const order = (query.get('order') as any) || 'download';
       this.offset$ = new BehaviorSubject(0);
       this.offset$.subscribe(offset => console.log('offset', offset));

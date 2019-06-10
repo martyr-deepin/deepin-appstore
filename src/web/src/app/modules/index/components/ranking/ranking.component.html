@@ -3,7 +3,12 @@
   [more]="section.ranking.category ? '/list/category/' + section.ranking.category : '/list/ranking/ranking'"
 ></index-title>
 <div class="list">
-  <section class="cursor" *ngFor="let soft of softs$ | async; index as index" [class.hover]="controlRef.show">
+  <section
+    class="cursor"
+    *ngFor="let soft of softs$ | async; index as index"
+    [class.hover]="controlRef.show"
+    [routerLink]="['app', soft.name]"
+  >
     <header>
       <img class="icon" [src]="soft.info.icon" />
     </header>

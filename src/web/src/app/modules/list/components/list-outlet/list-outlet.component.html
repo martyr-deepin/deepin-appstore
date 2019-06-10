@@ -6,4 +6,4 @@
     <ng-container>{{ title }}</ng-container>
   </app-app-title>
 </ng-container>
-<dstore-list [list]="result$ | async" [lazyload]="true" (load)="load()"></dstore-list>
+<dstore-list [list]="result$ | async" [lazyload]="true" (load)="load()" [slogan]="slogan"></dstore-list>

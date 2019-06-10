@@ -14,7 +14,6 @@ export class KeyvalueService {
   }
   get<T = any>(key: string) {
     const value = this.store.get(key);
-    this.store.delete(key);
     return value as T;
   }
 }

@@ -1,6 +1,6 @@
 <index-title [titles]="section.title"></index-title>
 <div class="list">
-  <section class="cursor" *ngFor="let topic of topics">
+  <section class="cursor" *ngFor="let topic of topics; index as index" [routerLink]="['topic', ids.get(index)]">
     <header>{{ topic.name | fitLanguage }}</header>
     <main>
       <img [src]="[topic.cover, topic.coverHD] | fitImage" />
