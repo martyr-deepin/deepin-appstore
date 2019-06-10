@@ -30,6 +30,7 @@ export class SoftwareService {
     category = '',
     tag = '',
     names = [],
+    keyword = '',
     filter = true,
   }) {
     if (names.length) {
@@ -57,7 +58,7 @@ export class SoftwareService {
     }
     let stats = await this.http
       .get<Stat[]>(this.operationURL, {
-        params: { order, offset, limit, category, tag } as any,
+        params: { order, offset, limit, category, tag, keyword } as any,
       })
       .toPromise();
     if (stats.length === 0) {
