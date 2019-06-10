@@ -72,7 +72,7 @@
 </div>
 <br />
 
-<div class="commentList">
+<div class="commentList" #commentRef>
   <div class="header">
     <div class="select">
       <ng-container i18n>User Comments</ng-container>
@@ -165,7 +165,7 @@
     [(pageIndex)]="page.index"
     [length]="total[select]"
     [size]="page.size"
-    (pageIndexChange)="getList()"
+    (pageIndexChange)="getList(); commentTop()"
   ></app-paginator>
 </div>
 <br />

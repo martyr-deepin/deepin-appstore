@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable, concat, forkJoin } from 'rxjs';
@@ -36,6 +36,7 @@ export class AppCommentComponent implements OnInit, OnChanges {
     private authService: AuthService,
     private commentService: CommentService,
   ) {}
+  @ViewChild('commentRef') commentRef: ElementRef<HTMLDivElement>;
   @Input()
   appName: string;
   @Input()
@@ -185,7 +186,11 @@ export class AppCommentComponent implements OnInit, OnChanges {
       });
     }
   }
-
+  commentTop() {
+    smoothScrollIntoView(this.commentRef.nativeElement, {
+      block: 'start',
+    });
+  }
   scrollToTop() {
     smoothScrollIntoView(document.querySelector('.appInfo'), {
       block: 'start',
