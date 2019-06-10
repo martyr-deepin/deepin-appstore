@@ -12,6 +12,7 @@ import { SearchService } from 'app/services/search.service';
 import { SysFontService } from 'app/services/sys-font.service';
 import { MenuService } from './services/menu.service';
 import { KeyboardService } from './services/keyboard.service';
+import { SoftwareService } from './services/software.service';
 
 @Component({
   selector: 'dstore-root',
@@ -20,24 +21,23 @@ import { KeyboardService } from './services/keyboard.service';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private router: Router,
-    private appService: AppService,
-    private searchService: SearchService,
     private themeService: ThemeService,
     private sysFontService: SysFontService,
-    private menu: MenuService,
-    private keyboard: KeyboardService,
+    private menuService: MenuService,
+    private searchService: SearchService,
+    private softwareService: SoftwareService,
+    private router: Router,
   ) {}
   @ViewChild('scrollbarRef', { static: true }) scrollbarRef: ElementRef<HTMLDivElement>;
   ngOnInit(): void {
+    this.searchNavigate();
     if (!BaseService.isNative) {
       return;
     }
+    this.switchFont();
     this.switchTheme();
     this.screenshotPreview();
-    this.switchFont();
-    this.menu.serve();
-    this.keyboard.server();
+    this.menuService.serve();
   }
   // switch theme dark or light
   switchTheme() {
@@ -68,6 +68,30 @@ export class AppComponent implements OnInit {
         .then(data => {
           DstoreObject.imageViewer(src, data.slice(data.indexOf(',') + 1));
         });
+    });
+  }
+  // search navigate
+  searchNavigate() {
+    setTimeout(() => {
+      console.log('navigate');
+      this.router.navigate(['/list', 'keyword', '游戏', 'thunderbird']);
+    }, 0);
+    this.searchService.openApp$.subscribe(name => {
+      this.router.navigate(['/list', 'keyword', name, name]);
+    });
+    this.searchService.openAppList$.subscribe(keyword => {
+      this.router.navigate(['/list', 'keyword', keyword]);
+    });
+    this.searchService.requestComplement$.subscribe(async keyword => {
+      let list = [];
+      while (list.length < 10) {
+        const softs = await this.softwareService.list({ keyword });
+        if (softs.length === 0) {
+          break;
+        }
+        list = list.concat(softs.map(soft => ({ name: soft.name, localName: soft.desc.name })));
+      }
+      this.searchService.setComplementList(list);
     });
   }
 }

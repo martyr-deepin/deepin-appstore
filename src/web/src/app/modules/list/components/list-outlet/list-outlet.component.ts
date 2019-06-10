@@ -26,9 +26,12 @@ export class ListOutletComponent implements OnInit {
       });
       const [routeName, routeValue] = [param.get('name'), param.get('value')];
       this.slogan = routeName === 'category';
+      this.title = routeName === 'keyword' ? routeValue : '';
       const order = (query.get('order') as any) || 'download';
+
       this.offset$ = new BehaviorSubject(0);
       this.offset$.subscribe(offset => console.log('offset', offset));
+
       return this.offset$.pipe(
         switchMap(offset => this.softService.list({ order, offset, [routeName]: routeValue })),
         retryWhen(errors =>

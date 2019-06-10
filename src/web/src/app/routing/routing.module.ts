@@ -22,10 +22,6 @@ const routes: Routes = [
     loadChildren: 'app/modules/list/list.module#ListModule',
   },
   {
-    path: 'list/:name/:value/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
-  },
-  {
     path: 'download',
     loadChildren: 'app/modules/download/download.module#DownloadModule',
   },
@@ -46,10 +42,6 @@ const routes: Routes = [
     path: 'my/donates',
     loadChildren: 'app/modules/my-donates/my-donates.module#MyDonatesModule',
     canActivate: [AuthGuardService],
-  },
-  {
-    path: 'search',
-    loadChildren: 'app/modules/search/search.module#SearchModule',
   },
   {
     path: 'tag/:tag',

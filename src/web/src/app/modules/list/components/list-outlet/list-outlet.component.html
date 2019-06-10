@@ -5,5 +5,8 @@
   <app-app-title *ngSwitchCase="'ranking'" [useRouterQuery]="true" [top]="(result$ | async)?.length">
     <ng-container>{{ title }}</ng-container>
   </app-app-title>
+  <app-app-title *ngSwitchCase="'keyword'" [useRouterQuery]="true">
+    <ng-container>Search results for {{ title }}</ng-container>
+  </app-app-title>
 </ng-container>
 <dstore-list [list]="result$ | async" [lazyload]="true" (load)="load()" [slogan]="slogan"></dstore-list>
