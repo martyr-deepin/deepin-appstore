@@ -65,6 +65,17 @@
     height: 1.5rem;
     min-height: 1.5rem;
   }
+  &.default {
+    animation: loading 1s infinite alternate;
+  }
+  @keyframes loading {
+    from {
+      filter: brightness(0.5);
+    }
+    to {
+      filter: brightness(0.8);
+    }
+  }
 }
 .myInfo {
   $url: '/assets/buttons/down';

@@ -12,7 +12,7 @@ export class CoverDirective {
         this.el.nativeElement.src = '/assets/images/default_cover.png';
         break;
       case 'icon':
-        this.el.nativeElement.src = '/assets/images/default_icon.png';
+        this.el.nativeElement.src = '/assets/images/default_icon.svg';
     }
   }
 }

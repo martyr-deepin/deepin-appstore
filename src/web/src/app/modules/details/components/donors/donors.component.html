@@ -1,9 +1,8 @@
-<div class="donors"
-     *ngIf="total">
+<div class="donors" *ngIf="total">
   <ng-container *ngFor="let userID of donors">
-    <ng-container *ngIf="userID|deepinInfo|async as info">
-      <img [src]="info.profile_image">
+    <ng-container *ngIf="userID | deepinid | async as info">
+      <img [src]="info.profile_image" />
     </ng-container>
   </ng-container>
-  <span i18n>{{total}} contributors</span>
+  <span i18n>{{ total }} contributors</span>
 </div>

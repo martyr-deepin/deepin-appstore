@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { DeepinUserInfoService } from './deepin-user-info.service';
+import { DeepinidInfoService } from '../modules/share/services/deepinid.service';
 import { Channel } from 'app/modules/client/utils/channel';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class MenuService {
     private zone: NgZone,
     private router: Router,
     private auth: AuthService,
-    private dService: DeepinUserInfoService,
+    private dService: DeepinidInfoService,
   ) {}
   serve() {
     // menu user info

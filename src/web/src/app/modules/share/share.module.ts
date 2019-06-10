@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { DstoreModule } from 'app/dstore/dstore.module';
 import { ClientModule } from 'app/modules/client/client.module';
 
 import { DialogDirective } from './directives/dialog.directive';
 import { HoverDirective } from './directives/hover.directive';
 import { ResizeDirective } from './directives/resize.directive';
 import { CoverDirective } from './directives/cover.directive';
+import { CircleDirective } from './directives/circle.directive';
 
 import { WaitComponent } from './components/wait/wait.component';
 import { ScrollbarComponent } from './components/scrollbar/scrollbar.component';
@@ -18,8 +18,14 @@ import { CenterTitleComponent } from './components/center-title/center-title.com
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { CloseButtonComponent } from './components/close-button/close-button.component';
 import { ControlComponent } from './components/control/control.component';
-import { CircleDirective } from './directives/circle.directive';
+import { StarComponent } from './components/star/star.component';
+import { IndicationComponent } from './components/indication/indication.component';
+
 import { RangePipe } from './pipes/range.pipe';
+import { FitImage } from './pipes/fit-image';
+import { FitLanguage } from './pipes/fit-lang';
+import { SizeHuman } from './pipes/size-human';
+import { DeepinidPipe } from './pipes/deepinid.pipe';
 
 const components = [
   WaitComponent,
@@ -30,12 +36,14 @@ const components = [
   CenterTitleComponent,
   CloseButtonComponent,
   ControlComponent,
+  StarComponent,
+  IndicationComponent,
 ];
 const directives = [DialogDirective, HoverDirective, ResizeDirective, CoverDirective];
-const pipes = [RangePipe];
+const pipes = [RangePipe, FitImage, FitLanguage, SizeHuman, DeepinidPipe];
 @NgModule({
   declarations: [...components, ...directives, ...pipes, CircleDirective],
-  exports: [...components, ...directives, ...pipes, DstoreModule, ClientModule],
-  imports: [CommonModule, RouterModule, DstoreModule, ClientModule],
+  exports: [...components, ...directives, ...pipes, ClientModule],
+  imports: [CommonModule, RouterModule, ClientModule],
 })
 export class ShareModule {}
