@@ -36,13 +36,14 @@ AccountManager::AccountManager(QObject *parent)
         QDBusConnection::sessionBus(),
         this);
 
-    qDebug() << d->deepinid_interface_->userInfo();
+    auto userInfo = d->deepinid_interface_->userInfo();
+    qDebug() << userInfo["Username"] << userInfo["UserID"];
 
     connect(d->deepinid_interface_, &com::deepin::deepinid::UserInfoChanged,
             this, &AccountManager::userInfoChanged);
     connect(d->deepinid_interface_, &com::deepin::deepinid::UserInfoChanged,
-    this, [&](DVariantMap data) {
-        qDebug() << "userInfoChange" << data;
+    this, [&](DVariantMap userInfo) {
+        qDebug() << userInfo["Username"] << userInfo["UserID"];
     });
 }
 

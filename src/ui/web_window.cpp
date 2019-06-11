@@ -35,7 +35,6 @@
 #include <qcef_global_settings.h>
 
 #include "base/consts.h"
-#include "services/search_manager.h"
 #include "services/settings_manager.h"
 #include "ui/web_event_delegate.h"
 #include "ui/channel/image_viewer_proxy.h"
@@ -211,15 +210,8 @@ void WebWindow::initConnections()
     connect(image_viewer_, &ImageViewer::nextImageRequested,
             image_viewer_proxy_, &ImageViewerProxy::onNextImageRequested);
 
-    connect(search_manager_, &SearchManager::searchAppResult,
+    connect(search_proxy_, &SearchProxy::searchAppResult,
             this, &WebWindow::onSearchAppResult);
-    connect(search_manager_, &SearchManager::completeSearchAppResult,
-            this, &WebWindow::onCompleteSearchAppResult);
-
-    connect(search_proxy_, &SearchProxy::onAppListUpdated,
-            search_manager_, &SearchManager::updateAppList);
-    connect(search_proxy_, &SearchProxy::onAppListUpdated,
-            store_daemon_proxy_, &StoreDaemonProxy::updateAppList);
 
     connect(search_timer_, &QTimer::timeout,
             this, &WebWindow::onSearchTextChangedDelay);
@@ -367,7 +359,6 @@ void WebWindow::initUI()
 
 void WebWindow::initServices()
 {
-    search_manager_ = new SearchManager(this);
 }
 
 bool WebWindow::eventFilter(QObject *watched, QEvent *event)
@@ -414,10 +405,8 @@ void WebWindow::focusInEvent(QFocusEvent *event)
     web_view_->setFocus();
 }
 
-void WebWindow::onSearchAppResult(const QString &keyword,
-                                  const SearchMetaList &result)
+void WebWindow::onSearchAppResult(const SearchMetaList &result)
 {
-    Q_UNUSED(keyword);
     completion_window_->setSearchResult(result);
 
     if (result.isEmpty()) {
@@ -434,20 +423,6 @@ void WebWindow::onSearchAppResult(const QString &keyword,
         completion_window_->setFocusPolicy(Qt::NoFocus);
         completion_window_->setFocusPolicy(Qt::StrongFocus);
     }
-}
-
-void WebWindow::onCompleteSearchAppResult(const QString &keyword,
-        const SearchMetaList &result)
-{
-    Q_UNUSED(keyword);
-
-    // Show search page in web.
-    QStringList names;
-    for (const SearchMeta &app : result) {
-        names.append(app.name);
-    }
-    emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
-    completion_window_->hide();
 }
 
 void WebWindow::onSearchEditFocusOut()
@@ -480,9 +455,10 @@ void WebWindow::prepareSearch(bool entered)
 
     // Do real search.
     if (entered) {
-        search_manager_->completeSearchApp(text);
+        Q_EMIT search_proxy_->openAppList(text);
+        completion_window_->hide();
     } else {
-        search_manager_->searchApp(text);
+        Q_EMIT search_proxy_->requestComplement(text);
     }
 }
 
@@ -548,7 +524,8 @@ void WebWindow::webViewGoForward()
         page->forward();
     }
 }
-void WebWindow::onFullscreenRequest(bool fullscreen) {
+void WebWindow::onFullscreenRequest(bool fullscreen)
+{
     if (fullscreen) {
         this->titlebar()->hide();
         this->showFullScreen();

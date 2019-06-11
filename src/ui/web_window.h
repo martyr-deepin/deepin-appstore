@@ -35,7 +35,6 @@ class ImageViewerProxy;
 class LogProxy;
 class MenuProxy;
 class SearchCompletionWindow;
-class SearchManager;
 class SearchProxy;
 class SettingsProxy;
 class StoreDaemonProxy;
@@ -85,7 +84,6 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   LogProxy* log_proxy_ = nullptr;
   MenuProxy* menu_proxy_ = nullptr;
   SearchCompletionWindow* completion_window_ = nullptr;
-  SearchManager* search_manager_ = nullptr;
   SearchProxy* search_proxy_ = nullptr;
   AccountProxy* account_proxy_ = nullptr;
   QTimer* search_timer_ = nullptr;
@@ -99,10 +97,8 @@ class WebWindow : public Dtk::Widget::DMainWindow {
   QRegularExpression search_re_;
 
  private slots:
-  void onSearchAppResult(const QString& keyword,
-                         const SearchMetaList& result);
-  void onCompleteSearchAppResult(const QString& keyword,
-                                 const SearchMetaList& result);
+  void onSearchAppResult(const SearchMetaList& result);
+
   void onSearchEditFocusOut();
   void onSearchButtonClicked();
   void onSearchResultClicked(const SearchMeta& result);
