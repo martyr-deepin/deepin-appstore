@@ -85,7 +85,6 @@ export class AppComponent implements OnInit {
         if (softs.length === 0) {
           break;
         }
-        console.log(softs);
         list = list.concat(softs.map(soft => ({ name: soft.name, description_name: soft.info.name })).slice(0, 10));
       }
       this.searchService.setComplementList(list);
