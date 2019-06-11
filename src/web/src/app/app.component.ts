@@ -72,10 +72,6 @@ export class AppComponent implements OnInit {
   }
   // search navigate
   searchNavigate() {
-    setTimeout(() => {
-      console.log('navigate');
-      this.router.navigate(['/list', 'keyword', '游戏', 'thunderbird']);
-    }, 0);
     this.searchService.openApp$.subscribe(name => {
       this.router.navigate(['/list', 'keyword', name, name]);
     });
