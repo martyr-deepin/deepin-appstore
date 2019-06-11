@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
         if (softs.length === 0) {
           break;
         }
-        list = list.concat(softs.map(soft => ({ name: soft.name, localName: soft.desc.name })));
+        list = list.concat(softs.map(soft => ({ name: soft.name, description_name: soft.desc.name })));
       }
       this.searchService.setComplementList(list);
     });
