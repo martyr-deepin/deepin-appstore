@@ -25,7 +25,7 @@
         (click)="$dropMenu.hidden = false; $dropMenu.focus()"
         *ngIf="info.UserID | deepinid | async as info"
       >
-        <span class="name">{{ info.username }}</span>
+        <span class="name">{{ info.nickname }}</span>
         <div class="dropdown-menu" tabindex="-1" #$dropMenu hidden (blur)="$dropMenu.hidden = true">
           <a (click)="logout()" i18n>Sign Out</a>
         </div>
@@ -111,7 +111,7 @@
               <td rowspan="2">
                 <div class="head" *ngIf="c.userID | deepinid | async as $userInfo; else deepinInfoDefault">
                   <img [src]="$userInfo.profile_image" class="profile" />
-                  <span>{{ $userInfo.username }}</span>
+                  <span>{{ $userInfo.nickname }}</span>
                 </div>
                 <ng-template #deepinInfoDefault>
                   <div class="head">
