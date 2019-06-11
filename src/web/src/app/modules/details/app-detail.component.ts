@@ -1,19 +1,15 @@
-import { AppSource } from './../../dstore/services/source';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { publishReplay, tap, refCount, switchMap, share } from 'rxjs/operators';
 
-import { App, AppService } from 'app/services/app.service';
-import { BaseService } from 'app/dstore/services/base.service';
 import { StoreService } from 'app/modules/client/services/store.service';
 import { StoreJobInfo, StoreJobType, StoreJobStatus } from 'app/modules/client/models/store-job-info';
 import { ReminderService } from 'app/services/reminder.service';
 import { NotifyService } from 'app/services/notify.service';
 import { NotifyType } from 'app/services/notify.model';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
-import { JobService } from 'app/services/job.service';
 import { environment } from 'environments/environment';
-import { SoftwareService } from 'app/services/software.service';
+import { SoftwareService, Source, Software } from 'app/services/software.service';
 
 @Component({
   selector: 'dstore-app-detail',
@@ -28,13 +24,14 @@ export class AppDetailComponent implements OnInit {
     private reminderService: ReminderService,
     private notifyService: NotifyService,
   ) {}
+
   supportSignIn = environment.supportSignIn;
   adVisible = DstoreObject.AdVisible();
-  open = this.storeService.openApp;
+  open = this.softwareService.open;
 
   StoreJobStatus = StoreJobStatus;
   StoreJobType = StoreJobType;
-  AppSource = AppSource;
+  SoftSource = Source;
 
   openURL = DstoreObject.openURL;
   pause = this.storeService.pauseJob;
@@ -52,8 +49,8 @@ export class AppDetailComponent implements OnInit {
   allowName$ = this.storeService.getAllowShowPackageName();
 
   ngOnInit() {}
-  reminder(app: App) {
-    this.reminderService.reminder(app.name, app.version.remoteVersion).subscribe(
+  reminder(name: string, version: string) {
+    this.reminderService.reminder(name, version).subscribe(
       () => {
         this.notifyService.success(NotifyType.Reminder);
       },

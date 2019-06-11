@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  ViewChildren,
-  QueryList,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { trigger, style, transition, animate } from '@angular/animations';
 import { RouterLinkActive, RouterLink } from '@angular/router';
@@ -14,9 +7,9 @@ import { map } from 'rxjs/operators';
 
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../services/category.service';
-import { BaseService } from '../../dstore/services/base.service';
 import { StoreJobType } from 'app/modules/client/models/store-job-info';
 import { JobService } from 'app/services/job.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-side-nav',
@@ -35,7 +28,7 @@ export class SideNavComponent implements OnInit {
     private categoryService: CategoryService,
     private jobService: JobService,
   ) {}
-  native = BaseService.isNative;
+  native = environment.native;
   // category list
   cs$: Observable<Category[]>;
   // download count
@@ -52,8 +45,6 @@ export class SideNavComponent implements OnInit {
   }
 
   getStyle(icons: string[]) {
-    return this.sanitizer.bypassSecurityTrustStyle(
-      icons.map(url => `url(${url})`).join(','),
-    );
+    return this.sanitizer.bypassSecurityTrustStyle(icons.map(url => `url(${url})`).join(','));
   }
 }

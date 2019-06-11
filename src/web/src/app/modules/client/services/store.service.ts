@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { App } from 'app/services/app.service';
 import { DownloadTotalService } from 'app/services/download-total.service';
 import { Channel } from '../utils/channel';
 import { Observable, from, of } from 'rxjs';
@@ -54,59 +53,15 @@ export class StoreService {
     return Channel.exec('settings.allowShowPackageName');
   }
 
-  openApp(app: App): void {
-    Channel.exec('storeDaemon.openApp', this.toQuery(app));
-  }
-  installPackages(apps: App[]): Observable<string> {
-    this.downloadTotalService.installed(apps);
-    return this.execWithCallback('storeDaemon.installPackages', apps.map(this.toQuery));
-  }
-  updatePackages(apps: App[]): Observable<string> {
-    this.downloadTotalService.installed(apps);
-    return this.execWithCallback('storeDaemon.updatePackages', apps.map(this.toQuery));
-  }
-  removePackages(apps: App[]): Observable<string> {
-    return this.execWithCallback('storeDaemon.removePackages', apps.map(this.toQuery));
-  }
   InstalledPackages() {
-    interface InstalledPackage {
-      packageURI: string;
-      size: number;
-    }
-    return this.execWithCallback<InstalledPackage[]>('storeDaemon.installedPackages').pipe(
-      map(result => result.reduce((m, pkg) => m.set(pkg.packageURI, pkg), new Map<string, InstalledPackage>())),
-    );
-  }
-
-  toQuery(app: App) {
-    return {
-      name: app.name,
-      localName: app.localInfo.description.name,
-      packages: app.packageURI.map(packageURI => ({ packageURI })),
-    };
-  }
-
-  queryPackage(apps: App[]) {
-    return this.execWithCallback<QueryResult>('storeDaemon.query', apps.map(this.toQuery)).pipe(
-      map(result => {
-        const arr = Object.values(result)
-          .filter(Boolean)
-          .map(r => r.packages.find(pkg => Boolean(pkg.appName)))
-          .filter(Boolean)
-          .map(pkg => [pkg.appName, pkg] as [string, AppPackage]);
-        return new Map(arr);
-      }),
-    );
+    return this.execWithCallback<Package[]>('storeDaemon.installedPackages');
   }
 
   queryDownloadSize(param: QueryParam[]) {
     return this.execWithCallback<QueryResult>('storeDaemon.queryDownloadSize', param).pipe(
       map(result => {
-        const arr = Object.values(result)
-          .filter(Boolean)
-          .filter(r => r.packages && r.packages.length > 0)
-          .map(r => [r.name, r.packages[0].downloadSize] as [string, number]);
-        return new Map(arr);
+        const arr = Object.values(result).filter(r => r && r.packages && r.packages.length > 0);
+        return new Map(arr.map(pkg => [pkg.name, pkg.packages[0].downloadSize]));
       }),
     );
   }
@@ -116,9 +71,9 @@ export class StoreService {
         const arr = opts.map(opt => {
           const result = results[opt.name];
           if (!result) {
-            return [opt.name, null] as [string, AppPackage];
+            return [opt.name, null] as [string, Package];
           }
-          return [opt.name, result.packages.find(pkg => Boolean(pkg.appName))] as [string, AppPackage];
+          return [opt.name, result.packages.find(pkg => Boolean(pkg.appName))] as [string, Package];
         });
         return new Map(arr);
       }),
@@ -147,10 +102,10 @@ class StoreResponse {
 interface QueryResult {
   [key: string]: {
     name: string;
-    packages: AppPackage[];
+    packages: Package[];
   };
 }
-interface AppPackage {
+export interface Package {
   appName: string;
   packageName: string;
   packageURI: string;
@@ -161,7 +116,7 @@ interface AppPackage {
   downloadSize: number;
   packageSize: number;
 }
-interface QueryParam {
+export interface QueryParam {
   name: string;
   localName: string;
   packages: { packageURI: string }[];

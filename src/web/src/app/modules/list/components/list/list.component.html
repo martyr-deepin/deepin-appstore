@@ -1,10 +1,4 @@
-<section
-  class="item"
-  *ngFor="let soft of list"
-  [routerLink]="[soft.name]"
-  [hidden]="(controlRef.package$ | async) === undefined"
-  [class.hover]="controlRef.show"
->
+<section class="item" *ngFor="let soft of list" [routerLink]="[soft.name]" [class.hover]="controlRef.show">
   <ng-container>
     <main>
       <img dstoreCover="cover" [src]="soft?.info?.cover" />

@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
-
-import { BaseService } from 'app/dstore/services/base.service';
-import { CanvasUtil } from 'app/utils/canvas-util';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-screenshot',
@@ -13,7 +11,7 @@ import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 export class ScreenshotComponent implements OnInit {
   constructor() {}
   readonly cdnSuffix = '!small';
-  readonly metadataServer = BaseService.serverHosts.metadataServer;
+  readonly metadataServer = environment.metadataServer;
   @Input()
   screenshotList: string[];
   select = 0;

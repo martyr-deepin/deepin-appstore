@@ -61,9 +61,7 @@ export class ProgressButtonComponent implements OnInit {
   @Input() disabled: boolean;
 
   get style() {
-    return this.sanitizer.bypassSecurityTrustStyle(
-      `--progress:${(this.progress * 100).toFixed()}%`,
-    );
+    return this.sanitizer.bypassSecurityTrustStyle(`--progress:${(this.progress * 100).toFixed()}%`);
   }
   ngOnInit() {}
 

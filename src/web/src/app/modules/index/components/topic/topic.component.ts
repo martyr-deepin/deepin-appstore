@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SectionItemBase } from '../section-item-base';
-import { SectionTopic } from 'app/dstore/services/section';
+import { SectionTopic } from '../../services/section.service';
 import { KeyvalueService } from 'app/services/keyvalue.service';
 
 @Component({

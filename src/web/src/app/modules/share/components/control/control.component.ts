@@ -98,9 +98,7 @@ export class ControlComponent implements OnInit {
       startWith(null),
       pairwise(),
       switchMap(async ([old, job]) => {
-        if (job) {
-          this.show = true;
-        }
+        setTimeout(() => (this.show = Boolean(job)));
         if (old && !job) {
           await this.queryPackage();
         }

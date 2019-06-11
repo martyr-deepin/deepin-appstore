@@ -8,15 +8,17 @@ const routes: Routes = [
     redirectTo: 'index',
     pathMatch: 'full',
   },
-  // 保持导航关联
-  {
-    path: 'app/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
-  },
+  // home page
   {
     path: 'index',
     loadChildren: 'app/modules/index/index.module#IndexModule',
   },
+  // detail page
+  {
+    path: 'app/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
+  },
+  // list page
   {
     path: 'list/:name/:value',
     loadChildren: 'app/modules/list/list.module#ListModule',
@@ -25,28 +27,24 @@ const routes: Routes = [
     path: 'download',
     loadChildren: 'app/modules/download/download.module#DownloadModule',
   },
-  {
-    path: 'uninstall',
-    redirectTo: 'my/apps',
-  },
+  // {
+  //   path: 'uninstall',
+  //   redirectTo: 'my/apps',
+  // },
   {
     path: 'my/apps',
     loadChildren: 'app/modules/my-apps/my-apps.module#MyAppsModule',
   },
-  {
-    path: 'my/comments',
-    loadChildren: 'app/modules/my-comments/my-comments.module#MyCommentsModule',
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: 'my/donates',
-    loadChildren: 'app/modules/my-donates/my-donates.module#MyDonatesModule',
-    canActivate: [AuthGuardService],
-  },
-  {
-    path: 'tag/:tag',
-    loadChildren: 'app/modules/tags/tags.module#TagsModule',
-  },
+  // {
+  //   path: 'my/comments',
+  //   loadChildren: 'app/modules/my-comments/my-comments.module#MyCommentsModule',
+  //   canActivate: [AuthGuardService],
+  // },
+  // {
+  //   path: 'my/donates',
+  //   loadChildren: 'app/modules/my-donates/my-donates.module#MyDonatesModule',
+  //   canActivate: [AuthGuardService],
+  // },
 ];
 @NgModule({
   imports: [

@@ -1,10 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, merge, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 import { Channel } from 'app/modules/client/utils/channel';
 import { HttpClient } from '@angular/common/http';
-import { BaseService } from '../dstore/services/base.service';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +15,7 @@ export class RecommendService {
     });
   }
 
-  server = BaseService.serverHosts.operationServer;
+  server = environment.operationServer;
   private obs = new Subject<void>();
 
   onOpenRecommend(): Observable<void> {

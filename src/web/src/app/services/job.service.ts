@@ -1,12 +1,15 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, of, timer } from 'rxjs';
-import { switchMap, share, debounceTime } from 'rxjs/operators';
+import { switchMap, debounceTime } from 'rxjs/operators';
 
 import { StoreService } from 'app/modules/client/services/store.service';
 import {
   StoreJobInfo,
   StoreJobType,
   StoreJobStatus,
+  StoreJobError,
+  StoreJobErrorType,
+  CanFixError,
 } from 'app/modules/client/models/store-job-info';
 
 @Injectable({
@@ -17,11 +20,12 @@ export class JobService {
   private jobInfoList$ = new BehaviorSubject<StoreJobInfo[]>([]);
   private interval: Subscription;
   private cache = new Map<string, StoreJobInfo>();
-  constructor(private zone: NgZone, private StoreServer: StoreService) {
-    this.StoreServer.getJobList()
+  constructor(private storeService: StoreService) {
+    this.storeService
+      .getJobList()
       .pipe(debounceTime(100))
       .subscribe(list => this.update(list));
-    this.StoreServer.jobListChange().subscribe(list => this.update(list));
+    this.storeService.jobListChange().subscribe(list => this.update(list));
   }
 
   private update(list: string[]) {
@@ -40,13 +44,10 @@ export class JobService {
     }
     if (list.length > 0) {
       this.interval = timer(0, 1000)
-        .pipe(switchMap(() => this.StoreServer.getJobsInfo(list)))
+        .pipe(switchMap(() => this.storeService.getJobsInfo(list)))
         .subscribe(infoList => {
           infoList = infoList.filter(job => {
-            if (
-              job.type === StoreJobType.uninstall &&
-              job.status === StoreJobStatus.failed
-            ) {
+            if (job.type === StoreJobType.uninstall && job.status === StoreJobStatus.failed) {
               return false;
             }
             return true;
@@ -68,10 +69,14 @@ export class JobService {
   jobsInfo(): Observable<StoreJobInfo[]> {
     return this.jobInfoList$.asObservable();
   }
+
   stopJob(jobID: string) {
-    this.StoreServer.pauseJob(jobID);
+    this.storeService.pauseJob(jobID);
   }
   startJob(jobID: string) {
-    this.StoreServer.resumeJob(jobID);
+    this.storeService.resumeJob(jobID);
+  }
+  clearJob(jobID: string) {
+    this.storeService.clearJob(jobID);
   }
 }

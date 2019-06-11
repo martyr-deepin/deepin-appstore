@@ -1,7 +1,7 @@
 import { Input, Output, EventEmitter } from '@angular/core';
-import { Section } from 'app/dstore/services/section';
 import { Software } from 'app/services/software.service';
 import { environment } from 'environments/environment';
+import { Section } from '../services/section.service';
 
 export class SectionItemBase {
   @Input() section: Section;

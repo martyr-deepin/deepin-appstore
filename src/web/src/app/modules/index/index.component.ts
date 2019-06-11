@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { SectionService } from './services/section.service';
-import { Section, SectionType } from 'app/dstore/services/section';
-import { App } from 'app/services/app.service';
-import { AppService } from 'app/services/app.service';
+import { SectionService, SectionType } from './services/section.service';
 
 @Component({
   selector: 'app-index',
@@ -17,8 +11,7 @@ export class IndexComponent implements OnInit {
   constructor(private sectionService: SectionService) {}
   SectionType = SectionType;
   sectionList$ = this.sectionService.getList();
-  appMap: Map<string, App>;
-  loadedCount = 1;
+  loadedCount = 0;
 
   ngOnInit() {}
   loaded() {

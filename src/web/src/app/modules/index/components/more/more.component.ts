@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { first, switchMap } from 'rxjs/operators';
 import { KeyvalueService } from 'app/services/keyvalue.service';
-import { Section, SectionApp } from 'app/dstore/services/section';
+import { Section, SectionApp } from '../../services/section.service';
 import { SoftwareService } from 'app/services/software.service';
 @Component({
   selector: 'index-more',
