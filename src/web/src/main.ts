@@ -24,28 +24,28 @@ async function main() {
   const QWebChannel = window['QWebChannel'];
   if (QWebChannel) {
     // proxy channel
-    const channelTransport = await new Promise<any>(resolve => {
+    const channel = await new Promise<any>(resolve => {
       return new QWebChannel(window['qt'].webChannelTransport, resolve);
     });
     // dstore channel
-    const channel = await new Promise<any>(resolve => {
-      const t = {
-        send(msg) {
-          channelTransport.objects.channelProxy.send(msg);
-        },
-        onmessage(msg) {},
-      };
-      channelTransport.objects.channelProxy.message.connect(msg => {
-        if (zone) {
-          zone.run(() => {
-            t.onmessage({ data: msg });
-          });
-          return;
-        }
-        t.onmessage({ data: msg });
-      });
-      return new QWebChannel(t, resolve);
-    });
+    // const channel = await new Promise<any>(resolve => {
+    //   const t = {
+    //     send(msg) {
+    //       channelTransport.objects.channelProxy.send(msg);
+    //     },
+    //     onmessage(msg) {},
+    //   };
+    //   channelTransport.objects.channelProxy.message.connect(msg => {
+    //     if (zone) {
+    //       zone.run(() => {
+    //         t.onmessage({ data: msg });
+    //       });
+    //       return;
+    //     }
+    //     t.onmessage({ data: msg });
+    //   });
+    //   return new QWebChannel(t, resolve);
+    // });
 
     window['dstore'] = { channel };
 

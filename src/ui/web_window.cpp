@@ -291,16 +291,12 @@ void WebWindow::initProxy()
     bool useMultiThread = true;
 #endif
 
-    auto parent = this;
+    QObject *parent = this;
+    auto web_channel = web_view_->page()->webChannel();
     if (useMultiThread) {
-        parent = nullptr;
+        proxy_thread_ = new QThread(parent);
+        parent = web_channel;
     }
-    auto page_channel = web_view_->page()->webChannel();
-    auto channel_proxy = new ChannelProxy(this);
-    page_channel->registerObject("channelProxy", channel_proxy);
-
-    auto web_channel = new QWebChannel(parent);
-    web_channel->connectTo(channel_proxy->transport);
     store_daemon_proxy_ = new StoreDaemonProxy(parent);
     image_viewer_proxy_ = new ImageViewerProxy(parent);
     log_proxy_ = new LogProxy(parent);
@@ -318,15 +314,8 @@ void WebWindow::initProxy()
     web_channel->registerObject("account", account_proxy_);
 
     if (useMultiThread) {
-        proxy_thread_ = new QThread(parent);
         web_channel->moveToThread(proxy_thread_);
-        image_viewer_proxy_->moveToThread(proxy_thread_);
-        log_proxy_->moveToThread(proxy_thread_);
-        menu_proxy_->moveToThread(proxy_thread_);
-        search_proxy_->moveToThread(proxy_thread_);
-        settings_proxy_->moveToThread(proxy_thread_);
-        store_daemon_proxy_->moveToThread(proxy_thread_);
-        account_proxy_->moveToThread(proxy_thread_);
+        connect(proxy_thread_,SIGNAL(finished()),web_channel,SLOT(deleteLater()));
         proxy_thread_->start();
     }
 }
