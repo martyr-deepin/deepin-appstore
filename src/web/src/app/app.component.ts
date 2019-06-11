@@ -1,6 +1,6 @@
-import { debounceTime, filter, retry } from 'rxjs/operators';
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 import { Channel } from 'app/modules/client/utils/channel';
 import { BaseService } from 'app/dstore/services/base.service';
@@ -80,12 +80,13 @@ export class AppComponent implements OnInit {
     });
     this.searchService.requestComplement$.subscribe(async keyword => {
       let list = [];
-      while (list.length < 10) {
-        const softs = await this.softwareService.list({ keyword });
+      for (let offset = 0; list.length < 10; offset += 20) {
+        const softs = await this.softwareService.list({ keyword, offset });
         if (softs.length === 0) {
           break;
         }
-        list = list.concat(softs.map(soft => ({ name: soft.name, description_name: soft.desc.name })));
+        console.log(softs);
+        list = list.concat(softs.map(soft => ({ name: soft.name, description_name: soft.info.name })).slice(0, 10));
       }
       this.searchService.setComplementList(list);
     });
