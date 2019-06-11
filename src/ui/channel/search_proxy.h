@@ -37,27 +37,31 @@ Q_SIGNALS:
     * Request to open app info page
     * @param name
     */
-    void onAppListUpdated(const SearchMetaList &record_list);
+    Q_SCRIPTABLE void requestComplement(const QString &keyword);
 
     /**
      * Request to open app info page
      * @param name
      */
-    void openApp(const QString &name);
+    Q_SCRIPTABLE void openApp(const QString &appid);
 
     /**
      * Request to open app search result page
      * @param keyword search keyword
      * @param names
      */
-    void openAppList(const QString &keyword, const QStringList &names);
+    Q_SCRIPTABLE void openAppList(const QString &keyword);
 
 public Q_SLOTS:
     /**
      * Update app list used in search service.
      * @param apps Serialized application info
      */
-    void updateAppList(const QString &apps);
+    Q_SCRIPTABLE void setComplementList(const QVariantList &apps);
+
+
+Q_SIGNALS:
+    void searchAppResult(const SearchMetaList &result);
 };
 
 }  // namespace dstore
