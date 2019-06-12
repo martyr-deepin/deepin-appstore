@@ -47,16 +47,13 @@ export class SoftwareService {
     }
     // get soft metadata info
     const softs = await this.getSofts(stats.map(v => v.name));
-    if (filter && this.native) {
-      // get soft package info
-      const packages = await this.packageService.querys([...softs.values()].map(this.toQuery));
-      [...softs.values()].forEach(soft => {
-        if (packages.has(soft.name)) {
-          soft.package = packages.get(soft.name);
-        } else {
-          softs.delete(soft.name);
-        }
-      });
+    if (this.native) {
+      const list = [...softs.values()];
+      const packages = await this.packageService.querys(list.map(this.toQuery));
+      list.forEach(soft => (soft.package = packages.get(soft.name)));
+      if (filter) {
+        list.filter(soft => !soft.package).forEach(soft => softs.delete(soft.name));
+      }
     }
     return stats
       .map(stat => {

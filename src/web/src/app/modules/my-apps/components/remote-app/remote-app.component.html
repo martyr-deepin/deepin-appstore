@@ -8,61 +8,51 @@
   </button>
 </dstore-center-title>
 <dstore-remote-install></dstore-remote-install>
-<div
-  class="remote-apps"
-  dstoreResize
-  (resize)="listHeight$.next($event.height)"
-  *ngIf="(installing$ | async) as installing"
->
-  <ng-container *ngIf="(apps$ | async) as apps; else loading">
-    <div class="remote-app" *ngFor="let remoteApp of apps">
-      <img
-        class="icon"
-        [src]="remoteApp.app.icon"
-        [routerLink]="['/app', remoteApp.app.name]"
-      />
-      <div class="content">
-        <div class="info">{{ remoteApp.app.localInfo.description.name }}</div>
-        <div class="time">
-          <span i18n>Date installed:</span>
-          {{ remoteApp.time | date: 'yyyy.MM.dd' }}
-        </div>
-        <ng-container *ngIf="remoteApp.app.version; else noVersionError">
-          <div class="version">
-            <span i18n>Version:</span> {{ remoteApp.app.version.remoteVersion }}
+<div class="remote-apps" *ngIf="installing$ | async as installing">
+  <dstore-scrollbar>
+    <ng-container *ngIf="apps$ | async as apps; else loading">
+      <div class="remote-app" *ngFor="let remoteApp of apps">
+        <img class="icon" [src]="remoteApp.app.info.icon" [routerLink]="['/app', remoteApp.app.name]" />
+        <div class="content">
+          <div class="info">{{ remoteApp.app.info.name }}</div>
+          <div class="time">
+            <span i18n>Date installed:</span>
+            {{ remoteApp.time | date: 'yyyy.MM.dd' }}
           </div>
-          <div class="control">
-            <ng-container
-              *ngIf="installing.includes(remoteApp.app.name); else update"
-              ><button i18n disabled>Installing</button></ng-container
-            >
-            <ng-template #update>
-              <button *ngIf="remoteApp.app.version.upgradable; else installed">
-                <ng-container i18n>Update</ng-container>
-              </button>
-            </ng-template>
-            <ng-template #installed>
-              <button
-                disabled
-                *ngIf="remoteApp.app.version.localVersion != ''; else install"
+          <ng-container *ngIf="remoteApp.app.package; else noVersionError">
+            <div class="version"><span i18n>Version:</span> {{ remoteApp.app.package.remoteVersion }}</div>
+            <div class="control">
+              <ng-container *ngIf="installing.includes(remoteApp.app.name); else update"
+                ><button i18n disabled>Installing</button></ng-container
               >
-                <ng-container i18n>Installed</ng-container>
-              </button>
-            </ng-template>
-            <ng-template #install>
-              <button (click)="installApp(remoteApp.app)" i18n>Install</button>
-            </ng-template>
-          </div>
-        </ng-container>
-        <ng-template #noVersionError>
-          <div class="no-version" i18n>Not available</div>
-        </ng-template>
+              <ng-template #update>
+                <button *ngIf="remoteApp.app.package.upgradable; else installedRef">
+                  <ng-container i18n>Update</ng-container>
+                </button>
+              </ng-template>
+              <ng-template #installedRef>
+                <button
+                  disabled
+                  *ngIf="remoteApp.app.package.localVersion != '' || installed.has(remoteApp.app.name); else install"
+                >
+                  <ng-container i18n>Installed</ng-container>
+                </button>
+              </ng-template>
+              <ng-template #install>
+                <button (click)="installApp(remoteApp.app)" i18n>Install</button>
+              </ng-template>
+            </div>
+          </ng-container>
+          <ng-template #noVersionError>
+            <div class="no-version" i18n>Not available</div>
+          </ng-template>
+        </div>
       </div>
-    </div>
-  </ng-container>
+    </ng-container>
+  </dstore-scrollbar>
 </div>
 <div class="paginatorContainer">
-  <ng-container *ngIf="(count$ | async) as count">
+  <ng-container *ngIf="count$ | async as count">
     <app-paginator
       [count]="count"
       [pageIndex]="pageIndex$ | async"

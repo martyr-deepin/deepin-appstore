@@ -13,7 +13,6 @@ export class EditComponent implements OnInit {
   @ViewChild('dialog', { static: true })
   dialogRef: ElementRef<HTMLDialogElement>;
   deleteConfirm: boolean;
-  app$: Promise<Software>;
   content: string;
   rate: number;
   version: string;
@@ -30,7 +29,9 @@ export class EditComponent implements OnInit {
     this.content = c.content;
     this.rate = c.rate / 2;
     this.version = c.version;
-    this.app$ = this.softwareService.list({ names: [c.appName] }).then(list => list[0]);
+  }
+  get comment() {
+    return this._comment;
   }
   constructor(private commentService: CommentsService, private softwareService: SoftwareService) {}
 

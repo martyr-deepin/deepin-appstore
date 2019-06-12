@@ -21,13 +21,14 @@ export class LocalAppComponent implements OnInit {
     private authService: AuthService,
   ) {}
   readonly DisabledList = [
+    'dde',
     'dde-control-center',
     'dde-introduction',
     'dde-file-manager',
     'deepin-appstore',
     'deepin-manual',
   ];
-  readonly pageSize = 15;
+  readonly pageSize = 13;
   logged = this.authService.logged$;
   selected: string;
   removing: string[] = [];

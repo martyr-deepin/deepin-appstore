@@ -3,15 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
-
-import { AppService, HasApp } from 'app/services/app.service';
+import { Software, SoftwareService } from 'app/services/software.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommentsService {
   private server = environment.operationServer;
-  constructor(private http: HttpClient, private appService: AppService) {}
+  constructor(private http: HttpClient, private softService: SoftwareService) {}
   getComments(page: number, pageSize: number) {
     return this.http
       .get<Result>(this.server + '/api/user/my/comment', {
@@ -19,29 +18,24 @@ export class CommentsService {
       })
       .pipe(
         switchMap(
-          result =>
-            this.appService.getApps(
-              result.comment.map(c => c.appName),
-              false,
-              false,
-            ),
-          (result, apps) => {
-            result.comment = result.comment.map(c =>
-              this.appService.addApp(
-                c,
-                apps.find(app => app.name === c.appName),
-              ),
-            );
+          async result => {
+            const list = await this.softService.list({ names: result.comment.map(c => c.appName) });
+            const map = new Map(list.map(soft => [soft.name, soft]));
+            result.comment.forEach(c => (c.soft = map.get(c.appName)));
             return result;
           },
+          // result => this.appService.getApps(result.comment.map(c => c.appName), false, false),
+          // (result, apps) => {
+          //   result.comment = result.comment.map(c =>
+          //     this.appService.addApp(c, apps.find(app => app.name === c.appName)),
+          //   );
+          //   return result;
+          // },
         ),
       );
   }
   create(c: CommentRequest) {
-    return this.http.post(
-      this.server + `/api/user/comment/app/${c.appName}`,
-      c,
-    );
+    return this.http.post(this.server + `/api/user/comment/app/${c.appName}`, c);
   }
   delete(id: number) {
     return this.http.delete(this.server + `/api/user/my/comment/${id}`);
@@ -52,7 +46,7 @@ export class CommentsService {
 }
 
 interface Result {
-  comment: (UserComment & HasApp)[];
+  comment: UserComment[];
   totalCount: number;
 }
 
@@ -73,4 +67,6 @@ export interface UserComment {
   userID: number;
   likeCount: number;
   likeByMe: boolean;
+
+  soft: Software;
 }

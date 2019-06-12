@@ -7,11 +7,7 @@
     <ng-container i18n>My donations</ng-container>
   </button>
 </dstore-center-title>
-<div
-  class="donate-list"
-  dstoreResize
-  (resize)="listHeight$.next($event.height)"
->
+<div class="donate-list" dstoreResize (resize)="listHeight$.next($event.height)">
   <ng-template #loading>
     <div class="loadingContainer"><app-wait></app-wait></div>
   </ng-template>
@@ -19,21 +15,17 @@
     <ng-container *ngIf="loaded; else loading">
       <div class="donate-item" *ngFor="let donate of donates">
         <ng-container *ngIf="donate.dstoreApp; else deleted">
-          <img
-            class="icon"
-            [src]="donate.dstoreApp.icon"
-            [routerLink]="['/app', donate.dstoreApp.name]"
-          />
+          <img class="icon" [src]="donate.dstoreApp.icon" [routerLink]="['/app', donate.dstoreApp.name]" />
           <div class="info">
             <span>{{ donate.dstoreApp.LocalName }}</span>
             <span></span>
           </div>
         </ng-container>
         <ng-template #deleted>
-          <img class="icon" />
+          <img class="icon" [src]="null" dstoreCover="icon" />
           <div class="info">
             <span>{{ donate.appName }}</span>
-            <span class="subtitle">已下架</span>
+            <span class="subtitle" i18n>Removed</span>
           </div>
         </ng-template>
         <div class="time">
@@ -41,15 +33,9 @@
           {{ donate.createTime | date: 'yyyy.MM.dd' }}
         </div>
         <div class="source" [ngSwitch]="donate.source">
-          <ng-container *ngSwitchCase="Payment.AliPay" i18n
-            >AliPay</ng-container
-          >
-          <ng-container *ngSwitchCase="Payment.WeChat" i18n
-            >WeChat</ng-container
-          >
-          <ng-container *ngSwitchCase="Payment.PayPal" i18n
-            >PayPal</ng-container
-          >
+          <ng-container *ngSwitchCase="Payment.AliPay" i18n>AliPay</ng-container>
+          <ng-container *ngSwitchCase="Payment.WeChat" i18n>WeChat</ng-container>
+          <ng-container *ngSwitchCase="Payment.PayPal" i18n>PayPal</ng-container>
         </div>
         <div class="amount">
           <span>{{ donate.currency === '' ? '￥' : '$' }}</span>

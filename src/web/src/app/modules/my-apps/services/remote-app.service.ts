@@ -1,34 +1,45 @@
-import { StoreService } from 'app/modules/client/services/store.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, distinctUntilChanged } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import { JobService } from 'app/services/job.service';
 import { StoreJobType } from 'app/modules/client/models/store-job-info';
-import { Software } from 'app/services/software.service';
+import { Software, SoftwareService } from 'app/services/software.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RemoteAppService {
   url = environment.operationServer + '/api/user/my/app';
-  constructor(private http: HttpClient, private storeService: StoreService, private jobService: JobService) {}
+  constructor(private http: HttpClient, private softService: SoftwareService, private jobService: JobService) {}
   RemoteAppList(page: number, pageSize: number) {
     const params = {
       page: page.toString(),
       count: pageSize.toString(),
     };
-    return this.http.get<Result>(this.url, { params }).pipe(
+    return this.jobService.jobList().pipe(
+      map(list => list.length),
+      distinctUntilChanged(),
+      switchMap(() => this.http.get<Result>(this.url, { params })),
       switchMap(async result => {
-        console.log(result);
-        return [];
+        const list = await this.softService.list({ names: result.apps.map(app => app.appName), filter: false });
+        const softMap = new Map(list.map(soft => [soft.name, soft]));
+        return {
+          total: result.totalCount,
+          apps: result.apps
+            .filter(app => softMap.has(app.appName))
+            .map(app => {
+              app.app = softMap.get(app.appName);
+              return app;
+            }),
+        };
       }),
     );
   }
 
-  installApps(apps: Software[]) {
-    // this.storeService.installPackages(apps);
+  installApps(softs: Software[]) {
+    this.softService.install(...softs);
   }
 
   installingList() {
@@ -50,5 +61,5 @@ interface Result {
 interface RemoteApp {
   appName: string;
   time: Date;
-  app: App;
+  app: Software;
 }

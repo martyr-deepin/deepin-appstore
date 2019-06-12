@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { DownloadTotalService } from 'app/services/download-total.service';
 import { Channel } from '../utils/channel';
-import { Observable, from, of } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
+import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { StoreJobInfo } from '../models/store-job-info';
@@ -11,7 +10,7 @@ import { StoreJobInfo } from '../models/store-job-info';
   providedIn: 'root',
 })
 export class StoreService {
-  constructor(private downloadTotalService: DownloadTotalService) {}
+  constructor() {}
 
   isDBusConnected(): Observable<boolean> {
     return this.execWithCallback('storeDaemon.isDBusConnected');
