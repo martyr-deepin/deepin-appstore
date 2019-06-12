@@ -18,7 +18,7 @@ import { UserComment, CommentsService } from '../../services/comments.service';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
-  @ViewChild('dialog')
+  @ViewChild('dialog', { static: true })
   dialogRef: ElementRef<HTMLDialogElement>;
   deleteConfirm: boolean;
   app$: Observable<App>;

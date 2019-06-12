@@ -18,7 +18,7 @@ import { BaseService } from 'app/dstore/services/base.service';
 })
 export class ListComponent implements OnInit, OnChanges {
   constructor(private base: BaseService) {}
-  @ViewChild('loadingRef') elRef: ElementRef<HTMLDivElement>;
+  @ViewChild('loadingRef', { static: true }) elRef: ElementRef<HTMLDivElement>;
   @Input() list: [];
   @Input() lazyload = false;
   @Input() nameColor: string;

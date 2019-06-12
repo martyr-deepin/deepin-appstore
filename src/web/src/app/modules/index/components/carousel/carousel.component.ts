@@ -33,14 +33,20 @@ const timings = 500;
         'hidden => right',
         animate(
           timings,
-          keyframes([style({ transform: 'translateX(200%)' }), style({ transform: 'translateX(101%)' })]),
+          keyframes([
+            style({ display: 'block', transform: 'translateX(200%)' }),
+            style({ transform: 'translateX(101%)' }),
+          ]),
         ),
       ),
       transition(
         'hidden => left',
         animate(
           timings,
-          keyframes([style({ transform: 'translateX(-200%)' }), style({ transform: 'translateX(-101%)' })]),
+          keyframes([
+            style({ display: 'block', transform: 'translateX(-200%)' }),
+            style({ transform: 'translateX(-101%)' }),
+          ]),
         ),
       ),
       transition('left => hidden', animate(timings, style({ transform: 'translateX(-200%)' }))),
