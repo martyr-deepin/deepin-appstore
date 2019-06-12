@@ -6,6 +6,7 @@ import { map, tap, switchMap, first } from 'rxjs/operators';
 import { StoreService, Package } from 'app/modules/client/services/store.service';
 import { Category, CategoryService } from './category.service';
 import { PackageService } from './package.service';
+import { DownloadTotalService } from './download-total.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class SoftwareService {
     private categoryService: CategoryService,
     private storeService: StoreService,
     private packageService: PackageService,
+    private downloadCounter: DownloadTotalService,
   ) {}
   private readonly native = environment.native;
   private readonly metadataURL = environment.metadataServer + '/api/v3/apps';
@@ -143,6 +145,7 @@ export class SoftwareService {
   }
   // install software
   install(...softs: Software[]) {
+    this.downloadCounter.installed(softs);
     return this.storeService.execWithCallback('storeDaemon.installPackages', softs.map(this.toQuery)).toPromise();
   }
 }
