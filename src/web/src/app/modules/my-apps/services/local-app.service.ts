@@ -30,7 +30,11 @@ export class LocalAppService {
             .map(pkg => pkgs[pkg.packageURI])
             .filter(Boolean),
         );
-        const list = await this.softwareService.list({ names: chunk(names, pageSize)[pageIndex] });
+        const list = await this.softwareService.list({
+          names: chunk(names, pageSize)[pageIndex],
+          filterPackage: false,
+          filterStat: false,
+        });
         return { total: names.length, page: pageIndex, list };
       }),
     );

@@ -1,5 +1,11 @@
 <dstore-center-title>
   <span title i18n>My donations</span>
+  <div class="amount_count" subtitle *ngIf="amount$ | async as amount_count">
+    <ng-container i18n
+      >总计打赏 <span>{{ amount_count }}</span
+      >元</ng-container
+    >
+  </div>
   <button routerLink="/my/comments" routerLinkActive="active">
     <ng-container i18n>My comments</ng-container>
   </button>
@@ -14,15 +20,15 @@
   <ng-container *ngIf="donates$ | async as donates">
     <ng-container *ngIf="loaded; else loading">
       <div class="donate-item" *ngFor="let donate of donates">
-        <ng-container *ngIf="donate.dstoreApp; else deleted">
-          <img class="icon" [src]="donate.dstoreApp.icon" [routerLink]="['/app', donate.dstoreApp.name]" />
+        <ng-container *ngIf="donate.soft as soft; else deleted">
+          <img class="icon" [src]="soft.info.icon" [routerLink]="['/app', soft.name]" />
           <div class="info">
-            <span>{{ donate.dstoreApp.LocalName }}</span>
-            <span></span>
+            <span>{{ soft.info.name }}</span>
+            <span *ngIf="!soft.package" class="subtitle" i18n>Removed</span>
           </div>
         </ng-container>
         <ng-template #deleted>
-          <img class="icon" [src]="null" dstoreCover="icon" />
+          <img class="icon" [src]="null" dstoreCover="icon" [routerLink]="['/app', donate.appName]" />
           <div class="info">
             <span>{{ donate.appName }}</span>
             <span class="subtitle" i18n>Removed</span>
@@ -30,7 +36,7 @@
         </ng-template>
         <div class="time">
           <span i18n>Donation Date:</span> &nbsp;
-          {{ donate.createTime | date: 'yyyy.MM.dd' }}
+          {{ donate.created_at | date: 'yyyy.MM.dd' }}
         </div>
         <div class="source" [ngSwitch]="donate.source">
           <ng-container *ngSwitchCase="Payment.AliPay" i18n>AliPay</ng-container>

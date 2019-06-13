@@ -20,7 +20,7 @@
             {{ remoteApp.time | date: 'yyyy.MM.dd' }}
           </div>
           <ng-container *ngIf="remoteApp.app.package; else noVersionError">
-            <div class="version"><span i18n>Version:</span> {{ remoteApp.app.package.remoteVersion }}</div>
+            <div class="version"><span i18n>Version:</span> {{ remoteApp.version }}</div>
             <div class="control">
               <ng-container *ngIf="installing.includes(remoteApp.app.name); else update"
                 ><button i18n disabled>Installing</button></ng-container
