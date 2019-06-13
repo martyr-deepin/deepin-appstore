@@ -8,12 +8,7 @@ import { Channel } from 'app/modules/client/utils/channel';
   providedIn: 'root',
 })
 export class MenuService {
-  constructor(
-    private zone: NgZone,
-    private router: Router,
-    private auth: AuthService,
-    private dService: DeepinidInfoService,
-  ) {}
+  constructor(private router: Router, private auth: AuthService, private dService: DeepinidInfoService) {}
   serve() {
     // menu user info
     this.auth.info$.subscribe(async userInfo => {

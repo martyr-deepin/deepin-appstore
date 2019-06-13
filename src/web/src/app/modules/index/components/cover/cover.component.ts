@@ -17,7 +17,6 @@ export class CoverComponent extends SectionItemBase implements OnInit {
   ngOnInit() {
     const apps: SectionApp[] = this.section.items;
     this.more = `more/${this.keyvalue.add(this.section)}`;
-    console.log('cover', this.section);
     this.softs$ = this.softwareService
       .list({ names: apps.filter(app => app.show).map(app => app.name) })
       .finally(() => this.loaded.emit(true));
