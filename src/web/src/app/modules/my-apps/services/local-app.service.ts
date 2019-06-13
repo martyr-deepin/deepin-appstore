@@ -27,8 +27,8 @@ export class LocalAppService {
         const names = ([] as string[]).concat(
           ...installed
             .sort((a, b) => b.installedTime - a.installedTime)
-            .map(pkg => pkgs[pkg.packageURI])
-            .filter(Boolean),
+            .filter(pkg => pkgs[pkg.packageURI])
+            .map(pkg => pkgs[pkg.packageURI].name),
         );
         const list = await this.softwareService.list({
           names: chunk(names, pageSize)[pageIndex],

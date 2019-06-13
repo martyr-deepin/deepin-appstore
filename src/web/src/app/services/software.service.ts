@@ -240,5 +240,7 @@ export enum Source {
 }
 
 export interface PackagesURL {
-  [key: string]: string[];
+  [key: string]: {
+    name: string;
+  };
 }
