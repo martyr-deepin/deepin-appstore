@@ -51,6 +51,7 @@ Package Package::fromVariantMap(const QVariantMap &obj)
     pkg.size = static_cast<qlonglong>(obj.value("size").toInt());
     pkg.downloadSize = static_cast<qlonglong>(obj.value("downloadSize").toInt());
     pkg.upgradable = obj.value("upgradable").toBool();
+    pkg.allLocalName = obj.value("allLocalName").toMap();
     return pkg;
 }
 
@@ -66,6 +67,8 @@ QVariantMap Package::toVariantMap() const
     obj.insert("upgradable", upgradable);
     obj.insert("size", size);
     obj.insert("downloadSize", downloadSize);
+    obj.insert("localName", localName);
+    obj.insert("allLocalName", allLocalName);
     return obj;
 }
 

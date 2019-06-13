@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"path/filepath"
 	"time"
 
 	"pkg.deepin.io/lib/dbusutil"
@@ -13,6 +15,27 @@ const (
 	dbusServiceName = "com.deepin.AppStore.Daemon"
 	dbusBackendPath = "/com/deepin/AppStore/Backend"
 )
+
+func init() {
+	if os.Getenv("XDG_CACHE_HOME") != "" {
+		cacheFolder = os.Getenv("XDG_CACHE_HOME")
+	} else {
+		cacheFolder = filepath.Join(os.Getenv("HOME"), ".cache")
+	}
+	cacheFolder += "/deepin/deepin-appstore-daemon"
+	os.MkdirAll(cacheFolder, 0755)
+
+	iconFolder = cacheFolder + "/icons"
+	os.MkdirAll(iconFolder, 0755)
+
+	if os.Getenv("XDG_CONFIG_HOME") != "" {
+		configFolder = os.Getenv("XDG_CONFIG_HOME")
+	} else {
+		configFolder = filepath.Join(os.Getenv("HOME"), ".config")
+	}
+	configFolder += "/deepin/deepin-appstore"
+	os.MkdirAll(configFolder, 0755)
+}
 
 func main() {
 	service, err := dbusutil.NewSessionService()
@@ -36,6 +59,7 @@ func main() {
 
 	m := NewMetadata()
 	m.debBackend = b
+	b.metadata = m
 	m.block = block
 
 	err = service.Export(dbusMetadataPath, m)

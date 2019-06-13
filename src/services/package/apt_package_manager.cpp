@@ -272,14 +272,17 @@ PMResult AptPackageManager::ListInstalled(const QList<QString> &/*packageIDs*/)
 
     const InstalledAppInfoList list = reply.value();
     QVariantList result;
+    qDebug() << list;
     for (const InstalledAppInfo &info : list) {
         Package pkg;
-        pkg.packageName = info.pkg_name;
+        pkg.packageName = info.packageName;
         auto packageID =   pkg.packageName.split(":").first();
         pkg.localVersion = info.version;
         pkg.size = info.size;
         pkg.packageURI = "dpk://deb/" + packageID;
-
+        for (auto k : info.localeNames.keys()) {
+            pkg.allLocalName[k] = info.localeNames[k];
+        }
         // TODO: remove name
 //        if (apps.contains(packageID)) {
         result.append(pkg.toVariantMap());

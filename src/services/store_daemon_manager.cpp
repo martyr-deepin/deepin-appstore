@@ -261,6 +261,7 @@ QVariantMap StoreDaemonManager::installedPackages()
     // TODO: filter install list
     Q_D(StoreDaemonManager);
     auto result = d->pm->ListInstalled(/*d->apps.keys()*/{});
+    qDebug() << result.data;
     return QVariantMap {
         { kResultOk, result.success },
         { kResultErrName, result.errName },
