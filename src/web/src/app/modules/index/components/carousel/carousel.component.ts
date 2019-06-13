@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
 import { Observable, Subject, timer } from 'rxjs';
 import { throttleTime, switchMap, startWith, map } from 'rxjs/operators';
+import { get } from 'lodash';
 
 import { SectionItemBase } from '../section-item-base';
-import { SectionCarousel, CarouselType } from '../../services/section.service';
+import { SectionCarousel, CarouselType, SectionService } from '../../services/section.service';
 import { SoftwareService } from 'app/services/software.service';
+import { KeyvalueService } from 'app/services/keyvalue.service';
 
 const timings = 500;
 
@@ -55,12 +58,17 @@ const timings = 500;
   ],
 })
 export class CarouselComponent extends SectionItemBase implements OnInit {
-  constructor(private softwareService: SoftwareService) {
+  constructor(
+    private router: Router,
+    private keyvalue: KeyvalueService,
+    private sectionService: SectionService,
+    private softwareService: SoftwareService,
+  ) {
     super();
   }
   click$ = new Subject<string>();
   carousels: SectionCarousel[];
-
+  current: Ring<SectionCarousel>;
   state: { [key: number]: string } = {
     0: 'left',
     1: 'center',
@@ -68,20 +76,42 @@ export class CarouselComponent extends SectionItemBase implements OnInit {
   };
   running$: Observable<void>;
   ngOnInit() {
-    this.init().finally(() => this.loaded.emit(true));
-    this.running$ = this.click$.pipe(
-      throttleTime(500),
-      startWith(''),
-      switchMap(s => {
-        const v = { left: -1, right: 1 };
-        const i = v[s] || 0;
-        return timer(3000, 3000).pipe(
-          map(() => 1),
-          startWith(i),
-        );
-      }),
-      map(i => this.move(i)),
-    );
+    this.init().finally(() => {
+      this.loaded.emit(true);
+
+      this.current = new Ring(this.carousels);
+      setTimeout(() => this.move(0), 0);
+      this.running$ = this.click$.pipe(
+        throttleTime(500),
+        switchMap(s => {
+          const v = { left: -1, right: 1 };
+          const i = v[s] || 0;
+          if (i === 0) {
+            const c = this.current.value();
+            if (c.type === CarouselType.App) {
+              this.router.navigate(['app', c.link]);
+            } else {
+              console.log(c.link);
+              const [, , sindex, tindex] = c.link.split('/').map(Number);
+              this.sectionService.list.then(list => {
+                const topic = get(list, [sindex, 'items', tindex]);
+                if (!topic) {
+                  this.router.navigate(['app', Math.random()]);
+                  return;
+                }
+                this.router.navigate(['/index/topic', this.keyvalue.add(topic)]);
+              });
+            }
+          } else {
+            this.move(i);
+          }
+          return timer(3000, 3000).pipe(map(() => 1));
+        }),
+        map(i => {
+          this.move(i);
+        }),
+      );
+    });
   }
   // filter soft
   async init() {
@@ -102,19 +132,51 @@ export class CarouselComponent extends SectionItemBase implements OnInit {
       this.carousels = [...this.carousels, ...this.carousels];
     }
   }
-  // move image (-1,0,1)
+  async goto(index: number) {
+    const left = [];
+    for (let c = this.current; c.index !== index; c = c.prev()) {
+      left.push(-1);
+    }
+    const right = [];
+    for (let c = this.current; c.index !== index; c = c.next()) {
+      right.push(1);
+    }
+    const sorttest = [right, left].sort((a, b) => a.length - b.length)[0];
+    for (const i of sorttest) {
+      this.move(i);
+      this.click$.next('');
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+  }
+  // move image (-1,1)
   move(i: number) {
-    const current = Object.entries(this.state).find(([index, s]) => s === 'center')[0];
-    i += Number(current);
-    if (i >= this.carousels.length) {
-      i = 0;
+    switch (i) {
+      case -1:
+        this.current = this.current.prev();
+        break;
+      case 1:
+        this.current = this.current.next();
+        break;
     }
-    if (i < 0) {
-      i = this.carousels.length - 1;
-    }
-    this.state = {};
-    this.state[(i === 0 ? this.carousels.length : i) - 1] = 'left';
-    this.state[i] = 'center';
-    this.state[i === this.carousels.length - 1 ? 0 : i + 1] = 'right';
+    this.state = {
+      [this.current.prev().index]: 'left',
+      [this.current.index]: 'center',
+      [this.current.next().index]: 'right',
+    };
+  }
+}
+
+class Ring<T> {
+  constructor(private data: Array<T>, public readonly index = 0) {}
+  prev() {
+    const p = this.index <= 0 ? this.data.length - 1 : this.index - 1;
+    return new Ring(this.data, p);
+  }
+  next() {
+    const n = this.index >= this.data.length - 1 ? 0 : this.index + 1;
+    return new Ring(this.data, n);
+  }
+  value() {
+    return this.data[this.index];
   }
 }
