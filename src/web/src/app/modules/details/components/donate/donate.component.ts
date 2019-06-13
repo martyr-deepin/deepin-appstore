@@ -1,25 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectorRef,
-  NgZone,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, NgZone, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { Observable, of, iif, timer } from 'rxjs';
-import {
-  map,
-  catchError,
-  switchMap,
-  tap,
-  find,
-  takeWhile,
-  pairwise,
-} from 'rxjs/operators';
+import { map, catchError, switchMap, tap, find, takeWhile, pairwise } from 'rxjs/operators';
 import { debounce } from 'lodash';
 
 import * as QRCode from 'qrcode';
@@ -28,8 +11,8 @@ import { Payment, PayReq, PayCheck } from '../../services/donate.model';
 import { DonateService } from '../../services/donate.service';
 import { AuthService } from 'app/services/auth.service';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
-import { BaseService } from 'app/dstore/services/base.service';
 import { DonorsComponent } from '../donors/donors.component';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-donate',
@@ -81,7 +64,7 @@ export class DonateComponent implements OnInit {
         map(info => {
           console.log('get');
           const req: PayReq = {
-            appStore: BaseService.domainName,
+            appStore: environment.region === 1 ? 'international' : 'china',
             appName: this.appName,
             amount: this.amount * 100,
           };
@@ -107,8 +90,7 @@ export class DonateComponent implements OnInit {
             return;
           }
           QRCode.toDataURL(resp.shortURL).then(
-            url =>
-              (this.qrImg = this.sanitizer.bypassSecurityTrustResourceUrl(url)),
+            url => (this.qrImg = this.sanitizer.bypassSecurityTrustResourceUrl(url)),
           );
         } else {
           DstoreObject.openURL(resp.url);

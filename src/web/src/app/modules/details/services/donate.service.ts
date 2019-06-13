@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Payment, PayReq, PayResp, PayCheck } from './donate.model';
-import { BaseService } from 'app/dstore/services/base.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DonateService {
-  server = BaseService.serverHosts.metadataServer;
+  server = environment.metadataServer;
   constructor(private http: HttpClient) {}
   donate(payment: Payment, req: PayReq) {
     console.log('donate', payment, req);

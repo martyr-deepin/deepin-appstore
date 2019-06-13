@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'environments/environment';
 import { map, tap, switchMap, first } from 'rxjs/operators';
-import { StoreService } from 'app/modules/client/services/store.service';
+import { StoreService, Package } from 'app/modules/client/services/store.service';
 import { Category, CategoryService } from './category.service';
 import { PackageService } from './package.service';
-import { BaseService } from 'app/dstore/services/base.service';
+import { DownloadTotalService } from './download-total.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +17,13 @@ export class SoftwareService {
     private categoryService: CategoryService,
     private storeService: StoreService,
     private packageService: PackageService,
+    private downloadCounter: DownloadTotalService,
   ) {}
-  private readonly native = BaseService.isNative;
+  private readonly native = environment.native;
   private readonly metadataURL = environment.metadataServer + '/api/v3/apps';
   // operation app url
   private readonly operationURL = environment.operationServer + '/api/v3/apps';
-
+  packages = this.http.get<PackagesURL>(environment.metadataServer + '/api/v3/packages').toPromise();
   async list({
     order = 'download' as 'download' | 'score',
     offset = 0,
@@ -33,47 +34,32 @@ export class SoftwareService {
     keyword = '',
     filter = true,
   }) {
-    if (names.length) {
-      const stats = await this.http.get<Stat[]>(this.operationURL, { params: { names } }).toPromise();
-      if (stats.length === 0) {
-        return [];
-      }
-      const softs = await this.getSofts(stats.map(stat => stat.name)).toPromise();
-
-      if (filter && this.native) {
-        const packages = await this.packageService.querys(softs.map(this.toQuery));
-        names = names.filter(name => packages.find(pkg => name === pkg.appName));
-      }
-
-      return names
-        .map(name => {
-          const stat = stats.find(stat => stat.name === name);
-          const soft = softs.find(soft => soft.name === name);
-          if (soft) {
-            soft.stat = stat;
-          }
-          return soft;
-        })
-        .filter(soft => soft && soft.stat);
-    }
+    // get soft stat info
+    names = [...new Set(names)];
     let stats = await this.http
       .get<Stat[]>(this.operationURL, {
-        params: { order, offset, limit, category, tag, keyword } as any,
+        params: { order, offset, limit, category, tag, keyword, names } as any,
       })
       .toPromise();
     if (stats.length === 0) {
       return [];
     }
-    const softs = await this.getSofts(stats.map(v => v.name)).toPromise();
-
-    if (filter && this.native) {
-      const packages = await this.packageService.querys(softs.map(this.toQuery));
-      stats = stats.filter(stat => packages.find(pkg => stat.name === pkg.appName));
+    if (names.length) {
+      stats = stats.sort((a, b) => names.indexOf(a.name) - names.indexOf(b.name));
     }
-
+    // get soft metadata info
+    const softs = await this.getSofts(stats.map(v => v.name));
+    if (this.native) {
+      const list = [...softs.values()];
+      const packages = await this.packageService.querys(list.map(this.toQuery));
+      list.forEach(soft => (soft.package = packages.get(soft.name)));
+      if (filter) {
+        list.filter(soft => !soft.package).forEach(soft => softs.delete(soft.name));
+      }
+    }
     return stats
       .map(stat => {
-        const soft = softs.find(s => s.name === stat.name);
+        const soft = softs.get(stat.name);
         if (soft) {
           soft.stat = stat;
         }
@@ -82,21 +68,11 @@ export class SoftwareService {
       .filter(Boolean);
   }
 
-  private getSofts(names: string[]) {
+  private async getSofts(names: string[]) {
     const preloads = ['info', 'desc', 'tags', 'images'];
     const params = { names: [...names].sort(), preloads };
-    return this.http.get<Software[]>(this.metadataURL, { params }).pipe(
-      map(softs => softs.map(this.convertInfo).sort((a, b) => names.indexOf(a.name) - names.indexOf(b.name))),
-      tap(softs => {
-        softs.forEach(soft => {
-          delete soft.desc;
-          delete soft.images;
-          delete soft.tags;
-          delete soft.versions;
-          delete soft.info.packageURI;
-        });
-      }),
-    );
+    const list = (await this.http.get<Software[]>(this.metadataURL, { params }).toPromise()).map(this.convertInfo);
+    return new Map(list.map(soft => [soft.name, soft]));
   }
 
   // app json data convert
@@ -155,16 +131,22 @@ export class SoftwareService {
     };
   }
 
-  size(...softs: Software[]) {
-    return this.storeService.queryDownloadSize(softs.map(this.toQuery));
+  // software download size
+  size(soft: Software) {
+    return this.storeService.queryDownloadSize([this.toQuery(soft)]).toPromise();
   }
   // open software
   open(soft: Software) {
-    return this.storeService.execWithCallback('storeDaemon.openApp', this.toQuery(soft));
+    return this.storeService.execWithCallback('storeDaemon.openApp', this.toQuery(soft)).toPromise();
+  }
+  // remove software
+  remove(...softs: Software[]) {
+    return this.storeService.execWithCallback('storeDaemon.removePackages', softs.map(this.toQuery)).toPromise();
   }
   // install software
   install(...softs: Software[]) {
-    return this.storeService.execWithCallback('storeDaemon.installPackages', softs.map(this.toQuery));
+    this.downloadCounter.installed(softs);
+    return this.storeService.execWithCallback('storeDaemon.installPackages', softs.map(this.toQuery)).toPromise();
   }
 }
 
@@ -193,7 +175,7 @@ interface Info extends Desc {
   icon: string;
   packages: { packageURI: string }[];
   packageURI: string;
-  source: number;
+  source: Source;
   extra: {};
   versions: any[];
   tags: any[];
@@ -207,6 +189,7 @@ export interface Software {
   name: string;
   info: Info;
   stat: Stat;
+  package: Package;
   // 下面是服务器返回结构，全部解析到info内部
   desc: Desc;
   versions?: any;
@@ -240,4 +223,13 @@ export interface Stat {
   score: number;
   score_count: number;
   download: number;
+}
+export enum Source {
+  ThirdParty = 0,
+  Official = 1,
+  Collaborative = 2,
+}
+
+export interface PackagesURL {
+  [key: string]: string[];
 }

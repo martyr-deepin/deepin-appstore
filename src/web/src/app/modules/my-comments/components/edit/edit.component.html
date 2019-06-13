@@ -1,11 +1,16 @@
 <dialog #dialog>
   <dstore-close-button [dialog]="dialog"></dstore-close-button>
-  <ng-container *ngIf="(app$ | async) as app; else loading">
+  <ng-container *ngIf="comment">
     <div class="title" i18n>Edit Comment</div>
     <div class="app">
-      <img class="icon" [src]="app.icon" />
+      <ng-container *ngIf="comment.soft as app; else emptyIconRef">
+        <img class="icon" [src]="app.info.icon" [routerLink]="['/app', app.name]" />
+      </ng-container>
+      <ng-template #emptyIconRef>
+        <img class="icon" [src]="null" dstoreCover="icon" />
+      </ng-template>
       <div class="info">
-        <span class="name">{{ app.localInfo.description.name }}</span>
+        <span class="name">{{ comment.soft?.info?.name }}</span>
         <span class="time">
           <span i18n>Comment Date:</span>
           <span>{{ _comment.createTime | date: 'yyyy-MM-dd' }}</span>
@@ -24,7 +29,7 @@
     <div class="control">
       <ng-container *ngIf="!deleteConfirm; else Delete">
         <button (click)="deleteConfirm = true" i18n>Delete</button>
-        <div *ngIf="app.active">
+        <div *ngIf="comment?.soft?.package">
           <span class="error" *ngIf="error">
             <ng-container i18n>Failed to submit</ng-container>
           </span>

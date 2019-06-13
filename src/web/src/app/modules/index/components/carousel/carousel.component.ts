@@ -4,7 +4,7 @@ import { Observable, Subject, timer } from 'rxjs';
 import { throttleTime, switchMap, startWith, map } from 'rxjs/operators';
 
 import { SectionItemBase } from '../section-item-base';
-import { SectionCarousel, CarouselType } from 'app/dstore/services/section';
+import { SectionCarousel, CarouselType } from '../../services/section.service';
 import { SoftwareService } from 'app/services/software.service';
 
 const timings = 500;

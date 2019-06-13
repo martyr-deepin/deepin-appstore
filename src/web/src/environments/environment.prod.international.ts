@@ -5,5 +5,8 @@ export const environment = {
   metadataServer: 'https://dstore-metadata.deepin.cn',
   operationServer: 'https://dstore-operation-international.deepin.cn',
   region: 1,
-  themeName: '',
+  themeName: 'light',
+  locale: 'zh_CN',
+  native: false,
+  supportSignIn: false,
 };

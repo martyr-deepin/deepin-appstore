@@ -46,17 +46,17 @@
               <ng-container *ngIf="size === 0" i18n>Downloaded</ng-container>
             </ng-template>
           </div>
+          <div i18n>Updated Date:</div>
+          <div>
+            {{ app.updated_at | date: 'yyyy-MM-dd HH:mm' }}
+            <ng-container *ngIf="supportSignIn && package.remoteVersion">
+              <span class="toRight">&lt;</span>
+              <button class="reminder" (click)="reminder(app.name, package.remoteVersion)">
+                <ng-container i18n>Ask for update</ng-container>
+              </button>
+            </ng-container>
+          </div>
         </ng-container>
-        <div i18n>Updated Date:</div>
-        <div>
-          {{ app.updated_at | date: 'yyyy-MM-dd HH:mm' }}
-          <ng-container *ngIf="supportSignIn">
-            <span class="toRight">&lt;</span>
-            <button class="reminder" (click)="reminder(app)">
-              <ng-container i18n>Ask for update</ng-container>
-            </button>
-          </ng-container>
-        </div>
         <ng-container *ngIf="app.info.author">
           <div i18n>Author:</div>
           <div>{{ app.info.author }}</div>
@@ -66,18 +66,18 @@
           <div>{{ app.info.packager }}</div>
         </ng-container>
 
-        <ng-container *ngIf="app.homePage">
+        <ng-container *ngIf="app.info.homePage">
           <div i18n>Website:</div>
           <div class="webSite" (click)="openURL(app.homePage)">
-            {{ app.homePage }}
+            {{ app.info.homePage }}
           </div>
         </ng-container>
-        <ng-container *ngIf="app.source">
+        <ng-container *ngIf="app.info.source">
           <div i18n>Source:</div>
           <div class="source" [ngSwitch]="app.source">
-            <ng-container *ngSwitchCase="AppSource.ThirdParty" i18n>Third-party</ng-container>
-            <ng-container *ngSwitchCase="AppSource.Official" i18n>Official</ng-container>
-            <ng-container *ngSwitchCase="AppSource.Collaborative" i18n>Collaboration</ng-container>
+            <ng-container *ngSwitchCase="SoftSource.ThirdParty" i18n>Third-party</ng-container>
+            <ng-container *ngSwitchCase="SoftSource.Official" i18n>Official</ng-container>
+            <ng-container *ngSwitchCase="SoftSource.Collaborative" i18n>Collaboration</ng-container>
           </div>
         </ng-container>
         <ng-container *ngIf="app.info.tags?.length">

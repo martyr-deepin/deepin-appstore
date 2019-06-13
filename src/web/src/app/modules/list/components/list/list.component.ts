@@ -9,7 +9,6 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { BaseService } from 'app/dstore/services/base.service';
 
 @Component({
   selector: 'dstore-list',
@@ -17,7 +16,7 @@ import { BaseService } from 'app/dstore/services/base.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, OnChanges {
-  constructor(private base: BaseService) {}
+  constructor() {}
   @ViewChild('loadingRef', { static: true }) elRef: ElementRef<HTMLDivElement>;
   @Input() list: [];
   @Input() lazyload = false;

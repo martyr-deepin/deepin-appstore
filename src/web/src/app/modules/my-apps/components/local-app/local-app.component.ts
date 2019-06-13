@@ -1,18 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { chunk } from 'lodash';
 import { combineLatest, BehaviorSubject } from 'rxjs';
-import {
-  map,
-  tap,
-  share,
-  shareReplay,
-  distinctUntilChanged,
-  debounceTime,
-} from 'rxjs/operators';
+import { map, switchMap, share, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 import { LocalAppService } from '../../services/local-app.service';
-import { App } from 'app/services/app.service';
 import { AuthService } from 'app/services/auth.service';
+import { Software } from 'app/services/software.service';
 
 @Component({
   selector: 'dstore-local-app',
@@ -26,49 +20,35 @@ export class LocalAppComponent implements OnInit {
     private localAppService: LocalAppService,
     private authService: AuthService,
   ) {}
-  DisabledList = DisabledList;
+  readonly DisabledList = [
+    'dde',
+    'dde-control-center',
+    'dde-introduction',
+    'dde-file-manager',
+    'deepin-appstore',
+    'deepin-manual',
+  ];
+  readonly pageSize = 13;
   logged = this.authService.logged$;
+  selected: string;
   removing: string[] = [];
-  select: string;
-  listHeight$ = new BehaviorSubject<number>(0);
-  pageSize$ = this.listHeight$.pipe(
-    debounceTime(100),
-    map(height => Math.floor(height / 64)),
-    distinctUntilChanged(),
+  pageIndex$ = this.route.queryParamMap.pipe(map(query => Number(query.get('page') || 0)));
+  result$ = this.pageIndex$.pipe(
+    switchMap(pageIndex => this.localAppService.list({ pageSize: this.pageSize, pageIndex })),
+    share(),
   );
-  pageIndex$ = this.route.queryParamMap.pipe(
-    map(query => Number(query.get('page') || 1) - 1),
-  );
-  localApps$ = this.localAppService.LocalAppList().pipe(share());
-  apps$ = combineLatest(this.localApps$, this.pageSize$, this.pageIndex$).pipe(
-    map(([apps, size, index]) => {
-      return apps.slice(size * index, size * (index + 1));
-    }),
-  );
-  count$ = combineLatest(this.localApps$, this.pageSize$).pipe(
-    map(([apps, size]) => {
-      return Math.ceil(apps.length / size);
-    }),
-  );
-  removingList$ = this.localAppService.RemovingList();
+  count$ = this.result$.pipe(map(result => Math.ceil(result.total / this.pageSize)));
+  removingList$ = this.localAppService.removingList();
 
-  gotoPage(pageIndex: number) {
-    this.router.navigate([], { queryParams: { page: pageIndex + 1 } });
-  }
-
-  remove(app: App) {
-    this.select = null;
-    this.removing.push(app.name);
-    this.localAppService.RemoveLocalApp(app);
+  remove(soft: Software) {
+    this.selected = null;
+    this.removing.push(soft.name);
+    this.localAppService.removeLocal(soft);
   }
 
   ngOnInit() {}
-}
 
-const DisabledList = [
-  'dde-control-center',
-  'dde-introduction',
-  'dde-file-manager',
-  'deepin-appstore',
-  'deepin-manual',
-];
+  gotoPage(pageIndex: number) {
+    this.router.navigate([], { queryParams: { page: pageIndex } });
+  }
+}

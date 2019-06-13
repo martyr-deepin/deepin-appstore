@@ -52,12 +52,13 @@ async function main() {
     const servers = await new Promise(resolve => {
       channel.objects.settings.getServers(resolve);
     });
+    environment.native = true;
+    environment.themeName = servers['themeName'];
     if (environment.production) {
       environment.supportSignIn = servers['supportSignIn'];
       environment.metadataServer = servers['metadataServer'];
       environment.operationServer = servers['operationServer'];
     }
-    environment.themeName = servers['themeName'];
 
     if (!Boolean(servers['aot'])) {
       // loading locale file
@@ -83,9 +84,11 @@ async function main() {
   }
   return bootstrap(opts);
 }
+
 function bootstrap(opts = null) {
   return platformBrowserDynamic().bootstrapModule(AppModule, opts);
 }
+
 main()
   .catch(err => {
     console.error('load locale fail', err);

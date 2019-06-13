@@ -1,9 +1,9 @@
-import { AppService } from 'app/services/app.service';
-import { switchMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { DstoreApp, RawApp } from 'app/model';
+import { SoftwareService } from 'app/services/software.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { DstoreApp, RawApp } from 'app/model';
 export class DonatesService {
   server = environment.metadataServer;
   apiURL = environment.metadataServer + '/api/v2/user/donation';
-  constructor(private http: HttpClient, private appService: AppService) {}
+  constructor(private http: HttpClient, private softService: SoftwareService) {}
   donateList(page: number, count: number) {
     const split = `${(page - 1) * count}:${page * count}`;
     return this.http.get<Result>(this.apiURL, { params: { split } }).pipe(

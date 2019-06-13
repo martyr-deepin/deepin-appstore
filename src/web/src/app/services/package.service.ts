@@ -9,7 +9,6 @@ import { JobService } from './job.service';
 })
 export class PackageService {
   constructor(private storeService: StoreService, private jobService: JobService) {}
-
   private query$ = new Subject<QueryOption>();
   private result$ = this.query$.pipe(
     bufferTime(100, -1, 10),
@@ -20,21 +19,29 @@ export class PackageService {
     }),
     share(),
   );
-  query(opt: QueryOption) {
-    setTimeout(() => this.query$.next(opt));
+
+  _query(opt: QueryOption) {
     return this.result$.pipe(
       filter(results => results.has(opt.name)),
       map(results => results.get(opt.name)),
     );
   }
-  querys(opts: QueryOption[]) {
-    return Promise.all(
+
+  query(opt: QueryOption) {
+    setTimeout(() => this.query$.next(opt));
+    return this._query(opt);
+  }
+
+  async querys(opts: QueryOption[]) {
+    setTimeout(() => opts.forEach(opt => this.query$.next(opt)));
+    const list = await Promise.all(
       opts.map(opt =>
-        this.query(opt)
+        this._query(opt)
           .pipe(first())
           .toPromise(),
       ),
-    ).then(pkgs => pkgs.filter(Boolean));
+    );
+    return new Map(list.filter(Boolean).map(pkg => [pkg.appName, pkg]));
   }
 }
 

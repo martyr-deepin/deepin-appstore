@@ -1,18 +1,13 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { debounceTime, switchMap } from 'rxjs/operators';
-
-import { Channel } from 'app/modules/client/utils/channel';
-import { BaseService } from 'app/dstore/services/base.service';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 
 import { ThemeService } from 'app/services/theme.service';
-import { App, AppService } from 'app/services/app.service';
 import { SearchService } from 'app/services/search.service';
 import { SysFontService } from 'app/services/sys-font.service';
 import { MenuService } from './services/menu.service';
-import { KeyboardService } from './services/keyboard.service';
 import { SoftwareService } from './services/software.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'dstore-root',
@@ -31,7 +26,7 @@ export class AppComponent implements OnInit {
   @ViewChild('scrollbarRef', { static: true }) scrollbarRef: ElementRef<HTMLDivElement>;
   ngOnInit(): void {
     this.searchNavigate();
-    if (!BaseService.isNative) {
+    if (!environment.native) {
       return;
     }
     this.switchFont();
@@ -85,7 +80,7 @@ export class AppComponent implements OnInit {
         if (softs.length === 0) {
           break;
         }
-        list = list.concat(softs.map(soft => ({ name: soft.name, description_name: soft.info.name })).slice(0, 10));
+        list = list.concat(softs.map(soft => ({ name: soft.name, local_name: soft.info.name })).slice(0, 10));
       }
       this.searchService.setComplementList(list);
     });

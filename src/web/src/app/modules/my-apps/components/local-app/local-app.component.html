@@ -3,7 +3,7 @@
   <button routerLink="../local" routerLinkActive="active">
     <ng-container i18n>Local App</ng-container>
   </button>
-  <button *ngIf="(logged | async)" routerLink="../remote" routerLinkActive="active">
+  <button *ngIf="logged | async" routerLink="../remote" routerLinkActive="active">
     <ng-container i18n>Remote App</ng-container>
   </button>
 </dstore-center-title>
@@ -11,63 +11,64 @@
 <ng-template #loadingContainer>
   <div class="loadingContainer"><app-wait></app-wait></div>
 </ng-template>
-<div class="installed-list" dstoreResize (resize)="listHeight$.next($event.height)">
-  <ng-container *ngIf="(apps$ | async) as installedList; else loadingContainer">
-    <ng-container *ngFor="let installed of installedList">
-      <div class="installed-app">
-        <img class="icon" [routerLink]="['/app', installed.name]" [src]="installed.icon" />
-        <div class="info">
-          <span>{{ installed.localInfo.description.name }}</span>
-          <span class="size">{{ installed.version.packageSize | sizeHuman }}</span>
-        </div>
-        <ng-container *ngIf="(removingList$ | async) as removingList">
-          <div class="installed">
-            <ng-template #confirm>
-              <div class="confirm">
-                <ng-container i18n>Are you sure you want to uninstall this application?</ng-container>
-              </div>
-            </ng-template>
-            <ng-container *ngIf="select != installed.name; else confirm">
-              <div class="time">
-                <span i18n>Date installed:</span>
-                {{ installed.version.installedTime * 1000 | date: 'yyyy-MM-dd' }}
-              </div>
-              <div class="version">
-                <span i18n>Version:</span>
-                <span class="versionText">
-                  {{ installed.version.localVersion }}
-                </span>
-              </div>
-            </ng-container>
+<div class="installed-list">
+  <dstore-scrollbar>
+    <ng-container *ngIf="(result$ | async)?.list as installedList; else loadingContainer">
+      <ng-container *ngFor="let installed of installedList">
+        <div class="installed-app">
+          <img class="icon" [routerLink]="['/app', installed.name]" [src]="installed.info.icon" />
+          <div class="info">
+            <span>{{ installed.info.name }}</span>
+            <span class="size">{{ installed.package.size | sizeHuman }}</span>
           </div>
-          <div class="control">
-            <ng-template #confirmBtn>
-              <button (click)="select = null" i18n>Cancel</button>
-              <button class="primary" (click)="remove(installed)">
-                <ng-container i18n>Confirm</ng-container>
-              </button>
-            </ng-template>
-            <ng-container *ngIf="select != installed.name; else confirmBtn">
-              <ng-template #uninstall>
-                <button (click)="select = installed.name" [disabled]="DisabledList.includes(installed.name)">
-                  <ng-container i18n>Uninstall</ng-container>
+          <ng-container *ngIf="removingList$ | async as removingList">
+            <div class="installed">
+              <ng-template #confirm>
+                <div class="confirm">
+                  <ng-container i18n>Are you sure you want to uninstall this application?</ng-container>
+                </div>
+              </ng-template>
+              <ng-container *ngIf="selected != installed.name; else confirm">
+                <div class="time">
+                  <span i18n>Date installed:</span>
+                  {{ installed.package.installedTime * 1000 | date: 'yyyy-MM-dd' }}
+                </div>
+                <div class="version">
+                  <span i18n>Version:</span>
+                  <span class="versionText">{{ installed.package.localVersion }}</span>
+                </div>
+              </ng-container>
+            </div>
+            <div class="control">
+              <ng-template #confirmBtn>
+                <button (click)="selected = null" i18n>Cancel</button>
+                <button class="primary" (click)="remove(installed)">
+                  <ng-container i18n>Confirm</ng-container>
                 </button>
               </ng-template>
-              <button
-                *ngIf="removingList.includes(installed.name) || removing.includes(installed.name); else uninstall"
-                disabled
-              >
-                <ng-container i18n>Uninstalling</ng-container>
-              </button>
-            </ng-container>
-          </div>
-        </ng-container>
-      </div>
+              <ng-container *ngIf="selected != installed.name; else confirmBtn">
+                <ng-template #uninstall>
+                  <button (click)="selected = installed.name" [disabled]="DisabledList.includes(installed.name)">
+                    <ng-container i18n>Uninstall</ng-container>
+                  </button>
+                </ng-template>
+                <button
+                  *ngIf="removingList.includes(installed.name) || removing.includes(installed.name); else uninstall"
+                  disabled
+                >
+                  <ng-container i18n>Uninstalling</ng-container>
+                </button>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
     </ng-container>
-  </ng-container>
+  </dstore-scrollbar>
 </div>
+
 <div class="paginatorContainer">
-  <ng-container *ngIf="(count$ | async) as count">
+  <ng-container *ngIf="count$ | async as count">
     <app-paginator
       [hidden]="count <= 1"
       [count]="count"

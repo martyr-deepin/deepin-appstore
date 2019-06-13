@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { App } from 'app/services/app.service';
 import { AutoInstallService } from '../../services/auto-install.service';
 
 @Component({

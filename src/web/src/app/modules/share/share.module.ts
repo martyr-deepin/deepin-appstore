@@ -13,7 +13,6 @@ import { CircleDirective } from './directives/circle.directive';
 import { WaitComponent } from './components/wait/wait.component';
 import { ScrollbarComponent } from './components/scrollbar/scrollbar.component';
 import { AppTitleComponent } from './components/app-title/app-title.component';
-import { AppListComponent } from './components/app-list/app-list.component';
 import { CenterTitleComponent } from './components/center-title/center-title.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { CloseButtonComponent } from './components/close-button/close-button.component';
@@ -31,7 +30,6 @@ const components = [
   WaitComponent,
   ScrollbarComponent,
   AppTitleComponent,
-  AppListComponent,
   PaginatorComponent,
   CenterTitleComponent,
   CloseButtonComponent,
