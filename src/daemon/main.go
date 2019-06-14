@@ -57,16 +57,20 @@ func main() {
 		logger.Fatal(err)
 	}
 
-	m := NewMetadata()
-	m.debBackend = b
-	b.metadata = m
-	m.block = block
-
-	err = service.Export(dbusMetadataPath, m)
+	s := NewSettings()
+	err = service.Export(dbusSettingsPath, s)
 	if err != nil {
 		logger.Fatal(err)
 	}
-	go m.updateCache()
+
+	m := NewMetadata()
+
+	m.debBackend = b
+	b.metadata = m
+	m.settings = s
+	m.block = block
+
+	err = service.Export(dbusMetadataPath, m)
 
 	// caller := service.Conn().Object("com.deepin.pusher", "/com/deepin/pusher")
 	// err = caller.Call("com.deepin.pusher.Register", 0, "store", dbusServiceName, dbusMetadataPath, dbusMetadataInterface).Store()

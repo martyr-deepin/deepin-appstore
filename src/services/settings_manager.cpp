@@ -32,31 +32,28 @@ namespace dstore
 
 namespace
 {
-
-const char kGroupGeneral[] = "General";
-
-const char kSupportSignin[] = "SupportSignIn";
-const char kMetadataServer[] = "MetadataServer";
-const char kOperationServer[] = "OperationServer";
-const char kRegion[] = "Region";
 const char kAutoInstall[] = "AutoInstall";
 const char kThemeName[] = "ThemeName";
 const char kWindowState[] = "WindowState";
-const char kAllowSwitchRegion[] = "AllowSwitchRegion";
-const char kUpyunBannerVisible[] = "UpyunBannerVisible";
 const char kAllowShowPackageName[] = "AllowShowPackageName";
 
+const char kSupportSignin[] = "SupportSignIn";
+const char kMetadataServer[] = "MetadataServer";
+const char kOperationServerMap[] = "OperationServerMap";
+const char kDefaultRegion[] = "DefaultRegion";
+const char kAllowSwitchRegion[] = "AllowSwitchRegion";
+const char kUpyunBannerVisible[] = "UpyunBannerVisible";
 }
 
 SettingsManager::SettingsManager(QObject *parent)
 {
-    dbus_interface_ = new QDBusInterface(
+    settings_ifc_ = new QDBusInterface(
         kAppstoreDaemonService,
-        kAppstoreDaemonPath,
-        kAppstoreDaemonInterface,
+        kAppstoreDaemonSettingsPath,
+        kAppstoreDaemonSettingsInterface,
         QDBusConnection::sessionBus(),
         parent);
-    qDebug() << "connect" << kAppstoreDaemonInterface << dbus_interface_->isValid();
+    qDebug() << "connect" << kAppstoreDaemonInterface << settings_ifc_->isValid();
 }
 
 SettingsManager::~SettingsManager()
@@ -74,27 +71,22 @@ bool SettingsManager::remoteDebug()
     return  qcef_settings_->remoteDebug();
 }
 
-QString SettingsManager::getMetadataServer() const
+QString SettingsManager::metadataServer() const
 {
     return getSettings(kMetadataServer).toString();
 }
 
-QString SettingsManager::getOperationServer() const
+QVariantMap SettingsManager::operationServerMap() const
 {
-    return getSettings(kOperationServer).toString();
+    return getSettings(kOperationServerMap).toMap();
 }
 
-OperationServerRegion SettingsManager::getRegion() const
+QString SettingsManager::defaultRegion() const
 {
-    return static_cast<OperationServerRegion>(getSettings(kRegion).toInt());
+    return getSettings(kDefaultRegion).toString();
 }
 
-void SettingsManager::setRegion(OperationServerRegion region)
-{
-    setSettings(kRegion, region);
-}
-
-bool SettingsManager::getAutoInstall() const
+bool SettingsManager::autoInstall() const
 {
     return getSettings(kAutoInstall).toBool();
 }
@@ -104,7 +96,7 @@ void SettingsManager::setAutoInstall(bool autoinstall)
     setSettings(kAutoInstall, autoinstall);
 }
 
-QString SettingsManager::getThemeName() const
+QString SettingsManager::themeName() const
 {
     return getSettings(kThemeName).toString();
 }
@@ -114,7 +106,7 @@ void SettingsManager::setThemeName(const QString &themeName) const
     setSettings(kThemeName, themeName);
 }
 
-QByteArray SettingsManager::getWindowState() const
+QByteArray SettingsManager::windowState() const
 {
     auto base64str = getSettings(kWindowState).toString();
     return QByteArray::fromBase64(base64str.toLatin1());
@@ -135,18 +127,19 @@ bool SettingsManager::allowSwitchRegion() const
     return getSettings(kAllowSwitchRegion).toBool();
 }
 
-bool SettingsManager::allowShowPackageName() const {
+bool SettingsManager::allowShowPackageName() const
+{
     return getSettings(kAllowShowPackageName).toBool();
 }
 
-bool SettingsManager::getUpyunBannerVisible() const
+bool SettingsManager::upyunBannerVisible() const
 {
     return getSettings(kUpyunBannerVisible).toBool();
 }
 
 QVariant SettingsManager::getSettings(const QString &key) const
 {
-    QDBusReply<QVariant> reply = dbus_interface_->call("GetSettings", key);
+    QDBusReply<QVariant> reply = settings_ifc_->call("GetSettings", key);
     if (reply.error().isValid()) {
         qWarning() << "getSettings failed" << key << reply.error();
     }
@@ -155,7 +148,7 @@ QVariant SettingsManager::getSettings(const QString &key) const
 
 void SettingsManager::setSettings(const QString &key, const QVariant &value) const
 {
-    QDBusReply<void> reply = dbus_interface_->call("SetSettings", key, value);
+    QDBusReply<void> reply = settings_ifc_->call("SetSettings", key, value);
     if (reply.error().isValid()) {
         qWarning() << "setSettings failed" << key << reply.error() << value;
     }

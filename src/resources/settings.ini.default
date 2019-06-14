@@ -1,32 +1,22 @@
 [General]
 
 # Allow user sign in.
-supportSignIn = true
+SupportSignIn = true
 
 # Base url to metadata server.
-metadataServer = "https://dstore-metadata.deepin.cn"
+MetadataServer = "https://dstore-metadata.deepin.cn"
 
-## Setup operation server.
-# For community version:
-#  * Set both "primary" and "secondary" server.
-#  * Region-switch menu item is displayed in application tool menu.
-# For professional and loongson version:
-#  * Only specify "primary" server.
-#  * Do not show region-switch menu item.
+# After 5.3, store will auto change region by ip
+# Allow change Region
+AllowSwitchRegion = true
 
-# Supported operation server types are:
-#  * 0 - community
-#  * 1 - professional
-#  * 2 - loongson
-operationType = 0
+# Default operation region
+DefaultRegion = "CN"
 
-# Base url to operation server of China.
-operationPrimary = "https://dstore-operation-china.deepin.cn"
+# Show support by upyun if you use CDN
+UpyunBannerVisible = true
 
-# Base url to international operation server.
-operationSecondary = "https://dstore-operation-international.deepin.cn"
-
-# Default region, might be:
-#  * 0 - China (primary)
-#  * 1 - International (secondary)
-operationDefault = 0
+# URL for operation server of diff Region
+[OperationServer]
+CN = "https://dstore-operation-china.deepin.cn"
+Default = "https://dstore-operation-international.deepin.cn"

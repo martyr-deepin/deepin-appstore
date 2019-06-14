@@ -81,7 +81,7 @@ void BackupWindowState(QWidget *widget)
 void RestoreWindowState(QWidget *widget)
 {
     Q_ASSERT(widget != nullptr);
-    QByteArray data = SettingsManager::instance()->getWindowState();
+    QByteArray data = SettingsManager::instance()->windowState();
     QBuffer readBuffer(&data);
     readBuffer.open(QIODevice::ReadOnly);
     QDataStream in(&readBuffer);
@@ -245,10 +245,6 @@ void WebWindow::initConnections()
             menu_proxy_, &MenuProxy::privacyAgreementRequested);
     connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
             menu_proxy_, &MenuProxy::switchThemeRequested);
-    connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
-            this, &WebWindow::onThemeChaged);
-    connect(tool_bar_menu_, &TitleBarMenu::regionChanged,
-            this, &WebWindow::onRegionChanged);
     connect(tool_bar_menu_, &TitleBarMenu::clearCacheRequested,
             store_daemon_proxy_, &StoreDaemonProxy::clearArchives);
 
@@ -502,11 +498,6 @@ void WebWindow::onLoadingStateChanged(bool,
 {
     title_bar_->setBackwardButtonActive(can_go_back);
     title_bar_->setForwardButtonActive(can_go_forward);
-}
-
-void WebWindow::onRegionChanged()
-{
-    this->loadPage();
 }
 
 void WebWindow::webViewGoBack()

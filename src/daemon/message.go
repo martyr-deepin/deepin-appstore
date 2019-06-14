@@ -59,7 +59,7 @@ func (m *Metadata) shouldInstall(packageName string) bool {
 }
 
 func (m *Metadata) handleInstall(playload map[string]interface{}) error {
-	if !m.getAutoInstall() {
+	if !m.settings.getAutoInstall() {
 		logger.Infof("auto install disabled, skip %v playload", playload)
 		return nil
 	}

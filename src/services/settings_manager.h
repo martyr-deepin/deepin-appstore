@@ -47,42 +47,32 @@ public Q_SLOTS:
     void setQCefSettings(QCefGlobalSettings *settings);
     bool remoteDebug();
 
-    QString getMetadataServer() const;
-    QString getOperationServer() const;
-
-    OperationServerRegion getRegion() const;
-    void setRegion(OperationServerRegion region);
-
-    bool getAutoInstall() const;
-    /**
-     * Allow auto install software
-     */
+    bool autoInstall() const;
     void setAutoInstall(bool autoinstall);
 
-    QString getThemeName() const;
+    QString themeName() const;
     void setThemeName(const QString &themeName) const;
 
-    QByteArray getWindowState() const;
+    QByteArray windowState() const;
     void setWindowState(QByteArray data);
 
-    bool supportSignIn() const;
-    bool allowSwitchRegion() const;
     bool allowShowPackageName() const;
 
-    // Show upyun banner or not in app-detail page.
-    // * community
-    //   * China, true
-    //   * International, false
-    // * professional, false
-    // * loongson, false
-    bool getUpyunBannerVisible() const;
+    QString metadataServer() const;
+
+    QVariantMap operationServerMap() const;
+    QString defaultRegion() const;
+    bool allowSwitchRegion() const;
+
+    bool supportSignIn() const;
+    bool upyunBannerVisible() const;
 
 private:
     // TODO: use interface from dbus to xml
     QVariant getSettings(const QString &key) const;
     void setSettings(const QString &key, const QVariant &value) const;
 
-    QDBusInterface *dbus_interface_;
+    QDBusInterface *settings_ifc_;
     QCefGlobalSettings *qcef_settings_;
 };
 
