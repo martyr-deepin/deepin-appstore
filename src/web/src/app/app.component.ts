@@ -21,29 +21,23 @@ export class AppComponent implements OnInit {
   }
 
   async selectOperation() {
+    let region = environment.region;
     const authService = this.inject.get(AuthService);
-    authService.info$
-      .pipe(
-        first(),
-        switchMap(async info => {
-          if (info) {
-            return info.Region;
-          }
-          const regionService = this.inject.get(RegionService);
-          return regionService.region$.pipe(timeout(3000)).toPromise();
-        }),
-      )
-      .subscribe(
-        region => {
-          console.log('switch region', region, environment.operationList[region]);
-          if (environment.operationList[region]) {
-            environment.operationServer = environment.operationList[region];
-          } else {
-            environment.operationServer = environment.operationList[environment.region];
-          }
-        },
-        err => console.error(err),
-        () => (this.inited = true),
-      );
+    const info = await authService.info$.pipe(first()).toPromise();
+    if (info) {
+      region = info.Region;
+    } else {
+      const regionService = this.inject.get(RegionService);
+      try {
+        region = await regionService.region$.pipe(timeout(3000)).toPromise();
+      } catch {}
+    }
+    console.log(region);
+    if (environment.operationList[region]) {
+      environment.operationServer = environment.operationList[region];
+    } else {
+      environment.operationServer = environment.operationList[environment.region];
+    }
+    this.inited = true;
   }
 }

@@ -16,11 +16,21 @@
     <ng-container *ngIf="(result$ | async)?.list as installedList; else loadingContainer">
       <ng-container *ngFor="let installed of installedList">
         <div class="installed-app">
-          <img class="icon" dstoreCover="icon" [routerLink]="['/app', installed.name]" [src]="installed.info.icon" />
-          <div class="info">
-            <span>{{ installed.info.name }}</span>
-            <span class="size">{{ installed.package.size | sizeHuman }}</span>
-          </div>
+          <ng-container *ngIf="installed.software as software; else noSoftwareRef">
+            <img class="icon" dstoreCover="icon" [routerLink]="['/app', installed.name]" [src]="software.info.icon" />
+            <div class="info">
+              <span>{{ software.info.name }}</span>
+              <span class="size">{{ installed.package.size | sizeHuman }}</span>
+            </div>
+          </ng-container>
+          <ng-template #noSoftwareRef>
+            <img class="icon" dstoreCover="icon" [src]="null" />
+            <div class="info">
+              <span>{{ installed.local_name }}</span>
+              <span class="size">{{ installed.package.size | sizeHuman }}</span>
+            </div>
+          </ng-template>
+
           <ng-container *ngIf="removingList$ | async as removingList">
             <div class="installed">
               <ng-template #confirm>
