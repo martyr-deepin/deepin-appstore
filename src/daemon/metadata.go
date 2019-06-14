@@ -1,7 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
 	"sync"
 	"time"
 
@@ -172,7 +175,7 @@ func (m *Metadata) getThemeName() string {
 }
 
 func (m *Metadata) getAllowShowPackageName() bool {
-	return m.getUserSettings(groupGeneral, keyAllowShowPackageName).MustBool();
+	return m.getUserSettings(groupGeneral, keyAllowShowPackageName).MustBool()
 }
 
 func (m *Metadata) getAppIcon(appName string) string {
@@ -213,4 +216,28 @@ func (m *Metadata) updateCache() {
 		_, app.Putway = putwayApps[app.Name]
 		m.apps[app.Name] = app
 	}
+}
+
+type cacheAppInfo struct {
+	Category    string            `json:"category"`
+	PackageName string            `json:"package_name"`
+	LocaleName  map[string]string `json:"locale_name"`
+}
+
+// 获取上架的apt缓存信息
+func (m *Metadata) GetPackageApplicationCache() (apps map[string]*cacheAppInfo, err error) {
+	apps = make(map[string]*cacheAppInfo)
+	path := "/var/lib/lastore/applications.json"
+
+	file, err := os.Open(path)
+	if nil != err {
+		return
+	}
+	data, err := ioutil.ReadAll(file)
+	if nil != err {
+		return
+	}
+	err = json.Unmarshal(data, &apps)
+
+	return
 }

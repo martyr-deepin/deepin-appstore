@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -31,6 +32,7 @@ func init() {
 
 // Backend for deb package
 type Backend struct {
+	metadata         *Metadata
 	service          *dbusutil.Service
 	sysSigLoop       *dbusutil.SignalLoop
 	lastore          *lastore.Lastore
@@ -288,6 +290,11 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 		}
 	}()
 
+	apps, err := b.metadata.GetPackageApplicationCache()
+	if nil != err {
+		return nil, dbusutil.ToError(err)
+	}
+
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		parts := bytes.SplitN(scanner.Bytes(), []byte{'\t'}, 4)
@@ -296,6 +303,11 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 		}
 
 		if bytes.HasPrefix(parts[1], []byte("ii")) {
+			id := string(parts[0])
+			app, ok := apps[id]
+			if !ok {
+				continue
+			}
 			sizeStr := string(parts[3])
 			size, _ := strconv.ParseInt(sizeStr, 10, 64)
 			// unit of size is KiB, 1KiB = 1024Bytes
@@ -304,6 +316,7 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 				ID:            string(parts[0]),
 				Version:       string(parts[2]),
 				InstalledSize: size * 1024,
+				LocaleName:    app.LocaleName,
 			})
 		}
 	}
@@ -311,7 +324,7 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 	if err != nil {
 		return nil, dbusutil.ToError(err)
 	}
-
+	fmt.Println(result)
 	return result, nil
 }
 
@@ -320,6 +333,7 @@ type PackageInstalledInfo struct {
 	ID            string
 	Version       string
 	InstalledSize int64 // unit byte
+	LocaleName    map[string]string
 }
 
 // QueryVersion check package version info

@@ -31,6 +31,7 @@ public:
     qlonglong size;
     qlonglong downloadSize;
     bool upgradable;
+    QMap<QString, QVariant> allLocalName;
 
     static Package fromVariantMap(const QVariantMap &json);
     QVariantMap toVariantMap() const;

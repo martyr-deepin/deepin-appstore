@@ -6,34 +6,12 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"path/filepath"
 	"time"
 )
 
 var cacheFolder string
 var configFolder string
 var iconFolder string
-
-func init() {
-	if os.Getenv("XDG_CACHE_HOME") != "" {
-		cacheFolder = os.Getenv("XDG_CACHE_HOME")
-	} else {
-		cacheFolder = filepath.Join(os.Getenv("HOME"), ".cache")
-	}
-	cacheFolder += "/deepin/deepin-appstore-daemon"
-	os.MkdirAll(cacheFolder, 0755)
-
-	iconFolder = cacheFolder + "/icons"
-	os.MkdirAll(iconFolder, 0755)
-
-	if os.Getenv("XDG_CONFIG_HOME") != "" {
-		configFolder = os.Getenv("XDG_CONFIG_HOME")
-	} else {
-		configFolder = filepath.Join(os.Getenv("HOME"), ".config")
-	}
-	configFolder += "/deepin/deepin-appstore"
-	os.MkdirAll(configFolder, 0755)
-}
 
 func cacheFetch(url, cacheFilepath string, expire time.Duration) error {
 	fi, _ := os.Stat(cacheFilepath)

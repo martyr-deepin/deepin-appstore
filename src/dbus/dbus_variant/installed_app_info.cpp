@@ -19,58 +19,71 @@
 
 #include <QtDBus/QtDBus>
 
-InstalledAppInfo::InstalledAppInfo() {
+InstalledAppInfo::InstalledAppInfo()
+{
 
 }
 
-InstalledAppInfo::~InstalledAppInfo() {
+InstalledAppInfo::~InstalledAppInfo()
+{
 
 }
 
-void InstalledAppInfo::registerMetaType() {
-  qRegisterMetaType<InstalledAppInfo>("InstalledAppInfo");
-  qDBusRegisterMetaType<InstalledAppInfo>();
-  qRegisterMetaType<InstalledAppInfoList>("InstalledAppInfoList");
-  qDBusRegisterMetaType<InstalledAppInfoList>();
+void InstalledAppInfo::registerMetaType()
+{
+    qRegisterMetaType<InstalledAppInfo>("InstalledAppInfo");
+    qDBusRegisterMetaType<InstalledAppInfo>();
+    qRegisterMetaType<InstalledAppInfoList>("InstalledAppInfoList");
+    qDBusRegisterMetaType<InstalledAppInfoList>();
 }
 
-QDebug operator<<(QDebug debug, const InstalledAppInfo& info) {
-  debug << info.pkg_name
-        << info.version
-        << info.size;
-  return debug;
+QDebug operator<<(QDebug debug, const InstalledAppInfo &info)
+{
+    debug << info.packageName
+          << info.version
+          << info.size
+          << info.localeNames;
+    return debug;
 }
 
-QDBusArgument& operator<<(QDBusArgument& argument,
-                          const InstalledAppInfo& info) {
-  argument.beginStructure();
-  argument << info.pkg_name
+QDBusArgument &operator<<(QDBusArgument &argument,
+                          const InstalledAppInfo &info)
+{
+    argument.beginStructure();
+    argument << info.packageName
+             << info.version
+             << info.size
+             << info.localeNames;
+    argument.endStructure();
+    return argument;
+}
+
+QDataStream &operator<<(QDataStream &stream, const InstalledAppInfo &info)
+{
+    stream << info.packageName
            << info.version
-           << info.size;
-  argument.endStructure();
-  return argument;
+           << info.size
+           << info.localeNames;
+    return stream;
 }
 
-QDataStream& operator<<(QDataStream& stream, const InstalledAppInfo& info) {
-  stream << info.pkg_name
-         << info.version
-         << info.size;
-  return stream;
+const QDBusArgument &operator>>(const QDBusArgument &argument,
+                                InstalledAppInfo &info)
+{
+    argument.beginStructure();
+    argument >> info.packageName
+             >> info.version
+             >> info.size
+             >> info.localeNames;
+    argument.endStructure();
+    return argument;
 }
 
-const QDBusArgument& operator>>(const QDBusArgument& argument,
-                                InstalledAppInfo& info) {
-  argument.beginStructure();
-  argument >> info.pkg_name
+const QDataStream &operator>>(QDataStream &stream, InstalledAppInfo &info)
+{
+    stream >> info.packageName
            >> info.version
-           >> info.size;
-  argument.endStructure();
-  return argument;
-}
-
-const QDataStream& operator>>(QDataStream& stream, InstalledAppInfo& info) {
-  stream >> info.pkg_name
-         >> info.version
-         >> info.size;
-  return stream;
+           >> info.size
+           >> info.localeNames;;
+    return stream;
 }
