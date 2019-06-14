@@ -30,7 +30,9 @@ export class AppComponent implements OnInit {
       const regionService = this.inject.get(RegionService);
       try {
         region = await regionService.region$.pipe(timeout(3000)).toPromise();
-      } catch {}
+      } catch (err) {
+        console.error('region service', err);
+      }
     }
     console.log(region);
     if (environment.operationList[region]) {
