@@ -71,6 +71,7 @@ public Q_SLOTS:
 private:
     // TODO: use interface from dbus to xml
     QVariant getSettings(const QString &key) const;
+    QVariantMap getMapSettings(const QString &key) const;
     void setSettings(const QString &key, const QVariant &value) const;
 
     QDBusInterface *settings_ifc_;

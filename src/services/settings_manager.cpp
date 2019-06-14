@@ -79,7 +79,7 @@ QString SettingsManager::metadataServer() const
 
 QVariantMap SettingsManager::operationServerMap() const
 {
-    return getSettings(kOperationServerMap).toMap();
+    return getMapSettings(kOperationServerMap);
 }
 
 QString SettingsManager::defaultRegion() const
@@ -142,6 +142,46 @@ bool SettingsManager::allowShowPackageName() const
 bool SettingsManager::upyunBannerVisible() const
 {
     return getSettings(kUpyunBannerVisible).toBool();
+}
+
+typedef QVariantMap OperationInfo;
+
+const QDBusArgument &operator>>(const QDBusArgument &argument,
+                                OperationInfo &info)
+{
+    QString key;
+    QString value;
+    argument.beginMapEntry();
+    argument >> key >> value;
+    argument.endMapEntry();
+    info[key] = value;
+    return argument;
+}
+
+
+// a{ss}
+QVariantMap SettingsManager::getMapSettings(const QString &key) const
+{
+    OperationInfo operationInfo;
+    QDBusMessage reply = settings_ifc_->call("GetSettings", key);
+    if (!reply.errorName().isEmpty()) {
+        qWarning() << reply.errorName() << reply.errorMessage();
+        return operationInfo;
+    }
+    QList<QVariant> outArgs = reply.arguments();
+    QVariant first = outArgs.at(0);
+    QDBusVariant dbvFirst = first.value<QDBusVariant>();
+    QVariant vFirst = dbvFirst.variant();
+    QDBusArgument dbusArgs = vFirst.value<QDBusArgument>();
+
+
+    dbusArgs.beginArray();
+    while (!dbusArgs.atEnd()) {
+        dbusArgs >> operationInfo;
+    }
+    dbusArgs.endArray();
+    return operationInfo;
+
 }
 
 QVariant SettingsManager::getSettings(const QString &key) const
