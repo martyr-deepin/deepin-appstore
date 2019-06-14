@@ -20,14 +20,14 @@ func (*Metadata) GetInterfaceName() string {
 
 // GetAppIcon return app local icon path
 func (m *Metadata) GetAppIcon(appName string) (string, *dbus.Error) {
-	m.updateCache()
+	// m.updateCache()
 
 	return m.getAppIcon(appName), nil
 }
 
 // GetAppMetadataList return app info with changelog
 func (m *Metadata) GetAppMetadataList(appNameList []string) (string, *dbus.Error) {
-	m.updateCache()
+	// m.updateCache()
 
 	appList := make([]*AppBody, 0)
 
@@ -42,7 +42,7 @@ func (m *Metadata) GetAppMetadataList(appNameList []string) (string, *dbus.Error
 
 // OpenApp call lastore open app
 func (m *Metadata) OpenApp(appName string) *dbus.Error {
-	m.updateCache()
+	// m.updateCache()
 
 	output, _, err := utils.ExecAndWait(3600, "lastore-tools", "querydesktop", appName)
 	if nil != err {
@@ -91,63 +91,4 @@ func (m *Metadata) OnMessage(playload map[string]interface{}) *dbus.Error {
 	}
 
 	return nil
-}
-
-const (
-	MetadataServer       = "MetadataServer"
-	OperationServer      = "OperationServer"
-	Region               = "Region"
-	AutoInstall          = "AutoInstall"
-	ThemeName            = "ThemeName"
-	SupportSignIn        = "SupportSignIn"
-	UpyunBannerVisible   = "UpyunBannerVisible"
-	AllowSwitchRegion    = "AllowSwitchRegion"
-	WindowState          = "WindowState"
-	AllowShowPackageName = "AllowShowPackageName"
-)
-
-// SetSettings update dstore settings
-func (m *Metadata) SetSettings(key string, value dbus.Variant) *dbus.Error {
-	switch key {
-	case AutoInstall:
-		m.setUserSettings(groupGeneral, keyAutoInstall, value.Value())
-	case Region:
-		m.setUserSettings(groupGeneral, keyCurrentRegion, value.Value())
-	case ThemeName:
-		m.setUserSettings(groupGeneral, keyThemeName, value.Value())
-	case WindowState:
-		m.setUserSettings(groupWebWindow, keyWindowState, value.Value())
-	}
-	return nil
-}
-
-// GetSettings read setting of system and user
-func (m *Metadata) GetSettings(key string) (dbus.Variant, *dbus.Error) {
-	var ret dbus.Variant
-	switch key {
-	case MetadataServer:
-		ret = dbus.MakeVariant(m.getMetadataServer())
-	case OperationServer:
-		ret = dbus.MakeVariant(m.getOperationServer())
-	case AutoInstall:
-		ret = dbus.MakeVariant(m.getAutoInstall())
-	case Region:
-		ret = dbus.MakeVariant(m.getRegion())
-	case ThemeName:
-		ret = dbus.MakeVariant(m.getThemeName())
-	case SupportSignIn:
-		ret = dbus.MakeVariant(m.getSupportSignIn())
-	case UpyunBannerVisible:
-		ret = dbus.MakeVariant(m.getUpyunBannerVisible())
-	case AllowSwitchRegion:
-		ret = dbus.MakeVariant(m.getAllowSwitchRegion())
-	case WindowState:
-		ret = dbus.MakeVariant(m.getWindowState())
-	case AllowShowPackageName:
-		ret = dbus.MakeVariant(m.getAllowShowPackageName())
-	}
-	// if ret.Value() == nil {
-	// 	return dbus.Variant{}, dbus.NewError("GetSettings", []interface{}{"invalid key"})
-	// }
-	return ret, nil
 }

@@ -29,35 +29,29 @@ SettingsProxy::SettingsProxy(QObject *parent) : QObject(parent)
     this->setObjectName("SettingsProxy");
 }
 
-SettingsProxy::~SettingsProxy()
+const QVariantMap SettingsProxy::getSettings()
 {
+    return QVariantMap {
+        // user settings
+        { "themeName", SettingsManager::instance()->themeName() },
+        { "autoInstall",  SettingsManager::instance()->autoInstall() },
+        { "allowShowPackageName", SettingsManager::instance()->allowShowPackageName() },
 
+        // system settings
+        { "metadataServer", SettingsManager::instance()->metadataServer() },
+        { "operationServerMap", SettingsManager::instance()->operationServerMap()},
+        { "defaultRegion", SettingsManager::instance()->defaultRegion() },
+        { "allowSwitchRegion", SettingsManager::instance()->allowSwitchRegion() },
+        { "supportSignIn", SettingsManager::instance()->supportSignIn() },
+        {"supportAot", SettingsManager::instance()->supportAot()},
+        // Check whether UPYun banner should be shown in app-detail page.
+        {"upyunBannerVisible", SettingsManager::instance()->upyunBannerVisible()},
+
+        // debug
+        {"remoteDebug", SettingsManager::instance()->remoteDebug()},
+    };
 }
 
-bool SettingsProxy::remoteDebug()
-{
-    return SettingsManager::instance()->remoteDebug();
-}
-
-const QString SettingsProxy::getMetadataServer()
-{
-    return SettingsManager::instance()->getMetadataServer();
-}
-
-const QString SettingsProxy::getOperationServer()
-{
-    return SettingsManager::instance()->getOperationServer();
-}
-
-bool SettingsProxy::getAutoInstall()
-{
-    return SettingsManager::instance()->getAutoInstall();
-}
-
-bool SettingsProxy::allowShowPackageName()
-{
-    return SettingsManager::instance()->allowShowPackageName();
-}
 
 void SettingsProxy::setAutoInstall(bool autoInstall)
 {
@@ -69,25 +63,11 @@ void SettingsProxy::openUrl(const QString &url)
     QDesktopServices::openUrl(QUrl(url));
 }
 
-const QVariantMap SettingsProxy::getServers()
-{
-    return QVariantMap {
-        { "metadataServer", SettingsManager::instance()->getMetadataServer() },
-        { "operationServer", SettingsManager::instance()->getOperationServer()},
-        { "region", SettingsManager::instance()->getRegion() },
-        { "supportSignIn", SettingsManager::instance()->supportSignIn() },
-        { "themeName", SettingsManager::instance()->getThemeName() },
-    };
-}
 
 void SettingsProxy::raiseWindow()
 {
     emit this->raiseWindowRequested();
 }
 
-bool SettingsProxy::upyunBannerVisible()
-{
-    return SettingsManager::instance()->getUpyunBannerVisible();
-}
 
 }  // namespace dstore

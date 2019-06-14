@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -324,7 +323,6 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 	if err != nil {
 		return nil, dbusutil.ToError(err)
 	}
-	fmt.Println(result)
 	return result, nil
 }
 
