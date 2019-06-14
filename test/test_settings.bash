@@ -11,6 +11,7 @@ keys=( \
     ["AllowSwitchRegion"]="" \
     ["SupportSignIn"]="" \
     ["UpyunBannerVisible"]="" \
+    ["SupportAot"]="" \
 )
 
 

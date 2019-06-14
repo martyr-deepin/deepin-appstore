@@ -37,6 +37,7 @@ const char kThemeName[] = "ThemeName";
 const char kWindowState[] = "WindowState";
 const char kAllowShowPackageName[] = "AllowShowPackageName";
 
+const char kSupportAot[] = "SupportAot";
 const char kSupportSignin[] = "SupportSignIn";
 const char kMetadataServer[] = "MetadataServer";
 const char kOperationServerMap[] = "OperationServerMap";
@@ -121,6 +122,12 @@ bool SettingsManager::supportSignIn() const
 {
     return getSettings(kSupportSignin).toBool();
 }
+
+bool SettingsManager::supportAot() const
+{
+    return getSettings(kSupportAot).toBool();
+}
+
 
 bool SettingsManager::allowSwitchRegion() const
 {

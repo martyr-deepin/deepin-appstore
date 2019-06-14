@@ -42,7 +42,7 @@ public Q_SLOTS:
      * Returns metadata server and operation server address.
      * @return
      */
-    const QVariantMap getSetting();
+    const QVariantMap getSettings();
 
     /**
      * Allow auto install software

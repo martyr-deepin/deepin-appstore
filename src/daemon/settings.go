@@ -23,6 +23,7 @@ const (
 	keyAllowShowPackageName = "allowShowPackageName"
 
 	keyMetadataServer     = "MetadataServer"
+	keySupportAot         = "SupportAot"
 	keySupportSignIn      = "SupportSignIn"
 	keyAllowSwitchRegion  = "AllowSwitchRegion"
 	keyDefaultRegion      = "DefaultRegion"
@@ -115,4 +116,8 @@ func (s *Settings) getThemeName() string {
 
 func (s *Settings) getAllowShowPackageName() bool {
 	return s.getUserSettings(gGeneral, keyAllowShowPackageName).MustBool()
+}
+
+func (s *Settings) getSupportAot() bool {
+	return s.sysCfg.Section(gGeneral).Key(keySupportAot).MustBool()
 }

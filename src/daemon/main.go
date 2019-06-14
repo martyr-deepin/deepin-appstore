@@ -16,6 +16,10 @@ const (
 	dbusBackendPath = "/com/deepin/AppStore/Backend"
 )
 
+var cacheFolder string
+var configFolder string
+var iconFolder string
+
 func init() {
 	if os.Getenv("XDG_CACHE_HOME") != "" {
 		cacheFolder = os.Getenv("XDG_CACHE_HOME")

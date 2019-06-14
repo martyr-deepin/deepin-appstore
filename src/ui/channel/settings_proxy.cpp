@@ -29,7 +29,7 @@ SettingsProxy::SettingsProxy(QObject *parent) : QObject(parent)
     this->setObjectName("SettingsProxy");
 }
 
-const QVariantMap SettingsProxy::getSetting()
+const QVariantMap SettingsProxy::getSettings()
 {
     return QVariantMap {
         // user settings
@@ -43,6 +43,7 @@ const QVariantMap SettingsProxy::getSetting()
         { "defaultRegion", SettingsManager::instance()->defaultRegion() },
         { "allowSwitchRegion", SettingsManager::instance()->allowSwitchRegion() },
         { "supportSignIn", SettingsManager::instance()->supportSignIn() },
+        {"supportAot", SettingsManager::instance()->supportAot()},
         // Check whether UPYun banner should be shown in app-detail page.
         {"upyunBannerVisible", SettingsManager::instance()->upyunBannerVisible()},
 

@@ -25,6 +25,7 @@ const (
 	DefaultRegion      = "DefaultRegion"
 	AllowSwitchRegion  = "AllowSwitchRegion"
 	SupportSignIn      = "SupportSignIn"
+	SupportAot         = "SupportAot"
 	UpyunBannerVisible = "UpyunBannerVisible"
 )
 
@@ -65,6 +66,8 @@ func (s *Settings) GetSettings(key string) (dbus.Variant, *dbus.Error) {
 		ret = dbus.MakeVariant(s.getWindowState())
 	case AllowShowPackageName:
 		ret = dbus.MakeVariant(s.getAllowShowPackageName())
+	case SupportAot:
+		ret = dbus.MakeVariant(s.getSupportAot())
 	}
 	// if ret.Value() == nil {
 	// 	return dbus.Variant{}, dbus.NewError("GetSettings", []interface{}{"invalid key"})

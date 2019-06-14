@@ -64,6 +64,7 @@ public Q_SLOTS:
     QString defaultRegion() const;
     bool allowSwitchRegion() const;
 
+    bool supportAot() const;
     bool supportSignIn() const;
     bool upyunBannerVisible() const;
 
