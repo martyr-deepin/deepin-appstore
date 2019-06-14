@@ -53,7 +53,7 @@ export class StoreService {
   }
 
   InstalledPackages() {
-    return this.execWithCallback<Package[]>('storeDaemon.installedPackages');
+    return this.execWithCallback<{ [key: string]: Package }>('storeDaemon.installedPackages');
   }
 
   queryDownloadSize(param: QueryParam[]) {

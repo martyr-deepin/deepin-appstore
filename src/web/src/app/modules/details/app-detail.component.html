@@ -110,7 +110,7 @@
       [appName]="app.name"
       [version]="package.remoteVersion || package.localVersion"
     ></dstore-app-comment>
-    <div class="ad" *ngIf="adVisible | async">
+    <div class="ad" *ngIf="adVisible$ | async">
       <ng-container i18n>CDN supported by UPYUN</ng-container>
     </div>
   </ng-container>

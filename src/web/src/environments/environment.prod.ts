@@ -4,8 +4,8 @@ export const environment = {
   operationList: {
     CN: 'http://10.0.10.70:18100',
     Default: 'http://10.0.10.70:18100',
-  },
-  region: 'Default' as 'Default' | 'CN',
+  } as { [key: string]: string },
+  region: 'Default',
   autoSelect: true,
   operationServer: '',
   metadataServer: 'https://dstore-metadata.deepin.cn',

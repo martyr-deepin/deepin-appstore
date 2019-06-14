@@ -23,19 +23,21 @@ export class LocalAppService {
     return this.jobService.jobList().pipe(
       switchMap(() => this.storeService.InstalledPackages()),
       switchMap(async installed => {
-        const pkgs = await this.softwareService.packages;
-        const names = ([] as string[]).concat(
-          ...installed
-            .sort((a, b) => b.installedTime - a.installedTime)
-            .filter(pkg => pkgs[pkg.packageURI])
-            .map(pkg => pkgs[pkg.packageURI].name),
-        );
-        const list = await this.softwareService.list({
-          names: chunk(names, pageSize)[pageIndex],
-          filterPackage: false,
-          filterStat: false,
-        });
-        return { total: names.length, page: pageIndex, list };
+        console.log(installed);
+        return [];
+        // const pkgs = await this.softwareService.packages;
+        // const names = ([] as string[]).concat(
+        //   ...installed
+        //     .sort((a, b) => b.installedTime - a.installedTime)
+        //     .filter(pkg => pkgs[pkg.packageURI])
+        //     .map(pkg => pkgs[pkg.packageURI].name),
+        // );
+        // const list = await this.softwareService.list({
+        //   names: chunk(names, pageSize)[pageIndex],
+        //   filterPackage: false,
+        //   filterStat: false,
+        // });
+        // return { total: names.length, page: pageIndex, list };
       }),
     );
   }

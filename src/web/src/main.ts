@@ -2,7 +2,7 @@ import { enableProdMode, TRANSLATIONS, TRANSLATIONS_FORMAT, MissingTranslationSt
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { environment } from 'environments/environment';
 
 if (environment.production) {
   enableProdMode();
@@ -47,38 +47,40 @@ async function main() {
 
   window['dstore'] = { channel };
 
-  const servers = await new Promise(resolve => {
-    channel.objects.settings.getServers(resolve);
+  const settings = await new Promise<Settings>(resolve => {
+    channel.objects.settings.getSettings(resolve);
   });
-  console.log('client config', servers);
+  console.log('dstore client config', settings);
   environment.native = true;
-  environment.themeName = servers['themeName'];
+  environment.themeName = settings.themeName;
   if (environment.production) {
-    environment.supportSignIn = servers['supportSignIn'];
-    environment.metadataServer = servers['metadataServer'];
-    environment.operationServer = servers['operationServer'];
+    environment.supportSignIn = settings.supportSignIn;
+    environment.region = settings.defaultRegion;
+    environment.autoSelect = settings.allowSwitchRegion;
+    environment.operationList = settings.operationServerMap;
+    environment.metadataServer = settings.metadataServer;
+    environment.operationServer = environment.operationList[environment.region];
   }
 
-  if (!Boolean(servers['aot'])) {
-    // loading i18n files
-    for (let language of navigator.languages) {
-      language = language.replace('-', '_');
-      try {
-        const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
-        if (translations) {
-          return bootstrap(translations);
-        }
-      } catch (err) {
-        console.error('cannot load locale', language, err);
+  // if (!Boolean(settings['aot'])) {
+  // loading i18n files
+  for (let language of navigator.languages) {
+    language = language.replace('-', '_');
+    try {
+      const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
+      if (translations) {
+        return bootstrap(translations);
       }
+    } catch (err) {
+      console.error('cannot load locale', language, err);
     }
   }
+  // }
 }
 
 function bootstrap(translations = null) {
   let opt = {};
   if (translations) {
-    console.log(translations);
     opt = {
       missingTranslation: MissingTranslationStrategy.Warning,
       providers: [{ provide: TRANSLATIONS, useValue: translations }, { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' }],
@@ -99,3 +101,17 @@ main()
   .finally(() => {
     console.log('bootstrap');
   });
+
+interface Settings {
+  allowShowPackageName: boolean;
+  allowSwitchRegion: boolean;
+  autoInstall: boolean;
+  defaultRegion: string;
+  metadataServer: string;
+  operationServerMap: { [key: string]: string };
+  remoteDebug: boolean;
+  supportAot: boolean;
+  supportSignIn: boolean;
+  themeName: string;
+  upyunBannerVisible: boolean;
+}

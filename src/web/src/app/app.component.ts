@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { environment } from 'environments/environment';
 
-import { timeout } from 'rxjs/operators';
+import { timeout, first, switchMap } from 'rxjs/operators';
 import { RegionService } from './services/region.service';
+import { AuthService } from './services/auth.service';
+import { SettingService } from './services/settings.service';
 
 @Component({
   selector: 'dstore-root',
@@ -10,7 +12,7 @@ import { RegionService } from './services/region.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private regionService: RegionService) {}
+  constructor(private inject: Injector) {}
   inited = false;
   ngOnInit() {
     if (environment.autoSelect) {
@@ -19,17 +21,29 @@ export class AppComponent implements OnInit {
   }
 
   async selectOperation() {
-    this.regionService.region$.pipe(timeout(3000)).subscribe(
-      region => {
-        const code = region.Country.IsoCode;
-        if (environment.operationList[code]) {
-          environment.operationServer = environment.operationList[code];
-        } else {
-          environment.operationServer = environment.operationList.Default;
-        }
-      },
-      err => console.error(err),
-      () => (this.inited = true),
-    );
+    const authService = this.inject.get(AuthService);
+    authService.info$
+      .pipe(
+        first(),
+        switchMap(async info => {
+          if (info) {
+            return info.Region;
+          }
+          const regionService = this.inject.get(RegionService);
+          return regionService.region$.pipe(timeout(3000)).toPromise();
+        }),
+      )
+      .subscribe(
+        region => {
+          console.log('switch region', region, environment.operationList[region]);
+          if (environment.operationList[region]) {
+            environment.operationServer = environment.operationList[region];
+          } else {
+            environment.operationServer = environment.operationList[environment.region];
+          }
+        },
+        err => console.error(err),
+        () => (this.inited = true),
+      );
   }
 }

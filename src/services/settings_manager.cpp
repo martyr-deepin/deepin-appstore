@@ -79,7 +79,10 @@ QString SettingsManager::metadataServer() const
 
 QVariantMap SettingsManager::operationServerMap() const
 {
-    return getMapSettings(kOperationServerMap);
+    auto map = getSettings(kOperationServerMap).toMap();
+    qDebug()<<getSettings(kOperationServerMap);
+    qDebug()<<map;
+    return map;
 }
 
 QString SettingsManager::defaultRegion() const

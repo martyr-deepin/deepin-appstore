@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { concat, BehaviorSubject } from 'rxjs';
+import { concat, ReplaySubject } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { throttle } from 'lodash';
@@ -28,7 +28,7 @@ export class AuthService {
     });
   }
   private _getToken = throttle(() => Channel.exec<string>('account.getToken'), 1000);
-  private userInfo$ = new BehaviorSubject<UserInfo>(null);
+  private userInfo$ = new ReplaySubject<UserInfo>(1);
   info$ = this.userInfo$.pipe(
     map(info => {
       if (!info || !info.UserID || !info.IsLoggedIn) {
@@ -63,6 +63,9 @@ export interface UserInfo {
   Expiry: number;
   HardwareID: string;
   IsLoggedIn: boolean;
+  Nickname: string;
+  Region: string;
   Token: string;
   UserID: number;
+  Username: string;
 }
