@@ -14,10 +14,10 @@
   <div class="comment" *ngFor="let comment of comments$ | async">
     <ng-container>
       <ng-container *ngIf="comment.soft as app; else emptyIconRef">
-        <img class="icon" [src]="app.info.icon" [routerLink]="['/app', app.name]" />
+        <img class="icon" dstoreCover="icon" [src]="app.info.icon" [routerLink]="['/app', app.name]" />
       </ng-container>
       <ng-template #emptyIconRef>
-        <img class="icon" [src]="null" dstoreCover="icon" />
+        <img class="icon" dstoreCover="icon" [src]="null" dstoreCover="icon" />
       </ng-template>
 
       <div class="body">

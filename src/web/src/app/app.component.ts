@@ -21,10 +21,11 @@ export class AppComponent implements OnInit {
   async selectOperation() {
     this.regionService.region$.pipe(timeout(3000)).subscribe(
       region => {
-        if (region.Country.IsoCode === 'CN') {
-          environment.operationServer = environment.operationList.primary;
+        const code = region.Country.IsoCode;
+        if (environment.operationList[code]) {
+          environment.operationServer = environment.operationList[code];
         } else {
-          environment.operationServer = environment.operationList.secondary;
+          environment.operationServer = environment.operationList.Default;
         }
       },
       err => console.error(err),

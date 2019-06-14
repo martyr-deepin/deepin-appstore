@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, transition, animate, keyframes, style, state } from '@angular/animations';
 import { Observable, Subject, timer } from 'rxjs';
-import { throttleTime, switchMap, startWith, map } from 'rxjs/operators';
+import { throttleTime, switchMap, filter, startWith, map } from 'rxjs/operators';
 import { get } from 'lodash';
 
 import { SectionItemBase } from '../section-item-base';
@@ -80,35 +80,35 @@ export class CarouselComponent extends SectionItemBase implements OnInit {
       this.loaded.emit(true);
 
       this.current = new Ring(this.carousels);
-      setTimeout(() => this.move(0), 0);
+      setTimeout(() => this.move(0));
       this.running$ = this.click$.pipe(
         throttleTime(500),
-        switchMap(s => {
-          const v = { left: -1, right: 1 };
-          const i = v[s] || 0;
-          if (i === 0) {
-            const c = this.current.value();
-            if (c.type === CarouselType.App) {
-              this.router.navigate(['app', c.link]);
-            } else {
-              console.log(c.link);
-              const [, , sindex, tindex] = c.link.split('/').map(Number);
-              this.sectionService.list.then(list => {
-                const topic = get(list, [sindex, 'items', tindex]);
-                if (!topic) {
-                  this.router.navigate(['app', Math.random()]);
-                  return;
-                }
-                this.router.navigate(['/index/topic', this.keyvalue.add(topic)]);
-              });
-            }
-          } else {
-            this.move(i);
+        map(s => {
+          if (!s) {
+            return;
           }
-          return timer(3000, 3000).pipe(map(() => 1));
+          const i = { left: -1, center: 0, right: 1 }[s];
+          if (i !== 0) {
+            this.move(i);
+            return;
+          }
+          const c = this.current.value();
+          if (c.type === CarouselType.App) {
+            this.router.navigate(['app', c.link]);
+          } else {
+            const [, , sindex, tindex] = c.link.split('/').map(Number);
+            this.sectionService.list.then(list => {
+              const topic = get(list, [sindex, 'items', tindex]);
+              if (!topic) {
+                this.router.navigate(['app', Math.random()]);
+                return;
+              }
+              this.router.navigate(['/index/topic', this.keyvalue.add(topic)]);
+            });
+          }
         }),
-        map(i => {
-          this.move(i);
+        switchMap(() => {
+          return timer(3000, 3000).pipe(map(() => this.move(1)));
         }),
       );
     });
@@ -143,6 +143,7 @@ export class CarouselComponent extends SectionItemBase implements OnInit {
     }
     const sorttest = [right, left].sort((a, b) => a.length - b.length)[0];
     for (const i of sorttest) {
+      console.log(i);
       this.move(i);
       this.click$.next('');
       await new Promise(resolve => setTimeout(resolve, 200));

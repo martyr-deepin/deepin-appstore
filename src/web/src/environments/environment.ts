@@ -9,14 +9,14 @@ export const environment = {
   // Default server address only used in browser mode.
 
   operationList: {
-    primary: 'http://10.0.10.70:18100',
-    secondary: 'http://10.0.10.70:18100',
+    CN: 'http://10.0.10.70:18100',
+    Default: 'http://10.0.10.70:18100',
   },
+  region: 'Default' as 'Default' | 'CN', // 0:China 1:International
+  autoSelect: true, // auto select operation by ip
+  operationServer: '', // operation server
 
-  metadataServer: 'http://10.0.10.70:18000',
-  operationServer: 'http://10.0.10.70:18100',
-  region: 0, // 0:China 1:International
-  autoSelect: true, //// auto select operation by ip
+  metadataServer: 'http://10.0.10.70:18000', //metadata server
   themeName: 'light', // theme
   locale: 'zh_CN', // language
   native: false, // native or browser

@@ -2,15 +2,13 @@ export const environment = {
   production: true,
 
   operationList: {
-    primary: 'https://dstore-operation-china.deepin.cn',
-    secondary: 'https://dstore-operation-international.deepin.cn',
+    CN: 'http://10.0.10.70:18100',
+    Default: 'http://10.0.10.70:18100',
   },
-
-  // Default server address only used in browser mode.
-  metadataServer: 'https://dstore-metadata.deepin.cn',
-  operationServer: 'https://dstore-operation-china.deepin.cn',
-  region: 0,
+  region: 'Default' as 'Default' | 'CN',
   autoSelect: true,
+  operationServer: '',
+  metadataServer: 'https://dstore-metadata.deepin.cn',
   themeName: 'light',
   locale: 'zh_CN',
   native: false,

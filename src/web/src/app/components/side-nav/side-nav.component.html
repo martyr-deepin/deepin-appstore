@@ -10,7 +10,12 @@
     </div>
     <ng-container *ngIf="cs$ | async as $cs; else $default">
       <ng-container *ngIf="$cs.length > 0; else $default">
-        <div class="navItem" routerLinkActive="active" *ngFor="let c of $cs" [routerLink]="['list', 'category', c.id]">
+        <div
+          class="navItem"
+          routerLinkActive="active"
+          *ngFor="let c of $cs"
+          [routerLink]="['list', 'currentCategory', c.id]"
+        >
           <div class="categoryIcon" [style.background-image]="getStyle(c.icon)"></div>
           {{ c.title }}
         </div>

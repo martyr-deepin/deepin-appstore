@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { concat, BehaviorSubject } from 'rxjs';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { throttle } from 'lodash';
 
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { Channel } from 'app/modules/client/utils/channel';
@@ -26,6 +27,7 @@ export class AuthService {
       }
     });
   }
+  private _getToken = throttle(() => Channel.exec<string>('account.getToken'), 1000);
   private userInfo$ = new BehaviorSubject<UserInfo>(null);
   info$ = this.userInfo$.pipe(
     map(info => {
@@ -38,7 +40,7 @@ export class AuthService {
   logged$ = this.info$.pipe(map(Boolean));
   // get token
   getToken() {
-    return Channel.exec<string>('account.getToken');
+    return this._getToken();
   }
   // 登录方法
   login() {
@@ -50,8 +52,6 @@ export class AuthService {
     console.log('logout');
     Channel.exec('account.logout');
   }
-  // 需要验证事件
-  authorized() {}
   // 打开注册页面
   register() {
     DstoreObject.openURL(`https://account.deepin.org/register`);

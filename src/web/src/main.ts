@@ -76,13 +76,15 @@ async function main() {
 }
 
 function bootstrap(translations = null) {
+  let opt = {};
   if (translations) {
-    return platformBrowserDynamic().bootstrapModule(AppModule, {
+    console.log(translations);
+    opt = {
       missingTranslation: MissingTranslationStrategy.Warning,
       providers: [{ provide: TRANSLATIONS, useValue: translations }, { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' }],
-    });
+    };
   }
-  return platformBrowserDynamic().bootstrapModule(AppModule);
+  return platformBrowserDynamic().bootstrapModule(AppModule, opt);
 }
 
 main()

@@ -61,15 +61,6 @@ select {
   height: 48px;
   min-width: 48px;
   min-height: 48px;
-  &::before {
-    position: absolute;
-    content: '';
-    background-color: white;
-    background-image: url('/assets/images/default_icon.svg');
-    background-size: 100%;
-    width: 100%;
-    height: 100%;
-  }
 }
 
 .tips_bg {

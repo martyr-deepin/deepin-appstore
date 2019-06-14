@@ -16,7 +16,7 @@
     <ng-container *ngIf="(result$ | async)?.list as installedList; else loadingContainer">
       <ng-container *ngFor="let installed of installedList">
         <div class="installed-app">
-          <img class="icon" [routerLink]="['/app', installed.name]" [src]="installed.info.icon" />
+          <img class="icon" dstoreCover="icon" [routerLink]="['/app', installed.name]" [src]="installed.info.icon" />
           <div class="info">
             <span>{{ installed.info.name }}</span>
             <span class="size">{{ installed.package.size | sizeHuman }}</span>

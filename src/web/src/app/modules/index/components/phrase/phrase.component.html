@@ -2,7 +2,7 @@
 <div class="list count-{{ section.colSpan * section.rowSpan }}">
   <section class="item cursor" *ngFor="let soft of softs$ | async" [routerLink]="['app', soft.name]">
     <header>
-      <img class="icon" [src]="soft.info.icon" />
+      <img class="icon" dstoreCover="icon" [src]="soft.info.icon" dstoreCover="icon" />
     </header>
     <main>
       <div class="info">
