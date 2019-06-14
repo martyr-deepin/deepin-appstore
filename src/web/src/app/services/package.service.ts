@@ -41,7 +41,7 @@ export class PackageService {
           .toPromise(),
       ),
     );
-    return new Map(list.filter(Boolean).map(pkg => [pkg.appName, pkg]));
+    return new Map(list.filter(pkg => pkg && pkg.remoteVersion).map(pkg => [pkg.appName, pkg]));
   }
 }
 

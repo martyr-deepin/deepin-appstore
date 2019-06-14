@@ -23,7 +23,11 @@ export class RemoteAppService {
       distinctUntilChanged(),
       switchMap(() => this.http.get<Result>(this.url, { params })),
       switchMap(async result => {
-        const list = await this.softService.list({ names: result.apps.map(app => app.appName), filter: false });
+        const list = await this.softService.list({
+          names: result.apps.map(app => app.appName),
+          filterPackage: false,
+          filterStat: false,
+        });
         const softMap = new Map(list.map(soft => [soft.name, soft]));
         return {
           total: result.totalCount,

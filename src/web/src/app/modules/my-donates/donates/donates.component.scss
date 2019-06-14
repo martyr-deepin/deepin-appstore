@@ -49,3 +49,13 @@
   align-items: center;
   justify-content: flex-end;
 }
+.amount_count {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  font-size: 1.5rem;
+  span {
+    color: #dec366;
+  }
+  padding-right: 1rem;
+}

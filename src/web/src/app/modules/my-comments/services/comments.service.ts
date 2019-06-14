@@ -17,21 +17,16 @@ export class CommentsService {
         params: { page: page.toString(), count: pageSize.toString() },
       })
       .pipe(
-        switchMap(
-          async result => {
-            const list = await this.softService.list({ names: result.comment.map(c => c.appName) });
-            const map = new Map(list.map(soft => [soft.name, soft]));
-            result.comment.forEach(c => (c.soft = map.get(c.appName)));
-            return result;
-          },
-          // result => this.appService.getApps(result.comment.map(c => c.appName), false, false),
-          // (result, apps) => {
-          //   result.comment = result.comment.map(c =>
-          //     this.appService.addApp(c, apps.find(app => app.name === c.appName)),
-          //   );
-          //   return result;
-          // },
-        ),
+        switchMap(async result => {
+          const list = await this.softService.list({
+            names: result.comment.map(c => c.appName),
+            filterPackage: false,
+            filterStat: false,
+          });
+          const map = new Map(list.map(soft => [soft.name, soft]));
+          result.comment.forEach(c => (c.soft = map.get(c.appName)));
+          return result;
+        }),
       );
   }
   create(c: CommentRequest) {

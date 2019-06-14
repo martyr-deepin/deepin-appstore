@@ -32,40 +32,49 @@ export class SoftwareService {
     tag = '',
     names = [],
     keyword = '',
-    filter = true,
+    filterPackage = true,
+    filterStat = true,
   }) {
-    // get soft stat info
+    // uniq name
     names = [...new Set(names)];
-    let stats = await this.http
-      .get<Stat[]>(this.operationURL, {
-        params: { order, offset, limit, category, tag, keyword, names } as any,
-      })
-      .toPromise();
-    if (stats.length === 0) {
-      return [];
-    }
-    if (names.length) {
-      stats = stats.sort((a, b) => names.indexOf(a.name) - names.indexOf(b.name));
-    }
-    // get soft metadata info
-    const softs = await this.getSofts(stats.map(v => v.name));
-    if (this.native) {
-      const list = [...softs.values()];
-      const packages = await this.packageService.querys(list.map(this.toQuery));
-      list.forEach(soft => (soft.package = packages.get(soft.name)));
-      if (filter) {
-        list.filter(soft => !soft.package).forEach(soft => softs.delete(soft.name));
+
+    const statMap = new Map<string, Stat>();
+    if (filterStat) {
+      // get soft stat info
+      const stats = await this.http
+        .get<Stat[]>(this.operationURL, {
+          params: { order, offset, limit, category, tag, keyword, names } as any,
+        })
+        .toPromise();
+      if (stats.length === 0) {
+        return [];
+      }
+      stats.forEach(stat => statMap.set(stat.name, stat));
+      if (names.length) {
+        names = names.filter(name => statMap.has(name));
+      } else {
+        names = stats.map(stat => stat.name);
       }
     }
-    return stats
-      .map(stat => {
-        const soft = softs.get(stat.name);
-        if (soft) {
-          soft.stat = stat;
-        }
-        return soft;
-      })
-      .filter(Boolean);
+
+    // get soft metadata info
+    const softs = await this.getSofts(names);
+    const list = [...softs.values()];
+    list.forEach(soft => (soft.stat = statMap.get(soft.name)));
+
+    // get soft package
+    if (this.native) {
+      if (list.length === 0) {
+        return [];
+      }
+      const packages = await this.packageService.querys(list.map(this.toQuery));
+      list.forEach(soft => (soft.package = packages.get(soft.name)));
+      if (filterPackage) {
+        names = names.filter(name => packages.has(name));
+      }
+    }
+
+    return names.map(name => softs.get(name)).filter(Boolean);
   }
 
   private async getSofts(names: string[]) {
@@ -231,5 +240,7 @@ export enum Source {
 }
 
 export interface PackagesURL {
-  [key: string]: string[];
+  [key: string]: {
+    name: string;
+  };
 }
