@@ -53,7 +53,24 @@ export class StoreService {
   }
 
   InstalledPackages() {
-    return this.execWithCallback<Package[]>('storeDaemon.installedPackages');
+    interface LocalApp {
+      allLocalName: AllLocalName;
+      appName: string;
+      downloadSize: number;
+      installedTime: number;
+      localName: string;
+      localVersion: string;
+      packageName: string;
+      packageURI: string;
+      remoteVersion: string;
+      size: number;
+      upgradable: boolean;
+    }
+    interface AllLocalName {
+      en_US: string;
+      zh_CN: string;
+    }
+    return this.execWithCallback<LocalApp[]>('storeDaemon.installedPackages');
   }
 
   queryDownloadSize(param: QueryParam[]) {

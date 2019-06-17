@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { publishReplay, tap, refCount, switchMap, share } from 'rxjs/operators';
+import { publishReplay, refCount, switchMap, share } from 'rxjs/operators';
 
 import { StoreService } from 'app/modules/client/services/store.service';
-import { StoreJobInfo, StoreJobType, StoreJobStatus } from 'app/modules/client/models/store-job-info';
+import { StoreJobType, StoreJobStatus } from 'app/modules/client/models/store-job-info';
 import { ReminderService } from 'app/services/reminder.service';
 import { NotifyService } from 'app/services/notify.service';
 import { NotifyType } from 'app/services/notify.model';
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { environment } from 'environments/environment';
-import { SoftwareService, Source, Software } from 'app/services/software.service';
+import { SoftwareService, Source } from 'app/services/software.service';
+import { SettingService } from 'app/services/settings.service';
 
 @Component({
   selector: 'dstore-app-detail',
@@ -23,10 +24,11 @@ export class AppDetailComponent implements OnInit {
     private storeService: StoreService,
     private reminderService: ReminderService,
     private notifyService: NotifyService,
+    private settingService: SettingService,
   ) {}
 
   supportSignIn = environment.supportSignIn;
-  adVisible = DstoreObject.AdVisible();
+  adVisible$ = this.settingService.settings$.then(set => set.upyunBannerVisible);
   open = this.softwareService.open;
 
   StoreJobStatus = StoreJobStatus;

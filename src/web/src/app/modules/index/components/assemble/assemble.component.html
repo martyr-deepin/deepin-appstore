@@ -2,7 +2,7 @@
 <div class="list">
   <section class="assemble" *ngFor="let assemble of this.assembles">
     <header class="category cursor" [routerLink]="'/list/category/' + assemble.category">
-      {{ assemble.category }}
+      {{ assemble.category | categoryText | async }}
     </header>
     <main class="count-{{ section.rowSpan }}">
       <section
@@ -12,7 +12,12 @@
         [routerLink]="['app', soft.name]"
       >
         <header>
-          <img [src]="first ? soft.info.cover : soft.info.icon" [class.cover]="first" [class.icon]="!first" />
+          <img
+            [src]="first ? soft.info.cover : soft.info.icon"
+            [dstoreCover]="first ? 'cover' : 'icon'"
+            [class.cover]="first"
+            [class.icon]="!first"
+          />
         </header>
         <main>
           <div class="info">

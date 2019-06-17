@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Observable, concat, forkJoin } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
+import { forkJoin } from 'rxjs';
 import * as _ from 'lodash';
 
 import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 import { AuthService, UserInfo } from 'app/services/auth.service';
 import { CommentService, Comment } from '../../services/comment.service';
-import { shareReplay, switchMap, filter, tap } from 'rxjs/operators';
+import { switchMap, filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'dstore-app-comment',

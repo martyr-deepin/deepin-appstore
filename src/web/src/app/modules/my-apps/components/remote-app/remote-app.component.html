@@ -12,7 +12,7 @@
   <dstore-scrollbar>
     <ng-container *ngIf="apps$ | async as apps; else loading">
       <div class="remote-app" *ngFor="let remoteApp of apps">
-        <img class="icon" [src]="remoteApp.app.info.icon" [routerLink]="['/app', remoteApp.app.name]" />
+        <img class="icon" dstoreCover="icon" [src]="remoteApp.app.info.icon" [routerLink]="['/app', remoteApp.app.name]" />
         <div class="content">
           <div class="info">{{ remoteApp.app.info.name }}</div>
           <div class="time">

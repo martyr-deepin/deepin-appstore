@@ -15,7 +15,7 @@
           <div class="name">{{ soft?.info?.name }}</div>
           <div class="subtitle">
             <div class="category" [routerLink]="['/list', 'category', soft.info.category]">
-              {{ soft?.info?.category }}
+              {{ soft?.info?.category | categoryText | async }}
             </div>
             <dstore-star [rate]="soft?.stat?.score / 2"></dstore-star>
           </div>

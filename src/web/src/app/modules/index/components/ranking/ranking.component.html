@@ -10,13 +10,15 @@
     [routerLink]="['app', soft.name]"
   >
     <header>
-      <img class="icon" [src]="soft.info.icon" />
+      <img class="icon" dstoreCover="icon" [src]="soft.info.icon" dstoreCover="icon" />
     </header>
     <main>
       <span class="number">{{ index + 1 }}.</span>
       <div class="info">
         <span class="name">{{ soft.info.name }}</span>
-        <span class="subtitle" [routerLink]="['/list', 'category', soft.info.category]">{{ soft.info.category }}</span>
+        <span class="subtitle" [routerLink]="['/list', 'category', soft.info.category]">
+          {{ soft.info.category | categoryText | async }}
+        </span>
       </div>
       <div class="control">
         <dstore-control #controlRef [soft]="soft"></dstore-control>

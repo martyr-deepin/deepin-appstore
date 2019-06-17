@@ -64,7 +64,7 @@ export class DonateComponent implements OnInit {
         map(info => {
           console.log('get');
           const req: PayReq = {
-            appStore: environment.region === 1 ? 'international' : 'china',
+            appStore: environment.region === 'Default' ? 'international' : 'china',
             appName: this.appName,
             amount: this.amount * 100,
           };

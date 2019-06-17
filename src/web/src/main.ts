@@ -1,15 +1,8 @@
-import {
-  enableProdMode,
-  TRANSLATIONS,
-  TRANSLATIONS_FORMAT,
-  MissingTranslationStrategy,
-  CompilerOptions,
-  NgZone,
-} from '@angular/core';
+import { enableProdMode, TRANSLATIONS, TRANSLATIONS_FORMAT, MissingTranslationStrategy, NgZone } from '@angular/core';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { environment } from 'environments/environment';
 
 if (environment.production) {
   enableProdMode();
@@ -18,75 +11,82 @@ if (environment.production) {
 declare const require;
 //  qt web channel run ng zone
 let zone: NgZone = null;
+
 async function main() {
-  let opts: CompilerOptions;
-  // Native client mode.
   const QWebChannel = window['QWebChannel'];
-  if (QWebChannel) {
-    // proxy channel
-    const channelTransport = await new Promise<any>(resolve => {
-      return new QWebChannel(window['qt'].webChannelTransport, resolve);
-    });
-    // dstore channel
-    const channel = await new Promise<any>(resolve => {
-      const t = {
-        send(msg) {
-          channelTransport.objects.channelProxy.send(msg);
-        },
-        onmessage(msg) {},
-      };
-      channelTransport.objects.channelProxy.message.connect(msg => {
-        if (zone) {
-          zone.run(() => {
-            t.onmessage({ data: msg });
-          });
-          return;
-        }
+  // web mode
+  if (!QWebChannel) {
+    return bootstrap();
+  }
+  // Native client mode.
+  // js call ==> dstore channel ==> proxy channel >> c++ call
+
+  // proxy channel
+  const channelTransport = await new Promise<any>(resolve => {
+    return new QWebChannel(window['qt'].webChannelTransport, resolve);
+  });
+  // dstore channel
+  const channel = await new Promise<any>(resolve => {
+    const t = {
+      send(msg: any) {
+        channelTransport.objects.channelProxy.send(msg);
+      },
+      onmessage(msg: any) {},
+    };
+    channelTransport.objects.channelProxy.message.connect(msg => {
+      if (!zone) {
         t.onmessage({ data: msg });
-      });
-      return new QWebChannel(t, resolve);
-    });
-
-    window['dstore'] = { channel };
-
-    const servers = await new Promise(resolve => {
-      channel.objects.settings.getServers(resolve);
-    });
-    environment.native = true;
-    environment.themeName = servers['themeName'];
-    if (environment.production) {
-      environment.supportSignIn = servers['supportSignIn'];
-      environment.metadataServer = servers['metadataServer'];
-      environment.operationServer = servers['operationServer'];
-    }
-
-    if (!Boolean(servers['aot'])) {
-      // loading locale file
-      for (let language of navigator.languages) {
-        language = language.replace('-', '_');
-        try {
-          const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
-          if (translations != null) {
-            opts = {
-              missingTranslation: MissingTranslationStrategy.Warning,
-              providers: [
-                { provide: TRANSLATIONS, useValue: translations },
-                { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
-              ],
-            };
-          }
-          break;
-        } catch (err) {
-          console.error('cannot load locale', language, err);
-        }
+      } else {
+        zone.run(() => {
+          t.onmessage({ data: msg });
+        });
       }
+    });
+    return new QWebChannel(t, resolve);
+  });
+
+  window['dstore'] = { channel };
+
+  const settings = await new Promise<Settings>(resolve => {
+    channel.objects.settings.getSettings(resolve);
+  });
+  console.log('dstore client config', settings);
+  environment.native = true;
+  environment.themeName = settings.themeName;
+  if (environment.production) {
+    environment.supportSignIn = settings.supportSignIn;
+    environment.region = settings.defaultRegion;
+    environment.autoSelect = settings.allowSwitchRegion;
+    environment.operationList = settings.operationServerMap;
+    environment.metadataServer = settings.metadataServer;
+    environment.operationServer = environment.operationList[environment.region];
+  }
+
+  // if (!Boolean(settings['aot'])) {
+  // loading i18n files
+  for (let language of navigator.languages) {
+    language = language.replace('-', '_');
+    try {
+      const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
+      if (translations) {
+        return bootstrap(translations);
+      }
+    } catch (err) {
+      console.error('cannot load locale', language, err);
     }
   }
-  return bootstrap(opts);
+  // }
 }
 
-function bootstrap(opts = null) {
-  return platformBrowserDynamic().bootstrapModule(AppModule, opts);
+function bootstrap(translations = null) {
+  let opt = {};
+  if (translations) {
+    opt = {
+      missingTranslation: MissingTranslationStrategy.Warning,
+      providers: [{ provide: TRANSLATIONS, useValue: translations }, { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' }],
+    };
+  }
+  return platformBrowserDynamic().bootstrapModule(AppModule, opt);
 }
 
 main()
@@ -95,8 +95,23 @@ main()
     return bootstrap();
   })
   .then(app => {
+    window['app'] = app;
     zone = app.injector.get(NgZone);
   })
   .finally(() => {
     console.log('bootstrap');
   });
+
+interface Settings {
+  allowShowPackageName: boolean;
+  allowSwitchRegion: boolean;
+  autoInstall: boolean;
+  defaultRegion: string;
+  metadataServer: string;
+  operationServerMap: { [key: string]: string };
+  remoteDebug: boolean;
+  supportAot: boolean;
+  supportSignIn: boolean;
+  themeName: string;
+  upyunBannerVisible: boolean;
+}

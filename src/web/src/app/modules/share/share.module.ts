@@ -25,6 +25,7 @@ import { FitImage } from './pipes/fit-image';
 import { FitLanguage } from './pipes/fit-lang';
 import { SizeHuman } from './pipes/size-human';
 import { DeepinidPipe } from './pipes/deepinid.pipe';
+import { CategoryTextPipe } from './pipes/category-text.pipe';
 
 const components = [
   WaitComponent,
@@ -38,7 +39,7 @@ const components = [
   IndicationComponent,
 ];
 const directives = [DialogDirective, HoverDirective, ResizeDirective, CoverDirective];
-const pipes = [RangePipe, FitImage, FitLanguage, SizeHuman, DeepinidPipe];
+const pipes = [RangePipe, FitImage, FitLanguage, SizeHuman, DeepinidPipe, CategoryTextPipe];
 @NgModule({
   declarations: [...components, ...directives, ...pipes, CircleDirective],
   exports: [...components, ...directives, ...pipes, ClientModule],

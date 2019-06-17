@@ -28,7 +28,7 @@
           </ng-container>
         </div>
         <div i18n>Category:</div>
-        <div>{{ app.info.category }}</div>
+        <div>{{ app.info.category | categoryText | async }}</div>
         <ng-container *ngIf="controlRef.package$ | async as package">
           <div i18n>Version:</div>
           <div>{{ package.remoteVersion || package.localVersion }}</div>
@@ -110,7 +110,7 @@
       [appName]="app.name"
       [version]="package.remoteVersion || package.localVersion"
     ></dstore-app-comment>
-    <div class="ad" *ngIf="adVisible | async">
+    <div class="ad" *ngIf="adVisible$ | async">
       <ng-container i18n>CDN supported by UPYUN</ng-container>
     </div>
   </ng-container>

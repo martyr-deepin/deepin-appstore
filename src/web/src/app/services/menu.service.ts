@@ -8,21 +8,18 @@ import { Channel } from 'app/modules/client/utils/channel';
   providedIn: 'root',
 })
 export class MenuService {
-  constructor(
-    private zone: NgZone,
-    private router: Router,
-    private auth: AuthService,
-    private dService: DeepinidInfoService,
-  ) {}
+  constructor(private router: Router, private auth: AuthService, private dService: DeepinidInfoService) {}
   serve() {
     // menu user info
     this.auth.info$.subscribe(async userInfo => {
+      console.log('menu info', userInfo);
       if (!userInfo) {
         Channel.exec('menu.setUserInfo', {});
         return;
       }
       const dInfo = await this.dService.getDeepinUserInfo(userInfo.UserID);
       const avatar = await fetch(dInfo.profile_image).then(resp => resp.blob());
+      console.log(avatar);
       const data = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result as string);

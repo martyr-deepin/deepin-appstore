@@ -1,4 +1,4 @@
-import { Directive, HostListener, ElementRef, Input } from '@angular/core';
+import { Directive, HostListener, HostBinding, ElementRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[dstoreCover]',
@@ -6,6 +6,7 @@ import { Directive, HostListener, ElementRef, Input } from '@angular/core';
 export class CoverDirective {
   @Input('dstoreCover') type: 'cover' | 'icon';
   constructor(private el: ElementRef<HTMLImageElement>) {}
+  @HostBinding('style.border-radius.px') borderRadius = 4;
   @HostListener('error') onError() {
     switch (this.type) {
       case 'cover':
