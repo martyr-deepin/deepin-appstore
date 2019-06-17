@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"sync"
@@ -34,43 +35,25 @@ func NewMetadata() *Metadata {
 
 func (m *Metadata) getAppIcon(appName string) string {
 	iconFilepath := iconFolder + "/" + appName
-	app, ok := m.apps[appName]
-	if !ok {
+	app, err := m.getAppMetadata(appName)
+	if nil != err {
 		return ""
 	}
+	fmt.Println(app.Icon)
 	cacheFetch(m.settings.getMetadataServer()+"/"+app.Icon, iconFilepath, time.Hour*24*30)
 	return iconFilepath
 }
 
-// func (m *Metadata) updateCache() {
-// 	m.mutex.Lock()
-// 	defer m.mutex.Unlock()
+func (m *Metadata) getAppMetadata(appName string) (*AppBody, error) {
+	type result struct {
+		App AppBody `json:"app"`
+	}
+	ret := &result{}
 
-// 	if len(m.apps) > 0 {
-// 		return
-// 	}
-
-// 	indexURL := m.settings.getOperationServer() + "/api/app"
-// 	type indexResult struct {
-// 		Apps []string `json:"apps"`
-// 	}
-// 	var index indexResult
-// 	cacheFetchJSON(&index, indexURL, cacheFolder+"/index.json", time.Hour*24)
-
-// 	putwayApps := make(map[string]int)
-// 	for _, app := range index.Apps {
-// 		putwayApps[app] = 1
-// 	}
-
-// 	indexURL = m.getMetadataServer() + "/api/app"
-// 	result := AppResult{}
-// 	cacheFetchJSON(&result, indexURL, cacheFolder+"/metadata.json", time.Hour*24)
-
-// 	for _, app := range result.Apps {
-// 		_, app.Putway = putwayApps[app.Name]
-// 		m.apps[app.Name] = app
-// 	}
-// }
+	api := m.settings.getMetadataServer() + "/api/app/" + appName
+	err := cacheFetchJSON(ret, api, cacheFolder+"/"+appName+".json", time.Hour*24)
+	return &ret.App, err
+}
 
 type cacheAppInfo struct {
 	Category    string            `json:"category"`

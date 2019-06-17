@@ -43,7 +43,7 @@ void SearchProxy::setComplementList(const QVariantList &apps)
         auto var = app.toMap();
         SearchMeta meta;
         meta.name = var.value("name").toString();
-        meta.local_name = var.value("description_name").toString();
+        meta.local_name = var.value("local_name").toString();
         result.push_back(meta);
     }
     Q_EMIT searchAppResult(result);

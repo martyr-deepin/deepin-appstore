@@ -2,9 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"strings"
-	"time"
 
 	dbus "pkg.deepin.io/lib/dbus1"
 	"pkg.deepin.io/lib/utils"
@@ -29,17 +27,12 @@ func (m *Metadata) GetAppIcon(appName string) (string, *dbus.Error) {
 func (m *Metadata) GetAppMetadataList(appNameList []string) (string, *dbus.Error) {
 	appList := make([]*AppBody, 0)
 
-	for _, name := range appNameList {
-		type result struct {
-			App AppBody `json:"app"`
-		}
-		ret := &result{}
-		api := m.settings.getMetadataServer() + "/api/app/" + name
-		err := cacheFetchJSON(ret, api, cacheFolder+"/"+name+".json", time.Hour*24)
+	for _, appName := range appNameList {
+		app, err := m.getAppMetadata(appName)
 		if nil != err {
-			fmt.Println(err)
+			continue
 		}
-		appList = append(appList, &ret.App)
+		appList = append(appList, app)
 	}
 
 	data, _ := json.Marshal(appList)

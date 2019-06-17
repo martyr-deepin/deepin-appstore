@@ -245,6 +245,8 @@ void WebWindow::initConnections()
             menu_proxy_, &MenuProxy::privacyAgreementRequested);
     connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
             menu_proxy_, &MenuProxy::switchThemeRequested);
+    connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
+            this, &WebWindow::onThemeChaged);
     connect(tool_bar_menu_, &TitleBarMenu::clearCacheRequested,
             store_daemon_proxy_, &StoreDaemonProxy::clearArchives);
 
@@ -461,6 +463,7 @@ void WebWindow::prepareSearch(bool entered)
 void WebWindow::onSearchResultClicked(const SearchMeta &result)
 {
     // Emit signal to web page.
+    completion_window_->hide();
     emit search_proxy_->openApp(result.name);
 }
 
@@ -515,6 +518,7 @@ void WebWindow::webViewGoForward()
         page->forward();
     }
 }
+
 void WebWindow::onFullscreenRequest(bool fullscreen)
 {
     if (fullscreen) {
