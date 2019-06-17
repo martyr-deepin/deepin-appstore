@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
+	"time"
 
 	dbus "pkg.deepin.io/lib/dbus1"
 	"pkg.deepin.io/lib/utils"
@@ -20,19 +22,24 @@ func (*Metadata) GetInterfaceName() string {
 
 // GetAppIcon return app local icon path
 func (m *Metadata) GetAppIcon(appName string) (string, *dbus.Error) {
-	// m.updateCache()
-
 	return m.getAppIcon(appName), nil
 }
 
 // GetAppMetadataList return app info with changelog
 func (m *Metadata) GetAppMetadataList(appNameList []string) (string, *dbus.Error) {
-	// m.updateCache()
-
 	appList := make([]*AppBody, 0)
 
 	for _, name := range appNameList {
-		appList = append(appList, m.apps[name])
+		type result struct {
+			App AppBody `json:"app"`
+		}
+		ret := &result{}
+		api := m.settings.getMetadataServer() + "/api/app/" + name
+		err := cacheFetchJSON(ret, api, cacheFolder+"/"+name+".json", time.Hour*24)
+		if nil != err {
+			fmt.Println(err)
+		}
+		appList = append(appList, &ret.App)
 	}
 
 	data, _ := json.Marshal(appList)
@@ -42,8 +49,6 @@ func (m *Metadata) GetAppMetadataList(appNameList []string) (string, *dbus.Error
 
 // OpenApp call lastore open app
 func (m *Metadata) OpenApp(appName string) *dbus.Error {
-	// m.updateCache()
-
 	output, _, err := utils.ExecAndWait(3600, "lastore-tools", "querydesktop", appName)
 	if nil != err {
 		logger.Errorf("call lastore-tools failed: %v", err)

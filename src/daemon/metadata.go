@@ -78,7 +78,7 @@ type cacheAppInfo struct {
 	LocaleName  map[string]string `json:"locale_name"`
 }
 
-// 获取上架的apt缓存信息
+// GetPackageApplicationCache 获取上架的apt缓存信息
 func (m *Metadata) GetPackageApplicationCache() (apps map[string]*cacheAppInfo, err error) {
 	apps = make(map[string]*cacheAppInfo)
 	path := "/var/lib/lastore/applications.json"

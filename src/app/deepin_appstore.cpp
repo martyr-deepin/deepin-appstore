@@ -58,8 +58,6 @@ int main(int argc, char **argv)
         settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
     }
 
-    settings.setIgnoresCertificateErrors(true);
-
     // Disable GPU process.
     settings.addCommandLineSwitch(kDisableGpu, "");
 
