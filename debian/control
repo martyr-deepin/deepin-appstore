@@ -21,7 +21,7 @@ Build-Depends:
  golang-github-linuxdeepin-go-dbus-factory-dev,
  golang-github-go-ini-ini-dev,
  libdframeworkdbus-dev,
- nodejs-bin (>=10) | nodejs (>=10) | node (>=10)
+ nodejs-bin (>=10) [amd64] | nodejs (>=10) [amd64] | node (>=10) [amd64]
 Standards-Version: 3.9.5
 Homepage: https://deepin.org
 Vcs-Git: https://cr.deepin.io/dstore/deepin-appstore
