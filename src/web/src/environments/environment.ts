@@ -10,7 +10,7 @@ export const environment = {
 
   operationList: {
     CN: 'http://10.0.10.70:18100',
-    Default: 'http://10.0.10.70:18100',
+    Default: 'http://10.0.10.67:18100',
   } as { [key: string]: string },
   region: 'Default', // 0:China 1:International
   autoSelect: true, // auto select operation by ip

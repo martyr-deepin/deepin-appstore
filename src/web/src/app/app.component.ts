@@ -1,10 +1,9 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { environment } from 'environments/environment';
 
-import { timeout, first, switchMap } from 'rxjs/operators';
+import { timeout, first } from 'rxjs/operators';
 import { RegionService } from './services/region.service';
-import { AuthService } from './services/auth.service';
-import { SettingService } from './services/settings.service';
+import { AuthService, UserInfo } from './services/auth.service';
 
 @Component({
   selector: 'dstore-root',
@@ -15,6 +14,7 @@ export class AppComponent implements OnInit {
   constructor(private inject: Injector) {}
   inited = false;
   ngOnInit() {
+    console.log(environment);
     if (environment.autoSelect) {
       this.selectOperation();
     }
@@ -22,14 +22,20 @@ export class AppComponent implements OnInit {
 
   async selectOperation() {
     let region = environment.region;
-    const authService = this.inject.get(AuthService);
-    const info = await authService.info$.pipe(first()).toPromise();
+    let info: UserInfo;
+    if (environment.native) {
+      const authService = this.inject.get(AuthService);
+      info = await authService.info$.pipe(first()).toPromise();
+    }
     if (info) {
       region = info.Region;
     } else {
       const regionService = this.inject.get(RegionService);
       try {
-        region = await regionService.region$.pipe(timeout(3000)).toPromise();
+        region = await regionService
+          .region()
+          .pipe()
+          .toPromise();
       } catch (err) {
         console.error('region service', err);
       }

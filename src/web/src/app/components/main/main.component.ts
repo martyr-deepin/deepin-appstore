@@ -25,12 +25,12 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.switchTheme();
     if (!environment.native) {
       return;
     }
     this.searchNavigate();
     this.switchFont();
-    this.switchTheme();
     this.screenshotPreview();
     this.menuService.serve();
   }
