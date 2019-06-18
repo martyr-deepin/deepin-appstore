@@ -8,9 +8,12 @@ import { map } from 'rxjs/operators';
 })
 export class RegionService {
   constructor(private http: HttpClient) {}
-  region$ = this.http
-    .get<Region>(environment.metadataServer + '/api/v3/region')
-    .pipe(map(region => region.Country.IsoCode));
+  region() {
+    console.log('region');
+    return this.http
+      .get<Region>(environment.metadataServer + '/api/v3/region')
+      .pipe(map(region => region.Country.IsoCode));
+  }
 }
 interface Region {
   Country: {
