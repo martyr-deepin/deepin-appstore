@@ -35,8 +35,8 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  libqt5sql5-sqlite,
  deepin-sync-daemon,
  deepin-deepinid-client,
- deepin-appstore-data [!mips64el],
- deepin-appstore-data-aot [mips64el]
+ deepin-appstore-data (=${binary:Version}) [!mips64el],
+ deepin-appstore-data-aot (=${binary:Version}) [mips64el]
 Replaces: dstore-client
 Description: Deepin App Store
  Deepin App Store Client.
