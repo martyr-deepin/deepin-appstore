@@ -185,7 +185,7 @@ PMResult AptPackageManager::QueryDownloadSize(const QList<Package> &packages)
         data.insert(p.packageURI, p.toVariantMap());
     }
 
-    qDebug() << data;
+//    qDebug() << data;
     return PMResult::warp(data);
 }
 
@@ -282,6 +282,7 @@ PMResult AptPackageManager::ListInstalled(const QList<QString> &/*packageIDs*/)
         for (auto k : info.localeNames.keys()) {
             pkg.allLocalName[k] = info.localeNames[k];
         }
+        pkg.installedTime = info.installationTime;
         // TODO: remove name
 //        if (apps.contains(packageID)) {
         result.append(pkg.toVariantMap());

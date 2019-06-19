@@ -4,10 +4,12 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -303,19 +305,24 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 
 		if bytes.HasPrefix(parts[1], []byte("ii")) {
 			id := string(parts[0])
-			app, ok := apps[id]
+			fullPackageName := strings.Split(id, ":")
+			app, ok := apps[fullPackageName[0]]
 			if !ok {
 				continue
 			}
+			fmt.Println(id)
 			sizeStr := string(parts[3])
 			size, _ := strconv.ParseInt(sizeStr, 10, 64)
 			// unit of size is KiB, 1KiB = 1024Bytes
 
+			t, _ := getInstallationTime(id)
+
 			result = append(result, PackageInstalledInfo{
-				ID:            string(parts[0]),
-				Version:       string(parts[2]),
-				InstalledSize: size * 1024,
-				LocaleName:    app.LocaleName,
+				ID:               string(parts[0]),
+				Version:          string(parts[2]),
+				InstalledSize:    size * 1024,
+				LocaleName:       app.LocaleName,
+				InstallationTime: t,
 			})
 		}
 	}
@@ -328,10 +335,11 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 
 // PackageInstalledInfo store info of dpkg query
 type PackageInstalledInfo struct {
-	ID            string
-	Version       string
-	InstalledSize int64 // unit byte
-	LocaleName    map[string]string
+	ID               string
+	Version          string
+	InstalledSize    int64 // unit byte
+	InstallationTime int64
+	LocaleName       map[string]string
 }
 
 // QueryVersion check package version info

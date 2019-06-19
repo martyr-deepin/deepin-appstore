@@ -50,6 +50,7 @@ public:
     QString packageName;
     QString version;
     qint64 size;
+    qint64 installationTime;
     QMap<QString, QString>localeNames;
 };
 
