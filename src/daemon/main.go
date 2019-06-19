@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"os"
 	"path/filepath"
 	"time"
@@ -42,6 +43,10 @@ func init() {
 }
 
 func main() {
+	daemon := flag.Bool("daemon", false, "run as daemon and not exist")
+
+	flag.Parse()
+
 	service, err := dbusutil.NewSessionService()
 	if err != nil {
 		logger.Fatal(err)
@@ -89,6 +94,10 @@ func main() {
 
 	logger.Infof("start deepin-appstore-daemon")
 	service.SetAutoQuitHandler(3*time.Minute, func() bool {
+		if *daemon {
+			return false
+		}
+
 		b.PropsMu.Lock()
 		jobCount := len(b.jobs)
 		b.PropsMu.Unlock()

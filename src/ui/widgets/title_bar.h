@@ -62,6 +62,7 @@ public Q_SLOTS:
     void setForwardButtonActive(bool active);
     void setUserInfo(const QVariantMap &info);
 
+    void refreshAvatar();
 private:
     void initUI(bool support_sign_in);
     void initConnections();

@@ -272,7 +272,6 @@ PMResult AptPackageManager::ListInstalled(const QList<QString> &/*packageIDs*/)
 
     const InstalledAppInfoList list = reply.value();
     QVariantList result;
-    qDebug() << list;
     for (const InstalledAppInfo &info : list) {
         Package pkg;
         pkg.packageName = info.packageName;

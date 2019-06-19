@@ -488,6 +488,7 @@ void WebWindow::onTitleBarEntered()
 void WebWindow::onThemeChaged(const QString theme_name)
 {
     Dtk::Widget::DThemeManager::instance()->setTheme(theme_name);
+    title_bar_->refreshAvatar();
 }
 
 void WebWindow::onWebViewUrlChanged(const QUrl &url)
