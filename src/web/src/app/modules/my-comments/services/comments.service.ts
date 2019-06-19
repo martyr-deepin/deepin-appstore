@@ -21,7 +21,6 @@ export class CommentsService {
           const list = await this.softService.list({
             names: result.comment.map(c => c.appName),
             filterPackage: false,
-            filterStat: false,
           });
           const map = new Map(list.map(soft => [soft.name, soft]));
           result.comment.forEach(c => (c.soft = map.get(c.appName)));

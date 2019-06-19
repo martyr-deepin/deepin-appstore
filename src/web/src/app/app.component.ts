@@ -14,9 +14,12 @@ export class AppComponent implements OnInit {
   constructor(private inject: Injector) {}
   inited = false;
   ngOnInit() {
-    console.log(environment);
+    this.init().finally(() => (this.inited = true));
+  }
+  async init() {
+    console.log('init', environment);
     if (environment.autoSelect) {
-      this.selectOperation();
+      await this.selectOperation();
     }
   }
 
@@ -40,12 +43,11 @@ export class AppComponent implements OnInit {
         console.error('region service', err);
       }
     }
-    console.log(region);
+    console.log('auto select region', region);
     if (environment.operationList[region]) {
       environment.operationServer = environment.operationList[region];
     } else {
       environment.operationServer = environment.operationList[environment.region];
     }
-    this.inited = true;
   }
 }

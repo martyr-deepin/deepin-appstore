@@ -74,7 +74,7 @@
         </ng-container>
         <ng-container *ngIf="app.info.source">
           <div i18n>Source:</div>
-          <div class="source" [ngSwitch]="app.source">
+          <div class="source" [ngSwitch]="app.info.source">
             <ng-container *ngSwitchCase="SoftSource.ThirdParty" i18n>Third-party</ng-container>
             <ng-container *ngSwitchCase="SoftSource.Official" i18n>Official</ng-container>
             <ng-container *ngSwitchCase="SoftSource.Collaborative" i18n>Collaboration</ng-container>
