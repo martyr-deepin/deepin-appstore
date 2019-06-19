@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -306,16 +305,17 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 		if bytes.HasPrefix(parts[1], []byte("ii")) {
 			id := string(parts[0])
 			fullPackageName := strings.Split(id, ":")
-			app, ok := apps[fullPackageName[0]]
+			fuzzyPackageName := fullPackageName[0]
+			app, ok := apps[fuzzyPackageName]
 			if !ok {
 				continue
 			}
-			fmt.Println(id)
+
 			sizeStr := string(parts[3])
 			size, _ := strconv.ParseInt(sizeStr, 10, 64)
 			// unit of size is KiB, 1KiB = 1024Bytes
 
-			t, _ := getInstallationTime(id)
+			t, _ := getInstallationTime(fuzzyPackageName)
 
 			result = append(result, PackageInstalledInfo{
 				ID:               string(parts[0]),
