@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
     this.init().finally(() => (this.inited = true));
   }
   async init() {
+    console.log('init', environment);
     if (environment.autoSelect) {
       await this.selectOperation();
     }

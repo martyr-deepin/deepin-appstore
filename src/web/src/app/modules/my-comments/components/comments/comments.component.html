@@ -29,7 +29,7 @@
           </div>
           <div class="version"><span i18n>Version:</span> {{ comment.version }}</div>
           <div class="removed">
-            <span *ngIf="!comment.soft" i18n>Removed</span>
+            <span *ngIf="!comment.soft || !comment.soft.package" i18n>Removed</span>
           </div>
         </div>
         <div class="content-line">
