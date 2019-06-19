@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest, BehaviorSubject, timer } from 'rxjs';
 import { switchMap, retryWhen, scan, first, map, share, tap } from 'rxjs/operators';
 import { SoftwareService } from 'app/services/software.service';
+import { RecommendService } from 'app/services/recommend.service';
 
 @Component({
   selector: 'dstore-list-outlet',
@@ -10,7 +11,11 @@ import { SoftwareService } from 'app/services/software.service';
   styleUrls: ['./list-outlet.component.scss'],
 })
 export class ListOutletComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private softService: SoftwareService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private softService: SoftwareService,
+    private recommendService: RecommendService,
+  ) {}
   title = '';
   slogan = false;
   name$ = this.route.paramMap.pipe(map(param => param.get('name')));
@@ -60,5 +65,9 @@ export class ListOutletComponent implements OnInit {
     this.offset$.pipe(first()).subscribe(offset => {
       this.offset$.next(offset + 20);
     });
+  }
+
+  recommend() {
+    this.recommendService.openRecommend();
   }
 }

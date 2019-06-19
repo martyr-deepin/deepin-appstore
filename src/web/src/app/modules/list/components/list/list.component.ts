@@ -29,6 +29,7 @@ export class ListComponent implements OnInit, OnChanges {
   // 监听是否到达底部
   intersection = new IntersectionObserver(([e]: IntersectionObserverEntry[]) => {
     if (e.isIntersecting) {
+      console.log('load');
       this.wait = true;
       this.load.next();
       this.intersection.unobserve(this.elRef.nativeElement);
@@ -38,16 +39,18 @@ export class ListComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changed: SimpleChanges) {
-    if (changed.list && !changed.list.firstChange) {
+    if (changed.list) {
       this.wait = false;
       if (
         changed.list.previousValue &&
         changed.list.currentValue &&
         changed.list.previousValue.length === changed.list.currentValue.length
       ) {
+        console.log('loaded');
         return;
       }
       if (this.lazyload) {
+        console.log('loading');
         setTimeout(() => this.intersection.observe(this.elRef.nativeElement), 500);
       }
     }
