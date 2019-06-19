@@ -40,6 +40,7 @@ void InstalledAppInfo::registerMetaType()
 QDebug operator<<(QDebug debug, const InstalledAppInfo &info)
 {
     debug << info.packageName
+          << info.appName
           << info.version
           << info.size
           << info.installationTime
@@ -52,6 +53,7 @@ QDBusArgument &operator<<(QDBusArgument &argument,
 {
     argument.beginStructure();
     argument << info.packageName
+             << info.appName
              << info.version
              << info.size
              << info.installationTime
@@ -63,6 +65,7 @@ QDBusArgument &operator<<(QDBusArgument &argument,
 QDataStream &operator<<(QDataStream &stream, const InstalledAppInfo &info)
 {
     stream << info.packageName
+           << info.appName
            << info.version
            << info.size
            << info.installationTime
@@ -75,6 +78,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument,
 {
     argument.beginStructure();
     argument >> info.packageName
+             >> info.appName
              >> info.version
              >> info.size
              >> info.installationTime
@@ -86,6 +90,7 @@ const QDBusArgument &operator>>(const QDBusArgument &argument,
 const QDataStream &operator>>(QDataStream &stream, InstalledAppInfo &info)
 {
     stream >> info.packageName
+           >> info.appName
            >> info.version
            >> info.size
            >> info.installationTime
