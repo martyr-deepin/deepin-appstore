@@ -3,7 +3,7 @@ import { switchMap, map } from 'rxjs/operators';
 import { chunk } from 'lodash';
 
 import { JobService } from 'app/services/job.service';
-import { StoreService } from 'app/modules/client/services/store.service';
+import { StoreService, Package } from 'app/modules/client/services/store.service';
 import { StoreJobType } from 'app/modules/client/models/store-job-info';
 import { environment } from 'environments/environment';
 import { SoftwareService, Software } from 'app/services/software.service';
@@ -25,10 +25,12 @@ export class LocalAppService {
       switchMap(async installed => {
         console.log(installed);
         let list = chunk(installed, pageSize)[pageIndex].map(pkg => {
+          const local_name = pkg.allLocalName[environment.locale] || pkg.allLocalName['en_US'] || pkg.packageName;
           return {
             name: pkg.packageName,
             package: pkg,
-            local_name: pkg.allLocalName[environment.locale] || pkg.allLocalName['en_US'] || pkg.packageName,
+            localName: local_name,
+            info: { name: local_name, packages: [{ packageURI: pkg.packageURI }] },
             software: null as Software,
           };
         });

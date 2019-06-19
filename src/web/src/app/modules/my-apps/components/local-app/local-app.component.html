@@ -24,9 +24,9 @@
             </div>
           </ng-container>
           <ng-template #noSoftwareRef>
-            <img class="icon" dstoreCover="icon" [routerLink]="['/app', installed.local_name]" />
+            <img class="icon" dstoreCover="icon" [routerLink]="['/app', installed.localName]" />
             <div class="info">
-              <span>{{ installed.local_name }}</span>
+              <span>{{ installed.localName }}</span>
               <span class="size">{{ installed.package.size | sizeHuman }}</span>
             </div>
           </ng-template>
@@ -52,7 +52,7 @@
             <div class="control">
               <ng-template #confirmBtn>
                 <button (click)="selected = null" i18n>Cancel</button>
-                <button class="primary" (click)="remove(installed)">
+                <button class="primary" (click)="remove(installed.software || installed)">
                   <ng-container i18n>Confirm</ng-container>
                 </button>
               </ng-template>
