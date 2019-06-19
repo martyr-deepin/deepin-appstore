@@ -5,12 +5,8 @@
   <ng-container *ngSwitchCase="StoreJobErrorType.dpkgInterrupted" i18n
     >Failed to install: it was interrupted, please retry</ng-container
   >
-  <ng-container *ngSwitchCase="StoreJobErrorType.fetchFailed" i18n
-    >Failed to download, please retry</ng-container
-  >
-  <ng-container *ngSwitchCase="StoreJobErrorType.dpkgError" i18n
-    >Failed to install: dpkg error</ng-container
-  >
+  <ng-container *ngSwitchCase="StoreJobErrorType.fetchFailed" i18n>Failed to download, please retry</ng-container>
+  <ng-container *ngSwitchCase="StoreJobErrorType.dpkgError" i18n>Failed to install: dpkg error</ng-container>
   <ng-container *ngSwitchCase="StoreJobErrorType.unmetDependencies" i18n
     >Failed to install: unmet dependencies</ng-container
   >
@@ -20,9 +16,7 @@
   <ng-container *ngSwitchDefault>
     <ng-container i18n>Failed to install</ng-container>
   </ng-container>
-  <a class="details" *ngIf="errDetail" (click)="dialog.showModal()" i18n
-    >Details</a
-  >
+  <a class="details" *ngIf="errDetail" (click)="dialog.showModal()" i18n>Details</a>
 </div>
 
 <dialog #dialog (click)="dialog.close()">

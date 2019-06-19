@@ -9,7 +9,7 @@
   </div>
 
   <table>
-    <ng-container *ngFor="let r of result">
+    <ng-container *ngFor="let r of result; trackBy: trackByFn">
       <ng-container *ngIf="r.job as job">
         <tr *ngIf="r.soft as $app">
           <td>

@@ -23,7 +23,7 @@ export class LocalAppService {
     return this.jobService.jobList().pipe(
       switchMap(() => this.storeService.InstalledPackages()),
       switchMap(async installed => {
-        console.log(installed);
+        installed = installed.sort((a, b) => b.installedTime - a.installedTime);
         let list = chunk(installed, pageSize)[pageIndex].map(pkg => {
           const local_name = pkg.allLocalName[environment.locale] || pkg.allLocalName['en_US'] || pkg.packageName;
           return {
