@@ -13,9 +13,14 @@ export class PrivacyAgreementComponent implements OnInit {
   dialogRef: ElementRef<HTMLDialogElement>;
   constructor(private privateAgreement: PrivacyAgreementService, private agreenment: AgreementService) {}
   private$ = this.agreenment.privacy();
+  get model() {
+    return this.dialogRef.nativeElement;
+  }
   ngOnInit() {
     this.privateAgreement.onShow().subscribe(() => {
-      this.dialogRef.nativeElement.showModal();
+      if (!this.model.open) {
+        this.model.showModal();
+      }
     });
   }
   click(e: Event) {

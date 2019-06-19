@@ -7,7 +7,7 @@
         <img class="icon" dstoreCover="icon" [src]="app.info.icon" [routerLink]="['/app', app.name]" />
       </ng-container>
       <ng-template #emptyIconRef>
-        <img class="icon" dstoreCover="icon" [src]="null" dstoreCover="icon" />
+        <img class="icon" dstoreCover="icon" dstoreCover="icon" />
       </ng-template>
       <div class="info">
         <span class="name">{{ comment.soft?.info?.name }}</span>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="content">
-      <textarea [(ngModel)]="content"></textarea>
+      <textarea [(ngModel)]="content" (keyup.control.enter)="submit()"></textarea>
       <div class="rate">
         <span i18n>Rate:</span>
         <dstore-star [readonly]="false" [(rate)]="rate" #star></dstore-star>
@@ -31,7 +31,16 @@
         <button (click)="deleteConfirm = true" i18n>Delete</button>
         <div *ngIf="comment?.soft?.package">
           <span class="error" *ngIf="error">
-            <ng-container i18n>Failed to submit</ng-container>
+            <ng-container [ngSwitch]="error">
+              <span class="submitError" *ngSwitchCase="CommentError.AllInvalid" i18n
+                >Please rate and post your comment</span
+              >
+              <span class="submitError" *ngSwitchCase="CommentError.CommentInvalid" i18n
+                >Please input your comment</span
+              >
+              <span class="submitError" *ngSwitchCase="CommentError.RateInvalid" i18n>Please rate</span>
+              <span class="submitError" *ngSwitchCase="CommentError.Failed" i18n>Failed to submit</span>
+            </ng-container>
           </span>
           <button (click)="closed()" i18n>Cancel</button> &nbsp;
           <button class="primary" i18n (click)="submit()">Submit</button>

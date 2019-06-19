@@ -80,7 +80,7 @@ export class MainComponent implements OnInit {
         if (softs.length === 0) {
           break;
         }
-        list = list.concat(softs.map(soft => ({ name: soft.name, local_name: soft.info.name })).slice(0, 10));
+        list = list.concat(softs.map(soft => ({ name: soft.name, local_name: soft.info.name }))).slice(0, 10);
       }
       this.searchService.setComplementList(list);
     });

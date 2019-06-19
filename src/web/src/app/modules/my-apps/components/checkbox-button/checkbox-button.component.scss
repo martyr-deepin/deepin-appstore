@@ -18,10 +18,10 @@
     background-position: unset;
   }
 }
-// :host {
-//   &.hover {
-//     .checkbox-button:not(.active):not(.disabled) {
-//       background-position-x: 16px, 0px, 16px, 16px, -100px;
-//     }
-//   }
-// }
+:host {
+  &.hover {
+    .checkbox-button:not(.disabled) {
+      background-position-x: 16px, 0px, 16px, 16px, -100px;
+    }
+  }
+}

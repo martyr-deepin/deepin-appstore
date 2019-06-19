@@ -198,7 +198,7 @@ enum CommentType {
   News,
   History,
 }
-enum CommentError {
+export enum CommentError {
   Unknown,
   RateInvalid,
   CommentInvalid,

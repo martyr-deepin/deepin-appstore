@@ -1,11 +1,16 @@
-import { Directive, HostListener, HostBinding, ElementRef, Input } from '@angular/core';
+import { Directive, OnInit, HostListener, HostBinding, ElementRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[dstoreCover]',
 })
-export class CoverDirective {
+export class CoverDirective implements OnInit {
   @Input('dstoreCover') type: 'cover' | 'icon';
   constructor(private el: ElementRef<HTMLImageElement>) {}
+  ngOnInit() {
+    if (!this.el.nativeElement.src) {
+      this.onError();
+    }
+  }
   @HostBinding('style.border-radius.px') borderRadius = 4;
   @HostListener('error') onError() {
     switch (this.type) {

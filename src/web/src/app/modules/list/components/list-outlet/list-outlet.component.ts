@@ -18,15 +18,17 @@ export class ListOutletComponent implements OnInit {
   offset$ = new BehaviorSubject(0);
   result$ = combineLatest(this.route.paramMap, this.route.queryParamMap).pipe(
     switchMap(([param, query]) => {
-      setTimeout(() => {
-        const el = document.querySelector<HTMLDivElement>('.navItem.active');
-        if (el) {
-          this.title = el.innerText.trim();
-        }
-      });
       const [routeName, routeValue] = [param.get('name'), param.get('value')];
-      this.slogan = routeName === 'category';
-      this.title = routeName === 'keyword' ? routeValue : '';
+      this.title = routeValue;
+      if (routeName === 'category') {
+        this.slogan = routeName === 'category';
+        setTimeout(() => {
+          const el = document.querySelector<HTMLDivElement>('.navItem.active');
+          if (el) {
+            this.title = el.innerText.trim();
+          }
+        });
+      }
       const order = (query.get('order') as any) || 'download';
 
       this.offset$ = new BehaviorSubject(0);
