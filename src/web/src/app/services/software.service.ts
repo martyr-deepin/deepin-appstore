@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { environment } from 'environments/environment';
 import { map, tap, switchMap, first } from 'rxjs/operators';
@@ -30,8 +30,10 @@ export class SoftwareService {
     limit = 20,
     category = '',
     tag = '',
-    names = [],
     keyword = '',
+    author = '',
+    packager = '',
+    names = [],
     filterPackage = true,
     filterStat = true,
   }) {
@@ -41,11 +43,13 @@ export class SoftwareService {
     const statMap = new Map<string, Stat>();
     if (filterStat) {
       // get soft stat info
-      const stats = await this.http
-        .get<Stat[]>(this.operationURL, {
-          params: { order, offset, limit, category, tag, keyword, names } as any,
-        })
-        .toPromise();
+      const params = { order, offset, limit, category, tag, keyword, names, author, packager };
+      for (const key of Object.keys(params)) {
+        if (!params[key]) {
+          delete params[key];
+        }
+      }
+      const stats = await this.http.get<Stat[]>(this.operationURL, { params: params as any }).toPromise();
       if (stats.length === 0) {
         return [];
       }

@@ -75,7 +75,7 @@ async function main() {
       console.error('cannot load locale', language, err);
     }
   }
-  // }
+  return bootstrap();
 }
 
 function bootstrap(translations = null) {
@@ -86,6 +86,7 @@ function bootstrap(translations = null) {
       providers: [{ provide: TRANSLATIONS, useValue: translations }, { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' }],
     };
   }
+  console.log(opt);
   return platformBrowserDynamic().bootstrapModule(AppModule, opt);
 }
 

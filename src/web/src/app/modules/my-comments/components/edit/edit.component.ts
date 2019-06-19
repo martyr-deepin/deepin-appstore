@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 
 import { UserComment, CommentsService } from '../../services/comments.service';
 import { Software, SoftwareService } from 'app/services/software.service';
+import { CommentError } from 'app/modules/details/components/comment/app-comment.component';
 
 @Component({
   selector: 'dstore-edit',
@@ -16,7 +17,8 @@ export class EditComponent implements OnInit {
   content: string;
   rate: number;
   version: string;
-  error: boolean;
+  CommentError = CommentError;
+  error: CommentError;
   _comment: UserComment;
   @Output()
   close = new EventEmitter<boolean>();
@@ -44,6 +46,11 @@ export class EditComponent implements OnInit {
     this.close.emit(changed);
   }
   submit() {
+    if (!this.content.trim()) {
+      this.error = CommentError.CommentInvalid;
+      return;
+    }
+
     this.commentService
       .update(this._comment.id, {
         appName: this._comment.appName,
@@ -56,7 +63,7 @@ export class EditComponent implements OnInit {
         this.closed();
       })
       .catch(() => {
-        this.error = true;
+        this.error = CommentError.Failed;
       });
   }
   delete() {

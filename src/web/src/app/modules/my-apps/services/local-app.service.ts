@@ -32,13 +32,6 @@ export class LocalAppService {
             software: null as Software,
           };
         });
-        // const pkgs = await this.softwareService.packages;
-        // const names = ([] as string[]).concat(
-        //   ...installed
-        //     .sort((a, b) => b.installedTime - a.installedTime)
-        //     .filter(pkg => pkgs[pkg.packageURI])
-        //     .map(pkg => pkgs[pkg.packageURI].name),
-        // );
         try {
           const softs = await this.softwareService.list({
             names: list.map(app => app.name),

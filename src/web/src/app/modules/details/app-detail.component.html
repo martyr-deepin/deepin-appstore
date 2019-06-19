@@ -59,11 +59,15 @@
         </ng-container>
         <ng-container *ngIf="app.info.author">
           <div i18n>Author:</div>
-          <div>{{ app.info.author }}</div>
+          <div>
+            <a [routerLink]="['/list', 'author', app.info.author]">{{ app.info.author }}</a>
+          </div>
         </ng-container>
         <ng-container *ngIf="app.info.packager">
           <div i18n>Packager:</div>
-          <div>{{ app.info.packager }}</div>
+          <div>
+            <a [routerLink]="['/list', 'packager', app.info.packager]">{{ app.info.packager }}</a>
+          </div>
         </ng-container>
 
         <ng-container *ngIf="app.info.homePage">
