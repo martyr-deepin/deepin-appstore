@@ -2,8 +2,7 @@
   <span title i18n>My donations</span>
   <div class="amount_count" subtitle *ngIf="amount$ | async as amount_count">
     <ng-container i18n
-      >总计打赏 <span>{{ amount_count }}</span
-      >元</ng-container
+      >Total <span>{{ amount_count }}</span></ng-container
     >
   </div>
   <button routerLink="/my/comments" routerLinkActive="active">
