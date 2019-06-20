@@ -27,7 +27,7 @@ export class LocalAppService {
         let list = chunk(installed, pageSize)[pageIndex].map(pkg => {
           const local_name = pkg.allLocalName[environment.locale] || pkg.allLocalName['en_US'] || pkg.packageName;
           return {
-            name: pkg.packageName,
+            name: pkg.appName,
             package: pkg,
             localName: local_name,
             info: { name: local_name, packages: [{ packageURI: pkg.packageURI }] },
