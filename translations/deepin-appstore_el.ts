@@ -8,44 +8,46 @@
         <translation>Αναζήτησε &quot;%1&quot; στο κατάστημα Deepin</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar.cpp" line="201"/>
+        <location filename="../src/ui/widgets/title_bar.cpp" line="206"/>
         <source>Search</source>
         <translation>Αναζήτηση</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
         <source>Recommend App</source>
         <translation>Προτεινόμενη εφαρμογή</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Επιλέξτε περιοχή</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
         <source>China</source>
-        <translation>Κίνα</translation>
+        <translation type="vanished">Κίνα</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>International</source>
-        <translation>Διεθνής</translation>
+        <translation type="vanished">Διεθνής</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="60"/>
         <source>Clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Εκκαθάριση κρυφής μνήμης</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="64"/>
         <source>Dark theme</source>
+        <translation>Σκοτεινό θέμα</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
+        <source>Privacy Policy</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
         <source>Undo</source>
-        <translation>αναίρεση</translation>
+        <translation>Αναίρεση</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="78"/>
@@ -86,7 +88,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation type="unfinished"/>
+        <translation>Το κατάστημα Deepin, είναι ένα κατάστημα εφαρμογών, με ποικίλες και ποιοτικές εφαρμογές. Διαθέτει δημοφιλείς προτάσεις, πρόσφατα ενημερωμένες εφαρμογές, καυτά θέματα και υποστηρίζει εγκαταστάσεις, ενημερώσεις, απεγκαταστασείς με ένα κλικ </translation>
     </message>
 </context>
 <context>
@@ -94,27 +96,27 @@
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="13"/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>Όνομα χρήστη</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="16"/>
         <source>My comments</source>
-        <translation type="unfinished"/>
+        <translation>Τα σχόλιά μου</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
         <source>My donations</source>
-        <translation type="unfinished"/>
+        <translation>Οι χορηγίες μου</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="24"/>
         <source>My apps</source>
-        <translation type="unfinished"/>
+        <translation>Οι εφαρμογές μου</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>
         <source>Sign out</source>
-        <translation type="unfinished"/>
+        <translation>Αποσύνδεση</translation>
     </message>
 </context>
 </TS>

@@ -8,39 +8,41 @@
         <translation>&quot;%1&quot;の中で検索</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar.cpp" line="201"/>
+        <location filename="../src/ui/widgets/title_bar.cpp" line="206"/>
         <source>Search</source>
         <translation>検索</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
         <source>Recommend App</source>
         <translation>おすすめアプリ</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
-        <translation>リージョンセレクト</translation>
+        <translation type="vanished">リージョンセレクト</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
         <source>China</source>
-        <translation>中国</translation>
+        <translation type="vanished">中国</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>International</source>
-        <translation>インターナショナル</translation>
+        <translation type="vanished">インターナショナル</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="60"/>
         <source>Clear cache</source>
         <translation>キャッシュ消し</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="64"/>
         <source>Dark theme</source>
         <translation>ダークテイマー</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>

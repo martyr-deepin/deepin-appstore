@@ -8,38 +8,40 @@
         <translation>Vyhledat &quot;% 1&quot; v Deepin Store</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar.cpp" line="201"/>
+        <location filename="../src/ui/widgets/title_bar.cpp" line="206"/>
         <source>Search</source>
         <translation>Vyhledávání</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
         <source>Recommend App</source>
         <translation>Doporučená aplikace</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
-        <translation type="unfinished"/>
+        <translation type="vanished">Vyberte oblast</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
         <source>China</source>
-        <translation>Čína</translation>
+        <translation type="vanished">Čína</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>International</source>
-        <translation>Mezinárodní</translation>
+        <translation type="vanished">Mezinárodní</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="60"/>
         <source>Clear cache</source>
-        <translation type="unfinished"/>
+        <translation>Vyčistit mezipaměť</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="64"/>
         <source>Dark theme</source>
+        <translation>Tmavý vzhled</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
+        <source>Privacy Policy</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -86,7 +88,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Store je App Store s různými a kvalitními aplikacemi. Obsahuje populární doporučení, nově aktualizované aplikace, aktuální témata a podporuje instalaci, aktualizaci a odinstalaci jedním kliknutím.</translation>
     </message>
 </context>
 <context>

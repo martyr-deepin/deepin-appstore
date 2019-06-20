@@ -1,43 +1,43 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="pl" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="ko" version="2.1">
 <context>
     <name>QObject</name>
     <message>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="115"/>
         <location filename="../src/ui/widgets/search_completion_window.cpp" line="164"/>
         <source>Search &quot;%1&quot; in Deepin Store</source>
-        <translation>Wyszukaj &quot;%1&quot; w Sklepie Deepin</translation>
+        <translation>Deepin 스토어에서 &quot;%1&quot;을 검색</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar.cpp" line="206"/>
         <source>Search</source>
-        <translation>Wyszukaj</translation>
+        <translation>검색</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
         <source>Recommend App</source>
-        <translation>Poleć program</translation>
+        <translation>추천 앱</translation>
     </message>
     <message>
         <source>Select region</source>
-        <translation type="vanished">Wybierz region</translation>
+        <translation type="vanished">지역 선택</translation>
     </message>
     <message>
         <source>China</source>
-        <translation type="vanished">Chiny</translation>
+        <translation type="vanished">중국</translation>
     </message>
     <message>
         <source>International</source>
-        <translation type="vanished">Międzynarodowy</translation>
+        <translation type="vanished">국가별</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="60"/>
         <source>Clear cache</source>
-        <translation>Wyczyść pamięć podręczną</translation>
+        <translation>캐시 지우기</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="64"/>
         <source>Dark theme</source>
-        <translation>Ciemny motyw</translation>
+        <translation>어두운 테마</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
@@ -47,48 +47,48 @@
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
         <source>Undo</source>
-        <translation>Cofnij</translation>
+        <translation>되돌리기</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="78"/>
         <source>Redo</source>
-        <translation>Ponów</translation>
+        <translation>재실행</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="84"/>
         <source>Cut</source>
-        <translation>Wytnij</translation>
+        <translation>잘라내기</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="89"/>
         <location filename="../src/ui/web_event_delegate.cpp" line="113"/>
         <source>Copy</source>
-        <translation>Kopiuj</translation>
+        <translation>복사하기</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="94"/>
         <source>Paste</source>
-        <translation>Wklej</translation>
+        <translation>붙여넣기</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="99"/>
         <source>Delete</source>
-        <translation>Usuń</translation>
+        <translation>삭제하기</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="105"/>
         <source>Select all</source>
-        <translation>Wybierz wszystkie</translation>
+        <translation>모두 선택</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store</source>
-        <translation>Sklep Deepin</translation>
+        <translation>Deepin 스토어</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation>Deepin Store to App Store z różnorodnymi i wysokiej jakości aplikacjami. Zawiera popularne rekomendacje, nowo zaktualizowane aplikacje i gorące tematy oraz obsługuje instalację, aktualizację i deinstalację jednym kliknięciem.</translation>
+        <translation>Deepin 스토어는 다양하고 수준높은 응용 프로그램을 갖춘 앱스토어 입니다. 인기 추천 기능, 새로 업데이트 된 앱 및 핫 토픽을 제공하며, 원클릭 설치, 업데이트 및 제거를 지원합니다.</translation>
     </message>
 </context>
 <context>
@@ -96,27 +96,27 @@
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="13"/>
         <source>Username</source>
-        <translation>Nazwa użytkownika</translation>
+        <translation>사용자 이름</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="16"/>
         <source>My comments</source>
-        <translation>Moje komentarze</translation>
+        <translation>내 의견</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
         <source>My donations</source>
-        <translation>Moje dotacje</translation>
+        <translation>나의 기부</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="24"/>
         <source>My apps</source>
-        <translation>Moje aplikacje</translation>
+        <translation>내 앱</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>
         <source>Sign out</source>
-        <translation>Wyloguj</translation>
+        <translation>로그 아웃</translation>
     </message>
 </context>
 </TS>

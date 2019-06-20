@@ -8,38 +8,40 @@
         <translation>&quot;%1&quot; keresése a Deepin Áruházban</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar.cpp" line="201"/>
+        <location filename="../src/ui/widgets/title_bar.cpp" line="206"/>
         <source>Search</source>
         <translation>Keresés</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
         <source>Recommend App</source>
         <translation>Alkalmazás ajánlása</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
         <source>China</source>
-        <translation>Kína</translation>
+        <translation type="vanished">Kína</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>International</source>
-        <translation>Nemzetközi</translation>
+        <translation type="vanished">Nemzetközi</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="60"/>
         <source>Clear cache</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="64"/>
         <source>Dark theme</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
+        <source>Privacy Policy</source>
         <translation type="unfinished"/>
     </message>
     <message>
