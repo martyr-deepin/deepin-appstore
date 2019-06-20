@@ -6,7 +6,9 @@
     <ng-container>{{ title }}</ng-container>
   </app-app-title>
   <app-app-title *ngSwitchCase="'keyword'" [useRouterQuery]="true">
-    <ng-container i18n>Search results for {{ title }}</ng-container>
+    <ng-container i18n
+      >Search results for <span class="keyword">{{ title }}</span></ng-container
+    >
   </app-app-title>
   <app-app-title *ngSwitchCase="'author'" [useRouterQuery]="true">
     <ng-container *ngIf="title as name" i18n>{{ name }}的应用</ng-container>
