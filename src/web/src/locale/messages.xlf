@@ -1181,8 +1181,8 @@
           <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3a90d4100c43e173795fc0e1e75d3f46c64acb29" datatype="html">
-        <source>The applications is not available, please retry or feedback</source>
+      <trans-unit id="c1e940ce48cc3c6d8cfc76d6e903ae22d29a72df" datatype="html">
+        <source>The applications is not available, please retry or give feedback</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
           <context context-type="linenumber">52</context>
