@@ -94,4 +94,7 @@ export class DownloadComponent implements OnInit {
         });
     }
   }
+  trackByFn(index, item) {
+    return item.job.job;
+  }
 }

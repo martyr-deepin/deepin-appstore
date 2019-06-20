@@ -9,7 +9,9 @@
           {{ soft?.info?.name }}
         </div>
         <div class="subtitle" [style.color]="subtitleColor">
-          <div class="category">{{ slogan ? soft?.info?.slogan : (soft?.info?.category | categoryText | async) }}</div>
+          <div class="category">
+            {{ slogan ? soft?.info?.slogan : (soft?.info?.category | categoryText | async) }}
+          </div>
           <dstore-star [rate]="soft?.stat?.score / 2"></dstore-star>
         </div>
       </div>
