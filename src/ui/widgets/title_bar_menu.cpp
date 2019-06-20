@@ -67,7 +67,7 @@ void TitleBarMenu::initActions()
             this, &TitleBarMenu::onThemeActionTriggered);
     this->setThemeName(theme_name_);
 
-    privacy_agreement_action_ = this->addAction(QObject::tr("Privacy agreement"));
+    privacy_agreement_action_ = this->addAction(QObject::tr("Privacy Policy"));
     connect(privacy_agreement_action_, &QAction::triggered,
             this, &TitleBarMenu::privacyAgreementRequested);
 
