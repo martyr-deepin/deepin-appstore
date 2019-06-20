@@ -8,39 +8,41 @@
         <translation>Buscar &quot;%1&quot; en la tienda Deepin</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar.cpp" line="201"/>
+        <location filename="../src/ui/widgets/title_bar.cpp" line="206"/>
         <source>Search</source>
         <translation>Buscar</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
         <source>Recommend App</source>
         <translation>Recomendar aplicación</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
-        <translation>Seleccionar región </translation>
+        <translation type="vanished">Seleccionar región </translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
         <source>China</source>
-        <translation>China</translation>
+        <translation type="vanished">China</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>International</source>
-        <translation>Internacional</translation>
+        <translation type="vanished">Internacional</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="60"/>
         <source>Clear cache</source>
         <translation>Limpiar caché</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="64"/>
         <source>Dark theme</source>
         <translation>Tema oscuro</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>

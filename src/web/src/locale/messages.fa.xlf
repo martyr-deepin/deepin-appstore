@@ -1,8 +1,9 @@
 <?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file datatype="plaintext" original="ng2.template" source-language="en" target-language="kn-IN">
+  <file datatype="plaintext" original="ng2.template" source-language="en" target-language="fa">
     <body>
       <trans-unit datatype="html" id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc">
         <source>Paused</source>
+        <target>متوقف شد</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/client/components/progress-button/progress-button.component.html</context>
           <context context-type="linenumber">6</context>
@@ -22,6 +23,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6a66f7b3aeebb8f63d58e87bba3d9f0d30d08cec">
         <source>Downloading</source>
+        <target>در حال دانلود شدن</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/client/components/progress-button/progress-button.component.html</context>
           <context context-type="linenumber">11</context>
@@ -33,6 +35,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b1f8e8e44e54f1c5b03d57215e323265a73a8976">
         <source>Installing</source>
+        <target>در حال نصب شدن</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/client/components/progress-button/progress-button.component.html</context>
           <context context-type="linenumber">13</context>
@@ -52,6 +55,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="04b741bf33a6b8359849d6085278e54b35acd0b9">
         <source>Uninstalling</source>
+        <target>در حال حذف شدن</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/client/components/progress-button/progress-button.component.html</context>
           <context context-type="linenumber">15</context>
@@ -67,6 +71,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c81780f921c4ded2a45dadd68238f428bb5e5308">
         <source>Network error</source>
+        <target>خطای شبکه</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/wait/wait.component.html</context>
           <context context-type="linenumber">5</context>
@@ -74,6 +79,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="172fa0aab2cb9ffc177b03a45af1715e0b58997d">
         <source>Loading... Please wait</source>
+        <target>در حال بارگزاری لطفا منتظر بمانید</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/wait/wait.component.html</context>
           <context context-type="linenumber">11</context>
@@ -81,6 +87,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6058dc6aab021a4ecf68988f0cce40389f4185b1">
         <source><x equiv-text="{{ count }}" id="INTERPOLATION"/> applications</source>
+        <target><x equiv-text="{{ count }}" id="INTERPOLATION"/>برنامه ها</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/app-title/app-title.component.html</context>
           <context context-type="linenumber">4</context>
@@ -88,6 +95,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="235945afa74bcf391b9201dcf4a6bba930ddd13b">
         <source>Top <x equiv-text="{{ top }}" id="INTERPOLATION"/></source>
+        <target>بالا<x equiv-text="{{ top }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/app-title/app-title.component.html</context>
           <context context-type="linenumber">5</context>
@@ -95,6 +103,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="822fab38216f64e8166d368b59fe756ca39d301b">
         <source>Downloads</source>
+        <target>دانلودها</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/app-title/app-title.component.html</context>
           <context context-type="linenumber">16</context>
@@ -106,6 +115,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a9b941f25f425bd907b8e23cbaed9e96a85e7db7">
         <source>Rating</source>
+        <target>رتبه بندی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/app-title/app-title.component.html</context>
           <context context-type="linenumber">18</context>
@@ -117,6 +127,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0013b61359f2f1b3cb30c16d524bc4d778909478">
         <source>Personal Center</source>
+        <target>مرکز شخصی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/center-title/center-title.component.html</context>
           <context context-type="linenumber">2</context>
@@ -124,6 +135,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="047f50bc5b5d17b5bec0196355953e1a5c590ddb">
         <source>Update</source>
+        <target>به روز رسانی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/control/control.component.html</context>
           <context context-type="linenumber">46</context>
@@ -135,6 +147,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c9039b1b13b3ef165b66b3c5d79f810ab1ebb050">
         <source>Open</source>
+        <target>باز کن</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/control/control.component.html</context>
           <context context-type="linenumber">55</context>
@@ -142,6 +155,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="dee8c41edf822a0124c80cc1e44643f947b3bc5c">
         <source>Install</source>
+        <target>نصب</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/control/control.component.html</context>
           <context context-type="linenumber">63</context>
@@ -153,6 +167,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="92eee6be6de0b11c924e3ab27db30257159c0a7c">
         <source>Home</source>
+        <target>خانه</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">5</context>
@@ -160,6 +175,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c19df76e4d9f2ee2fec4aeca41fef6a087c8c542">
         <source>Rankings</source>
+        <target>رتبه بندی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">9</context>
@@ -167,6 +183,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="62d7998e0429f2487adc0e8e56e4173275cf7a3d">
         <source>Internet</source>
+        <target>اینترنت</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">28</context>
@@ -174,6 +191,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="5adf337be1ad12c915ae18012f1bfa1f2ca4628b">
         <source>Chat</source>
+        <target>چت</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">32</context>
@@ -181,7 +199,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="06a9c25174be5c4e9fca4e8b423410b1900d5a55">
         <source>Music</source>
-        <target>ಸಂಗೀತ</target>
+        <target>موزیک</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">36</context>
@@ -189,6 +207,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="2d1ea268a6a9f483dbc2cbfe19bf4256a57a6af4">
         <source>Video</source>
+        <target>ویدئو</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">40</context>
@@ -196,6 +215,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b8685c2f51906a91fd8e282f25c7fd9b36b27c77">
         <source>Graphics</source>
+        <target>گرافیک</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">44</context>
@@ -203,6 +223,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="71249314fa72f5f9e0d93b8c59f9e148e0ff617f">
         <source>Games</source>
+        <target>بازی ها</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">48</context>
@@ -210,6 +231,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1908513266d3ce2dc37135be38ac4baef11a3a0b">
         <source>Office</source>
+        <target>اداره</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">52</context>
@@ -217,6 +239,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="440387abefa7c51156990554beb9f5f18576decb">
         <source>Reading</source>
+        <target>خواندن</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">56</context>
@@ -224,6 +247,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="7f3f6a4fb2545cacf800f0623582b6d41d1f8791">
         <source>Development</source>
+        <target>توسعه</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">60</context>
@@ -231,6 +255,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="8011e20c5bbe51602d459a860fbf29b599b55edd">
         <source>System</source>
+        <target>سیستم</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">64</context>
@@ -238,6 +263,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c2a9de3714f5767b174d0424bc8abe2dc37acc41">
         <source>Other</source>
+        <target>سایر</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">68</context>
@@ -245,6 +271,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="dc75033a5238fdc4f462212c847a45ba8018a3fd">
         <source>Download</source>
+        <target>دانلود</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">76</context>
@@ -252,6 +279,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee">
         <source>Uninstall</source>
+        <target>حذف کردن</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">84</context>
@@ -261,6 +289,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9b611771b26a4ff220c605ecffb454658cc7a163">
         <source>Recommend app</source>
+        <target>برنامه توصیه شده</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">6</context>
@@ -268,7 +297,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="616e206cb4f25bd5885fc35925365e43cf5fb929">
         <source>Name:</source>
-        <target>ಹೆಸರು:</target>
+        <target>:نام</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">11</context>
@@ -276,6 +305,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9369355f8d70a1d75c4b3fd0c05a4d12916e9e89">
         <source>Official name</source>
+        <target>نام اداره</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">21</context>
@@ -283,6 +313,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="52e863ce1221c2ed25dd2c31dfdc25fcbe86a945">
         <source>Official name cannot be empty</source>
+        <target>نام اداره نمی تواند خالی باشد</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">25</context>
@@ -290,6 +321,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e78c0d60ac39787f62c9159646fe0b3c1ed55a1d">
         <source>Type:</source>
+        <target>:نوع</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">33</context>
@@ -297,6 +329,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0929aa173c4ff5d837db1cc6fd247b6a11f7a40b">
         <source>Linux App</source>
+        <target>برنامه لینوکس</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">42</context>
@@ -304,6 +337,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="13c03bfe1512730c5ae1012a3ede14296bf114f7">
         <source>Windows App</source>
+        <target>برنامه ویندوز</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">43</context>
@@ -311,6 +345,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9344ca32af8910907786565d9ca9764aa812b407">
         <source>Web App</source>
+        <target>برنامه وب</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">44</context>
@@ -318,6 +353,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1240f1305d48cd560f85da4a4df976e616e39cdf">
         <source>Android App</source>
+        <target>برنامه اندروید</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">45</context>
@@ -325,6 +361,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9818deda85383bfa1e97c04a48e46736e3cdd510">
         <source>License:</source>
+        <target>لیسانس</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">52</context>
@@ -332,6 +369,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6f5f4f9eeeacbc4b5aaf55a9a307c0cbcfa6f1f8">
         <source>Input No if no license is required</source>
+        <target>ورودی خیر اگر نیاز به لیسانس نباشد</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">62</context>
@@ -339,6 +377,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9b62ca9a213226a980418755f4911690948a8713">
         <source>License cannot be empty</source>
+        <target>لیسانس نمی تواند خالی باشد</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">69</context>
@@ -346,6 +385,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="ab95ed513bc69a8cf72b72aa5f9b515d51196792">
         <source>Homepage:</source>
+        <target>صفحه نخست</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">77</context>
@@ -353,6 +393,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="82b190230a8e8a162df160695ad0f9815a94670f">
         <source>Official website</source>
+        <target>وب سایت رسمی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">88</context>
@@ -360,6 +401,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="ad6bd4ae49ca00337fb45c29dac75284e052b531">
         <source>Official website cannot be empty</source>
+        <target>وب سایت رسمی نمی تواند خالی باشد</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">95</context>
@@ -367,6 +409,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="38c184ee2325949ed3e428f373637c2fb914b5de">
         <source>Official website is not in a correct format</source>
+        <target>فرمت وبسایت درست نیست</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">98</context>
@@ -374,6 +417,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b07b1257a5086e577ec5b97b2143922e60578364">
         <source>Download Site:</source>
+        <target>: سایت دانلود</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">106</context>
@@ -381,6 +425,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="3fae2626f67e486c30420654180cbf6f42b23b24">
         <source>Official download address</source>
+        <target>آدرس دانلود رسمی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">117</context>
@@ -388,6 +433,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="34f5d5789f634f199341deaa49cee0650c6fdec8">
         <source>Download Site cannot be empty</source>
+        <target>سایت دانلود نمی تواند خالی باشد</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">124</context>
@@ -395,6 +441,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="cc6d76692556d846fb1439e5f229df225263f5b6">
         <source>Download Site is not in a correct format</source>
+        <target>فرمت وبسایت درست نیست</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">130</context>
@@ -402,6 +449,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="00138eb76d88382673aa4416d47f9cae64b370bf">
         <source>Others:</source>
+        <target>سایر</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">138</context>
@@ -409,6 +457,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="42ac849018f29bd2f0e8ee2a2becc5f06c24a1f9">
         <source>Introduction or other info</source>
+        <target>مقدمه و یا اطلاعات دیگر</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">146</context>
@@ -416,6 +465,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="71c77bb8cecdf11ec3eead24dd1ba506573fa9cd">
         <source>Submit</source>
+        <target>ارائه </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">151</context>
@@ -431,6 +481,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="10b5e1355fe307af84b97e91cf5bdc1d04ce28f1">
         <source>Announcement: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></source>
+        <target>اعلان<x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">3</context>
@@ -438,6 +489,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f38cdabbc1d33c5153a307c4f0c8f4f22df4276f">
         <source>Request successful</source>
+        <target>درخواست موفقیت آمیز </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">10</context>
@@ -445,6 +497,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="231e7766e41f05396b33e9798d628f8d1b0f46f9">
         <source>Cache cleared</source>
+        <target>کش پاک شد</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">11</context>
@@ -452,6 +505,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="07ab431232dac11b93d5366ab540d780dca2ff5b">
         <source>Submit successful</source>
+        <target>ارایه موفقیت آمیز</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">12</context>
@@ -459,6 +513,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e33d805f0c1ce97c92b68fc882084fef23cca646">
         <source>Request failed</source>
+        <target>درخواست ناموفق</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">18</context>
@@ -466,6 +521,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="9adf078da8da4a1f22687e15f76dae2369a603df">
         <source>Failed to clear cache</source>
+        <target>خطا در پاک کردن کش</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">19</context>
@@ -473,6 +529,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a4ebb29f3e25de97f36a395cf50585b89251806f">
         <source>Submit failed</source>
+        <target>ارایه خطا</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">20</context>
@@ -480,6 +537,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="758496ccd0c37659b18828f3234eac3915c1a32f">
         <source>Rating:</source>
+        <target>رتبه بندی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">21</context>
@@ -501,6 +559,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0cc1dec590ecd74bef71a865fb364779bc42a749">
         <source>Category:</source>
+        <target>دسته بندی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">30</context>
@@ -508,6 +567,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="ca17606ffe979fb5b411861280c33d2ad3e7a216">
         <source>Version:</source>
+        <target>:نسخه</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">33</context>
@@ -535,6 +595,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="04380b03179685f28fc991c2ae855696d7f6ca44">
         <source>Size:</source>
+        <target>:سایز</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">39</context>
@@ -542,6 +603,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1a5b6d68dd00f96022a9781b03b407784b5090b0">
         <source>Calculating</source>
+        <target>محاسبه</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">45</context>
@@ -549,6 +611,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e8c021c9d36ccd882cb337c19cbca3067c249d41">
         <source>Downloaded</source>
+        <target>دانلود شد</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">46</context>
@@ -564,6 +627,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c865350c1e557f8c00140a145e33f39ff822cdc0">
         <source>Updated Date:</source>
+        <target>به هنگام شده در تاریخ:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">49</context>
@@ -571,6 +635,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="535ed5b1faa4fb391623e885e7b752bb90b1c473">
         <source>Ask for update</source>
+        <target>درخواست برای به روز رسانی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">55</context>
@@ -592,6 +657,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="055d47bb1af14fe2aebd1733bf30d5bf4add46f5">
         <source>Website:</source>
+        <target>سایت اینترنتی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">74</context>
@@ -599,6 +665,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="2f2d3537be5ad6783862d60ec1e4b6a034714783">
         <source>Source:</source>
+        <target>:منبع</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">80</context>
@@ -606,6 +673,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="05f57eae1951b6b813d2306e9931485e0eca00b1">
         <source>Third-party</source>
+        <target>شخص ثالث</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">82</context>
@@ -613,6 +681,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="d06df58d8b33f2fb3bf532b12b0d091388d2ae6b">
         <source>Official</source>
+        <target>رسمی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">83</context>
@@ -620,6 +689,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="3630022091d1044a60591f58536cfff54b241eaa">
         <source>Collaboration</source>
+        <target>همکاری</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">84</context>
@@ -627,6 +697,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="15cab428492d4f8b8bc528a93cf1fdd2dc65328e">
         <source>Tag:</source>
+        <target>:تگ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">88</context>
@@ -634,6 +705,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="4a22c6843133f0b0d7dc0d28f864f2f90c1de7ad">
         <source>Description:</source>
+        <target>:توضیحات</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">97</context>
@@ -641,6 +713,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c0331aa0a5a4589294b7826d8613515c597812a8">
         <source>CDN supported by UPYUN</source>
+        <target>CDN توسط UPYUN پشتیبانی می شود</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">118</context>
@@ -648,7 +721,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="b9905b17f853f79045218f2d43f572029e54fd5b">
         <source>Sorry</source>
-        <target>ಕ್ಷಮಿಸಿ</target>
+        <target>تاسف</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">131</context>
@@ -668,6 +741,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0166106da9d18911cf205d22548b9f4d21008f3f">
         <source>It's in adjustment, you can return to</source>
+        <target>در تنظیم وجود دارد شما می توانید برگردید به</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">132</context>
@@ -675,6 +749,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="680d5c75b7fd8d37961083608b9fcdc4167b4c43">
         <source>Previous</source>
+        <target>قبلی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">133</context>
@@ -682,6 +757,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6dd070f6eb99a4e300bce2af82d76f3d01c61edd">
         <source>Connection failed, please check your network and refresh</source>
+        <target>اتصال ناموفق بود، لطفا شبکه خود را بررسی کنید و تازه کنید</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">140</context>
@@ -689,6 +765,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="2631d08f671cb06e269dfe7ce2268ab52ef73375">
         <source>Something goes wrong.</source>
+        <target>یک چیزی اشکال دارد.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">145</context>
@@ -703,6 +780,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="7898e09675b07f90ae57701b3bd781556a0d3f22">
         <source>Donate</source>
+        <target>اهدا کنید</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">2</context>
@@ -714,6 +792,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="568c82e4dd743c0218ca10fb434e537a17a22d6c">
         <source>Statement for Delivery and Donation</source>
+        <target>بیانیه برای تحویل و اهداء</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">3</context>
@@ -721,6 +800,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="91ce116be6e8df104128f339912c9207f01265cd">
         <source>Amount:</source>
+        <target>:مقدار</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">16</context>
@@ -728,6 +808,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="3efbc55094b3e633835a1866fcfb14b0601376dc">
         <source>Random</source>
+        <target>تصادفی</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">19</context>
@@ -735,6 +816,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fb3545e97e371069768103e01599f35e789d556c">
         <source>Payment:</source>
+        <target>:پرداخت</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">23</context>
@@ -742,6 +824,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="53d20cc6953546db5373b1ae5a686aa655a715bb">
         <source>Pay Now</source>
+        <target>الان بپرداز</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">42</context>
@@ -749,6 +832,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6cf236d79ba814bc7cd38814d46c588c43079ddb">
         <source>Payment Successful!</source>
+        <target>پرداخت موفقیت آمیز بود</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">56</context>
@@ -756,6 +840,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="4ab9ebde7c46cef3da5f9e2ba25834450420d56f">
         <source>WeChat Pay:</source>
+        <target>پرداخت wechat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">61</context>
@@ -763,6 +848,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="19a5a4f5540f3675280e26e0fd7b79d780c8b470">
         <source>RMB ￥<x equiv-text="{{ amount }}" id="INTERPOLATION"/></source>
+        <target>RMB ￥1<x equiv-text="{{ amount }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">62</context>
@@ -770,6 +856,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e2c9907de2386d2f5c27a0370fbaf416b4f4e41c">
         <source>Processing payment, please wait...</source>
+        <target>پردازش پرداخت، لطفا صبر کنید ...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">67</context>
@@ -781,6 +868,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f0b3887d752a5aa2e68c083304f31959fe662bb9">
         <source>Please post your comment after sign in</source>
+        <target>لطفا پس از وارد شدن، نظر خود را ارسال کنید</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">4</context>
@@ -788,6 +876,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="28629af803ab8b5f6e995b17d486e6a1527e2a96">
         <source>Sign Up</source>
+        <target>ثبت نام</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">5</context>
@@ -795,6 +884,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0f1aaf212232f204b309551e62bac36f780d3b80">
         <source>Your Rating:</source>
+        <target>:رتبه بندی شما</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">10</context>
@@ -1062,7 +1152,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="ac0f81713a84217c9bd1d9bb460245d8190b073f">
         <source>More</source>
-        <target>ಇನ್ನಷ್ಟು</target>
+        <target>بیشتر</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/index/components/title/title.component.html</context>
           <context context-type="linenumber">5</context>
@@ -1179,6 +1269,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1dfba504a0d0bf41da961d89d402dedecde5e30d">
         <source>Uninstall</source>
+        <target>حذف کردن</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
           <context context-type="linenumber">62</context>
@@ -1235,6 +1326,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="2415e1d10667078d7c7a52970880f2930717febe">
         <source>My comments</source>
+        <target>نظرات من</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/comments/comments.component.html</context>
           <context context-type="linenumber">2</context>
@@ -1250,6 +1342,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f5999c28f2807bba5dfad57acb1685f31106e30a">
         <source>My donations</source>
+        <target>اهدا های من</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/comments/comments.component.html</context>
           <context context-type="linenumber">7</context>
@@ -1312,6 +1405,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="826b25211922a1b46436589233cb6f1a163d89b7">
         <source>Delete</source>
+        <target>پاک کردن</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
           <context context-type="linenumber">31</context>
