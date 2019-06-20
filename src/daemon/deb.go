@@ -305,6 +305,7 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 		if bytes.HasPrefix(parts[1], []byte("ii")) {
 			id := string(parts[0])
 			fullPackageName := strings.Split(id, ":")
+			// fuzzyPackageName 就是应用标识，这是有问题的！！！
 			fuzzyPackageName := fullPackageName[0]
 			app, ok := apps[fuzzyPackageName]
 			if !ok {
@@ -319,6 +320,7 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 
 			result = append(result, PackageInstalledInfo{
 				ID:               string(parts[0]),
+				Name:             fuzzyPackageName,
 				Version:          string(parts[2]),
 				InstalledSize:    size * 1024,
 				LocaleName:       app.LocaleName,
@@ -336,6 +338,7 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 // PackageInstalledInfo store info of dpkg query
 type PackageInstalledInfo struct {
 	ID               string
+	Name             string
 	Version          string
 	InstalledSize    int64 // unit byte
 	InstallationTime int64

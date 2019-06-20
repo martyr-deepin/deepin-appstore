@@ -48,6 +48,7 @@ public:
                                          InstalledAppInfo &info);
 
     QString packageName;
+    QString appName;
     QString version;
     qint64 size;
     qint64 installationTime;

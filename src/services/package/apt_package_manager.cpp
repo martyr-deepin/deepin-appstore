@@ -275,6 +275,7 @@ PMResult AptPackageManager::ListInstalled(const QList<QString> &/*packageIDs*/)
     for (const InstalledAppInfo &info : list) {
         Package pkg;
         pkg.packageName = info.packageName;
+        pkg.appName = info.appName;
         auto packageID =   pkg.packageName.split(":").first();
         pkg.localVersion = info.version;
         pkg.size = info.size;
