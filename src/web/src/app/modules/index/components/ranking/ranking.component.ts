@@ -19,12 +19,9 @@ export class RankingComponent extends SectionItemBase implements OnInit {
   async load() {
     const ranking = this.section.ranking || { category: '', count: 20 };
     let softs = [];
-    while (true) {
-      const list = await this.softwareService.list({ category: ranking.category });
+    for (let offset = 0; softs.length < ranking.count; offset += 10) {
+      const list = await this.softwareService.list({ category: ranking.category, offset, limit: 10 });
       softs = [...softs, ...list].slice(0, ranking.count);
-      if (softs.length >= ranking.count) {
-        break;
-      }
     }
     this.softs$ = Promise.resolve(softs);
   }

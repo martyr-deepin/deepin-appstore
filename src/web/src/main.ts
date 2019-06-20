@@ -61,9 +61,6 @@ async function main() {
     environment.metadataServer = settings.metadataServer;
     environment.operationServer = environment.operationList[environment.region];
   }
-  environment.autoSelect = false;
-  environment.region = 'CN';
-  environment.operationServer = environment.operationList[environment.region];
 
   // if (!Boolean(settings['aot'])) {
   // loading i18n files
