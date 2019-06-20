@@ -67,7 +67,7 @@ signals:
     void switchThemeRequested(QString themeName);
 
     /**
-     * This signal is emitted when Privacy Agreement menu item is activated.
+     * This signal is emitted when Privacy Policy menu item is activated.
      */
     void privacyAgreementRequested();
 
