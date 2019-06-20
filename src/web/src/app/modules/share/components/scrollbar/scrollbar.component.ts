@@ -1,12 +1,8 @@
 import { Component, OnInit, OnDestroy, ElementRef, Input } from '@angular/core';
-import {
-  Router,
-  RouterEvent,
-  NavigationStart,
-  NavigationEnd,
-} from '@angular/router';
+import { Router, RouterEvent, NavigationStart, NavigationEnd } from '@angular/router';
 import PerfectScrollbar from 'perfect-scrollbar';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'dstore-scrollbar',
@@ -14,16 +10,14 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./scrollbar.component.scss'],
 })
 export class ScrollbarComponent implements OnInit, OnDestroy {
-  constructor(
-    private scrollbarEl: ElementRef<HTMLDivElement>,
-    private router: Router,
-  ) {}
+  constructor(private scrollbarEl: ElementRef<HTMLDivElement>, private router: Router) {}
   @Input()
   savePosition: boolean;
   @Input()
   full = false;
   position = new Map<number, [number, number]>();
   restored: Subscription;
+  resize$: Observable<void>;
 
   getPos(): [number, number] {
     return [this.el.scrollTop, this.el.scrollLeft];
@@ -40,6 +34,12 @@ export class ScrollbarComponent implements OnInit, OnDestroy {
       suppressScrollX: true,
       wheelPropagation: false,
     });
+    this.resize$ = fromEvent(window, 'resize').pipe(
+      map(() => {
+        console.log('update');
+        scrollbar.update();
+      }),
+    );
 
     let restoreID: number;
     this.restored = this.router.events.subscribe((event: RouterEvent) => {
