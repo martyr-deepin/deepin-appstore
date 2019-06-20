@@ -2,8 +2,8 @@ export const environment = {
   production: true,
 
   operationList: {
-    CN: 'http://10.0.10.70:18100',
-    Default: 'http://10.0.10.70:18100',
+    CN: 'https://dstore-operation-china.deepin.cn/',
+    Default: 'https://dstore-operation-international.deepin.cn',
   } as { [key: string]: string },
   region: 'Default',
   autoSelect: true,
