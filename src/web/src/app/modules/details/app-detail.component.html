@@ -21,8 +21,8 @@
         <div i18n>Rating:</div>
         <div class="rate">
           <ng-container *ngIf="app.stat as stat">
-            <dstore-star [rate]="stat.score"></dstore-star>
-            <span class="details">{{ stat.score.toFixed(1) }}</span>
+            <dstore-star [rate]="stat.score / 2"></dstore-star>
+            <span class="details">{{ (stat.score / 2).toFixed(1) }}</span>
             <span class="details" i18n>{{ stat.download }} downloads</span>
             <span class="details" i18n>{{ stat.score_count }} ratings</span>
           </ng-container>
