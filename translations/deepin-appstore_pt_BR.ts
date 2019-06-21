@@ -8,39 +8,41 @@
         <translation>Pesquisar &quot;%1&quot; na Deepin Store</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar.cpp" line="201"/>
+        <location filename="../src/ui/widgets/title_bar.cpp" line="206"/>
         <source>Search</source>
         <translation>Pesquisar</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="68"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="55"/>
         <source>Recommend App</source>
-        <translation>Recomendar Aplicativos</translation>
+        <translation>Sugerir Aplicativos</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="74"/>
         <source>Select region</source>
-        <translation>Selecione a região</translation>
+        <translation type="vanished">Selecione sua região</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="80"/>
         <source>China</source>
-        <translation>China</translation>
+        <translation type="vanished">China</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="82"/>
         <source>International</source>
-        <translation>Internacional</translation>
+        <translation type="vanished">Internacional</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="99"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="60"/>
         <source>Clear cache</source>
-        <translation>Limpar o cache</translation>
+        <translation>Limpar cache</translation>
     </message>
     <message>
-        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="103"/>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="64"/>
         <source>Dark theme</source>
         <translation>Tema escuro</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -55,7 +57,7 @@
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="84"/>
         <source>Cut</source>
-        <translation>Cortar</translation>
+        <translation>Recortar</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="89"/>
@@ -81,12 +83,12 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="107"/>
         <source>Deepin Store</source>
-        <translation>Deepin Store</translation>
+        <translation>Deepin Loja</translation>
     </message>
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation>Deepin Store é uma Loja de Aplicativos com qualidade e diversidade. Estão disponíveis recomendações dos usuários, aplicativos atualizados e tópicos populares. Ela suporta instalar, atualizar e desinstalar aplicativos com um clique.</translation>
+        <translation>Deepin Loja é uma Loja de Aplicativos com qualidade e diversidade. Estão disponíveis recomendações dos usuários, aplicativos atualizados e tópicos populares. Ela suporta instalar, atualizar e desinstalar aplicativos com um clique.</translation>
     </message>
 </context>
 <context>
@@ -94,22 +96,22 @@
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="13"/>
         <source>Username</source>
-        <translation>Nome de usuário</translation>
+        <translation>Nome do Usuário</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="16"/>
         <source>My comments</source>
-        <translation>Meus comentários</translation>
+        <translation>Meus Comentários</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="20"/>
         <source>My donations</source>
-        <translation>Minhas doaçãos</translation>
+        <translation>Minhas Doações</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="24"/>
         <source>My apps</source>
-        <translation>Meus aplicativos</translation>
+        <translation>Meus Aplicativos</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/user_menu.cpp" line="30"/>

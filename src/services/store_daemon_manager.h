@@ -71,14 +71,6 @@ public Q_SLOTS:
 
     QVariantMap installedPackages();
 
-    /**
-     * Get deb package size
-     * @param app_name
-     */
-//    QVariantMap packageDownloadSize(const QString &app_name);
-
-//    QVariantMap queryInstalledTime(const QStringList &apps);
-
     QVariantMap query(const QVariantList &apps);
 
     QVariantMap queryDownloadSize(const QVariantList &apps);

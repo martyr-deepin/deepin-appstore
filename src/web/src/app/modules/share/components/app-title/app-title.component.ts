@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-app-title',
@@ -6,23 +7,33 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./app-title.component.scss'],
 })
 export class AppTitleComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
   SortOrder = SortOrder;
   @Input() title = '';
   @Input() top: number;
   @Input() count: number;
-  @Input() sortBy = sessionStorage.getItem('sortBy') || SortOrder.Downloads;
+  @Input() sortBy = SortOrder.Downloads;
   @Output() sortByChange = new EventEmitter<SortOrder>();
   @Input() sortHidden = false;
-  ngOnInit() {}
+  @Input() useRouterQuery = false;
+  ngOnInit() {
+    if (this.useRouterQuery) {
+      this.sortBy =
+        (this.route.snapshot.queryParamMap.get('order') as any) ||
+        SortOrder.Downloads;
+    }
+  }
   change(order: SortOrder) {
-    sessionStorage.setItem('sortBy', order);
     this.sortBy = order;
     this.sortByChange.emit(order);
+
+    if (this.useRouterQuery) {
+      this.router.navigate([], { queryParams: { order } });
+    }
   }
 }
 
 export enum SortOrder {
-  Downloads = 'Download',
-  Score = 'Rate',
+  Downloads = 'download',
+  Score = 'score',
 }

@@ -21,7 +21,7 @@ Build-Depends:
  golang-github-linuxdeepin-go-dbus-factory-dev,
  golang-github-go-ini-ini-dev,
  libdframeworkdbus-dev,
- nodejs-bin (>=10) | nodejs (>=10) | node (>=10)
+ nodejs-bin (>=10) [amd64] | nodejs (>=10) [amd64] | node (>=10) [amd64]
 Standards-Version: 3.9.5
 Homepage: https://deepin.org
 Vcs-Git: https://cr.deepin.io/dstore/deepin-appstore
@@ -35,8 +35,8 @@ Depends:${shlibs:Depends}, ${misc:Depends},
  libqt5sql5-sqlite,
  deepin-sync-daemon,
  deepin-deepinid-client,
- deepin-appstore-data [!mips64el],
- deepin-appstore-data-aot [mips64el]
+ deepin-appstore-data (=${binary:Version}) [!mips64el],
+ deepin-appstore-data-aot (=${binary:Version}) [mips64el]
 Replaces: dstore-client
 Description: Deepin App Store
  Deepin App Store Client.

@@ -37,19 +37,6 @@ TitleBarMenu::~TitleBarMenu()
 
 }
 
-void TitleBarMenu::setRegion(bool is_china)
-{
-    if (!SettingsManager::instance()->allowSwitchRegion()) {
-        qWarning() << "Do not allow switching regions";
-        return;
-    }
-    if (is_china) {
-        region_china_->setChecked(true);
-    } else {
-        region_international_->setChecked(true);
-    }
-}
-
 void TitleBarMenu::setThemeName(QString theme_name)
 {
     theme_name_ = theme_name;
@@ -69,46 +56,20 @@ void TitleBarMenu::initActions()
                         this, &TitleBarMenu::recommendAppRequested);
     }
 
-    QMenu *region_menu = nullptr;
-    if (SettingsManager::instance()->allowSwitchRegion()) {
-        region_menu = this->addMenu(QObject::tr("Select region"));
-    } else {
-        region_menu = new QMenu();
-        connect(this, &QObject::destroyed,
-                region_menu, &QMenu::deleteLater);
-    }
-    region_china_ = region_menu->addAction(QObject::tr("China"));
-    region_china_->setCheckable(true);
-    region_international_ = region_menu->addAction(QObject::tr("International"));
-    region_international_->setCheckable(true);
-    region_group_ = new QActionGroup(this);
-    region_group_->setExclusive(true);
-    region_group_->addAction(region_china_);
-    region_group_->addAction(region_international_);
-
-    const OperationServerRegion curr_region = SettingsManager::instance()->getRegion();
-    if (curr_region == RegionChina) {
-        region_china_->setChecked(true);
-    } else {
-        region_international_->setChecked(true);
-    }
-
-    connect(region_group_, &QActionGroup::triggered,
-            this, &TitleBarMenu::onRegionGroupTriggered);
 
     this->addAction(QObject::tr("Clear cache"),
                     this, &TitleBarMenu::clearCacheRequested);
 
-    theme_name_ = SettingsManager::instance()->getThemeName();
+    theme_name_ = SettingsManager::instance()->themeName();
     switch_theme_action_ = this->addAction(QObject::tr("Dark theme"));
     switch_theme_action_->setCheckable(true);
     connect(switch_theme_action_, &QAction::triggered,
             this, &TitleBarMenu::onThemeActionTriggered);
     this->setThemeName(theme_name_);
 
-    // privacy_agreement_action_ = this->addAction(QObject::tr("Privacy agreement"));
-    // connect(privacy_agreement_action_, &QAction::triggered,
-    //         this, &TitleBarMenu::privacyAgreementRequested);
+    privacy_agreement_action_ = this->addAction(QObject::tr("Privacy Policy"));
+    connect(privacy_agreement_action_, &QAction::triggered,
+            this, &TitleBarMenu::privacyAgreementRequested);
 
     this->addSeparator();
 }
@@ -124,15 +85,5 @@ void TitleBarMenu::onThemeActionTriggered()
     emit this->switchThemeRequested(theme_name_);
 }
 
-void TitleBarMenu::onRegionGroupTriggered(QAction *action)
-{
-    OperationServerRegion region = RegionInternational;
-    if (action == region_china_) {
-        region = RegionChina;
-    }
-    SettingsManager::instance()->setRegion(region);
-
-    emit this->regionChanged();
-}
 
 }  // namespace dstore

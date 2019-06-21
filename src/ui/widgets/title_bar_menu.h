@@ -33,12 +33,10 @@ class TitleBarMenu : public QMenu {
  signals:
   void switchThemeRequested(QString themeName);
   void recommendAppRequested();
-  void regionChanged();
   void clearCacheRequested();
   void privacyAgreementRequested();
 
  public slots:
-  void setRegion(bool is_china);
   void setThemeName(QString themeName);
 
  private:
@@ -46,17 +44,12 @@ class TitleBarMenu : public QMenu {
 
   bool support_sign_in_ = false;
 
-  QActionGroup* region_group_ = nullptr;
-  QAction* region_china_ = nullptr;
-  QAction* region_international_ = nullptr;
   QString theme_name_ = "light";
   QAction* switch_theme_action_ = nullptr;
-  // TODO: just hide it now
   QAction* privacy_agreement_action_ = nullptr;
 
  private slots:
   void onThemeActionTriggered();
-  void onRegionGroupTriggered(QAction* action);
 };
 
 }  // namespace dman

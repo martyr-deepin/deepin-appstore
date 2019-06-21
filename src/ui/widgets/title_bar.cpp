@@ -125,6 +125,18 @@ void TitleBar::saveUserAvatar(const QImage &image, const QString &filePath)
 //    avatar_button_->setPalette(palette);
 }
 
+void TitleBar::refreshAvatar()
+{
+    if (user_name_.isEmpty()) {
+        return;
+    }
+
+    QDir cache_dir(dstore::GetCacheDir());
+    auto avatarPath = cache_dir.filePath("avatar.png");
+    auto style = QString("#AvatarButtonUser {border-image: url(%1);}").arg(avatarPath);
+    avatar_button_->setStyleSheet(style);
+}
+
 void TitleBar::initConnections()
 {
     connect(back_button_, &Dtk::Widget::DImageButton::clicked,
@@ -216,8 +228,7 @@ void TitleBar::initUI(bool support_sign_in)
     this->setLayout(main_layout);
     this->setAttribute(Qt::WA_TranslucentBackground, true);
 
-    // TODO: fixme, why avatar_button_ not update???
-    Dtk::Widget::DThemeManager::instance()->registerWidget(avatar_button_, "dstore--TitleBar.theme");
+    Dtk::Widget::DThemeManager::instance()->registerWidget(avatar_button_, "dstore--TitleBar");
     Dtk::Widget::DThemeManager::instance()->registerWidget(this);
 
     if (!support_sign_in) {

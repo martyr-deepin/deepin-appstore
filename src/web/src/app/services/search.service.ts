@@ -8,19 +8,12 @@ import { Channel } from 'app/modules/client/utils/channel';
 })
 export class SearchService {
   constructor(private zone: NgZone) {}
+  openApp$ = Channel.connect<string>('search.openApp');
+  openAppList$ = Channel.connect<string>('search.openAppList');
+  requestComplement$ = Channel.connect<string>('search.requestComplement');
 
-  onOpenApp(): Observable<string> {
-    return Channel.connect<string>('search.openApp');
-  }
-
-  onOpenAppList(): Observable<SearchResult> {
-    return new Observable(obs => {
-      Channel.connect<[string, string[]]>('search.openAppList').subscribe(
-        ([keyword, appNameList]) => {
-          obs.next({ keyword, appNameList });
-        },
-      );
-    });
+  setComplementList(list: { name: string; localName: string }[]) {
+    Channel.exec('search.setComplementList', list);
   }
 }
 

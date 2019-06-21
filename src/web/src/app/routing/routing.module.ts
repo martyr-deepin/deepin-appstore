@@ -8,30 +8,25 @@ const routes: Routes = [
     redirectTo: 'index',
     pathMatch: 'full',
   },
-  // 保持导航关联
-  {
-    path: 'app/:appName',
-    loadChildren: 'app/modules/details/details.module#DetailsModule',
-  },
+  // home page
   {
     path: 'index',
     loadChildren: 'app/modules/index/index.module#IndexModule',
   },
+  // detail page
   {
-    path: 'category',
-    loadChildren: 'app/modules/category/category.module#CategoryModule',
+    path: 'app/:appName',
+    loadChildren: 'app/modules/details/details.module#DetailsModule',
   },
+  // list page
   {
-    path: 'ranking',
-    loadChildren: 'app/modules/ranking/ranking.module#RankingModule',
+    path: 'list/:name/:value',
+    loadChildren: 'app/modules/list/list.module#ListModule',
   },
+  // download mana
   {
     path: 'download',
     loadChildren: 'app/modules/download/download.module#DownloadModule',
-  },
-  {
-    path: 'uninstall',
-    redirectTo: 'my/apps',
   },
   {
     path: 'my/apps',
@@ -46,14 +41,6 @@ const routes: Routes = [
     path: 'my/donates',
     loadChildren: 'app/modules/my-donates/my-donates.module#MyDonatesModule',
     canActivate: [AuthGuardService],
-  },
-  {
-    path: 'search',
-    loadChildren: 'app/modules/search/search.module#SearchModule',
-  },
-  {
-    path: 'tag/:tag',
-    loadChildren: 'app/modules/tags/tags.module#TagsModule',
   },
 ];
 @NgModule({

@@ -1,0 +1,8 @@
+<section>
+  <header>{{ titles | fitLanguage }}</header>
+  <footer>
+    <ng-container *ngIf="more">
+      <a [routerLink]="more" i18n>More</a>
+    </ng-container>
+  </footer>
+</section>

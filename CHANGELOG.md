@@ -1,20 +1,20 @@
-<a name="5.2.3.0"></a>
-## 5.2.3.0 (2019-06-05)
+<a name="5.3.0.0"></a>
+## 5.3.0.0 (2019-06-21)
 
 
 #### Bug Fixes
 
-*   update submodule repo url ([202c760d](https://github.com/linuxdeepin/deepin-appstore/commit/202c760daf384d73cad44aadc5f87f5dc43e916d))
-*   donation deleted app ([eca5f1d5](https://github.com/linuxdeepin/deepin-appstore/commit/eca5f1d54b16f3ea42461701ad4dc8b2771c4ab2))
-*   avatar button no update ([8cc51429](https://github.com/linuxdeepin/deepin-appstore/commit/8cc51429b507165a56721a7f4e62ceb2b95dc324))
+*   index topic cover width ([1022a14f](https://github.com/linuxdeepin/deepin-appstore/commit/1022a14fb792a7dbdbf97fd1cc242c4e6966bfb4))
 
-#### Features
 
-*   web hidden login ([87319da3](https://github.com/linuxdeepin/deepin-appstore/commit/87319da311cd148a20f49aa558d4b8eca3d8ee14))
-*   support config sign ([3f5a10e1](https://github.com/linuxdeepin/deepin-appstore/commit/3f5a10e1c7bf2c1b56c377f77b5489c413b4d57f))
-*   disable dxcb on none amd64 ([704768fd](https://github.com/linuxdeepin/deepin-appstore/commit/704768fd043f326970a460cca9bda1898042d666))
-*   add Privacy agreement ([9f512299](https://github.com/linuxdeepin/deepin-appstore/commit/9f5122993fe6fb69210e6e2bcd8f871614909a43))
-*   use agreement api ([7804de4a](https://github.com/linuxdeepin/deepin-appstore/commit/7804de4ab38b378fe4ae1fd7be14e9d5ddc184a6))
+
+<a name="5.2.9.3"></a>
+## 5.2.9.3 (2019-06-21)
+
+
+#### Bug Fixes
+
+*   i18n error ([90a5ff31](https://github.com/linuxdeepin/deepin-appstore/commit/90a5ff3126aec9fea78f5fb4c4bb102419c959cd))
 
 
 

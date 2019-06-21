@@ -21,33 +21,38 @@
 #include <QDBusArgument>
 #include <QDebug>
 #include <QList>
+#include <QMap>
 #include <QString>
 #include <QVariant>
 
 struct InstalledAppInfo {
- public:
-  InstalledAppInfo();
-  ~InstalledAppInfo();
+public:
+    InstalledAppInfo();
+    ~InstalledAppInfo();
 
-  static void registerMetaType();
+    static void registerMetaType();
 
-  inline bool operator==(const InstalledAppInfo& other) const {
-    return this->pkg_name == other.pkg_name;
-  }
+    inline bool operator==(const InstalledAppInfo &other) const
+    {
+        return this->packageName == other.packageName;
+    }
 
-  friend QDebug operator<<(QDebug debug, const InstalledAppInfo& info);
-  friend QDBusArgument& operator<<(QDBusArgument& argument,
-                                   const InstalledAppInfo& info);
-  friend QDataStream& operator<<(QDataStream& stream,
-                                 const InstalledAppInfo& info);
-  friend const QDBusArgument& operator>>(const QDBusArgument& argument,
-                                         InstalledAppInfo& info);
-  friend const QDataStream& operator>>(QDataStream& stream,
-                                       InstalledAppInfo& info);
+    friend QDebug operator<<(QDebug debug, const InstalledAppInfo &info);
+    friend QDBusArgument &operator<<(QDBusArgument &argument,
+                                     const InstalledAppInfo &info);
+    friend QDataStream &operator<<(QDataStream &stream,
+                                   const InstalledAppInfo &info);
+    friend const QDBusArgument &operator>>(const QDBusArgument &argument,
+                                           InstalledAppInfo &info);
+    friend const QDataStream &operator>>(QDataStream &stream,
+                                         InstalledAppInfo &info);
 
-  QString pkg_name;
-  QString version;
-  qint64 size;
+    QString packageName;
+    QString appName;
+    QString version;
+    qint64 size;
+    qint64 installationTime;
+    QMap<QString, QString>localeNames;
 };
 
 typedef QList<InstalledAppInfo> InstalledAppInfoList;

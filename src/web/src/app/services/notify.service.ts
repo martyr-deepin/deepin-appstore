@@ -6,8 +6,8 @@ import { first } from 'rxjs/operators';
 
 import { DstoreObject } from 'app/modules/client/utils/dstore-objects';
 import { Notify, NotifyType, NotifyStatus } from './notify.model';
-import { BaseService } from '../dstore/services/base.service';
 import { AuthService } from './auth.service';
+import { environment } from 'environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +15,7 @@ export class NotifyService {
   private notify$ = new ReplaySubject<Notify>(1);
   constructor(private http: HttpClient, private auth: AuthService) {
     this.getBulletin();
-    if (BaseService.isNative) {
+    if (environment.native) {
       DstoreObject.clearArchives().subscribe(() => {
         this.success(NotifyType.Clear);
       });
@@ -24,13 +24,12 @@ export class NotifyService {
 
   private getBulletin() {
     this.http
-      .get(BaseService.serverHosts.operationServer + '/api/bulletin', {
+      .get(environment.operationServer + '/api/bulletin', {
         responseType: 'text',
       })
       .subscribe(body => {
-        const { bulletin }: { bulletin: Bulletin } = JSON.parse(
-          body,
-          (k: string, v) => (k.includes('Time') ? new Date(v) : v),
+        const { bulletin }: { bulletin: Bulletin } = JSON.parse(body, (k: string, v) =>
+          k.includes('Time') ? new Date(v) : v,
         );
         const t = new Date();
         if (bulletin.startTime <= t && bulletin.endTime > t) {
@@ -65,9 +64,7 @@ export class NotifyService {
   error(t: NotifyType) {
     const n = { status: NotifyStatus.Error, type: t, delay: 3000 };
     if (t === NotifyType.Recommend || t === NotifyType.Reminder) {
-      this.auth.logged$
-        .pipe(first())
-        .subscribe(logged => logged && this.notify(n));
+      this.auth.logged$.pipe(first()).subscribe(logged => logged && this.notify(n));
       return;
     }
     return this.notify(n);

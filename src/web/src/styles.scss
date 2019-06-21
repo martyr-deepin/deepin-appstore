@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'theme';
+html {
+  font-size: 13px;
+}
 body {
   margin: 0;
   user-select: none;
@@ -58,15 +61,6 @@ select {
   height: 48px;
   min-width: 48px;
   min-height: 48px;
-  &::before {
-    position: absolute;
-    content: '';
-    background-color: white;
-    background-image: url('/assets/images/default_icon.svg');
-    background-size: 100%;
-    width: 100%;
-    height: 100%;
-  }
 }
 
 .tips_bg {
@@ -112,6 +106,12 @@ dialog {
 }
 img {
   cursor: pointer;
+}
+.cursor {
+  cursor: pointer;
+}
+.select {
+  user-select: auto;
 }
 
 @media (max-width: 600px) {

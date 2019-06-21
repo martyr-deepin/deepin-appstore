@@ -1,4 +1,4 @@
-import { environment } from 'environments/environment.prod';
+import { environment } from 'environments/environment';
 
 export class DstoreApp {
   name = '';
@@ -16,9 +16,7 @@ export class DstoreApp {
     }
     if (app.images) {
       this.cover = app.images
-        .filter(img =>
-          [ImgType.ImgCover, ImgType.ImgCoverHD].includes(img.type),
-        )
+        .filter(img => [ImgType.ImgCover, ImgType.ImgCoverHD].includes(img.type))
         .sort((a, b) => {
           return imageEvaluate(b) - imageEvaluate(a);
         })[0].path;
@@ -53,10 +51,7 @@ function descriptionEvaluate(desc: Description): number {
   return value;
 }
 // 评估不同语言优先级
-function localeEvaluate(
-  locale: string,
-  list = [...navigator.languages],
-): number {
+function localeEvaluate(locale: string, list = [...navigator.languages]): number {
   const index = list.indexOf(locale.replace('_', '-'));
   if (index === -1) {
     return 0;

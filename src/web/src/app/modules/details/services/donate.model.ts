@@ -1,5 +1,8 @@
-import { Error } from 'app/dstore/services/errno';
-
+export interface Error {
+  code: number;
+  content: string;
+  key: string;
+}
 export enum Payment {
   AliPay = 1,
   WeChat,

@@ -1,30 +1,14 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  OnChanges,
-} from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Observable, concat, forkJoin } from 'rxjs';
+import { Component, OnInit, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { DomSanitizer } from '@angular/platform-browser';
+import { forkJoin } from 'rxjs';
 import * as _ from 'lodash';
 
 import smoothScrollIntoView from 'smooth-scroll-into-view-if-needed';
 
 import { AuthService, UserInfo } from 'app/services/auth.service';
-import { BaseService } from 'app/dstore/services/base.service';
 import { CommentService, Comment } from '../../services/comment.service';
-import { encodeUriQuery } from '@angular/router/src/url_tree';
-import { shareReplay, switchMap, filter, tap } from 'rxjs/operators';
-import { SizeHuman } from 'app/dstore/pipes/size-human';
+import { switchMap, filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'dstore-app-comment',
@@ -49,6 +33,7 @@ export class AppCommentComponent implements OnInit, OnChanges {
     private authService: AuthService,
     private commentService: CommentService,
   ) {}
+  @ViewChild('commentRef', { static: true }) commentRef: ElementRef<HTMLDivElement>;
   @Input()
   appName: string;
   @Input()
@@ -111,16 +96,12 @@ export class AppCommentComponent implements OnInit, OnChanges {
       .list(this.appName, {
         page: this.page.index + 1,
         count: this.page.size,
-        [this.select === CommentType.News ? 'version' : 'excludeVersion']: this
-          .version,
+        [this.select === CommentType.News ? 'version' : 'excludeVersion']: this.version,
       })
       .subscribe(
         result => {
           if (this.page.index === 0 && result.hot) {
-            const hot = _.sortBy(result.hot, [
-              'likeCount',
-              'createTime',
-            ]).reverse();
+            const hot = _.sortBy(result.hot, ['likeCount', 'createTime']).reverse();
             hot.forEach(c => (c.hot = true));
             this.list = [...hot, ...result.comments];
           } else {
@@ -172,28 +153,21 @@ export class AppCommentComponent implements OnInit, OnChanges {
       this.comment.error = CommentError.RateInvalid;
       return;
     }
-    this.commentService
-      .create(
-        this.appName,
-        this.comment.content,
-        this.comment.rate * 2,
-        this.version,
-      )
-      .subscribe(
-        () => {
-          this.getOwn();
-          this.selectType(CommentType.News);
-          this.comment = {
-            rate: 0,
-            content: '',
-            error: null,
-          };
-          this.haveNewComment = true;
-        },
-        err => {
-          this.comment.error = CommentError.Failed;
-        },
-      );
+    this.commentService.create(this.appName, this.comment.content, this.comment.rate * 2, this.version).subscribe(
+      () => {
+        this.getOwn();
+        this.selectType(CommentType.News);
+        this.comment = {
+          rate: 0,
+          content: '',
+          error: null,
+        };
+        this.haveNewComment = true;
+      },
+      err => {
+        this.comment.error = CommentError.Failed;
+      },
+    );
   }
 
   thumbUpClick(c: Comment) {
@@ -209,7 +183,11 @@ export class AppCommentComponent implements OnInit, OnChanges {
       });
     }
   }
-
+  commentTop() {
+    smoothScrollIntoView(this.commentRef.nativeElement, {
+      block: 'start',
+    });
+  }
   scrollToTop() {
     smoothScrollIntoView(document.querySelector('.appInfo'), {
       block: 'start',
@@ -220,7 +198,7 @@ enum CommentType {
   News,
   History,
 }
-enum CommentError {
+export enum CommentError {
   Unknown,
   RateInvalid,
   CommentInvalid,

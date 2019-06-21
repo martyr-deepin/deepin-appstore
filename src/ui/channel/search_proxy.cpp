@@ -21,6 +21,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QVariant>
 
 namespace dstore
 {
@@ -35,51 +36,17 @@ SearchProxy::~SearchProxy()
 
 }
 
-void SearchProxy::updateAppList(const QString &apps)
+void SearchProxy::setComplementList(const QVariantList &apps)
 {
-    // Un-marshal app list.
-    const QJsonDocument doc = QJsonDocument::fromJson(apps.toUtf8());
-    if (!doc.isArray()) {
-        qWarning() << Q_FUNC_INFO << "apps is not an array!";
-        return;
+    SearchMetaList result;
+    for (auto &app : apps) {
+        auto var = app.toMap();
+        SearchMeta meta;
+        meta.name = var.value("name").toString();
+        meta.local_name = var.value("local_name").toString();
+        result.push_back(meta);
     }
-    const QJsonArray apps_array = doc.array();
-
-    SearchMetaList record_list;
-
-    for (const QJsonValue &app_value : apps_array) {
-        if (!app_value.isObject()) {
-            qWarning() << Q_FUNC_INFO << "app is not object:" << app_value;
-            continue;
-        }
-        const QJsonObject app = app_value.toObject();
-        const QString name = app.value("name").toString();
-        const QJsonObject local_info = app.value("localInfo").toObject();
-        const QJsonObject description = local_info.value("description").toObject();
-        const QString local_name = description.value("name").toString();
-        const QString slogan = description.value("slogan").toString();
-        const QString local_desc = description.value("description").toString();
-        const QJsonArray package_uri_arr = app.value("packageURI").toArray();
-        QStringList package_uris;
-        for (const QVariant &item : package_uri_arr.toVariantList()) {
-            package_uris.append(item.toString());
-        }
-        record_list.append(SearchMeta {
-            name,
-            local_name,
-            slogan,
-            local_desc,
-            package_uris,
-            {},
-            {},
-        });
-    }
-
-    if (record_list.isEmpty()) {
-        qWarning() << Q_FUNC_INFO << "record list is empty!" << apps;
-    } else {
-        emit this->onAppListUpdated(record_list);
-    }
+    Q_EMIT searchAppResult(result);
 }
 
 }  // namespace dstore

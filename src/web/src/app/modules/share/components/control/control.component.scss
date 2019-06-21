@@ -1,0 +1,20 @@
+:host {
+  position: relative;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.circle-control {
+  background-repeat: no-repeat;
+  background-position: center;
+  &:not(.disabled) {
+    background-image: var(--start-icon);
+    &.running {
+      background-image: var(--pause-icon);
+    }
+  }
+}
+.control {
+  width: 100%;
+}

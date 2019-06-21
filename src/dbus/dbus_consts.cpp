@@ -17,18 +17,21 @@
 
 #include "dbus/dbus_consts.h"
 
-namespace dstore {
+namespace dstore
+{
 
 const char kAppStoreDbusPath[] = "/com/deepin/AppStore";
 const char kAppStoreDbusService[] = "com.deepin.AppStore";
-
-const char kLastoreDebDbusPath[] = "/com/deepin/AppStore/Backend";
-const char kLastoreDebDbusService[] = "com.deepin.AppStore.Daemon";
 
 const char kAppstoreDaemonService[] = "com.deepin.AppStore.Daemon";
 const char kAppstoreDaemonPath[] = "/com/deepin/AppStore/Metadata";
 const char kAppstoreDaemonInterface[] = "com.deepin.AppStore.Metadata";
 
+const char kAppstoreDaemonSettingsPath[] = "/com/deepin/AppStore/Settings";
+const char kAppstoreDaemonSettingsInterface[] = "com.deepin.AppStore.Settings";
+
+const char kLastoreDebDbusPath[] = "/com/deepin/AppStore/Backend";
+const char kLastoreDebDbusService[] = "com.deepin.AppStore.Daemon";
 const char kLastoreDebJobService[] = "com.deepin.AppStore.Daemon";
 
 }  // namespace dstore

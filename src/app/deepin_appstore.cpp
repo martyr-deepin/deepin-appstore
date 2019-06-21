@@ -58,8 +58,6 @@ int main(int argc, char **argv)
         settings.setLogSeverity(QCefGlobalSettings::LogSeverity::Error);
     }
 
-    settings.setIgnoresCertificateErrors(true);
-
     // Disable GPU process.
     settings.addCommandLineSwitch(kDisableGpu, "");
 
@@ -79,7 +77,7 @@ int main(int argc, char **argv)
     settings.addCommandLineSwitch(kLogLevel, "0");
     settings.addCommandLineSwitch("--use-views", "");
 
-    auto themName = dstore::SettingsManager::instance()->getThemeName();
+    auto themName = dstore::SettingsManager::instance()->themeName();
     settings.setCustomSchemeHandler(dstore::RccSchemeHandler);
     settings.addCustomScheme(QUrl("rcc://web"));
     settings.setBackgroundColor(dstore::BackgroundColor(themName));

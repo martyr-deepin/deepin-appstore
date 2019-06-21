@@ -3,22 +3,16 @@
   <ng-container *ngIf="dialog.open">
     <div class="title" i18n>Please select the apps to install</div>
     <div class="container">
-      <ng-container *ngIf="(apps$ | async) as apps">
+      <ng-container *ngIf="apps$ | async as apps">
         <dstore-scrollbar [full]="true">
           <div class="app-list">
-            <div
-              class="app"
-              dstoreHover
-              #dstoreHover="dstoreHover"
-              *ngFor="let app of apps"
-              (click)="touch(app)"
-            >
+            <div class="app" dstoreHover #dstoreHover="dstoreHover" *ngFor="let app of apps" (click)="touch(app)">
               <dstore-checkbox-button
                 [class.hover]="dstoreHover.hover"
                 [disabled]="!upgrade(app)"
                 [value]="batchInstall.has(app.name)"
               ></dstore-checkbox-button>
-              <img [src]="app.icon" /> {{ app.localInfo.description.name }}
+              <img [src]="app.info.icon" /> {{ app.info.name }}
             </div>
             <div class="empty"></div>
             <div class="empty"></div>

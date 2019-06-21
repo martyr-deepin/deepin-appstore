@@ -35,7 +35,6 @@
 #include <qcef_global_settings.h>
 
 #include "base/consts.h"
-#include "services/search_manager.h"
 #include "services/settings_manager.h"
 #include "ui/web_event_delegate.h"
 #include "ui/channel/image_viewer_proxy.h"
@@ -82,7 +81,7 @@ void BackupWindowState(QWidget *widget)
 void RestoreWindowState(QWidget *widget)
 {
     Q_ASSERT(widget != nullptr);
-    QByteArray data = SettingsManager::instance()->getWindowState();
+    QByteArray data = SettingsManager::instance()->windowState();
     QBuffer readBuffer(&data);
     readBuffer.open(QIODevice::ReadOnly);
     QDataStream in(&readBuffer);
@@ -211,15 +210,8 @@ void WebWindow::initConnections()
     connect(image_viewer_, &ImageViewer::nextImageRequested,
             image_viewer_proxy_, &ImageViewerProxy::onNextImageRequested);
 
-    connect(search_manager_, &SearchManager::searchAppResult,
+    connect(search_proxy_, &SearchProxy::searchAppResult,
             this, &WebWindow::onSearchAppResult);
-    connect(search_manager_, &SearchManager::completeSearchAppResult,
-            this, &WebWindow::onCompleteSearchAppResult);
-
-    connect(search_proxy_, &SearchProxy::onAppListUpdated,
-            search_manager_, &SearchManager::updateAppList);
-    connect(search_proxy_, &SearchProxy::onAppListUpdated,
-            store_daemon_proxy_, &StoreDaemonProxy::updateAppList);
 
     connect(search_timer_, &QTimer::timeout,
             this, &WebWindow::onSearchTextChangedDelay);
@@ -255,8 +247,6 @@ void WebWindow::initConnections()
             menu_proxy_, &MenuProxy::switchThemeRequested);
     connect(tool_bar_menu_, &TitleBarMenu::switchThemeRequested,
             this, &WebWindow::onThemeChaged);
-    connect(tool_bar_menu_, &TitleBarMenu::regionChanged,
-            this, &WebWindow::onRegionChanged);
     connect(tool_bar_menu_, &TitleBarMenu::clearCacheRequested,
             store_daemon_proxy_, &StoreDaemonProxy::clearArchives);
 
@@ -367,7 +357,6 @@ void WebWindow::initUI()
 
 void WebWindow::initServices()
 {
-    search_manager_ = new SearchManager(this);
 }
 
 bool WebWindow::eventFilter(QObject *watched, QEvent *event)
@@ -414,10 +403,8 @@ void WebWindow::focusInEvent(QFocusEvent *event)
     web_view_->setFocus();
 }
 
-void WebWindow::onSearchAppResult(const QString &keyword,
-                                  const SearchMetaList &result)
+void WebWindow::onSearchAppResult(const SearchMetaList &result)
 {
-    Q_UNUSED(keyword);
     completion_window_->setSearchResult(result);
 
     if (result.isEmpty()) {
@@ -434,20 +421,6 @@ void WebWindow::onSearchAppResult(const QString &keyword,
         completion_window_->setFocusPolicy(Qt::NoFocus);
         completion_window_->setFocusPolicy(Qt::StrongFocus);
     }
-}
-
-void WebWindow::onCompleteSearchAppResult(const QString &keyword,
-        const SearchMetaList &result)
-{
-    Q_UNUSED(keyword);
-
-    // Show search page in web.
-    QStringList names;
-    for (const SearchMeta &app : result) {
-        names.append(app.name);
-    }
-    emit search_proxy_->openAppList(completion_window_->getKeyword(), names);
-    completion_window_->hide();
 }
 
 void WebWindow::onSearchEditFocusOut()
@@ -480,15 +453,17 @@ void WebWindow::prepareSearch(bool entered)
 
     // Do real search.
     if (entered) {
-        search_manager_->completeSearchApp(text);
+        Q_EMIT search_proxy_->openAppList(text);
+        completion_window_->hide();
     } else {
-        search_manager_->searchApp(text);
+        Q_EMIT search_proxy_->requestComplement(text);
     }
 }
 
 void WebWindow::onSearchResultClicked(const SearchMeta &result)
 {
     // Emit signal to web page.
+    completion_window_->hide();
     emit search_proxy_->openApp(result.name);
 }
 
@@ -513,6 +488,7 @@ void WebWindow::onTitleBarEntered()
 void WebWindow::onThemeChaged(const QString theme_name)
 {
     Dtk::Widget::DThemeManager::instance()->setTheme(theme_name);
+    title_bar_->refreshAvatar();
 }
 
 void WebWindow::onWebViewUrlChanged(const QUrl &url)
@@ -526,11 +502,6 @@ void WebWindow::onLoadingStateChanged(bool,
 {
     title_bar_->setBackwardButtonActive(can_go_back);
     title_bar_->setForwardButtonActive(can_go_forward);
-}
-
-void WebWindow::onRegionChanged()
-{
-    this->loadPage();
 }
 
 void WebWindow::webViewGoBack()
@@ -548,7 +519,9 @@ void WebWindow::webViewGoForward()
         page->forward();
     }
 }
-void WebWindow::onFullscreenRequest(bool fullscreen) {
+
+void WebWindow::onFullscreenRequest(bool fullscreen)
+{
     if (fullscreen) {
         this->titlebar()->hide();
         this->showFullScreen();

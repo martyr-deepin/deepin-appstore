@@ -1,0 +1,11 @@
+<ng-container *ngFor="let c of carousels; index as index">
+  <img [@carousel]="state[index] || 'hidden'" (click)="click$.next(state[index])" [src]="c.images | fitImage" />
+</ng-container>
+
+<div class="indicationList">
+  <div *ngFor="let items of carousels; index as index" (click)="goto(index)">
+    <div class="indicationItem" [class.active]="state[index] == 'center'"></div>
+  </div>
+</div>
+
+{{ running$ | async }}

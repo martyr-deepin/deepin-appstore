@@ -24,8 +24,6 @@
 namespace dstore
 {
 
-class SettingsManager;
-
 /**
  * Expose backend settings to web page.
  */
@@ -34,21 +32,17 @@ class SettingsProxy : public QObject
     Q_OBJECT
 public:
     explicit SettingsProxy(QObject *parent = nullptr);
-    ~SettingsProxy() override;
 
 Q_SIGNALS:
     void raiseWindowRequested();
     void fontChangeRequested(const QString &fontFamily, int pixelSize);
 
 public Q_SLOTS:
-    bool remoteDebug();
-
-    const QString getMetadataServer();
-    const QString getOperationServer();
-
-    bool getAutoInstall();
-
-    bool allowShowPackageName();
+    /**
+     * Returns metadata server and operation server address.
+     * @return
+     */
+    const QVariantMap getSettings();
 
     /**
      * Allow auto install software
@@ -61,22 +55,11 @@ public Q_SLOTS:
      */
     void openUrl(const QString &url);
 
-    /**
-     * Returns metadata server and operation server address.
-     * @return
-     */
-    const QVariantMap getServers();
 
     /**
      * Raise main window.
      */
     void raiseWindow();
-
-    /**
-     * Check whether UPYun banner should be shown in app-detail page.
-     * @return bool
-     */
-    bool upyunBannerVisible();
 };
 
 }  // namespace dstore

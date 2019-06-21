@@ -1,16 +1,9 @@
 import { Observable } from 'rxjs';
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
-import { AppService, App } from 'app/services/app.service';
 import { UserComment, CommentsService } from '../../services/comments.service';
+import { Software, SoftwareService } from 'app/services/software.service';
+import { CommentError } from 'app/modules/details/components/comment/app-comment.component';
 
 @Component({
   selector: 'dstore-edit',
@@ -18,14 +11,14 @@ import { UserComment, CommentsService } from '../../services/comments.service';
   styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
-  @ViewChild('dialog')
+  @ViewChild('dialog', { static: true })
   dialogRef: ElementRef<HTMLDialogElement>;
   deleteConfirm: boolean;
-  app$: Observable<App>;
   content: string;
   rate: number;
   version: string;
-  error: boolean;
+  CommentError = CommentError;
+  error: CommentError;
   _comment: UserComment;
   @Output()
   close = new EventEmitter<boolean>();
@@ -38,12 +31,11 @@ export class EditComponent implements OnInit {
     this.content = c.content;
     this.rate = c.rate / 2;
     this.version = c.version;
-    this.app$ = this.appService.getApp(c.appName, false, false);
   }
-  constructor(
-    private commentService: CommentsService,
-    private appService: AppService,
-  ) {}
+  get comment() {
+    return this._comment;
+  }
+  constructor(private commentService: CommentsService, private softwareService: SoftwareService) {}
 
   ngOnInit() {
     this.dialogRef.nativeElement.addEventListener('close', () => {
@@ -54,6 +46,11 @@ export class EditComponent implements OnInit {
     this.close.emit(changed);
   }
   submit() {
+    if (!this.content.trim()) {
+      this.error = CommentError.CommentInvalid;
+      return;
+    }
+
     this.commentService
       .update(this._comment.id, {
         appName: this._comment.appName,
@@ -66,7 +63,7 @@ export class EditComponent implements OnInit {
         this.closed();
       })
       .catch(() => {
-        this.error = true;
+        this.error = CommentError.Failed;
       });
   }
   delete() {

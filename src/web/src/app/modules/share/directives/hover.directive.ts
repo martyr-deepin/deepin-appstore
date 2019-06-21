@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnDestroy } from '@angular/core';
+import { Directive, HostListener, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { HoverService } from '../services/hover.service';
@@ -7,15 +7,14 @@ import { HoverService } from '../services/hover.service';
   selector: '[dstoreHover]',
   exportAs: 'dstoreHover',
 })
-export class HoverDirective implements OnDestroy {
+export class HoverDirective {
   hover = false;
-  private hover$: Subscription;
-  constructor(private el: ElementRef, private hoverService: HoverService) {
-    this.hover$ = this.hoverService.hoverElement().subscribe(els => {
-      this.hover = els.includes(this.el.nativeElement);
-    });
+  constructor() {}
+  @HostListener('mouseover') mouseover() {
+    this.hover = true;
   }
-  ngOnDestroy() {
-    this.hover$.unsubscribe();
+  @HostListener('mouseout') mouseout() {
+    this.hover = false;
+    console.log('out');
   }
 }

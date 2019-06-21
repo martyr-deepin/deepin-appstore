@@ -1,30 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
-import {
-  Observable,
-  of,
-  forkJoin,
-  timer,
-  iif,
-  merge,
-  Subscription,
-} from 'rxjs';
-import {
-  switchMap,
-  map,
-  tap,
-  filter,
-  publishReplay,
-  refCount,
-} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
+import { switchMap, filter } from 'rxjs/operators';
 
-import { AppService, App } from 'app/services/app.service';
 import { StoreService } from 'app/modules/client/services/store.service';
 import {
   StoreJobInfo,
@@ -33,8 +10,9 @@ import {
   CanFixError,
   StoreJobError,
   StoreJobErrorType,
-} from 'app/modules/client//models/store-job-info';
+} from 'app/modules/client/models/store-job-info';
 import { JobService } from 'app/services/job.service';
+import { SoftwareService, Software } from 'app/services/software.service';
 
 @Component({
   selector: 'dstore-download',
@@ -48,54 +26,50 @@ import { JobService } from 'app/services/job.service';
     ]),
   ],
 })
-export class DownloadComponent implements OnInit, OnDestroy {
+export class DownloadComponent implements OnInit {
   constructor(
-    private appService: AppService,
     private storeService: StoreService,
     private jobService: JobService,
+    private softwareService: SoftwareService,
   ) {}
 
   StoreJobType = StoreJobType;
   StoreJobStatus = StoreJobStatus;
-  StoreJobErrorType = StoreJobErrorType;
 
-  // 下载任务控制
-  start = this.storeService.resumeJob;
-  pause = this.storeService.pauseJob;
-
-  loaded = false;
-  result$ = this.jobService.jobsInfo().pipe(
-    map(jobs => {
-      return jobs
-        .filter(
-          job =>
-            job.type === StoreJobType.download ||
-            job.type === StoreJobType.install,
-        )
-        .sort((a, b) => b.createTime - a.createTime);
-    }),
-    switchMap(
-      jobs => {
-        const names = [].concat(...jobs.map(job => job.names));
-        return this.appService.getApps(names);
-      },
-      (jobs, apps) => {
-        return apps.map(app => ({
-          app,
-          job: jobs.find(job => job.names.includes(app.name)),
-        }));
-      },
-    ),
-  );
-
-  apps = new Map<string, App>();
-  jobs: StoreJobInfo[] = [];
-  cancels = new Set<string>();
   fixing = false;
+  cancelled = new Set<string>();
+  private soft_cache = new Map<string, Software>();
+  result$ = this.jobService.jobsInfo().pipe(
+    switchMap(async jobs => {
+      const names = jobs
+        .filter(job => [StoreJobType.install, StoreJobType.download].includes(job.type))
+        .reduce((acc, job) => [...acc, ...job.names], [] as string[])
+        .filter(name => !this.soft_cache.has(name));
+      if (names.length > 0) {
+        const softs = await this.softwareService.list({ names });
+        softs.forEach(soft => this.soft_cache.set(soft.name, soft));
+      }
+      return jobs.reduce(
+        (acc, job) => [
+          ...acc,
+          ...job.names.map(name => ({ job, soft: this.soft_cache.get(name) })).filter(v => v.soft),
+        ],
+        [] as { job: StoreJobInfo; soft: Software }[],
+      );
+    }),
+  );
+  floor = Math.floor;
+  // 下载任务控制
+  start = (id: string) => this.jobService.startJob(id);
+  pause = (id: string) => this.jobService.stopJob(id);
 
   ngOnInit() {}
-  ngOnDestroy() {}
 
+  cancel(job: string) {
+    this.cancelled.add(job);
+    this.jobService.clearJob(job);
+  }
+  // what ?
   retry(job: StoreJobInfo) {
     let err: StoreJobError;
     try {
@@ -104,17 +78,14 @@ export class DownloadComponent implements OnInit, OnDestroy {
       err = { ErrType: StoreJobErrorType.unknown, ErrDetail: job.description };
     }
 
-    this.storeService.resumeJob(job.job);
+    this.jobService.startJob(job.job);
 
     if (CanFixError.includes(err.ErrType)) {
       this.fixing = true;
       this.storeService
         .fixError(err.ErrType.toString().split('::')[1])
         .pipe(
-          switchMap(
-            () => this.storeService.jobListChange(),
-            (jobPath, jobList) => jobList.includes(jobPath),
-          ),
+          switchMap(() => this.storeService.jobListChange(), (jobPath, jobList) => jobList.includes(jobPath)),
           filter(exists => !exists),
         )
         .subscribe(() => {
@@ -122,13 +93,6 @@ export class DownloadComponent implements OnInit, OnDestroy {
           this.storeService.resumeJob(job.job);
         });
     }
-  }
-  cancel(job: string) {
-    this.cancels.add(job);
-    this.storeService.clearJob(job);
-  }
-  floor(n: number): number {
-    return Math.floor(n);
   }
   trackByFn(index, item) {
     return item.job.job;

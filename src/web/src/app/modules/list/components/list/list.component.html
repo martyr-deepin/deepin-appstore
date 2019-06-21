@@ -1,0 +1,27 @@
+<section class="item" *ngFor="let soft of list" [routerLink]="[soft.name]" [class.hover]="controlRef.show">
+  <ng-container>
+    <main>
+      <img dstoreCover="cover" [src]="soft?.info?.cover" />
+    </main>
+    <footer>
+      <div class="info">
+        <div class="name" [style.color]="nameColor">
+          {{ soft?.info?.name }}
+        </div>
+        <div class="subtitle" [style.color]="subtitleColor">
+          <div class="category">
+            {{ slogan ? soft?.info?.slogan : (soft?.info?.category | categoryText | async) }}
+          </div>
+          <dstore-star [rate]="soft?.stat?.score / 2"></dstore-star>
+        </div>
+      </div>
+      <div class="control">
+        <dstore-control #controlRef [soft]="soft"></dstore-control>
+      </div>
+    </footer>
+  </ng-container>
+</section>
+<section #loadingRef class="item wait">
+  <app-wait *ngIf="wait"></app-wait>
+</section>
+<section class="item" *ngFor="let empty of 7 | range" [style.height]="0" [style.padding]="0"></section>

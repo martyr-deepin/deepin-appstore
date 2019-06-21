@@ -1,20 +1,9 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {
-  switchMap,
-  share,
-  map,
-  first,
-  distinctUntilChanged,
-  publish,
-  retry,
-  shareReplay,
-  publishReplay,
-  refCount,
-} from 'rxjs/operators';
+import { switchMap, share, map, distinctUntilChanged, publishReplay, refCount } from 'rxjs/operators';
 
-import { AppService, App } from 'app/services/app.service';
 import { RemoteAppService } from './../../services/remote-app.service';
+import { Software } from 'app/services/software.service';
 
 @Component({
   selector: 'dstore-batch-install',
@@ -22,21 +11,19 @@ import { RemoteAppService } from './../../services/remote-app.service';
   styleUrls: ['./batch-install.component.scss'],
 })
 export class BatchInstallComponent implements OnInit {
-  @ViewChild('dialog')
+  @ViewChild('dialog', { static: true })
   dialogRef: ElementRef<HTMLDialogElement>;
   pageSize = 33;
-  batchInstall = new Map<string, App>();
+  batchInstall = new Map<string, Software>();
 
   pageIndex$ = new BehaviorSubject<number>(0);
   result$ = this.pageIndex$.pipe(
     distinctUntilChanged(),
-    switchMap(pageIndex =>
-      this.remoteAppService.RemoteAppList(pageIndex + 1, this.pageSize),
-    ),
+    switchMap(pageIndex => this.remoteAppService.RemoteAppList(pageIndex + 1, this.pageSize)),
     publishReplay(1),
     refCount(),
   );
-  length$ = this.result$.pipe(map(result => result.totalCount));
+  length$ = this.result$.pipe(map(result => result.total));
   apps$ = this.result$.pipe(
     map(result => {
       return result.apps.map(apps => apps.app);
@@ -54,10 +41,10 @@ export class BatchInstallComponent implements OnInit {
   hide() {
     this.dialogRef.nativeElement.close();
   }
-  upgrade(app: App): boolean {
-    return app.version && (!app.version.localVersion || app.version.upgradable);
+  upgrade(app: Software): boolean {
+    return app.package && (!app.package.localVersion || app.package.upgradable);
   }
-  touch(app: App) {
+  touch(app: Software) {
     if (!this.upgrade(app)) {
       return;
     }
@@ -67,17 +54,14 @@ export class BatchInstallComponent implements OnInit {
       this.batchInstall.set(app.name, app);
     }
   }
-  touchPage(apps: App[]) {
+  touchPage(apps: Software[]) {
     apps.forEach(app => {
       this.touch(app);
     });
   }
-  selectPage(apps: App[]) {
-    apps
-      .filter(app => this.upgrade(app))
-      .forEach(app => this.batchInstall.set(app.name, app));
+  selectPage(apps: Software[]) {
+    apps.filter(app => this.upgrade(app)).forEach(app => this.batchInstall.set(app.name, app));
   }
-
   installAll() {
     this.remoteAppService.installApps([...this.batchInstall.values()]);
     this.hide();

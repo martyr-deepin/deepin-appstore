@@ -1,64 +1,26 @@
-import { Component, OnInit, HostBinding, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
-import { get, parseInt } from 'lodash';
-import { Observable, forkJoin, iif, of } from 'rxjs';
-import { map, flatMap, tap, switchMap } from 'rxjs/operators';
-
-import { SectionTopic } from 'app/dstore/services/section';
-import { BaseService } from 'app/dstore/services/base.service';
-import { AppService } from 'app/services/app.service';
-
-import { App } from 'app/dstore/services/app';
-import { SectionService } from '../../services/section.service';
+import { Component, OnInit } from '@angular/core';
+import { SectionItemBase } from '../section-item-base';
+import { SectionTopic } from '../../services/section.service';
+import { KeyvalueService } from 'app/services/keyvalue.service';
 
 @Component({
-  selector: 'app-topic',
+  selector: 'index-topic',
   templateUrl: './topic.component.html',
   styleUrls: ['./topic.component.scss'],
 })
-export class TopicComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private appService: AppService,
-    private sectionService: SectionService,
-  ) {}
-  @ViewChild('topicContainer') topicContainer: ElementRef<HTMLDivElement>;
-
-  server = BaseService.serverHosts.operationServer;
-  topic: SectionTopic;
-  apps$: Observable<App[]>;
-
-  ngOnInit() {
-    this.route.paramMap
-      .pipe(
-        switchMap(
-          () => this.sectionService.getList(),
-          (param, sectionList) => {
-            const sectionIndex = parseInt(param.get('section'), 10);
-            const topicIndex = parseInt(param.get('topic'), 10);
-            return get(sectionList, [sectionIndex, 'items', topicIndex]) as SectionTopic;
-          },
-        ),
-      )
-      .subscribe(topic => {
-        this.topic = topic;
-        this.apps$ = this.appService.getApps(
-          topic.apps.filter(app => app.show).map(app => app.name),
-        );
-      });
+export class TopicComponent extends SectionItemBase implements OnInit {
+  constructor(private keyvalue: KeyvalueService) {
+    super();
   }
-
-  loaded() {
-    const el = this.topicContainer.nativeElement;
-
-    el.hidden = false;
-    Array.from(el.querySelectorAll<HTMLDivElement>('.name')).forEach(name => {
-      name.style.color = this.topic.nameColor;
-    });
-
-    Array.from(el.querySelectorAll<HTMLDivElement>('.subtitle')).forEach(subtitle => {
-      subtitle.style.color = this.topic.subTitleColor;
-    });
+  ids = new Map<number, string>();
+  topics: SectionTopic[];
+  ngOnInit() {
+    this.topics = (this.section.items as SectionTopic[])
+      .filter(topic => topic.show)
+      .map((topic, index) => {
+        const id = this.keyvalue.add(topic);
+        this.ids.set(index, id);
+        return topic;
+      });
   }
 }

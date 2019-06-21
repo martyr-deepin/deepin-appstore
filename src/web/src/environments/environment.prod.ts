@@ -1,10 +1,16 @@
 export const environment = {
   production: true,
 
-  // Default server address only used in browser mode.
+  operationList: {
+    CN: 'https://dstore-operation-china.deepin.cn/',
+    Default: 'https://dstore-operation-international.deepin.cn',
+  } as { [key: string]: string },
+  region: 'Default',
+  autoSelect: true,
+  operationServer: '',
   metadataServer: 'https://dstore-metadata.deepin.cn',
-  operationServer: 'https://dstore-operation-china.deepin.cn',
-  region: 0,
-  themeName: '',
-  supportSignIn: true,
+  themeName: 'light',
+  locale: 'zh_CN',
+  native: false,
+  supportSignIn: false,
 };

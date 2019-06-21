@@ -1,54 +1,53 @@
-<ng-container *ngIf="(sectionList$ | async) as $sectionList; else: $wait">
-  <ng-container *ngFor="let section of $sectionList; index as $index"
-                [ngSwitch]="section.type">
-    <ng-container *ngIf="loadedCount>=$index">
-      <dstore-carousel *ngSwitchCase="SectionType.Carousel"
-                       [style.gridColumnEnd]="'span ' + section.colSpan"
-                       [style.gridRowEnd]="'span 1'"
-                       [carouselList]="section.items"
-                       (loaded)="loaded()"></dstore-carousel>
+<ng-container *ngIf="sectionList$ | async as $sectionList; else $wait">
+  <ng-container *ngFor="let section of $sectionList; index as $index" [ngSwitch]="section.type">
+    <ng-container *ngIf="loadedCount >= $index">
+      <index-carousel
+        *ngSwitchCase="SectionType.Carousel"
+        [section]="section"
+        [style.gridColumnEnd]="'span ' + section.colSpan"
+        [style.gridRowEnd]="'span ' + section.rowSpan"
+        (loaded)="loaded()"
+      ></index-carousel>
 
-      <dstore-cover *ngSwitchCase="SectionType.Cover"
-                    [style.gridColumnEnd]="'span ' + section.colSpan"
-                    [style.gridRowEnd]="'span ' + section.rowSpan * 2"
-                    [section]="section"
-                    [apps]="section.items"
-                    (loaded)="loaded()"></dstore-cover>
+      <index-cover
+        *ngSwitchCase="SectionType.Cover"
+        [section]="section"
+        [style.gridColumnEnd]="'span ' + section.colSpan"
+        [style.gridRowEnd]="'span ' + section.rowSpan"
+        (loaded)="loaded()"
+      ></index-cover>
 
-      <dstore-ranking *ngSwitchCase="SectionType.Ranking"
-                      [style.gridColumnEnd]="'span ' + section.colSpan"
-                      [style.gridRowEnd]="'span ' + section.ranking.count"
-                      [section]="section"
-                      (loaded)="loaded()"></dstore-ranking>
+      <index-ranking
+        *ngSwitchCase="SectionType.Ranking"
+        [style.gridColumnEnd]="'span ' + section.colSpan"
+        [style.gridRowEnd]="'span ' + section.ranking.count"
+        [section]="section"
+        (loaded)="loaded()"
+      ></index-ranking>
 
-      <dstore-phrase *ngSwitchCase="SectionType.Phrase"
-                     [style.gridColumnEnd]="'span ' + section.colSpan"
-                     [style.gridRowEnd]="'span ' + section.rowSpan"
-                     [phraseList]="section.items"
-                     [section]="section"
-                     (loaded)="loaded()"></dstore-phrase>
+      <index-phrase
+        *ngSwitchCase="SectionType.Phrase"
+        [style.gridColumnEnd]="'span ' + section.colSpan"
+        [style.gridRowEnd]="'span ' + section.rowSpan"
+        [section]="section"
+        (loaded)="loaded()"
+      ></index-phrase>
 
-      <dstore-icon *ngSwitchCase="SectionType.Icon"
-                   [style.gridColumnEnd]="'span ' + section.colSpan"
-                   [style.gridRowEnd]="'span ' + section.rowSpan"
-                   [section]="section"
-                   [apps]="section.items"
-                   (loaded)="loaded()"></dstore-icon>
+      <index-assemble
+        *ngSwitchCase="SectionType.Assemble"
+        [style.gridColumnEnd]="'span ' + section.colSpan"
+        [style.gridRowEnd]="'span ' + section.rowSpan"
+        [section]="section"
+        (loaded)="loaded()"
+      ></index-assemble>
 
-      <dstore-topic *ngSwitchCase="SectionType.Topic"
-                    [style.gridColumnEnd]="'span ' + section.colSpan"
-                    [style.gridRowEnd]="'span ' + section.rowSpan"
-                    [section]="section"
-                    [sectionIndex]="$index"
-                    [topicList]="section.items"
-                    (loaded)="loaded()"></dstore-topic>
-
-      <dstore-assemble *ngSwitchCase="SectionType.Assemble"
-                       [style.gridColumnEnd]="'span ' + section.colSpan"
-                       [style.gridRowEnd]="'span ' + section.rowSpan"
-                       [section]="section"
-                       [assembleList]="section.items"
-                       (loaded)="loaded()"></dstore-assemble>
+      <index-topic
+        *ngSwitchCase="SectionType.Topic"
+        [style.gridColumnEnd]="'span ' + section.colSpan"
+        [style.gridRowEnd]="'span ' + section.rowSpan"
+        [section]="section"
+        (loaded)="loaded()"
+      ></index-topic>
     </ng-container>
   </ng-container>
 </ng-container>

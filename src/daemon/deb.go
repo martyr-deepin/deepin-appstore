@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -31,6 +32,7 @@ func init() {
 
 // Backend for deb package
 type Backend struct {
+	metadata         *Metadata
 	service          *dbusutil.Service
 	sysSigLoop       *dbusutil.SignalLoop
 	lastore          *lastore.Lastore
@@ -288,6 +290,11 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 		}
 	}()
 
+	apps, err := b.metadata.GetPackageApplicationCache()
+	if nil != err {
+		return nil, dbusutil.ToError(err)
+	}
+
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		parts := bytes.SplitN(scanner.Bytes(), []byte{'\t'}, 4)
@@ -296,14 +303,28 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 		}
 
 		if bytes.HasPrefix(parts[1], []byte("ii")) {
+			id := string(parts[0])
+			fullPackageName := strings.Split(id, ":")
+			// fuzzyPackageName 就是应用标识，这是有问题的！！！
+			fuzzyPackageName := fullPackageName[0]
+			app, ok := apps[fuzzyPackageName]
+			if !ok {
+				continue
+			}
+
 			sizeStr := string(parts[3])
 			size, _ := strconv.ParseInt(sizeStr, 10, 64)
 			// unit of size is KiB, 1KiB = 1024Bytes
 
+			t, _ := getInstallationTime(fuzzyPackageName)
+
 			result = append(result, PackageInstalledInfo{
-				ID:            string(parts[0]),
-				Version:       string(parts[2]),
-				InstalledSize: size * 1024,
+				ID:               string(parts[0]),
+				Name:             fuzzyPackageName,
+				Version:          string(parts[2]),
+				InstalledSize:    size * 1024,
+				LocaleName:       app.LocaleName,
+				InstallationTime: t,
 			})
 		}
 	}
@@ -311,15 +332,17 @@ func (b *Backend) ListInstalled() (result []PackageInstalledInfo, busErr *dbus.E
 	if err != nil {
 		return nil, dbusutil.ToError(err)
 	}
-
 	return result, nil
 }
 
 // PackageInstalledInfo store info of dpkg query
 type PackageInstalledInfo struct {
-	ID            string
-	Version       string
-	InstalledSize int64 // unit byte
+	ID               string
+	Name             string
+	Version          string
+	InstalledSize    int64 // unit byte
+	InstallationTime int64
+	LocaleName       map[string]string
 }
 
 // QueryVersion check package version info

@@ -1,14 +1,1 @@
-<div class="app">
-  <div class="nav"><app-side-nav></app-side-nav></div>
-  <div class="context" #$context>
-    <dstore-scrollbar [savePosition]="true">
-      <router-outlet></router-outlet>
-    </dstore-scrollbar>
-    <ng-template #wait>
-      <div class="loadingContainer"><app-wait></app-wait></div>
-    </ng-template>
-  </div>
-  <app-recommend></app-recommend>
-  <app-notify></app-notify>
-  <dstore-privacy-agreement></dstore-privacy-agreement>
-</div>
+<dstore-main *ngIf="inited"></dstore-main>

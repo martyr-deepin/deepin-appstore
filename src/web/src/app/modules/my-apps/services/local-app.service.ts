@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { switchMap, map } from 'rxjs/operators';
+import { chunk } from 'lodash';
 
 import { JobService } from 'app/services/job.service';
-import { AppService, App } from 'app/services/app.service';
-import { StoreService } from 'app/modules/client/services/store.service';
-import { InstalledApp } from 'app/modules/client/models/installed';
+import { StoreService, Package } from 'app/modules/client/services/store.service';
 import { StoreJobType } from 'app/modules/client/models/store-job-info';
 import { environment } from 'environments/environment';
+import { SoftwareService, Software } from 'app/services/software.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,36 +16,39 @@ export class LocalAppService {
   constructor(
     private jobService: JobService,
     private storeService: StoreService,
-    private appService: AppService,
+    private softwareService: SoftwareService,
   ) {}
 
-  LocalAppList() {
+  list({ pageIndex = 0, pageSize = 20 }) {
     return this.jobService.jobList().pipe(
       switchMap(() => this.storeService.InstalledPackages()),
-      switchMap(
-        () => this.appService.list(),
-        (installed, apps) => {
-          const appNameList = apps
-            .filter(app => app.packageURI.some(url => installed.has(url)))
-            .map(app => app.name);
-          return { appNameList, installed };
-        },
-      ),
-      switchMap(
-        ({ appNameList }) => this.appService.getApps(appNameList),
-        ({ installed }, apps) => {
-          apps = apps.sort((a, b) => b.version.installedTime - a.version.installedTime);
-          apps.forEach(app => {
-            const pkgURL = app.packageURI.find(url => installed.has(url));
-            app.version.packageSize = installed.get(pkgURL).size;
+      switchMap(async installed => {
+        installed = installed.sort((a, b) => b.installedTime - a.installedTime);
+        let list = chunk(installed, pageSize)[pageIndex].map(pkg => {
+          const local_name = pkg.allLocalName[environment.locale] || pkg.allLocalName['en_US'] || pkg.packageName;
+          return {
+            name: pkg.appName,
+            package: pkg,
+            localName: local_name,
+            info: { name: local_name, packages: [{ packageURI: pkg.packageURI }] },
+            software: null as Software,
+          };
+        });
+        try {
+          const softs = await this.softwareService.list({
+            names: list.map(app => app.name),
+            filterPackage: false,
+            filterStat: false,
           });
-          return apps;
-        },
-      ),
+          const m = new Map(softs.map(soft => [soft.name, soft]));
+          list.forEach(item => (item.software = m.get(item.name)));
+        } catch {}
+        return { total: installed.length, page: pageIndex, list };
+      }),
     );
   }
 
-  RemovingList() {
+  removingList() {
     return this.jobService.jobsInfo().pipe(
       map(jobs => {
         return jobs
@@ -58,7 +61,8 @@ export class LocalAppService {
       }),
     );
   }
-  RemoveLocalApp(app: App) {
-    this.storeService.removePackages([app]);
+
+  removeLocal(soft: Software) {
+    this.softwareService.remove(soft);
   }
 }

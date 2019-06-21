@@ -49,10 +49,10 @@
         <br />
         <app-wait></app-wait>
       </ng-template>
-      <ng-container *ngIf="(waitPay$ | async) as check; else loading">
+      <ng-container *ngIf="waitPay$ | async as check; else loading">
         <div class="waitPay">
           <ng-container *ngIf="check.isExist; else $wait">
-            <img class="icon" src="/assets/icons/ok.svg" /> <br />
+            <img class="icon" dstoreCover="icon" src="/assets/icons/ok.svg" /> <br />
             <div i18n>Payment Successful!</div>
           </ng-container>
           <ng-template #$wait>

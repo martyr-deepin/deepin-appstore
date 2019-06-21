@@ -185,7 +185,7 @@ PMResult AptPackageManager::QueryDownloadSize(const QList<Package> &packages)
         data.insert(p.packageURI, p.toVariantMap());
     }
 
-    qDebug() << data;
+//    qDebug() << data;
     return PMResult::warp(data);
 }
 
@@ -274,12 +274,16 @@ PMResult AptPackageManager::ListInstalled(const QList<QString> &/*packageIDs*/)
     QVariantList result;
     for (const InstalledAppInfo &info : list) {
         Package pkg;
-        pkg.packageName = info.pkg_name;
+        pkg.packageName = info.packageName;
+        pkg.appName = info.appName;
         auto packageID =   pkg.packageName.split(":").first();
         pkg.localVersion = info.version;
         pkg.size = info.size;
         pkg.packageURI = "dpk://deb/" + packageID;
-
+        for (auto k : info.localeNames.keys()) {
+            pkg.allLocalName[k] = info.localeNames[k];
+        }
+        pkg.installedTime = info.installationTime;
         // TODO: remove name
 //        if (apps.contains(packageID)) {
         result.append(pkg.toVariantMap());

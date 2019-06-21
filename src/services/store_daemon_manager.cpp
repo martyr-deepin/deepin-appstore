@@ -261,6 +261,7 @@ QVariantMap StoreDaemonManager::installedPackages()
     // TODO: filter install list
     Q_D(StoreDaemonManager);
     auto result = d->pm->ListInstalled(/*d->apps.keys()*/{});
+    // qDebug() << result.data;
     return QVariantMap {
         { kResultOk, result.success },
         { kResultErrName, result.errName },
@@ -269,27 +270,6 @@ QVariantMap StoreDaemonManager::installedPackages()
     };
 }
 
-//QVariantMap StoreDaemonManager::packageDownloadSize(const QString &app_name)
-//{
-//    Q_D(StoreDaemonManager);
-//    const QDBusPendingReply<qlonglong> reply =
-//        d->deb_interface_->QueryDownloadSize(app_name);
-//    if (reply.isError()) {
-//        return QVariantMap {
-//            { kResultOk, false },
-//            { kResultErrName, reply.error().name() },
-//            { kResultErrMsg, reply.error().message() },
-//        };
-//    } else {
-//        const qlonglong size = reply.value();
-//        return QVariantMap {
-//            { kResultOk, true },
-//            { kResultErrName, reply.error().name() },
-//            { kResultErrMsg, reply.error().message() },
-//            { kResult, size },
-//        };
-//    }
-//}
 
 QVariantMap StoreDaemonManager::installPackage(const QVariantList &apps)
 {
@@ -360,18 +340,6 @@ QVariantMap StoreDaemonManager::queryVersions(const QStringList &apps)
         { kResult, result.data},
     };
 }
-
-//QVariantMap StoreDaemonManager::queryInstalledTime(const QStringList &apps)
-//{
-//    Q_D(StoreDaemonManager);
-//    auto result = d->pm->QueryInstalledTime(apps);
-//    return QVariantMap {
-//        { kResultOk, result.success },
-//        { kResultErrName, result.errName },
-//        { kResultErrMsg, result.errMsg },
-//        { kResult, result.data},
-//    };
-//}
 
 QVariantMap StoreDaemonManager::query(const QVariantList &apps)
 {
