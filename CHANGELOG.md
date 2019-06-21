@@ -1,3 +1,13 @@
+<a name="5.2.9.3"></a>
+## 5.2.9.3 (2019-06-21)
+
+
+#### Bug Fixes
+
+*   i18n error ([90a5ff31](https://github.com/linuxdeepin/deepin-appstore/commit/90a5ff3126aec9fea78f5fb4c4bb102419c959cd))
+
+
+
 <a name="5.2.2"></a>
 ## 5.2.2 (2019-05-10)
 
