@@ -1,3 +1,13 @@
+<a name="5.3.0.0"></a>
+## 5.3.0.0 (2019-06-21)
+
+
+#### Bug Fixes
+
+*   index topic cover width ([1022a14f](https://github.com/linuxdeepin/deepin-appstore/commit/1022a14fb792a7dbdbf97fd1cc242c4e6966bfb4))
+
+
+
 <a name="5.2.9.3"></a>
 ## 5.2.9.3 (2019-06-21)
 
