@@ -3,7 +3,7 @@
     <ng-container>{{ title }}</ng-container>
   </app-app-title>
   <app-app-title *ngSwitchCase="'ranking'" [useRouterQuery]="true" [top]="(result$ | async)?.length">
-    <ng-container>{{ title }}</ng-container>
+    <ng-container><span i18n>Rankings</span></ng-container>
   </app-app-title>
   <app-app-title *ngSwitchCase="'keyword'" [useRouterQuery]="true">
     <ng-container i18n
