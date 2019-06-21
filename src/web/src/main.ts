@@ -76,6 +76,7 @@ async function main() {
       console.error('cannot load locale', language, err);
     }
   }
+  environment.locale = 'en_US';
   return bootstrap();
 }
 
