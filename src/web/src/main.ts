@@ -69,6 +69,7 @@ async function main() {
     try {
       const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
       if (translations) {
+        environment.locale = language;
         return bootstrap(translations);
       }
     } catch (err) {
