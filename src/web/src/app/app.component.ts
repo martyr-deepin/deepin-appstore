@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
       try {
         region = await regionService
           .region()
-          .pipe()
+          .pipe(timeout(3000))
           .toPromise();
       } catch (err) {
         console.error('region service', err);
