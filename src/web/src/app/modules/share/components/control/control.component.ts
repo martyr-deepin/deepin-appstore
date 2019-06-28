@@ -102,7 +102,7 @@ export class ControlComponent implements OnInit {
         if (old && !job) {
           await this.queryPackage();
         }
-        return job;
+        return old;
       }),
       share(),
     );
