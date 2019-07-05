@@ -19,7 +19,7 @@
     </message>
     <message>
         <source>Select region</source>
-        <translation type="vanished"> Sélectionner la région</translation>
+        <translation type="vanished">Sélectionner la région</translation>
     </message>
     <message>
         <source>China</source>
@@ -37,12 +37,12 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="64"/>
         <source>Dark theme</source>
-        <translation> Thème Sombre</translation>
+        <translation> Thème sombre</translation>
     </message>
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>Politique de confidentialité</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
