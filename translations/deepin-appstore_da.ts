@@ -42,7 +42,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>Privatlivspolitik</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
@@ -88,7 +88,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation type="unfinished"/>
+        <translation>Deepin Butik er en programbutik med alsidige kvalitetsprogrammer. Det har anbefaling af populære, nyligt opdaterede programmer og populære emner, og understøtter installation, opdatering og afinstallering med ét klik.</translation>
     </message>
 </context>
 <context>
