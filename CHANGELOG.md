@@ -1,3 +1,13 @@
+<a name="5.3.0.2"></a>
+## 5.3.0.2 (2019-07-10)
+
+
+#### Bug Fixes
+
+*   i18n ([015eaf2a](https://github.com/linuxdeepin/deepin-appstore/commit/015eaf2ab106020dfe9a23f93f4380b69869af5d))
+
+
+
 <a name="5.3.0.1"></a>
 ## 5.3.0.1 (2019-07-10)
 
