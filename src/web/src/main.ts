@@ -69,12 +69,14 @@ async function main() {
     try {
       const translations = require(`raw-loader!./locale/messages.${language}.xlf`);
       if (translations) {
+        environment.locale = language;
         return bootstrap(translations);
       }
     } catch (err) {
       console.error('cannot load locale', language, err);
     }
   }
+  environment.locale = 'en_US';
   return bootstrap();
 }
 

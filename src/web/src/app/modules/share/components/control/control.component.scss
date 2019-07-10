@@ -14,6 +14,10 @@
       background-image: var(--pause-icon);
     }
   }
+  .circle-progress {
+    transform: rotate(-90deg);
+    transform-origin: center;
+  }
 }
 .control {
   width: 100%;

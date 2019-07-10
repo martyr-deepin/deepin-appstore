@@ -5,61 +5,34 @@
     width="2.5rem"
     height="2.5rem"
     viewbox="0 0 440 440"
-    [class.running]="
-      job.status !== JobStatus.paused && job.status !== JobStatus.failed
-    "
+    [class.running]="job.status !== JobStatus.paused && job.status !== JobStatus.failed"
     [class.disabled]="!job.cancelable"
     (click)="trgger($event, job)"
   >
+    <circle cx="50%" cy="50%" r="calc(50% - 5)" stroke-width="5" stroke="#D1D3D7" fill="none"></circle>
     <circle
-      cx="50%"
-      cy="50%"
-      r="calc(50% - 5)"
-      stroke-width="5"
-      stroke="#D1D3D7"
-      fill="none"
-    ></circle>
-    <circle
+      class="circle-progress"
       cx="50%"
       cy="50%"
       r="calc(50% - 5)"
       stroke-width="5"
       stroke="#00A5E0"
       fill="none"
-      [style.transform]="'rotate(-90deg)'"
-      [style.transform-origin]="'center'"
-      attr.stroke-dasharray="calc((100% - 10) * 3.1415926 * {{
-        job.progress
-      }}) 1069"
+      attr.stroke-dasharray="calc((100% - 10) * 3.1415926 * {{ job.progress }}) 1069"
     ></circle>
   </svg>
 </ng-container>
 
 <ng-template #controlRef>
   <ng-container *ngIf="package$ | async as pkg">
-    <button
-      @button
-      class="control"
-      *ngIf="pkg.upgradable; else elseRef"
-      (click)="installApp($event)"
-    >
+    <button @button class="control" *ngIf="pkg.upgradable; else elseRef" (click)="installApp($event)">
       <ng-container i18n>Update</ng-container>
     </button>
     <ng-template #elseRef>
-      <button
-        @button
-        class="control"
-        *ngIf="pkg.localVersion"
-        (click)="openApp($event)"
-      >
+      <button @button class="control" *ngIf="pkg.localVersion" (click)="openApp($event)">
         <ng-container i18n>Open</ng-container>
       </button>
-      <button
-        @button
-        class="control"
-        *ngIf="!pkg.localVersion"
-        (click)="installApp($event)"
-      >
+      <button @button class="control" *ngIf="!pkg.localVersion" (click)="installApp($event)">
         <ng-container i18n>Install</ng-container>
       </button>
     </ng-template>
