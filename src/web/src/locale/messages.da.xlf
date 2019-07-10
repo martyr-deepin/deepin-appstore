@@ -489,6 +489,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f38cdabbc1d33c5153a307c4f0c8f4f22df4276f">
         <source>Request successful</source>
+        <target>Anmodning lykkedes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">10</context>
@@ -512,6 +513,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e33d805f0c1ce97c92b68fc882084fef23cca646">
         <source>Request failed</source>
+        <target>Anmodning mislykkedes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">18</context>
@@ -543,6 +545,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="19a1db7659260a241653e2eebbc0b62343353b70">
         <source><x equiv-text="{{ stat.download }}" id="INTERPOLATION"/> downloads</source>
+        <target><x equiv-text="{{ stat.download }}" id="INTERPOLATION"/> downloads</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">26</context>
@@ -550,6 +553,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a9c7f9b41b1f653ce3b8494a748e1e81df965c32">
         <source><x equiv-text="{{ stat.score_count }}" id="INTERPOLATION"/> ratings</source>
+        <target><x equiv-text="{{ stat.score_count }}" id="INTERPOLATION"/> bedømmelser</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">27</context>
@@ -641,6 +645,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fcd2b61b74ed190b5176b5c45599627fa3addfd6">
         <source>Developer:</source>
+        <target>Udvikler:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">61</context>
@@ -648,6 +653,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="aec2ae3fb352fbb1ea5237b57a64be189890ca98">
         <source>Packager:</source>
+        <target>Pakkeansvarlig:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">67</context>
@@ -771,6 +777,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fbc4fa343f8695b5ef5fb4e3da3a9b6f0b4eddd8">
         <source><x equiv-text="{{ total }}" id="INTERPOLATION"/> contributors</source>
+        <target><x equiv-text="{{ total }}" id="INTERPOLATION"/> bidragydere</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donors/donors.component.html</context>
           <context context-type="linenumber">7</context>
@@ -854,6 +861,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e2c9907de2386d2f5c27a0370fbaf416b4f4e41c">
         <source>Processing payment, please wait...</source>
+        <target>Behandler betaling, vent venligst ...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">67</context>
@@ -865,6 +873,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f0b3887d752a5aa2e68c083304f31959fe662bb9">
         <source>Please post your comment after sign in</source>
+        <target>Skriv venligst din kommentar når du er logget ind</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">4</context>
@@ -928,6 +937,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="4e0276c8e84978b2d250d9a8471dc1014fbee9f7">
         <source>Please rate and post your comment</source>
+        <target>Bedøm og skriv venligst din kommentar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">63</context>
@@ -1007,6 +1017,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="82182068adfbb019055ef30eff0fc438275441fa">
         <source>No user comments available</source>
+        <target>Ingen tilgængelige brugerkommentarer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">105</context>
@@ -1110,6 +1121,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fa7441de0e4fda8e4c4d6937e5c093aa656abf48">
         <source>Failed to install: broken dependencies, please retry</source>
+        <target>Kunne ikke installere: ødelagte afhængigheder, prøv venligst igen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1117,6 +1129,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e10cfabbbae00fe94397161536f247822572c9b4">
         <source>Failed to install: it was interrupted, please retry</source>
+        <target>Kunne ikke installere: den blev afbrudt, prøv venligst igen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">6</context>
@@ -1132,6 +1145,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="92f289b1cf7ccff5e1bf6d1fa679655272da2e95">
         <source>Failed to install: dpkg error</source>
+        <target>Kunne ikke installere: fejl ved dpkg</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">9</context>
@@ -1139,6 +1153,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1d386f8cdde5844dd460714c47a20656ee8c9b23">
         <source>Failed to install: unmet dependencies</source>
+        <target>Kunne ikke installere: afhængigheder blev ikke mødt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">11</context>
@@ -1146,6 +1161,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e0369a4e4d997a4dec4862bafa8459c6d36089dc">
         <source>Failed to install: insufficient space, please clean and retry</source>
+        <target>Kunne ikke installere: utilstrækkelig plads, rens venligst og prøv igen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">14</context>
@@ -1181,6 +1197,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="27e117eee80e72424266dcd113674437d8858931">
         <source>Search results for <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ title }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></source>
+        <target>Søgeresultater for <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ title }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">10</context>
@@ -1188,6 +1205,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="91bc9b0905cc70dea1b653d2bd6d302a9a30eb09">
         <source>Apps developed by <x equiv-text="{{ name }}" id="INTERPOLATION"/></source>
+        <target>Programmet udviklet af <x equiv-text="{{ name }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">14</context>
@@ -1195,6 +1213,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c71d62bdeab0c6090ee4524fd31daa7a14acd76b">
         <source>Apps packaged by <x equiv-text="{{ name }}" id="INTERPOLATION"/></source>
+        <target>Programmet pakket af <x equiv-text="{{ name }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">17</context>
@@ -1250,6 +1269,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="96f4e3dedbf0d1b3fffa16f2e5341c6719b8cfb0">
         <source>Are you sure you want to uninstall this application?</source>
+        <target>Er du sikker på, at du vil afinstallere programmet?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
           <context context-type="linenumber">38</context>
@@ -1305,6 +1325,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6d48642a9e3605994dfff2cd1e326c9ec18b4749">
         <source>The application is not available, please retry or give feedback</source>
+        <target>Programmet er ikke tilgængeligt, prøv venligst igen eller giv feedback</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
           <context context-type="linenumber">52</context>
@@ -1452,6 +1473,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="3fb74cf2ff5212dade6a7cd9a43371f3f0f56c7e">
         <source>Are you sure you want to delete this comment?</source>
+        <target>Er du sikker på, at du vil slette kommentaren?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
           <context context-type="linenumber">50</context>
@@ -1459,6 +1481,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c1f8937c832014e4784cbb4108562c0ad89348c7">
         <source>Total <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ amount_count }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></source>
+        <target>Samlet <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ amount_count }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-donates/donates/donates.component.html</context>
           <context context-type="linenumber">5</context>

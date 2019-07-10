@@ -279,7 +279,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee">
         <source>Uninstall</source>
-        <target>卸载</target>
+        <target>卸载应用</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">84</context>

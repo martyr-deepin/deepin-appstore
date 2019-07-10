@@ -545,6 +545,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="19a1db7659260a241653e2eebbc0b62343353b70">
         <source><x equiv-text="{{ stat.download }}" id="INTERPOLATION"/> downloads</source>
+        <target><x equiv-text="{{ stat.download }}" id="INTERPOLATION"/> stahování</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">26</context>
@@ -552,6 +553,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a9c7f9b41b1f653ce3b8494a748e1e81df965c32">
         <source><x equiv-text="{{ stat.score_count }}" id="INTERPOLATION"/> ratings</source>
+        <target><x equiv-text="{{ stat.score_count }}" id="INTERPOLATION"/> hodnocení</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">27</context>
@@ -773,6 +775,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fbc4fa343f8695b5ef5fb4e3da3a9b6f0b4eddd8">
         <source><x equiv-text="{{ total }}" id="INTERPOLATION"/> contributors</source>
+        <target><x equiv-text="{{ total }}" id="INTERPOLATION"/> přispěvatelé</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donors/donors.component.html</context>
           <context context-type="linenumber">7</context>
