@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<?xml version="1.0" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="sr">
     <body>
       <trans-unit datatype="html" id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc">
@@ -489,7 +490,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f38cdabbc1d33c5153a307c4f0c8f4f22df4276f">
         <source>Request successful</source>
-        <target>Захтев успешан</target>
+        <target>Захтев послан</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">10</context>
@@ -873,7 +874,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f0b3887d752a5aa2e68c083304f31959fe662bb9">
         <source>Please post your comment after sign in</source>
-        <target>Молимо унесите коментар након пријављивања</target>
+        <target>Унесите коментар након пријављивања</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">4</context>
@@ -1121,7 +1122,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fa7441de0e4fda8e4c4d6937e5c093aa656abf48">
         <source>Failed to install: broken dependencies, please retry</source>
-        <target>Неуспешна инсталација: оштећене зависности, молимо поновите</target>
+        <target>Неуспешна инсталација: оштећене зависности, покушајте поново</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1129,7 +1130,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e10cfabbbae00fe94397161536f247822572c9b4">
         <source>Failed to install: it was interrupted, please retry</source>
-        <target>Неуспешна инсталација: процес прекинут, молимо поновите</target>
+        <target>Неуспешна инсталација: процес прекинут, покушајте поново</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">6</context>

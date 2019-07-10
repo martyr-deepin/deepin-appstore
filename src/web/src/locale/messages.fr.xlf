@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<?xml version="1.0" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="fr">
     <body>
       <trans-unit datatype="html" id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc">
@@ -79,7 +80,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="172fa0aab2cb9ffc177b03a45af1715e0b58997d">
         <source>Loading... Please wait</source>
-        <target>Chargement en cours, merci de patienter.</target>
+        <target>Chargement... Veuillez patienter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/share/components/wait/wait.component.html</context>
           <context context-type="linenumber">11</context>
@@ -369,7 +370,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6f5f4f9eeeacbc4b5aaf55a9a307c0cbcfa6f1f8">
         <source>Input No if no license is required</source>
-        <target>Mettre &quot;Non&quot; si aucune licence n'est requise.</target>
+        <target>Mettre "Non" si aucune licence n'est requise.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">62</context>
@@ -409,7 +410,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="38c184ee2325949ed3e428f373637c2fb914b5de">
         <source>Official website is not in a correct format</source>
-        <target> Le site Web officiel n'est pas dans un format correct </target>
+        <target> Le site web officiel n'est pas dans un format correct </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">98</context>
@@ -481,7 +482,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="10b5e1355fe307af84b97e91cf5bdc1d04ce28f1">
         <source>Announcement: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></source>
-        <target>Annonce: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
+        <target>Annonce : <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">3</context>
@@ -545,6 +546,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="19a1db7659260a241653e2eebbc0b62343353b70">
         <source><x equiv-text="{{ stat.download }}" id="INTERPOLATION"/> downloads</source>
+        <target><x equiv-text="{{ stat.download }}" id="INTERPOLATION"/> téléchargés</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">26</context>
@@ -552,6 +554,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a9c7f9b41b1f653ce3b8494a748e1e81df965c32">
         <source><x equiv-text="{{ stat.score_count }}" id="INTERPOLATION"/> ratings</source>
+        <target><x equiv-text="{{ stat.score_count }}" id="INTERPOLATION"/> évaluations</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">27</context>
@@ -643,6 +646,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fcd2b61b74ed190b5176b5c45599627fa3addfd6">
         <source>Developer:</source>
+        <target>Développeur :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">61</context>
@@ -650,6 +654,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="aec2ae3fb352fbb1ea5237b57a64be189890ca98">
         <source>Packager:</source>
+        <target>Paqueteur :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">67</context>
@@ -665,7 +670,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="2f2d3537be5ad6783862d60ec1e4b6a034714783">
         <source>Source:</source>
-        <target>Source:</target>
+        <target>Source :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">80</context>
@@ -697,7 +702,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="15cab428492d4f8b8bc528a93cf1fdd2dc65328e">
         <source>Tag:</source>
-        <target>Tag:</target>
+        <target>Tag :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">88</context>
@@ -773,6 +778,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fbc4fa343f8695b5ef5fb4e3da3a9b6f0b4eddd8">
         <source><x equiv-text="{{ total }}" id="INTERPOLATION"/> contributors</source>
+        <target><x equiv-text="{{ total }}" id="INTERPOLATION"/> contributeurs</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donors/donors.component.html</context>
           <context context-type="linenumber">7</context>
@@ -924,7 +930,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c5241f32ed2c3992142d16ddc32a7d7fddf1984c">
         <source>Post your comment here</source>
-        <target>Saisissez votre commentaire ici</target>
+        <target>Saisir votre commentaire ici</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/comment/app-comment.component.html</context>
           <context context-type="linenumber">54</context>
@@ -1156,7 +1162,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e0369a4e4d997a4dec4862bafa8459c6d36089dc">
         <source>Failed to install: insufficient space, please clean and retry</source>
-        <target>Échec de l'installation : espace insuffisant, veuillez libérer de l'espace disque et réessayez</target>
+        <target>Échec de l'installation : espace insuffisant, veuillez libérer de l'espace disque et réessayer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/store-job-error/store-job-error.component.html</context>
           <context context-type="linenumber">14</context>
@@ -1192,6 +1198,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="27e117eee80e72424266dcd113674437d8858931">
         <source>Search results for <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ title }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></source>
+        <target>Résultats de la recherche pour <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ title }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">10</context>
@@ -1199,6 +1206,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="91bc9b0905cc70dea1b653d2bd6d302a9a30eb09">
         <source>Apps developed by <x equiv-text="{{ name }}" id="INTERPOLATION"/></source>
+        <target>Applications développées par <x equiv-text="{{ name }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">14</context>
@@ -1206,6 +1214,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c71d62bdeab0c6090ee4524fd31daa7a14acd76b">
         <source>Apps packaged by <x equiv-text="{{ name }}" id="INTERPOLATION"/></source>
+        <target>Applications paquetées par <x equiv-text="{{ name }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">17</context>
@@ -1229,7 +1238,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f18edd28fd882aa06c6204ba6dadd0ed8cfa81ac">
         <source>Local App</source>
-        <target>Application Local</target>
+        <target>Application locale</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
           <context context-type="linenumber">2</context>
@@ -1245,7 +1254,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="16655527bac0ef7c8338ed6091d9ebf8355259b7">
         <source>Remote App</source>
-        <target>Application À Distance</target>
+        <target>Application à distance</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
           <context context-type="linenumber">7</context>
@@ -1317,6 +1326,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6d48642a9e3605994dfff2cd1e326c9ec18b4749">
         <source>The application is not available, please retry or give feedback</source>
+        <target>Cette application n'est pas disponible, veuillez réessayer ou donner votre avis</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
           <context context-type="linenumber">52</context>
@@ -1404,7 +1414,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="e21dd97d84f180b7b4cb450621b9628898604b19">
         <source>Comment Date:</source>
-        <target>Date du Commentaire:</target>
+        <target>Date du Commentaire :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/comments/comments.component.html</context>
           <context context-type="linenumber">27</context>
@@ -1448,7 +1458,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="f49c37418e5cb06f226bc7b3afc5f1a3c04fea21">
         <source>Rate:</source>
-        <target>Note:</target>
+        <target>Note :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-comments/components/edit/edit.component.html</context>
           <context context-type="linenumber">24</context>
@@ -1472,6 +1482,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c1f8937c832014e4784cbb4108562c0ad89348c7">
         <source>Total <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ amount_count }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></source>
+        <target>Total <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ amount_count }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-donates/donates/donates.component.html</context>
           <context context-type="linenumber">5</context>
@@ -1479,7 +1490,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="a673c003a4087c5e63321cc9f7f96688896ee72d">
         <source>Donation Date:</source>
-        <target>Date de Donation:</target>
+        <target>Date de Donation :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-donates/donates/donates.component.html</context>
           <context context-type="linenumber">37</context>
