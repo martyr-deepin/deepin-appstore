@@ -1,3 +1,18 @@
+<a name="5.3.0.1"></a>
+## 5.3.0.1 (2019-07-10)
+
+
+#### Bug Fixes
+
+*   remove debug ([20ba3341](https://github.com/linuxdeepin/deepin-appstore/commit/20ba33411b9830b4cfbd480eb33ee344c9df56bb))
+*   control button progress circle position ([0017d185](https://github.com/linuxdeepin/deepin-appstore/commit/0017d1855a2751f2a86c8cd9570ae11c9c6cfacc))
+*   typo ([a39c6c0d](https://github.com/linuxdeepin/deepin-appstore/commit/a39c6c0dab8c072fb66de2803e9d42fe16922ccc))
+*   region add timeout ([b604945e](https://github.com/linuxdeepin/deepin-appstore/commit/b604945e98ab22575d57c7879490f9fc56ff3f40))
+*   assemble style ([278deb92](https://github.com/linuxdeepin/deepin-appstore/commit/278deb9233067acd1e9517ad12f6c526776f4c7f))
+*   select locale by language ([04d3220a](https://github.com/linuxdeepin/deepin-appstore/commit/04d3220a9ebc82a0ea9a0189c7d34ca8c926a37b))
+
+
+
 <a name="5.3.0.0"></a>
 ## 5.3.0.0 (2019-06-21)
 
