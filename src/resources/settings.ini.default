@@ -14,7 +14,7 @@ MetadataServer = "https://dstore-metadata.deepin.cn"
 AllowSwitchRegion = true
 
 # Default operation region.
-DefaultRegion = "CN"
+DefaultRegion = "DE"
 
 # Show support by upyun if you use CDN.
 UpyunBannerVisible = true
@@ -22,4 +22,4 @@ UpyunBannerVisible = true
 # URL for operation server of diff Region.
 [OperationServer]
 CN = "https://dstore-operation-china.deepin.cn"
-Default = "https://dstore-operation-international.deepin.cn"
+DE = "https://dstore-operation-international.deepin.cn"
