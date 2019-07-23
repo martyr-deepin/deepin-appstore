@@ -1,5 +1,4 @@
-<?xml version="1.0" ?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="ko">
     <body>
       <trans-unit datatype="html" id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc">
@@ -338,7 +337,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="13c03bfe1512730c5ae1012a3ede14296bf114f7">
         <source>Windows App</source>
-        <target>Windows 앱</target>
+        <target>윈도우 앱</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">43</context>
@@ -482,7 +481,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="10b5e1355fe307af84b97e91cf5bdc1d04ce28f1">
         <source>Announcement: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></source>
-        <target>공지 사항 <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
+        <target>공지 사항: <x equiv-text="{{ $notify.content }}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/notify/notify.component.html</context>
           <context context-type="linenumber">3</context>
@@ -646,7 +645,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fcd2b61b74ed190b5176b5c45599627fa3addfd6">
         <source>Developer:</source>
-        <target>Developer:</target>
+        <target>개발자:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">61</context>
@@ -654,7 +653,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="aec2ae3fb352fbb1ea5237b57a64be189890ca98">
         <source>Packager:</source>
-        <target>Packager:</target>
+        <target>꾸러미 제작자:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">67</context>
@@ -678,7 +677,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="05f57eae1951b6b813d2306e9931485e0eca00b1">
         <source>Third-party</source>
-        <target>Third-party</target>
+        <target>서드 파티</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">82</context>
@@ -746,7 +745,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="0166106da9d18911cf205d22548b9f4d21008f3f">
         <source>It's in adjustment, you can return to</source>
-        <target>It's in adjustment, you can return to</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">132</context>
@@ -798,7 +796,6 @@
       </trans-unit>
       <trans-unit datatype="html" id="568c82e4dd743c0218ca10fb434e537a17a22d6c">
         <source>Statement for Delivery and Donation</source>
-        <target>Statement for Delivery and Donation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">3</context>
@@ -1198,7 +1195,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="27e117eee80e72424266dcd113674437d8858931">
         <source>Search results for <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ title }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></source>
-        <target>Search results for <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ title }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></target>
+        <target><x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ title }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/>에 대한 검색 결과</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">10</context>
@@ -1206,7 +1203,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="91bc9b0905cc70dea1b653d2bd6d302a9a30eb09">
         <source>Apps developed by <x equiv-text="{{ name }}" id="INTERPOLATION"/></source>
-        <target>Apps developed by <x equiv-text="{{ name }}" id="INTERPOLATION"/></target>
+        <target><x equiv-text="{{ name }}" id="INTERPOLATION"/>로 개발한 앱</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">14</context>
@@ -1214,7 +1211,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c71d62bdeab0c6090ee4524fd31daa7a14acd76b">
         <source>Apps packaged by <x equiv-text="{{ name }}" id="INTERPOLATION"/></source>
-        <target>Apps packaged by <x equiv-text="{{ name }}" id="INTERPOLATION"/></target>
+        <target><x equiv-text="{{ name }}" id="INTERPOLATION"/>로 패키징한 앱</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/list/components/list-outlet/list-outlet.component.html</context>
           <context context-type="linenumber">17</context>
@@ -1326,7 +1323,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6d48642a9e3605994dfff2cd1e326c9ec18b4749">
         <source>The application is not available, please retry or give feedback</source>
-        <target>The application is not available, please retry or give feedback</target>
+        <target>응용 프로그램을 사용할 수 없습니다. 다시 시도하거나 피드백을 제공하십시오.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/remote-app/remote-app.component.html</context>
           <context context-type="linenumber">52</context>
@@ -1482,7 +1479,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="c1f8937c832014e4784cbb4108562c0ad89348c7">
         <source>Total <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ amount_count }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></source>
-        <target>Total <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ amount_count }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></target>
+        <target>전체 <x ctype="x-span" equiv-text="&lt;span&gt;" id="START_TAG_SPAN"/><x equiv-text="{{ amount_count }}" id="INTERPOLATION"/><x ctype="x-span" equiv-text="&lt;/span&gt;" id="CLOSE_TAG_SPAN"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-donates/donates/donates.component.html</context>
           <context context-type="linenumber">5</context>

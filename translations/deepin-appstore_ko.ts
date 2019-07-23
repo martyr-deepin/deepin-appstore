@@ -42,7 +42,7 @@
     <message>
         <location filename="../src/ui/widgets/title_bar_menu.cpp" line="70"/>
         <source>Privacy Policy</source>
-        <translation type="unfinished"/>
+        <translation>개인정보 보호정책</translation>
     </message>
     <message>
         <location filename="../src/ui/web_event_delegate.cpp" line="73"/>
