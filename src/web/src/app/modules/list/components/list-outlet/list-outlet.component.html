@@ -18,13 +18,15 @@
   </app-app-title>
 </ng-container>
 <ng-container *ngIf="result$ | async as result; else loadRef">
-  <dstore-list
-    *ngIf="result.length > 0; else emptyRef"
-    [list]="result"
-    [lazyload]="true"
-    (load)="load()"
-    [slogan]="slogan"
-  ></dstore-list>
+  <ng-container *ngIf="!loading; else loadRef">
+    <dstore-list
+      *ngIf="result.length > 0; else emptyRef"
+      [list]="result"
+      [lazyload]="true"
+      (load)="load()"
+      [slogan]="slogan"
+    ></dstore-list>
+  </ng-container>
 </ng-container>
 <ng-template #loadRef>
   <div class="loading-container">

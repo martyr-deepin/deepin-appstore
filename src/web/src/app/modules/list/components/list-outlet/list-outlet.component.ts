@@ -19,9 +19,11 @@ export class ListOutletComponent implements OnInit {
   title = '';
   slogan = false;
   name$ = this.route.paramMap.pipe(map(param => param.get('name')));
+  loading = false;
   // loading offset
   offset$ = new BehaviorSubject(0);
   result$ = combineLatest(this.route.paramMap, this.route.queryParamMap).pipe(
+    tap(() => (this.loading = true)),
     switchMap(([param, query]) => {
       const [routeName, routeValue] = [param.get('name'), param.get('value')];
       this.title = routeValue;
@@ -56,6 +58,7 @@ export class ListOutletComponent implements OnInit {
         }),
       );
     }),
+    tap(() => (this.loading = false)),
     share(),
   );
 
