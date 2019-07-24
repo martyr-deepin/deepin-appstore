@@ -10,7 +10,7 @@ Build-Depends:
  libdtkwidget-dev,
  libqcef-dev,
  libqt5webchannel5-dev,
- libsass0,
+ libsass-dev,
  pkg-config,
  deepin-gettext-tools,
  qttools5-dev-tools,
