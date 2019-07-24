@@ -88,7 +88,7 @@
     <message>
         <location filename="../src/app/deepin_appstore.cpp" line="108"/>
         <source>Deepin Store is an App Store with diverse and quality applications. It features popular recommendations, newly updated apps and hot topics, and supports one-click installation, updating and uninstalling.</source>
-        <translation type="unfinished"/>
+        <translation>متجر ديبين هو متجر للتطبيقات ذات الجودة العالية والمتنوعة. يقدم اقتراحات للبرامج المشهورة، البرامج المدثة مؤخرًا والعناوين المثيرة، ويدعم ضغطة واحدة للتثبيت والتحديث وكذلك إزالة البرامج.</translation>
     </message>
 </context>
 <context>

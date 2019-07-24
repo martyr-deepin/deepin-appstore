@@ -11,5 +11,5 @@ git submodule update --remote
 Then, install required deb packages:
 ```shell
 sudo apt install cmake libdtkwidget-dev libqcef-dev libqt5webchannel5-dev \
-libsass0 qttools5-dev-tools libqt5sql5-sqlite
+libsass0 qttools5-dev-tools libqt5sql5-sqlite qttools5-dev
 ```
