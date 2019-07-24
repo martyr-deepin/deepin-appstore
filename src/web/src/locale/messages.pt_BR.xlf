@@ -1,5 +1,4 @@
-<?xml version="1.0" ?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="pt-BR">
     <body>
       <trans-unit datatype="html" id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc">
@@ -280,7 +279,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="4d257b5cfdb76b3bc8d76d2bc811d545dac12eee">
         <source>Uninstall</source>
-        <target>Desinstalar</target>
+        <target>Remover</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/side-nav/side-nav.component.html</context>
           <context context-type="linenumber">84</context>
@@ -370,7 +369,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="6f5f4f9eeeacbc4b5aaf55a9a307c0cbcfa6f1f8">
         <source>Input No if no license is required</source>
-        <target>Se não houver licença, digite "Sem Licença"</target>
+        <target>Se não houver licença, digite &quot;Sem Licença&quot;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/components/recommend/recommend.component.html</context>
           <context context-type="linenumber">62</context>
@@ -1042,7 +1041,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="aa89c1f96de1bc2fe9a7fdb44604986a29924255">
         <source>{VAR_PLURAL, plural, =0 {task} =1 {task} other {tasks} }</source>
-        <target>{VAR_PLURAL, plural, =0 {tarefa} =1 {tarefa} outra {tarefa} }</target>
+        <target>{VAR_PLURAL, plural, =0 {tarefa} =1 {tarefa} other {tarefa} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/download/download.component.html</context>
           <context context-type="linenumber">7</context>
@@ -1270,7 +1269,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="96f4e3dedbf0d1b3fffa16f2e5341c6719b8cfb0">
         <source>Are you sure you want to uninstall this application?</source>
-        <target>Deseja desinstalar este aplicativo?</target>
+        <target>Deseja remover este aplicativo?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
           <context context-type="linenumber">38</context>
@@ -1318,7 +1317,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="1dfba504a0d0bf41da961d89d402dedecde5e30d">
         <source>Uninstall</source>
-        <target>Desinstalar</target>
+        <target>Remover</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/my-apps/components/local-app/local-app.component.html</context>
           <context context-type="linenumber">62</context>
