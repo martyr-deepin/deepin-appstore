@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+<?xml version="1.0" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file datatype="plaintext" original="ng2.template" source-language="en" target-language="ko">
     <body>
       <trans-unit datatype="html" id="07db550ae114d9faad3a0cbb68bcc16ab6cd31fc">
@@ -745,6 +746,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="0166106da9d18911cf205d22548b9f4d21008f3f">
         <source>It's in adjustment, you can return to</source>
+        <target>It's in adjustment, you can return to</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/app-detail.component.html</context>
           <context context-type="linenumber">132</context>
@@ -796,6 +798,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="568c82e4dd743c0218ca10fb434e537a17a22d6c">
         <source>Statement for Delivery and Donation</source>
+        <target>Statement for Delivery and Donation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/details/components/donate/donate.component.html</context>
           <context context-type="linenumber">3</context>
