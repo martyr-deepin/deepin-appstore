@@ -55,7 +55,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="04b741bf33a6b8359849d6085278e54b35acd0b9">
         <source>Uninstalling</source>
-        <target>Desinstalando </target>
+        <target>Removendo</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/client/components/progress-button/progress-button.component.html</context>
           <context context-type="linenumber">15</context>

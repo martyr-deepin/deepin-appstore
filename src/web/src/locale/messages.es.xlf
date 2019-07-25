@@ -1041,7 +1041,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="aa89c1f96de1bc2fe9a7fdb44604986a29924255">
         <source>{VAR_PLURAL, plural, =0 {task} =1 {task} other {tasks} }</source>
-        <target>{VAR_PLURAL, plural, =0 {tarea} =1 {tarea} otras {tareas} }</target>
+        <target>{VAR_PLURAL, plural, =0 {tarea} =1 {tarea} other {tareas} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/modules/download/components/download/download.component.html</context>
           <context context-type="linenumber">7</context>
